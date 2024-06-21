@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/pokemon",
         "index": "apps/pokemon/src/index.html",
         "browser": "apps/pokemon/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "tsConfig": "apps/pokemon/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [

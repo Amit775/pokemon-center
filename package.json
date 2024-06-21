@@ -6,17 +6,20 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~18.0.0",
+    "@angular/cdk": "^18.0.4",
     "@angular/common": "~18.0.0",
     "@angular/compiler": "~18.0.0",
     "@angular/core": "~18.0.0",
     "@angular/forms": "~18.0.0",
+    "@angular/material": "^18.0.4",
     "@angular/platform-browser": "~18.0.0",
     "@angular/platform-browser-dynamic": "~18.0.0",
     "@angular/router": "~18.0.0",
+    "@ngrx/signals": "^18.0.0-rc.1",
     "@nx/angular": "19.3.0",
+    "pokenode-ts": "^1.20.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.14.3"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~18.0.0",
@@ -28,7 +31,9 @@
     "@angular/cli": "~18.0.0",
     "@angular/compiler-cli": "~18.0.0",
     "@angular/language-service": "~18.0.0",
+    "@ngneat/spectator": "^19.0.0",
     "@nx/cypress": "19.3.0",
+    "@nx/devkit": "^19.3.1",
     "@nx/eslint": "19.3.0",
     "@nx/eslint-plugin": "19.3.0",
     "@nx/jest": "19.3.0",
@@ -52,7 +57,7 @@
     "jest-environment-jsdom": "^29.4.1",
     "jest-preset-angular": "~14.1.0",
     "nx": "19.3.0",
-    "prettier": "^2.6.2",
+    "prettier": "^3.3.2",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
     "typescript": "~5.4.2"
