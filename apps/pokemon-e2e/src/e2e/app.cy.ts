@@ -1,4 +1,4 @@
-import { getGreeting } from '../support/app.po';
+import { getPokemonList } from '../support/app.po';
 
 describe('pokemon-e2e', () => {
   beforeEach(() => cy.visit('/'));
@@ -8,6 +8,6 @@ describe('pokemon-e2e', () => {
     cy.login('my-email@something.com', 'myPassword');
 
     // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains(/Welcome/);
+    getPokemonList().children().should('have.length', 100);
   });
 });

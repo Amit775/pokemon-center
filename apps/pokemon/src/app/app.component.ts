@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { PokemonStore } from './core/store/pokemon.store';
 import { PokemonService } from './pokemon.service';
 
@@ -8,6 +8,7 @@ import { PokemonService } from './pokemon.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
   private store = inject(PokemonStore);
