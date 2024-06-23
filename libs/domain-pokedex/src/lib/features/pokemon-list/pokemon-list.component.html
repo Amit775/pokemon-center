@@ -1,0 +1,6 @@
+<cdk-virtual-scroll-viewport itemSize="36" class="viewport">
+  <pokemon-record
+    *cdkVirtualFor="let pokemon of pokemons()"
+    [pokemon]="pokemon"
+  />
+</cdk-virtual-scroll-viewport>

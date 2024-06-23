@@ -8,13 +8,18 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "ES2022",
     "module": "esnext",
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@pokemon/data": ["libs/data/src/index.ts"],
+      "@pokemon/domain-arena": ["libs/domain-arena/src/index.ts"],
+      "@pokemon/domain-pokedex": ["libs/domain-pokedex/src/index.ts"],
+      "@pokemon/domain-school": ["libs/domain-school/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

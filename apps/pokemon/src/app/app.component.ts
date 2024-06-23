@@ -1,22 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
-import { PokemonStore } from './core/store/pokemon.store';
-import { PokemonService } from './pokemon.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MainComponent } from './layout/main/main.component';
 
 @Component({
   standalone: true,
-  imports: [],
+  imports: [MainComponent],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
-  private store = inject(PokemonStore);
-  private service = inject(PokemonService);
-
-  public pokemons = this.store.entities;
-
-  ngOnInit(): void {
-    this.service.getMorePokemons();
-  }
-}
+export class AppComponent {}
