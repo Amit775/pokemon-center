@@ -1,12 +1,12 @@
 import { createComponentFactory, Spectator } from '@ngneat/spectator/jest';
-import { PokedexComponent } from '@pokemon/domain-pokedex';
 import { AppComponent } from './app.component';
+import { provideRouter } from '@angular/router';
 
 describe('AppComponent', () => {
   let spectator: Spectator<AppComponent>;
   const createComponent = createComponentFactory({
     component: AppComponent,
-    mocks: [PokedexComponent],
+    providers: [provideRouter([])],
   });
 
   beforeEach(() => {
