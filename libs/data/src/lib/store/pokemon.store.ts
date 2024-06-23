@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { addEntities, withEntities } from '@ngrx/signals/entities';
 
 export const MAX_INDEX = 649;
@@ -21,5 +21,5 @@ export class PokemonStore extends signalStore(
     addPokemons(pokemons: BasePokemon[]) {
       patchState(store, addEntities(pokemons));
     },
-  }))
+  })),
 ) {}
