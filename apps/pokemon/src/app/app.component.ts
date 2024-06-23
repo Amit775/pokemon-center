@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { PokedexComponent } from '@pokemon/domain-pokedex';
+import { MainComponent } from './layout/main/main.component';
 
 @Component({
   standalone: true,
-  imports: [PokedexComponent],
+  imports: [MainComponent],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

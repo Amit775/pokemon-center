@@ -1,5 +1,9 @@
-.list {
-	padding: 16px;
-	display: flex;
-	flex-direction: column;
+.viewport {
+	height: calc(100vh - 64px);
+
+	pokemon-record {
+		height: 36px;
+		line-height: 36px;
+		margin: 12px;
+	}
 }
