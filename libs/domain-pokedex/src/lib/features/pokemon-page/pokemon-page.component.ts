@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { PokemonService } from '@pokemon/data';
 import { derivedAsync } from 'ngxtension/derived-async';
 import { PokemonAvatarDirective } from '../pokemon-list/pokemon-avater/pokemon-avatar.directive';
+
 @Component({
   standalone: true,
   templateUrl: './pokemon-page.component.html',
@@ -19,7 +20,9 @@ import { PokemonAvatarDirective } from '../pokemon-list/pokemon-avater/pokemon-a
 })
 export class PokemonPageComponent {
   private api = inject(PokemonService);
+
   id = input.required({ transform: (value: number | string) => Number(value) });
+  
   pokemon = derivedAsync(() => this.api.getPokemon(this.id()));
 
   tabs = [

@@ -1,4 +1,5 @@
-{{ pokemon().id | json }}
-{{ pokemon().types | json }}
-{{ pokemon().abilities | json }}
-{{ pokemon().moves | json }}
+@for (move of pokemon().moves; track move) {
+  <div>
+	<span>{{ move.move.name }}</span>
+  </div>
+}

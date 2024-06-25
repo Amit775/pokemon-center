@@ -1,2 +1,6 @@
-{{ pokemon().name | json }}
-{{ pokemon().stats | json }}
+@for (stat of pokemon().stats; track stat) {
+	<div>
+		<span>{{ stat.stat.name }}</span>
+		<span>{{ stat.base_stat }}</span>
+	</div>
+}
