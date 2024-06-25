@@ -1,6 +1,7 @@
-<cdk-virtual-scroll-viewport itemSize="36" class="viewport">
+<cdk-virtual-scroll-viewport itemSize="56" class="viewport" #viewport>
   <pokemon-record
     *cdkVirtualFor="let pokemon of pokemons()"
     [pokemon]="pokemon"
+    [routerLink]="[pokemon.id]"
   />
 </cdk-virtual-scroll-viewport>

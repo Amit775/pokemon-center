@@ -1,0 +1,16 @@
+@if (pokemon(); as pokemon) {
+  <nav mat-tab-nav-bar [tabPanel]="panel">
+    @for (tab of tabs; track tab) {
+      <a
+        mat-tab-link
+        [routerLink]="[tab.path]"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [active]="rla.isActive"
+      >
+        {{ tab.label }}
+      </a>
+    }
+  </nav>
+  <mat-tab-nav-panel #panel><router-outlet></router-outlet></mat-tab-nav-panel>
+}

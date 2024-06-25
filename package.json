@@ -19,6 +19,7 @@
     "@nx/angular": "19.3.0",
     "axios": "^1.7.2",
     "axios-cache-interceptor": "^1.5.3",
+    "ngxtension": "^3.5.5",
     "pokenode-ts": "^1.20.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

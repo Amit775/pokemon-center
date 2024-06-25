@@ -3,6 +3,7 @@ import {
   MainClient,
   NamedAPIResource,
   NamedAPIResourceList,
+  Pokemon,
 } from 'pokenode-ts';
 import { from, map, tap } from 'rxjs';
 import { BasePokemon, MAX_INDEX, PokemonStore } from '../store/pokemon.store';
@@ -11,6 +12,10 @@ import { BasePokemon, MAX_INDEX, PokemonStore } from '../store/pokemon.store';
 export class PokemonService {
   private store = inject(PokemonStore);
   private api = new MainClient();
+
+  getPokemon(id: number): Promise<Pokemon> {
+    return this.api.pokemon.getPokemonById(id);
+  }
 
   getMorePokemons(): void {
     const { offset, limit } = this.store.queryParams();
@@ -33,7 +38,8 @@ export class PokemonService {
 
     const url = new URL(nextURL);
     const offset = Number(url.searchParams.get('offset') || 0);
-    const limit = Number(url.searchParams.get('limit') || 0);
+    let limit = Number(url.searchParams.get('limit') || 0);
+    limit = Math.min(limit, MAX_INDEX - offset);
 
     this.store.updateQueryParams({ offset, limit });
   }

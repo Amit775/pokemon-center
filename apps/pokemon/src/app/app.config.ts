@@ -4,14 +4,14 @@ import {
   provideExperimentalZonelessChangeDetection,
 } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideExperimentalZonelessChangeDetection(),
     provideHttpClient(withFetch()),
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
     provideAnimationsAsync(),
   ],
 };

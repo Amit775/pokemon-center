@@ -4,7 +4,10 @@ import { PokemonListComponent } from './features/pokemon-list/pokemon-list.compo
 
 @Component({
   selector: 'app-pokedex',
-  template: '<app-pokemon-list [pokemons]="pokemons()" />',
+  template: `<app-pokemon-list
+    [pokemons]="pokemons()"
+    (loadMore)="loadMore()"
+  />`,
   standalone: true,
   imports: [PokemonListComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,6 +19,10 @@ export class PokedexComponent {
   public pokemons = this.store.entities;
 
   ngOnInit(): void {
+    this.loadMore();
+  }
+
+  loadMore(): void {
     this.service.getMorePokemons();
   }
 }

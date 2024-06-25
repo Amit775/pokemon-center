@@ -1,13 +1,19 @@
 :host {
+	display: block;
+}
+
+.record {
 	display: flex;
 	flex-direction: row;
-	padding: 8px;
 	border: 1px solid black;
-	border-radius: 8px;
+	border-radius: 16px;
 	vertical-align: middle;
+	align-items: center;
+	padding: 0 16px 0 8px;
+	margin: 8px;
 
 	img {
-		margin: 0 8px;
+		margin: 8px;
 		width: 40px;
 		height: 40px;
 
@@ -16,4 +22,16 @@
 			max-height: 100%;
 		}
 	}
+
+	.pokemon {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.stats {
+		flex-grow: 1;
+		text-align: center;
+	}
+
+
 }
