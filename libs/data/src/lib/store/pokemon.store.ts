@@ -1,6 +1,13 @@
-import { Injectable } from '@angular/core';
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { Injectable, inject } from '@angular/core';
+import {
+  patchState,
+  signalStore,
+  withHooks,
+  withMethods,
+  withState,
+} from '@ngrx/signals';
 import { addEntities, withEntities } from '@ngrx/signals/entities';
+import { PokemonService } from '../data/pokemon.service';
 
 export const MAX_INDEX = 649;
 

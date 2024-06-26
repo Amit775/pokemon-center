@@ -1,5 +1,6 @@
 @if (pokemon(); as pokemon) {
   <nav mat-tab-nav-bar [tabPanel]="panel">
+    <mat-icon class="back" (click)="goBack()">arrow_back</mat-icon>
     @for (tab of tabs; track tab) {
       <a
         mat-tab-link

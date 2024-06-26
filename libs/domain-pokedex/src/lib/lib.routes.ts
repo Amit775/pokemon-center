@@ -7,11 +7,11 @@ import {
 } from '@angular/router';
 import { PokemonService } from '@pokemon/data';
 import { Pokemon } from 'pokenode-ts';
+import { PokemonListComponent } from './features/pokemon-list/pokemon-list.component';
 import { PokemonAboutComponent } from './features/pokemon-page/pokemon-about/pokemon-about.component';
 import { PokemonMovesComponent } from './features/pokemon-page/pokemon-moves/pokemon-moves.component';
 import { PokemonPageComponent } from './features/pokemon-page/pokemon-page.component';
 import { PokemonStatsComponent } from './features/pokemon-page/pokemon-stats/pokemon-stats.component';
-import { PokedexComponent } from './pokedex.component';
 
 const pokemon: ResolveFn<Pokemon> = (
   route: ActivatedRouteSnapshot,
@@ -22,9 +22,10 @@ const pokemon: ResolveFn<Pokemon> = (
 };
 
 export const domainPokedexRoutes: Route[] = [
-  { path: '', component: PokedexComponent },
+  { path: '', redirectTo: 'pokemon', pathMatch: 'full' },
+  { path: 'pokemon', component: PokemonListComponent },
   {
-    path: ':id',
+    path: 'pokemon/:id',
     component: PokemonPageComponent,
     children: [
       { path: '', redirectTo: 'about', pathMatch: 'full' },

@@ -6,14 +6,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   effect,
-  input,
-  output,
+  inject,
   viewChild,
 } from '@angular/core';
-import { BasePokemon } from '@pokemon/data';
+import { RouterModule } from '@angular/router';
+import { PokemonService, PokemonStore } from '@pokemon/data';
 import { filter, tap } from 'rxjs';
 import { PokemonRecordComponent } from './pokemon-record/pokemon-record.component';
-import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -24,10 +23,12 @@ import { RouterModule } from '@angular/router';
   imports: [PokemonRecordComponent, ScrollingModule, RouterModule],
 })
 export class PokemonListComponent {
+  store = inject(PokemonStore);
+  service = inject(PokemonService).getMorePokemons();
+
   viewport = viewChild.required('viewport', { read: CdkVirtualScrollViewport });
 
-  pokemons = input<BasePokemon[]>([]);
-  loadMore = output<void>();
+  pokemons = this.store.entities;
 
   scrolled = effect((cleanup) => {
     const viewport = this.viewport();
@@ -35,7 +36,7 @@ export class PokemonListComponent {
       .elementScrolled()
       .pipe(
         filter(() => viewport.measureScrollOffset('bottom') < 200),
-        tap(() => this.loadMore.emit()),
+        tap(() => this.service.getMorePokemons()),
       )
       .subscribe();
 

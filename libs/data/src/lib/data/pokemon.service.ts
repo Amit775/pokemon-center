@@ -17,9 +17,9 @@ export class PokemonService {
     return this.api.pokemon.getPokemonById(id);
   }
 
-  getMorePokemons(): void {
+  getMorePokemons(): this {
     const { offset, limit } = this.store.queryParams();
-    if (offset >= MAX_INDEX) return;
+    if (offset >= MAX_INDEX) return this;
 
     from(this.api.pokemon.listPokemons(offset, limit))
       .pipe(
@@ -31,6 +31,8 @@ export class PokemonService {
         ),
       )
       .subscribe();
+
+    return this;
   }
 
   private extractParams(nextURL?: string | null): void {

@@ -1,3 +1,13 @@
 .viewport {
-	height: calc(100vh - 64px);
+	height: calc(100vh - 64px - 64px);
+
+	pokemon-record {
+		cursor: pointer;
+	}
+}
+
+.filters {
+	height: 64px;
+	width: 100%;
+	text-align: center;
 }
