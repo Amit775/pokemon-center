@@ -17,14 +17,20 @@ import { PokemonAvatarDirective } from '../pokemon-list/pokemon-avater/pokemon-a
   templateUrl: './pokemon-page.component.html',
   styleUrl: './pokemon-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [JsonPipe, PokemonAvatarDirective, MatTabsModule, RouterModule, MatIconModule],
+  imports: [
+    JsonPipe,
+    PokemonAvatarDirective,
+    MatTabsModule,
+    RouterModule,
+    MatIconModule,
+  ],
 })
 export class PokemonPageComponent {
   private api = inject(PokemonService);
   private router = inject(Router);
 
   id = input.required({ transform: (value: number | string) => Number(value) });
-  
+
   pokemon = derivedAsync(() => this.api.getPokemon(this.id()));
 
   tabs = [
@@ -34,6 +40,6 @@ export class PokemonPageComponent {
   ];
 
   public goBack(): void {
-	this.router.navigate(['/pokedex']);
+    this.router.navigate(['/pokedex'], { state: { id: this.id() } });
   }
 }

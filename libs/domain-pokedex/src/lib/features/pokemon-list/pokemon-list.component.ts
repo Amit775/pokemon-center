@@ -3,15 +3,16 @@ import {
   ScrollingModule,
 } from '@angular/cdk/scrolling';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   effect,
   inject,
   viewChild,
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { PokemonService, PokemonStore } from '@pokemon/data';
-import { filter, tap } from 'rxjs';
+import { filter, map, tap } from 'rxjs';
 import { PokemonRecordComponent } from './pokemon-record/pokemon-record.component';
 
 @Component({
@@ -22,20 +23,30 @@ import { PokemonRecordComponent } from './pokemon-record/pokemon-record.componen
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PokemonRecordComponent, ScrollingModule, RouterModule],
 })
-export class PokemonListComponent {
+export class PokemonListComponent implements AfterViewInit {
   store = inject(PokemonStore);
   service = inject(PokemonService).getMorePokemons();
 
+  router = inject(Router);
+
+  ngAfterViewInit(): void {
+    const viewport = this.viewport();
+    const offset = this.store.pokemonListOffsetIndex();
+    setTimeout(() => viewport.scrollTo({ bottom: offset }), 40);
+  }
+
   viewport = viewChild.required('viewport', { read: CdkVirtualScrollViewport });
 
-  pokemons = this.store.entities;
+  pokemons = this.store.pokemonEntities;
 
   scrolled = effect((cleanup) => {
     const viewport = this.viewport();
-    const subscription = viewport
-      .elementScrolled()
+
+    const subscription = viewport.scrolledIndexChange
       .pipe(
-        filter(() => viewport.measureScrollOffset('bottom') < 200),
+        map(() => viewport.measureScrollOffset('bottom')),
+        tap((offset) => this.store.updatePokemonListOffsetIndex(offset)),
+        filter((offset) => offset < 200),
         tap(() => this.service.getMorePokemons()),
       )
       .subscribe();

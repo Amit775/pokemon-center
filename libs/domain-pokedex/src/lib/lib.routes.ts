@@ -6,7 +6,9 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { PokemonService } from '@pokemon/data';
-import { Pokemon } from 'pokenode-ts';
+import { Move, Pokemon } from 'pokenode-ts';
+import { MovePageComponent } from './features/move-page/move-page.component';
+import { MovesListComponent } from './features/moves-list/moves-list.component';
 import { PokemonListComponent } from './features/pokemon-list/pokemon-list.component';
 import { PokemonAboutComponent } from './features/pokemon-page/pokemon-about/pokemon-about.component';
 import { PokemonMovesComponent } from './features/pokemon-page/pokemon-moves/pokemon-moves.component';
@@ -19,6 +21,14 @@ const pokemon: ResolveFn<Pokemon> = (
 ) => {
   const service = inject(PokemonService);
   return service.getPokemon(Number(route.parent!.params['id']));
+};
+
+const move: ResolveFn<Move> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+) => {
+  const service = inject(PokemonService);
+  return service.getMove(Number(route.params['id']));
 };
 
 export const domainPokedexRoutes: Route[] = [
@@ -34,4 +44,6 @@ export const domainPokedexRoutes: Route[] = [
       { path: 'moves', component: PokemonMovesComponent, resolve: { pokemon } },
     ],
   },
+  { path: 'moves', component: MovesListComponent },
+  { path: 'moves/:id', component: MovePageComponent, resolve: { move } },
 ];

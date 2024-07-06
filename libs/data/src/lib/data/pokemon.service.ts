@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import {
   MainClient,
+  Move,
   NamedAPIResource,
   NamedAPIResourceList,
   Pokemon,
@@ -17,8 +18,12 @@ export class PokemonService {
     return this.api.pokemon.getPokemonById(id);
   }
 
+  getMove(id: number): Promise<Move> {
+    return this.api.move.getMoveById(id);
+  }
+
   getMorePokemons(): this {
-    const { offset, limit } = this.store.queryParams();
+    const { offset, limit } = this.store.pokemonQueryParams();
     if (offset >= MAX_INDEX) return this;
 
     from(this.api.pokemon.listPokemons(offset, limit))
@@ -43,7 +48,7 @@ export class PokemonService {
     let limit = Number(url.searchParams.get('limit') || 0);
     limit = Math.min(limit, MAX_INDEX - offset);
 
-    this.store.updateQueryParams({ offset, limit });
+    this.store.updatePokemonQueryParams({ offset, limit });
   }
 
   private convert(results: NamedAPIResource[]): BasePokemon[] {

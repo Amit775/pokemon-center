@@ -1,13 +1,11 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { patchState, signalStore, type, withMethods } from '@ngrx/signals';
+import { addEntities } from '@ngrx/signals/entities';
+import { Move } from 'pokenode-ts';
 import {
-  patchState,
-  signalStore,
-  withHooks,
-  withMethods,
-  withState,
-} from '@ngrx/signals';
-import { addEntities, withEntities } from '@ngrx/signals/entities';
-import { PokemonService } from '../data/pokemon.service';
+  QueryState,
+  withQueryableEntitiesFeature,
+} from './queryable-entities-feature';
 
 export const MAX_INDEX = 649;
 
@@ -19,14 +17,32 @@ export type BasePokemon = {
 
 @Injectable({ providedIn: 'root' })
 export class PokemonStore extends signalStore(
-  withEntities<BasePokemon>(),
-  withState({ loading: false, queryParams: { offset: 0, limit: 100 } }),
+  withQueryableEntitiesFeature({
+    entity: type<BasePokemon>(),
+    collection: 'pokemon',
+  }),
+  withQueryableEntitiesFeature({
+    entity: type<Move>(),
+    collection: 'moves',
+  }),
   withMethods((store) => ({
-    updateQueryParams(queryParams: { offset: number; limit: number }) {
-      patchState(store, { queryParams });
-    },
     addPokemons(pokemons: BasePokemon[]) {
-      patchState(store, addEntities(pokemons));
+      patchState(store, addEntities(pokemons, { collection: 'pokemon' }));
+    },
+    updatePokemonQueryParams(queryParams: QueryState['queryParams']) {
+      patchState(store, { pokemonQueryParams: queryParams });
+    },
+    updatePokemonListOffsetIndex(offsetIndex: number) {
+      patchState(store, { pokemonListOffsetIndex: offsetIndex });
+    },
+    addMoves(moves: Move[]) {
+      patchState(store, addEntities(moves, { collection: 'moves' }));
+    },
+    updateMovesQueryParams(queryParams: QueryState['queryParams']) {
+      patchState(store, { movesQueryParams: queryParams });
+    },
+    updateMovesListOffsetIndex(offsetIndex: number) {
+      patchState(store, { movesListOffsetIndex: offsetIndex });
     },
   })),
 ) {}
