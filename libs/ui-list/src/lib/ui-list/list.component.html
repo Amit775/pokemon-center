@@ -1,0 +1,8 @@
+<cdk-virtual-scroll-viewport #viewport class="viewport">
+  <ng-container *cdkVirtualFor="let item of list()">
+    <ng-container
+      [ngTemplateOutlet]="content()"
+      [ngTemplateOutletContext]="item"
+    />
+  </ng-container>
+</cdk-virtual-scroll-viewport>
