@@ -18,7 +18,7 @@
     "@angular/platform-browser": "18.2.0",
     "@angular/platform-browser-dynamic": "18.2.0",
     "@angular/router": "18.2.0",
-    "@ngrx/signals": "^18.0.0-rc.1",
+    "@ngrx/signals": "^18.0.2",
     "@nx/angular": "19.6.0",
     "axios": "^1.7.2",
     "axios-cache-interceptor": "^1.5.3",

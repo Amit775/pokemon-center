@@ -56,7 +56,7 @@ export const withQueryFeature = <Entity, Collection extends string>(config: {
   {
     state: NamedQueryState<Collection>;
     methods: {};
-    signals: {};
+    computed: {};
   }
 > => signalStoreFeature(withState(queryState(config)));
 
