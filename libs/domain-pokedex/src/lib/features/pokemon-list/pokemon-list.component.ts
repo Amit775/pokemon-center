@@ -1,18 +1,16 @@
 import {
-  CdkVirtualScrollViewport,
-  ScrollingModule,
-} from '@angular/cdk/scrolling';
-import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   inject,
+  untracked,
   viewChild,
 } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { PokemonService, PokemonStore } from '@pokemon/data';
-import { filter, map, tap } from 'rxjs';
+import { RouterModule } from '@angular/router';
+import { BasePokemon, PokemonService, PokemonStore } from '@pokemon/data';
+import { ListComponent, ListItemDirective } from '@pokemon/ui-list';
 import { PokemonRecordComponent } from './pokemon-record/pokemon-record.component';
 
 @Component({
@@ -21,36 +19,36 @@ import { PokemonRecordComponent } from './pokemon-record/pokemon-record.componen
   templateUrl: './pokemon-list.component.html',
   styleUrl: './pokemon-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PokemonRecordComponent, ScrollingModule, RouterModule],
+  imports: [
+    PokemonRecordComponent,
+    RouterModule,
+    ListComponent,
+    ListItemDirective,
+  ],
 })
 export class PokemonListComponent implements AfterViewInit {
-  store = inject(PokemonStore);
-  service = inject(PokemonService).getMorePokemons();
+  private store = inject(PokemonStore);
+  private service = inject(PokemonService).getMorePokemons();
 
-  router = inject(Router);
+  private list = viewChild.required(ListComponent, { read: ListComponent });
+  private offset = computed(() => this.list().offset());
 
-  ngAfterViewInit(): void {
-    const viewport = this.viewport();
+  public pokemons = this.store.pokemonEntities;
+  public pokemonType = undefined as unknown as BasePokemon;
+
+  #scrolled = effect(() => {
+    const offset = this.offset();
+
+    untracked(() => {
+      if (offset < 200) {
+        this.service.getMorePokemons();
+      }
+    });
+  });
+
+  public ngAfterViewInit(): void {
+    const viewport = this.list();
     const offset = this.store.pokemonListOffsetIndex();
     setTimeout(() => viewport.scrollTo({ bottom: offset }), 40);
   }
-
-  viewport = viewChild.required('viewport', { read: CdkVirtualScrollViewport });
-
-  pokemons = this.store.pokemonEntities;
-
-  scrolled = effect((cleanup) => {
-    const viewport = this.viewport();
-
-    const subscription = viewport.scrolledIndexChange
-      .pipe(
-        map(() => viewport.measureScrollOffset('bottom')),
-        tap((offset) => this.store.updatePokemonListOffsetIndex(offset)),
-        filter((offset) => offset < 200),
-        tap(() => this.service.getMorePokemons()),
-      )
-      .subscribe();
-
-    cleanup(() => subscription.unsubscribe());
-  });
 }

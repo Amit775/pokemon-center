@@ -8,8 +8,7 @@ import { Move } from 'pokenode-ts';
   templateUrl: './move-page.component.html',
   styleUrls: ['./move-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [JsonPipe],
 })
 export class MovePageComponent {
-  move = input.required<Move>();
+  public move = input.required<Move>();
 }

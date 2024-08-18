@@ -28,7 +28,7 @@ const move: ResolveFn<Move> = (
   state: RouterStateSnapshot,
 ) => {
   const service = inject(PokemonService);
-  return service.getMove(Number(route.params['id']));
+  return service.getMove(route.params['id']);
 };
 
 export const domainPokedexRoutes: Route[] = [
