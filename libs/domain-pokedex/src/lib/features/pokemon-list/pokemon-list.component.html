@@ -1,6 +1,6 @@
 <div class="filters">Pokemon Filters</div>
 <app-ui-list [list]="pokemons()">
   <ng-template let-pokemon [listItem]="pokemonType">
-    <pokemon-record [pokemon]="pokemon" [routerLink]="[pokemon.id]" />
+    <pokedex-pokemon-record [pokemon]="pokemon" [routerLink]="[pokemon.id]" />
   </ng-template>
 </app-ui-list>

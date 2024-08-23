@@ -2,7 +2,7 @@
   "name": "data",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/data/src",
-  "prefix": "lib",
+  "prefix": "data",
   "projectType": "library",
   "tags": [],
   "targets": {

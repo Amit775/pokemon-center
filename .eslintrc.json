@@ -9,6 +9,14 @@
 	"overrides": [
 		{
 			"files": [
+				"*"
+			],
+			"rules": {
+				"array-element-newline": "off"
+			}
+		},
+		{
+			"files": [
 				"*.ts",
 				"*.tsx",
 				"*.js",

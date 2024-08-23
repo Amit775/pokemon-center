@@ -2,26 +2,10 @@
   "name": "domain-pokedex",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/domain-pokedex/src",
-  "prefix": "lib",
+  "prefix": "pokedex",
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
-      "executor": "@nx/angular:ng-packagr-lite",
-      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
-      "options": {
-        "project": "libs/domain-pokedex/ng-package.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/domain-pokedex/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "libs/domain-pokedex/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

@@ -1,16 +1,9 @@
-import {
-  Directive,
-  ElementRef,
-  effect,
-  inject,
-  input,
-  output,
-  untracked,
-} from '@angular/core';
+import { Directive, ElementRef, effect, inject, input, output, untracked } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { PokemonAvatarService } from './pokemon-avatar.service';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'img[index]',
   standalone: true,
 })
@@ -25,18 +18,14 @@ export class PokemonAvatarDirective {
     const index = this.index();
 
     untracked(() => {
-      const sub = this.createPokemonImage(index).subscribe(
-        (svg) => (this.host.src = svg),
-      );
+      const sub = this.createPokemonImage(index).subscribe((svg) => (this.host.src = svg));
 
       cleanup(() => sub.unsubscribe());
     });
   });
 
   private createPokemonImage(index: number): Observable<string> {
-    return this.service
-      .getSvg(index)
-      .pipe(map((svg: string) => this.createSvgUrl(svg)));
+    return this.service.getSvg(index).pipe(map((svg: string) => this.createSvgUrl(svg)));
   }
 
   private createSvgUrl(svg: string): string {

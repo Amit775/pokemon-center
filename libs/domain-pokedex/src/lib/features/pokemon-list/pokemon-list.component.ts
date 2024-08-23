@@ -1,13 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  inject,
-  untracked,
-  viewChild,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, computed, effect, inject, untracked, viewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BasePokemon, PokemonService, PokemonStore } from '@pokemon/data';
 import { ListComponent, ListItemDirective } from '@pokemon/ui-list';
@@ -15,16 +6,10 @@ import { PokemonRecordComponent } from './pokemon-record/pokemon-record.componen
 
 @Component({
   standalone: true,
-  selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
   styleUrl: './pokemon-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    PokemonRecordComponent,
-    RouterModule,
-    ListComponent,
-    ListItemDirective,
-  ],
+  imports: [PokemonRecordComponent, RouterModule, ListComponent, ListItemDirective],
 })
 export class PokemonListComponent implements AfterViewInit {
   private store = inject(PokemonStore);
