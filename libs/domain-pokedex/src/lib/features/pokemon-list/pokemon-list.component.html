@@ -1,8 +1,6 @@
-<div class="filters"> Pokemon Filters </div>
-<cdk-virtual-scroll-viewport itemSize="56" class="viewport" #viewport>
-  <pokemon-record
-    *cdkVirtualFor="let pokemon of pokemons()"
-    [pokemon]="pokemon"
-    [routerLink]="[pokemon.id]"
-  />
-</cdk-virtual-scroll-viewport>
+<div class="filters">Pokemon Filters</div>
+<app-ui-list [list]="pokemons()">
+  <ng-template let-pokemon [listItem]="pokemonType">
+    <pokedex-pokemon-record [pokemon]="pokemon" [routerLink]="[pokemon.id]" />
+  </ng-template>
+</app-ui-list>

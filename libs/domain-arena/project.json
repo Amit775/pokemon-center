@@ -2,7 +2,7 @@
   "name": "domain-arena",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/domain-arena/src",
-  "prefix": "lib",
+  "prefix": "arena",
   "projectType": "library",
   "tags": [],
   "targets": {

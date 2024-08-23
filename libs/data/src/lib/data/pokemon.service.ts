@@ -18,7 +18,10 @@ export class PokemonService {
     return this.api.pokemon.getPokemonById(id);
   }
 
-  getMove(id: number): Promise<Move> {
+  getMove(id: number | string): Promise<Move> {
+    if (typeof id === 'string') {
+      return this.api.move.getMoveByName(id);
+    }
     return this.api.move.getMoveById(id);
   }
 

@@ -6,7 +6,7 @@ import { IndexPipe } from './index.pipe';
 
 @Component({
   standalone: true,
-  selector: 'pokemon-record',
+  selector: 'pokedex-pokemon-record',
   templateUrl: './pokemon-record.component.html',
   styleUrls: ['./pokemon-record.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,8 +1,4 @@
-import {
-  SignalStoreFeature,
-  signalStoreFeature,
-  withState,
-} from '@ngrx/signals';
+import { SignalStoreFeature, signalStoreFeature, withState } from '@ngrx/signals';
 import { withEntities } from '@ngrx/signals/entities';
 import { EmptyFeatureResult } from '@ngrx/signals/src/signal-store-models';
 
@@ -17,29 +13,21 @@ export type NamedQueryState<Collection extends string> = {
 };
 
 export type NamedQueryMethods<Collection extends string> = {
-  [Key in keyof QueryState as `update${Capitalize<Collection>}${Capitalize<Key>}`]: (
-    value: QueryState[Key],
-  ) => void;
+  [Key in keyof QueryState as `update${Capitalize<Collection>}${Capitalize<Key>}`]: (value: QueryState[Key]) => void;
 };
 
 export type QueryStateKeys<Collection extends string> = {
-  [Key in keyof QueryState as `${Key}Key`]:
-    | keyof NamedQueryState<Collection>
-    | keyof QueryState;
+  [Key in keyof QueryState as `${Key}Key`]: keyof NamedQueryState<Collection> | keyof QueryState;
 };
-const getQueryStateKeys = <Collection extends string>(config: {
-  collection: Collection;
-}): QueryStateKeys<Collection> => ({
+
+const getQueryStateKeys = <Collection extends string>(config: { collection: Collection }): QueryStateKeys<Collection> => ({
   loadingKey: `${config.collection}Loading`,
   queryParamsKey: `${config.collection}QueryParams`,
   listOffsetIndexKey: `${config.collection}ListOffsetIndex`,
 });
 
-const queryState = <Collection extends string>(config: {
-  collection: Collection;
-}): NamedQueryState<Collection> => {
-  const { loadingKey, queryParamsKey, listOffsetIndexKey } =
-    getQueryStateKeys(config);
+const queryState = <Collection extends string>(config: { collection: Collection }): NamedQueryState<Collection> => {
+  const { loadingKey, queryParamsKey, listOffsetIndexKey } = getQueryStateKeys(config);
 
   return {
     [loadingKey]: false,
@@ -55,15 +43,10 @@ export const withQueryFeature = <Entity, Collection extends string>(config: {
   EmptyFeatureResult,
   {
     state: NamedQueryState<Collection>;
-    methods: {};
-    computed: {};
+    methods: Record<string, never>;
+    computed: Record<string, never>;
   }
 > => signalStoreFeature(withState(queryState(config)));
 
-export const withQueryableEntitiesFeature = <
-  Entity,
-  Collection extends string,
->(config: {
-  entity: Entity;
-  collection: Collection;
-}) => signalStoreFeature(withEntities(config), withQueryFeature(config));
+export const withQueryableEntitiesFeature = <Entity, Collection extends string>(config: { entity: Entity; collection: Collection }) =>
+  signalStoreFeature(withEntities(config), withQueryFeature(config));

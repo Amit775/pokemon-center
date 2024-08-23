@@ -1,10 +1,5 @@
 import { inject } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  ResolveFn,
-  Route,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, MaybeAsync, ResolveFn, Route, RouterStateSnapshot } from '@angular/router';
 import { PokemonService } from '@pokemon/data';
 import { Move, Pokemon } from 'pokenode-ts';
 import { MovePageComponent } from './features/move-page/move-page.component';
@@ -15,20 +10,14 @@ import { PokemonMovesComponent } from './features/pokemon-page/pokemon-moves/pok
 import { PokemonPageComponent } from './features/pokemon-page/pokemon-page.component';
 import { PokemonStatsComponent } from './features/pokemon-page/pokemon-stats/pokemon-stats.component';
 
-const pokemon: ResolveFn<Pokemon> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-) => {
+const pokemon: ResolveFn<Pokemon> = (route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): MaybeAsync<Pokemon> => {
   const service = inject(PokemonService);
   return service.getPokemon(Number(route.parent!.params['id']));
 };
 
-const move: ResolveFn<Move> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-) => {
+const move: ResolveFn<Move> = (route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): MaybeAsync<Move> => {
   const service = inject(PokemonService);
-  return service.getMove(Number(route.params['id']));
+  return service.getMove(route.params['id']);
 };
 
 export const domainPokedexRoutes: Route[] = [

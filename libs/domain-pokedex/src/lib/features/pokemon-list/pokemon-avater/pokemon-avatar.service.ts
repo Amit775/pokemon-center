@@ -12,7 +12,7 @@ export class PokemonAvatarService {
 
   private client = inject(HttpClient);
 
-  getSvg(pokemonId: number): Observable<string> {
+  public getSvg(pokemonId: number): Observable<string> {
     const svg = this._cache.get(pokemonId);
     if (svg != null) return of(svg);
 
@@ -24,7 +24,7 @@ export class PokemonAvatarService {
       .pipe(tap((svg: string) => this.saveSvg(pokemonId, svg)));
   }
 
-  saveSvg(pokemonId: number, svg: string): void {
+  private saveSvg(pokemonId: number, svg: string): void {
     this._cache.set(pokemonId, svg);
   }
 }

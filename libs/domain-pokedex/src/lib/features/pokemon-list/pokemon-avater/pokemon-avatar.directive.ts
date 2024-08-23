@@ -1,15 +1,9 @@
-import {
-  Directive,
-  ElementRef,
-  effect,
-  inject,
-  input,
-  output,
-} from '@angular/core';
+import { Directive, ElementRef, effect, inject, input, output, untracked } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { PokemonAvatarService } from './pokemon-avatar.service';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'img[index]',
   standalone: true,
 })
@@ -17,22 +11,21 @@ export class PokemonAvatarDirective {
   private host = inject(ElementRef).nativeElement as HTMLImageElement;
   private service = inject(PokemonAvatarService);
 
-  index = input.required<number>();
-  loaded = output<string>();
+  public index = input.required<number>();
+  public loaded = output<string>();
 
-  effect = effect((cleanup) => {
+  #loadImage = effect((cleanup) => {
     const index = this.index();
-    const sub = this.createPokemonImage(index).subscribe(
-      (svg) => (this.host.src = svg),
-    );
 
-    cleanup(() => sub.unsubscribe());
+    untracked(() => {
+      const sub = this.createPokemonImage(index).subscribe((svg) => (this.host.src = svg));
+
+      cleanup(() => sub.unsubscribe());
+    });
   });
 
-  createPokemonImage(index: number): Observable<string> {
-    return this.service
-      .getSvg(index)
-      .pipe(map((svg: string) => this.createSvgUrl(svg)));
+  private createPokemonImage(index: number): Observable<string> {
+    return this.service.getSvg(index).pipe(map((svg: string) => this.createSvgUrl(svg)));
   }
 
   private createSvgUrl(svg: string): string {

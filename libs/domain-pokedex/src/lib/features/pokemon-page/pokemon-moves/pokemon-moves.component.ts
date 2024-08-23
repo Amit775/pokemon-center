@@ -1,14 +1,18 @@
-import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { Pokemon } from 'pokenode-ts';
+import { RouterModule } from '@angular/router';
+import { ListComponent, ListItemDirective } from '@pokemon/ui-list';
+import { Pokemon, PokemonMove } from 'pokenode-ts';
+
+export const type = <T>() => undefined as T;
 
 @Component({
   standalone: true,
   templateUrl: './pokemon-moves.component.html',
   styleUrls: ['./pokemon-moves.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [JsonPipe],
+  imports: [ListComponent, ListItemDirective, RouterModule],
 })
 export class PokemonMovesComponent {
   pokemon = input.required<Pokemon>();
+  moveType = type<PokemonMove>();
 }
