@@ -12,7 +12,15 @@
 				"*"
 			],
 			"rules": {
-				"array-element-newline": "off"
+				"array-element-newline": [
+					"error",
+					{
+						"ArrayExpression": "consistent",
+						"ArrayPattern": {
+							"minItems": 3
+						},
+					}
+				]
 			}
 		},
 		{
