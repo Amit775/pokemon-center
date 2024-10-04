@@ -20,6 +20,8 @@
 		"@angular/router": "18.2.0",
 		"@ngrx/signals": "^18.0.2",
 		"@nx/angular": "19.7.3",
+		"@tanstack/angular-query-experimental": "^5.56.2",
+		"@tanstack/angular-virtual": "^3.10.8",
 		"axios": "^1.7.2",
 		"axios-cache-interceptor": "^1.5.3",
 		"ngxtension": "^3.5.5",
