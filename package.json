@@ -2,7 +2,10 @@
   "name": "@pokemon-center/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "nx run pokemon-center:build",
+    "start": "nx run pokemon-center:serve -o"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.2.0",
@@ -19,7 +22,8 @@
     "@angular/ssr": "~18.2.0",
     "express": "^4.21.1",
     "rxjs": "~7.8.0",
-    "zone.js": "~0.14.3"
+    "zone.js": "~0.14.3",
+    "@ngrx/signals": "^18.1.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~18.2.0",
@@ -29,6 +33,7 @@
     "@angular/compiler-cli": "^18.2.0",
     "@angular/language-service": "^18.2.0",
     "@eslint/js": "^9.8.0",
+    "@ngrx/signals": "^18.1.0",
     "@nx/angular": "20.0.5",
     "@nx/devkit": "20.0.5",
     "@nx/eslint": "20.0.5",
