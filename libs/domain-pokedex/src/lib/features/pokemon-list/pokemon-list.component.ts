@@ -2,7 +2,6 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, computed, effect, in
 import { RouterModule } from '@angular/router';
 import { BasePokemon, PokemonService, PokemonStore } from '@pokemon/data';
 import { ListComponent, ListItemDirective } from '@pokemon/ui-list';
-import { injectQuery, injectQueryClient } from '@tanstack/angular-query-experimental';
 import { PokemonRecordComponent } from './pokemon-record/pokemon-record.component';
 
 @Component({
@@ -15,11 +14,6 @@ import { PokemonRecordComponent } from './pokemon-record/pokemon-record.componen
 export class PokemonListComponent implements AfterViewInit {
 	private store = inject(PokemonStore);
 	private service = inject(PokemonService).getMorePokemons();
-	private client = injectQueryClient();
-	private query = injectQuery(() => ({
-		queryKey: ['pokemon'],
-		queryFn: () => this.service.getMorePokemons(),
-	}));
 
 	private list = viewChild.required(ListComponent, { read: ListComponent });
 	private offset = computed(() => this.list().offset());
