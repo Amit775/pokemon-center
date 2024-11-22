@@ -64,6 +64,14 @@
 			"options": {
 				"targetName": "lint"
 			}
+		},
+		{
+			"plugin": "@nx/webpack/plugin",
+			"options": {
+				"buildTargetName": "build",
+				"serveTargetName": "serve",
+				"previewTargetName": "preview"
+			}
 		}
 	],
 	"generators": {
@@ -82,7 +90,5 @@
 		}
 	},
 	"nxCloudAccessToken": "YjhiZDU0ZGQtODgyNy00Y2E3LWJmYzgtY2U1ZjE5M2FjZjc0fHJlYWQtd3JpdGU=",
-	"cli": {
-		"packageManager": "yarn"
-	}
+	"useLegacyCache": true
 }
