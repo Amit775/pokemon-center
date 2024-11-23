@@ -5,12 +5,11 @@ import { tap } from 'rxjs';
 import { Context, ListItemDirective } from './list-item.directive';
 
 @Component({
-	selector: 'ui-list',
-	standalone: true,
-	imports: [CommonModule, ScrollingModule],
-	templateUrl: './list.component.html',
-	styleUrl: './list.component.scss',
-	changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ui-list',
+    imports: [CommonModule, ScrollingModule],
+    templateUrl: './list.component.html',
+    styleUrl: './list.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent<T> {
 	list = input.required<T[]>();

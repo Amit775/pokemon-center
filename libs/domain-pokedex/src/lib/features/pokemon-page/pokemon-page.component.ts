@@ -11,11 +11,10 @@ import { PokemonService } from '@pokemon/data';
 import { derivedAsync } from 'ngxtension/derived-async';
 
 @Component({
-  standalone: true,
-  templateUrl: './pokemon-page.component.html',
-  styleUrl: './pokemon-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatTabsModule, RouterModule, MatIconModule],
+    templateUrl: './pokemon-page.component.html',
+    styleUrl: './pokemon-page.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [MatTabsModule, RouterModule, MatIconModule]
 })
 export class PokemonPageComponent {
   private api = inject(PokemonService);

@@ -6,11 +6,10 @@ import { Pokemon, PokemonMove } from 'pokenode-ts';
 export const type = <T>() => undefined as T;
 
 @Component({
-  standalone: true,
-  templateUrl: './pokemon-moves.component.html',
-  styleUrls: ['./pokemon-moves.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ListComponent, ListItemDirective, RouterModule],
+    templateUrl: './pokemon-moves.component.html',
+    styleUrls: ['./pokemon-moves.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [ListComponent, ListItemDirective, RouterModule]
 })
 export class PokemonMovesComponent {
   pokemon = input.required<Pokemon>();

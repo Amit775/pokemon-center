@@ -5,12 +5,11 @@ import { PokemonAvatarDirective } from '../pokemon-avater/pokemon-avatar.directi
 import { IndexPipe } from './index.pipe';
 
 @Component({
-  standalone: true,
-  selector: 'pokedex-pokemon-record',
-  templateUrl: './pokemon-record.component.html',
-  styleUrls: ['./pokemon-record.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PokemonAvatarDirective, IndexPipe, TitleCasePipe],
+    selector: 'pokedex-pokemon-record',
+    templateUrl: './pokemon-record.component.html',
+    styleUrls: ['./pokemon-record.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [PokemonAvatarDirective, IndexPipe, TitleCasePipe]
 })
 export class PokemonRecordComponent {
   pokemon = input.required<BasePokemon>();
