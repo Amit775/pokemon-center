@@ -2,13 +2,13 @@ import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, MaybeAsync, ResolveFn, Route, RouterStateSnapshot } from '@angular/router';
 import { PokemonService } from '@pokemon/data';
 import { Move, Pokemon } from 'pokenode-ts';
-import { MovePageComponent } from './features/move-page/move-page.component';
-import { MovesListComponent } from './features/moves-list/moves-list.component';
-import { PokemonListComponent } from './features/pokemon-list/pokemon-list.component';
-import { PokemonAboutComponent } from './features/pokemon-page/pokemon-about/pokemon-about.component';
-import { PokemonMovesComponent } from './features/pokemon-page/pokemon-moves/pokemon-moves.component';
-import { PokemonPageComponent } from './features/pokemon-page/pokemon-page.component';
-import { PokemonStatsComponent } from './features/pokemon-page/pokemon-stats/pokemon-stats.component';
+
+
+
+
+
+
+
 
 const pokemon: ResolveFn<Pokemon> = (route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): MaybeAsync<Pokemon> => {
   const service = inject(PokemonService);
@@ -22,17 +22,17 @@ const move: ResolveFn<Move> = (route: ActivatedRouteSnapshot, _state: RouterStat
 
 export const domainPokedexRoutes: Route[] = [
   { path: '', redirectTo: 'pokemon', pathMatch: 'full' },
-  { path: 'pokemon', component: PokemonListComponent },
+  { path: 'pokemon', loadComponent: () => import('./features/pokemon-list/pokemon-list.component').then(m => m.PokemonListComponent) },
   {
     path: 'pokemon/:id',
-    component: PokemonPageComponent,
+    loadComponent: () => import('./features/pokemon-page/pokemon-page.component').then(m => m.PokemonPageComponent),
     children: [
       { path: '', redirectTo: 'about', pathMatch: 'full' },
-      { path: 'about', component: PokemonAboutComponent, resolve: { pokemon } },
-      { path: 'stats', component: PokemonStatsComponent, resolve: { pokemon } },
-      { path: 'moves', component: PokemonMovesComponent, resolve: { pokemon } },
+      { path: 'about', loadComponent: () => import('./features/pokemon-page/pokemon-about/pokemon-about.component').then(m => m.PokemonAboutComponent), resolve: { pokemon } },
+      { path: 'stats', loadComponent: () => import('./features/pokemon-page/pokemon-stats/pokemon-stats.component').then(m => m.PokemonStatsComponent), resolve: { pokemon } },
+      { path: 'moves', loadComponent: () => import('./features/pokemon-page/pokemon-moves/pokemon-moves.component').then(m => m.PokemonMovesComponent), resolve: { pokemon } },
     ],
   },
-  { path: 'moves', component: MovesListComponent },
-  { path: 'moves/:id', component: MovePageComponent, resolve: { move } },
+  { path: 'moves', loadComponent: () => import('./features/moves-list/moves-list.component').then(m => m.MovesListComponent) },
+  { path: 'moves/:id', loadComponent: () => import('./features/move-page/move-page.component').then(m => m.MovePageComponent), resolve: { move } },
 ];

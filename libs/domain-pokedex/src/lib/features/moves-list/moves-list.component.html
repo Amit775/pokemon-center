@@ -1,1 +1,5 @@
-<ui-list [list]="moves()"> </ui-list>
+<ui-list [list]="moves()">
+	<ng-template listItem let-move>
+		{{ move }}
+	</ng-template>
+</ui-list>

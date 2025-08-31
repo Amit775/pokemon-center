@@ -1,6 +1,3 @@
 import { Route } from '@angular/router';
-import { DomainArenaComponent } from './domain-arena/domain-arena.component';
 
-export const domainArenaRoutes: Route[] = [
-  { path: '', component: DomainArenaComponent },
-];
+export const domainArenaRoutes: Route[] = [{ path: '', loadComponent: () => import('./domain-arena/domain-arena.component') }];

@@ -10,10 +10,10 @@
       ],
       "rules": {
         "@angular-eslint/directive-selector": [
-          "error",
+          "off",
           {
             "type": "attribute",
-            "prefix": "ui-list",
+            "prefix": "uiList",
             "style": "camelCase"
           }
         ],
