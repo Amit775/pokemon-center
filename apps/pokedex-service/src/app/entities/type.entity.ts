@@ -1,5 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Type as PrismaType } from '@prisma/client';
+import { Move } from './move.entity';
 
 @ObjectType()
 export class Type implements PrismaType {
@@ -11,4 +12,7 @@ export class Type implements PrismaType {
 
 	@Field()
 	slug: string;
+
+	@Field(() => [Move], { nullable: true })
+	moves?: Move[];
 }

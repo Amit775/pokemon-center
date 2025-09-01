@@ -2,25 +2,64 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { BasePokemon, MAX_INDEX, PokemonStore } from '../store/pokemon.store';
 
-// TODO: Replace with your actual Pokemon and Move types from GraphQL
+// GraphQL API types matching the backend schema
 export interface Pokemon {
 	id: number;
 	name: string;
-	base_experience: number;
-	height: number;
-	weight: number;
-	types: PokemonType[];
+	slug: string;
+	types?: PokemonType[];
+	moves?: Move[];
+	abilities?: Ability[];
+	stats?: StatWithBase[];
 }
 
 export interface PokemonType {
 	id: number;
 	name: string;
+	slug: string;
+	moves?: Move[];
 }
 
 export interface Move {
 	id: number;
 	name: string;
-	// Add other move properties as needed
+	slug: string;
+	power?: number;
+	accuracy?: number;
+	pp?: number;
+	priority: number;
+	typeId: number;
+	damageClassId: number;
+	type: PokemonType;
+	damageClass: DamageClass;
+}
+
+export interface Ability {
+	id: number;
+	name: string;
+	slug: string;
+}
+
+export interface Item {
+	id: number;
+	name: string;
+	slug: string;
+}
+
+export interface Stat {
+	id: number;
+	name: string;
+	slug: string;
+}
+
+export interface StatWithBase extends Stat {
+	baseStat: number;
+}
+
+export interface DamageClass {
+	id: number;
+	name: string;
+	slug: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -34,10 +73,11 @@ export class PokemonService {
 		return of({
 			id,
 			name: 'Pikachu',
-			base_experience: 112,
-			height: 4,
-			weight: 60,
-			types: [{ id: 1, name: 'electric' }],
+			slug: 'pikachu',
+			types: [{ id: 1, name: 'electric', slug: 'electric' }],
+			moves: [],
+			abilities: [],
+			stats: [],
 		});
 	}
 
@@ -47,6 +87,15 @@ export class PokemonService {
 		return of({
 			id: typeof id === 'string' ? 1 : id,
 			name: 'Thunderbolt',
+			slug: 'thunderbolt',
+			power: 90,
+			accuracy: 100,
+			pp: 15,
+			priority: 0,
+			typeId: 1,
+			damageClassId: 1,
+			type: { id: 1, name: 'electric', slug: 'electric' },
+			damageClass: { id: 1, name: 'Special', slug: 'special' },
 		});
 	}
 

@@ -7,13 +7,12 @@ export class TypeResolver {
 	constructor(private readonly typeService: TypeService) {}
 
 	@Query(() => [Type])
-	getPokemonTypes(): Promise<Type[]> {
-		console.log('getPokemonTypes');
+	getTypes(): Promise<Type[]> {
 		return this.typeService.findAll();
 	}
 
 	@Query(() => Type)
-	getPokemonType(@Args('id') id: number): Promise<Type> {
+	getType(@Args('id') id: number): Promise<Type> {
 		return this.typeService.findOne(id);
 	}
 }

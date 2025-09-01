@@ -14,12 +14,38 @@ export class PokemonService {
 						type: true,
 					},
 				},
+				moves: {
+					include: {
+						move: {
+							include: {
+								type: true,
+								damageClass: true,
+							},
+						},
+					},
+				},
+				abilities: {
+					include: {
+						ability: true,
+					},
+				},
+				stats: {
+					include: {
+						stat: true,
+					},
+				},
 			},
 		});
 
 		return pokemon.map((p) => ({
 			...p,
 			types: p.types.map((t) => t.type),
+			moves: p.moves.map((m) => m.move),
+			abilities: p.abilities.map((a) => a.ability),
+			stats: p.stats.map((s) => ({
+				...s.stat,
+				baseStat: s.baseStat,
+			})),
 		}));
 	}
 
@@ -32,6 +58,26 @@ export class PokemonService {
 						type: true,
 					},
 				},
+				moves: {
+					include: {
+						move: {
+							include: {
+								type: true,
+								damageClass: true,
+							},
+						},
+					},
+				},
+				abilities: {
+					include: {
+						ability: true,
+					},
+				},
+				stats: {
+					include: {
+						stat: true,
+					},
+				},
 			},
 		});
 
@@ -42,6 +88,12 @@ export class PokemonService {
 		return {
 			...pokemon,
 			types: pokemon.types.map((t) => t.type),
+			moves: pokemon.moves.map((m) => m.move),
+			abilities: pokemon.abilities.map((a) => a.ability),
+			stats: pokemon.stats.map((s) => ({
+				...s.stat,
+				baseStat: s.baseStat,
+			})),
 		};
 	}
 }
