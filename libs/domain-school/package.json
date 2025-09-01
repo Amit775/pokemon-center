@@ -1,5 +1,5 @@
 {
-  "name": "@pokemon/domain-school",
+  "name": "@pokemon-center/domain-school",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^18.0.0",

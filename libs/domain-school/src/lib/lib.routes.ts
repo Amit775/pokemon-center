@@ -1,6 +1,3 @@
 import { Route } from '@angular/router';
-import { DomainSchoolComponent } from './domain-school/domain-school.component';
 
-export const domainSchoolRoutes: Route[] = [
-  { path: '', component: DomainSchoolComponent },
-];
+export const domainSchoolRoutes: Route[] = [{ path: '', loadComponent: () => import('./domain-school/domain-school.component') }];
