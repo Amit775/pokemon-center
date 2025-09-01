@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { ListComponent, ListItemDirective } from '@pokemon/ui-list';
+import { ListComponent, ListItemDirective } from '@pokemon-center/ui-list';
 import { Move } from 'pokenode-ts';
 
 @Component({

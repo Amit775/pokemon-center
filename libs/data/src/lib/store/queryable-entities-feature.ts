@@ -1,6 +1,6 @@
 import { SignalStoreFeature, signalStoreFeature, withState } from '@ngrx/signals';
 import { withEntities } from '@ngrx/signals/entities';
-import { EmptyFeatureResult } from '@ngrx/signals/src/signal-store-models';
+import { EmptyFeatureResult } from '@ngrx/signals';
 
 export type QueryState = {
 	loading: boolean;
@@ -44,7 +44,7 @@ export const withQueryFeature = <Entity, Collection extends string>(config: {
 	{
 		state: NamedQueryState<Collection>;
 		methods: Record<string, never>;
-		computed: Record<string, never>;
+		props: Record<string, never>;
 	}
 > => signalStoreFeature(withState(queryState(config)));
 

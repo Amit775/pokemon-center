@@ -15,11 +15,11 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
-			"@pokemon/data": ["libs/data/src/index.ts"],
-			"@pokemon/domain-arena": ["libs/domain-arena/src/index.ts"],
-			"@pokemon/domain-pokedex": ["libs/domain-pokedex/src/index.ts"],
-			"@pokemon/domain-school": ["libs/domain-school/src/index.ts"],
-			"@pokemon/ui-list": ["libs/ui-list/src/index.ts"]
+			"@pokemon-center/data": ["libs/data/src/index.ts"],
+			"@pokemon-center/domain-arena": ["libs/domain-arena/src/index.ts"],
+			"@pokemon-center/domain-pokedex": ["libs/domain-pokedex/src/index.ts"],
+			"@pokemon-center/domain-school": ["libs/domain-school/src/index.ts"],
+			"@pokemon-center/ui-list": ["libs/ui-list/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

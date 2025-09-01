@@ -1,28 +1,28 @@
 {
-	"name": "pokemon",
+	"name": "pokemon-center",
 	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"projectType": "application",
 	"prefix": "app",
-	"sourceRoot": "apps/pokemon/src",
+	"sourceRoot": "apps/pokemon-center/src",
 	"tags": [],
 	"targets": {
 		"build": {
 			"executor": "@angular-devkit/build-angular:application",
 			"outputs": ["{options.outputPath}"],
 			"options": {
-				"outputPath": "dist/apps/pokemon",
-				"index": "apps/pokemon/src/index.html",
-				"browser": "apps/pokemon/src/main.ts",
+				"outputPath": "dist/apps/pokemon-center",
+				"index": "apps/pokemon-center/src/index.html",
+				"browser": "apps/pokemon-center/src/main.ts",
 				"polyfills": [],
-				"tsConfig": "apps/pokemon/tsconfig.app.json",
+				"tsConfig": "apps/pokemon-center/tsconfig.app.json",
 				"inlineStyleLanguage": "scss",
 				"assets": [
 					{
 						"glob": "**/*",
-						"input": "apps/pokemon/public"
+						"input": "apps/pokemon-center/public"
 					}
 				],
-				"styles": ["apps/pokemon/src/styles.scss"],
+				"styles": ["apps/pokemon-center/src/styles.scss"],
 				"scripts": []
 			},
 			"configurations": {
@@ -53,10 +53,10 @@
 			"executor": "@angular-devkit/build-angular:dev-server",
 			"configurations": {
 				"production": {
-					"buildTarget": "pokemon:build:production"
+					"buildTarget": "pokemon-center:build:production"
 				},
 				"development": {
-					"buildTarget": "pokemon:build:development"
+					"buildTarget": "pokemon-center:build:development"
 				}
 			},
 			"defaultConfiguration": "development",
@@ -65,7 +65,7 @@
 		"extract-i18n": {
 			"executor": "@angular-devkit/build-angular:extract-i18n",
 			"options": {
-				"buildTarget": "pokemon:build"
+				"buildTarget": "pokemon-center:build"
 			}
 		},
 		"lint": {
@@ -75,15 +75,15 @@
 			"executor": "@nx/jest:jest",
 			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
 			"options": {
-				"jestConfig": "apps/pokemon/jest.config.ts"
+				"jestConfig": "apps/pokemon-center/jest.config.ts"
 			}
 		},
 		"serve-static": {
 			"executor": "@nx/web:file-server",
 			"options": {
-				"buildTarget": "pokemon:build",
+				"buildTarget": "pokemon-center:build",
 				"port": 4200,
-				"staticFilePath": "dist/apps/pokemon/browser",
+				"staticFilePath": "dist/apps/pokemon-center/browser",
 				"spa": true
 			}
 		}

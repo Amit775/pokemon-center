@@ -46,7 +46,7 @@
 			"inputs": ["production", "^production"]
 		},
 		"e2e-ci--**/*": {
-			"dependsOn": ["^pokemon:build"]
+			"dependsOn": ["^pokemon-center:build"]
 		}
 	},
 	"plugins": [

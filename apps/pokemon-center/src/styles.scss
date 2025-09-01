@@ -10,7 +10,7 @@
 @include mat.app-background();
 
 // Define the theme object.
-$pokemon-theme: mat.define-theme((color: (theme-type: dark,
+$pokemon-center-theme: mat.define-theme((color: (theme-type: dark,
 				primary: mat.$azure-palette,
 				tertiary: mat.$blue-palette,
 			),
@@ -21,15 +21,15 @@ $pokemon-theme: mat.define-theme((color: (theme-type: dark,
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 :root {
-	@include mat.all-component-themes($pokemon-theme);
+	@include mat.all-component-themes($pokemon-center-theme);
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
 // For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
-// @include mat.typography-hierarchy($pokemon-theme);
+// @include mat.typography-hierarchy($pokemon-center-theme);
 
 // Comment out the line below if you want to use the deprecated `color` inputs.
-// @include mat.color-variants-backwards-compatibility($pokemon-theme);
+// @include mat.color-variants-backwards-compatibility($pokemon-center-theme);
 /* You can add global styles to this file, and also import other style files */
 
 html,

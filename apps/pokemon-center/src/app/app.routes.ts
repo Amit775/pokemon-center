@@ -16,18 +16,18 @@ export const routes: (Route | NavRoute)[] = [
 		type: 'nav',
 		display: 'Pokedex',
 		path: 'pokedex',
-		loadChildren: () => import('@pokemon/domain-pokedex'),
+		loadChildren: () => import('@pokemon-center/domain-pokedex'),
 	},
 	{
 		type: 'nav',
 		display: 'School',
 		path: 'school',
-		loadChildren: () => import('@pokemon/domain-school'),
+		loadChildren: () => import('@pokemon-center/domain-school'),
 	},
 	{
 		type: 'nav',
 		display: 'Arena',
 		path: 'arena',
-		loadChildren: () => import('@pokemon/domain-arena'),
+		loadChildren: () => import('@pokemon-center/domain-arena'),
 	},
 ];
