@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { ListComponent, ListItemDirective } from '@pokemon-center/ui-list';
-import { Move } from 'pokenode-ts';
+import { Move } from '@pokemon-center/data';
 
 @Component({
 	templateUrl: './moves-list.component.html',

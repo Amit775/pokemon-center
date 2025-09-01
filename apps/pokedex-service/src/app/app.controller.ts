@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 
 import { Observable, of } from 'rxjs';
 import { AppService } from './app.service';
-import { Pokemon } from './entities/pokemon.entity';
+import { Pokemon } from '@prisma/client';
 
 const env: 'dev' | 'test' | 'prod' = 'dev';
 

@@ -1,7 +1,6 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, MaybeAsync, ResolveFn, Route, RouterStateSnapshot } from '@angular/router';
-import { PokemonService } from '@pokemon-center/data';
-import { Move, Pokemon } from 'pokenode-ts';
+import { PokemonService, Move, Pokemon } from '@pokemon-center/data';
 
 const pokemon: ResolveFn<Pokemon> = (route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): MaybeAsync<Pokemon> => {
 	const service = inject(PokemonService);

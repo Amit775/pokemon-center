@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, computed } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router, RouterModule } from '@angular/router';
 import { PokemonService } from '@pokemon-center/data';
-import { derivedAsync } from 'ngxtension/derived-async';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
 	templateUrl: './pokemon-page.component.html',
@@ -19,7 +19,7 @@ export class PokemonPageComponent {
 		transform: (value: number | string) => Number(value),
 	});
 
-	public pokemon = derivedAsync(() => this.api.getPokemon(this.id()));
+	public pokemon = toSignal(this.api.getPokemon(this.id()), { initialValue: null });
 
 	public tabs = [
 		{ label: 'About', path: 'about' },

@@ -9,12 +9,12 @@
 <div>
   <span>types</span>
   @for (type of pokemon().types; track type) {
-    <span>{{ type.type.name }}</span>
+    <span>{{ type.name }}</span>
   }
 </div>
 <div>
   <span>abilities</span>
-  @for (ability of pokemon().abilities; track ability) {
+  @for (ability of pokemon(); track ability) {
     <span>{{ ability.ability.name }}</span>
   }
 </div>

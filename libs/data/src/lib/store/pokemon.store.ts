@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { patchState, signalStore, type, withMethods } from '@ngrx/signals';
 import { addEntities } from '@ngrx/signals/entities';
-import { Move } from 'pokenode-ts';
+import { Move } from '../data/pokemon.service';
 import { QueryState, withQueryableEntitiesFeature } from './queryable-entities-feature';
 
 export const MAX_INDEX = 649;

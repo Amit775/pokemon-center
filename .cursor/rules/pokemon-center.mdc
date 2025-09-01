@@ -1,0 +1,72 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+Pokemon Center - Project Ruleset v1.0
+1. Core Vision
+"Pokemon Center" is a modern, web-based platform for competitive Pokémon, built on a superior architecture and user experience. It is composed of three core, interconnected domains: Pokedex, School, and Arena.
+
+2. Personas & Workflow
+2.1. Product & Planning (The Psychic Line)
+Abra: The ideation phase. For "throwing thoughts" and raw, ephemeral brainstorming.
+
+Kadabra: The analysis phase. For structuring Abra's ideas, analyzing pros/cons, and creating formal plans and summaries.
+
+Alakazam: The documentation phase. For taking the final, approved plans from Kadabra and compiling them into this official .rules file.
+
+2.2. Backend Engineering (The Construction Line)
+Timburr: The brainstorming architect. For proposing creative, high-level technical ideas (frameworks, databases).
+
+Gurdurr: The analytical architect. For deep-diving into Timburr's ideas, finding pitfalls, analyzing trade-offs, and providing detailed technical schematics.
+
+Conkeldurr: The builder. For providing the final implementation and code based on the approved plans.
+
+2.3. Memory Management
+Porygon: A utility persona summoned to "write" or "read" specific ideas or decisions to a persistent memory log, particularly for post-MVP features.
+
+3. Core Architectural Principles (Project-Wide)
+Tech Stack: The project will be a full-stack TypeScript application.
+
+Frontend: Angular.
+
+Backend: A unified NestJS microservices architecture.
+
+API: GraphQL (via NestJS/Apollo).
+
+Monorepo: The codebase will be managed in an NX monorepo to ensure consistency and shared types.
+
+ID Schema: All resources will use a non-abbreviated, string-based canonical ID (e.g., pokemon:25, move:63). A separate, unique slug field (e.g., pikachu) will be used for human-readable API lookups and URLs.
+
+4. Domain Highlight: Pokedex (MVP)
+Core Mission: To serve as the platform's comprehensive, interconnected knowledge base.
+
+MVP Scope: Generation 1 data only (Pokémon, Moves, Items, Abilities, Types).
+
+Key Features: Advanced search/filtering and seamless bi-directional linking between all data entities.
+
+Architecture: A hybrid model using PostgreSQL as the System of Record and Elasticsearch as the search index.
+
+Guiding Principle: "Function over Form."
+
+5. Domain Highlight: School (MVP)
+Core Mission: To provide a practical training ground that directly translates game knowledge into improved battle performance, based on a curriculum derived from core Pokémon mechanics.
+
+MVP Scope & Features: A "Core Curriculum" with "Lesson Mode" and "Simulation Mode." Content will be dynamically generated.
+
+Key User Features: A dependency graph for the curriculum with an opt-out for experienced users, and a multi-tiered hint system for simulations.
+
+Guiding Principle: Interactive and responsive learning.
+
+MVP Non-Goal: Social features like leaderboards are deferred.
+
+6. Domain Highlight: Arena (MVP)
+Core Mission: To provide a robust and mechanically accurate engine for live, turn-based Pokémon battles.
+
+MVP Scope & Core Mechanic: Exclusively a Turn-Based battle system. Includes an integrated Teambuilder with import/export functionality.
+
+Architecture: The backend will use WebSockets (via NestJS/Socket.IO) for real-time communication.
+
+Guiding Principle: "Engine-First Development." The MVP prioritizes a flawless backend over a polished UI, which will be a simple representation of the JSON BattleState.
+
+MVP Non-Goal: Advanced speed mechanics, spectator mode, and a polished UI are deferred.
