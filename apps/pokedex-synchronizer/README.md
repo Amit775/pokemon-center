@@ -73,8 +73,8 @@ The service transforms Pokemon data into the following Elasticsearch document st
     "hp": 35,
     "attack": 55,
     "defense": 40,
-    "special_attack": 50,
-    "special_defense": 50,
+    "special-attack": 50,
+    "special-defense": 50,
     "speed": 90
   },
   "types": [

@@ -1,19 +1,19 @@
-import { Command, CommandRunner } from 'nestjs-command';
+import { Command, CommandService } from 'nestjs-command';
 import { Injectable, Logger } from '@nestjs/common';
 import { PokedexSynchronizerService } from '../services/pokedex-synchronizer.service';
 
 @Injectable()
-@Command({
-  command: 'sync:pokedex',
-  describe: 'Synchronize Pokedex data from PostgreSQL to Elasticsearch',
-})
-export class SyncPokedexCommand extends CommandRunner {
+export class SyncPokedexCommand {
   private readonly logger = new Logger(SyncPokedexCommand.name);
 
   constructor(
     private readonly synchronizer: PokedexSynchronizerService,
   ) {}
 
+  @Command({
+    command: 'sync:pokedex',
+    describe: 'Synchronize Pokedex data from PostgreSQL to Elasticsearch',
+  })
   async run(): Promise<void> {
     try {
       this.logger.log('🚀 Starting Pokedex synchronization...');

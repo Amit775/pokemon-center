@@ -4,17 +4,18 @@
  */
 
 import { NestFactory } from '@nestjs/core';
-import { CommandFactory } from 'nestjs-command';
+import { CommandService } from 'nestjs-command';
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.createApplicationContext(AppModule, {
-    logger: ['log', 'error', 'warn', 'debug', 'verbose'],
-  });
+	const app = await NestFactory.createApplicationContext(AppModule, {
+		logger: ['log', 'error', 'warn', 'debug', 'verbose'],
+	});
 
-  await CommandFactory.run(AppModule, ['log', 'error', 'warn', 'debug', 'verbose']);
-  
-  await app.close();
+	const commandService = app.get(CommandService);
+	await commandService.exec();
+
+	await app.close();
 }
 
 bootstrap();
