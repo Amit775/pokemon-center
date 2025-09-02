@@ -1,0 +1,73 @@
+{
+	"name": "pokedex-synchronizer",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/pokedex-synchronizer/src",
+	"projectType": "application",
+	"tags": [],
+	"targets": {
+		"build": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "webpack-cli build",
+				"args": ["--node-env=production"],
+				"cwd": "apps/pokedex-synchronizer"
+			},
+			"configurations": {
+				"development": {
+					"args": ["--node-env=development"]
+				}
+			}
+		},
+		"prune-lockfile": {
+			"dependsOn": ["build"],
+			"cache": true,
+			"executor": "@nx/js:prune-lockfile",
+			"outputs": [
+				"{workspaceRoot}/dist/apps/pokedex-synchronizer/package.json",
+				"{workspaceRoot}/dist/apps/pokedex-synchronizer/yarn.lock"
+			],
+			"options": {
+				"buildTarget": "build"
+			}
+		},
+		"copy-workspace-modules": {
+			"dependsOn": ["build"],
+			"cache": true,
+			"outputs": ["{workspaceRoot}/dist/apps/pokedex-synchronizer/workspace_modules"],
+			"executor": "@nx/js:copy-workspace-modules",
+			"options": {
+				"buildTarget": "build"
+			}
+		},
+		"prune": {
+			"dependsOn": ["prune-lockfile", "copy-workspace-modules"],
+			"executor": "nx:noop"
+		},
+		"serve": {
+			"continuous": true,
+			"executor": "@nx/js:node",
+			"defaultConfiguration": "development",
+			"dependsOn": ["build"],
+			"options": {
+				"buildTarget": "pokedex-synchronizer:build",
+				"runBuildTargetDependencies": false
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "pokedex-synchronizer:build:development"
+				},
+				"production": {
+					"buildTarget": "pokedex-synchronizer:build:production"
+				}
+			}
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "apps/pokedex-synchronizer/jest.config.ts",
+				"passWithNoTests": true
+			}
+		}
+	}
+}
