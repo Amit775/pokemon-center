@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { Stat } from '@prisma/client';
+import { Stat } from '@pokemon-center/shared-entities';
 
 @Injectable()
 export class StatService {

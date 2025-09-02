@@ -47,6 +47,11 @@
 		},
 		"e2e-ci--**/*": {
 			"dependsOn": ["^pokemon-center:build"]
+		},
+		"@nx/js:tsc": {
+			"cache": true,
+			"dependsOn": ["^build"],
+			"inputs": ["production", "^production"]
 		}
 	},
 	"plugins": [
@@ -141,5 +146,10 @@
 			"typeSeparator": "."
 		}
 	},
-	"nxCloudAccessToken": "YjhiZDU0ZGQtODgyNy00Y2E3LWJmYzgtY2U1ZjE5M2FjZjc0fHJlYWQtd3JpdGU="
+	"nxCloudAccessToken": "YjhiZDU0ZGQtODgyNy00Y2E3LWJmYzgtY2U1ZjE5M2FjZjc0fHJlYWQtd3JpdGU=",
+	"release": {
+		"version": {
+			"preVersionCommand": "yarn nx run-many -t build"
+		}
+	}
 }

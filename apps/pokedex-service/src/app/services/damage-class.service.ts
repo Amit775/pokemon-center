@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { DamageClass } from '@prisma/client';
+import { DamageClass } from '@pokemon-center/shared-entities';
 
 @Injectable()
 export class DamageClassService {

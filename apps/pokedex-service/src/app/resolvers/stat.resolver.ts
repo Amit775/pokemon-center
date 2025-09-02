@@ -1,5 +1,5 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import { Stat } from '../entities/stat.entity';
+import { Stat } from '@pokemon-center/shared-entities';
 import { StatService } from '../services/stat.service';
 
 @Resolver(() => Stat)

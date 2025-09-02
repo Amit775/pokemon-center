@@ -1,5 +1,5 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import { Item } from '../entities/item.entity';
+import { Item } from '@pokemon-center/shared-entities';
 import { ItemService } from '../services/item.service';
 
 @Resolver(() => Item)

@@ -1,5 +1,5 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import { Ability } from '../entities/ability.entity';
+import { Ability } from '@pokemon-center/shared-entities';
 import { AbilityService } from '../services/ability.service';
 
 @Resolver(() => Ability)

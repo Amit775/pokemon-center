@@ -1,5 +1,5 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import { Move } from '../entities/move.entity';
+import { Move } from '@pokemon-center/shared-entities';
 import { MoveService } from '../services/move.service';
 
 @Resolver(() => Move)

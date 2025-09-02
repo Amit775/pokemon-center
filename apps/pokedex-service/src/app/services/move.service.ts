@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { Move } from '../entities/move.entity';
+import { Move } from '@pokemon-center/shared-entities';
 
 @Injectable()
 export class MoveService {

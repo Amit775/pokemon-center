@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Pokemon } from '../entities/pokemon.entity';
+import { Pokemon } from '@pokemon-center/shared-entities';
 import { PrismaService } from './prisma.service';
 
 @Injectable()

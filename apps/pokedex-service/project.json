@@ -5,6 +5,24 @@
 	"projectType": "application",
 	"tags": [],
 	"targets": {
+		"build": {
+			"executor": "@nx/js:tsc",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/apps/pokedex-service",
+				"main": "apps/pokedex-service/src/main.ts",
+				"tsConfig": "apps/pokedex-service/tsconfig.app.json",
+				"assets": ["apps/pokedex-service/src/assets"]
+			},
+			"configurations": {
+				"development": {
+					"outputPath": "dist/apps/pokedex-service"
+				},
+				"production": {
+					"outputPath": "dist/apps/pokedex-service"
+				}
+			}
+		},
 		"serve": {
 			"executor": "@nx/js:node",
 			"defaultConfiguration": "development",
@@ -29,5 +47,6 @@
 				"jestConfig": "apps/pokedex-service/jest.config.ts"
 			}
 		}
-	}
+	},
+	"implicitDependencies": ["shared-entities"]
 }

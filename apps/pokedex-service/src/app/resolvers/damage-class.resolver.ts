@@ -1,5 +1,5 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import { DamageClass } from '../entities/damage-class.entity';
+import { DamageClass } from '@pokemon-center/shared-entities';
 import { DamageClassService } from '../services/damage-class.service';
 
 @Resolver(() => DamageClass)
