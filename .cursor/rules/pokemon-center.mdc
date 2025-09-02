@@ -70,3 +70,18 @@ Architecture: The backend will use WebSockets (via NestJS/Socket.IO) for real-ti
 Guiding Principle: "Engine-First Development." The MVP prioritizes a flawless backend over a polished UI, which will be a simple representation of the JSON BattleState.
 
 MVP Non-Goal: Advanced speed mechanics, spectator mode, and a polished UI are deferred.
+
+7. Development Workflow (Git)
+All new work (features, bug fixes, etc.) must be performed on a dedicated feature branch, never directly on main. This "feature-branch" workflow is mandatory for maintaining code quality and stability.
+
+Standard Procedure for a New Task:
+
+Task Definition: The User (Project Lead) will define the goal for a new work session.
+
+Branch Creation: The User will instruct the AI agent to create a new, descriptively named branch from the main branch.
+
+Example prompt: "Conkeldurr, let's start the data ingestion service. Please create a new branch named feature/pokedex-data-ingestion."
+
+Development: All code generation and modifications for the task will occur on this branch. The agent will commit changes frequently with clear, conventional commit messages.
+
+Pull Request: Once the feature is complete, the User will instruct the agent to create a Pull Request (PR) against the main branch. The PR description should summarize the work done and the problem it solves, linking back to the initial task definition.
