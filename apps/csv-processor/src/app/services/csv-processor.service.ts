@@ -4,6 +4,11 @@ import * as fs from 'fs';
 import * as path from 'path';
 import csv from 'csv-parser';
 
+interface CsvProcessorConfig<T> {
+	transformRow: (data: any) => T;
+	prismaModel: keyof PrismaService;
+}
+
 @Injectable()
 export class CsvProcessorService {
 	private readonly logger = new Logger(CsvProcessorService.name);
@@ -52,37 +57,118 @@ export class CsvProcessorService {
 		try {
 			switch (fileName) {
 				case 'pokemon':
-					await this.processPokemonCsv(filePath);
+					await this.processCsv(filePath, {
+						transformRow: (data) => ({
+							id: parseInt(data.id),
+							name: data.identifier,
+							slug: data.identifier,
+						}),
+						prismaModel: 'pokemon',
+					});
 					break;
 				case 'types':
-					await this.processTypesCsv(filePath);
+					await this.processCsv(filePath, {
+						transformRow: (data) => ({
+							id: parseInt(data.id),
+							name: data.identifier,
+							slug: data.identifier,
+						}),
+						prismaModel: 'type',
+					});
 					break;
 				case 'moves':
-					await this.processMovesCsv(filePath);
+					await this.processCsv(filePath, {
+						transformRow: (data) => ({
+							id: parseInt(data.id),
+							name: data.identifier,
+							slug: data.identifier,
+							power: data.power ? parseInt(data.power) : null,
+							accuracy: data.accuracy ? parseInt(data.accuracy) : null,
+							pp: data.pp ? parseInt(data.pp) : null,
+							priority: parseInt(data.priority) || 0,
+							typeId: parseInt(data.type_id),
+							damageClassId: parseInt(data.damage_class_id),
+						}),
+						prismaModel: 'move',
+					});
 					break;
 				case 'abilities':
-					await this.processAbilitiesCsv(filePath);
+					await this.processCsv(filePath, {
+						transformRow: (data) => ({
+							id: parseInt(data.id),
+							name: data.identifier,
+							slug: data.identifier,
+						}),
+						prismaModel: 'ability',
+					});
 					break;
 				case 'stats':
-					await this.processStatsCsv(filePath);
+					await this.processCsv(filePath, {
+						transformRow: (data) => ({
+							id: parseInt(data.id),
+							name: data.identifier,
+							slug: data.identifier,
+						}),
+						prismaModel: 'stat',
+					});
 					break;
 				case 'items':
-					await this.processItemsCsv(filePath);
+					await this.processCsv(filePath, {
+						transformRow: (data) => ({
+							id: parseInt(data.id),
+							name: data.identifier,
+							slug: data.identifier,
+						}),
+						prismaModel: 'item',
+					});
 					break;
 				case 'move_damage_classes':
-					await this.processDamageClassesCsv(filePath);
+					await this.processCsv(filePath, {
+						transformRow: (data) => ({
+							id: parseInt(data.id),
+							name: data.identifier,
+							slug: data.identifier,
+						}),
+						prismaModel: 'damageClass',
+					});
 					break;
 				case 'pokemon_types':
-					await this.processPokemonTypesCsv(filePath);
+					await this.processCsv(filePath, {
+						transformRow: (data) => ({
+							pokemonId: parseInt(data.pokemon_id),
+							typeId: parseInt(data.type_id),
+						}),
+						prismaModel: 'pokemonToType',
+					});
 					break;
 				case 'pokemon_moves':
-					await this.processPokemonMovesCsv(filePath);
+					await this.processCsv(filePath, {
+						transformRow: (data) => ({
+							pokemonId: parseInt(data.pokemon_id),
+							moveId: parseInt(data.move_id),
+						}),
+						prismaModel: 'pokemonToMove',
+					});
 					break;
 				case 'pokemon_abilities':
-					await this.processPokemonAbilitiesCsv(filePath);
+					await this.processCsv(filePath, {
+						transformRow: (data) => ({
+							pokemonId: parseInt(data.pokemon_id),
+							abilityId: parseInt(data.ability_id),
+							isHidden: data.is_hidden === '1',
+						}),
+						prismaModel: 'pokemonToAbility',
+					});
 					break;
 				case 'pokemon_stats':
-					await this.processPokemonStatsCsv(filePath);
+					await this.processCsv(filePath, {
+						transformRow: (data) => ({
+							pokemonId: parseInt(data.pokemon_id),
+							statId: parseInt(data.stat_id),
+							baseStat: parseInt(data.base_stat),
+						}),
+						prismaModel: 'pokemonToStat',
+					});
 					break;
 				default:
 					this.logger.warn(`No processor found for ${fileName}.csv`);
@@ -92,26 +178,27 @@ export class CsvProcessorService {
 		}
 	}
 
-	private async processPokemonCsv(filePath: string): Promise<void> {
-		const results: any[] = [];
+	private async processCsv<T>(filePath: string, config: CsvProcessorConfig<T>): Promise<void> {
+		const results: T[] = [];
 
 		return new Promise((resolve, reject) => {
 			fs.createReadStream(filePath)
 				.pipe(csv())
 				.on('data', (data) => {
-					results.push({
-						id: parseInt(data.id),
-						name: data.identifier,
-						slug: data.identifier,
-					});
+					results.push(config.transformRow(data));
 				})
 				.on('end', async () => {
 					try {
-						await this.prisma.pokemon.createMany({
+						const prismaModel = this.prisma[config.prismaModel] as any;
+						await prismaModel.createMany({
 							data: results,
 							skipDuplicates: true,
 						});
-						this.logger.log(`Inserted ${results.length} Pokemon records`);
+
+						// Generate log message from Prisma model name
+						const modelName = this.formatModelNameForLog(config.prismaModel);
+						this.logger.log(`Inserted ${results.length} ${modelName} records`);
+
 						resolve();
 					} catch (error) {
 						reject(error);
@@ -121,297 +208,14 @@ export class CsvProcessorService {
 		});
 	}
 
-	private async processTypesCsv(filePath: string): Promise<void> {
-		const results: any[] = [];
+	private formatModelNameForLog(modelKey: keyof PrismaService): string {
+		// Convert camelCase to Title Case with spaces
+		const formatted = modelKey
+			.toString()
+			.replace(/([A-Z])/g, ' $1') // Add space before capital letters
+			.replace(/^./, (str) => str.toUpperCase()) // Capitalize first letter
+			.trim();
 
-		return new Promise((resolve, reject) => {
-			fs.createReadStream(filePath)
-				.pipe(csv())
-				.on('data', (data) => {
-					results.push({
-						id: parseInt(data.id),
-						name: data.identifier,
-						slug: data.identifier,
-					});
-				})
-				.on('end', async () => {
-					try {
-						await this.prisma.type.createMany({
-							data: results,
-							skipDuplicates: true,
-						});
-						this.logger.log(`Inserted ${results.length} Type records`);
-						resolve();
-					} catch (error) {
-						reject(error);
-					}
-				})
-				.on('error', reject);
-		});
-	}
-
-	private async processMovesCsv(filePath: string): Promise<void> {
-		const results: any[] = [];
-
-		return new Promise((resolve, reject) => {
-			fs.createReadStream(filePath)
-				.pipe(csv())
-				.on('data', (data) => {
-					results.push({
-						id: parseInt(data.id),
-						name: data.identifier,
-						slug: data.identifier,
-						power: data.power ? parseInt(data.power) : null,
-						accuracy: data.accuracy ? parseInt(data.accuracy) : null,
-						pp: data.pp ? parseInt(data.pp) : null,
-						priority: parseInt(data.priority) || 0,
-						typeId: parseInt(data.type_id),
-						damageClassId: parseInt(data.damage_class_id),
-					});
-				})
-				.on('end', async () => {
-					try {
-						await this.prisma.move.createMany({
-							data: results,
-							skipDuplicates: true,
-						});
-						this.logger.log(`Inserted ${results.length} Move records`);
-						resolve();
-					} catch (error) {
-						reject(error);
-					}
-				})
-				.on('error', reject);
-		});
-	}
-
-	private async processAbilitiesCsv(filePath: string): Promise<void> {
-		const results: any[] = [];
-
-		return new Promise((resolve, reject) => {
-			fs.createReadStream(filePath)
-				.pipe(csv())
-				.on('data', (data) => {
-					results.push({
-						id: parseInt(data.id),
-						name: data.identifier,
-						slug: data.identifier,
-					});
-				})
-				.on('end', async () => {
-					try {
-						await this.prisma.ability.createMany({
-							data: results,
-							skipDuplicates: true,
-						});
-						this.logger.log(`Inserted ${results.length} Ability records`);
-						resolve();
-					} catch (error) {
-						reject(error);
-					}
-				})
-				.on('error', reject);
-		});
-	}
-
-	private async processStatsCsv(filePath: string): Promise<void> {
-		const results: any[] = [];
-
-		return new Promise((resolve, reject) => {
-			fs.createReadStream(filePath)
-				.pipe(csv())
-				.on('data', (data) => {
-					results.push({
-						id: parseInt(data.id),
-						name: data.identifier,
-						slug: data.identifier,
-					});
-				})
-				.on('end', async () => {
-					try {
-						await this.prisma.stat.createMany({
-							data: results,
-							skipDuplicates: true,
-						});
-						this.logger.log(`Inserted ${results.length} Stat records`);
-						resolve();
-					} catch (error) {
-						reject(error);
-					}
-				})
-				.on('error', reject);
-		});
-	}
-
-	private async processItemsCsv(filePath: string): Promise<void> {
-		const results: any[] = [];
-
-		return new Promise((resolve, reject) => {
-			fs.createReadStream(filePath)
-				.pipe(csv())
-				.on('data', (data) => {
-					results.push({
-						id: parseInt(data.id),
-						name: data.identifier,
-						slug: data.identifier,
-					});
-				})
-				.on('end', async () => {
-					try {
-						await this.prisma.item.createMany({
-							data: results,
-							skipDuplicates: true,
-						});
-						this.logger.log(`Inserted ${results.length} Item records`);
-						resolve();
-					} catch (error) {
-						reject(error);
-					}
-				})
-				.on('error', reject);
-		});
-	}
-
-	private async processDamageClassesCsv(filePath: string): Promise<void> {
-		const results: any[] = [];
-
-		return new Promise((resolve, reject) => {
-			fs.createReadStream(filePath)
-				.pipe(csv())
-				.on('data', (data) => {
-					results.push({
-						id: parseInt(data.id),
-						name: data.identifier,
-						slug: data.identifier,
-					});
-				})
-				.on('end', async () => {
-					try {
-						await this.prisma.damageClass.createMany({
-							data: results,
-							skipDuplicates: true,
-						});
-						this.logger.log(`Inserted ${results.length} DamageClass records`);
-						resolve();
-					} catch (error) {
-						reject(error);
-					}
-				})
-				.on('error', reject);
-		});
-	}
-
-	private async processPokemonTypesCsv(filePath: string): Promise<void> {
-		const results: any[] = [];
-
-		return new Promise((resolve, reject) => {
-			fs.createReadStream(filePath)
-				.pipe(csv())
-				.on('data', (data) => {
-					results.push({
-						pokemonId: parseInt(data.pokemon_id),
-						typeId: parseInt(data.type_id),
-					});
-				})
-				.on('end', async () => {
-					try {
-						await this.prisma.pokemonToType.createMany({
-							data: results,
-							skipDuplicates: true,
-						});
-						this.logger.log(`Inserted ${results.length} PokemonToType records`);
-						resolve();
-					} catch (error) {
-						reject(error);
-					}
-				})
-				.on('error', reject);
-		});
-	}
-
-	private async processPokemonMovesCsv(filePath: string): Promise<void> {
-		const results: any[] = [];
-
-		return new Promise((resolve, reject) => {
-			fs.createReadStream(filePath)
-				.pipe(csv())
-				.on('data', (data) => {
-					results.push({
-						pokemonId: parseInt(data.pokemon_id),
-						moveId: parseInt(data.move_id),
-					});
-				})
-				.on('end', async () => {
-					try {
-						await this.prisma.pokemonToMove.createMany({
-							data: results,
-							skipDuplicates: true,
-						});
-						this.logger.log(`Inserted ${results.length} PokemonToMove records`);
-						resolve();
-					} catch (error) {
-						reject(error);
-					}
-				})
-				.on('error', reject);
-		});
-	}
-
-	private async processPokemonAbilitiesCsv(filePath: string): Promise<void> {
-		const results: any[] = [];
-
-		return new Promise((resolve, reject) => {
-			fs.createReadStream(filePath)
-				.pipe(csv())
-				.on('data', (data) => {
-					results.push({
-						pokemonId: parseInt(data.pokemon_id),
-						abilityId: parseInt(data.ability_id),
-						isHidden: data.is_hidden === '1',
-					});
-				})
-				.on('end', async () => {
-					try {
-						await this.prisma.pokemonToAbility.createMany({
-							data: results,
-							skipDuplicates: true,
-						});
-						this.logger.log(`Inserted ${results.length} PokemonToAbility records`);
-						resolve();
-					} catch (error) {
-						reject(error);
-					}
-				})
-				.on('error', reject);
-		});
-	}
-
-	private async processPokemonStatsCsv(filePath: string): Promise<void> {
-		const results: any[] = [];
-
-		return new Promise((resolve, reject) => {
-			fs.createReadStream(filePath)
-				.pipe(csv())
-				.on('data', (data) => {
-					results.push({
-						pokemonId: parseInt(data.pokemon_id),
-						statId: parseInt(data.stat_id),
-						baseStat: parseInt(data.base_stat),
-					});
-				})
-				.on('end', async () => {
-					try {
-						await this.prisma.pokemonToStat.createMany({
-							data: results,
-							skipDuplicates: true,
-						});
-						this.logger.log(`Inserted ${results.length} PokemonToStat records`);
-						resolve();
-					} catch (error) {
-						reject(error);
-					}
-				})
-				.on('error', reject);
-		});
+		return formatted;
 	}
 }
