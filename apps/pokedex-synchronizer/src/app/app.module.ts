@@ -10,17 +10,8 @@ import { SyncPokedexCommand } from './commands/sync.command';
 import { elasticsearchConfig } from './config/elasticsearch.config';
 
 @Module({
-  imports: [
-    CommandModule,
-    ElasticsearchModule.register(elasticsearchConfig),
-  ],
-  controllers: [AppController],
-  providers: [
-    AppService,
-    PokedexSynchronizerService,
-    PokemonTransformerService,
-    PokedexElasticsearchService,
-    SyncPokedexCommand,
-  ],
+	imports: [CommandModule, ElasticsearchModule.register(elasticsearchConfig)],
+	controllers: [AppController],
+	providers: [AppService, PokedexSynchronizerService, PokemonTransformerService, PokedexElasticsearchService, SyncPokedexCommand],
 })
 export class AppModule {}
