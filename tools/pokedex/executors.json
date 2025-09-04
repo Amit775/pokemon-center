@@ -1,0 +1,14 @@
+{
+	"executors": {
+		"pokedex-seed": {
+			"implementation": "./src/executors/pokedex-seed/pokedex-seed",
+			"schema": "./src/executors/pokedex-seed/schema.json",
+			"description": "pokedex-seed executor"
+		},
+		"pokedex-sync": {
+			"implementation": "./src/executors/pokedex-sync/pokedex-sync",
+			"schema": "./src/executors/pokedex-sync/schema.json",
+			"description": "pokedex-sync executor"
+		}
+	}
+}
