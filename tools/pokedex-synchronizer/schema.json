@@ -1,0 +1,15 @@
+{
+	"$schema": "https://json-schema.org/schema",
+	"version": 2,
+	"title": "PokedexSynchronizer executor",
+	"description": "Synchronizes Pokemon data from PostgreSQL to Elasticsearch",
+	"type": "object",
+	"properties": {
+		"elasticsearchUrl": {
+			"type": "string",
+			"description": "Elasticsearch server URL",
+			"default": "http://localhost:9200"
+		}
+	},
+	"required": []
+}

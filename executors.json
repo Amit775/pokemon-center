@@ -1,0 +1,9 @@
+{
+	"executors": {
+		"pokedex-synchronizer": {
+			"implementation": "./tools/pokedex-synchronizer/pokedex-synchronizer",
+			"schema": "./tools/pokedex-synchronizer/schema.json",
+			"description": "pokedex-synchronizer executor"
+		}
+	}
+}
