@@ -19,6 +19,7 @@
 			"@pokemon-center/domain-arena": ["libs/domain-arena/src/index.ts"],
 			"@pokemon-center/domain-pokedex": ["libs/domain-pokedex/src/index.ts"],
 			"@pokemon-center/domain-school": ["libs/domain-school/src/index.ts"],
+			"@pokemon-center/pokemon-center-plugin": ["tools/pokemon-center-plugin/src/index.ts"],
 			"@pokemon-center/shared-entities": ["libs/shared-entities/src/index.ts"],
 			"@pokemon-center/ui-list": ["libs/ui-list/src/index.ts"]
 		}
