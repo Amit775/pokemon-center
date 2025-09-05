@@ -10,115 +10,1180 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// -------------------------------------------
-// 1. Core "Clean" Tables (Data from CSVs)
-// -------------------------------------------
+// ===========================================
+// CORE TABLES (matching CSV structure exactly)
+// ===========================================
 
+// Core Pokemon tables
 model Pokemon {
-  id        Int                @id @unique
-  name      String             @unique
-  slug      String             @unique
-  // Relation Fields (not columns)
-  types     PokemonToType[]
-  moves     PokemonToMove[]
-  abilities PokemonToAbility[]
-  stats     PokemonToStat[]
+  id              Int     @id
+  identifier      String
+  species_id      Int
+  height          Int
+  weight          Int
+  base_experience Int
+  order           Int?
+  is_default      Int
+
+  // Relations
+  species         PokemonSpecies @relation(fields: [species_id], references: [id])
+  forms           PokemonForms[]
+  abilities       PokemonAbilities[]
+  moves           PokemonMoves[]
+  stats           PokemonStats[]
+  types           PokemonTypes[]
+  items           PokemonItems[]
+  gameIndices     PokemonGameIndices[]
+  encounters      Encounters[]
+
+  @@map("pokemon")
 }
 
-model Type {
-  id      Int             @id @unique
-  name    String          @unique
-  slug    String          @unique
-  // Relation Fields (not columns)
-  pokemon PokemonToType[]
-  moves   Move[] // Allows querying for all moves of this type
+model PokemonSpecies {
+  id                      Int     @id
+  identifier              String
+  generation_id           Int
+  evolves_from_species_id Int?
+  evolution_chain_id      Int
+  color_id                Int
+  shape_id                Int
+  habitat_id              Int?
+  gender_rate             Int
+  capture_rate            Int
+  base_happiness          Int
+  is_baby                 Int
+  hatch_counter           Int
+  has_gender_differences  Int
+  growth_rate_id          Int
+  forms_switchable        Int
+  is_legendary            Int
+  is_mythical             Int
+  order                   Int
+  conquest_order          Int?
+
+  // Relations
+  generation              Generations @relation(fields: [generation_id], references: [id])
+  evolvesFrom             PokemonSpecies? @relation("SpeciesEvolution", fields: [evolves_from_species_id], references: [id])
+  evolvesTo               PokemonSpecies[] @relation("SpeciesEvolution")
+  evolutionChain          EvolutionChains @relation(fields: [evolution_chain_id], references: [id])
+  color                   PokemonColors @relation(fields: [color_id], references: [id])
+  shape                   PokemonShapes @relation(fields: [shape_id], references: [id])
+  habitat                 PokemonHabitats? @relation(fields: [habitat_id], references: [id])
+  growthRate              GrowthRates @relation(fields: [growth_rate_id], references: [id])
+  pokemon                 Pokemon[]
+  eggGroups               PokemonEggGroups[]
+  dexNumbers              PokemonDexNumbers[]
+  evolution               PokemonEvolution[]
+  partySpecies            PokemonEvolution[] @relation("PartySpecies")
+  tradeSpecies            PokemonEvolution[] @relation("TradeSpecies")
+
+  @@map("pokemon_species")
 }
 
-model Move {
-  id            Int           @id @unique
-  name          String        @unique
-  slug          String        @unique
-  power         Int?
-  accuracy      Int?
-  pp            Int?
-  priority      Int           @default(0)
-  typeId        Int
-  damageClassId Int
-  type          Type          @relation(fields: [typeId], references: [id])
-  damageClass   DamageClass   @relation(fields: [damageClassId], references: [id])
-  // Relation Fields (not columns)
-  pokemon       PokemonToMove[]
+model PokemonForms {
+  id                              Int     @id
+  identifier                      String
+  form_identifier                 String?
+  pokemon_id                      Int
+  introduced_in_version_group_id  Int
+  is_default                      Int
+  is_battle_only                  Int
+  is_mega                         Int
+  form_order                      Int
+  order                           Int
+
+  // Relations
+  pokemon                         Pokemon @relation(fields: [pokemon_id], references: [id])
+  versionGroup                    VersionGroups @relation(fields: [introduced_in_version_group_id], references: [id])
+  generations                     PokemonFormGenerations[]
+  types                           PokemonFormTypes[]
+
+  @@map("pokemon_forms")
 }
 
-model Ability {
-  id      Int                @id @unique
-  name    String             @unique
-  slug    String             @unique
-  // Relation Fields (not columns)
-  pokemon PokemonToAbility[]
+// Core Move tables
+model Moves {
+  id                      Int     @id
+  identifier              String
+  generation_id           Int
+  type_id                 Int
+  power                   Int?
+  pp                      Int?
+  accuracy                Int?
+  priority                Int
+  target_id               Int
+  damage_class_id         Int
+  effect_id               Int?
+  effect_chance           Int?
+  contest_type_id         Int?
+  contest_effect_id       Int?
+  super_contest_effect_id Int?
+
+  // Relations
+  generation              Generations @relation(fields: [generation_id], references: [id])
+  type                    Types @relation(fields: [type_id], references: [id])
+  target                  MoveTargets @relation(fields: [target_id], references: [id])
+  damageClass             MoveDamageClasses @relation(fields: [damage_class_id], references: [id])
+  effect                  MoveEffects? @relation(fields: [effect_id], references: [id])
+  contestType             ContestTypes? @relation(fields: [contest_type_id], references: [id])
+  contestEffect           ContestEffects? @relation(fields: [contest_effect_id], references: [id])
+  superContestEffect      SuperContestEffects? @relation(fields: [super_contest_effect_id], references: [id])
+  pokemonMoves            PokemonMoves[]
+  machines                Machines[]
+  meta                    MoveMeta[]
+  metaStatChanges         MoveMetaStatChanges[]
+  flagMap                 MoveFlagMap[]
+  contestCombos           ContestCombos[] @relation("FirstMove")
+  contestCombosSecond     ContestCombos[] @relation("SecondMove")
+  superContestCombos      SuperContestCombos[] @relation("SuperFirstMove")
+  superContestCombosSecond SuperContestCombos[] @relation("SuperSecondMove")
+  knownMoves              PokemonEvolution[] @relation("KnownMove")
+
+  @@map("moves")
 }
 
-model Item {
-  id   Int    @id @unique
-  name String @unique
-  slug String @unique
+model MoveEffects {
+  id Int @id
+
+  // Relations
+  moves                   Moves[]
+
+  @@map("move_effects")
 }
 
-model Stat {
-  id      Int             @id @unique
-  name    String          @unique
-  slug    String          @unique
-  // Relation Fields (not columns)
-  pokemon PokemonToStat[]
+model MoveTargets {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  moves      Moves[]
+
+  @@map("move_targets")
 }
 
-model DamageClass {
-  id    Int    @id @unique
-  name  String @unique // e.g., "Physical", "Special", "Status"
-  slug  String @unique
-  moves Move[]
+model MoveDamageClasses {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  moves      Moves[]
+  types      Types[]
+
+  @@map("move_damage_classes")
+}
+
+// Core Type tables
+model Types {
+  id              Int     @id
+  identifier      String
+  generation_id   Int
+  damage_class_id Int?
+
+  // Relations
+  generation      Generations @relation(fields: [generation_id], references: [id])
+  damageClass     MoveDamageClasses? @relation(fields: [damage_class_id], references: [id])
+  moves           Moves[]
+  pokemonTypes    PokemonTypes[]
+  formTypes       PokemonFormTypes[]
+  gameIndices     TypeGameIndices[]
+  efficacy        TypeEfficacy[] @relation("DamageType")
+  efficacyTarget  TypeEfficacy[] @relation("TargetType")
+  berryFlavors    BerryFlavors[]
+  natures         Natures[] @relation("DecreasedStat")
+  naturesIncreased Natures[] @relation("IncreasedStat")
+  knownMoveTypes  PokemonEvolution[] @relation("KnownMoveType")
+  partyTypes      PokemonEvolution[] @relation("PartyType")
+  naturalGiftTypes Berries[]
+
+  @@map("types")
+}
+
+// Core Ability tables
+model Abilities {
+  id              Int     @id
+  identifier      String
+  generation_id   Int
+  is_main_series  Int
+
+  // Relations
+  generation      Generations @relation(fields: [generation_id], references: [id])
+  pokemonAbilities PokemonAbilities[]
+
+  @@map("abilities")
+}
+
+// Core Item tables
+model Items {
+  id               Int     @id
+  identifier       String
+  category_id      Int
+  cost             Int
+  fling_power      Int?
+  fling_effect_id  Int?
+
+  // Relations
+  category         ItemCategories @relation(fields: [category_id], references: [id])
+  flingEffect      ItemFlingEffects? @relation(fields: [fling_effect_id], references: [id])
+  pokemonItems     PokemonItems[]
+  machines         Machines[]
+  berries          Berries[]
+  gameIndices      ItemGameIndices[]
+  flagMap          ItemFlagMap[]
+  babyTriggerItems EvolutionChains[]
+  triggerItems     PokemonEvolution[] @relation("TriggerItem")
+  heldItems        PokemonEvolution[] @relation("HeldItem")
+
+  @@map("items")
+}
+
+model ItemCategories {
+  id         Int    @id
+  pocket_id  Int
+  identifier String
+
+  // Relations
+  pocket     ItemPockets @relation(fields: [pocket_id], references: [id])
+  items      Items[]
+
+  @@map("item_categories")
+}
+
+model ItemPockets {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  categories ItemCategories[]
+
+  @@map("item_pockets")
+}
+
+// Core Stat tables
+model Stats {
+  id              Int     @id
+  damage_class_id Int?
+  identifier      String
+  is_battle_only  Int
+  game_index      Int?
+
+  // Relations
+  pokemonStats    PokemonStats[]
+  moveMetaStatChanges MoveMetaStatChanges[]
+  characteristics Characteristics[]
+  natures         Natures[] @relation("DecreasedStat")
+  naturesIncreased Natures[] @relation("IncreasedStat")
+
+  @@map("stats")
+}
+
+// Core Generation/Version tables
+model Generations {
+  id              Int     @id
+  main_region_id  Int
+  identifier      String
+
+  // Relations
+  region          Regions @relation(fields: [main_region_id], references: [id])
+  pokemonSpecies  PokemonSpecies[]
+  moves           Moves[]
+  types           Types[]
+  abilities       Abilities[]
+  pokemonFormGenerations PokemonFormGenerations[]
+  itemGameIndices ItemGameIndices[]
+  typeGameIndices TypeGameIndices[]
+  locationGameIndices LocationGameIndices[]
+  versionGroups   VersionGroups[]
+
+  @@map("generations")
+}
+
+model VersionGroups {
+  id            Int     @id
+  identifier    String
+  generation_id Int
+  order         Int
+
+  // Relations
+  generation    Generations @relation(fields: [generation_id], references: [id])
+  versions      Versions[]
+  encounterSlots EncounterSlots[]
+  machines      Machines[]
+  versionGroupPokemonMoveMethods VersionGroupPokemonMoveMethods[]
+  versionGroupRegions VersionGroupRegions[]
+  pokedexVersionGroups PokedexVersionGroups[]
+  pokemonMoves  PokemonMoves[]
+  pokemonForms PokemonForms[]
+
+  @@map("version_groups")
+}
+
+model Versions {
+  id               Int     @id
+  version_group_id Int
+  identifier       String
+
+  // Relations
+  versionGroup     VersionGroups @relation(fields: [version_group_id], references: [id])
+  encounters       Encounters[]
+  pokemonItems     PokemonItems[]
+  pokemonGameIndices PokemonGameIndices[]
+  locationAreaEncounterRates LocationAreaEncounterRates[]
+
+  @@map("versions")
+}
+
+// Core Region/Location tables
+model Regions {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  generations Generations[]
+  locations   Locations[]
+  pokedexes   Pokedexes[]
+  versionGroups VersionGroupRegions[]
+
+  @@map("regions")
+}
+
+model Locations {
+  id         Int     @id
+  region_id  Int?
+  identifier String
+
+  // Relations
+  region     Regions? @relation(fields: [region_id], references: [id])
+  areas      LocationAreas[]
+  gameIndices LocationGameIndices[]
+  evolution  PokemonEvolution[]
+
+  @@map("locations")
+}
+
+model LocationAreas {
+  id         Int     @id
+  location_id Int
+  game_index  Int
+  identifier  String?
+
+  // Relations
+  location   Locations @relation(fields: [location_id], references: [id])
+  encounters Encounters[]
+  encounterRates LocationAreaEncounterRates[]
+
+  @@map("location_areas")
 }
 
 
-// -------------------------------------------
-// 2. Relation (Junction) Tables
-// -------------------------------------------
+// Core Pokedex tables
+model Pokedexes {
+  id             Int     @id
+  region_id      Int?
+  identifier     String
+  is_main_series Int
 
-model PokemonToType {
-  pokemonId Int
-  typeId    Int
-  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
-  type      Type    @relation(fields: [typeId], references: [id])
+  // Relations
+  region         Regions? @relation(fields: [region_id], references: [id])
+  dexNumbers     PokemonDexNumbers[]
+  versionGroups  PokedexVersionGroups[]
 
-  @@id([pokemonId, typeId])
+  @@map("pokedexes")
 }
 
-model PokemonToMove {
-  pokemonId Int
-  moveId    Int
-  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
-  move      Move    @relation(fields: [moveId], references: [id])
+// Core Evolution tables
+model EvolutionChains {
+  id                  Int     @id
+  baby_trigger_item_id Int?
 
-  @@id([pokemonId, moveId])
+  // Relations
+  babyTriggerItem     Items? @relation(fields: [baby_trigger_item_id], references: [id])
+  species             PokemonSpecies[]
+
+  @@map("evolution_chains")
 }
 
-model PokemonToAbility {
-  pokemonId Int
-  abilityId Int
-  isHidden  Boolean @default(false)
-  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
-  ability   Ability @relation(fields: [abilityId], references: [id])
+model EvolutionTriggers {
+  id         Int    @id
+  identifier String
 
-  @@id([pokemonId, abilityId])
+  // Relations
+  evolution  PokemonEvolution[]
+
+  @@map("evolution_triggers")
 }
 
-model PokemonToStat {
-  pokemonId Int
-  statId    Int
-  baseStat  Int
-  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
-  stat      Stat    @relation(fields: [statId], references: [id])
+model PokemonEvolution {
+  id                      Int     @id
+  evolved_species_id      Int
+  evolution_trigger_id    Int
+  trigger_item_id         Int?
+  minimum_level           Int?
+  gender_id               Int?
+  location_id             Int?
+  held_item_id            Int?
+  time_of_day             String?
+  known_move_id           Int?
+  known_move_type_id      Int?
+  minimum_happiness       Int?
+  minimum_beauty          Int?
+  minimum_affection       Int?
+  relative_physical_stats Int?
+  party_species_id        Int?
+  party_type_id           Int?
+  trade_species_id        Int?
+  needs_overworld_rain    Int
+  turn_upside_down        Int
 
-  @@id([pokemonId, statId])
+  // Relations
+  evolvedSpecies          PokemonSpecies @relation(fields: [evolved_species_id], references: [id])
+  evolutionTrigger        EvolutionTriggers @relation(fields: [evolution_trigger_id], references: [id])
+  triggerItem             Items? @relation("TriggerItem", fields: [trigger_item_id], references: [id])
+  gender                  Genders? @relation(fields: [gender_id], references: [id])
+  location                Locations? @relation(fields: [location_id], references: [id])
+  heldItem                Items? @relation("HeldItem", fields: [held_item_id], references: [id])
+  knownMove               Moves? @relation("KnownMove", fields: [known_move_id], references: [id])
+  knownMoveType           Types? @relation("KnownMoveType", fields: [known_move_type_id], references: [id])
+  partySpecies            PokemonSpecies? @relation("PartySpecies", fields: [party_species_id], references: [id])
+  partyType               Types? @relation("PartyType", fields: [party_type_id], references: [id])
+  tradeSpecies            PokemonSpecies? @relation("TradeSpecies", fields: [trade_species_id], references: [id])
+
+  @@map("pokemon_evolution")
 }
 
+// Core Growth Rate tables
+model GrowthRates {
+  id         Int     @id
+  identifier String
+  formula    String
+
+  // Relations
+  species    PokemonSpecies[]
+  experience Experience[]
+
+  @@map("growth_rates")
+}
+
+// Core Experience tables
+model Experience {
+  growth_rate_id Int
+  level          Int
+  experience     Int
+
+  // Relations
+  growthRate     GrowthRates @relation(fields: [growth_rate_id], references: [id])
+
+  @@id([growth_rate_id, level])
+  @@map("experience")
+}
+
+// Core Gender tables
+model Genders {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  evolution  PokemonEvolution[]
+
+  @@map("genders")
+}
+
+// Core Language tables
+model Languages {
+  id         Int    @id
+  iso639     String
+  iso3166    String
+  identifier String
+  official   Int
+  order      Int
+
+  @@map("languages")
+}
+
+// Core Egg Group tables
+model EggGroups {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  species    PokemonEggGroups[]
+
+  @@map("egg_groups")
+}
+
+// Core Nature tables
+model Natures {
+  id                  Int     @id
+  identifier          String
+  decreased_stat_id   Int
+  increased_stat_id   Int
+  hates_flavor_id     Int
+  likes_flavor_id     Int
+  game_index          Int
+
+  // Relations
+  decreasedStat       Stats @relation("DecreasedStat", fields: [decreased_stat_id], references: [id])
+  increasedStat       Stats @relation("IncreasedStat", fields: [increased_stat_id], references: [id])
+  battleStylePreferences NatureBattleStylePreferences[]
+  decreasedStatTypes  Types[] @relation("DecreasedStat")
+  increasedStatTypes  Types[] @relation("IncreasedStat")
+
+  @@map("natures")
+}
+
+// Core Contest tables
+model ContestTypes {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  moves      Moves[]
+  berryFlavors BerryFlavors[]
+
+  @@map("contest_types")
+}
+
+model ContestEffects {
+  id     Int @id
+  appeal Int
+  jam    Int
+
+  // Relations
+  moves  Moves[]
+
+  @@map("contest_effects")
+}
+
+// Core Super Contest tables
+model SuperContestEffects {
+  id     Int @id
+  appeal Int
+
+  // Relations
+  moves  Moves[]
+
+  @@map("super_contest_effects")
+}
+
+// Core Machine tables
+model Machines {
+  machine_number    Int
+  version_group_id  Int
+  item_id           Int
+  move_id           Int
+
+  // Relations
+  versionGroup      VersionGroups @relation(fields: [version_group_id], references: [id])
+  item              Items @relation(fields: [item_id], references: [id])
+  move              Moves @relation(fields: [move_id], references: [id])
+
+  @@id([machine_number, version_group_id])   
+  @@map("machines")
+}
+
+// Core Encounter tables
+model EncounterMethods {
+  id         Int     @id
+  identifier String
+  order      Int
+
+  // Relations
+  slots      EncounterSlots[]
+  encounterRates LocationAreaEncounterRates[]
+
+  @@map("encounter_methods")
+}
+
+model EncounterSlots {
+  id                   Int     @id
+  version_group_id     Int
+  encounter_method_id  Int
+  slot                 Int?
+  rarity               Int
+
+  // Relations
+  versionGroup         VersionGroups @relation(fields: [version_group_id], references: [id])
+  encounterMethod      EncounterMethods @relation(fields: [encounter_method_id], references: [id])
+  encounters           Encounters[]
+
+  @@map("encounter_slots")
+}
+
+model Encounters {
+  id                 Int     @id
+  version_id         Int
+  location_area_id   Int
+  encounter_slot_id  Int
+  pokemon_id         Int
+  min_level          Int
+  max_level          Int
+
+  // Relations
+  version            Versions @relation(fields: [version_id], references: [id])
+  locationArea       LocationAreas @relation(fields: [location_area_id], references: [id])
+  encounterSlot      EncounterSlots @relation(fields: [encounter_slot_id], references: [id])
+  pokemon            Pokemon @relation(fields: [pokemon_id], references: [id])
+  conditionValueMap  EncounterConditionValueMap[]
+
+  @@map("encounters")
+}
+
+model EncounterConditions {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  values     EncounterConditionValues[]
+
+  @@map("encounter_conditions")
+}
+
+model EncounterConditionValues {
+  id                      Int     @id
+  encounter_condition_id  Int
+  identifier              String
+  is_default              Int
+
+  // Relations
+  condition               EncounterConditions @relation(fields: [encounter_condition_id], references: [id])
+  conditionValueMap       EncounterConditionValueMap[]
+
+  @@map("encounter_condition_values")
+}
+
+model EncounterConditionValueMap {
+  encounter_id                    Int @id
+  encounter_condition_value_id    Int
+
+  // Relations
+  encounter                       Encounters @relation(fields: [encounter_id], references: [id])
+  conditionValue                  EncounterConditionValues @relation(fields: [encounter_condition_value_id], references: [id])
+
+  @@map("encounter_condition_value_map")
+}
+
+
+
+// Core Move Meta tables
+model MoveMetaCategories {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  meta       MoveMeta[]
+
+  @@map("move_meta_categories")
+}
+
+model MoveMetaAilments {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  meta       MoveMeta[]
+
+  @@map("move_meta_ailments")
+}
+
+model MoveMeta {
+  move_id         Int     @id
+  meta_category_id Int
+  meta_ailment_id  Int?
+  min_hits         Int?
+  max_hits         Int?
+  min_turns        Int?
+  max_turns        Int?
+  drain            Int
+  healing          Int
+  crit_rate        Int
+  ailment_chance   Int
+  flinch_chance    Int
+  stat_chance      Int
+
+  // Relations
+  move            Moves @relation(fields: [move_id], references: [id])
+  metaCategory    MoveMetaCategories @relation(fields: [meta_category_id], references: [id])
+  metaAilment     MoveMetaAilments? @relation(fields: [meta_ailment_id], references: [id])
+  statChanges     MoveMetaStatChanges[] @relation("MoveMetaStatChanges")
+
+  @@map("move_meta")
+}
+
+model MoveMetaStatChanges {
+  move_id Int
+  stat_id Int
+  change  Int
+
+  // Relations
+  move    Moves @relation(fields: [move_id], references: [id], map: "move_meta_stat_changes_move_id_fkey")
+  stat    Stats @relation(fields: [stat_id], references: [id])
+  meta    MoveMeta @relation("MoveMetaStatChanges", fields: [move_id], references: [move_id], map: "move_meta_stat_changes_move_id_fkey2")
+
+  @@id([move_id, stat_id])
+  @@map("move_meta_stat_changes")
+}
+
+// Core Move Flag tables
+model MoveFlags {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  flagMap    MoveFlagMap[]
+
+  @@map("move_flags")
+}
+
+model MoveFlagMap {
+  move_id      Int @id
+  move_flag_id Int
+
+  // Relations
+  move         Moves @relation(fields: [move_id], references: [id])
+  flag         MoveFlags @relation(fields: [move_flag_id], references: [id])
+
+  @@map("move_flag_map")
+}
+
+// Core Move Battle Style tables
+model MoveBattleStyles {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  naturePreferences NatureBattleStylePreferences[]
+
+  @@map("move_battle_styles")
+}
+
+// Core Item Flag tables
+model ItemFlags {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  flagMap    ItemFlagMap[]
+
+  @@map("item_flags")
+}
+
+model ItemFlagMap {
+  item_id      Int @id
+  item_flag_id Int
+
+  // Relations
+  item         Items @relation(fields: [item_id], references: [id])
+  flag         ItemFlags @relation(fields: [item_flag_id], references: [id])
+
+  @@map("item_flag_map")
+}
+
+model ItemFlingEffects {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  items      Items[]
+
+  @@map("item_fling_effects")
+}
+
+// Core Berry tables
+model Berries {
+  id                   Int     @id
+  item_id              Int
+  firmness_id          Int
+  natural_gift_power   Int?
+  natural_gift_type_id Int?
+  size                 Int
+  max_harvest          Int
+  growth_time          Int
+  soil_dryness         Int
+  smoothness           Int
+
+  // Relations
+  item                 Items @relation(fields: [item_id], references: [id])
+  firmness             BerryFirmness @relation(fields: [firmness_id], references: [id])
+  naturalGiftType      Types? @relation(fields: [natural_gift_type_id], references: [id])
+  flavors              BerryFlavors[]
+
+  @@map("berries")
+}
+
+model BerryFirmness {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  berries    Berries[]
+
+  @@map("berry_firmness")
+}
+
+model BerryFlavors {
+  berry_id        Int
+  contest_type_id Int
+  flavor          Int
+
+  // Relations
+  berry           Berries @relation(fields: [berry_id], references: [id])
+  contestType     ContestTypes @relation(fields: [contest_type_id], references: [id])
+  type            Types @relation(fields: [contest_type_id], references: [id], map: "berry_flavors_contest_type_id_fkey2")
+
+  @@id([berry_id, contest_type_id])
+  @@map("berry_flavors")
+}
+
+// Core Characteristic tables
+model Characteristics {
+  id          Int     @id
+  stat_id     Int
+  gene_mod_5  Int
+
+  // Relations
+  stat        Stats @relation(fields: [stat_id], references: [id])
+
+  @@map("characteristics")
+}
+
+
+// Core Contest Combo tables
+model ContestCombos {
+  first_move_id  Int @id
+  second_move_id Int
+
+  // Relations
+  firstMove      Moves @relation("FirstMove", fields: [first_move_id], references: [id])
+  secondMove     Moves @relation("SecondMove", fields: [second_move_id], references: [id])
+
+  @@map("contest_combos")
+}
+
+model SuperContestCombos {
+  first_move_id  Int @id
+  second_move_id Int
+
+  // Relations
+  firstMove      Moves @relation("SuperFirstMove", fields: [first_move_id], references: [id])
+  secondMove     Moves @relation("SuperSecondMove", fields: [second_move_id], references: [id])
+
+  @@map("super_contest_combos")
+}
+
+// Core Pokemon Move Method tables
+model PokemonMoveMethods {
+  id         Int     @id
+  identifier String
+
+  // Relations
+  pokemonMoves PokemonMoves[]
+  versionGroups VersionGroupPokemonMoveMethods[]
+
+  @@map("pokemon_move_methods")
+}
+
+model VersionGroupPokemonMoveMethods {
+  version_group_id        Int @id
+  pokemon_move_method_id  Int
+
+  // Relations
+  versionGroup            VersionGroups @relation(fields: [version_group_id], references: [id])
+  moveMethod              PokemonMoveMethods @relation(fields: [pokemon_move_method_id], references: [id])
+
+  @@map("version_group_pokemon_move_methods")
+}
+
+// Core Pokemon Shape tables
+model PokemonShapes {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  species    PokemonSpecies[]
+
+  @@map("pokemon_shapes")
+}
+
+// Core Pokemon Color tables
+model PokemonColors {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  species    PokemonSpecies[]
+
+  @@map("pokemon_colors")
+}
+
+// Core Pokemon Habitat tables
+model PokemonHabitats {
+  id         Int    @id
+  identifier String
+
+  // Relations
+  species    PokemonSpecies[]
+
+  @@map("pokemon_habitats")
+}
+
+// Core Type Efficacy tables
+model TypeEfficacy {
+  damage_type_id Int
+  target_type_id Int
+  damage_factor  Int
+
+  // Relations
+  damageType     Types @relation("DamageType", fields: [damage_type_id], references: [id])
+  targetType     Types @relation("TargetType", fields: [target_type_id], references: [id])
+
+  @@id([damage_type_id, target_type_id])     
+  @@map("type_efficacy")
+}
+
+
+// Core Version Group Region tables
+model VersionGroupRegions {
+  version_group_id Int @id
+  region_id        Int
+
+  // Relations
+  versionGroup     VersionGroups @relation(fields: [version_group_id], references: [id])
+  region           Regions @relation(fields: [region_id], references: [id])
+
+  @@map("version_group_regions")
+}
+
+// Core Pokedex Version Group tables
+model PokedexVersionGroups {
+  pokedex_id       Int @id
+  version_group_id Int
+
+  // Relations
+  pokedex          Pokedexes @relation(fields: [pokedex_id], references: [id])
+  versionGroup     VersionGroups @relation(fields: [version_group_id], references: [id])
+
+  @@map("pokedex_version_groups")
+}
+
+// ===========================================
+// RELATION TABLES (matching CSV structure exactly)
+// ===========================================
+
+// Pokemon relation tables
+model PokemonAbilities {
+  pokemon_id Int
+  ability_id Int
+  is_hidden  Int
+  slot       Int
+
+  // Relations
+  pokemon    Pokemon @relation(fields: [pokemon_id], references: [id])
+  ability    Abilities @relation(fields: [ability_id], references: [id])
+
+  @@id([pokemon_id, ability_id])
+  @@map("pokemon_abilities")
+}
+
+
+model PokemonMoves {
+  pokemon_id              Int
+  version_group_id        Int
+  move_id                 Int
+  pokemon_move_method_id  Int
+  level                   Int?
+  order                   Int?
+  mastery                 Int?
+
+  // Relations
+  pokemon                 Pokemon @relation(fields: [pokemon_id], references: [id])
+  versionGroup            VersionGroups @relation(fields: [version_group_id], references: [id])
+  move                    Moves @relation(fields: [move_id], references: [id])
+  moveMethod              PokemonMoveMethods @relation(fields: [pokemon_move_method_id], references: [id])
+
+  @@id([pokemon_id, version_group_id, move_id, pokemon_move_method_id])
+  @@map("pokemon_moves")
+}
+
+model PokemonStats {
+  pokemon_id Int
+  stat_id    Int
+  base_stat  Int
+  effort     Int
+
+  // Relations
+  pokemon    Pokemon @relation(fields: [pokemon_id], references: [id])
+  stat       Stats @relation(fields: [stat_id], references: [id])
+
+  @@id([pokemon_id, stat_id])
+  @@map("pokemon_stats")
+}
+
+model PokemonTypes {
+  pokemon_id Int
+  type_id    Int
+  slot       Int
+
+  // Relations
+  pokemon    Pokemon @relation(fields: [pokemon_id], references: [id])
+  type       Types @relation(fields: [type_id], references: [id])
+
+  @@id([pokemon_id, type_id])
+  @@map("pokemon_types")
+}
+
+
+model PokemonEggGroups {
+  species_id  Int
+  egg_group_id Int
+
+  // Relations
+  species     PokemonSpecies @relation(fields: [species_id], references: [id])
+  eggGroup    EggGroups @relation(fields: [egg_group_id], references: [id])
+
+  @@id([species_id, egg_group_id])
+  @@map("pokemon_egg_groups")
+}
+
+model PokemonItems {
+  pokemon_id Int
+  version_id Int
+  item_id    Int
+  rarity     Int
+
+  // Relations
+  pokemon    Pokemon @relation(fields: [pokemon_id], references: [id])
+  version    Versions @relation(fields: [version_id], references: [id])
+  item       Items @relation(fields: [item_id], references: [id])
+
+  @@id([pokemon_id, version_id, item_id])
+  @@map("pokemon_items")
+}
+
+model PokemonGameIndices {
+  pokemon_id Int
+  version_id Int
+  game_index Int
+
+  // Relations
+  pokemon    Pokemon @relation(fields: [pokemon_id], references: [id])
+  version    Versions @relation(fields: [version_id], references: [id])
+
+  @@id([pokemon_id, version_id])
+  @@map("pokemon_game_indices")
+}
+
+model PokemonDexNumbers {
+  species_id    Int
+  pokedex_id    Int
+  pokedex_number Int
+
+  // Relations
+  species       PokemonSpecies @relation(fields: [species_id], references: [id])
+  pokedex       Pokedexes @relation(fields: [pokedex_id], references: [id])
+
+  @@id([species_id, pokedex_id])
+  @@map("pokemon_dex_numbers")
+}
+
+model PokemonFormGenerations {
+  pokemon_form_id Int
+  generation_id   Int
+  game_index      Int
+
+  // Relations
+  pokemonForm    PokemonForms @relation(fields: [pokemon_form_id], references: [id])
+  generation     Generations @relation(fields: [generation_id], references: [id])
+
+  @@id([pokemon_form_id, generation_id])
+  @@map("pokemon_form_generations")
+}
+
+model PokemonFormTypes {
+  pokemon_form_id Int
+  type_id         Int
+  slot            Int
+
+  // Relations
+  pokemonForm    PokemonForms @relation(fields: [pokemon_form_id], references: [id])
+  type           Types @relation(fields: [type_id], references: [id])
+
+  @@id([pokemon_form_id, type_id])
+  @@map("pokemon_form_types")
+}
+
+
+
+
+
+
+model TypeGameIndices {
+  type_id       Int
+  generation_id Int
+  game_index    Int
+
+  // Relations
+  type          Types @relation(fields: [type_id], references: [id])
+  generation    Generations @relation(fields: [generation_id], references: [id])
+
+  @@id([type_id, generation_id])
+  @@map("type_game_indices")
+}
+
+
+
+model ItemGameIndices {
+  item_id       Int
+  generation_id Int
+  game_index    Int
+
+  // Relations
+  item          Items @relation(fields: [item_id], references: [id])
+  generation    Generations @relation(fields: [generation_id], references: [id])
+
+  @@id([item_id, generation_id])
+  @@map("item_game_indices")
+}
+
+
+
+model LocationGameIndices {
+  location_id   Int
+  generation_id Int
+  game_index    Int
+
+  // Relations
+  location      Locations @relation(fields: [location_id], references: [id])
+  generation    Generations @relation(fields: [generation_id], references: [id])
+
+  @@id([location_id, generation_id])
+  @@map("location_game_indices")
+}
+
+
+model LocationAreaEncounterRates {
+  location_area_id     Int
+  encounter_method_id  Int
+  version_id           Int
+  rate                 Int
+
+  // Relations
+  locationArea         LocationAreas @relation(fields: [location_area_id], references: [id])
+  encounterMethod      EncounterMethods @relation(fields: [encounter_method_id], references: [id])
+  version              Versions @relation(fields: [version_id], references: [id])
+
+  @@id([location_area_id, encounter_method_id, version_id])
+  @@map("location_area_encounter_rates")    
+}
+
+
+model NatureBattleStylePreferences {
+  nature_id           Int     @id
+  move_battle_style_id Int
+  low_hp_preference   Int
+  high_hp_preference  Int
+
+  // Relations
+  nature              Natures @relation(fields: [nature_id], references: [id])
+  battleStyle         MoveBattleStyles @relation(fields: [move_battle_style_id], references: [id])
+
+  @@map("nature_battle_style_preferences")
+}

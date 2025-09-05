@@ -1,1 +1,3 @@
-export interface PokedexSeedExecutorSchema {} // eslint-disable-line
+export interface PokedexSeedExecutorSchema {
+	tables?: string[];
+} // eslint-disable-line
