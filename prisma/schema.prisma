@@ -23,7 +23,7 @@ model Pokemon {
   weight          Int
   base_experience Int
   order           Int
-  is_default      Boolean
+  is_default      Int
 
   // Relations
   species         PokemonSpecies @relation(fields: [species_id], references: [id])
@@ -53,13 +53,13 @@ model PokemonSpecies {
   gender_rate             Int
   capture_rate            Int
   base_happiness          Int
-  is_baby                 Boolean
+  is_baby                 Int
   hatch_counter           Int
-  has_gender_differences  Boolean
+  has_gender_differences  Int
   growth_rate_id          Int
-  forms_switchable        Boolean
-  is_legendary            Boolean
-  is_mythical             Boolean
+  forms_switchable        Int
+  is_legendary            Int
+  is_mythical             Int
   order                   Int
   conquest_order          Int?
 
@@ -97,9 +97,9 @@ model PokemonForms {
   form_identifier                 String?
   pokemon_id                      Int
   introduced_in_version_group_id  Int
-  is_default                      Boolean
-  is_battle_only                  Boolean
-  is_mega                         Boolean
+  is_default                      Int
+  is_battle_only                  Int
+  is_mega                         Int
   form_order                      Int
   order                           Int
 
@@ -230,7 +230,7 @@ model Abilities {
   id              Int     @id
   identifier      String
   generation_id   Int
-  is_main_series  Boolean
+  is_main_series  Int
 
   // Relations
   generation      Generations @relation(fields: [generation_id], references: [id])
@@ -300,7 +300,7 @@ model Stats {
   id              Int     @id
   damage_class_id Int?
   identifier      String
-  is_battle_only  Boolean
+  is_battle_only  Int
   game_index      Int?
 
   @@map("stats")
@@ -395,7 +395,7 @@ model Languages {
   iso639     String
   iso3166    String
   identifier String
-  official   Boolean
+  official   Int
   order      Int
 
   // Relations
@@ -470,7 +470,7 @@ model Pokedexes {
   id             Int     @id
   region_id      Int
   identifier     String
-  is_main_series Boolean
+  is_main_series Int
 
   // Relations
   region         Regions @relation(fields: [region_id], references: [id])
@@ -729,7 +729,7 @@ model EncounterConditionValues {
   id                      Int     @id
   encounter_condition_id  Int
   identifier              String
-  is_default              Boolean
+  is_default              Int
 
   // Relations
   condition               EncounterConditions @relation(fields: [encounter_condition_id], references: [id])
@@ -1075,7 +1075,7 @@ model ConquestPokemonStats {
 model ConquestStats {
   id         Int     @id
   identifier String
-  is_base    Boolean
+  is_base    Int
 
   @@map("conquest_stats")
 }
@@ -1152,7 +1152,7 @@ model ConquestWarriorStats {
 
 model ConquestWarriorTransformation {
   transformed_warrior_rank_id Int     @id
-  is_automatic                Boolean
+  is_automatic                Int
   required_link               Int?
   completed_episode_id        Int?
   current_episode_id          Int?
@@ -1309,7 +1309,7 @@ model PokedexVersionGroups {
 model PokemonAbilities {
   pokemon_id Int     @id
   ability_id Int
-  is_hidden  Boolean
+  is_hidden  Int
   slot       Int
 
   // Relations
@@ -1323,7 +1323,7 @@ model PokemonAbilitiesPast {
   pokemon_id   Int
   generation_id Int
   ability_id   Int
-  is_hidden    Boolean
+  is_hidden    Int
   slot         Int
 
   // Relations
