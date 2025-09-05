@@ -1,0 +1,20 @@
+{
+	"name": "infra-pokedex-index",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/infra-pokedex-index/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"build": {
+			"executor": "@nx/js:tsc",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/libs/infra-pokedex-index",
+				"tsConfig": "libs/infra-pokedex-index/tsconfig.lib.json",
+				"packageJson": "libs/infra-pokedex-index/package.json",
+				"main": "libs/infra-pokedex-index/src/index.ts",
+				"assets": ["libs/infra-pokedex-index/*.md"]
+			}
+		}
+	}
+}

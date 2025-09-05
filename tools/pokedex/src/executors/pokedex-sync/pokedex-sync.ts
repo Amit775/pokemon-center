@@ -1,55 +1,46 @@
-import { PromiseExecutor, logger } from '@nx/devkit';
-import { PokedexSyncExecutorSchema } from './schema';
-import { PrismaClient } from '@prisma/client';
 import { Client } from '@elastic/elasticsearch';
-import { IndicesStatsResponse } from '@elastic/elasticsearch/lib/api/types';
+import { PromiseExecutor, logger } from '@nx/devkit';
+import { PokedexIndex, PokemonDocument } from '@pokemon-center/infra-pokedex-index';
+import { Prisma, PrismaClient } from '@prisma/client';
+import { PokedexSyncExecutorSchema } from './schema';
 
-export interface PokemonDocument {
-	id: string;
-	pokedex_number: number;
-	name: string;
-	slug: string;
-	stats: {
-		hp: number;
-		attack: number;
-		defense: number;
-		'special-attack': number;
-		'special-defense': number;
-		speed: number;
+// Define the Pokemon type with all relations included
+type PokemonWithRelations = Prisma.PokemonGetPayload<{
+	include: {
+		types: {
+			include: {
+				type: true;
+			};
+		};
+		moves: {
+			include: {
+				move: {
+					include: {
+						type: true;
+						damageClass: true;
+					};
+				};
+			};
+		};
+		abilities: {
+			include: {
+				ability: true;
+			};
+		};
+		stats: {
+			include: {
+				stat: true;
+			};
+		};
 	};
-	types: Array<{
-		id: string;
-		name: string;
-		slug: string;
-	}>;
-	abilities: Array<{
-		id: string;
-		name: string;
-		slug: string;
-		is_hidden: boolean;
-	}>;
-	moves: Array<{
-		id: string;
-		name: string;
-		slug: string;
-		power: number | null;
-		type: {
-			id: string;
-			name: string;
-		};
-		damage_class: {
-			id: string;
-			name: string;
-		};
-	}>;
-}
+}>;
 
 const runExecutor: PromiseExecutor<PokedexSyncExecutorSchema> = async (options) => {
 	logger.log('Executor ran for PokedexSync', options);
 
 	const synchronizer = new PokedexSynchronizerService(
-		new PokemonTransformerService(),
-		new PokedexElasticsearchService(new Client({ node: options.elasticsearchUrl })),
+		PokemonTransformerService.transformPokemon,
+		new PokedexIndex(new Client({ node: options.elasticsearchUrl })),
 	);
 
 	await synchronizer.synchronize();
@@ -59,126 +50,12 @@ const runExecutor: PromiseExecutor<PokedexSyncExecutorSchema> = async (options) 
 
 export default runExecutor;
 
-class PokedexElasticsearchService {
-	private readonly indexName = 'pokedex';
-
-	constructor(private readonly client: Client) {}
-
-	async ensureIndexExists(): Promise<void> {
-		try {
-			const indexExists = await this.client.indices.exists({ index: this.indexName });
-
-			if (indexExists) {
-				logger.log(`Deleting existing index: ${this.indexName}`);
-				await this.client.indices.delete({ index: this.indexName });
-			}
-
-			logger.log(`Creating index: ${this.indexName}`);
-			await this.client.indices.create({
-				index: this.indexName,
-				mappings: {
-					properties: {
-						id: { type: 'keyword' },
-						pokedex_number: { type: 'integer' },
-						name: { type: 'text' },
-						slug: { type: 'keyword' },
-						stats: {
-							properties: {
-								hp: { type: 'integer' },
-								attack: { type: 'integer' },
-								defense: { type: 'integer' },
-								'special-attack': { type: 'integer' },
-								'special-defense': { type: 'integer' },
-								speed: { type: 'integer' },
-							},
-						},
-						types: {
-							properties: {
-								id: { type: 'keyword' },
-								name: { type: 'text' },
-								slug: { type: 'keyword' },
-							},
-						},
-						abilities: {
-							properties: {
-								id: { type: 'keyword' },
-								name: { type: 'text' },
-								slug: { type: 'keyword' },
-								is_hidden: { type: 'boolean' },
-							},
-						},
-						moves: {
-							properties: {
-								id: { type: 'keyword' },
-								name: { type: 'text' },
-								slug: { type: 'keyword' },
-								power: { type: 'integer' },
-								type: {
-									properties: {
-										id: { type: 'keyword' },
-										name: { type: 'text' },
-									},
-								},
-								damage_class: {
-									properties: {
-										id: { type: 'keyword' },
-										name: { type: 'text' },
-									},
-								},
-							},
-						},
-					},
-				},
-			});
-
-			logger.log(`Index ${this.indexName} created successfully`);
-		} catch (error) {
-			logger.error(`Error managing index: ${error.message}`);
-			throw error;
-		}
-	}
-
-	async bulkIndex(documents: PokemonDocument[]): Promise<void> {
-		try {
-			logger.log(`Starting bulk indexing of ${documents.length} documents`);
-
-			const operations = documents.flatMap((doc) => [{ index: { _index: this.indexName, _id: doc.id } }, doc]);
-
-			const result = await this.client.bulk({
-				refresh: true,
-				operations,
-			});
-
-			if (result.errors) {
-				const errors = result.items.filter((item: any) => item.index?.error).map((item: any) => item.index.error);
-
-				logger.error(`Bulk indexing errors: ${JSON.stringify(errors)}`);
-				throw new Error(`Bulk indexing failed with ${errors.length} errors`);
-			}
-
-			logger.log(`Successfully indexed ${documents.length} documents`);
-		} catch (error) {
-			logger.error(`Error during bulk indexing: ${error.message}`);
-			throw error;
-		}
-	}
-
-	async getIndexStats(): Promise<IndicesStatsResponse> {
-		try {
-			return await this.client.indices.stats({ index: this.indexName });
-		} catch (error) {
-			logger.error(`Error getting index stats: ${error.message}`);
-			throw error;
-		}
-	}
-}
-
 class PokedexSynchronizerService {
 	private readonly prisma = new PrismaClient();
 
 	constructor(
-		private readonly transformer: PokemonTransformerService,
-		private readonly elasticsearch: PokedexElasticsearchService,
+		private readonly transform: (pokemon: PokemonWithRelations) => PokemonDocument,
+		private readonly index: PokedexIndex,
 	) {}
 
 	async synchronize(): Promise<void> {
@@ -192,19 +69,19 @@ class PokedexSynchronizerService {
 
 			// Step 2: Transform data to Elasticsearch format
 			logger.log('Transforming data to Elasticsearch format...');
-			const documents = pokemonData.map((pokemon) => this.transformer.transformPokemon(pokemon));
+			const documents = pokemonData.map(this.transform);
 			logger.log(`Transformed ${documents.length} documents`);
 
 			// Step 3: Ensure Elasticsearch index exists and is clean
 			logger.log('Preparing Elasticsearch index...');
-			await this.elasticsearch.ensureIndexExists();
+			await this.index.ensureIndexExists();
 
 			// Step 4: Bulk index all documents
 			logger.log('Indexing documents into Elasticsearch...');
-			await this.elasticsearch.bulkIndex(documents);
+			await this.index.bulkIndex(documents);
 
 			// Step 5: Get final stats
-			const stats = await this.elasticsearch.getIndexStats();
+			const stats = await this.index.getIndexStats();
 			logger.log(`Synchronization completed successfully. Index stats:`, stats);
 		} catch (error) {
 			logger.error(`Synchronization failed: ${error.message}`);
@@ -214,7 +91,7 @@ class PokedexSynchronizerService {
 		}
 	}
 
-	private async fetchAllPokemon(): Promise<any[]> {
+	private async fetchAllPokemon(): Promise<PokemonWithRelations[]> {
 		return await this.prisma.pokemon.findMany({
 			include: {
 				types: {
@@ -251,7 +128,7 @@ class PokedexSynchronizerService {
 
 	async getSyncStatus(): Promise<{ status: string; message: string }> {
 		try {
-			const stats = await this.elasticsearch.getIndexStats();
+			const stats = await this.index.getIndexStats();
 			const documentCount = stats.indices?.pokedex?.total?.docs?.count || 0;
 
 			return {
@@ -268,64 +145,44 @@ class PokedexSynchronizerService {
 }
 
 class PokemonTransformerService {
-	transformPokemon(pokemon: any): PokemonDocument {
-		// Transform stats into the expected format
-		const stats = {
-			hp: 0,
-			attack: 0,
-			defense: 0,
-			'special-attack': 0,
-			'special-defense': 0,
-			speed: 0,
-		};
-
-		pokemon.stats.forEach((statRelation: any) => {
-			const statName = statRelation.stat.slug;
-			if (statName in stats) {
-				stats[statName as keyof typeof stats] = statRelation.baseStat;
-			}
-		});
-
-		// Transform types
-		const types = pokemon.types.map((typeRelation: any) => ({
-			id: `type:${typeRelation.type.slug}`,
-			name: typeRelation.type.name,
-			slug: typeRelation.type.slug,
-		}));
-
-		// Transform abilities
-		const abilities = pokemon.abilities.map((abilityRelation: any) => ({
-			id: `ability:${abilityRelation.ability.id}`,
-			name: abilityRelation.ability.name,
-			slug: abilityRelation.ability.slug,
-			is_hidden: abilityRelation.isHidden,
-		}));
-
-		// Transform moves
-		const moves = pokemon.moves.map((moveRelation: any) => ({
-			id: `move:${moveRelation.move.id}`,
-			name: moveRelation.move.name,
-			slug: moveRelation.move.slug,
-			power: moveRelation.move.power,
-			type: {
-				id: `type:${moveRelation.move.type.slug}`,
-				name: moveRelation.move.type.name,
-			},
-			damage_class: {
-				id: `damage_class:${moveRelation.move.damageClass.slug}`,
-				name: moveRelation.move.damageClass.name,
-			},
-		}));
-
+	static transformPokemon(pokemon: PokemonWithRelations): PokemonDocument {
 		return {
 			id: `pokemon:${pokemon.id}`,
 			pokedex_number: pokemon.id,
 			name: pokemon.name,
 			slug: pokemon.slug,
-			stats,
-			types,
-			abilities,
-			moves,
+			stats: pokemon.stats.reduce(
+				(stats, pokemonToStat) => ({
+					...stats,
+					[pokemonToStat.stat.name]: pokemonToStat.baseStat,
+				}),
+				{} as Record<keyof PokemonDocument['stats'], number>,
+			),
+			types: pokemon.types.map((pokemonToType) => ({
+				id: `type:${pokemonToType.type.slug}`,
+				name: pokemonToType.type.name,
+				slug: pokemonToType.type.slug,
+			})),
+			abilities: pokemon.abilities.map((pokemonToAbility) => ({
+				id: `ability:${pokemonToAbility.ability.id}`,
+				name: pokemonToAbility.ability.name,
+				slug: pokemonToAbility.ability.slug,
+				is_hidden: pokemonToAbility.isHidden,
+			})),
+			moves: pokemon.moves.map((pokemonToMove) => ({
+				id: `move:${pokemonToMove.move.id}`,
+				name: pokemonToMove.move.name,
+				slug: pokemonToMove.move.slug,
+				power: pokemonToMove.move.power,
+				type: {
+					id: `type:${pokemonToMove.move.type.slug}`,
+					name: pokemonToMove.move.type.name,
+				},
+				damage_class: {
+					id: `damage_class:${pokemonToMove.move.damageClass.slug}`,
+					name: pokemonToMove.move.damageClass.name,
+				},
+			})),
 		};
 	}
 }
