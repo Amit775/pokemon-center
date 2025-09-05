@@ -3,9 +3,9 @@ import { MoveDamageClasses as PrismaMoveDamageClasses } from '@prisma/client';
 
 @ObjectType()
 export class MoveDamageClasses implements PrismaMoveDamageClasses {
-  @Field(() => Int)
-  id: number;
+	@Field(() => Int)
+	id: number;
 
-  @Field()
-  identifier: string;
+	@Field()
+	identifier: string;
 }

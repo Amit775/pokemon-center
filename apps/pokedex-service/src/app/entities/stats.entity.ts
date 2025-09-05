@@ -3,18 +3,18 @@ import { Stats as PrismaStats } from '@prisma/client';
 
 @ObjectType()
 export class Stats implements PrismaStats {
-  @Field(() => Int)
-  id: number;
+	@Field(() => Int)
+	id: number;
 
-  @Field(() => Int, { nullable: true })
-  damage_class_id?: number;
+	@Field(() => Int, { nullable: true })
+	damage_class_id?: number;
 
-  @Field()
-  identifier: string;
+	@Field()
+	identifier: string;
 
-  @Field(() => Int)
-  is_battle_only: number;
+	@Field(() => Int)
+	is_battle_only: number;
 
-  @Field(() => Int, { nullable: true })
-  game_index?: number;
+	@Field(() => Int, { nullable: true })
+	game_index?: number;
 }

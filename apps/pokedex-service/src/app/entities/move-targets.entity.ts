@@ -3,9 +3,9 @@ import { MoveTargets as PrismaMoveTargets } from '@prisma/client';
 
 @ObjectType()
 export class MoveTargets implements PrismaMoveTargets {
-  @Field(() => Int)
-  id: number;
+	@Field(() => Int)
+	id: number;
 
-  @Field()
-  identifier: string;
+	@Field()
+	identifier: string;
 }

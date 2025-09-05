@@ -3,12 +3,12 @@ import { Versions as PrismaVersions } from '@prisma/client';
 
 @ObjectType()
 export class Versions implements PrismaVersions {
-  @Field(() => Int)
-  id: number;
+	@Field(() => Int)
+	id: number;
 
-  @Field(() => Int)
-  version_group_id: number;
+	@Field(() => Int)
+	version_group_id: number;
 
-  @Field()
-  identifier: string;
+	@Field()
+	identifier: string;
 }

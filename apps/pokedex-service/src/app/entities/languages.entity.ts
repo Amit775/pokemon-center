@@ -3,21 +3,21 @@ import { Languages as PrismaLanguages } from '@prisma/client';
 
 @ObjectType()
 export class Languages implements PrismaLanguages {
-  @Field(() => Int)
-  id: number;
+	@Field(() => Int)
+	id: number;
 
-  @Field()
-  iso639: string;
+	@Field()
+	iso639: string;
 
-  @Field()
-  iso3166: string;
+	@Field()
+	iso3166: string;
 
-  @Field()
-  identifier: string;
+	@Field()
+	identifier: string;
 
-  @Field(() => Int)
-  official: number;
+	@Field(() => Int)
+	official: number;
 
-  @Field(() => Int)
-  order: number;
+	@Field(() => Int)
+	order: number;
 }

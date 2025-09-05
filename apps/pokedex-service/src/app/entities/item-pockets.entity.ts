@@ -3,9 +3,9 @@ import { ItemPockets as PrismaItemPockets } from '@prisma/client';
 
 @ObjectType()
 export class ItemPockets implements PrismaItemPockets {
-  @Field(() => Int)
-  id: number;
+	@Field(() => Int)
+	id: number;
 
-  @Field()
-  identifier: string;
+	@Field()
+	identifier: string;
 }

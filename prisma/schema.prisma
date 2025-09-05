@@ -291,7 +291,7 @@ model GrowthRates {
 
 // Core Experience tables
 model Experience {
-  growth_rate_id Int @id
+  growth_rate_id Int
   level          Int
   experience     Int
 
@@ -354,12 +354,12 @@ model SuperContestEffects {
 
 // Core Machine tables
 model Machines {
-  machine_number    Int @id
+  machine_number    Int
   version_group_id  Int
   item_id           Int
   move_id           Int
 
-  @@id([machine_number, version_group_id])
+  @@id([machine_number, version_group_id])   
   @@map("machines")
 }
 
@@ -476,7 +476,7 @@ model MoveMeta {
 }
 
 model MoveMetaStatChanges {
-  move_id Int @id
+  move_id Int
   stat_id Int
   change  Int
 
@@ -553,7 +553,7 @@ model BerryFirmness {
 }
 
 model BerryFlavors {
-  berry_id        Int @id
+  berry_id        Int
   contest_type_id Int
   flavor          Int
 
@@ -650,15 +650,15 @@ model ConquestPokemonEvolution {
 }
 
 model ConquestPokemonMoves {
-  pokemon_species_id Int @id
+  pokemon_species_id Int
   move_id            Int
 
-  @@id([pokemon_species_id, move_id])
+  @@id([pokemon_species_id, move_id])        
   @@map("conquest_pokemon_moves")
 }
 
 model ConquestPokemonStats {
-  pokemon_species_id Int @id
+  pokemon_species_id Int
   conquest_stat_id   Int
   base_stat          Int
 
@@ -729,12 +729,12 @@ model ConquestWarriorSkills {
 }
 
 model ConquestWarriorSpecialties {
-  warrior_id Int @id
+  warrior_id Int
   type_id    Int
   slot       Int
 
   @@id([warrior_id, type_id])
-  @@map("conquest_warrior_specialties")
+  @@map("conquest_warrior_specialties")      
 }
 
 model ConquestWarriorStats {
@@ -815,16 +815,16 @@ model PokemonHabitats {
 
 // Core Type Efficacy tables
 model TypeEfficacy {
-  damage_type_id Int @id
+  damage_type_id Int
   target_type_id Int
   damage_factor  Int
 
-  @@id([damage_type_id, target_type_id])
+  @@id([damage_type_id, target_type_id])     
   @@map("type_efficacy")
 }
 
 model TypeEfficacyPast {
-  damage_type_id Int @id
+  damage_type_id Int
   target_type_id Int
   damage_factor  Int
   generation_id  Int
@@ -864,7 +864,7 @@ model PokemonAbilities {
 }
 
 model PokemonAbilitiesPast {
-  pokemon_id   Int     @id
+  pokemon_id   Int
   generation_id Int
   ability_id   Int
   is_hidden    Int
@@ -875,7 +875,7 @@ model PokemonAbilitiesPast {
 }
 
 model PokemonMoves {
-  pokemon_id              Int     @id
+  pokemon_id              Int
   version_group_id        Int
   move_id                 Int
   pokemon_move_method_id  Int
@@ -883,11 +883,12 @@ model PokemonMoves {
   order                   Int?
   mastery                 Int?
 
+  @@id([pokemon_id, version_group_id, move_id, pokemon_move_method_id])
   @@map("pokemon_moves")
 }
 
 model PokemonStats {
-  pokemon_id Int @id
+  pokemon_id Int
   stat_id    Int
   base_stat  Int
   effort     Int
@@ -897,15 +898,16 @@ model PokemonStats {
 }
 
 model PokemonTypes {
-  pokemon_id Int @id
+  pokemon_id Int
   type_id    Int
   slot       Int
 
+  @@id([pokemon_id, type_id])
   @@map("pokemon_types")
 }
 
 model PokemonTypesPast {
-  pokemon_id   Int     @id
+  pokemon_id   Int
   generation_id Int
   type_id      Int
   slot         Int
@@ -915,14 +917,15 @@ model PokemonTypesPast {
 }
 
 model PokemonEggGroups {
-  species_id  Int @id
+  species_id  Int
   egg_group_id Int
 
+  @@id([species_id, egg_group_id])
   @@map("pokemon_egg_groups")
 }
 
 model PokemonItems {
-  pokemon_id Int @id
+  pokemon_id Int
   version_id Int
   item_id    Int
   rarity     Int
@@ -932,39 +935,43 @@ model PokemonItems {
 }
 
 model PokemonGameIndices {
-  pokemon_id Int @id
+  pokemon_id Int
   version_id Int
   game_index Int
 
+  @@id([pokemon_id, version_id])
   @@map("pokemon_game_indices")
 }
 
 model PokemonDexNumbers {
-  species_id    Int @id
+  species_id    Int
   pokedex_id    Int
   pokedex_number Int
 
+  @@id([species_id, pokedex_id])
   @@map("pokemon_dex_numbers")
 }
 
 model PokemonFormGenerations {
-  pokemon_form_id Int @id
+  pokemon_form_id Int
   generation_id   Int
   game_index      Int
 
+  @@id([pokemon_form_id, generation_id])
   @@map("pokemon_form_generations")
 }
 
 model PokemonFormTypes {
-  pokemon_form_id Int @id
+  pokemon_form_id Int
   type_id         Int
   slot            Int
 
+  @@id([pokemon_form_id, type_id])
   @@map("pokemon_form_types")
 }
 
 model PokemonFormPokeathlonStats {
-  pokemon_form_id    Int @id
+  pokemon_form_id    Int
   pokeathlon_stat_id Int
   minimum_stat       Int
   base_stat          Int
@@ -975,41 +982,45 @@ model PokemonFormPokeathlonStats {
 }
 
 model PokemonFormNames {
-  pokemon_form_id    Int     @id
+  pokemon_form_id    Int
   local_language_id  Int
   form_name          String?
   pokemon_name       String?
 
+  @@id([pokemon_form_id, local_language_id])
   @@map("pokemon_form_names")
 }
 
 model PokemonSpeciesNames {
-  pokemon_species_id Int     @id
+  pokemon_species_id Int
   local_language_id  Int
   name               String
   genus              String?
 
+  @@id([pokemon_species_id, local_language_id])
   @@map("pokemon_species_names")
 }
 
 model PokemonSpeciesProse {
-  pokemon_species_id Int     @id
+  pokemon_species_id Int
   local_language_id  Int
   form_description   String?
 
+  @@id([pokemon_species_id, local_language_id])
   @@map("pokemon_species_prose")
 }
 
-model PokemonSpeciesFlavorSummaries {
-  pokemon_species_id Int     @id
+model PokemonSpeciesFlavorSummaries {       
+  pokemon_species_id Int
   local_language_id  Int
   flavor_summary     String?
 
-  @@map("pokemon_species_flavor_summaries")
+  @@id([pokemon_species_id, local_language_id])
+  @@map("pokemon_species_flavor_summaries") 
 }
 
 model PokemonSpeciesFlavorText {
-  species_id  Int     @id
+  species_id  Int
   version_id  Int
   language_id Int
   flavor_text String
@@ -1037,7 +1048,7 @@ model MoveProse {
 }
 
 model MoveFlavorText {
-  move_id           Int     @id
+  move_id           Int
   version_group_id  Int
   language_id       Int
   flavor_text       String
@@ -1181,7 +1192,7 @@ model AbilityProse {
 }
 
 model AbilityFlavorText {
-  ability_id        Int     @id
+  ability_id        Int
   version_group_id  Int
   language_id       Int
   flavor_text       String
@@ -1224,7 +1235,7 @@ model ItemProse {
 }
 
 model ItemFlavorText {
-  item_id           Int     @id
+  item_id           Int
   version_group_id  Int
   language_id       Int
   flavor_text       String
@@ -1345,13 +1356,13 @@ model LocationAreaProse {
 }
 
 model LocationAreaEncounterRates {
-  location_area_id     Int @id
+  location_area_id     Int
   encounter_method_id  Int
   version_id           Int
   rate                 Int
 
   @@id([location_area_id, encounter_method_id, version_id])
-  @@map("location_area_encounter_rates")
+  @@map("location_area_encounter_rates")    
 }
 
 // Language relation tables

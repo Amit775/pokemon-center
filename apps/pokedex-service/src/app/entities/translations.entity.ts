@@ -3,21 +3,21 @@ import { Translations as PrismaTranslations } from '@prisma/client';
 
 @ObjectType()
 export class Translations implements PrismaTranslations {
-  @Field(() => Int)
-  language_id: number;
+	@Field(() => Int)
+	language_id: number;
 
-  @Field()
-  table: string;
+	@Field()
+	table: string;
 
-  @Field(() => Int)
-  id: number;
+	@Field(() => Int)
+	id: number;
 
-  @Field()
-  column: string;
+	@Field()
+	column: string;
 
-  @Field(() => Int)
-  source_crc: number;
+	@Field(() => Int)
+	source_crc: number;
 
-  @Field()
-  string: string;
+	@Field()
+	string: string;
 }

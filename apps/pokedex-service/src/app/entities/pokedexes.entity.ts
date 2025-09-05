@@ -3,15 +3,15 @@ import { Pokedexes as PrismaPokedexes } from '@prisma/client';
 
 @ObjectType()
 export class Pokedexes implements PrismaPokedexes {
-  @Field(() => Int)
-  id: number;
+	@Field(() => Int)
+	id: number;
 
-  @Field(() => Int)
-  region_id: number;
+	@Field(() => Int)
+	region_id: number;
 
-  @Field()
-  identifier: string;
+	@Field()
+	identifier: string;
 
-  @Field(() => Int)
-  is_main_series: number;
+	@Field(() => Int)
+	is_main_series: number;
 }

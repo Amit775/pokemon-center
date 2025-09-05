@@ -3,12 +3,12 @@ import { Locations as PrismaLocations } from '@prisma/client';
 
 @ObjectType()
 export class Locations implements PrismaLocations {
-  @Field(() => Int)
-  id: number;
+	@Field(() => Int)
+	id: number;
 
-  @Field(() => Int)
-  region_id: number;
+	@Field(() => Int)
+	region_id: number;
 
-  @Field()
-  identifier: string;
+	@Field()
+	identifier: string;
 }
