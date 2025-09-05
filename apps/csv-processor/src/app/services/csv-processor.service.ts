@@ -73,7 +73,7 @@ export class CsvProcessorService {
 							name: data.identifier,
 							slug: data.identifier,
 						}),
-						prismaModel: 'type',
+						prismaModel: 'types',
 					});
 					break;
 				case 'moves':
@@ -89,7 +89,7 @@ export class CsvProcessorService {
 							typeId: parseInt(data.type_id),
 							damageClassId: parseInt(data.damage_class_id),
 						}),
-						prismaModel: 'move',
+						prismaModel: 'moves',
 					});
 					break;
 				case 'abilities':
@@ -99,7 +99,7 @@ export class CsvProcessorService {
 							name: data.identifier,
 							slug: data.identifier,
 						}),
-						prismaModel: 'ability',
+						prismaModel: 'abilities',
 					});
 					break;
 				case 'stats':
@@ -109,7 +109,7 @@ export class CsvProcessorService {
 							name: data.identifier,
 							slug: data.identifier,
 						}),
-						prismaModel: 'stat',
+						prismaModel: 'stats',
 					});
 					break;
 				case 'items':
@@ -119,7 +119,7 @@ export class CsvProcessorService {
 							name: data.identifier,
 							slug: data.identifier,
 						}),
-						prismaModel: 'item',
+						prismaModel: 'items',
 					});
 					break;
 				case 'move_damage_classes':
@@ -129,7 +129,7 @@ export class CsvProcessorService {
 							name: data.identifier,
 							slug: data.identifier,
 						}),
-						prismaModel: 'damageClass',
+						prismaModel: 'moveDamageClasses',
 					});
 					break;
 				case 'pokemon_types':
@@ -138,7 +138,7 @@ export class CsvProcessorService {
 							pokemonId: parseInt(data.pokemon_id),
 							typeId: parseInt(data.type_id),
 						}),
-						prismaModel: 'pokemonToType',
+						prismaModel: 'pokemonTypes',
 					});
 					break;
 				case 'pokemon_moves':
@@ -147,7 +147,7 @@ export class CsvProcessorService {
 							pokemonId: parseInt(data.pokemon_id),
 							moveId: parseInt(data.move_id),
 						}),
-						prismaModel: 'pokemonToMove',
+						prismaModel: 'pokemonMoves',
 					});
 					break;
 				case 'pokemon_abilities':
@@ -157,7 +157,7 @@ export class CsvProcessorService {
 							abilityId: parseInt(data.ability_id),
 							isHidden: data.is_hidden === '1',
 						}),
-						prismaModel: 'pokemonToAbility',
+						prismaModel: 'pokemonAbilities',
 					});
 					break;
 				case 'pokemon_stats':
@@ -167,7 +167,7 @@ export class CsvProcessorService {
 							statId: parseInt(data.stat_id),
 							baseStat: parseInt(data.base_stat),
 						}),
-						prismaModel: 'pokemonToStat',
+						prismaModel: 'pokemonStats',
 					});
 					break;
 				default:

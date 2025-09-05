@@ -86,18 +86,19 @@ function generateEntityContent(modelName, modelBody) {
   let content = `import { Field, Int, ObjectType } from '@nestjs/graphql';\n`;
   content += `import { ${modelName} as Prisma${modelName} } from '@prisma/client';\n\n`;
   content += `@ObjectType()\n`;
-  content += `export class ${modelName} implements Prisma${modelName} {\n`;
+  content += `export class ${modelName} implements Prisma${modelName} {`;
   
   for (const field of fields) {
+		content += "\n";
     const graphqlType = getGraphQLType(field.type);
     const nullable = field.nullable ? ', { nullable: true }' : '';
     
     if (graphqlType === 'Int') {
       content += `  @Field(() => Int${nullable})\n`;
-      content += `  ${field.name}: number;\n\n`;
+      content += `  ${field.name}!: number${nullable ? ' | null' : ''};\n`;
     } else {
       content += `  @Field(() => String${nullable})\n`;
-      content += `  ${field.name}: string;\n\n`;
+      content += `  ${field.name}!: string${nullable ? ' | null' : ''};\n`;
     }
   }
   
@@ -107,18 +108,7 @@ function generateEntityContent(modelName, modelBody) {
 }
 
 // Generate entity files for models that don't exist yet
-const entitiesDir = path.join(__dirname, 'apps', 'pokedex-service', 'src', 'app', 'entities');
-
-// List of models we've already created manually
-const existingEntities = [
-  'Pokemon', 'PokemonSpecies', 'PokemonForms', 'Moves', 'MoveEffects', 'MoveTargets',
-  'MoveDamageClasses', 'Types', 'Abilities', 'Items', 'ItemCategories', 'ItemPockets',
-  'Stats', 'Generations', 'VersionGroups', 'Versions', 'Regions', 'Locations',
-  'LocationAreas', 'Languages', 'Pokedexes', 'PokemonAbilities', 'PokemonAbilitiesPast',
-  'PokemonMoves', 'PokemonStats', 'PokemonTypes', 'PokemonTypesPast',
-  'PokemonSpeciesNames', 'MoveNames', 'TypeNames', 'AbilityNames', 'ItemNames',
-  'StatNames', 'Translations'
-];
+const entitiesDir = path.join(__dirname, 'libs', 'infra-pokedex-data', 'src', 'entities');
 
 // Generate all entity files (regenerate existing ones)
 for (const model of models) {
