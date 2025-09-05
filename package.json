@@ -5,7 +5,7 @@
 	"scripts": {
 		"start": "nx run pokemon-center:serve -o",
 		"build": "nx run pokemon-center:build",
-		"sync:pokedex": "nx run pokedex-synchronizer:serve"
+		"sync:pokedex": "nx run pokedex-synchronizer:sync"
 	},
 	"private": true,
 	"dependencies": {
