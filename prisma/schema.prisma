@@ -87,6 +87,8 @@ model PokemonSpecies {
   conquestMaxLinks        ConquestMaxLinks[]
   conquestTransformation  ConquestTransformationPokemon[]
   palPark                 PalPark[]
+  partySpecies            PokemonEvolution[] @relation("PartySpecies")
+  tradeSpecies            PokemonEvolution[] @relation("TradeSpecies")
 
   @@map("pokemon_species")
 }
@@ -157,6 +159,7 @@ model Moves {
   contestCombosSecond     ContestCombos[] @relation("SecondMove")
   superContestCombos      SuperContestCombos[] @relation("SuperFirstMove")
   superContestCombosSecond SuperContestCombos[] @relation("SuperSecondMove")
+  knownMoves              PokemonEvolution[] @relation("KnownMove")
 
   @@map("moves")
 }
@@ -168,6 +171,7 @@ model MoveEffects {
   moves                   Moves[]
   changelog               MoveEffectChangelog[]
   changelogProse          MoveEffectChangelogProse[]
+  moveChangelog           MoveChangelog[]
   prose                   MoveEffectProse[]
 
   @@map("move_effects")
@@ -180,6 +184,7 @@ model MoveTargets {
   // Relations
   moves      Moves[]
   prose      MoveTargetProse[]
+  moveChangelog MoveChangelog[]
 
   @@map("move_targets")
 }
@@ -221,6 +226,10 @@ model Types {
   berryFlavors    BerryFlavors[]
   natures         Natures[] @relation("DecreasedStat")
   naturesIncreased Natures[] @relation("IncreasedStat")
+  knownMoveTypes  PokemonEvolution[] @relation("KnownMoveType")
+  partyTypes      PokemonEvolution[] @relation("PartyType")
+  naturalGiftTypes Berries[]
+  moveChangelog   MoveChangelog[]
 
   @@map("types")
 }
@@ -267,6 +276,9 @@ model Items {
   flavorSummaries  ItemFlavorSummaries[]
   gameIndices      ItemGameIndices[]
   flagMap          ItemFlagMap[]
+  babyTriggerItems EvolutionChains[]
+  triggerItems     PokemonEvolution[] @relation("TriggerItem")
+  heldItems        PokemonEvolution[] @relation("HeldItem")
 
   @@map("items")
 }
@@ -323,7 +335,6 @@ model Generations {
 
   // Relations
   region          Regions @relation(fields: [main_region_id], references: [id])
-  pokemon         Pokemon[]
   pokemonSpecies  PokemonSpecies[]
   moves           Moves[]
   types           Types[]
@@ -331,10 +342,6 @@ model Generations {
   pokemonAbilitiesPast PokemonAbilitiesPast[]
   pokemonTypesPast PokemonTypesPast[]
   pokemonFormGenerations PokemonFormGenerations[]
-  pokemonSpeciesFlavorText PokemonSpeciesFlavorText[]
-  moveFlavorText  MoveFlavorText[]
-  abilityFlavorText AbilityFlavorText[]
-  itemFlavorText  ItemFlavorText[]
   pokemonGameIndices PokemonGameIndices[]
   itemGameIndices ItemGameIndices[]
   typeGameIndices TypeGameIndices[]
@@ -342,8 +349,6 @@ model Generations {
   typeEfficacyPast TypeEfficacyPast[]
   generationNames GenerationNames[]
   versionGroups   VersionGroups[]
-  encounterSlots  EncounterSlots[]
-  locationAreaEncounterRates LocationAreaEncounterRates[]
 
   @@map("generations")
 }
@@ -353,6 +358,23 @@ model VersionGroups {
   identifier    String
   generation_id Int
   order         Int
+
+  // Relations
+  generation    Generations @relation(fields: [generation_id], references: [id])
+  versions      Versions[]
+  encounterSlots EncounterSlots[]
+  machines      Machines[]
+  versionGroupPokemonMoveMethods VersionGroupPokemonMoveMethods[]
+  versionGroupRegions VersionGroupRegions[]
+  pokedexVersionGroups PokedexVersionGroups[]
+  pokemonMoves  PokemonMoves[]
+  moveFlavorText MoveFlavorText[]
+  moveChangelog MoveChangelog[]
+  moveEffectChangelog MoveEffectChangelog[]
+  abilityFlavorText AbilityFlavorText[]
+  itemFlavorText ItemFlavorText[]
+  abilityChangelog AbilityChangelog[]
+  pokemonForms PokemonForms[]
 
   @@map("version_groups")
 }
@@ -368,9 +390,6 @@ model Versions {
   pokemonItems     PokemonItems[]
   pokemonGameIndices PokemonGameIndices[]
   pokemonSpeciesFlavorText PokemonSpeciesFlavorText[]
-  moveFlavorText   MoveFlavorText[]
-  abilityFlavorText AbilityFlavorText[]
-  itemFlavorText   ItemFlavorText[]
   locationAreaEncounterRates LocationAreaEncounterRates[]
   names            VersionNames[]
 
@@ -432,7 +451,7 @@ model Languages {
   order      Int
 
   // Relations
-  names      LanguageNames[]
+  names      LanguageNames[] @relation("Language")
   // Many localization tables reference this as local_language_id
   pokemonSpeciesNames PokemonSpeciesNames[]
   pokemonSpeciesProse PokemonSpeciesProse[]
@@ -465,8 +484,8 @@ model Languages {
   versionNames VersionNames[]
   regionNames RegionNames[]
   locationNames LocationNames[]
-  locationAreaProse LocationAreaProse[]
-  pokedexProse PokedexProse[]
+  locationAreaProse LocationAreaProse[]       
+  pokedexProse PokedexProse[] @relation("Language")
   evolutionTriggerProse EvolutionTriggerProse[]
   growthRateProse GrowthRateProse[]
   natureNames NatureNames[]
@@ -494,9 +513,10 @@ model Languages {
   conquestWarriorSkillNames ConquestWarriorSkillNames[]
   conquestWarriorStatNames ConquestWarriorStatNames[]
   eggGroupProse EggGroupProse[]
-  // Additional relations for missing opposite fields
+  pokemonSpeciesFlavorText PokemonSpeciesFlavorText[]
+  moveFlavorText MoveFlavorText[]
+  abilityFlavorText AbilityFlavorText[]       
   itemFlavorText ItemFlavorText[]
-  languageNames LanguageNames[] @relation("Language")
   languageNamesLocal LanguageNames[] @relation("LocalLanguage")
 
   @@map("languages")
@@ -646,6 +666,8 @@ model Natures {
   names               NatureNames[]
   battleStylePreferences NatureBattleStylePreferences[]
   pokeathlonStats     NaturePokeathlonStats[]
+  decreasedStatTypes  Types[] @relation("DecreasedStat")
+  increasedStatTypes  Types[] @relation("IncreasedStat")
 
   @@map("natures")
 }
@@ -867,7 +889,7 @@ model MoveMeta {
   move            Moves @relation(fields: [move_id], references: [id])
   metaCategory    MoveMetaCategories @relation(fields: [meta_category_id], references: [id])
   metaAilment     MoveMetaAilments? @relation(fields: [meta_ailment_id], references: [id])
-  statChanges     MoveMetaStatChanges[]
+  statChanges     MoveMetaStatChanges[] @relation("MoveMetaStatChanges")
 
   @@map("move_meta")
 }
@@ -878,8 +900,9 @@ model MoveMetaStatChanges {
   change  Int
 
   // Relations
-  move    Moves @relation(fields: [move_id], references: [id])
+  move    Moves @relation(fields: [move_id], references: [id], map: "move_meta_stat_changes_move_id_fkey")
   stat    Stats @relation(fields: [stat_id], references: [id])
+  meta    MoveMeta @relation("MoveMetaStatChanges", fields: [move_id], references: [move_id], map: "move_meta_stat_changes_move_id_fkey2")
 
   @@id([move_id, stat_id])
   @@map("move_meta_stat_changes")
@@ -995,6 +1018,7 @@ model BerryFlavors {
   // Relations
   berry           Berries @relation(fields: [berry_id], references: [id])
   contestType     ContestTypes @relation(fields: [contest_type_id], references: [id])
+  type            Types @relation(fields: [contest_type_id], references: [id], map: "berry_flavors_contest_type_id_fkey2")
 
   @@id([berry_id, contest_type_id])
   @@map("berry_flavors")
@@ -1026,6 +1050,9 @@ model ConquestKingdoms {
   identifier String
   type_id    Int
 
+  // Relations
+  type       Types @relation(fields: [type_id], references: [id])
+
   @@map("conquest_kingdoms")
 }
 
@@ -1033,6 +1060,9 @@ model ConquestMaxLinks {
   warrior_rank_id     Int @id
   pokemon_species_id  Int
   max_link            Int
+
+  // Relations
+  species             PokemonSpecies @relation(fields: [pokemon_species_id], references: [id])
 
   @@map("conquest_max_links")
 }
@@ -1045,6 +1075,9 @@ model ConquestMoveData {
   effect_id         Int?
   range_id          Int?
   displacement_id   Int?
+
+  // Relations
+  move              Moves @relation(fields: [move_id], references: [id])
 
   @@map("conquest_move_data")
 }
@@ -1076,6 +1109,10 @@ model ConquestPokemonAbilities {
   slot               Int
   ability_id         Int
 
+  // Relations
+  species            PokemonSpecies @relation(fields: [pokemon_species_id], references: [id])
+  ability            Abilities @relation(fields: [ability_id], references: [id])
+
   @@map("conquest_pokemon_abilities")
 }
 
@@ -1089,12 +1126,19 @@ model ConquestPokemonEvolution {
   item_id                Int?
   recruiting_ko_required Int
 
+  // Relations
+  species                PokemonSpecies @relation(fields: [evolved_species_id], references: [id])
+
   @@map("conquest_pokemon_evolution")
 }
 
 model ConquestPokemonMoves {
   pokemon_species_id Int
   move_id            Int
+
+  // Relations
+  species            PokemonSpecies @relation(fields: [pokemon_species_id], references: [id])
+  move               Moves @relation(fields: [move_id], references: [id])
 
   @@id([pokemon_species_id, move_id])        
   @@map("conquest_pokemon_moves")
@@ -1104,6 +1148,9 @@ model ConquestPokemonStats {
   pokemon_species_id Int
   conquest_stat_id   Int
   base_stat          Int
+
+  // Relations
+  species            PokemonSpecies @relation(fields: [pokemon_species_id], references: [id])
 
   @@id([pokemon_species_id, conquest_stat_id])
   @@map("conquest_pokemon_stats")
@@ -1121,6 +1168,10 @@ model ConquestTransformationPokemon {
   transformation_id    Int @id
   pokemon_species_id   Int
 
+  // Relations
+  species              PokemonSpecies @relation(fields: [pokemon_species_id], references: [id])
+  type                 Types @relation(fields: [transformation_id], references: [id])
+
   @@map("conquest_transformation_pokemon")
 }
 
@@ -1136,6 +1187,9 @@ model ConquestWarriors {
   identifier    String
   gender_id     Int
   archetype_id  Int?
+
+  // Relations
+  gender        Genders @relation(fields: [gender_id], references: [id])
 
   @@map("conquest_warriors")
 }
@@ -1175,6 +1229,9 @@ model ConquestWarriorSpecialties {
   warrior_id Int
   type_id    Int
   slot       Int
+
+  // Relations
+  type       Types @relation(fields: [type_id], references: [id])
 
   @@id([warrior_id, type_id])
   @@map("conquest_warrior_specialties")      
@@ -1468,6 +1525,7 @@ model PokemonGameIndices {
   // Relations
   pokemon    Pokemon @relation(fields: [pokemon_id], references: [id])
   version    Versions @relation(fields: [version_id], references: [id])
+  generation Generations @relation(fields: [version_id], references: [id], map: "pokemon_game_indices_version_id_fkey2")
 
   @@id([pokemon_id, version_id])
   @@map("pokemon_game_indices")
@@ -1692,6 +1750,7 @@ model MoveEffectChangelogProse {
   // Relations
   changelog                 MoveEffectChangelog @relation(fields: [move_effect_changelog_id], references: [id])
   language                  Languages @relation(fields: [local_language_id], references: [id])
+  moveEffect                MoveEffects @relation(fields: [move_effect_changelog_id], references: [id], map: "move_effect_changelog_prose_move_effect_changelog_id_fkey2")
 
   @@map("move_effect_changelog_prose")
 }
@@ -1870,6 +1929,7 @@ model AbilityChangelogProse {
   // Relations
   changelog            AbilityChangelog @relation(fields: [ability_changelog_id], references: [ability_id])
   language             Languages @relation(fields: [local_language_id], references: [id])
+  ability              Abilities @relation(fields: [ability_changelog_id], references: [id], map: "ability_changelog_prose_ability_changelog_id_fkey2")
 
   @@map("ability_changelog_prose")
 }
@@ -2374,6 +2434,9 @@ model ConquestEpisodeNames {
   local_language_id Int
   name              String
 
+  // Relations
+  language          Languages @relation(fields: [local_language_id], references: [id])
+
   @@map("conquest_episode_names")
 }
 
@@ -2389,6 +2452,9 @@ model ConquestKingdomNames {
   local_language_id Int
   name              String
 
+  // Relations
+  language          Languages @relation(fields: [local_language_id], references: [id])
+
   @@map("conquest_kingdom_names")
 }
 
@@ -2399,6 +2465,9 @@ model ConquestMoveDisplacementProse {
   short_effect         String?
   effect               String?
 
+  // Relations
+  language             Languages @relation(fields: [local_language_id], references: [id])
+
   @@map("conquest_move_displacement_prose")
 }
 
@@ -2407,6 +2476,9 @@ model ConquestMoveEffectProse {
   local_language_id       Int
   short_effect            String?
   effect                  String?
+
+  // Relations
+  language                Languages @relation(fields: [local_language_id], references: [id])
 
   @@map("conquest_move_effect_prose")
 }
@@ -2417,6 +2489,9 @@ model ConquestMoveRangeProse {
   name                   String
   description            String?
 
+  // Relations
+  language               Languages @relation(fields: [local_language_id], references: [id])
+
   @@map("conquest_move_range_prose")
 }
 
@@ -2424,6 +2499,9 @@ model ConquestStatNames {
   conquest_stat_id   Int     @id
   local_language_id  Int
   name               String
+
+  // Relations
+  language           Languages @relation(fields: [local_language_id], references: [id])
 
   @@map("conquest_stat_names")
 }
@@ -2433,6 +2511,9 @@ model ConquestWarriorNames {
   local_language_id  Int
   name               String
 
+  // Relations
+  language           Languages @relation(fields: [local_language_id], references: [id])
+
   @@map("conquest_warrior_names")
 }
 
@@ -2441,6 +2522,9 @@ model ConquestWarriorSkillNames {
   local_language_id  Int
   name               String
 
+  // Relations
+  language           Languages @relation(fields: [local_language_id], references: [id])
+
   @@map("conquest_warrior_skill_names")
 }
 
@@ -2448,6 +2532,9 @@ model ConquestWarriorStatNames {
   warrior_stat_id    Int     @id
   local_language_id  Int
   name               String
+
+  // Relations
+  language           Languages @relation(fields: [local_language_id], references: [id])
 
   @@map("conquest_warrior_stat_names")
 }
