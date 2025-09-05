@@ -97,11 +97,9 @@
 		"@nx/angular:resolver": { "typeSeparator": "." },
 		"@schematics/angular:resolver": { "typeSeparator": "." }
 	},
-	"nxCloudAccessToken": "YjhiZDU0ZGQtODgyNy00Y2E3LWJmYzgtY2U1ZjE5M2FjZjc0fHJlYWQtd3JpdGU=",
 	"release": {
 		"version": {
 			"preVersionCommand": "yarn nx run-many -t build"
 		}
-	},
-	"nxCloudId": "68bad5ffc08bfa466da33976"
+	}
 }
