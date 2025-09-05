@@ -1,0 +1,53 @@
+{
+	"name": "pokedex",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "tools/pokedex/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"build": {
+			"executor": "@nx/js:tsc",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/tools/pokedex",
+				"main": "tools/pokedex/src/index.ts",
+				"tsConfig": "tools/pokedex/tsconfig.lib.json",
+				"assets": [
+					"tools/pokedex/*.md",
+					{
+						"input": "./tools/pokedex/src",
+						"glob": "**/!(*.ts)",
+						"output": "./src"
+					},
+					{
+						"input": "./tools/pokedex/src",
+						"glob": "**/*.d.ts",
+						"output": "./src"
+					},
+					{
+						"input": "./tools/pokedex",
+						"glob": "generators.json",
+						"output": "."
+					},
+					{
+						"input": "./tools/pokedex",
+						"glob": "executors.json",
+						"output": "."
+					}
+				]
+			}
+		},
+		"pokedex-seed": {
+			"executor": "@pokemon-center/pokedex:pokedex-seed",
+			"options": {
+				"outputPath": "dist/tools/pokedex"
+			}
+		},
+		"pokedex-sync": {
+			"executor": "@pokemon-center/pokedex:pokedex-sync",
+			"options": {
+				"outputPath": "dist/tools/pokedex"
+			}
+		}
+	}
+}

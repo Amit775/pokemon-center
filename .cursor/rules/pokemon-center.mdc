@@ -84,4 +84,4 @@ Example prompt: "Conkeldurr, let's start the data ingestion service. Please crea
 
 Development: All code generation and modifications for the task will occur on this branch. The agent will commit changes frequently with clear, conventional commit messages.
 
-Pull Request: Once the feature is complete, the User will instruct the agent to create a Pull Request (PR) against the main branch. The PR description should summarize the work done and the problem it solves, linking back to the initial task definition.
+Pull Request: Once the feature is complete, the agent will create a Pull Request (PR) against the main branch. The PR description should summarize the work done and the problem it solves, linking back to the initial task definition.
