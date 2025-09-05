@@ -1,0 +1,9 @@
+{
+	"executors": {
+		"pokedex-synchronizer": {
+			"implementation": "./pokedex-synchronizer",
+			"schema": "./schema.json",
+			"description": "Synchronizes Pokemon data from PostgreSQL to Elasticsearch"
+		}
+	}
+}
