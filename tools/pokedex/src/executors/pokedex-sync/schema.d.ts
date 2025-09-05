@@ -1,1 +1,3 @@
-export interface PokedexSyncExecutorSchema {} // eslint-disable-line
+export interface PokedexSyncExecutorSchema {
+	elasticsearchUrl: string;
+} // eslint-disable-line

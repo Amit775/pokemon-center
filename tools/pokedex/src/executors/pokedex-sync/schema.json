@@ -4,6 +4,13 @@
 	"title": "PokedexSync executor",
 	"description": "",
 	"type": "object",
-	"properties": {},
-	"required": []
+	"properties": {
+		"elasticsearchUrl": {
+			"type": "string",
+			"description": "The URL of the Elasticsearch instance"
+		}
+	},
+	"required": [
+		"elasticsearchUrl"
+	]
 }
