@@ -23,7 +23,7 @@ model Pokemon {
   weight          Int
   base_experience Int
   order           Int
-  is_default      Int
+  is_default      Boolean
 
   @@map("pokemon")
 }
@@ -40,13 +40,13 @@ model PokemonSpecies {
   gender_rate             Int
   capture_rate            Int
   base_happiness          Int
-  is_baby                 Int
+  is_baby                 Boolean
   hatch_counter           Int
-  has_gender_differences  Int
+  has_gender_differences  Boolean
   growth_rate_id          Int
-  forms_switchable        Int
-  is_legendary            Int
-  is_mythical             Int
+  forms_switchable        Boolean
+  is_legendary            Boolean
+  is_mythical             Boolean
   order                   Int
   conquest_order          Int?
 
@@ -59,9 +59,9 @@ model PokemonForms {
   form_identifier                 String?
   pokemon_id                      Int
   introduced_in_version_group_id  Int
-  is_default                      Int
-  is_battle_only                  Int
-  is_mega                         Int
+  is_default                      Boolean
+  is_battle_only                  Boolean
+  is_mega                         Boolean
   form_order                      Int
   order                           Int
 
@@ -80,7 +80,7 @@ model Moves {
   priority                Int
   target_id               Int
   damage_class_id         Int
-  effect_id               Int
+  effect_id               Int?
   effect_chance           Int?
   contest_type_id         Int?
   contest_effect_id       Int?
@@ -124,7 +124,7 @@ model Abilities {
   id              Int     @id
   identifier      String
   generation_id   Int
-  is_main_series  Int
+  is_main_series  Boolean
 
   @@map("abilities")
 }
@@ -161,7 +161,7 @@ model Stats {
   id              Int     @id
   damage_class_id Int?
   identifier      String
-  is_battle_only  Int
+  is_battle_only  Boolean
   game_index      Int?
 
   @@map("stats")
@@ -224,7 +224,7 @@ model Languages {
   iso639     String
   iso3166    String
   identifier String
-  official   Int
+  official   Boolean
   order      Int
 
   @@map("languages")
@@ -235,7 +235,7 @@ model Pokedexes {
   id             Int     @id
   region_id      Int
   identifier     String
-  is_main_series Int
+  is_main_series Boolean
 
   @@map("pokedexes")
 }
@@ -405,7 +405,7 @@ model EncounterConditionValues {
   id                      Int     @id
   encounter_condition_id  Int
   identifier              String
-  is_default              Int
+  is_default              Boolean
 
   @@map("encounter_condition_values")
 }
@@ -669,7 +669,7 @@ model ConquestPokemonStats {
 model ConquestStats {
   id         Int     @id
   identifier String
-  is_base    Int
+  is_base    Boolean
 
   @@map("conquest_stats")
 }
@@ -692,7 +692,7 @@ model ConquestWarriors {
   id            Int     @id
   identifier    String
   gender_id     Int
-  archetype_id  Int
+  archetype_id  Int?
 
   @@map("conquest_warriors")
 }
@@ -746,7 +746,7 @@ model ConquestWarriorStats {
 
 model ConquestWarriorTransformation {
   transformed_warrior_rank_id Int     @id
-  is_automatic                Int
+  is_automatic                Boolean
   required_link               Int?
   completed_episode_id        Int?
   current_episode_id          Int?
@@ -857,7 +857,7 @@ model PokedexVersionGroups {
 model PokemonAbilities {
   pokemon_id Int     @id
   ability_id Int
-  is_hidden  Int
+  is_hidden  Boolean
   slot       Int
 
   @@map("pokemon_abilities")
@@ -867,7 +867,7 @@ model PokemonAbilitiesPast {
   pokemon_id   Int
   generation_id Int
   ability_id   Int
-  is_hidden    Int
+  is_hidden    Boolean
   slot         Int
 
   @@id([pokemon_id, generation_id, ability_id])

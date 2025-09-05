@@ -8,7 +8,7 @@ import { PokedexSeedExecutorSchema } from './schema';
 const runExecutor: PromiseExecutor<PokedexSeedExecutorSchema> = async (options) => {
 	logger.info(`Executor ran for PokedexSeed ${JSON.stringify(options)}`);
 
-	const csvProcessorService = new CsvProcessorService(new PrismaClient());
+	const csvProcessorService = new CsvProcessorService(new PrismaClient(), options.tables);
 	await csvProcessorService.processAllCsvFiles();
 	return {
 		success: true,
@@ -17,13 +17,11 @@ const runExecutor: PromiseExecutor<PokedexSeedExecutorSchema> = async (options) 
 
 export default runExecutor;
 
-interface CsvProcessorConfig<T> {
-	transformRow: (data: any) => T;
-	prismaModel: keyof PrismaClient;
-}
-
 class CsvProcessorService {
-	constructor(private readonly prisma: PrismaClient) {}
+	constructor(
+		private readonly prisma: PrismaClient,
+		private readonly tables?: string[],
+	) {}
 
 	async processAllCsvFiles(): Promise<void> {
 		const csvDir = path.join(process.cwd(), 'data', 'csv');
@@ -33,7 +31,26 @@ class CsvProcessorService {
 			return;
 		}
 
+		const orderedFiles = this.getOrderedFiles(csvDir);
+
+		logger.log(`Processing ${orderedFiles.length} CSV files`);
+
+		for (const fileName of orderedFiles) {
+			const filePath = path.join(csvDir, fileName);
+			if (fs.existsSync(filePath)) {
+				await this.processCsvFile(filePath);
+			} else {
+				logger.warn(`File not found: ${fileName}`);
+			}
+		}
+	}
+
+	private getOrderedFiles(csvDir: string): string[] {
+		if (this.tables) {
+			return this.tables.map((table) => `${table}.csv`);
+		}
 		// Define the order of processing - core entities first, then relationships
+		// This order is maintained for potential future foreign key relationships
 		const filesToProcess = [
 			'move_damage_classes.csv',
 			'types.csv',
@@ -48,16 +65,15 @@ class CsvProcessorService {
 			'pokemon_moves.csv',
 		];
 
-		logger.log(`Processing ${filesToProcess.length} CSV files in order`);
+		// Get all CSV files in the directory
+		const allCsvFiles = fs
+			.readdirSync(csvDir)
+			.filter((file) => file.endsWith('.csv'))
+			.sort();
 
-		for (const fileName of filesToProcess) {
-			const filePath = path.join(csvDir, fileName);
-			if (fs.existsSync(filePath)) {
-				await this.processCsvFile(filePath);
-			} else {
-				logger.warn(`File not found: ${fileName}`);
-			}
-		}
+		// Process files in the defined order first, then any remaining files
+		const remainingFiles = allCsvFiles.filter((file) => !filesToProcess.includes(file));
+		return [...filesToProcess, ...remainingFiles];
 	}
 
 	private async processCsvFile(filePath: string): Promise<void> {
@@ -65,156 +81,108 @@ class CsvProcessorService {
 		logger.log(`Processing ${fileName}.csv`);
 
 		try {
-			switch (fileName) {
-				case 'pokemon':
-					await this.processCsv(filePath, {
-						transformRow: (data) => ({
-							id: parseInt(data.id),
-							name: data.identifier,
-							slug: data.identifier,
-						}),
-						prismaModel: 'pokemon',
-					});
-					break;
-				case 'types':
-					await this.processCsv(filePath, {
-						transformRow: (data) => ({
-							id: parseInt(data.id),
-							name: data.identifier,
-							slug: data.identifier,
-						}),
-						prismaModel: 'types',
-					});
-					break;
-				case 'moves':
-					await this.processCsv(filePath, {
-						transformRow: (data) => ({
-							id: parseInt(data.id),
-							name: data.identifier,
-							slug: data.identifier,
-							power: data.power ? parseInt(data.power) : null,
-							accuracy: data.accuracy ? parseInt(data.accuracy) : null,
-							pp: data.pp ? parseInt(data.pp) : null,
-							priority: parseInt(data.priority) || 0,
-							typeId: parseInt(data.type_id),
-							damageClassId: parseInt(data.damage_class_id),
-						}),
-						prismaModel: 'moves',
-					});
-					break;
-				case 'abilities':
-					await this.processCsv(filePath, {
-						transformRow: (data) => ({
-							id: parseInt(data.id),
-							name: data.identifier,
-							slug: data.identifier,
-						}),
-						prismaModel: 'abilities',
-					});
-					break;
-				case 'stats':
-					await this.processCsv(filePath, {
-						transformRow: (data) => ({
-							id: parseInt(data.id),
-							name: data.identifier,
-							slug: data.identifier,
-						}),
-						prismaModel: 'stats',
-					});
-					break;
-				case 'items':
-					await this.processCsv(filePath, {
-						transformRow: (data) => ({
-							id: parseInt(data.id),
-							name: data.identifier,
-							slug: data.identifier,
-						}),
-						prismaModel: 'items',
-					});
-					break;
-				case 'move_damage_classes':
-					await this.processCsv(filePath, {
-						transformRow: (data) => ({
-							id: parseInt(data.id),
-							name: data.identifier,
-							slug: data.identifier,
-						}),
-						prismaModel: 'moveDamageClasses',
-					});
-					break;
-				case 'pokemon_types':
-					await this.processCsv(filePath, {
-						transformRow: (data) => ({
-							pokemonId: parseInt(data.pokemon_id),
-							typeId: parseInt(data.type_id),
-						}),
-						prismaModel: 'pokemonTypes',
-					});
-					break;
-				case 'pokemon_moves':
-					await this.processCsv(filePath, {
-						transformRow: (data) => ({
-							pokemonId: parseInt(data.pokemon_id),
-							moveId: parseInt(data.move_id),
-						}),
-						prismaModel: 'pokemonMoves',
-					});
-					break;
-				case 'pokemon_abilities':
-					await this.processCsv(filePath, {
-						transformRow: (data) => ({
-							pokemonId: parseInt(data.pokemon_id),
-							abilityId: parseInt(data.ability_id),
-							isHidden: data.is_hidden === '1',
-						}),
-						prismaModel: 'pokemonAbilities',
-					});
-					break;
-				case 'pokemon_stats':
-					await this.processCsv(filePath, {
-						transformRow: (data) => ({
-							pokemonId: parseInt(data.pokemon_id),
-							statId: parseInt(data.stat_id),
-							baseStat: parseInt(data.base_stat),
-						}),
-						prismaModel: 'pokemonStats',
-					});
-					break;
-				default:
-					logger.warn(`No processor found for ${fileName}.csv`);
+			const prismaModelName = this.getPrismaModelName(fileName);
+			if (!prismaModelName) {
+				logger.warn(`No Prisma model found for ${fileName}.csv - skipping`);
+				return;
 			}
+
+			await this.processCsv(filePath, prismaModelName);
 		} catch (error) {
-			logger.error(`Error processing ${fileName}.csv:\n${error}`);
+			logger.error(`Error processing ${fileName}.csv:`);
 		}
 	}
 
-	private async processCsv<T>(filePath: string, config: CsvProcessorConfig<T>): Promise<void> {
-		const results: T[] = [];
+	/**
+	 * Converts snake_case CSV filename to camelCase Prisma model name
+	 */
+	private getPrismaModelName(fileName: string): keyof PrismaClient | null {
+		// Convert snake_case to camelCase
+		const camelCase = fileName.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+
+		// Capitalize first letter for Prisma model name
+		const modelName = camelCase.charAt(0).toUpperCase() + camelCase.slice(1);
+
+		// Check if the model exists in PrismaClient
+		if (modelName in this.prisma) {
+			return modelName as keyof PrismaClient;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Converts CSV data to appropriate types based on common patterns
+	 */
+	private convertCsvData(data: any): any {
+		const converted: any = {};
+
+		for (const [key, value] of Object.entries(data)) {
+			if (value === '' || value === null || value === undefined) {
+				converted[key] = null;
+			} else if (typeof value === 'string') {
+				// Handle empty strings as null
+				if (value.trim() === '') {
+					converted[key] = null;
+				}
+				// Try to convert to number if it looks like a number
+				else if (/^-?\d+$/.test(value.trim())) {
+					converted[key] = parseInt(value.trim(), 10);
+				} else if (/^-?\d*\.\d+$/.test(value.trim())) {
+					converted[key] = parseFloat(value.trim());
+				} else {
+					converted[key] = value.trim();
+				}
+			} else {
+				converted[key] = value;
+			}
+		}
+
+		return converted;
+	}
+
+	private async processCsv(filePath: string, prismaModelName: keyof PrismaClient): Promise<void> {
+		const results: any[] = [];
 
 		return new Promise((resolve, reject) => {
 			fs.createReadStream(filePath)
 				.pipe(csv())
 				.on('data', (data) => {
-					results.push(config.transformRow(data));
+					try {
+						results.push(this.convertCsvData(data));
+					} catch (error) {
+						logger.warn(`Error converting row data: ${JSON.stringify(data)}`);
+						logger.warn(`Conversion error: ${error}`);
+					}
 				})
 				.on('end', async () => {
 					try {
-						const prismaModel = this.prisma[config.prismaModel] as any;
+						if (results.length === 0) {
+							logger.warn(`No data to insert for ${String(prismaModelName)}`);
+							resolve();
+							return;
+						}
+
+						const prismaModel = this.prisma[prismaModelName] as any;
 						await prismaModel.createMany({
 							data: results,
 							skipDuplicates: true,
 						});
 
 						// Generate log message from Prisma model name
-						const modelName = this.formatModelNameForLog(config.prismaModel);
+						const modelName = this.formatModelNameForLog(prismaModelName);
 						logger.log(`Inserted ${results.length} ${modelName} records`);
 
 						resolve();
 					} catch (error) {
+						logger.error(`Database error for ${String(prismaModelName)}`);
 						reject(error);
 					}
 				})
-				.on('error', reject);
+				.on('error', (error) => {
+					logger.error(`File reading error: ${error}`);
+					reject(error);
+				});
 		});
 	}
 

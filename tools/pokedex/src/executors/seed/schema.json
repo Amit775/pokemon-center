@@ -4,6 +4,13 @@
 	"title": "PokedexSeed executor",
 	"description": "",
 	"type": "object",
-	"properties": {},
+	"properties": {
+		"tables": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		}
+	},
 	"required": []
 }
