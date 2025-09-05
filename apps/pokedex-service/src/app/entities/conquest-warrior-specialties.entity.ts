@@ -4,12 +4,12 @@ import { ConquestWarriorSpecialties as PrismaConquestWarriorSpecialties } from '
 @ObjectType()
 export class ConquestWarriorSpecialties implements PrismaConquestWarriorSpecialties {
   @Field(() => Int)
-  warrior_id: Int;
+  warrior_id: number;
 
   @Field(() => Int)
-  type_id: Int;
+  type_id: number;
 
   @Field(() => Int)
-  slot: Int;
+  slot: number;
 
 }

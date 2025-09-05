@@ -4,33 +4,33 @@ import { ConquestWarriorTransformation as PrismaConquestWarriorTransformation } 
 @ObjectType()
 export class ConquestWarriorTransformation implements PrismaConquestWarriorTransformation {
   @Field(() => Int)
-  transformed_warrior_rank_id: Int;
+  transformed_warrior_rank_id: number;
 
   @Field(() => Int)
-  is_automatic: Int;
+  is_automatic: number;
 
   @Field(() => Int, { nullable: true })
-  required_link: Int;
+  required_link: number;
 
   @Field(() => Int, { nullable: true })
-  completed_episode_id: Int;
+  completed_episode_id: number;
 
   @Field(() => Int, { nullable: true })
-  current_episode_id: Int;
+  current_episode_id: number;
 
   @Field(() => Int, { nullable: true })
-  distant_warrior_id: Int;
+  distant_warrior_id: number;
 
   @Field(() => Int, { nullable: true })
-  female_warlord_count: Int;
+  female_warlord_count: number;
 
   @Field(() => Int, { nullable: true })
-  pokemon_count: Int;
+  pokemon_count: number;
 
   @Field(() => Int, { nullable: true })
-  collection_type_id: Int;
+  collection_type_id: number;
 
   @Field(() => Int, { nullable: true })
-  warrior_count: Int;
+  warrior_count: number;
 
 }

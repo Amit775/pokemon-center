@@ -4,63 +4,63 @@ import { PokemonEvolution as PrismaPokemonEvolution } from '@prisma/client';
 @ObjectType()
 export class PokemonEvolution implements PrismaPokemonEvolution {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
   @Field(() => Int)
-  evolved_species_id: Int;
+  evolved_species_id: number;
 
   @Field(() => Int)
-  evolution_trigger_id: Int;
+  evolution_trigger_id: number;
 
   @Field(() => Int, { nullable: true })
-  trigger_item_id: Int;
+  trigger_item_id: number;
 
   @Field(() => Int, { nullable: true })
-  minimum_level: Int;
+  minimum_level: number;
 
   @Field(() => Int, { nullable: true })
-  gender_id: Int;
+  gender_id: number;
 
   @Field(() => Int, { nullable: true })
-  location_id: Int;
+  location_id: number;
 
   @Field(() => Int, { nullable: true })
-  held_item_id: Int;
+  held_item_id: number;
 
-  @Field(, { nullable: true })
-  time_of_day: String;
-
-  @Field(() => Int, { nullable: true })
-  known_move_id: Int;
+  @Field(() => String, { nullable: true })
+  time_of_day: string;
 
   @Field(() => Int, { nullable: true })
-  known_move_type_id: Int;
+  known_move_id: number;
 
   @Field(() => Int, { nullable: true })
-  minimum_happiness: Int;
+  known_move_type_id: number;
 
   @Field(() => Int, { nullable: true })
-  minimum_beauty: Int;
+  minimum_happiness: number;
 
   @Field(() => Int, { nullable: true })
-  minimum_affection: Int;
+  minimum_beauty: number;
 
   @Field(() => Int, { nullable: true })
-  relative_physical_stats: Int;
+  minimum_affection: number;
 
   @Field(() => Int, { nullable: true })
-  party_species_id: Int;
+  relative_physical_stats: number;
 
   @Field(() => Int, { nullable: true })
-  party_type_id: Int;
+  party_species_id: number;
 
   @Field(() => Int, { nullable: true })
-  trade_species_id: Int;
+  party_type_id: number;
+
+  @Field(() => Int, { nullable: true })
+  trade_species_id: number;
 
   @Field(() => Int)
-  needs_overworld_rain: Int;
+  needs_overworld_rain: number;
 
   @Field(() => Int)
-  turn_upside_down: Int;
+  turn_upside_down: number;
 
 }

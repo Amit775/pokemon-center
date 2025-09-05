@@ -4,9 +4,9 @@ import { PokemonColors as PrismaPokemonColors } from '@prisma/client';
 @ObjectType()
 export class PokemonColors implements PrismaPokemonColors {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

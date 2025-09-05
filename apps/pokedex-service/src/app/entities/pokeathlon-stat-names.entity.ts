@@ -4,12 +4,12 @@ import { PokeathlonStatNames as PrismaPokeathlonStatNames } from '@prisma/client
 @ObjectType()
 export class PokeathlonStatNames implements PrismaPokeathlonStatNames {
   @Field(() => Int)
-  pokeathlon_stat_id: Int;
+  pokeathlon_stat_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

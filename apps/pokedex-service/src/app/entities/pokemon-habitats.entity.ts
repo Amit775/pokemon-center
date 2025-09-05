@@ -4,9 +4,9 @@ import { PokemonHabitats as PrismaPokemonHabitats } from '@prisma/client';
 @ObjectType()
 export class PokemonHabitats implements PrismaPokemonHabitats {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

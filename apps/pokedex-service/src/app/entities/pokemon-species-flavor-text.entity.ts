@@ -4,15 +4,15 @@ import { PokemonSpeciesFlavorText as PrismaPokemonSpeciesFlavorText } from '@pri
 @ObjectType()
 export class PokemonSpeciesFlavorText implements PrismaPokemonSpeciesFlavorText {
   @Field(() => Int)
-  species_id: Int;
+  species_id: number;
 
   @Field(() => Int)
-  version_id: Int;
+  version_id: number;
 
   @Field(() => Int)
-  language_id: Int;
+  language_id: number;
 
-  @Field()
-  flavor_text: String;
+  @Field(() => String)
+  flavor_text: string;
 
 }

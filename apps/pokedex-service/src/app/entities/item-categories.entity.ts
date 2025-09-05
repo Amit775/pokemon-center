@@ -3,12 +3,13 @@ import { ItemCategories as PrismaItemCategories } from '@prisma/client';
 
 @ObjectType()
 export class ItemCategories implements PrismaItemCategories {
-	@Field(() => Int)
-	id: number;
+  @Field(() => Int)
+  id: number;
 
-	@Field(() => Int)
-	pocket_id: number;
+  @Field(() => Int)
+  pocket_id: number;
 
-	@Field()
-	identifier: string;
+  @Field(() => String)
+  identifier: string;
+
 }

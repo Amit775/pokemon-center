@@ -4,15 +4,15 @@ import { ContestEffectProse as PrismaContestEffectProse } from '@prisma/client';
 @ObjectType()
 export class ContestEffectProse implements PrismaContestEffectProse {
   @Field(() => Int)
-  contest_effect_id: Int;
+  contest_effect_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field(, { nullable: true })
-  flavor_text: String;
+  @Field(() => String, { nullable: true })
+  flavor_text: string;
 
-  @Field(, { nullable: true })
-  effect: String;
+  @Field(() => String, { nullable: true })
+  effect: string;
 
 }

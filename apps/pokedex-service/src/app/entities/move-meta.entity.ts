@@ -4,42 +4,42 @@ import { MoveMeta as PrismaMoveMeta } from '@prisma/client';
 @ObjectType()
 export class MoveMeta implements PrismaMoveMeta {
   @Field(() => Int)
-  move_id: Int;
+  move_id: number;
 
   @Field(() => Int)
-  meta_category_id: Int;
+  meta_category_id: number;
 
   @Field(() => Int, { nullable: true })
-  meta_ailment_id: Int;
+  meta_ailment_id: number;
 
   @Field(() => Int, { nullable: true })
-  min_hits: Int;
+  min_hits: number;
 
   @Field(() => Int, { nullable: true })
-  max_hits: Int;
+  max_hits: number;
 
   @Field(() => Int, { nullable: true })
-  min_turns: Int;
+  min_turns: number;
 
   @Field(() => Int, { nullable: true })
-  max_turns: Int;
+  max_turns: number;
 
   @Field(() => Int)
-  drain: Int;
+  drain: number;
 
   @Field(() => Int)
-  healing: Int;
+  healing: number;
 
   @Field(() => Int)
-  crit_rate: Int;
+  crit_rate: number;
 
   @Field(() => Int)
-  ailment_chance: Int;
+  ailment_chance: number;
 
   @Field(() => Int)
-  flinch_chance: Int;
+  flinch_chance: number;
 
   @Field(() => Int)
-  stat_chance: Int;
+  stat_chance: number;
 
 }

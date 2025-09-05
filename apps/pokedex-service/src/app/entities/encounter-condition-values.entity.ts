@@ -4,15 +4,15 @@ import { EncounterConditionValues as PrismaEncounterConditionValues } from '@pri
 @ObjectType()
 export class EncounterConditionValues implements PrismaEncounterConditionValues {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
   @Field(() => Int)
-  encounter_condition_id: Int;
+  encounter_condition_id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
   @Field(() => Int)
-  is_default: Int;
+  is_default: number;
 
 }

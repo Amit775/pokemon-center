@@ -4,15 +4,15 @@ import { MoveTargetProse as PrismaMoveTargetProse } from '@prisma/client';
 @ObjectType()
 export class MoveTargetProse implements PrismaMoveTargetProse {
   @Field(() => Int)
-  move_target_id: Int;
+  move_target_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
-  @Field(, { nullable: true })
-  description: String;
+  @Field(() => String, { nullable: true })
+  description: string;
 
 }

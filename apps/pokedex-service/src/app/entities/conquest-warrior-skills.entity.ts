@@ -4,9 +4,9 @@ import { ConquestWarriorSkills as PrismaConquestWarriorSkills } from '@prisma/cl
 @ObjectType()
 export class ConquestWarriorSkills implements PrismaConquestWarriorSkills {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

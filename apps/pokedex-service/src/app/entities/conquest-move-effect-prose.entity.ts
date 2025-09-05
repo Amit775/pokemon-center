@@ -4,15 +4,15 @@ import { ConquestMoveEffectProse as PrismaConquestMoveEffectProse } from '@prism
 @ObjectType()
 export class ConquestMoveEffectProse implements PrismaConquestMoveEffectProse {
   @Field(() => Int)
-  conquest_move_effect_id: Int;
+  conquest_move_effect_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field(, { nullable: true })
-  short_effect: String;
+  @Field(() => String, { nullable: true })
+  short_effect: string;
 
-  @Field(, { nullable: true })
-  effect: String;
+  @Field(() => String, { nullable: true })
+  effect: string;
 
 }

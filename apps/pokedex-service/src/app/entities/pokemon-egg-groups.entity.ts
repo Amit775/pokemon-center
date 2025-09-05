@@ -4,9 +4,9 @@ import { PokemonEggGroups as PrismaPokemonEggGroups } from '@prisma/client';
 @ObjectType()
 export class PokemonEggGroups implements PrismaPokemonEggGroups {
   @Field(() => Int)
-  species_id: Int;
+  species_id: number;
 
   @Field(() => Int)
-  egg_group_id: Int;
+  egg_group_id: number;
 
 }

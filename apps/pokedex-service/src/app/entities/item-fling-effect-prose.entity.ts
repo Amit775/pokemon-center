@@ -4,12 +4,12 @@ import { ItemFlingEffectProse as PrismaItemFlingEffectProse } from '@prisma/clie
 @ObjectType()
 export class ItemFlingEffectProse implements PrismaItemFlingEffectProse {
   @Field(() => Int)
-  item_fling_effect_id: Int;
+  item_fling_effect_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  effect: String;
+  @Field(() => String)
+  effect: string;
 
 }

@@ -4,12 +4,12 @@ import { ConquestWarriorRankStatMap as PrismaConquestWarriorRankStatMap } from '
 @ObjectType()
 export class ConquestWarriorRankStatMap implements PrismaConquestWarriorRankStatMap {
   @Field(() => Int)
-  warrior_rank_id: Int;
+  warrior_rank_id: number;
 
   @Field(() => Int)
-  warrior_stat_id: Int;
+  warrior_stat_id: number;
 
   @Field(() => Int)
-  base_stat: Int;
+  base_stat: number;
 
 }

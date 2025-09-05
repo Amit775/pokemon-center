@@ -4,12 +4,12 @@ import { GrowthRates as PrismaGrowthRates } from '@prisma/client';
 @ObjectType()
 export class GrowthRates implements PrismaGrowthRates {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
-  @Field()
-  formula: String;
+  @Field(() => String)
+  formula: string;
 
 }

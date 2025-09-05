@@ -4,9 +4,9 @@ import { PokedexVersionGroups as PrismaPokedexVersionGroups } from '@prisma/clie
 @ObjectType()
 export class PokedexVersionGroups implements PrismaPokedexVersionGroups {
   @Field(() => Int)
-  pokedex_id: Int;
+  pokedex_id: number;
 
   @Field(() => Int)
-  version_group_id: Int;
+  version_group_id: number;
 
 }

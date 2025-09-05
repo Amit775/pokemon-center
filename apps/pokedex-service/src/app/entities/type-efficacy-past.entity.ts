@@ -4,15 +4,15 @@ import { TypeEfficacyPast as PrismaTypeEfficacyPast } from '@prisma/client';
 @ObjectType()
 export class TypeEfficacyPast implements PrismaTypeEfficacyPast {
   @Field(() => Int)
-  damage_type_id: Int;
+  damage_type_id: number;
 
   @Field(() => Int)
-  target_type_id: Int;
+  target_type_id: number;
 
   @Field(() => Int)
-  damage_factor: Int;
+  damage_factor: number;
 
   @Field(() => Int)
-  generation_id: Int;
+  generation_id: number;
 
 }

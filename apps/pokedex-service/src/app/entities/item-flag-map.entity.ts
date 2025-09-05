@@ -4,9 +4,9 @@ import { ItemFlagMap as PrismaItemFlagMap } from '@prisma/client';
 @ObjectType()
 export class ItemFlagMap implements PrismaItemFlagMap {
   @Field(() => Int)
-  item_id: Int;
+  item_id: number;
 
   @Field(() => Int)
-  item_flag_id: Int;
+  item_flag_id: number;
 
 }

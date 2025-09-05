@@ -4,9 +4,9 @@ import { ConquestWarriorArchetypes as PrismaConquestWarriorArchetypes } from '@p
 @ObjectType()
 export class ConquestWarriorArchetypes implements PrismaConquestWarriorArchetypes {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

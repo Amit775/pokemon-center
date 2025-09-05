@@ -4,12 +4,12 @@ import { MoveMetaCategoryProse as PrismaMoveMetaCategoryProse } from '@prisma/cl
 @ObjectType()
 export class MoveMetaCategoryProse implements PrismaMoveMetaCategoryProse {
   @Field(() => Int)
-  move_meta_category_id: Int;
+  move_meta_category_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  description: String;
+  @Field(() => String)
+  description: string;
 
 }

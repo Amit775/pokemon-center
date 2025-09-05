@@ -4,12 +4,12 @@ import { MoveMetaAilmentNames as PrismaMoveMetaAilmentNames } from '@prisma/clie
 @ObjectType()
 export class MoveMetaAilmentNames implements PrismaMoveMetaAilmentNames {
   @Field(() => Int)
-  move_meta_ailment_id: Int;
+  move_meta_ailment_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

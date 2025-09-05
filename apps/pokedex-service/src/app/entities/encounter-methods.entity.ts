@@ -4,12 +4,12 @@ import { EncounterMethods as PrismaEncounterMethods } from '@prisma/client';
 @ObjectType()
 export class EncounterMethods implements PrismaEncounterMethods {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
   @Field(() => Int)
-  order: Int;
+  order: number;
 
 }

@@ -4,15 +4,15 @@ import { PokedexProse as PrismaPokedexProse } from '@prisma/client';
 @ObjectType()
 export class PokedexProse implements PrismaPokedexProse {
   @Field(() => Int)
-  pokedex_id: Int;
+  pokedex_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
-  @Field(, { nullable: true })
-  description: String;
+  @Field(() => String, { nullable: true })
+  description: string;
 
 }

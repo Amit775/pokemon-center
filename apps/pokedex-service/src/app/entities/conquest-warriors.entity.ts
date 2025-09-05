@@ -4,15 +4,15 @@ import { ConquestWarriors as PrismaConquestWarriors } from '@prisma/client';
 @ObjectType()
 export class ConquestWarriors implements PrismaConquestWarriors {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
-
-  @Field(() => Int)
-  gender_id: Int;
+  @Field(() => String)
+  identifier: string;
 
   @Field(() => Int)
-  archetype_id: Int;
+  gender_id: number;
+
+  @Field(() => Int)
+  archetype_id: number;
 
 }

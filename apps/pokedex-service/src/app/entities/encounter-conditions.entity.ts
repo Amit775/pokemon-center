@@ -4,9 +4,9 @@ import { EncounterConditions as PrismaEncounterConditions } from '@prisma/client
 @ObjectType()
 export class EncounterConditions implements PrismaEncounterConditions {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

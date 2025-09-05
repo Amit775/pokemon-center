@@ -4,12 +4,12 @@ import { ConquestKingdomNames as PrismaConquestKingdomNames } from '@prisma/clie
 @ObjectType()
 export class ConquestKingdomNames implements PrismaConquestKingdomNames {
   @Field(() => Int)
-  kingdom_id: Int;
+  kingdom_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

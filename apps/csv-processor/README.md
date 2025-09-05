@@ -39,7 +39,6 @@ The service uses:
 - **NestJS** for the application framework
 - **Prisma** for database operations
 - **csv-parser** for reading CSV files
-- **Shared Entities** from `@pokemon-center/shared-entities` library
 
 ## CSV File Mapping
 

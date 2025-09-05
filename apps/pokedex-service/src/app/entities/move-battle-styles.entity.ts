@@ -4,9 +4,9 @@ import { MoveBattleStyles as PrismaMoveBattleStyles } from '@prisma/client';
 @ObjectType()
 export class MoveBattleStyles implements PrismaMoveBattleStyles {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

@@ -4,12 +4,12 @@ import { MoveBattleStyleProse as PrismaMoveBattleStyleProse } from '@prisma/clie
 @ObjectType()
 export class MoveBattleStyleProse implements PrismaMoveBattleStyleProse {
   @Field(() => Int)
-  move_battle_style_id: Int;
+  move_battle_style_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

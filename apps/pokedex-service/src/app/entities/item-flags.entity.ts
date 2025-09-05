@@ -4,9 +4,9 @@ import { ItemFlags as PrismaItemFlags } from '@prisma/client';
 @ObjectType()
 export class ItemFlags implements PrismaItemFlags {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

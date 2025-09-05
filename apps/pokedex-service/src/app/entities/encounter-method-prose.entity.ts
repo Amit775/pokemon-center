@@ -4,12 +4,12 @@ import { EncounterMethodProse as PrismaEncounterMethodProse } from '@prisma/clie
 @ObjectType()
 export class EncounterMethodProse implements PrismaEncounterMethodProse {
   @Field(() => Int)
-  encounter_method_id: Int;
+  encounter_method_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

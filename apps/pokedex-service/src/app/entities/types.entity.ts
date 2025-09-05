@@ -3,15 +3,16 @@ import { Types as PrismaTypes } from '@prisma/client';
 
 @ObjectType()
 export class Types implements PrismaTypes {
-	@Field(() => Int)
-	id: number;
+  @Field(() => Int)
+  id: number;
 
-	@Field()
-	identifier: string;
+  @Field(() => String)
+  identifier: string;
 
-	@Field(() => Int)
-	generation_id: number;
+  @Field(() => Int)
+  generation_id: number;
 
-	@Field(() => Int, { nullable: true })
-	damage_class_id?: number;
+  @Field(() => Int, { nullable: true })
+  damage_class_id: number;
+
 }

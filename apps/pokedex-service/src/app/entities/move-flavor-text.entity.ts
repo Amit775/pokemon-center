@@ -4,15 +4,15 @@ import { MoveFlavorText as PrismaMoveFlavorText } from '@prisma/client';
 @ObjectType()
 export class MoveFlavorText implements PrismaMoveFlavorText {
   @Field(() => Int)
-  move_id: Int;
+  move_id: number;
 
   @Field(() => Int)
-  version_group_id: Int;
+  version_group_id: number;
 
   @Field(() => Int)
-  language_id: Int;
+  language_id: number;
 
-  @Field()
-  flavor_text: String;
+  @Field(() => String)
+  flavor_text: string;
 
 }

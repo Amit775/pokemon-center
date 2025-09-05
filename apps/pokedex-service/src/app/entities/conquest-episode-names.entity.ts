@@ -4,12 +4,12 @@ import { ConquestEpisodeNames as PrismaConquestEpisodeNames } from '@prisma/clie
 @ObjectType()
 export class ConquestEpisodeNames implements PrismaConquestEpisodeNames {
   @Field(() => Int)
-  episode_id: Int;
+  episode_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

@@ -4,9 +4,9 @@ import { ItemFlingEffects as PrismaItemFlingEffects } from '@prisma/client';
 @ObjectType()
 export class ItemFlingEffects implements PrismaItemFlingEffects {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

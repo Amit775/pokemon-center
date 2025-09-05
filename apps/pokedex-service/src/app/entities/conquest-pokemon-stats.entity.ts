@@ -4,12 +4,12 @@ import { ConquestPokemonStats as PrismaConquestPokemonStats } from '@prisma/clie
 @ObjectType()
 export class ConquestPokemonStats implements PrismaConquestPokemonStats {
   @Field(() => Int)
-  pokemon_species_id: Int;
+  pokemon_species_id: number;
 
   @Field(() => Int)
-  conquest_stat_id: Int;
+  conquest_stat_id: number;
 
   @Field(() => Int)
-  base_stat: Int;
+  base_stat: number;
 
 }

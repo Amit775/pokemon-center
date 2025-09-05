@@ -3,12 +3,13 @@ import { AbilityNames as PrismaAbilityNames } from '@prisma/client';
 
 @ObjectType()
 export class AbilityNames implements PrismaAbilityNames {
-	@Field(() => Int)
-	ability_id: number;
+  @Field(() => Int)
+  ability_id: number;
 
-	@Field(() => Int)
-	local_language_id: number;
+  @Field(() => Int)
+  local_language_id: number;
 
-	@Field()
-	name: string;
+  @Field(() => String)
+  name: string;
+
 }

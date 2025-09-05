@@ -21,7 +21,6 @@
 			"@pokemon-center/domain-school": ["libs/domain-school/src/index.ts"],
 			"@pokemon-center/infra-pokedex-index": ["libs/infra-pokedex-index/src/index.ts"],
 			"@pokemon-center/pokedex": ["tools/pokedex/src/index.ts"],
-			"@pokemon-center/shared-entities": ["libs/shared-entities/src/index.ts"],
 			"@pokemon-center/ui-list": ["libs/ui-list/src/index.ts"]
 		}
 	},

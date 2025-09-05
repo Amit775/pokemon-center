@@ -4,12 +4,12 @@ import { MoveEffectChangelogProse as PrismaMoveEffectChangelogProse } from '@pri
 @ObjectType()
 export class MoveEffectChangelogProse implements PrismaMoveEffectChangelogProse {
   @Field(() => Int)
-  move_effect_changelog_id: Int;
+  move_effect_changelog_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  effect: String;
+  @Field(() => String)
+  effect: string;
 
 }

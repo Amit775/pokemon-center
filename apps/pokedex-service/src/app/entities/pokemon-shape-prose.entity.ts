@@ -4,18 +4,18 @@ import { PokemonShapeProse as PrismaPokemonShapeProse } from '@prisma/client';
 @ObjectType()
 export class PokemonShapeProse implements PrismaPokemonShapeProse {
   @Field(() => Int)
-  pokemon_shape_id: Int;
+  pokemon_shape_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
-  @Field(, { nullable: true })
-  awesome_name: String;
+  @Field(() => String, { nullable: true })
+  awesome_name: string;
 
-  @Field(, { nullable: true })
-  description: String;
+  @Field(() => String, { nullable: true })
+  description: string;
 
 }

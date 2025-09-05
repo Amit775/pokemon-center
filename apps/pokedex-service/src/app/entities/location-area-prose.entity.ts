@@ -4,12 +4,12 @@ import { LocationAreaProse as PrismaLocationAreaProse } from '@prisma/client';
 @ObjectType()
 export class LocationAreaProse implements PrismaLocationAreaProse {
   @Field(() => Int)
-  location_area_id: Int;
+  location_area_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field(, { nullable: true })
-  name: String;
+  @Field(() => String, { nullable: true })
+  name: string;
 
 }

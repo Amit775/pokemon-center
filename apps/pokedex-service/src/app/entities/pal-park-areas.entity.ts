@@ -4,9 +4,9 @@ import { PalParkAreas as PrismaPalParkAreas } from '@prisma/client';
 @ObjectType()
 export class PalParkAreas implements PrismaPalParkAreas {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

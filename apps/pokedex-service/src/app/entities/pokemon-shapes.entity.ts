@@ -4,9 +4,9 @@ import { PokemonShapes as PrismaPokemonShapes } from '@prisma/client';
 @ObjectType()
 export class PokemonShapes implements PrismaPokemonShapes {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

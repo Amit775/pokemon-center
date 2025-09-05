@@ -4,12 +4,12 @@ import { ConquestMoveDisplacements as PrismaConquestMoveDisplacements } from '@p
 @ObjectType()
 export class ConquestMoveDisplacements implements PrismaConquestMoveDisplacements {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
   @Field(() => Int)
-  affects_target: Int;
+  affects_target: number;
 
 }

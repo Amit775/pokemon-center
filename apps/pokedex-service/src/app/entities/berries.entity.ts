@@ -4,33 +4,33 @@ import { Berries as PrismaBerries } from '@prisma/client';
 @ObjectType()
 export class Berries implements PrismaBerries {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
   @Field(() => Int)
-  item_id: Int;
+  item_id: number;
 
   @Field(() => Int)
-  firmness_id: Int;
+  firmness_id: number;
 
   @Field(() => Int, { nullable: true })
-  natural_gift_power: Int;
+  natural_gift_power: number;
 
   @Field(() => Int, { nullable: true })
-  natural_gift_type_id: Int;
+  natural_gift_type_id: number;
 
   @Field(() => Int)
-  size: Int;
+  size: number;
 
   @Field(() => Int)
-  max_harvest: Int;
+  max_harvest: number;
 
   @Field(() => Int)
-  growth_time: Int;
+  growth_time: number;
 
   @Field(() => Int)
-  soil_dryness: Int;
+  soil_dryness: number;
 
   @Field(() => Int)
-  smoothness: Int;
+  smoothness: number;
 
 }

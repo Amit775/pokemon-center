@@ -4,9 +4,9 @@ import { ConquestEpisodes as PrismaConquestEpisodes } from '@prisma/client';
 @ObjectType()
 export class ConquestEpisodes implements PrismaConquestEpisodes {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

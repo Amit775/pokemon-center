@@ -4,9 +4,9 @@ import { MoveFlags as PrismaMoveFlags } from '@prisma/client';
 @ObjectType()
 export class MoveFlags implements PrismaMoveFlags {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

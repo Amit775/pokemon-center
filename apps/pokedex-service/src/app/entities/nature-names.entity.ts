@@ -4,12 +4,12 @@ import { NatureNames as PrismaNatureNames } from '@prisma/client';
 @ObjectType()
 export class NatureNames implements PrismaNatureNames {
   @Field(() => Int)
-  nature_id: Int;
+  nature_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

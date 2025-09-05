@@ -4,15 +4,15 @@ import { LocationNames as PrismaLocationNames } from '@prisma/client';
 @ObjectType()
 export class LocationNames implements PrismaLocationNames {
   @Field(() => Int)
-  location_id: Int;
+  location_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
-  @Field(, { nullable: true })
-  subtitle: String;
+  @Field(() => String, { nullable: true })
+  subtitle: string;
 
 }

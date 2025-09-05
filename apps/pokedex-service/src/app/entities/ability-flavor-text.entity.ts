@@ -4,15 +4,15 @@ import { AbilityFlavorText as PrismaAbilityFlavorText } from '@prisma/client';
 @ObjectType()
 export class AbilityFlavorText implements PrismaAbilityFlavorText {
   @Field(() => Int)
-  ability_id: Int;
+  ability_id: number;
 
   @Field(() => Int)
-  version_group_id: Int;
+  version_group_id: number;
 
   @Field(() => Int)
-  language_id: Int;
+  language_id: number;
 
-  @Field()
-  flavor_text: String;
+  @Field(() => String)
+  flavor_text: string;
 
 }

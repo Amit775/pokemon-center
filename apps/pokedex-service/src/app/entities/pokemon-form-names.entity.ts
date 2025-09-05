@@ -4,15 +4,15 @@ import { PokemonFormNames as PrismaPokemonFormNames } from '@prisma/client';
 @ObjectType()
 export class PokemonFormNames implements PrismaPokemonFormNames {
   @Field(() => Int)
-  pokemon_form_id: Int;
+  pokemon_form_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field(, { nullable: true })
-  form_name: String;
+  @Field(() => String, { nullable: true })
+  form_name: string;
 
-  @Field(, { nullable: true })
-  pokemon_name: String;
+  @Field(() => String, { nullable: true })
+  pokemon_name: string;
 
 }

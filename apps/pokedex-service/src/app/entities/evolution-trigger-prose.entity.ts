@@ -4,12 +4,12 @@ import { EvolutionTriggerProse as PrismaEvolutionTriggerProse } from '@prisma/cl
 @ObjectType()
 export class EvolutionTriggerProse implements PrismaEvolutionTriggerProse {
   @Field(() => Int)
-  evolution_trigger_id: Int;
+  evolution_trigger_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

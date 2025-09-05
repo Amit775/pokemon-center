@@ -4,9 +4,9 @@ import { VersionGroupPokemonMoveMethods as PrismaVersionGroupPokemonMoveMethods 
 @ObjectType()
 export class VersionGroupPokemonMoveMethods implements PrismaVersionGroupPokemonMoveMethods {
   @Field(() => Int)
-  version_group_id: Int;
+  version_group_id: number;
 
   @Field(() => Int)
-  pokemon_move_method_id: Int;
+  pokemon_move_method_id: number;
 
 }

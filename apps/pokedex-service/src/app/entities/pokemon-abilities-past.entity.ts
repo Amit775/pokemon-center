@@ -3,18 +3,19 @@ import { PokemonAbilitiesPast as PrismaPokemonAbilitiesPast } from '@prisma/clie
 
 @ObjectType()
 export class PokemonAbilitiesPast implements PrismaPokemonAbilitiesPast {
-	@Field(() => Int)
-	pokemon_id: number;
+  @Field(() => Int)
+  pokemon_id: number;
 
-	@Field(() => Int)
-	generation_id: number;
+  @Field(() => Int)
+  generation_id: number;
 
-	@Field(() => Int)
-	ability_id: number;
+  @Field(() => Int)
+  ability_id: number;
 
-	@Field(() => Int)
-	is_hidden: number;
+  @Field(() => Int)
+  is_hidden: number;
 
-	@Field(() => Int)
-	slot: number;
+  @Field(() => Int)
+  slot: number;
+
 }

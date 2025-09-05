@@ -4,12 +4,12 @@ import { EncounterConditionProse as PrismaEncounterConditionProse } from '@prism
 @ObjectType()
 export class EncounterConditionProse implements PrismaEncounterConditionProse {
   @Field(() => Int)
-  encounter_condition_id: Int;
+  encounter_condition_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

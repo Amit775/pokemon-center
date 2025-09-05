@@ -4,9 +4,9 @@ import { EvolutionTriggers as PrismaEvolutionTriggers } from '@prisma/client';
 @ObjectType()
 export class EvolutionTriggers implements PrismaEvolutionTriggers {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

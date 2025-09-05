@@ -4,12 +4,12 @@ import { AbilityChangelogProse as PrismaAbilityChangelogProse } from '@prisma/cl
 @ObjectType()
 export class AbilityChangelogProse implements PrismaAbilityChangelogProse {
   @Field(() => Int)
-  ability_changelog_id: Int;
+  ability_changelog_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  effect: String;
+  @Field(() => String)
+  effect: string;
 
 }

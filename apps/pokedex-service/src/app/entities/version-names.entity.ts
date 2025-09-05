@@ -4,12 +4,12 @@ import { VersionNames as PrismaVersionNames } from '@prisma/client';
 @ObjectType()
 export class VersionNames implements PrismaVersionNames {
   @Field(() => Int)
-  version_id: Int;
+  version_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

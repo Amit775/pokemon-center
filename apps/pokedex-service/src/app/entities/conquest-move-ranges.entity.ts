@@ -4,12 +4,12 @@ import { ConquestMoveRanges as PrismaConquestMoveRanges } from '@prisma/client';
 @ObjectType()
 export class ConquestMoveRanges implements PrismaConquestMoveRanges {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
   @Field(() => Int)
-  targets: Int;
+  targets: number;
 
 }

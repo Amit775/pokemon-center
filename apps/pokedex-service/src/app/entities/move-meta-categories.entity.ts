@@ -4,9 +4,9 @@ import { MoveMetaCategories as PrismaMoveMetaCategories } from '@prisma/client';
 @ObjectType()
 export class MoveMetaCategories implements PrismaMoveMetaCategories {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

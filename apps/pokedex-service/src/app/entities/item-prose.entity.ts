@@ -4,15 +4,15 @@ import { ItemProse as PrismaItemProse } from '@prisma/client';
 @ObjectType()
 export class ItemProse implements PrismaItemProse {
   @Field(() => Int)
-  item_id: Int;
+  item_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field(, { nullable: true })
-  short_effect: String;
+  @Field(() => String, { nullable: true })
+  short_effect: string;
 
-  @Field(, { nullable: true })
-  effect: String;
+  @Field(() => String, { nullable: true })
+  effect: string;
 
 }

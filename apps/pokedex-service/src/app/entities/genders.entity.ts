@@ -4,9 +4,9 @@ import { Genders as PrismaGenders } from '@prisma/client';
 @ObjectType()
 export class Genders implements PrismaGenders {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

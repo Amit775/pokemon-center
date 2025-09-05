@@ -4,12 +4,12 @@ import { PokemonFormGenerations as PrismaPokemonFormGenerations } from '@prisma/
 @ObjectType()
 export class PokemonFormGenerations implements PrismaPokemonFormGenerations {
   @Field(() => Int)
-  pokemon_form_id: Int;
+  pokemon_form_id: number;
 
   @Field(() => Int)
-  generation_id: Int;
+  generation_id: number;
 
   @Field(() => Int)
-  game_index: Int;
+  game_index: number;
 
 }

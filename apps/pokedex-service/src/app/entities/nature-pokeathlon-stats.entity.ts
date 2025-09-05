@@ -4,12 +4,12 @@ import { NaturePokeathlonStats as PrismaNaturePokeathlonStats } from '@prisma/cl
 @ObjectType()
 export class NaturePokeathlonStats implements PrismaNaturePokeathlonStats {
   @Field(() => Int)
-  nature_id: Int;
+  nature_id: number;
 
   @Field(() => Int)
-  pokeathlon_stat_id: Int;
+  pokeathlon_stat_id: number;
 
   @Field(() => Int)
-  max_change: Int;
+  max_change: number;
 
 }

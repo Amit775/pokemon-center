@@ -4,9 +4,9 @@ import { BerryFirmness as PrismaBerryFirmness } from '@prisma/client';
 @ObjectType()
 export class BerryFirmness implements PrismaBerryFirmness {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

@@ -4,15 +4,15 @@ import { ConquestMoveRangeProse as PrismaConquestMoveRangeProse } from '@prisma/
 @ObjectType()
 export class ConquestMoveRangeProse implements PrismaConquestMoveRangeProse {
   @Field(() => Int)
-  conquest_move_range_id: Int;
+  conquest_move_range_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
-  @Field(, { nullable: true })
-  description: String;
+  @Field(() => String, { nullable: true })
+  description: string;
 
 }

@@ -4,9 +4,9 @@ import { PokemonMoveMethods as PrismaPokemonMoveMethods } from '@prisma/client';
 @ObjectType()
 export class PokemonMoveMethods implements PrismaPokemonMoveMethods {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

@@ -4,9 +4,9 @@ import { SuperContestEffects as PrismaSuperContestEffects } from '@prisma/client
 @ObjectType()
 export class SuperContestEffects implements PrismaSuperContestEffects {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
   @Field(() => Int)
-  appeal: Int;
+  appeal: number;
 
 }

@@ -4,18 +4,18 @@ import { PokemonFormPokeathlonStats as PrismaPokemonFormPokeathlonStats } from '
 @ObjectType()
 export class PokemonFormPokeathlonStats implements PrismaPokemonFormPokeathlonStats {
   @Field(() => Int)
-  pokemon_form_id: Int;
+  pokemon_form_id: number;
 
   @Field(() => Int)
-  pokeathlon_stat_id: Int;
+  pokeathlon_stat_id: number;
 
   @Field(() => Int)
-  minimum_stat: Int;
+  minimum_stat: number;
 
   @Field(() => Int)
-  base_stat: Int;
+  base_stat: number;
 
   @Field(() => Int)
-  maximum_stat: Int;
+  maximum_stat: number;
 
 }

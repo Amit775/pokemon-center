@@ -4,12 +4,12 @@ import { PokemonGameIndices as PrismaPokemonGameIndices } from '@prisma/client';
 @ObjectType()
 export class PokemonGameIndices implements PrismaPokemonGameIndices {
   @Field(() => Int)
-  pokemon_id: Int;
+  pokemon_id: number;
 
   @Field(() => Int)
-  version_id: Int;
+  version_id: number;
 
   @Field(() => Int)
-  game_index: Int;
+  game_index: number;
 
 }

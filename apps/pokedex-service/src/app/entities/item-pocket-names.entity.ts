@@ -4,12 +4,12 @@ import { ItemPocketNames as PrismaItemPocketNames } from '@prisma/client';
 @ObjectType()
 export class ItemPocketNames implements PrismaItemPocketNames {
   @Field(() => Int)
-  item_pocket_id: Int;
+  item_pocket_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

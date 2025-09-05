@@ -4,9 +4,9 @@ import { ConquestEpisodeWarriors as PrismaConquestEpisodeWarriors } from '@prism
 @ObjectType()
 export class ConquestEpisodeWarriors implements PrismaConquestEpisodeWarriors {
   @Field(() => Int)
-  episode_id: Int;
+  episode_id: number;
 
   @Field(() => Int)
-  warrior_id: Int;
+  warrior_id: number;
 
 }

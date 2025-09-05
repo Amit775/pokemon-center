@@ -4,12 +4,12 @@ import { MoveMetaStatChanges as PrismaMoveMetaStatChanges } from '@prisma/client
 @ObjectType()
 export class MoveMetaStatChanges implements PrismaMoveMetaStatChanges {
   @Field(() => Int)
-  move_id: Int;
+  move_id: number;
 
   @Field(() => Int)
-  stat_id: Int;
+  stat_id: number;
 
   @Field(() => Int)
-  change: Int;
+  change: number;
 
 }

@@ -4,6 +4,6 @@ import { ConquestMoveEffects as PrismaConquestMoveEffects } from '@prisma/client
 @ObjectType()
 export class ConquestMoveEffects implements PrismaConquestMoveEffects {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
 }

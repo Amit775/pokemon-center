@@ -4,24 +4,24 @@ import { ConquestMoveData as PrismaConquestMoveData } from '@prisma/client';
 @ObjectType()
 export class ConquestMoveData implements PrismaConquestMoveData {
   @Field(() => Int)
-  move_id: Int;
+  move_id: number;
 
   @Field(() => Int, { nullable: true })
-  power: Int;
+  power: number;
 
   @Field(() => Int, { nullable: true })
-  accuracy: Int;
+  accuracy: number;
 
   @Field(() => Int, { nullable: true })
-  effect_chance: Int;
+  effect_chance: number;
 
   @Field(() => Int, { nullable: true })
-  effect_id: Int;
+  effect_id: number;
 
   @Field(() => Int, { nullable: true })
-  range_id: Int;
+  range_id: number;
 
   @Field(() => Int, { nullable: true })
-  displacement_id: Int;
+  displacement_id: number;
 
 }

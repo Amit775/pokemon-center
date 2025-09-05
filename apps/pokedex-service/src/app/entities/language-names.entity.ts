@@ -4,12 +4,12 @@ import { LanguageNames as PrismaLanguageNames } from '@prisma/client';
 @ObjectType()
 export class LanguageNames implements PrismaLanguageNames {
   @Field(() => Int)
-  language_id: Int;
+  language_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

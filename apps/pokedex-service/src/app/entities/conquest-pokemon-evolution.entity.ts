@@ -4,27 +4,27 @@ import { ConquestPokemonEvolution as PrismaConquestPokemonEvolution } from '@pri
 @ObjectType()
 export class ConquestPokemonEvolution implements PrismaConquestPokemonEvolution {
   @Field(() => Int)
-  evolved_species_id: Int;
+  evolved_species_id: number;
 
   @Field(() => Int, { nullable: true })
-  required_stat_id: Int;
+  required_stat_id: number;
 
   @Field(() => Int, { nullable: true })
-  minimum_stat: Int;
+  minimum_stat: number;
 
   @Field(() => Int, { nullable: true })
-  minimum_link: Int;
+  minimum_link: number;
 
   @Field(() => Int, { nullable: true })
-  kingdom_id: Int;
+  kingdom_id: number;
 
   @Field(() => Int, { nullable: true })
-  warrior_gender_id: Int;
+  warrior_gender_id: number;
 
   @Field(() => Int, { nullable: true })
-  item_id: Int;
+  item_id: number;
 
   @Field(() => Int)
-  recruiting_ko_required: Int;
+  recruiting_ko_required: number;
 
 }

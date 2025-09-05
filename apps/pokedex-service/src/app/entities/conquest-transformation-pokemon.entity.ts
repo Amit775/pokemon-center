@@ -4,9 +4,9 @@ import { ConquestTransformationPokemon as PrismaConquestTransformationPokemon } 
 @ObjectType()
 export class ConquestTransformationPokemon implements PrismaConquestTransformationPokemon {
   @Field(() => Int)
-  transformation_id: Int;
+  transformation_id: number;
 
   @Field(() => Int)
-  pokemon_species_id: Int;
+  pokemon_species_id: number;
 
 }

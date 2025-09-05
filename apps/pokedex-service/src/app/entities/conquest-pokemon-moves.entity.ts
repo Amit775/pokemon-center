@@ -4,9 +4,9 @@ import { ConquestPokemonMoves as PrismaConquestPokemonMoves } from '@prisma/clie
 @ObjectType()
 export class ConquestPokemonMoves implements PrismaConquestPokemonMoves {
   @Field(() => Int)
-  pokemon_species_id: Int;
+  pokemon_species_id: number;
 
   @Field(() => Int)
-  move_id: Int;
+  move_id: number;
 
 }

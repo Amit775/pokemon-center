@@ -4,12 +4,12 @@ import { ConquestWarriorStatNames as PrismaConquestWarriorStatNames } from '@pri
 @ObjectType()
 export class ConquestWarriorStatNames implements PrismaConquestWarriorStatNames {
   @Field(() => Int)
-  warrior_stat_id: Int;
+  warrior_stat_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

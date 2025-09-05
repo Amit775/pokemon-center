@@ -4,33 +4,33 @@ import { MoveChangelog as PrismaMoveChangelog } from '@prisma/client';
 @ObjectType()
 export class MoveChangelog implements PrismaMoveChangelog {
   @Field(() => Int)
-  move_id: Int;
+  move_id: number;
 
   @Field(() => Int)
-  changed_in_version_group_id: Int;
+  changed_in_version_group_id: number;
 
   @Field(() => Int, { nullable: true })
-  type_id: Int;
+  type_id: number;
 
   @Field(() => Int, { nullable: true })
-  power: Int;
+  power: number;
 
   @Field(() => Int, { nullable: true })
-  pp: Int;
+  pp: number;
 
   @Field(() => Int, { nullable: true })
-  accuracy: Int;
+  accuracy: number;
 
   @Field(() => Int, { nullable: true })
-  priority: Int;
+  priority: number;
 
   @Field(() => Int, { nullable: true })
-  target_id: Int;
+  target_id: number;
 
   @Field(() => Int, { nullable: true })
-  effect_id: Int;
+  effect_id: number;
 
   @Field(() => Int, { nullable: true })
-  effect_chance: Int;
+  effect_chance: number;
 
 }

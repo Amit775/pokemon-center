@@ -4,12 +4,12 @@ import { PokemonSpeciesFlavorSummaries as PrismaPokemonSpeciesFlavorSummaries } 
 @ObjectType()
 export class PokemonSpeciesFlavorSummaries implements PrismaPokemonSpeciesFlavorSummaries {
   @Field(() => Int)
-  pokemon_species_id: Int;
+  pokemon_species_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field(, { nullable: true })
-  flavor_summary: String;
+  @Field(() => String, { nullable: true })
+  flavor_summary: string;
 
 }

@@ -3,12 +3,13 @@ import { StatNames as PrismaStatNames } from '@prisma/client';
 
 @ObjectType()
 export class StatNames implements PrismaStatNames {
-	@Field(() => Int)
-	stat_id: number;
+  @Field(() => Int)
+  stat_id: number;
 
-	@Field(() => Int)
-	local_language_id: number;
+  @Field(() => Int)
+  local_language_id: number;
 
-	@Field()
-	name: string;
+  @Field(() => String)
+  name: string;
+
 }

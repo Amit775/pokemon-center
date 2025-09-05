@@ -4,12 +4,12 @@ import { ConquestPokemonAbilities as PrismaConquestPokemonAbilities } from '@pri
 @ObjectType()
 export class ConquestPokemonAbilities implements PrismaConquestPokemonAbilities {
   @Field(() => Int)
-  pokemon_species_id: Int;
+  pokemon_species_id: number;
 
   @Field(() => Int)
-  slot: Int;
+  slot: number;
 
   @Field(() => Int)
-  ability_id: Int;
+  ability_id: number;
 
 }

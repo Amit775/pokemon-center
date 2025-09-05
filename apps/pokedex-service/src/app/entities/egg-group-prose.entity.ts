@@ -4,12 +4,12 @@ import { EggGroupProse as PrismaEggGroupProse } from '@prisma/client';
 @ObjectType()
 export class EggGroupProse implements PrismaEggGroupProse {
   @Field(() => Int)
-  egg_group_id: Int;
+  egg_group_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

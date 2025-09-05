@@ -4,12 +4,12 @@ import { MoveFlavorSummaries as PrismaMoveFlavorSummaries } from '@prisma/client
 @ObjectType()
 export class MoveFlavorSummaries implements PrismaMoveFlavorSummaries {
   @Field(() => Int)
-  move_id: Int;
+  move_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field(, { nullable: true })
-  flavor_summary: String;
+  @Field(() => String, { nullable: true })
+  flavor_summary: string;
 
 }

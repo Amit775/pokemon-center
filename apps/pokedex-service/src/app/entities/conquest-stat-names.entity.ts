@@ -4,12 +4,12 @@ import { ConquestStatNames as PrismaConquestStatNames } from '@prisma/client';
 @ObjectType()
 export class ConquestStatNames implements PrismaConquestStatNames {
   @Field(() => Int)
-  conquest_stat_id: Int;
+  conquest_stat_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

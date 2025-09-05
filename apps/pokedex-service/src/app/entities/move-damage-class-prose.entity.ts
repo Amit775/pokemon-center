@@ -4,15 +4,15 @@ import { MoveDamageClassProse as PrismaMoveDamageClassProse } from '@prisma/clie
 @ObjectType()
 export class MoveDamageClassProse implements PrismaMoveDamageClassProse {
   @Field(() => Int)
-  move_damage_class_id: Int;
+  move_damage_class_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
-  @Field(, { nullable: true })
-  description: String;
+  @Field(() => String, { nullable: true })
+  description: string;
 
 }

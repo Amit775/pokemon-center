@@ -4,9 +4,9 @@ import { EncounterConditionValueMap as PrismaEncounterConditionValueMap } from '
 @ObjectType()
 export class EncounterConditionValueMap implements PrismaEncounterConditionValueMap {
   @Field(() => Int)
-  encounter_id: Int;
+  encounter_id: number;
 
   @Field(() => Int)
-  encounter_condition_value_id: Int;
+  encounter_condition_value_id: number;
 
 }

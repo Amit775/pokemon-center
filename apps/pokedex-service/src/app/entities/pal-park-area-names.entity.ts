@@ -4,12 +4,12 @@ import { PalParkAreaNames as PrismaPalParkAreaNames } from '@prisma/client';
 @ObjectType()
 export class PalParkAreaNames implements PrismaPalParkAreaNames {
   @Field(() => Int)
-  pal_park_area_id: Int;
+  pal_park_area_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
 }

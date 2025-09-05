@@ -4,9 +4,9 @@ import { EggGroups as PrismaEggGroups } from '@prisma/client';
 @ObjectType()
 export class EggGroups implements PrismaEggGroups {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

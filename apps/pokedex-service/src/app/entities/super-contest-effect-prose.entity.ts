@@ -4,12 +4,12 @@ import { SuperContestEffectProse as PrismaSuperContestEffectProse } from '@prism
 @ObjectType()
 export class SuperContestEffectProse implements PrismaSuperContestEffectProse {
   @Field(() => Int)
-  super_contest_effect_id: Int;
+  super_contest_effect_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field(, { nullable: true })
-  flavor_text: String;
+  @Field(() => String, { nullable: true })
+  flavor_text: string;
 
 }

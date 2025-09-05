@@ -4,15 +4,15 @@ import { LocationAreaEncounterRates as PrismaLocationAreaEncounterRates } from '
 @ObjectType()
 export class LocationAreaEncounterRates implements PrismaLocationAreaEncounterRates {
   @Field(() => Int)
-  location_area_id: Int;
+  location_area_id: number;
 
   @Field(() => Int)
-  encounter_method_id: Int;
+  encounter_method_id: number;
 
   @Field(() => Int)
-  version_id: Int;
+  version_id: number;
 
   @Field(() => Int)
-  rate: Int;
+  rate: number;
 
 }

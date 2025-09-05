@@ -4,12 +4,12 @@ import { ContestEffects as PrismaContestEffects } from '@prisma/client';
 @ObjectType()
 export class ContestEffects implements PrismaContestEffects {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
   @Field(() => Int)
-  appeal: Int;
+  appeal: number;
 
   @Field(() => Int)
-  jam: Int;
+  jam: number;
 
 }

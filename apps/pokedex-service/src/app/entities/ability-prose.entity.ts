@@ -4,15 +4,15 @@ import { AbilityProse as PrismaAbilityProse } from '@prisma/client';
 @ObjectType()
 export class AbilityProse implements PrismaAbilityProse {
   @Field(() => Int)
-  ability_id: Int;
+  ability_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field(, { nullable: true })
-  short_effect: String;
+  @Field(() => String, { nullable: true })
+  short_effect: string;
 
-  @Field(, { nullable: true })
-  effect: String;
+  @Field(() => String, { nullable: true })
+  effect: string;
 
 }

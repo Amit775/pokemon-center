@@ -4,18 +4,18 @@ import { ContestTypeNames as PrismaContestTypeNames } from '@prisma/client';
 @ObjectType()
 export class ContestTypeNames implements PrismaContestTypeNames {
   @Field(() => Int)
-  contest_type_id: Int;
+  contest_type_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
-  @Field(, { nullable: true })
-  flavor: String;
+  @Field(() => String, { nullable: true })
+  flavor: string;
 
-  @Field(, { nullable: true })
-  color: String;
+  @Field(() => String, { nullable: true })
+  color: string;
 
 }

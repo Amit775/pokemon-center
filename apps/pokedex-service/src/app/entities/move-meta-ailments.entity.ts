@@ -4,9 +4,9 @@ import { MoveMetaAilments as PrismaMoveMetaAilments } from '@prisma/client';
 @ObjectType()
 export class MoveMetaAilments implements PrismaMoveMetaAilments {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

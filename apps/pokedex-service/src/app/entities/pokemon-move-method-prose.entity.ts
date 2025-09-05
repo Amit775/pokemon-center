@@ -4,15 +4,15 @@ import { PokemonMoveMethodProse as PrismaPokemonMoveMethodProse } from '@prisma/
 @ObjectType()
 export class PokemonMoveMethodProse implements PrismaPokemonMoveMethodProse {
   @Field(() => Int)
-  pokemon_move_method_id: Int;
+  pokemon_move_method_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
-  @Field(, { nullable: true })
-  description: String;
+  @Field(() => String, { nullable: true })
+  description: string;
 
 }

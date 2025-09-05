@@ -4,9 +4,9 @@ import { ContestTypes as PrismaContestTypes } from '@prisma/client';
 @ObjectType()
 export class ContestTypes implements PrismaContestTypes {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

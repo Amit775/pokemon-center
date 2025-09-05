@@ -4,15 +4,15 @@ import { PalPark as PrismaPalPark } from '@prisma/client';
 @ObjectType()
 export class PalPark implements PrismaPalPark {
   @Field(() => Int)
-  species_id: Int;
+  species_id: number;
 
   @Field(() => Int)
-  area_id: Int;
+  area_id: number;
 
   @Field(() => Int)
-  base_score: Int;
+  base_score: number;
 
   @Field(() => Int)
-  rate: Int;
+  rate: number;
 
 }

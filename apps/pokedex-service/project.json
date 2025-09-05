@@ -47,6 +47,5 @@
 				"jestConfig": "apps/pokedex-service/jest.config.ts"
 			}
 		}
-	},
-	"implicitDependencies": ["shared-entities"]
+	}
 }

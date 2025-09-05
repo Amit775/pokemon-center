@@ -4,15 +4,15 @@ import { ItemFlagProse as PrismaItemFlagProse } from '@prisma/client';
 @ObjectType()
 export class ItemFlagProse implements PrismaItemFlagProse {
   @Field(() => Int)
-  item_flag_id: Int;
+  item_flag_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
-  @Field(, { nullable: true })
-  description: String;
+  @Field(() => String, { nullable: true })
+  description: string;
 
 }

@@ -4,9 +4,9 @@ import { AbilityChangelog as PrismaAbilityChangelog } from '@prisma/client';
 @ObjectType()
 export class AbilityChangelog implements PrismaAbilityChangelog {
   @Field(() => Int)
-  ability_id: Int;
+  ability_id: number;
 
   @Field(() => Int)
-  changed_in_version_group_id: Int;
+  changed_in_version_group_id: number;
 
 }

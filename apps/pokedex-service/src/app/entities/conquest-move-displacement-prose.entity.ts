@@ -4,18 +4,18 @@ import { ConquestMoveDisplacementProse as PrismaConquestMoveDisplacementProse } 
 @ObjectType()
 export class ConquestMoveDisplacementProse implements PrismaConquestMoveDisplacementProse {
   @Field(() => Int)
-  move_displacement_id: Int;
+  move_displacement_id: number;
 
   @Field(() => Int)
-  local_language_id: Int;
+  local_language_id: number;
 
-  @Field()
-  name: String;
+  @Field(() => String)
+  name: string;
 
-  @Field(, { nullable: true })
-  short_effect: String;
+  @Field(() => String, { nullable: true })
+  short_effect: string;
 
-  @Field(, { nullable: true })
-  effect: String;
+  @Field(() => String, { nullable: true })
+  effect: string;
 
 }

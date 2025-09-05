@@ -4,12 +4,12 @@ import { ConquestStats as PrismaConquestStats } from '@prisma/client';
 @ObjectType()
 export class ConquestStats implements PrismaConquestStats {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
   @Field(() => Int)
-  is_base: Int;
+  is_base: number;
 
 }

@@ -4,24 +4,24 @@ import { Natures as PrismaNatures } from '@prisma/client';
 @ObjectType()
 export class Natures implements PrismaNatures {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
-
-  @Field(() => Int)
-  decreased_stat_id: Int;
+  @Field(() => String)
+  identifier: string;
 
   @Field(() => Int)
-  increased_stat_id: Int;
+  decreased_stat_id: number;
 
   @Field(() => Int)
-  hates_flavor_id: Int;
+  increased_stat_id: number;
 
   @Field(() => Int)
-  likes_flavor_id: Int;
+  hates_flavor_id: number;
 
   @Field(() => Int)
-  game_index: Int;
+  likes_flavor_id: number;
+
+  @Field(() => Int)
+  game_index: number;
 
 }

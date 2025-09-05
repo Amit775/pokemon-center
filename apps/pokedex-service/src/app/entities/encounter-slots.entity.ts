@@ -4,18 +4,18 @@ import { EncounterSlots as PrismaEncounterSlots } from '@prisma/client';
 @ObjectType()
 export class EncounterSlots implements PrismaEncounterSlots {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
   @Field(() => Int)
-  version_group_id: Int;
+  version_group_id: number;
 
   @Field(() => Int)
-  encounter_method_id: Int;
+  encounter_method_id: number;
 
   @Field(() => Int, { nullable: true })
-  slot: Int;
+  slot: number;
 
   @Field(() => Int)
-  rarity: Int;
+  rarity: number;
 
 }

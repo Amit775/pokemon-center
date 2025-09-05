@@ -14,10 +14,8 @@ while ((match = modelRegex.exec(schemaContent)) !== null) {
   const modelName = match[1];
   const modelBody = match[2];
   
-  // Skip if it's a relation table (contains composite keys or specific patterns)
-  if (modelBody.includes('@@id([') || modelBody.includes('@@map(')) {
-    models.push({ name: modelName, body: modelBody });
-  }
+  // Include all models
+  models.push({ name: modelName, body: modelBody });
 }
 
 // Function to convert Prisma type to GraphQL type
@@ -84,8 +82,6 @@ function generateEntityContent(modelName, modelBody) {
     }
   }
   
-  const graphqlType = getGraphQLType;
-  const isNullable = (field) => field.nullable;
   
   let content = `import { Field, Int, ObjectType } from '@nestjs/graphql';\n`;
   content += `import { ${modelName} as Prisma${modelName} } from '@prisma/client';\n\n`;
@@ -98,11 +94,11 @@ function generateEntityContent(modelName, modelBody) {
     
     if (graphqlType === 'Int') {
       content += `  @Field(() => Int${nullable})\n`;
+      content += `  ${field.name}: number;\n\n`;
     } else {
-      content += `  @Field(${nullable})\n`;
+      content += `  @Field(() => String${nullable})\n`;
+      content += `  ${field.name}: string;\n\n`;
     }
-    
-    content += `  ${field.name}: ${field.type.replace('?', '')};\n\n`;
   }
   
   content += `}\n`;
@@ -124,19 +120,14 @@ const existingEntities = [
   'StatNames', 'Translations'
 ];
 
-// Generate remaining entity files
+// Generate all entity files (regenerate existing ones)
 for (const model of models) {
-  if (!existingEntities.includes(model.name)) {
-    const entityContent = generateEntityContent(model.name, model.body);
-    const fileName = `${camelToKebab(model.name)}.entity.ts`;
-    const filePath = path.join(entitiesDir, fileName);
-    
-    // Skip if file already exists
-    if (!fs.existsSync(filePath)) {
-      fs.writeFileSync(filePath, entityContent);
-      console.log(`Generated: ${fileName}`);
-    }
-  }
+  const entityContent = generateEntityContent(model.name, model.body);
+  const fileName = `${camelToKebab(model.name)}.entity.ts`;
+  const filePath = path.join(entitiesDir, fileName);
+  
+  fs.writeFileSync(filePath, entityContent);
+  console.log(`Generated: ${fileName}`);
 }
 
 console.log('Entity generation complete!');

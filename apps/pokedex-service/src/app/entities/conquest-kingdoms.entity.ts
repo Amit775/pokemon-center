@@ -4,12 +4,12 @@ import { ConquestKingdoms as PrismaConquestKingdoms } from '@prisma/client';
 @ObjectType()
 export class ConquestKingdoms implements PrismaConquestKingdoms {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
   @Field(() => Int)
-  type_id: Int;
+  type_id: number;
 
 }

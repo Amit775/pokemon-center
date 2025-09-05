@@ -4,15 +4,15 @@ import { ConquestWarriorRanks as PrismaConquestWarriorRanks } from '@prisma/clie
 @ObjectType()
 export class ConquestWarriorRanks implements PrismaConquestWarriorRanks {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
   @Field(() => Int)
-  warrior_id: Int;
+  warrior_id: number;
 
   @Field(() => Int)
-  rank: Int;
+  rank: number;
 
   @Field(() => Int)
-  skill_id: Int;
+  skill_id: number;
 
 }

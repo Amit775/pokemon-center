@@ -4,9 +4,9 @@ import { PokeathlonStats as PrismaPokeathlonStats } from '@prisma/client';
 @ObjectType()
 export class PokeathlonStats implements PrismaPokeathlonStats {
   @Field(() => Int)
-  id: Int;
+  id: number;
 
-  @Field()
-  identifier: String;
+  @Field(() => String)
+  identifier: string;
 
 }

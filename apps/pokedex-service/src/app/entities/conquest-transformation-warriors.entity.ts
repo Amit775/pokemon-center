@@ -4,9 +4,9 @@ import { ConquestTransformationWarriors as PrismaConquestTransformationWarriors 
 @ObjectType()
 export class ConquestTransformationWarriors implements PrismaConquestTransformationWarriors {
   @Field(() => Int)
-  transformation_id: Int;
+  transformation_id: number;
 
   @Field(() => Int)
-  present_warrior_id: Int;
+  present_warrior_id: number;
 
 }
