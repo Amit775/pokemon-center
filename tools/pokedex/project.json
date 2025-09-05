@@ -37,15 +37,16 @@
 				]
 			}
 		},
-		"pokedex-seed": {
-			"executor": "@pokemon-center/pokedex:pokedex-seed",
+		"seed": {
+			"executor": "@pokemon-center/pokedex:seed",
 			"options": {
 				"outputPath": "dist/tools/pokedex"
 			}
 		},
-		"pokedex-sync": {
-			"executor": "@pokemon-center/pokedex:pokedex-sync",
+		"sync": {
+			"executor": "@pokemon-center/pokedex:sync",
 			"options": {
+				"elasticsearchUrl": "http://localhost:9200",
 				"outputPath": "dist/tools/pokedex"
 			}
 		}

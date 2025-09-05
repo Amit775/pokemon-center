@@ -1,14 +1,14 @@
 {
 	"executors": {
-		"pokedex-seed": {
-			"implementation": "./src/executors/pokedex-seed/pokedex-seed",
-			"schema": "./src/executors/pokedex-seed/schema.json",
-			"description": "pokedex-seed executor"
+		"seed": {
+			"implementation": "./src/executors/seed/seed",
+			"schema": "./src/executors/seed/schema.json",
+			"description": "pokedex seed executor"
 		},
-		"pokedex-sync": {
-			"implementation": "./src/executors/pokedex-sync/pokedex-sync",
-			"schema": "./src/executors/pokedex-sync/schema.json",
-			"description": "pokedex-sync executor"
+		"sync": {
+			"implementation": "./src/executors/sync/sync",
+			"schema": "./src/executors/sync/schema.json",
+			"description": "pokedex sync executor"
 		}
 	}
 }

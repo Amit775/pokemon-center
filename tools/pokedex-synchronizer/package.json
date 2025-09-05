@@ -1,8 +1,0 @@
-{
-	"name": "pokedex-synchronizer-executor",
-	"version": "0.0.1",
-	"private": true,
-	"type": "commonjs",
-	"main": "./pokedex-synchronizer.js",
-	"executors": "./executors.json"
-}

@@ -1,6 +1,6 @@
 import { Client } from '@elastic/elasticsearch';
 import { BulkResponse, IndicesCreateResponse, IndicesStatsResponse } from '@elastic/elasticsearch/lib/api/types';
-import { PokemonDocument } from './pokemon.document';
+import { mappings, PokemonDocument } from './pokemon.document';
 
 export class PokedexIndex {
 	private readonly indexName = 'pokedex';
@@ -15,63 +15,12 @@ export class PokedexIndex {
 
 		return await this.client.indices.create({
 			index: this.indexName,
-			mappings: {
-				properties: {
-					id: { type: 'keyword' },
-					pokedex_number: { type: 'integer' },
-					name: { type: 'text' },
-					slug: { type: 'keyword' },
-					stats: {
-						properties: {
-							hp: { type: 'integer' },
-							attack: { type: 'integer' },
-							defense: { type: 'integer' },
-							'special-attack': { type: 'integer' },
-							'special-defense': { type: 'integer' },
-							speed: { type: 'integer' },
-						},
-					},
-					types: {
-						properties: {
-							id: { type: 'keyword' },
-							name: { type: 'text' },
-							slug: { type: 'keyword' },
-						},
-					},
-					abilities: {
-						properties: {
-							id: { type: 'keyword' },
-							name: { type: 'text' },
-							slug: { type: 'keyword' },
-							is_hidden: { type: 'boolean' },
-						},
-					},
-					moves: {
-						properties: {
-							id: { type: 'keyword' },
-							name: { type: 'text' },
-							slug: { type: 'keyword' },
-							power: { type: 'integer' },
-							type: {
-								properties: {
-									id: { type: 'keyword' },
-									name: { type: 'text' },
-								},
-							},
-							damage_class: {
-								properties: {
-									id: { type: 'keyword' },
-									name: { type: 'text' },
-								},
-							},
-						},
-					},
-				},
-			},
+			mappings: mappings,
 		});
 	}
 
 	async bulkIndex(documents: PokemonDocument[]): Promise<BulkResponse> {
+		const timestamp = Date.now();
 		return await this.client.bulk({
 			refresh: true,
 			operations: documents.flatMap((doc) => [{ index: { _index: this.indexName, _id: doc.id } }, doc]),

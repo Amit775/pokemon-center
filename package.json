@@ -4,8 +4,7 @@
 	"license": "MIT",
 	"scripts": {
 		"start": "nx run pokemon-center:serve -o",
-		"build": "nx run pokemon-center:build",
-		"sync:pokedex": "nx run pokedex-synchronizer:sync"
+		"build": "nx run pokemon-center:build"
 	},
 	"private": true,
 	"dependencies": {
