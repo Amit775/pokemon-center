@@ -151,5 +151,6 @@
 		"version": {
 			"preVersionCommand": "yarn nx run-many -t build"
 		}
-	}
+	},
+	"nxCloudId": "68bad5ffc08bfa466da33976"
 }
