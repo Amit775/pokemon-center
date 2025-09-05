@@ -1,36 +1,29 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Pokemon as PrismaPokemon } from '@prisma/client';
-import { Type } from './type.entity';
-import { Move } from './move.entity';
-import { Ability } from './ability.entity';
-import { Stat } from './stat.entity';
-
-@ObjectType()
-export class StatWithBase extends Stat {
-	@Field(() => Int)
-	baseStat: number;
-}
 
 @ObjectType()
 export class Pokemon implements PrismaPokemon {
-	@Field(() => Int)
-	id: number;
+  @Field(() => Int)
+  id: number;
 
-	@Field()
-	name: string;
+  @Field()
+  identifier: string;
 
-	@Field()
-	slug: string;
+  @Field(() => Int)
+  species_id: number;
 
-	@Field(() => [Type], { nullable: true })
-	types?: Type[];
+  @Field(() => Int)
+  height: number;
 
-	@Field(() => [Move], { nullable: true })
-	moves?: Move[];
+  @Field(() => Int)
+  weight: number;
 
-	@Field(() => [Ability], { nullable: true })
-	abilities?: Ability[];
+  @Field(() => Int)
+  base_experience: number;
 
-	@Field(() => [StatWithBase], { nullable: true })
-	stats?: StatWithBase[];
+  @Field(() => Int)
+  order: number;
+
+  @Field(() => Int)
+  is_default: number;
 }
