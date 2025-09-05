@@ -303,6 +303,15 @@ model Stats {
   is_battle_only  Int
   game_index      Int?
 
+  // Relations
+  types           Types[]
+  pokemonStats    PokemonStats[]
+  moveMetaStatChanges MoveMetaStatChanges[]
+  characteristics Characteristics[]
+  natures         Natures[] @relation("DecreasedStat")
+  naturesIncreased Natures[] @relation("IncreasedStat")
+  statNames       StatNames[]
+
   @@map("stats")
 }
 
@@ -311,6 +320,30 @@ model Generations {
   id              Int     @id
   main_region_id  Int
   identifier      String
+
+  // Relations
+  region          Regions @relation(fields: [main_region_id], references: [id])
+  pokemon         Pokemon[]
+  pokemonSpecies  PokemonSpecies[]
+  moves           Moves[]
+  types           Types[]
+  abilities       Abilities[]
+  pokemonAbilitiesPast PokemonAbilitiesPast[]
+  pokemonTypesPast PokemonTypesPast[]
+  pokemonFormGenerations PokemonFormGenerations[]
+  pokemonSpeciesFlavorText PokemonSpeciesFlavorText[]
+  moveFlavorText  MoveFlavorText[]
+  abilityFlavorText AbilityFlavorText[]
+  itemFlavorText  ItemFlavorText[]
+  pokemonGameIndices PokemonGameIndices[]
+  itemGameIndices ItemGameIndices[]
+  typeGameIndices TypeGameIndices[]
+  locationGameIndices LocationGameIndices[]
+  typeEfficacyPast TypeEfficacyPast[]
+  generationNames GenerationNames[]
+  versionGroups   VersionGroups[]
+  encounterSlots  EncounterSlots[]
+  locationAreaEncounterRates LocationAreaEncounterRates[]
 
   @@map("generations")
 }
@@ -461,6 +494,10 @@ model Languages {
   conquestWarriorSkillNames ConquestWarriorSkillNames[]
   conquestWarriorStatNames ConquestWarriorStatNames[]
   eggGroupProse EggGroupProse[]
+  // Additional relations for missing opposite fields
+  itemFlavorText ItemFlavorText[]
+  languageNames LanguageNames[] @relation("Language")
+  languageNamesLocal LanguageNames[] @relation("LocalLanguage")
 
   @@map("languages")
 }
@@ -475,7 +512,7 @@ model Pokedexes {
   // Relations
   region         Regions @relation(fields: [region_id], references: [id])
   dexNumbers     PokemonDexNumbers[]
-  prose          PokedexProse[]
+  prose          PokedexProse[] @relation("Pokedex")
   versionGroups  PokedexVersionGroups[]
 
   @@map("pokedexes")
@@ -529,12 +566,12 @@ model PokemonEvolution {
   // Relations
   evolvedSpecies          PokemonSpecies @relation(fields: [evolved_species_id], references: [id])
   evolutionTrigger        EvolutionTriggers @relation(fields: [evolution_trigger_id], references: [id])
-  triggerItem             Items? @relation(fields: [trigger_item_id], references: [id])
+  triggerItem             Items? @relation("TriggerItem", fields: [trigger_item_id], references: [id])
   gender                  Genders? @relation(fields: [gender_id], references: [id])
   location                Locations? @relation(fields: [location_id], references: [id])
-  heldItem                Items? @relation(fields: [held_item_id], references: [id])
-  knownMove               Moves? @relation(fields: [known_move_id], references: [id])
-  knownMoveType           Types? @relation(fields: [known_move_type_id], references: [id])
+  heldItem                Items? @relation("HeldItem", fields: [held_item_id], references: [id])
+  knownMove               Moves? @relation("KnownMove", fields: [known_move_id], references: [id])
+  knownMoveType           Types? @relation("KnownMoveType", fields: [known_move_type_id], references: [id])
   partySpecies            PokemonSpecies? @relation("PartySpecies", fields: [party_species_id], references: [id])
   partyType               Types? @relation("PartyType", fields: [party_type_id], references: [id])
   tradeSpecies            PokemonSpecies? @relation("TradeSpecies", fields: [trade_species_id], references: [id])
@@ -1666,7 +1703,7 @@ model MoveEffectProse {
   effect           String?
 
   // Relations
-  effect           MoveEffects @relation(fields: [move_effect_id], references: [id])
+  effects       		 MoveEffects @relation(fields: [move_effect_id], references: [id])
   language         Languages @relation(fields: [local_language_id], references: [id])
 
   @@map("move_effect_prose")
@@ -1831,7 +1868,7 @@ model AbilityChangelogProse {
   effect               String
 
   // Relations
-  changelog            AbilityChangelog @relation(fields: [ability_changelog_id], references: [id])
+  changelog            AbilityChangelog @relation(fields: [ability_changelog_id], references: [ability_id])
   language             Languages @relation(fields: [local_language_id], references: [id])
 
   @@map("ability_changelog_prose")
@@ -2063,8 +2100,8 @@ model LanguageNames {
   name               String
 
   // Relations
-  language           Languages @relation(fields: [language_id], references: [id])
-  localLanguage      Languages @relation(fields: [local_language_id], references: [id])
+  language           Languages @relation("Language", fields: [language_id], references: [id])
+  localLanguage      Languages @relation("LocalLanguage", fields: [local_language_id], references: [id])
 
   @@map("language_names")
 }
@@ -2077,8 +2114,8 @@ model PokedexProse {
   description        String?
 
   // Relations
-  pokedex            Pokedexes @relation(fields: [pokedex_id], references: [id])
-  language           Languages @relation(fields: [local_language_id], references: [id])
+  pokedex            Pokedexes @relation("Pokedex", fields: [pokedex_id], references: [id])
+  language           Languages @relation("Language", fields: [local_language_id], references: [id])
 
   @@map("pokedex_prose")
 }
