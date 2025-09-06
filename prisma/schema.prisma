@@ -1211,6 +1211,3 @@ model NaturePokeathlonStats {
 
   @@map("nature_pokeathlon_stats")
 }
-
-
-
