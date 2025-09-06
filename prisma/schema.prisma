@@ -61,7 +61,6 @@ model PokemonSpecies {
   is_legendary            Int
   is_mythical             Int
   order                   Int
-  conquest_order          Int?
 
   // Relations
   generation              Generations @relation(fields: [generation_id], references: [id])
@@ -80,12 +79,6 @@ model PokemonSpecies {
   flavorSummaries         PokemonSpeciesFlavorSummaries[]
   flavorText              PokemonSpeciesFlavorText[]
   evolution               PokemonEvolution[]
-  conquestAbilities       ConquestPokemonAbilities[]
-  conquestEvolution       ConquestPokemonEvolution[]
-  conquestMoves           ConquestPokemonMoves[]
-  conquestStats           ConquestPokemonStats[]
-  conquestMaxLinks        ConquestMaxLinks[]
-  conquestTransformation  ConquestTransformationPokemon[]
   palPark                 PalPark[]
   partySpecies            PokemonEvolution[] @relation("PartySpecies")
   tradeSpecies            PokemonEvolution[] @relation("TradeSpecies")
@@ -153,8 +146,6 @@ model Moves {
   meta                    MoveMeta[]
   metaStatChanges         MoveMetaStatChanges[]
   flagMap                 MoveFlagMap[]
-  conquestData            ConquestMoveData[]
-  conquestPokemonMoves    ConquestPokemonMoves[]
   contestCombos           ContestCombos[] @relation("FirstMove")
   contestCombosSecond     ContestCombos[] @relation("SecondMove")
   superContestCombos      SuperContestCombos[] @relation("SuperFirstMove")
@@ -220,9 +211,6 @@ model Types {
   efficacyTarget  TypeEfficacy[] @relation("TargetType")
   efficacyPast    TypeEfficacyPast[] @relation("DamageTypePast")
   efficacyPastTarget TypeEfficacyPast[] @relation("TargetTypePast")
-  conquestKingdoms ConquestKingdoms[]
-  conquestSpecialties ConquestWarriorSpecialties[]
-  conquestTransformation ConquestTransformationPokemon[]
   berryFlavors    BerryFlavors[]
   natures         Natures[] @relation("DecreasedStat")
   naturesIncreased Natures[] @relation("IncreasedStat")
@@ -245,7 +233,6 @@ model Abilities {
   generation      Generations @relation(fields: [generation_id], references: [id])
   pokemonAbilities PokemonAbilities[]
   pokemonAbilitiesPast PokemonAbilitiesPast[]
-  conquestAbilities ConquestPokemonAbilities[]
   names           AbilityNames[]
   prose           AbilityProse[]
   flavorText      AbilityFlavorText[]
@@ -503,15 +490,6 @@ model Languages {
   pokemonHabitatNames PokemonHabitatNames[]
   berryFirmnessNames BerryFirmnessNames[]
   characteristicText CharacteristicText[]
-  conquestEpisodeNames ConquestEpisodeNames[]
-  conquestKingdomNames ConquestKingdomNames[]
-  conquestMoveDisplacementProse ConquestMoveDisplacementProse[]
-  conquestMoveEffectProse ConquestMoveEffectProse[]
-  conquestMoveRangeProse ConquestMoveRangeProse[]
-  conquestStatNames ConquestStatNames[]
-  conquestWarriorNames ConquestWarriorNames[]
-  conquestWarriorSkillNames ConquestWarriorSkillNames[]
-  conquestWarriorStatNames ConquestWarriorStatNames[]
   eggGroupProse EggGroupProse[]
   pokemonSpeciesFlavorText PokemonSpeciesFlavorText[]
   moveFlavorText MoveFlavorText[]
@@ -633,7 +611,6 @@ model Genders {
 
   // Relations
   evolution  PokemonEvolution[]
-  conquestWarriors ConquestWarriors[]
 
   @@map("genders")
 }
@@ -1037,227 +1014,6 @@ model Characteristics {
   @@map("characteristics")
 }
 
-// Core Conquest tables
-model ConquestEpisodes {
-  id         Int    @id
-  identifier String
-
-  @@map("conquest_episodes")
-}
-
-model ConquestKingdoms {
-  id         Int     @id
-  identifier String
-  type_id    Int
-
-  // Relations
-  type       Types @relation(fields: [type_id], references: [id])
-
-  @@map("conquest_kingdoms")
-}
-
-model ConquestMaxLinks {
-  warrior_rank_id     Int @id
-  pokemon_species_id  Int
-  max_link            Int
-
-  // Relations
-  species             PokemonSpecies @relation(fields: [pokemon_species_id], references: [id])
-
-  @@map("conquest_max_links")
-}
-
-model ConquestMoveData {
-  move_id           Int     @id
-  power             Int?
-  accuracy          Int?
-  effect_chance     Int?
-  effect_id         Int?
-  range_id          Int?
-  displacement_id   Int?
-
-  // Relations
-  move              Moves @relation(fields: [move_id], references: [id])
-
-  @@map("conquest_move_data")
-}
-
-model ConquestMoveDisplacements {
-  id              Int     @id
-  identifier      String
-  affects_target  Int
-
-  @@map("conquest_move_displacements")
-}
-
-model ConquestMoveEffects {
-  id Int @id
-
-  @@map("conquest_move_effects")
-}
-
-model ConquestMoveRanges {
-  id         Int     @id
-  identifier String
-  targets    Int
-
-  @@map("conquest_move_ranges")
-}
-
-model ConquestPokemonAbilities {
-  pokemon_species_id Int @id
-  slot               Int
-  ability_id         Int
-
-  // Relations
-  species            PokemonSpecies @relation(fields: [pokemon_species_id], references: [id])
-  ability            Abilities @relation(fields: [ability_id], references: [id])
-
-  @@map("conquest_pokemon_abilities")
-}
-
-model ConquestPokemonEvolution {
-  evolved_species_id     Int     @id
-  required_stat_id       Int?
-  minimum_stat           Int?
-  minimum_link           Int?
-  kingdom_id             Int?
-  warrior_gender_id      Int?
-  item_id                Int?
-  recruiting_ko_required Int
-
-  // Relations
-  species                PokemonSpecies @relation(fields: [evolved_species_id], references: [id])
-
-  @@map("conquest_pokemon_evolution")
-}
-
-model ConquestPokemonMoves {
-  pokemon_species_id Int
-  move_id            Int
-
-  // Relations
-  species            PokemonSpecies @relation(fields: [pokemon_species_id], references: [id])
-  move               Moves @relation(fields: [move_id], references: [id])
-
-  @@id([pokemon_species_id, move_id])        
-  @@map("conquest_pokemon_moves")
-}
-
-model ConquestPokemonStats {
-  pokemon_species_id Int
-  conquest_stat_id   Int
-  base_stat          Int
-
-  // Relations
-  species            PokemonSpecies @relation(fields: [pokemon_species_id], references: [id])
-
-  @@id([pokemon_species_id, conquest_stat_id])
-  @@map("conquest_pokemon_stats")
-}
-
-model ConquestStats {
-  id         Int     @id
-  identifier String
-  is_base    Int
-
-  @@map("conquest_stats")
-}
-
-model ConquestTransformationPokemon {
-  transformation_id    Int @id
-  pokemon_species_id   Int
-
-  // Relations
-  species              PokemonSpecies @relation(fields: [pokemon_species_id], references: [id])
-  type                 Types @relation(fields: [transformation_id], references: [id])
-
-  @@map("conquest_transformation_pokemon")
-}
-
-model ConquestTransformationWarriors {
-  transformation_id      Int @id
-  present_warrior_id     Int
-
-  @@map("conquest_transformation_warriors")
-}
-
-model ConquestWarriors {
-  id            Int     @id
-  identifier    String
-  gender_id     Int
-  archetype_id  Int?
-
-  // Relations
-  gender        Genders @relation(fields: [gender_id], references: [id])
-
-  @@map("conquest_warriors")
-}
-
-model ConquestWarriorArchetypes {
-  id         Int    @id
-  identifier String
-
-  @@map("conquest_warrior_archetypes")
-}
-
-model ConquestWarriorRanks {
-  id         Int     @id
-  warrior_id Int
-  rank       Int
-  skill_id   Int
-
-  @@map("conquest_warrior_ranks")
-}
-
-model ConquestWarriorRankStatMap {
-  warrior_rank_id Int @id
-  warrior_stat_id Int
-  base_stat       Int
-
-  @@map("conquest_warrior_rank_stat_map")
-}
-
-model ConquestWarriorSkills {
-  id         Int    @id
-  identifier String
-
-  @@map("conquest_warrior_skills")
-}
-
-model ConquestWarriorSpecialties {
-  warrior_id Int
-  type_id    Int
-  slot       Int
-
-  // Relations
-  type       Types @relation(fields: [type_id], references: [id])
-
-  @@id([warrior_id, type_id])
-  @@map("conquest_warrior_specialties")      
-}
-
-model ConquestWarriorStats {
-  id         Int     @id
-  identifier String
-
-  @@map("conquest_warrior_stats")
-}
-
-model ConquestWarriorTransformation {
-  transformed_warrior_rank_id Int     @id
-  is_automatic                Int
-  required_link               Int?
-  completed_episode_id        Int?
-  current_episode_id          Int?
-  distant_warrior_id          Int?
-  female_warlord_count        Int?
-  pokemon_count               Int?
-  collection_type_id          Int?
-  warrior_count               Int?
-
-  @@map("conquest_warrior_transformation")
-}
 
 // Core Contest Combo tables
 model ContestCombos {
@@ -2428,116 +2184,6 @@ model CharacteristicText {
   @@map("characteristic_text")
 }
 
-// Conquest relation tables
-model ConquestEpisodeNames {
-  episode_id        Int     @id
-  local_language_id Int
-  name              String
-
-  // Relations
-  language          Languages @relation(fields: [local_language_id], references: [id])
-
-  @@map("conquest_episode_names")
-}
-
-model ConquestEpisodeWarriors {
-  episode_id Int @id
-  warrior_id Int
-
-  @@map("conquest_episode_warriors")
-}
-
-model ConquestKingdomNames {
-  kingdom_id        Int     @id
-  local_language_id Int
-  name              String
-
-  // Relations
-  language          Languages @relation(fields: [local_language_id], references: [id])
-
-  @@map("conquest_kingdom_names")
-}
-
-model ConquestMoveDisplacementProse {
-  move_displacement_id Int     @id
-  local_language_id    Int
-  name                 String
-  short_effect         String?
-  effect               String?
-
-  // Relations
-  language             Languages @relation(fields: [local_language_id], references: [id])
-
-  @@map("conquest_move_displacement_prose")
-}
-
-model ConquestMoveEffectProse {
-  conquest_move_effect_id Int     @id
-  local_language_id       Int
-  short_effect            String?
-  effect                  String?
-
-  // Relations
-  language                Languages @relation(fields: [local_language_id], references: [id])
-
-  @@map("conquest_move_effect_prose")
-}
-
-model ConquestMoveRangeProse {
-  conquest_move_range_id Int     @id
-  local_language_id      Int
-  name                   String
-  description            String?
-
-  // Relations
-  language               Languages @relation(fields: [local_language_id], references: [id])
-
-  @@map("conquest_move_range_prose")
-}
-
-model ConquestStatNames {
-  conquest_stat_id   Int     @id
-  local_language_id  Int
-  name               String
-
-  // Relations
-  language           Languages @relation(fields: [local_language_id], references: [id])
-
-  @@map("conquest_stat_names")
-}
-
-model ConquestWarriorNames {
-  warrior_id         Int     @id
-  local_language_id  Int
-  name               String
-
-  // Relations
-  language           Languages @relation(fields: [local_language_id], references: [id])
-
-  @@map("conquest_warrior_names")
-}
-
-model ConquestWarriorSkillNames {
-  skill_id           Int     @id
-  local_language_id  Int
-  name               String
-
-  // Relations
-  language           Languages @relation(fields: [local_language_id], references: [id])
-
-  @@map("conquest_warrior_skill_names")
-}
-
-model ConquestWarriorStatNames {
-  warrior_stat_id    Int     @id
-  local_language_id  Int
-  name               String
-
-  // Relations
-  language           Languages @relation(fields: [local_language_id], references: [id])
-
-  @@map("conquest_warrior_stat_names")
-}
 
 // Egg Group relation tables
 model EggGroupProse {
