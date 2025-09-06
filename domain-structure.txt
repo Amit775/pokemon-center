@@ -1,0 +1,250 @@
+# Pokemon Center Schema Domain Structure
+
+## 1. Abilities Domain
+```
+Abilities
+├── AbilityChangelog
+├── AbilityChangelogProse
+├── AbilityFlavorText
+├── AbilityNames
+├── AbilityProse
+└── PokemonAbilities
+    └── PokemonAbilitiesPast
+```
+
+## 2. Contests Domain
+```
+ContestTypes
+├── ContestCombos
+├── ContestEffects
+│   └── ContestEffectProse
+├── ContestTypeNames
+├── SuperContestCombos
+└── SuperContestEffects
+    └── SuperContestEffectProse
+```
+
+## 3. Encounters Domain
+```
+EncounterMethods
+├── EncounterConditions
+│   ├── EncounterConditionProse
+│   └── EncounterConditionValues
+│       ├── EncounterConditionValueMap
+│       └── EncounterConditionValueProse
+├── EncounterMethodProse
+├── EncounterSlots
+├── Encounters
+└── LocationAreaEncounterRates
+```
+
+## 4. Evolution Domain
+```
+EvolutionChains
+├── EvolutionTriggers
+│   └── EvolutionTriggerProse
+├── Genders
+├── GrowthRates
+│   ├── Experience
+│   └── GrowthRateProse
+└── PokemonEvolution
+```
+
+## 5. Generations Domain
+```
+Generations
+├── GenerationNames
+├── VersionGroups
+│   ├── PokedexVersionGroups
+│   ├── VersionGroupPokemonMoveMethods
+│   ├── VersionGroupRegions
+│   └── VersionNames
+└── Versions
+```
+
+## 6. Items Domain
+```
+Items
+├── Berries
+│   ├── BerryFirmness
+│   │   └── BerryFirmnessNames
+│   └── BerryFlavors
+├── ItemCategories
+│   └── ItemCategoryProse
+├── ItemFlingEffects
+│   └── ItemFlingEffectProse
+├── ItemFlags
+│   └── ItemFlagProse
+├── ItemFlagMap
+├── ItemFlavorSummaries
+├── ItemFlavorText
+├── ItemGameIndices
+├── ItemNames
+├── ItemPockets
+│   └── ItemPocketNames
+├── ItemProse
+└── PokemonItems
+```
+
+## 7. Languages Domain
+```
+Languages
+├── LanguageNames
+└── Translations
+```
+
+## 8. Machines Domain
+```
+Machines
+```
+
+## 9. Moves Domain
+```
+Moves
+├── MoveBattleStyles
+├── MoveBattleStyleProse
+├── MoveChangelog
+├── MoveDamageClasses
+│   └── MoveDamageClassProse
+├── MoveEffects
+│   ├── MoveEffectChangelog
+│   ├── MoveEffectChangelogProse
+│   └── MoveEffectProse
+├── MoveFlags
+├── MoveFlagMap
+├── MoveFlagProse
+├── MoveFlavorSummaries
+├── MoveFlavorText
+├── MoveMeta
+├── MoveMetaAilments
+├── MoveMetaAilmentNames
+├── MoveMetaCategories
+├── MoveMetaCategoryProse
+├── MoveMetaStatChanges
+├── MoveNames
+├── MoveProse
+├── MoveTargets
+│   └── MoveTargetProse
+└── PokemonMoves
+    └── PokemonMoveMethods
+        ├── PokemonMoveMethodProse
+        └── VersionGroupPokemonMoveMethods
+```
+
+## 10. Natures Domain
+```
+Natures
+├── NatureBattleStylePreferences
+├── NatureNames
+└── NaturePokeathlonStats
+```
+
+## 11. Pal Park Domain
+```
+PalParkAreas
+├── PalParkAreaNames
+└── PalPark
+```
+
+## 12. Pokemon Domain
+```
+Pokemon
+├── PokemonAbilities
+├── PokemonAbilitiesPast
+├── PokemonDexNumbers
+├── PokemonEggGroups
+├── PokemonForms
+│   ├── PokemonFormGenerations
+│   ├── PokemonFormNames
+│   ├── PokemonFormPokeathlonStats
+│   └── PokemonFormTypes
+├── PokemonGameIndices
+├── PokemonItems
+├── PokemonSpeciesFlavorSummaries
+├── PokemonSpeciesFlavorText
+├── PokemonSpeciesNames
+├── PokemonSpeciesProse
+├── PokemonStats
+├── PokemonTypes
+└── PokemonTypesPast
+```
+
+## 13. Pokemon Characteristics Domain
+```
+PokemonShapes
+├── PokeathlonStats
+│   ├── PokeathlonStatNames
+│   └── PokemonFormPokeathlonStats
+├── PokemonColors
+│   └── PokemonColorNames
+├── PokemonHabitats
+│   └── PokemonHabitatNames
+└── PokemonShapeProse
+```
+
+## 14. Regions Domain
+```
+Regions
+├── Locations
+│   ├── LocationAreas
+│   │   ├── LocationAreaEncounterRates
+│   │   └── LocationAreaProse
+│   ├── LocationGameIndices
+│   └── LocationNames
+├── Pokedexes
+│   ├── PokedexProse
+│   └── PokedexVersionGroups
+└── RegionNames
+```
+
+## 15. Stats Domain
+```
+Stats
+├── Characteristics
+│   └── CharacteristicText
+├── MoveMetaStatChanges
+├── PokemonStats
+└── StatNames
+```
+
+## 16. Types Domain
+```
+Types
+├── PokemonTypes
+│   ├── PokemonFormTypes
+│   └── PokemonTypesPast
+├── TypeEfficacy
+├── TypeEfficacyPast
+├── TypeGameIndices
+└── TypeNames
+```
+
+## Proposed File Structure for Schema Splitting
+
+```
+prisma/
+├── schema.prisma (main file with generator/datasource)
+├── domains/
+│   ├── abilities.schema.prisma
+│   ├── contests.schema.prisma
+│   ├── encounters.schema.prisma
+│   ├── evolution.schema.prisma
+│   ├── generations.schema.prisma
+│   ├── items.schema.prisma
+│   ├── languages.schema.prisma
+│   ├── machines.schema.prisma
+│   ├── moves.schema.prisma
+│   ├── natures.schema.prisma
+│   ├── pal-park.schema.prisma
+│   ├── pokemon.schema.prisma
+│   ├── pokemon-characteristics.schema.prisma
+│   ├── regions.schema.prisma
+│   ├── stats.schema.prisma
+│   └── types.schema.prisma
+```
+
+## Notes:
+- Each domain file will contain only the models listed under that domain
+- Cross-domain relationships will be maintained through foreign key references
+- The main schema.prisma will import all domain files
+- Sub-domains are logical groupings within each domain file
