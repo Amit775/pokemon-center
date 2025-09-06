@@ -61,7 +61,7 @@ Generations
 │   └── VersionNames
 └── Versions
 ```
-
+z
 ## 6. Items Domain
 ```
 Items
@@ -141,19 +141,19 @@ Natures
 
 ## 11. Pal Park Domain
 ```
-PalParkAreas
+PalParkAreas (core)
 ├── PalParkAreaNames
-└── PalPark
+└── PalPark (sub-domain)
 ```
 
 ## 12. Pokemon Domain
 ```
-Pokemon
+Pokemon (core)
 ├── PokemonAbilities
 ├── PokemonAbilitiesPast
 ├── PokemonDexNumbers
 ├── PokemonEggGroups
-├── PokemonForms
+├── PokemonForms (sub-domain)
 │   ├── PokemonFormGenerations
 │   ├── PokemonFormNames
 │   ├── PokemonFormPokeathlonStats
@@ -171,27 +171,27 @@ Pokemon
 
 ## 13. Pokemon Characteristics Domain
 ```
-PokemonShapes
-├── PokeathlonStats
+PokemonShapes (core)
+├── PokeathlonStats (sub-domain)
 │   ├── PokeathlonStatNames
 │   └── PokemonFormPokeathlonStats
-├── PokemonColors
+├── PokemonColors (sub-domain)
 │   └── PokemonColorNames
-├── PokemonHabitats
+├── PokemonHabitats (sub-domain)
 │   └── PokemonHabitatNames
 └── PokemonShapeProse
 ```
 
 ## 14. Regions Domain
 ```
-Regions
-├── Locations
-│   ├── LocationAreas
+Regions (core)
+├── Locations (sub-domain)
+│   ├── LocationAreas (sub-sub-domain)
 │   │   ├── LocationAreaEncounterRates
 │   │   └── LocationAreaProse
 │   ├── LocationGameIndices
 │   └── LocationNames
-├── Pokedexes
+├── Pokedexes (sub-domain)
 │   ├── PokedexProse
 │   └── PokedexVersionGroups
 └── RegionNames
@@ -199,18 +199,18 @@ Regions
 
 ## 15. Stats Domain
 ```
-Stats
-├── Characteristics
+Stats (core)
+├── Characteristics (sub-domain)
 │   └── CharacteristicText
-├── MoveMetaStatChanges
-├── PokemonStats
+├── MoveMetaStatChanges (sub-domain)
+├── PokemonStats (sub-domain)
 └── StatNames
 ```
 
 ## 16. Types Domain
 ```
-Types
-├── PokemonTypes
+Types (core)
+├── PokemonTypes (sub-domain)
 │   ├── PokemonFormTypes
 │   └── PokemonTypesPast
 ├── TypeEfficacy
