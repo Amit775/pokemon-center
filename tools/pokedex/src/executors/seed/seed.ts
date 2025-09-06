@@ -46,23 +46,72 @@ class CsvProcessorService {
 	}
 
 	private getOrderedFiles(csvDir: string): string[] {
-		if (this.tables) {
-			return this.tables.map((table) => `${table}.csv`);
-		}
-		// Define the order of processing - core entities first, then relationships
-		// This order is maintained for potential future foreign key relationships
+		const onlyTables = this.tables ? new Set(this.tables.map((table) => `${table}.csv`)) : undefined;
+		// Define the order of processing - core entities only
+		// Order is critical: dependencies must be processed before dependents
+		// Based on foreign key relationships in Prisma schema
 		const filesToProcess = [
+			// Level 1: No dependencies (foundational tables)
+			'languages.csv',
+			'regions.csv',
+			'genders.csv',
+			'egg_groups.csv',
+			'growth_rates.csv',
+			'evolution_triggers.csv',
+			'pokemon_colors.csv',
+			'pokemon_shapes.csv',
+			'pokemon_habitats.csv',
+			'contest_types.csv',
+			'contest_effects.csv',
+			'super_contest_effects.csv',
+			'encounter_methods.csv',
+			'encounter_conditions.csv',
+			'pal_park_areas.csv',
+			'pokeathlon_stats.csv',
+			'move_meta_categories.csv',
+			'move_meta_ailments.csv',
+			'move_flags.csv',
+			'move_battle_styles.csv',
+			'item_flags.csv',
+			'item_fling_effects.csv',
+			'berry_firmness.csv',
+			'characteristics.csv',
+			'move_effects.csv',
+			'move_targets.csv',
 			'move_damage_classes.csv',
-			'types.csv',
-			'stats.csv',
-			'abilities.csv',
-			'items.csv',
-			'pokemon.csv',
-			'moves.csv',
-			'pokemon_types.csv',
-			'pokemon_stats.csv',
-			'pokemon_abilities.csv',
-			'pokemon_moves.csv',
+			'pokemon_move_methods.csv',
+
+			// Level 2: Depend on Level 1
+			'generations.csv', // depends on regions
+			'stats.csv', // no dependencies
+			'evolution_chains.csv', // depends on items (optional)
+			'item_categories.csv', // depends on item_pockets
+			'item_pockets.csv', // no dependencies
+			'encounter_condition_values.csv', // depends on encounter_conditions
+
+			// Level 3: Depend on Level 2
+			'version_groups.csv', // depends on generations
+			'types.csv', // depends on generations, stats
+			'abilities.csv', // depends on generations
+			'items.csv', // depends on item_categories, item_fling_effects
+			'experience.csv', // depends on growth_rates
+			'natures.csv', // depends on stats
+			'locations.csv', // depends on regions
+			'pokedexes.csv', // depends on regions
+			'berries.csv', // depends on items, berry_firmness, types
+
+			// Level 4: Depend on Level 3
+			'versions.csv', // depends on version_groups
+			'location_areas.csv', // depends on locations
+			'pokemon_species.csv', // depends on generations, evolution_chains, pokemon_colors, pokemon_shapes, pokemon_habitats, growth_rates
+			'moves.csv', // depends on generations, types, move_targets, move_damage_classes, move_effects, contest_types, contest_effects, super_contest_effects
+			'encounter_slots.csv', // depends on version_groups, encounter_methods
+			'machines.csv', // depends on version_groups, items, moves
+
+			// Level 5: Depend on Level 4
+			'pokemon_forms.csv', // depends on pokemon, version_groups
+			'encounters.csv', // depends on versions, location_areas, encounter_slots, pokemon
+			'pokemon.csv', // depends on pokemon_species
 		];
 
 		// Get all CSV files in the directory
@@ -73,7 +122,7 @@ class CsvProcessorService {
 
 		// Process files in the defined order first, then any remaining files
 		const remainingFiles = allCsvFiles.filter((file) => !filesToProcess.includes(file));
-		return [...filesToProcess, ...remainingFiles];
+		return [...filesToProcess, ...remainingFiles].filter((file) => onlyTables?.has(file) ?? true);
 	}
 
 	private async processCsvFile(filePath: string): Promise<void> {
