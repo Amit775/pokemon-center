@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { Move } from '@pokemon-center/data';
+import { Moves } from '@pokemon-center/infra-pokedex-data';
 
 @Component({
 	standalone: true,
@@ -9,5 +9,5 @@ import { Move } from '@pokemon-center/data';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovePageComponent {
-	public move = input.required<Move>();
+	public move = input.required<Moves>();
 }
