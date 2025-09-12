@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateMoveMetaStatChangesArgs } from "./args/AggregateMoveMetaStatChangesArgs";
-import { CreateManyAndReturnMoveMetaStatChangesArgs } from "./args/CreateManyAndReturnMoveMetaStatChangesArgs";
-import { CreateManyMoveMetaStatChangesArgs } from "./args/CreateManyMoveMetaStatChangesArgs";
-import { CreateOneMoveMetaStatChangesArgs } from "./args/CreateOneMoveMetaStatChangesArgs";
-import { DeleteManyMoveMetaStatChangesArgs } from "./args/DeleteManyMoveMetaStatChangesArgs";
-import { DeleteOneMoveMetaStatChangesArgs } from "./args/DeleteOneMoveMetaStatChangesArgs";
+
 import { FindFirstMoveMetaStatChangesArgs } from "./args/FindFirstMoveMetaStatChangesArgs";
 import { FindFirstMoveMetaStatChangesOrThrowArgs } from "./args/FindFirstMoveMetaStatChangesOrThrowArgs";
 import { FindManyMoveMetaStatChangesArgs } from "./args/FindManyMoveMetaStatChangesArgs";
 import { FindUniqueMoveMetaStatChangesArgs } from "./args/FindUniqueMoveMetaStatChangesArgs";
 import { FindUniqueMoveMetaStatChangesOrThrowArgs } from "./args/FindUniqueMoveMetaStatChangesOrThrowArgs";
 import { GroupByMoveMetaStatChangesArgs } from "./args/GroupByMoveMetaStatChangesArgs";
-import { UpdateManyMoveMetaStatChangesArgs } from "./args/UpdateManyMoveMetaStatChangesArgs";
-import { UpdateOneMoveMetaStatChangesArgs } from "./args/UpdateOneMoveMetaStatChangesArgs";
-import { UpsertOneMoveMetaStatChangesArgs } from "./args/UpsertOneMoveMetaStatChangesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { MoveMetaStatChanges } from "../../../models/MoveMetaStatChanges";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

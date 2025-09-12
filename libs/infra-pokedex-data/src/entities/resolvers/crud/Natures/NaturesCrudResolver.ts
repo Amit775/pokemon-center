@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateNaturesArgs } from "./args/AggregateNaturesArgs";
-import { CreateManyAndReturnNaturesArgs } from "./args/CreateManyAndReturnNaturesArgs";
-import { CreateManyNaturesArgs } from "./args/CreateManyNaturesArgs";
-import { CreateOneNaturesArgs } from "./args/CreateOneNaturesArgs";
-import { DeleteManyNaturesArgs } from "./args/DeleteManyNaturesArgs";
-import { DeleteOneNaturesArgs } from "./args/DeleteOneNaturesArgs";
+
 import { FindFirstNaturesArgs } from "./args/FindFirstNaturesArgs";
 import { FindFirstNaturesOrThrowArgs } from "./args/FindFirstNaturesOrThrowArgs";
 import { FindManyNaturesArgs } from "./args/FindManyNaturesArgs";
 import { FindUniqueNaturesArgs } from "./args/FindUniqueNaturesArgs";
 import { FindUniqueNaturesOrThrowArgs } from "./args/FindUniqueNaturesOrThrowArgs";
 import { GroupByNaturesArgs } from "./args/GroupByNaturesArgs";
-import { UpdateManyNaturesArgs } from "./args/UpdateManyNaturesArgs";
-import { UpdateOneNaturesArgs } from "./args/UpdateOneNaturesArgs";
-import { UpsertOneNaturesArgs } from "./args/UpsertOneNaturesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Natures } from "../../../models/Natures";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateMoveFlagMapArgs } from "./args/AggregateMoveFlagMapArgs";
-import { CreateManyAndReturnMoveFlagMapArgs } from "./args/CreateManyAndReturnMoveFlagMapArgs";
-import { CreateManyMoveFlagMapArgs } from "./args/CreateManyMoveFlagMapArgs";
-import { CreateOneMoveFlagMapArgs } from "./args/CreateOneMoveFlagMapArgs";
-import { DeleteManyMoveFlagMapArgs } from "./args/DeleteManyMoveFlagMapArgs";
-import { DeleteOneMoveFlagMapArgs } from "./args/DeleteOneMoveFlagMapArgs";
+
 import { FindFirstMoveFlagMapArgs } from "./args/FindFirstMoveFlagMapArgs";
 import { FindFirstMoveFlagMapOrThrowArgs } from "./args/FindFirstMoveFlagMapOrThrowArgs";
 import { FindManyMoveFlagMapArgs } from "./args/FindManyMoveFlagMapArgs";
 import { FindUniqueMoveFlagMapArgs } from "./args/FindUniqueMoveFlagMapArgs";
 import { FindUniqueMoveFlagMapOrThrowArgs } from "./args/FindUniqueMoveFlagMapOrThrowArgs";
 import { GroupByMoveFlagMapArgs } from "./args/GroupByMoveFlagMapArgs";
-import { UpdateManyMoveFlagMapArgs } from "./args/UpdateManyMoveFlagMapArgs";
-import { UpdateOneMoveFlagMapArgs } from "./args/UpdateOneMoveFlagMapArgs";
-import { UpsertOneMoveFlagMapArgs } from "./args/UpsertOneMoveFlagMapArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { MoveFlagMap } from "../../../models/MoveFlagMap";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

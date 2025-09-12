@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateEvolutionChainsArgs } from "./args/AggregateEvolutionChainsArgs";
-import { CreateManyAndReturnEvolutionChainsArgs } from "./args/CreateManyAndReturnEvolutionChainsArgs";
-import { CreateManyEvolutionChainsArgs } from "./args/CreateManyEvolutionChainsArgs";
-import { CreateOneEvolutionChainsArgs } from "./args/CreateOneEvolutionChainsArgs";
-import { DeleteManyEvolutionChainsArgs } from "./args/DeleteManyEvolutionChainsArgs";
-import { DeleteOneEvolutionChainsArgs } from "./args/DeleteOneEvolutionChainsArgs";
+
 import { FindFirstEvolutionChainsArgs } from "./args/FindFirstEvolutionChainsArgs";
 import { FindFirstEvolutionChainsOrThrowArgs } from "./args/FindFirstEvolutionChainsOrThrowArgs";
 import { FindManyEvolutionChainsArgs } from "./args/FindManyEvolutionChainsArgs";
 import { FindUniqueEvolutionChainsArgs } from "./args/FindUniqueEvolutionChainsArgs";
 import { FindUniqueEvolutionChainsOrThrowArgs } from "./args/FindUniqueEvolutionChainsOrThrowArgs";
 import { GroupByEvolutionChainsArgs } from "./args/GroupByEvolutionChainsArgs";
-import { UpdateManyEvolutionChainsArgs } from "./args/UpdateManyEvolutionChainsArgs";
-import { UpdateOneEvolutionChainsArgs } from "./args/UpdateOneEvolutionChainsArgs";
-import { UpsertOneEvolutionChainsArgs } from "./args/UpsertOneEvolutionChainsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { EvolutionChains } from "../../../models/EvolutionChains";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

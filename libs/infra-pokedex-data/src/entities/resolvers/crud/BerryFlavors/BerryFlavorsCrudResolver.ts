@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateBerryFlavorsArgs } from "./args/AggregateBerryFlavorsArgs";
-import { CreateManyAndReturnBerryFlavorsArgs } from "./args/CreateManyAndReturnBerryFlavorsArgs";
-import { CreateManyBerryFlavorsArgs } from "./args/CreateManyBerryFlavorsArgs";
-import { CreateOneBerryFlavorsArgs } from "./args/CreateOneBerryFlavorsArgs";
-import { DeleteManyBerryFlavorsArgs } from "./args/DeleteManyBerryFlavorsArgs";
-import { DeleteOneBerryFlavorsArgs } from "./args/DeleteOneBerryFlavorsArgs";
+
 import { FindFirstBerryFlavorsArgs } from "./args/FindFirstBerryFlavorsArgs";
 import { FindFirstBerryFlavorsOrThrowArgs } from "./args/FindFirstBerryFlavorsOrThrowArgs";
 import { FindManyBerryFlavorsArgs } from "./args/FindManyBerryFlavorsArgs";
 import { FindUniqueBerryFlavorsArgs } from "./args/FindUniqueBerryFlavorsArgs";
 import { FindUniqueBerryFlavorsOrThrowArgs } from "./args/FindUniqueBerryFlavorsOrThrowArgs";
 import { GroupByBerryFlavorsArgs } from "./args/GroupByBerryFlavorsArgs";
-import { UpdateManyBerryFlavorsArgs } from "./args/UpdateManyBerryFlavorsArgs";
-import { UpdateOneBerryFlavorsArgs } from "./args/UpdateOneBerryFlavorsArgs";
-import { UpsertOneBerryFlavorsArgs } from "./args/UpsertOneBerryFlavorsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { BerryFlavors } from "../../../models/BerryFlavors";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

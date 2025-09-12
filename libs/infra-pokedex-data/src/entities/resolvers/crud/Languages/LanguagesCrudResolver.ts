@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateLanguagesArgs } from "./args/AggregateLanguagesArgs";
-import { CreateManyAndReturnLanguagesArgs } from "./args/CreateManyAndReturnLanguagesArgs";
-import { CreateManyLanguagesArgs } from "./args/CreateManyLanguagesArgs";
-import { CreateOneLanguagesArgs } from "./args/CreateOneLanguagesArgs";
-import { DeleteManyLanguagesArgs } from "./args/DeleteManyLanguagesArgs";
-import { DeleteOneLanguagesArgs } from "./args/DeleteOneLanguagesArgs";
+
 import { FindFirstLanguagesArgs } from "./args/FindFirstLanguagesArgs";
 import { FindFirstLanguagesOrThrowArgs } from "./args/FindFirstLanguagesOrThrowArgs";
 import { FindManyLanguagesArgs } from "./args/FindManyLanguagesArgs";
 import { FindUniqueLanguagesArgs } from "./args/FindUniqueLanguagesArgs";
 import { FindUniqueLanguagesOrThrowArgs } from "./args/FindUniqueLanguagesOrThrowArgs";
 import { GroupByLanguagesArgs } from "./args/GroupByLanguagesArgs";
-import { UpdateManyLanguagesArgs } from "./args/UpdateManyLanguagesArgs";
-import { UpdateOneLanguagesArgs } from "./args/UpdateOneLanguagesArgs";
-import { UpsertOneLanguagesArgs } from "./args/UpsertOneLanguagesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Languages } from "../../../models/Languages";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

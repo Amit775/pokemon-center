@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateGendersArgs } from "./args/AggregateGendersArgs";
-import { CreateManyAndReturnGendersArgs } from "./args/CreateManyAndReturnGendersArgs";
-import { CreateManyGendersArgs } from "./args/CreateManyGendersArgs";
-import { CreateOneGendersArgs } from "./args/CreateOneGendersArgs";
-import { DeleteManyGendersArgs } from "./args/DeleteManyGendersArgs";
-import { DeleteOneGendersArgs } from "./args/DeleteOneGendersArgs";
+
 import { FindFirstGendersArgs } from "./args/FindFirstGendersArgs";
 import { FindFirstGendersOrThrowArgs } from "./args/FindFirstGendersOrThrowArgs";
 import { FindManyGendersArgs } from "./args/FindManyGendersArgs";
 import { FindUniqueGendersArgs } from "./args/FindUniqueGendersArgs";
 import { FindUniqueGendersOrThrowArgs } from "./args/FindUniqueGendersOrThrowArgs";
 import { GroupByGendersArgs } from "./args/GroupByGendersArgs";
-import { UpdateManyGendersArgs } from "./args/UpdateManyGendersArgs";
-import { UpdateOneGendersArgs } from "./args/UpdateOneGendersArgs";
-import { UpsertOneGendersArgs } from "./args/UpsertOneGendersArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Genders } from "../../../models/Genders";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

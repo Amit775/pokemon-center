@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateEvolutionTriggersArgs } from "./args/AggregateEvolutionTriggersArgs";
-import { CreateManyAndReturnEvolutionTriggersArgs } from "./args/CreateManyAndReturnEvolutionTriggersArgs";
-import { CreateManyEvolutionTriggersArgs } from "./args/CreateManyEvolutionTriggersArgs";
-import { CreateOneEvolutionTriggersArgs } from "./args/CreateOneEvolutionTriggersArgs";
-import { DeleteManyEvolutionTriggersArgs } from "./args/DeleteManyEvolutionTriggersArgs";
-import { DeleteOneEvolutionTriggersArgs } from "./args/DeleteOneEvolutionTriggersArgs";
+
 import { FindFirstEvolutionTriggersArgs } from "./args/FindFirstEvolutionTriggersArgs";
 import { FindFirstEvolutionTriggersOrThrowArgs } from "./args/FindFirstEvolutionTriggersOrThrowArgs";
 import { FindManyEvolutionTriggersArgs } from "./args/FindManyEvolutionTriggersArgs";
 import { FindUniqueEvolutionTriggersArgs } from "./args/FindUniqueEvolutionTriggersArgs";
 import { FindUniqueEvolutionTriggersOrThrowArgs } from "./args/FindUniqueEvolutionTriggersOrThrowArgs";
 import { GroupByEvolutionTriggersArgs } from "./args/GroupByEvolutionTriggersArgs";
-import { UpdateManyEvolutionTriggersArgs } from "./args/UpdateManyEvolutionTriggersArgs";
-import { UpdateOneEvolutionTriggersArgs } from "./args/UpdateOneEvolutionTriggersArgs";
-import { UpsertOneEvolutionTriggersArgs } from "./args/UpsertOneEvolutionTriggersArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { EvolutionTriggers } from "../../../models/EvolutionTriggers";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

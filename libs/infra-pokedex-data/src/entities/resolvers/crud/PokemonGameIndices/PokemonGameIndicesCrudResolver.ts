@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokemonGameIndicesArgs } from "./args/AggregatePokemonGameIndicesArgs";
-import { CreateManyAndReturnPokemonGameIndicesArgs } from "./args/CreateManyAndReturnPokemonGameIndicesArgs";
-import { CreateManyPokemonGameIndicesArgs } from "./args/CreateManyPokemonGameIndicesArgs";
-import { CreateOnePokemonGameIndicesArgs } from "./args/CreateOnePokemonGameIndicesArgs";
-import { DeleteManyPokemonGameIndicesArgs } from "./args/DeleteManyPokemonGameIndicesArgs";
-import { DeleteOnePokemonGameIndicesArgs } from "./args/DeleteOnePokemonGameIndicesArgs";
+
 import { FindFirstPokemonGameIndicesArgs } from "./args/FindFirstPokemonGameIndicesArgs";
 import { FindFirstPokemonGameIndicesOrThrowArgs } from "./args/FindFirstPokemonGameIndicesOrThrowArgs";
 import { FindManyPokemonGameIndicesArgs } from "./args/FindManyPokemonGameIndicesArgs";
 import { FindUniquePokemonGameIndicesArgs } from "./args/FindUniquePokemonGameIndicesArgs";
 import { FindUniquePokemonGameIndicesOrThrowArgs } from "./args/FindUniquePokemonGameIndicesOrThrowArgs";
 import { GroupByPokemonGameIndicesArgs } from "./args/GroupByPokemonGameIndicesArgs";
-import { UpdateManyPokemonGameIndicesArgs } from "./args/UpdateManyPokemonGameIndicesArgs";
-import { UpdateOnePokemonGameIndicesArgs } from "./args/UpdateOnePokemonGameIndicesArgs";
-import { UpsertOnePokemonGameIndicesArgs } from "./args/UpsertOnePokemonGameIndicesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { PokemonGameIndices } from "../../../models/PokemonGameIndices";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

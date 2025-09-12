@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateGrowthRatesArgs } from "./args/AggregateGrowthRatesArgs";
-import { CreateManyAndReturnGrowthRatesArgs } from "./args/CreateManyAndReturnGrowthRatesArgs";
-import { CreateManyGrowthRatesArgs } from "./args/CreateManyGrowthRatesArgs";
-import { CreateOneGrowthRatesArgs } from "./args/CreateOneGrowthRatesArgs";
-import { DeleteManyGrowthRatesArgs } from "./args/DeleteManyGrowthRatesArgs";
-import { DeleteOneGrowthRatesArgs } from "./args/DeleteOneGrowthRatesArgs";
+
 import { FindFirstGrowthRatesArgs } from "./args/FindFirstGrowthRatesArgs";
 import { FindFirstGrowthRatesOrThrowArgs } from "./args/FindFirstGrowthRatesOrThrowArgs";
 import { FindManyGrowthRatesArgs } from "./args/FindManyGrowthRatesArgs";
 import { FindUniqueGrowthRatesArgs } from "./args/FindUniqueGrowthRatesArgs";
 import { FindUniqueGrowthRatesOrThrowArgs } from "./args/FindUniqueGrowthRatesOrThrowArgs";
 import { GroupByGrowthRatesArgs } from "./args/GroupByGrowthRatesArgs";
-import { UpdateManyGrowthRatesArgs } from "./args/UpdateManyGrowthRatesArgs";
-import { UpdateOneGrowthRatesArgs } from "./args/UpdateOneGrowthRatesArgs";
-import { UpsertOneGrowthRatesArgs } from "./args/UpsertOneGrowthRatesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { GrowthRates } from "../../../models/GrowthRates";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateMoveMetaCategoriesArgs } from "./args/AggregateMoveMetaCategoriesArgs";
-import { CreateManyAndReturnMoveMetaCategoriesArgs } from "./args/CreateManyAndReturnMoveMetaCategoriesArgs";
-import { CreateManyMoveMetaCategoriesArgs } from "./args/CreateManyMoveMetaCategoriesArgs";
-import { CreateOneMoveMetaCategoriesArgs } from "./args/CreateOneMoveMetaCategoriesArgs";
-import { DeleteManyMoveMetaCategoriesArgs } from "./args/DeleteManyMoveMetaCategoriesArgs";
-import { DeleteOneMoveMetaCategoriesArgs } from "./args/DeleteOneMoveMetaCategoriesArgs";
+
 import { FindFirstMoveMetaCategoriesArgs } from "./args/FindFirstMoveMetaCategoriesArgs";
 import { FindFirstMoveMetaCategoriesOrThrowArgs } from "./args/FindFirstMoveMetaCategoriesOrThrowArgs";
 import { FindManyMoveMetaCategoriesArgs } from "./args/FindManyMoveMetaCategoriesArgs";
 import { FindUniqueMoveMetaCategoriesArgs } from "./args/FindUniqueMoveMetaCategoriesArgs";
 import { FindUniqueMoveMetaCategoriesOrThrowArgs } from "./args/FindUniqueMoveMetaCategoriesOrThrowArgs";
 import { GroupByMoveMetaCategoriesArgs } from "./args/GroupByMoveMetaCategoriesArgs";
-import { UpdateManyMoveMetaCategoriesArgs } from "./args/UpdateManyMoveMetaCategoriesArgs";
-import { UpdateOneMoveMetaCategoriesArgs } from "./args/UpdateOneMoveMetaCategoriesArgs";
-import { UpsertOneMoveMetaCategoriesArgs } from "./args/UpsertOneMoveMetaCategoriesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { MoveMetaCategories } from "../../../models/MoveMetaCategories";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokemonEggGroupsArgs } from "./args/AggregatePokemonEggGroupsArgs";
-import { CreateManyAndReturnPokemonEggGroupsArgs } from "./args/CreateManyAndReturnPokemonEggGroupsArgs";
-import { CreateManyPokemonEggGroupsArgs } from "./args/CreateManyPokemonEggGroupsArgs";
-import { CreateOnePokemonEggGroupsArgs } from "./args/CreateOnePokemonEggGroupsArgs";
-import { DeleteManyPokemonEggGroupsArgs } from "./args/DeleteManyPokemonEggGroupsArgs";
-import { DeleteOnePokemonEggGroupsArgs } from "./args/DeleteOnePokemonEggGroupsArgs";
+
 import { FindFirstPokemonEggGroupsArgs } from "./args/FindFirstPokemonEggGroupsArgs";
 import { FindFirstPokemonEggGroupsOrThrowArgs } from "./args/FindFirstPokemonEggGroupsOrThrowArgs";
 import { FindManyPokemonEggGroupsArgs } from "./args/FindManyPokemonEggGroupsArgs";
 import { FindUniquePokemonEggGroupsArgs } from "./args/FindUniquePokemonEggGroupsArgs";
 import { FindUniquePokemonEggGroupsOrThrowArgs } from "./args/FindUniquePokemonEggGroupsOrThrowArgs";
 import { GroupByPokemonEggGroupsArgs } from "./args/GroupByPokemonEggGroupsArgs";
-import { UpdateManyPokemonEggGroupsArgs } from "./args/UpdateManyPokemonEggGroupsArgs";
-import { UpdateOnePokemonEggGroupsArgs } from "./args/UpdateOnePokemonEggGroupsArgs";
-import { UpsertOnePokemonEggGroupsArgs } from "./args/UpsertOnePokemonEggGroupsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { PokemonEggGroups } from "../../../models/PokemonEggGroups";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

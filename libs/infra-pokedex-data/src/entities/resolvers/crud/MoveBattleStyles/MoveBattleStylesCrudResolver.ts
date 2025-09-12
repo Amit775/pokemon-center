@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateMoveBattleStylesArgs } from "./args/AggregateMoveBattleStylesArgs";
-import { CreateManyAndReturnMoveBattleStylesArgs } from "./args/CreateManyAndReturnMoveBattleStylesArgs";
-import { CreateManyMoveBattleStylesArgs } from "./args/CreateManyMoveBattleStylesArgs";
-import { CreateOneMoveBattleStylesArgs } from "./args/CreateOneMoveBattleStylesArgs";
-import { DeleteManyMoveBattleStylesArgs } from "./args/DeleteManyMoveBattleStylesArgs";
-import { DeleteOneMoveBattleStylesArgs } from "./args/DeleteOneMoveBattleStylesArgs";
+
 import { FindFirstMoveBattleStylesArgs } from "./args/FindFirstMoveBattleStylesArgs";
 import { FindFirstMoveBattleStylesOrThrowArgs } from "./args/FindFirstMoveBattleStylesOrThrowArgs";
 import { FindManyMoveBattleStylesArgs } from "./args/FindManyMoveBattleStylesArgs";
 import { FindUniqueMoveBattleStylesArgs } from "./args/FindUniqueMoveBattleStylesArgs";
 import { FindUniqueMoveBattleStylesOrThrowArgs } from "./args/FindUniqueMoveBattleStylesOrThrowArgs";
 import { GroupByMoveBattleStylesArgs } from "./args/GroupByMoveBattleStylesArgs";
-import { UpdateManyMoveBattleStylesArgs } from "./args/UpdateManyMoveBattleStylesArgs";
-import { UpdateOneMoveBattleStylesArgs } from "./args/UpdateOneMoveBattleStylesArgs";
-import { UpsertOneMoveBattleStylesArgs } from "./args/UpsertOneMoveBattleStylesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { MoveBattleStyles } from "../../../models/MoveBattleStyles";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

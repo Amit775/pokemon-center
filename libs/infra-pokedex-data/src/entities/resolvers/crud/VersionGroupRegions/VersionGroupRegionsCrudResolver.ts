@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateVersionGroupRegionsArgs } from "./args/AggregateVersionGroupRegionsArgs";
-import { CreateManyAndReturnVersionGroupRegionsArgs } from "./args/CreateManyAndReturnVersionGroupRegionsArgs";
-import { CreateManyVersionGroupRegionsArgs } from "./args/CreateManyVersionGroupRegionsArgs";
-import { CreateOneVersionGroupRegionsArgs } from "./args/CreateOneVersionGroupRegionsArgs";
-import { DeleteManyVersionGroupRegionsArgs } from "./args/DeleteManyVersionGroupRegionsArgs";
-import { DeleteOneVersionGroupRegionsArgs } from "./args/DeleteOneVersionGroupRegionsArgs";
+
 import { FindFirstVersionGroupRegionsArgs } from "./args/FindFirstVersionGroupRegionsArgs";
 import { FindFirstVersionGroupRegionsOrThrowArgs } from "./args/FindFirstVersionGroupRegionsOrThrowArgs";
 import { FindManyVersionGroupRegionsArgs } from "./args/FindManyVersionGroupRegionsArgs";
 import { FindUniqueVersionGroupRegionsArgs } from "./args/FindUniqueVersionGroupRegionsArgs";
 import { FindUniqueVersionGroupRegionsOrThrowArgs } from "./args/FindUniqueVersionGroupRegionsOrThrowArgs";
 import { GroupByVersionGroupRegionsArgs } from "./args/GroupByVersionGroupRegionsArgs";
-import { UpdateManyVersionGroupRegionsArgs } from "./args/UpdateManyVersionGroupRegionsArgs";
-import { UpdateOneVersionGroupRegionsArgs } from "./args/UpdateOneVersionGroupRegionsArgs";
-import { UpsertOneVersionGroupRegionsArgs } from "./args/UpsertOneVersionGroupRegionsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { VersionGroupRegions } from "../../../models/VersionGroupRegions";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

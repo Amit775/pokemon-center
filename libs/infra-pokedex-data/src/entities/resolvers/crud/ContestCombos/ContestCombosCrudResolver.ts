@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateContestCombosArgs } from "./args/AggregateContestCombosArgs";
-import { CreateManyAndReturnContestCombosArgs } from "./args/CreateManyAndReturnContestCombosArgs";
-import { CreateManyContestCombosArgs } from "./args/CreateManyContestCombosArgs";
-import { CreateOneContestCombosArgs } from "./args/CreateOneContestCombosArgs";
-import { DeleteManyContestCombosArgs } from "./args/DeleteManyContestCombosArgs";
-import { DeleteOneContestCombosArgs } from "./args/DeleteOneContestCombosArgs";
+
 import { FindFirstContestCombosArgs } from "./args/FindFirstContestCombosArgs";
 import { FindFirstContestCombosOrThrowArgs } from "./args/FindFirstContestCombosOrThrowArgs";
 import { FindManyContestCombosArgs } from "./args/FindManyContestCombosArgs";
 import { FindUniqueContestCombosArgs } from "./args/FindUniqueContestCombosArgs";
 import { FindUniqueContestCombosOrThrowArgs } from "./args/FindUniqueContestCombosOrThrowArgs";
 import { GroupByContestCombosArgs } from "./args/GroupByContestCombosArgs";
-import { UpdateManyContestCombosArgs } from "./args/UpdateManyContestCombosArgs";
-import { UpdateOneContestCombosArgs } from "./args/UpdateOneContestCombosArgs";
-import { UpsertOneContestCombosArgs } from "./args/UpsertOneContestCombosArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { ContestCombos } from "../../../models/ContestCombos";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

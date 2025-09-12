@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateVersionGroupPokemonMoveMethodsArgs } from "./args/AggregateVersionGroupPokemonMoveMethodsArgs";
-import { CreateManyAndReturnVersionGroupPokemonMoveMethodsArgs } from "./args/CreateManyAndReturnVersionGroupPokemonMoveMethodsArgs";
-import { CreateManyVersionGroupPokemonMoveMethodsArgs } from "./args/CreateManyVersionGroupPokemonMoveMethodsArgs";
-import { CreateOneVersionGroupPokemonMoveMethodsArgs } from "./args/CreateOneVersionGroupPokemonMoveMethodsArgs";
-import { DeleteManyVersionGroupPokemonMoveMethodsArgs } from "./args/DeleteManyVersionGroupPokemonMoveMethodsArgs";
-import { DeleteOneVersionGroupPokemonMoveMethodsArgs } from "./args/DeleteOneVersionGroupPokemonMoveMethodsArgs";
+
 import { FindFirstVersionGroupPokemonMoveMethodsArgs } from "./args/FindFirstVersionGroupPokemonMoveMethodsArgs";
 import { FindFirstVersionGroupPokemonMoveMethodsOrThrowArgs } from "./args/FindFirstVersionGroupPokemonMoveMethodsOrThrowArgs";
 import { FindManyVersionGroupPokemonMoveMethodsArgs } from "./args/FindManyVersionGroupPokemonMoveMethodsArgs";
 import { FindUniqueVersionGroupPokemonMoveMethodsArgs } from "./args/FindUniqueVersionGroupPokemonMoveMethodsArgs";
 import { FindUniqueVersionGroupPokemonMoveMethodsOrThrowArgs } from "./args/FindUniqueVersionGroupPokemonMoveMethodsOrThrowArgs";
 import { GroupByVersionGroupPokemonMoveMethodsArgs } from "./args/GroupByVersionGroupPokemonMoveMethodsArgs";
-import { UpdateManyVersionGroupPokemonMoveMethodsArgs } from "./args/UpdateManyVersionGroupPokemonMoveMethodsArgs";
-import { UpdateOneVersionGroupPokemonMoveMethodsArgs } from "./args/UpdateOneVersionGroupPokemonMoveMethodsArgs";
-import { UpsertOneVersionGroupPokemonMoveMethodsArgs } from "./args/UpsertOneVersionGroupPokemonMoveMethodsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { VersionGroupPokemonMoveMethods } from "../../../models/VersionGroupPokemonMoveMethods";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

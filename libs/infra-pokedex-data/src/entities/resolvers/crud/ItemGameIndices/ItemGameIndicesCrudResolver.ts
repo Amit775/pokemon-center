@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateItemGameIndicesArgs } from "./args/AggregateItemGameIndicesArgs";
-import { CreateManyAndReturnItemGameIndicesArgs } from "./args/CreateManyAndReturnItemGameIndicesArgs";
-import { CreateManyItemGameIndicesArgs } from "./args/CreateManyItemGameIndicesArgs";
-import { CreateOneItemGameIndicesArgs } from "./args/CreateOneItemGameIndicesArgs";
-import { DeleteManyItemGameIndicesArgs } from "./args/DeleteManyItemGameIndicesArgs";
-import { DeleteOneItemGameIndicesArgs } from "./args/DeleteOneItemGameIndicesArgs";
+
 import { FindFirstItemGameIndicesArgs } from "./args/FindFirstItemGameIndicesArgs";
 import { FindFirstItemGameIndicesOrThrowArgs } from "./args/FindFirstItemGameIndicesOrThrowArgs";
 import { FindManyItemGameIndicesArgs } from "./args/FindManyItemGameIndicesArgs";
 import { FindUniqueItemGameIndicesArgs } from "./args/FindUniqueItemGameIndicesArgs";
 import { FindUniqueItemGameIndicesOrThrowArgs } from "./args/FindUniqueItemGameIndicesOrThrowArgs";
 import { GroupByItemGameIndicesArgs } from "./args/GroupByItemGameIndicesArgs";
-import { UpdateManyItemGameIndicesArgs } from "./args/UpdateManyItemGameIndicesArgs";
-import { UpdateOneItemGameIndicesArgs } from "./args/UpdateOneItemGameIndicesArgs";
-import { UpsertOneItemGameIndicesArgs } from "./args/UpsertOneItemGameIndicesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { ItemGameIndices } from "../../../models/ItemGameIndices";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

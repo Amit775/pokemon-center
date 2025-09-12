@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateEggGroupsArgs } from "./args/AggregateEggGroupsArgs";
-import { CreateManyAndReturnEggGroupsArgs } from "./args/CreateManyAndReturnEggGroupsArgs";
-import { CreateManyEggGroupsArgs } from "./args/CreateManyEggGroupsArgs";
-import { CreateOneEggGroupsArgs } from "./args/CreateOneEggGroupsArgs";
-import { DeleteManyEggGroupsArgs } from "./args/DeleteManyEggGroupsArgs";
-import { DeleteOneEggGroupsArgs } from "./args/DeleteOneEggGroupsArgs";
+
 import { FindFirstEggGroupsArgs } from "./args/FindFirstEggGroupsArgs";
 import { FindFirstEggGroupsOrThrowArgs } from "./args/FindFirstEggGroupsOrThrowArgs";
 import { FindManyEggGroupsArgs } from "./args/FindManyEggGroupsArgs";
 import { FindUniqueEggGroupsArgs } from "./args/FindUniqueEggGroupsArgs";
 import { FindUniqueEggGroupsOrThrowArgs } from "./args/FindUniqueEggGroupsOrThrowArgs";
 import { GroupByEggGroupsArgs } from "./args/GroupByEggGroupsArgs";
-import { UpdateManyEggGroupsArgs } from "./args/UpdateManyEggGroupsArgs";
-import { UpdateOneEggGroupsArgs } from "./args/UpdateOneEggGroupsArgs";
-import { UpsertOneEggGroupsArgs } from "./args/UpsertOneEggGroupsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { EggGroups } from "../../../models/EggGroups";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

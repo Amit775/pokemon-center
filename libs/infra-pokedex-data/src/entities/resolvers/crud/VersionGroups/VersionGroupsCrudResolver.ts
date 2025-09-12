@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateVersionGroupsArgs } from "./args/AggregateVersionGroupsArgs";
-import { CreateManyAndReturnVersionGroupsArgs } from "./args/CreateManyAndReturnVersionGroupsArgs";
-import { CreateManyVersionGroupsArgs } from "./args/CreateManyVersionGroupsArgs";
-import { CreateOneVersionGroupsArgs } from "./args/CreateOneVersionGroupsArgs";
-import { DeleteManyVersionGroupsArgs } from "./args/DeleteManyVersionGroupsArgs";
-import { DeleteOneVersionGroupsArgs } from "./args/DeleteOneVersionGroupsArgs";
+
 import { FindFirstVersionGroupsArgs } from "./args/FindFirstVersionGroupsArgs";
 import { FindFirstVersionGroupsOrThrowArgs } from "./args/FindFirstVersionGroupsOrThrowArgs";
 import { FindManyVersionGroupsArgs } from "./args/FindManyVersionGroupsArgs";
 import { FindUniqueVersionGroupsArgs } from "./args/FindUniqueVersionGroupsArgs";
 import { FindUniqueVersionGroupsOrThrowArgs } from "./args/FindUniqueVersionGroupsOrThrowArgs";
 import { GroupByVersionGroupsArgs } from "./args/GroupByVersionGroupsArgs";
-import { UpdateManyVersionGroupsArgs } from "./args/UpdateManyVersionGroupsArgs";
-import { UpdateOneVersionGroupsArgs } from "./args/UpdateOneVersionGroupsArgs";
-import { UpsertOneVersionGroupsArgs } from "./args/UpsertOneVersionGroupsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { VersionGroups } from "../../../models/VersionGroups";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

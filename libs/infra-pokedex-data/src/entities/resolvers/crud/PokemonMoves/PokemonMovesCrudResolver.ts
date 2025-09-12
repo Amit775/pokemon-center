@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokemonMovesArgs } from "./args/AggregatePokemonMovesArgs";
-import { CreateManyAndReturnPokemonMovesArgs } from "./args/CreateManyAndReturnPokemonMovesArgs";
-import { CreateManyPokemonMovesArgs } from "./args/CreateManyPokemonMovesArgs";
-import { CreateOnePokemonMovesArgs } from "./args/CreateOnePokemonMovesArgs";
-import { DeleteManyPokemonMovesArgs } from "./args/DeleteManyPokemonMovesArgs";
-import { DeleteOnePokemonMovesArgs } from "./args/DeleteOnePokemonMovesArgs";
+
 import { FindFirstPokemonMovesArgs } from "./args/FindFirstPokemonMovesArgs";
 import { FindFirstPokemonMovesOrThrowArgs } from "./args/FindFirstPokemonMovesOrThrowArgs";
 import { FindManyPokemonMovesArgs } from "./args/FindManyPokemonMovesArgs";
 import { FindUniquePokemonMovesArgs } from "./args/FindUniquePokemonMovesArgs";
 import { FindUniquePokemonMovesOrThrowArgs } from "./args/FindUniquePokemonMovesOrThrowArgs";
 import { GroupByPokemonMovesArgs } from "./args/GroupByPokemonMovesArgs";
-import { UpdateManyPokemonMovesArgs } from "./args/UpdateManyPokemonMovesArgs";
-import { UpdateOnePokemonMovesArgs } from "./args/UpdateOnePokemonMovesArgs";
-import { UpsertOnePokemonMovesArgs } from "./args/UpsertOnePokemonMovesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { PokemonMoves } from "../../../models/PokemonMoves";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

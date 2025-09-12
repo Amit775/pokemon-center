@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateBerriesArgs } from "./args/AggregateBerriesArgs";
-import { CreateManyAndReturnBerriesArgs } from "./args/CreateManyAndReturnBerriesArgs";
-import { CreateManyBerriesArgs } from "./args/CreateManyBerriesArgs";
-import { CreateOneBerriesArgs } from "./args/CreateOneBerriesArgs";
-import { DeleteManyBerriesArgs } from "./args/DeleteManyBerriesArgs";
-import { DeleteOneBerriesArgs } from "./args/DeleteOneBerriesArgs";
+
 import { FindFirstBerriesArgs } from "./args/FindFirstBerriesArgs";
 import { FindFirstBerriesOrThrowArgs } from "./args/FindFirstBerriesOrThrowArgs";
 import { FindManyBerriesArgs } from "./args/FindManyBerriesArgs";
 import { FindUniqueBerriesArgs } from "./args/FindUniqueBerriesArgs";
 import { FindUniqueBerriesOrThrowArgs } from "./args/FindUniqueBerriesOrThrowArgs";
 import { GroupByBerriesArgs } from "./args/GroupByBerriesArgs";
-import { UpdateManyBerriesArgs } from "./args/UpdateManyBerriesArgs";
-import { UpdateOneBerriesArgs } from "./args/UpdateOneBerriesArgs";
-import { UpsertOneBerriesArgs } from "./args/UpsertOneBerriesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Berries } from "../../../models/Berries";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

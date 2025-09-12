@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateMovesArgs } from "./args/AggregateMovesArgs";
-import { CreateManyAndReturnMovesArgs } from "./args/CreateManyAndReturnMovesArgs";
-import { CreateManyMovesArgs } from "./args/CreateManyMovesArgs";
-import { CreateOneMovesArgs } from "./args/CreateOneMovesArgs";
-import { DeleteManyMovesArgs } from "./args/DeleteManyMovesArgs";
-import { DeleteOneMovesArgs } from "./args/DeleteOneMovesArgs";
+
 import { FindFirstMovesArgs } from "./args/FindFirstMovesArgs";
 import { FindFirstMovesOrThrowArgs } from "./args/FindFirstMovesOrThrowArgs";
 import { FindManyMovesArgs } from "./args/FindManyMovesArgs";
 import { FindUniqueMovesArgs } from "./args/FindUniqueMovesArgs";
 import { FindUniqueMovesOrThrowArgs } from "./args/FindUniqueMovesOrThrowArgs";
 import { GroupByMovesArgs } from "./args/GroupByMovesArgs";
-import { UpdateManyMovesArgs } from "./args/UpdateManyMovesArgs";
-import { UpdateOneMovesArgs } from "./args/UpdateOneMovesArgs";
-import { UpsertOneMovesArgs } from "./args/UpsertOneMovesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Moves } from "../../../models/Moves";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

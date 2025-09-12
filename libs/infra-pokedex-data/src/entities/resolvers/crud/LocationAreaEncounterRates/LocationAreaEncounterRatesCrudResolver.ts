@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateLocationAreaEncounterRatesArgs } from "./args/AggregateLocationAreaEncounterRatesArgs";
-import { CreateManyAndReturnLocationAreaEncounterRatesArgs } from "./args/CreateManyAndReturnLocationAreaEncounterRatesArgs";
-import { CreateManyLocationAreaEncounterRatesArgs } from "./args/CreateManyLocationAreaEncounterRatesArgs";
-import { CreateOneLocationAreaEncounterRatesArgs } from "./args/CreateOneLocationAreaEncounterRatesArgs";
-import { DeleteManyLocationAreaEncounterRatesArgs } from "./args/DeleteManyLocationAreaEncounterRatesArgs";
-import { DeleteOneLocationAreaEncounterRatesArgs } from "./args/DeleteOneLocationAreaEncounterRatesArgs";
+
 import { FindFirstLocationAreaEncounterRatesArgs } from "./args/FindFirstLocationAreaEncounterRatesArgs";
 import { FindFirstLocationAreaEncounterRatesOrThrowArgs } from "./args/FindFirstLocationAreaEncounterRatesOrThrowArgs";
 import { FindManyLocationAreaEncounterRatesArgs } from "./args/FindManyLocationAreaEncounterRatesArgs";
 import { FindUniqueLocationAreaEncounterRatesArgs } from "./args/FindUniqueLocationAreaEncounterRatesArgs";
 import { FindUniqueLocationAreaEncounterRatesOrThrowArgs } from "./args/FindUniqueLocationAreaEncounterRatesOrThrowArgs";
 import { GroupByLocationAreaEncounterRatesArgs } from "./args/GroupByLocationAreaEncounterRatesArgs";
-import { UpdateManyLocationAreaEncounterRatesArgs } from "./args/UpdateManyLocationAreaEncounterRatesArgs";
-import { UpdateOneLocationAreaEncounterRatesArgs } from "./args/UpdateOneLocationAreaEncounterRatesArgs";
-import { UpsertOneLocationAreaEncounterRatesArgs } from "./args/UpsertOneLocationAreaEncounterRatesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { LocationAreaEncounterRates } from "../../../models/LocationAreaEncounterRates";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

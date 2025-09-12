@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateMoveEffectsArgs } from "./args/AggregateMoveEffectsArgs";
-import { CreateManyAndReturnMoveEffectsArgs } from "./args/CreateManyAndReturnMoveEffectsArgs";
-import { CreateManyMoveEffectsArgs } from "./args/CreateManyMoveEffectsArgs";
-import { CreateOneMoveEffectsArgs } from "./args/CreateOneMoveEffectsArgs";
-import { DeleteManyMoveEffectsArgs } from "./args/DeleteManyMoveEffectsArgs";
-import { DeleteOneMoveEffectsArgs } from "./args/DeleteOneMoveEffectsArgs";
+
 import { FindFirstMoveEffectsArgs } from "./args/FindFirstMoveEffectsArgs";
 import { FindFirstMoveEffectsOrThrowArgs } from "./args/FindFirstMoveEffectsOrThrowArgs";
 import { FindManyMoveEffectsArgs } from "./args/FindManyMoveEffectsArgs";
 import { FindUniqueMoveEffectsArgs } from "./args/FindUniqueMoveEffectsArgs";
 import { FindUniqueMoveEffectsOrThrowArgs } from "./args/FindUniqueMoveEffectsOrThrowArgs";
 import { GroupByMoveEffectsArgs } from "./args/GroupByMoveEffectsArgs";
-import { UpdateManyMoveEffectsArgs } from "./args/UpdateManyMoveEffectsArgs";
-import { UpdateOneMoveEffectsArgs } from "./args/UpdateOneMoveEffectsArgs";
-import { UpsertOneMoveEffectsArgs } from "./args/UpsertOneMoveEffectsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { MoveEffects } from "../../../models/MoveEffects";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

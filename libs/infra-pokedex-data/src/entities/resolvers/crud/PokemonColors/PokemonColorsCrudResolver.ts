@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokemonColorsArgs } from "./args/AggregatePokemonColorsArgs";
-import { CreateManyAndReturnPokemonColorsArgs } from "./args/CreateManyAndReturnPokemonColorsArgs";
-import { CreateManyPokemonColorsArgs } from "./args/CreateManyPokemonColorsArgs";
-import { CreateOnePokemonColorsArgs } from "./args/CreateOnePokemonColorsArgs";
-import { DeleteManyPokemonColorsArgs } from "./args/DeleteManyPokemonColorsArgs";
-import { DeleteOnePokemonColorsArgs } from "./args/DeleteOnePokemonColorsArgs";
+
 import { FindFirstPokemonColorsArgs } from "./args/FindFirstPokemonColorsArgs";
 import { FindFirstPokemonColorsOrThrowArgs } from "./args/FindFirstPokemonColorsOrThrowArgs";
 import { FindManyPokemonColorsArgs } from "./args/FindManyPokemonColorsArgs";
 import { FindUniquePokemonColorsArgs } from "./args/FindUniquePokemonColorsArgs";
 import { FindUniquePokemonColorsOrThrowArgs } from "./args/FindUniquePokemonColorsOrThrowArgs";
 import { GroupByPokemonColorsArgs } from "./args/GroupByPokemonColorsArgs";
-import { UpdateManyPokemonColorsArgs } from "./args/UpdateManyPokemonColorsArgs";
-import { UpdateOnePokemonColorsArgs } from "./args/UpdateOnePokemonColorsArgs";
-import { UpsertOnePokemonColorsArgs } from "./args/UpsertOnePokemonColorsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { PokemonColors } from "../../../models/PokemonColors";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

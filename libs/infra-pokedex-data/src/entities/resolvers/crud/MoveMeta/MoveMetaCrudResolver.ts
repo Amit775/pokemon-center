@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateMoveMetaArgs } from "./args/AggregateMoveMetaArgs";
-import { CreateManyAndReturnMoveMetaArgs } from "./args/CreateManyAndReturnMoveMetaArgs";
-import { CreateManyMoveMetaArgs } from "./args/CreateManyMoveMetaArgs";
-import { CreateOneMoveMetaArgs } from "./args/CreateOneMoveMetaArgs";
-import { DeleteManyMoveMetaArgs } from "./args/DeleteManyMoveMetaArgs";
-import { DeleteOneMoveMetaArgs } from "./args/DeleteOneMoveMetaArgs";
+
 import { FindFirstMoveMetaArgs } from "./args/FindFirstMoveMetaArgs";
 import { FindFirstMoveMetaOrThrowArgs } from "./args/FindFirstMoveMetaOrThrowArgs";
 import { FindManyMoveMetaArgs } from "./args/FindManyMoveMetaArgs";
 import { FindUniqueMoveMetaArgs } from "./args/FindUniqueMoveMetaArgs";
 import { FindUniqueMoveMetaOrThrowArgs } from "./args/FindUniqueMoveMetaOrThrowArgs";
 import { GroupByMoveMetaArgs } from "./args/GroupByMoveMetaArgs";
-import { UpdateManyMoveMetaArgs } from "./args/UpdateManyMoveMetaArgs";
-import { UpdateOneMoveMetaArgs } from "./args/UpdateOneMoveMetaArgs";
-import { UpsertOneMoveMetaArgs } from "./args/UpsertOneMoveMetaArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { MoveMeta } from "../../../models/MoveMeta";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

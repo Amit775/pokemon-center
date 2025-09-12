@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateSuperContestEffectsArgs } from "./args/AggregateSuperContestEffectsArgs";
-import { CreateManyAndReturnSuperContestEffectsArgs } from "./args/CreateManyAndReturnSuperContestEffectsArgs";
-import { CreateManySuperContestEffectsArgs } from "./args/CreateManySuperContestEffectsArgs";
-import { CreateOneSuperContestEffectsArgs } from "./args/CreateOneSuperContestEffectsArgs";
-import { DeleteManySuperContestEffectsArgs } from "./args/DeleteManySuperContestEffectsArgs";
-import { DeleteOneSuperContestEffectsArgs } from "./args/DeleteOneSuperContestEffectsArgs";
+
 import { FindFirstSuperContestEffectsArgs } from "./args/FindFirstSuperContestEffectsArgs";
 import { FindFirstSuperContestEffectsOrThrowArgs } from "./args/FindFirstSuperContestEffectsOrThrowArgs";
 import { FindManySuperContestEffectsArgs } from "./args/FindManySuperContestEffectsArgs";
 import { FindUniqueSuperContestEffectsArgs } from "./args/FindUniqueSuperContestEffectsArgs";
 import { FindUniqueSuperContestEffectsOrThrowArgs } from "./args/FindUniqueSuperContestEffectsOrThrowArgs";
 import { GroupBySuperContestEffectsArgs } from "./args/GroupBySuperContestEffectsArgs";
-import { UpdateManySuperContestEffectsArgs } from "./args/UpdateManySuperContestEffectsArgs";
-import { UpdateOneSuperContestEffectsArgs } from "./args/UpdateOneSuperContestEffectsArgs";
-import { UpsertOneSuperContestEffectsArgs } from "./args/UpsertOneSuperContestEffectsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { SuperContestEffects } from "../../../models/SuperContestEffects";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

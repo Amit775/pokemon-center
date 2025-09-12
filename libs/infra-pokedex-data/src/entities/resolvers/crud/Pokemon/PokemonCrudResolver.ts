@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokemonArgs } from "./args/AggregatePokemonArgs";
-import { CreateManyAndReturnPokemonArgs } from "./args/CreateManyAndReturnPokemonArgs";
-import { CreateManyPokemonArgs } from "./args/CreateManyPokemonArgs";
-import { CreateOnePokemonArgs } from "./args/CreateOnePokemonArgs";
-import { DeleteManyPokemonArgs } from "./args/DeleteManyPokemonArgs";
-import { DeleteOnePokemonArgs } from "./args/DeleteOnePokemonArgs";
+
 import { FindFirstPokemonArgs } from "./args/FindFirstPokemonArgs";
 import { FindFirstPokemonOrThrowArgs } from "./args/FindFirstPokemonOrThrowArgs";
 import { FindManyPokemonArgs } from "./args/FindManyPokemonArgs";
 import { FindUniquePokemonArgs } from "./args/FindUniquePokemonArgs";
 import { FindUniquePokemonOrThrowArgs } from "./args/FindUniquePokemonOrThrowArgs";
 import { GroupByPokemonArgs } from "./args/GroupByPokemonArgs";
-import { UpdateManyPokemonArgs } from "./args/UpdateManyPokemonArgs";
-import { UpdateOnePokemonArgs } from "./args/UpdateOnePokemonArgs";
-import { UpsertOnePokemonArgs } from "./args/UpsertOnePokemonArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Pokemon } from "../../../models/Pokemon";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

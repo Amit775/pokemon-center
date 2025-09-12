@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateItemCategoriesArgs } from "./args/AggregateItemCategoriesArgs";
-import { CreateManyAndReturnItemCategoriesArgs } from "./args/CreateManyAndReturnItemCategoriesArgs";
-import { CreateManyItemCategoriesArgs } from "./args/CreateManyItemCategoriesArgs";
-import { CreateOneItemCategoriesArgs } from "./args/CreateOneItemCategoriesArgs";
-import { DeleteManyItemCategoriesArgs } from "./args/DeleteManyItemCategoriesArgs";
-import { DeleteOneItemCategoriesArgs } from "./args/DeleteOneItemCategoriesArgs";
+
 import { FindFirstItemCategoriesArgs } from "./args/FindFirstItemCategoriesArgs";
 import { FindFirstItemCategoriesOrThrowArgs } from "./args/FindFirstItemCategoriesOrThrowArgs";
 import { FindManyItemCategoriesArgs } from "./args/FindManyItemCategoriesArgs";
 import { FindUniqueItemCategoriesArgs } from "./args/FindUniqueItemCategoriesArgs";
 import { FindUniqueItemCategoriesOrThrowArgs } from "./args/FindUniqueItemCategoriesOrThrowArgs";
 import { GroupByItemCategoriesArgs } from "./args/GroupByItemCategoriesArgs";
-import { UpdateManyItemCategoriesArgs } from "./args/UpdateManyItemCategoriesArgs";
-import { UpdateOneItemCategoriesArgs } from "./args/UpdateOneItemCategoriesArgs";
-import { UpsertOneItemCategoriesArgs } from "./args/UpsertOneItemCategoriesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { ItemCategories } from "../../../models/ItemCategories";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

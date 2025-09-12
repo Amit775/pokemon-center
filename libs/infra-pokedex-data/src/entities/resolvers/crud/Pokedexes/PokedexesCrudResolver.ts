@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokedexesArgs } from "./args/AggregatePokedexesArgs";
-import { CreateManyAndReturnPokedexesArgs } from "./args/CreateManyAndReturnPokedexesArgs";
-import { CreateManyPokedexesArgs } from "./args/CreateManyPokedexesArgs";
-import { CreateOnePokedexesArgs } from "./args/CreateOnePokedexesArgs";
-import { DeleteManyPokedexesArgs } from "./args/DeleteManyPokedexesArgs";
-import { DeleteOnePokedexesArgs } from "./args/DeleteOnePokedexesArgs";
+
 import { FindFirstPokedexesArgs } from "./args/FindFirstPokedexesArgs";
 import { FindFirstPokedexesOrThrowArgs } from "./args/FindFirstPokedexesOrThrowArgs";
 import { FindManyPokedexesArgs } from "./args/FindManyPokedexesArgs";
 import { FindUniquePokedexesArgs } from "./args/FindUniquePokedexesArgs";
 import { FindUniquePokedexesOrThrowArgs } from "./args/FindUniquePokedexesOrThrowArgs";
 import { GroupByPokedexesArgs } from "./args/GroupByPokedexesArgs";
-import { UpdateManyPokedexesArgs } from "./args/UpdateManyPokedexesArgs";
-import { UpdateOnePokedexesArgs } from "./args/UpdateOnePokedexesArgs";
-import { UpsertOnePokedexesArgs } from "./args/UpsertOnePokedexesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Pokedexes } from "../../../models/Pokedexes";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

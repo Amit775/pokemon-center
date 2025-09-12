@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokemonMoveMethodsArgs } from "./args/AggregatePokemonMoveMethodsArgs";
-import { CreateManyAndReturnPokemonMoveMethodsArgs } from "./args/CreateManyAndReturnPokemonMoveMethodsArgs";
-import { CreateManyPokemonMoveMethodsArgs } from "./args/CreateManyPokemonMoveMethodsArgs";
-import { CreateOnePokemonMoveMethodsArgs } from "./args/CreateOnePokemonMoveMethodsArgs";
-import { DeleteManyPokemonMoveMethodsArgs } from "./args/DeleteManyPokemonMoveMethodsArgs";
-import { DeleteOnePokemonMoveMethodsArgs } from "./args/DeleteOnePokemonMoveMethodsArgs";
+
 import { FindFirstPokemonMoveMethodsArgs } from "./args/FindFirstPokemonMoveMethodsArgs";
 import { FindFirstPokemonMoveMethodsOrThrowArgs } from "./args/FindFirstPokemonMoveMethodsOrThrowArgs";
 import { FindManyPokemonMoveMethodsArgs } from "./args/FindManyPokemonMoveMethodsArgs";
 import { FindUniquePokemonMoveMethodsArgs } from "./args/FindUniquePokemonMoveMethodsArgs";
 import { FindUniquePokemonMoveMethodsOrThrowArgs } from "./args/FindUniquePokemonMoveMethodsOrThrowArgs";
 import { GroupByPokemonMoveMethodsArgs } from "./args/GroupByPokemonMoveMethodsArgs";
-import { UpdateManyPokemonMoveMethodsArgs } from "./args/UpdateManyPokemonMoveMethodsArgs";
-import { UpdateOnePokemonMoveMethodsArgs } from "./args/UpdateOnePokemonMoveMethodsArgs";
-import { UpsertOnePokemonMoveMethodsArgs } from "./args/UpsertOnePokemonMoveMethodsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { PokemonMoveMethods } from "../../../models/PokemonMoveMethods";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
