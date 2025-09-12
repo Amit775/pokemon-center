@@ -167,6 +167,7 @@ model MoveDamageClasses {
 
   // Relations
   moves      Moves[]
+  types      Types[]
 
   @@map("move_damage_classes")
 }
@@ -180,7 +181,7 @@ model Types {
 
   // Relations
   generation      Generations @relation(fields: [generation_id], references: [id])
-  damageClass     Stats? @relation(fields: [damage_class_id], references: [id])
+  damageClass     MoveDamageClasses? @relation(fields: [damage_class_id], references: [id])
   moves           Moves[]
   pokemonTypes    PokemonTypes[]
   formTypes       PokemonFormTypes[]
@@ -266,7 +267,6 @@ model Stats {
   game_index      Int?
 
   // Relations
-  types           Types[]
   pokemonStats    PokemonStats[]
   moveMetaStatChanges MoveMetaStatChanges[]
   characteristics Characteristics[]
@@ -970,7 +970,7 @@ model PokedexVersionGroups {
 
 // Pokemon relation tables
 model PokemonAbilities {
-  pokemon_id Int     @id
+  pokemon_id Int
   ability_id Int
   is_hidden  Int
   slot       Int
@@ -979,6 +979,7 @@ model PokemonAbilities {
   pokemon    Pokemon @relation(fields: [pokemon_id], references: [id])
   ability    Abilities @relation(fields: [ability_id], references: [id])
 
+  @@id([pokemon_id, ability_id])
   @@map("pokemon_abilities")
 }
 
@@ -1115,7 +1116,7 @@ model PokemonFormTypes {
 
 
 model TypeGameIndices {
-  type_id       Int @id
+  type_id       Int
   generation_id Int
   game_index    Int
 
@@ -1123,13 +1124,14 @@ model TypeGameIndices {
   type          Types @relation(fields: [type_id], references: [id])
   generation    Generations @relation(fields: [generation_id], references: [id])
 
+  @@id([type_id, generation_id])
   @@map("type_game_indices")
 }
 
 
 
 model ItemGameIndices {
-  item_id       Int @id
+  item_id       Int
   generation_id Int
   game_index    Int
 
@@ -1137,13 +1139,14 @@ model ItemGameIndices {
   item          Items @relation(fields: [item_id], references: [id])
   generation    Generations @relation(fields: [generation_id], references: [id])
 
+  @@id([item_id, generation_id])
   @@map("item_game_indices")
 }
 
 
 
 model LocationGameIndices {
-  location_id   Int @id
+  location_id   Int
   generation_id Int
   game_index    Int
 
@@ -1151,6 +1154,7 @@ model LocationGameIndices {
   location      Locations @relation(fields: [location_id], references: [id])
   generation    Generations @relation(fields: [generation_id], references: [id])
 
+  @@id([location_id, generation_id])
   @@map("location_game_indices")
 }
 
