@@ -8,7 +8,7 @@ generator client {
 generator typegraphql {
   provider = "typegraphql-prisma"
   output   = "../libs/infra-pokedex-data/src/entities"
-  readOnly = true
+  useSimpleInputs = true
   include  = ["Pokemon", "PokemonSpecies", "Moves", "Types", "Abilities", "Items", "Stats", "Generations", "Regions"]
 }
 

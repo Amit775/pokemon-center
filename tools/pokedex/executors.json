@@ -9,6 +9,11 @@
 			"implementation": "./src/executors/sync/sync",
 			"schema": "./src/executors/sync/schema.json",
 			"description": "pokedex sync executor"
+		},
+		"cleanup": {
+			"implementation": "./src/executors/cleanup/cleanup",
+			"schema": "./src/executors/cleanup/schema.json",
+			"description": "pokedex cleanup executor - removes mutation resolvers for read-only GraphQL API"
 		}
 	}
 }

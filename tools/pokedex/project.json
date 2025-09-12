@@ -49,6 +49,14 @@
 				"elasticsearchUrl": "http://localhost:9200",
 				"outputPath": "dist/tools/pokedex"
 			}
+		},
+		"cleanup": {
+			"executor": "@pokemon-center/pokedex:cleanup",
+			"options": {
+				"entitiesPath": "libs/infra-pokedex-data/src/entities",
+				"dryRun": false,
+				"outputPath": "dist/tools/pokedex"
+			}
 		}
 	}
 }
