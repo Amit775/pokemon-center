@@ -22,7 +22,7 @@ model Pokemon {
   height          Int
   weight          Int
   base_experience Int
-  order           Int
+  order           Int?
   is_default      Int
 
   // Relations
@@ -59,6 +59,7 @@ model PokemonSpecies {
   is_legendary            Int
   is_mythical             Int
   order                   Int
+  conquest_order          Int?
 
   // Relations
   generation              Generations @relation(fields: [generation_id], references: [id])
@@ -96,7 +97,6 @@ model PokemonForms {
   versionGroup                    VersionGroups @relation(fields: [introduced_in_version_group_id], references: [id])
   generations                     PokemonFormGenerations[]
   types                           PokemonFormTypes[]
-  pokeathlonStats                 PokemonFormPokeathlonStats[]
 
   @@map("pokemon_forms")
 }
@@ -289,7 +289,6 @@ model Generations {
   types           Types[]
   abilities       Abilities[]
   pokemonFormGenerations PokemonFormGenerations[]
-  pokemonGameIndices PokemonGameIndices[]
   itemGameIndices ItemGameIndices[]
   typeGameIndices TypeGameIndices[]
   locationGameIndices LocationGameIndices[]
@@ -349,11 +348,11 @@ model Regions {
 
 model Locations {
   id         Int     @id
-  region_id  Int
+  region_id  Int?
   identifier String
 
   // Relations
-  region     Regions @relation(fields: [region_id], references: [id])
+  region     Regions? @relation(fields: [region_id], references: [id])
   areas      LocationAreas[]
   gameIndices LocationGameIndices[]
   evolution  PokemonEvolution[]
@@ -365,7 +364,7 @@ model LocationAreas {
   id         Int     @id
   location_id Int
   game_index  Int
-  identifier  String
+  identifier  String?
 
   // Relations
   location   Locations @relation(fields: [location_id], references: [id])
@@ -379,12 +378,12 @@ model LocationAreas {
 // Core Pokedex tables
 model Pokedexes {
   id             Int     @id
-  region_id      Int
+  region_id      Int?
   identifier     String
   is_main_series Int
 
   // Relations
-  region         Regions @relation(fields: [region_id], references: [id])
+  region         Regions? @relation(fields: [region_id], references: [id])
   dexNumbers     PokemonDexNumbers[]
   versionGroups  PokedexVersionGroups[]
 
@@ -488,6 +487,18 @@ model Genders {
   @@map("genders")
 }
 
+// Core Language tables
+model Languages {
+  id         Int    @id
+  iso639     String
+  iso3166    String
+  identifier String
+  official   Int
+  order      Int
+
+  @@map("languages")
+}
+
 // Core Egg Group tables
 model EggGroups {
   id         Int    @id
@@ -513,7 +524,6 @@ model Natures {
   decreasedStat       Stats @relation("DecreasedStat", fields: [decreased_stat_id], references: [id])
   increasedStat       Stats @relation("IncreasedStat", fields: [increased_stat_id], references: [id])
   battleStylePreferences NatureBattleStylePreferences[]
-  pokeathlonStats     NaturePokeathlonStats[]
   decreasedStatTypes  Types[] @relation("DecreasedStat")
   increasedStatTypes  Types[] @relation("IncreasedStat")
 
@@ -652,17 +662,6 @@ model EncounterConditionValueMap {
 }
 
 
-// Core Pokeathlon tables
-model PokeathlonStats {
-  id         Int    @id
-  identifier String
-
-  // Relations
-  formStats  PokemonFormPokeathlonStats[]
-  natureStats NaturePokeathlonStats[]
-
-  @@map("pokeathlon_stats")
-}
 
 // Core Move Meta tables
 model MoveMetaCategories {
@@ -1066,7 +1065,6 @@ model PokemonGameIndices {
   // Relations
   pokemon    Pokemon @relation(fields: [pokemon_id], references: [id])
   version    Versions @relation(fields: [version_id], references: [id])
-  generation Generations @relation(fields: [version_id], references: [id], map: "pokemon_game_indices_version_id_fkey2")
 
   @@id([pokemon_id, version_id])
   @@map("pokemon_game_indices")
@@ -1111,20 +1109,6 @@ model PokemonFormTypes {
   @@map("pokemon_form_types")
 }
 
-model PokemonFormPokeathlonStats {
-  pokemon_form_id    Int
-  pokeathlon_stat_id Int
-  minimum_stat       Int
-  base_stat          Int
-  maximum_stat       Int
-
-  // Relations
-  pokemonForm       PokemonForms @relation(fields: [pokemon_form_id], references: [id])
-  pokeathlonStat    PokeathlonStats @relation(fields: [pokeathlon_stat_id], references: [id])
-
-  @@id([pokemon_form_id, pokeathlon_stat_id])
-  @@map("pokemon_form_pokeathlon_stats")
-}
 
 
 
@@ -1198,16 +1182,4 @@ model NatureBattleStylePreferences {
   battleStyle         MoveBattleStyles @relation(fields: [move_battle_style_id], references: [id])
 
   @@map("nature_battle_style_preferences")
-}
-
-model NaturePokeathlonStats {
-  nature_id           Int     @id
-  pokeathlon_stat_id  Int
-  max_change          Int
-
-  // Relations
-  nature              Natures @relation(fields: [nature_id], references: [id])
-  pokeathlonStat      PokeathlonStats @relation(fields: [pokeathlon_stat_id], references: [id])
-
-  @@map("nature_pokeathlon_stats")
 }

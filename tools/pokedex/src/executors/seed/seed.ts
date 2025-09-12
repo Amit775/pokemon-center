@@ -46,7 +46,9 @@ class CsvProcessorService {
 	}
 
 	private getOrderedFiles(csvDir: string): string[] {
-		const onlyTables = this.tables ? new Set(this.tables.map((table) => `${table}.csv`)) : undefined;
+		// If specific tables are requested, we need to include their dependencies
+		const requestedTables = this.tables ? new Set(this.tables.map((table) => `${table}.csv`)) : undefined;
+		const onlyTables = requestedTables;
 		// Define the order of processing - core entities only
 		// Order is critical: dependencies must be processed before dependents
 		// Based on foreign key relationships in Prisma schema
@@ -66,8 +68,6 @@ class CsvProcessorService {
 			'super_contest_effects.csv',
 			'encounter_methods.csv',
 			'encounter_conditions.csv',
-			'pal_park_areas.csv',
-			'pokeathlon_stats.csv',
 			'move_meta_categories.csv',
 			'move_meta_ailments.csv',
 			'move_flags.csv',
@@ -109,9 +109,39 @@ class CsvProcessorService {
 			'machines.csv', // depends on version_groups, items, moves
 
 			// Level 5: Depend on Level 4
+			'pokemon.csv', // depends on pokemon_species
 			'pokemon_forms.csv', // depends on pokemon, version_groups
 			'encounters.csv', // depends on versions, location_areas, encounter_slots, pokemon
-			'pokemon.csv', // depends on pokemon_species
+
+			// Level 6: Relation tables and remaining files
+			'pokemon_abilities.csv', // depends on pokemon, abilities
+			'pokemon_moves.csv', // depends on pokemon, version_groups, moves, pokemon_move_methods
+			'pokemon_stats.csv', // depends on pokemon, stats
+			'pokemon_types.csv', // depends on pokemon, types
+			'pokemon_egg_groups.csv', // depends on pokemon_species, egg_groups
+			'pokemon_items.csv', // depends on pokemon, versions, items
+			'pokemon_game_indices.csv', // depends on pokemon, versions
+			'pokemon_dex_numbers.csv', // depends on pokemon_species, pokedexes
+			'pokemon_form_generations.csv', // depends on pokemon_forms, generations
+			'pokemon_form_types.csv', // depends on pokemon_forms, types
+			'pokemon_evolution.csv', // depends on pokemon_species, evolution_triggers, items, genders, locations, moves, types
+			'type_efficacy.csv', // depends on types
+			'type_game_indices.csv', // depends on types, generations
+			'item_game_indices.csv', // depends on items, generations
+			'location_game_indices.csv', // depends on locations, generations
+			'location_area_encounter_rates.csv', // depends on location_areas, encounter_methods, versions
+			'nature_battle_style_preferences.csv', // depends on natures, move_battle_styles
+			'version_group_pokemon_move_methods.csv', // depends on version_groups, pokemon_move_methods
+			'version_group_regions.csv', // depends on version_groups, regions
+			'pokedex_version_groups.csv', // depends on pokedexes, version_groups
+			'encounter_condition_value_map.csv', // depends on encounters, encounter_condition_values
+			'berry_flavors.csv', // depends on berries, contest_types
+			'contest_combos.csv', // depends on moves
+			'super_contest_combos.csv', // depends on moves
+			'move_meta.csv', // depends on moves, move_meta_categories, move_meta_ailments
+			'move_meta_stat_changes.csv', // depends on moves, stats
+			'move_flag_map.csv', // depends on moves, move_flags
+			'item_flag_map.csv', // depends on items, item_flags
 		];
 
 		// Get all CSV files in the directory
@@ -120,9 +150,330 @@ class CsvProcessorService {
 			.filter((file) => file.endsWith('.csv'))
 			.sort();
 
+		// If specific tables are requested, include their dependencies
+		if (requestedTables) {
+			const dependencies = this.getDependenciesForTables(requestedTables);
+			const allRequiredFiles = new Set([...requestedTables, ...dependencies]);
+			return filesToProcess.filter((file) => allRequiredFiles.has(file));
+		}
+
 		// Process files in the defined order first, then any remaining files
 		const remainingFiles = allCsvFiles.filter((file) => !filesToProcess.includes(file));
-		return [...filesToProcess, ...remainingFiles].filter((file) => onlyTables?.has(file) ?? true);
+		return [...filesToProcess, ...remainingFiles];
+	}
+
+	private getDependenciesForTables(requestedTables: Set<string>): string[] {
+		const dependencies: string[] = [];
+
+		// Define dependency mappings
+		const dependencyMap: { [key: string]: string[] } = {
+			'locations.csv': ['regions.csv'],
+			'pokedexes.csv': ['regions.csv'],
+			'location_areas.csv': ['locations.csv', 'regions.csv'],
+			'pokemon_species.csv': [
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+				'regions.csv',
+			],
+			'pokemon.csv': [
+				'pokemon_species.csv',
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+				'regions.csv',
+			],
+			'pokemon_forms.csv': [
+				'pokemon.csv',
+				'version_groups.csv',
+				'pokemon_species.csv',
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+				'regions.csv',
+			],
+			'encounters.csv': [
+				'versions.csv',
+				'location_areas.csv',
+				'encounter_slots.csv',
+				'pokemon.csv',
+				'location_groups.csv',
+				'regions.csv',
+				'pokemon_species.csv',
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+			],
+			'pokemon_abilities.csv': [
+				'pokemon.csv',
+				'abilities.csv',
+				'pokemon_species.csv',
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+				'regions.csv',
+			],
+			'pokemon_moves.csv': [
+				'pokemon.csv',
+				'version_groups.csv',
+				'moves.csv',
+				'pokemon_move_methods.csv',
+				'pokemon_species.csv',
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+				'regions.csv',
+			],
+			'pokemon_stats.csv': [
+				'pokemon.csv',
+				'stats.csv',
+				'pokemon_species.csv',
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+				'regions.csv',
+			],
+			'pokemon_types.csv': [
+				'pokemon.csv',
+				'types.csv',
+				'pokemon_species.csv',
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+				'regions.csv',
+			],
+			'pokemon_egg_groups.csv': [
+				'pokemon_species.csv',
+				'egg_groups.csv',
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+				'regions.csv',
+			],
+			'pokemon_items.csv': [
+				'pokemon.csv',
+				'versions.csv',
+				'items.csv',
+				'pokemon_species.csv',
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+				'regions.csv',
+			],
+			'pokemon_game_indices.csv': [
+				'pokemon.csv',
+				'versions.csv',
+				'pokemon_species.csv',
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+				'regions.csv',
+			],
+			'pokemon_dex_numbers.csv': [
+				'pokemon_species.csv',
+				'pokedexes.csv',
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+				'regions.csv',
+			],
+			'pokemon_form_generations.csv': [
+				'pokemon_forms.csv',
+				'generations.csv',
+				'pokemon.csv',
+				'version_groups.csv',
+				'pokemon_species.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+				'regions.csv',
+			],
+			'pokemon_form_types.csv': [
+				'pokemon_forms.csv',
+				'types.csv',
+				'pokemon.csv',
+				'version_groups.csv',
+				'pokemon_species.csv',
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+				'regions.csv',
+			],
+			'pokemon_evolution.csv': [
+				'pokemon_species.csv',
+				'evolution_triggers.csv',
+				'items.csv',
+				'genders.csv',
+				'locations.csv',
+				'moves.csv',
+				'types.csv',
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+				'regions.csv',
+			],
+			'type_efficacy.csv': ['types.csv', 'generations.csv', 'stats.csv'],
+			'type_game_indices.csv': ['types.csv', 'generations.csv', 'stats.csv'],
+			'item_game_indices.csv': ['items.csv', 'generations.csv', 'item_categories.csv', 'item_fling_effects.csv', 'item_pockets.csv'],
+			'location_game_indices.csv': ['locations.csv', 'generations.csv', 'regions.csv'],
+			'location_area_encounter_rates.csv': ['location_areas.csv', 'encounter_methods.csv', 'versions.csv', 'locations.csv', 'regions.csv'],
+			'nature_battle_style_preferences.csv': ['natures.csv', 'move_battle_styles.csv', 'stats.csv'],
+			'version_group_pokemon_move_methods.csv': ['version_groups.csv', 'pokemon_move_methods.csv', 'generations.csv', 'regions.csv'],
+			'version_group_regions.csv': ['version_groups.csv', 'regions.csv', 'generations.csv'],
+			'pokedex_version_groups.csv': ['pokedexes.csv', 'version_groups.csv', 'regions.csv', 'generations.csv'],
+			'encounter_condition_value_map.csv': [
+				'encounters.csv',
+				'encounter_condition_values.csv',
+				'versions.csv',
+				'location_areas.csv',
+				'encounter_slots.csv',
+				'pokemon.csv',
+				'locations.csv',
+				'regions.csv',
+				'pokemon_species.csv',
+				'generations.csv',
+				'evolution_chains.csv',
+				'pokemon_colors.csv',
+				'pokemon_shapes.csv',
+				'pokemon_habitats.csv',
+				'growth_rates.csv',
+			],
+			'berry_flavors.csv': [
+				'berries.csv',
+				'contest_types.csv',
+				'items.csv',
+				'berry_firmness.csv',
+				'types.csv',
+				'item_categories.csv',
+				'item_fling_effects.csv',
+				'item_pockets.csv',
+			],
+			'contest_combos.csv': [
+				'moves.csv',
+				'generations.csv',
+				'types.csv',
+				'move_targets.csv',
+				'move_damage_classes.csv',
+				'move_effects.csv',
+				'contest_types.csv',
+				'contest_effects.csv',
+				'super_contest_effects.csv',
+				'stats.csv',
+			],
+			'super_contest_combos.csv': [
+				'moves.csv',
+				'generations.csv',
+				'types.csv',
+				'move_targets.csv',
+				'move_damage_classes.csv',
+				'move_effects.csv',
+				'contest_types.csv',
+				'contest_effects.csv',
+				'super_contest_effects.csv',
+				'stats.csv',
+			],
+			'move_meta.csv': [
+				'moves.csv',
+				'move_meta_categories.csv',
+				'move_meta_ailments.csv',
+				'generations.csv',
+				'types.csv',
+				'move_targets.csv',
+				'move_damage_classes.csv',
+				'move_effects.csv',
+				'contest_types.csv',
+				'contest_effects.csv',
+				'super_contest_effects.csv',
+				'stats.csv',
+			],
+			'move_meta_stat_changes.csv': [
+				'moves.csv',
+				'stats.csv',
+				'generations.csv',
+				'types.csv',
+				'move_targets.csv',
+				'move_damage_classes.csv',
+				'move_effects.csv',
+				'contest_types.csv',
+				'contest_effects.csv',
+				'super_contest_effects.csv',
+			],
+			'move_flag_map.csv': [
+				'moves.csv',
+				'move_flags.csv',
+				'generations.csv',
+				'types.csv',
+				'move_targets.csv',
+				'move_damage_classes.csv',
+				'move_effects.csv',
+				'contest_types.csv',
+				'contest_effects.csv',
+				'super_contest_effects.csv',
+				'stats.csv',
+			],
+			'item_flag_map.csv': ['items.csv', 'item_flags.csv', 'item_categories.csv', 'item_fling_effects.csv', 'item_pockets.csv'],
+		};
+
+		// Recursively find all dependencies
+		const findDependencies = (table: string) => {
+			const deps = dependencyMap[table] || [];
+			for (const dep of deps) {
+				if (!dependencies.includes(dep)) {
+					dependencies.push(dep);
+					findDependencies(dep);
+				}
+			}
+		};
+
+		for (const table of requestedTables) {
+			findDependencies(table);
+		}
+
+		return dependencies;
 	}
 
 	private async processCsvFile(filePath: string): Promise<void> {
@@ -167,23 +518,29 @@ class CsvProcessorService {
 		const converted: any = {};
 
 		for (const [key, value] of Object.entries(data)) {
+			// Remove BOM from field names
+			const cleanKey = key.replace(/^\ufeff/, '');
 			if (value === '' || value === null || value === undefined) {
-				converted[key] = null;
+				converted[cleanKey] = null;
 			} else if (typeof value === 'string') {
 				// Handle empty strings as null
 				if (value.trim() === '') {
-					converted[key] = null;
+					converted[cleanKey] = null;
+				}
+				// Special handling for specific fields that should remain as strings even if they look like numbers
+				else if (cleanKey === 'form_identifier' || cleanKey === 'identifier') {
+					converted[cleanKey] = value.trim();
 				}
 				// Try to convert to number if it looks like a number
 				else if (/^-?\d+$/.test(value.trim())) {
-					converted[key] = parseInt(value.trim(), 10);
+					converted[cleanKey] = parseInt(value.trim(), 10);
 				} else if (/^-?\d*\.\d+$/.test(value.trim())) {
-					converted[key] = parseFloat(value.trim());
+					converted[cleanKey] = parseFloat(value.trim());
 				} else {
-					converted[key] = value.trim();
+					converted[cleanKey] = value.trim();
 				}
 			} else {
-				converted[key] = value;
+				converted[cleanKey] = value;
 			}
 		}
 
@@ -195,7 +552,12 @@ class CsvProcessorService {
 
 		return new Promise((resolve, reject) => {
 			fs.createReadStream(filePath)
-				.pipe(csv())
+				.pipe(
+					csv({
+						skipEmptyLines: true,
+						skipLinesWithError: true,
+					}),
+				)
 				.on('data', (data) => {
 					try {
 						results.push(this.convertCsvData(data));
@@ -224,7 +586,10 @@ class CsvProcessorService {
 
 						resolve();
 					} catch (error) {
-						logger.error(`Database error for ${String(prismaModelName)}`);
+						logger.error(`Database error for ${String(prismaModelName)}:`);
+						logger.error(`Error message: ${error.message || error}`);
+						logger.error(`Error code: ${error.code || 'N/A'}`);
+						logger.error(`Error details: ${JSON.stringify(error, null, 2)}`);
 						reject(error);
 					}
 				})
