@@ -1,0 +1,15 @@
+export { AggregateMoveEffectsArgs } from "./AggregateMoveEffectsArgs";
+export { CreateManyAndReturnMoveEffectsArgs } from "./CreateManyAndReturnMoveEffectsArgs";
+export { CreateManyMoveEffectsArgs } from "./CreateManyMoveEffectsArgs";
+export { CreateOneMoveEffectsArgs } from "./CreateOneMoveEffectsArgs";
+export { DeleteManyMoveEffectsArgs } from "./DeleteManyMoveEffectsArgs";
+export { DeleteOneMoveEffectsArgs } from "./DeleteOneMoveEffectsArgs";
+export { FindFirstMoveEffectsArgs } from "./FindFirstMoveEffectsArgs";
+export { FindFirstMoveEffectsOrThrowArgs } from "./FindFirstMoveEffectsOrThrowArgs";
+export { FindManyMoveEffectsArgs } from "./FindManyMoveEffectsArgs";
+export { FindUniqueMoveEffectsArgs } from "./FindUniqueMoveEffectsArgs";
+export { FindUniqueMoveEffectsOrThrowArgs } from "./FindUniqueMoveEffectsOrThrowArgs";
+export { GroupByMoveEffectsArgs } from "./GroupByMoveEffectsArgs";
+export { UpdateManyMoveEffectsArgs } from "./UpdateManyMoveEffectsArgs";
+export { UpdateOneMoveEffectsArgs } from "./UpdateOneMoveEffectsArgs";
+export { UpsertOneMoveEffectsArgs } from "./UpsertOneMoveEffectsArgs";

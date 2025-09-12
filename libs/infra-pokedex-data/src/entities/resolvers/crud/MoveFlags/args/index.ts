@@ -1,0 +1,15 @@
+export { AggregateMoveFlagsArgs } from "./AggregateMoveFlagsArgs";
+export { CreateManyAndReturnMoveFlagsArgs } from "./CreateManyAndReturnMoveFlagsArgs";
+export { CreateManyMoveFlagsArgs } from "./CreateManyMoveFlagsArgs";
+export { CreateOneMoveFlagsArgs } from "./CreateOneMoveFlagsArgs";
+export { DeleteManyMoveFlagsArgs } from "./DeleteManyMoveFlagsArgs";
+export { DeleteOneMoveFlagsArgs } from "./DeleteOneMoveFlagsArgs";
+export { FindFirstMoveFlagsArgs } from "./FindFirstMoveFlagsArgs";
+export { FindFirstMoveFlagsOrThrowArgs } from "./FindFirstMoveFlagsOrThrowArgs";
+export { FindManyMoveFlagsArgs } from "./FindManyMoveFlagsArgs";
+export { FindUniqueMoveFlagsArgs } from "./FindUniqueMoveFlagsArgs";
+export { FindUniqueMoveFlagsOrThrowArgs } from "./FindUniqueMoveFlagsOrThrowArgs";
+export { GroupByMoveFlagsArgs } from "./GroupByMoveFlagsArgs";
+export { UpdateManyMoveFlagsArgs } from "./UpdateManyMoveFlagsArgs";
+export { UpdateOneMoveFlagsArgs } from "./UpdateOneMoveFlagsArgs";
+export { UpsertOneMoveFlagsArgs } from "./UpsertOneMoveFlagsArgs";

@@ -1,0 +1,15 @@
+export { AggregateEggGroupsArgs } from "./AggregateEggGroupsArgs";
+export { CreateManyAndReturnEggGroupsArgs } from "./CreateManyAndReturnEggGroupsArgs";
+export { CreateManyEggGroupsArgs } from "./CreateManyEggGroupsArgs";
+export { CreateOneEggGroupsArgs } from "./CreateOneEggGroupsArgs";
+export { DeleteManyEggGroupsArgs } from "./DeleteManyEggGroupsArgs";
+export { DeleteOneEggGroupsArgs } from "./DeleteOneEggGroupsArgs";
+export { FindFirstEggGroupsArgs } from "./FindFirstEggGroupsArgs";
+export { FindFirstEggGroupsOrThrowArgs } from "./FindFirstEggGroupsOrThrowArgs";
+export { FindManyEggGroupsArgs } from "./FindManyEggGroupsArgs";
+export { FindUniqueEggGroupsArgs } from "./FindUniqueEggGroupsArgs";
+export { FindUniqueEggGroupsOrThrowArgs } from "./FindUniqueEggGroupsOrThrowArgs";
+export { GroupByEggGroupsArgs } from "./GroupByEggGroupsArgs";
+export { UpdateManyEggGroupsArgs } from "./UpdateManyEggGroupsArgs";
+export { UpdateOneEggGroupsArgs } from "./UpdateOneEggGroupsArgs";
+export { UpsertOneEggGroupsArgs } from "./UpsertOneEggGroupsArgs";

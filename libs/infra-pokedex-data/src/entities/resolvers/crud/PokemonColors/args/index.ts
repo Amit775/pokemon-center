@@ -1,0 +1,15 @@
+export { AggregatePokemonColorsArgs } from "./AggregatePokemonColorsArgs";
+export { CreateManyAndReturnPokemonColorsArgs } from "./CreateManyAndReturnPokemonColorsArgs";
+export { CreateManyPokemonColorsArgs } from "./CreateManyPokemonColorsArgs";
+export { CreateOnePokemonColorsArgs } from "./CreateOnePokemonColorsArgs";
+export { DeleteManyPokemonColorsArgs } from "./DeleteManyPokemonColorsArgs";
+export { DeleteOnePokemonColorsArgs } from "./DeleteOnePokemonColorsArgs";
+export { FindFirstPokemonColorsArgs } from "./FindFirstPokemonColorsArgs";
+export { FindFirstPokemonColorsOrThrowArgs } from "./FindFirstPokemonColorsOrThrowArgs";
+export { FindManyPokemonColorsArgs } from "./FindManyPokemonColorsArgs";
+export { FindUniquePokemonColorsArgs } from "./FindUniquePokemonColorsArgs";
+export { FindUniquePokemonColorsOrThrowArgs } from "./FindUniquePokemonColorsOrThrowArgs";
+export { GroupByPokemonColorsArgs } from "./GroupByPokemonColorsArgs";
+export { UpdateManyPokemonColorsArgs } from "./UpdateManyPokemonColorsArgs";
+export { UpdateOnePokemonColorsArgs } from "./UpdateOnePokemonColorsArgs";
+export { UpsertOnePokemonColorsArgs } from "./UpsertOnePokemonColorsArgs";

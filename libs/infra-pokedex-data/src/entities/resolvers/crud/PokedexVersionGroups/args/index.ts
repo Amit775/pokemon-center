@@ -1,0 +1,15 @@
+export { AggregatePokedexVersionGroupsArgs } from "./AggregatePokedexVersionGroupsArgs";
+export { CreateManyAndReturnPokedexVersionGroupsArgs } from "./CreateManyAndReturnPokedexVersionGroupsArgs";
+export { CreateManyPokedexVersionGroupsArgs } from "./CreateManyPokedexVersionGroupsArgs";
+export { CreateOnePokedexVersionGroupsArgs } from "./CreateOnePokedexVersionGroupsArgs";
+export { DeleteManyPokedexVersionGroupsArgs } from "./DeleteManyPokedexVersionGroupsArgs";
+export { DeleteOnePokedexVersionGroupsArgs } from "./DeleteOnePokedexVersionGroupsArgs";
+export { FindFirstPokedexVersionGroupsArgs } from "./FindFirstPokedexVersionGroupsArgs";
+export { FindFirstPokedexVersionGroupsOrThrowArgs } from "./FindFirstPokedexVersionGroupsOrThrowArgs";
+export { FindManyPokedexVersionGroupsArgs } from "./FindManyPokedexVersionGroupsArgs";
+export { FindUniquePokedexVersionGroupsArgs } from "./FindUniquePokedexVersionGroupsArgs";
+export { FindUniquePokedexVersionGroupsOrThrowArgs } from "./FindUniquePokedexVersionGroupsOrThrowArgs";
+export { GroupByPokedexVersionGroupsArgs } from "./GroupByPokedexVersionGroupsArgs";
+export { UpdateManyPokedexVersionGroupsArgs } from "./UpdateManyPokedexVersionGroupsArgs";
+export { UpdateOnePokedexVersionGroupsArgs } from "./UpdateOnePokedexVersionGroupsArgs";
+export { UpsertOnePokedexVersionGroupsArgs } from "./UpsertOnePokedexVersionGroupsArgs";

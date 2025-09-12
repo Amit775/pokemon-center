@@ -1,0 +1,16 @@
+import * as TypeGraphQL from "type-graphql";
+import * as GraphQLScalars from "graphql-scalars";
+import { VersionGroupRegionsCreateManyInput } from "../../../inputs/VersionGroupRegionsCreateManyInput";
+
+@TypeGraphQL.ArgsType()
+export class CreateManyVersionGroupRegionsArgs {
+  @TypeGraphQL.Field(_type => [VersionGroupRegionsCreateManyInput], {
+    nullable: false
+  })
+  data!: VersionGroupRegionsCreateManyInput[];
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  skipDuplicates?: boolean | undefined;
+}

@@ -1,0 +1,15 @@
+export { AggregateAbilitiesArgs } from "./AggregateAbilitiesArgs";
+export { CreateManyAbilitiesArgs } from "./CreateManyAbilitiesArgs";
+export { CreateManyAndReturnAbilitiesArgs } from "./CreateManyAndReturnAbilitiesArgs";
+export { CreateOneAbilitiesArgs } from "./CreateOneAbilitiesArgs";
+export { DeleteManyAbilitiesArgs } from "./DeleteManyAbilitiesArgs";
+export { DeleteOneAbilitiesArgs } from "./DeleteOneAbilitiesArgs";
+export { FindFirstAbilitiesArgs } from "./FindFirstAbilitiesArgs";
+export { FindFirstAbilitiesOrThrowArgs } from "./FindFirstAbilitiesOrThrowArgs";
+export { FindManyAbilitiesArgs } from "./FindManyAbilitiesArgs";
+export { FindUniqueAbilitiesArgs } from "./FindUniqueAbilitiesArgs";
+export { FindUniqueAbilitiesOrThrowArgs } from "./FindUniqueAbilitiesOrThrowArgs";
+export { GroupByAbilitiesArgs } from "./GroupByAbilitiesArgs";
+export { UpdateManyAbilitiesArgs } from "./UpdateManyAbilitiesArgs";
+export { UpdateOneAbilitiesArgs } from "./UpdateOneAbilitiesArgs";
+export { UpsertOneAbilitiesArgs } from "./UpsertOneAbilitiesArgs";

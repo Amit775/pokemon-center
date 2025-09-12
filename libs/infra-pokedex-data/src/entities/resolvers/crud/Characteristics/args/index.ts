@@ -1,0 +1,15 @@
+export { AggregateCharacteristicsArgs } from "./AggregateCharacteristicsArgs";
+export { CreateManyAndReturnCharacteristicsArgs } from "./CreateManyAndReturnCharacteristicsArgs";
+export { CreateManyCharacteristicsArgs } from "./CreateManyCharacteristicsArgs";
+export { CreateOneCharacteristicsArgs } from "./CreateOneCharacteristicsArgs";
+export { DeleteManyCharacteristicsArgs } from "./DeleteManyCharacteristicsArgs";
+export { DeleteOneCharacteristicsArgs } from "./DeleteOneCharacteristicsArgs";
+export { FindFirstCharacteristicsArgs } from "./FindFirstCharacteristicsArgs";
+export { FindFirstCharacteristicsOrThrowArgs } from "./FindFirstCharacteristicsOrThrowArgs";
+export { FindManyCharacteristicsArgs } from "./FindManyCharacteristicsArgs";
+export { FindUniqueCharacteristicsArgs } from "./FindUniqueCharacteristicsArgs";
+export { FindUniqueCharacteristicsOrThrowArgs } from "./FindUniqueCharacteristicsOrThrowArgs";
+export { GroupByCharacteristicsArgs } from "./GroupByCharacteristicsArgs";
+export { UpdateManyCharacteristicsArgs } from "./UpdateManyCharacteristicsArgs";
+export { UpdateOneCharacteristicsArgs } from "./UpdateOneCharacteristicsArgs";
+export { UpsertOneCharacteristicsArgs } from "./UpsertOneCharacteristicsArgs";

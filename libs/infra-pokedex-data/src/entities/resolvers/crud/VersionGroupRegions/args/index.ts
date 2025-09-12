@@ -1,0 +1,15 @@
+export { AggregateVersionGroupRegionsArgs } from "./AggregateVersionGroupRegionsArgs";
+export { CreateManyAndReturnVersionGroupRegionsArgs } from "./CreateManyAndReturnVersionGroupRegionsArgs";
+export { CreateManyVersionGroupRegionsArgs } from "./CreateManyVersionGroupRegionsArgs";
+export { CreateOneVersionGroupRegionsArgs } from "./CreateOneVersionGroupRegionsArgs";
+export { DeleteManyVersionGroupRegionsArgs } from "./DeleteManyVersionGroupRegionsArgs";
+export { DeleteOneVersionGroupRegionsArgs } from "./DeleteOneVersionGroupRegionsArgs";
+export { FindFirstVersionGroupRegionsArgs } from "./FindFirstVersionGroupRegionsArgs";
+export { FindFirstVersionGroupRegionsOrThrowArgs } from "./FindFirstVersionGroupRegionsOrThrowArgs";
+export { FindManyVersionGroupRegionsArgs } from "./FindManyVersionGroupRegionsArgs";
+export { FindUniqueVersionGroupRegionsArgs } from "./FindUniqueVersionGroupRegionsArgs";
+export { FindUniqueVersionGroupRegionsOrThrowArgs } from "./FindUniqueVersionGroupRegionsOrThrowArgs";
+export { GroupByVersionGroupRegionsArgs } from "./GroupByVersionGroupRegionsArgs";
+export { UpdateManyVersionGroupRegionsArgs } from "./UpdateManyVersionGroupRegionsArgs";
+export { UpdateOneVersionGroupRegionsArgs } from "./UpdateOneVersionGroupRegionsArgs";
+export { UpsertOneVersionGroupRegionsArgs } from "./UpsertOneVersionGroupRegionsArgs";

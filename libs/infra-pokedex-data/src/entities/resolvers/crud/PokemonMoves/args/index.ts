@@ -1,0 +1,15 @@
+export { AggregatePokemonMovesArgs } from "./AggregatePokemonMovesArgs";
+export { CreateManyAndReturnPokemonMovesArgs } from "./CreateManyAndReturnPokemonMovesArgs";
+export { CreateManyPokemonMovesArgs } from "./CreateManyPokemonMovesArgs";
+export { CreateOnePokemonMovesArgs } from "./CreateOnePokemonMovesArgs";
+export { DeleteManyPokemonMovesArgs } from "./DeleteManyPokemonMovesArgs";
+export { DeleteOnePokemonMovesArgs } from "./DeleteOnePokemonMovesArgs";
+export { FindFirstPokemonMovesArgs } from "./FindFirstPokemonMovesArgs";
+export { FindFirstPokemonMovesOrThrowArgs } from "./FindFirstPokemonMovesOrThrowArgs";
+export { FindManyPokemonMovesArgs } from "./FindManyPokemonMovesArgs";
+export { FindUniquePokemonMovesArgs } from "./FindUniquePokemonMovesArgs";
+export { FindUniquePokemonMovesOrThrowArgs } from "./FindUniquePokemonMovesOrThrowArgs";
+export { GroupByPokemonMovesArgs } from "./GroupByPokemonMovesArgs";
+export { UpdateManyPokemonMovesArgs } from "./UpdateManyPokemonMovesArgs";
+export { UpdateOnePokemonMovesArgs } from "./UpdateOnePokemonMovesArgs";
+export { UpsertOnePokemonMovesArgs } from "./UpsertOnePokemonMovesArgs";

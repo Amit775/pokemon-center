@@ -1,0 +1,15 @@
+export { AggregateRegionsArgs } from "./AggregateRegionsArgs";
+export { CreateManyAndReturnRegionsArgs } from "./CreateManyAndReturnRegionsArgs";
+export { CreateManyRegionsArgs } from "./CreateManyRegionsArgs";
+export { CreateOneRegionsArgs } from "./CreateOneRegionsArgs";
+export { DeleteManyRegionsArgs } from "./DeleteManyRegionsArgs";
+export { DeleteOneRegionsArgs } from "./DeleteOneRegionsArgs";
+export { FindFirstRegionsArgs } from "./FindFirstRegionsArgs";
+export { FindFirstRegionsOrThrowArgs } from "./FindFirstRegionsOrThrowArgs";
+export { FindManyRegionsArgs } from "./FindManyRegionsArgs";
+export { FindUniqueRegionsArgs } from "./FindUniqueRegionsArgs";
+export { FindUniqueRegionsOrThrowArgs } from "./FindUniqueRegionsOrThrowArgs";
+export { GroupByRegionsArgs } from "./GroupByRegionsArgs";
+export { UpdateManyRegionsArgs } from "./UpdateManyRegionsArgs";
+export { UpdateOneRegionsArgs } from "./UpdateOneRegionsArgs";
+export { UpsertOneRegionsArgs } from "./UpsertOneRegionsArgs";

@@ -1,0 +1,15 @@
+export { AggregatePokemonTypesArgs } from "./AggregatePokemonTypesArgs";
+export { CreateManyAndReturnPokemonTypesArgs } from "./CreateManyAndReturnPokemonTypesArgs";
+export { CreateManyPokemonTypesArgs } from "./CreateManyPokemonTypesArgs";
+export { CreateOnePokemonTypesArgs } from "./CreateOnePokemonTypesArgs";
+export { DeleteManyPokemonTypesArgs } from "./DeleteManyPokemonTypesArgs";
+export { DeleteOnePokemonTypesArgs } from "./DeleteOnePokemonTypesArgs";
+export { FindFirstPokemonTypesArgs } from "./FindFirstPokemonTypesArgs";
+export { FindFirstPokemonTypesOrThrowArgs } from "./FindFirstPokemonTypesOrThrowArgs";
+export { FindManyPokemonTypesArgs } from "./FindManyPokemonTypesArgs";
+export { FindUniquePokemonTypesArgs } from "./FindUniquePokemonTypesArgs";
+export { FindUniquePokemonTypesOrThrowArgs } from "./FindUniquePokemonTypesOrThrowArgs";
+export { GroupByPokemonTypesArgs } from "./GroupByPokemonTypesArgs";
+export { UpdateManyPokemonTypesArgs } from "./UpdateManyPokemonTypesArgs";
+export { UpdateOnePokemonTypesArgs } from "./UpdateOnePokemonTypesArgs";
+export { UpsertOnePokemonTypesArgs } from "./UpsertOnePokemonTypesArgs";

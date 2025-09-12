@@ -1,0 +1,15 @@
+export { AggregateSuperContestCombosArgs } from "./AggregateSuperContestCombosArgs";
+export { CreateManyAndReturnSuperContestCombosArgs } from "./CreateManyAndReturnSuperContestCombosArgs";
+export { CreateManySuperContestCombosArgs } from "./CreateManySuperContestCombosArgs";
+export { CreateOneSuperContestCombosArgs } from "./CreateOneSuperContestCombosArgs";
+export { DeleteManySuperContestCombosArgs } from "./DeleteManySuperContestCombosArgs";
+export { DeleteOneSuperContestCombosArgs } from "./DeleteOneSuperContestCombosArgs";
+export { FindFirstSuperContestCombosArgs } from "./FindFirstSuperContestCombosArgs";
+export { FindFirstSuperContestCombosOrThrowArgs } from "./FindFirstSuperContestCombosOrThrowArgs";
+export { FindManySuperContestCombosArgs } from "./FindManySuperContestCombosArgs";
+export { FindUniqueSuperContestCombosArgs } from "./FindUniqueSuperContestCombosArgs";
+export { FindUniqueSuperContestCombosOrThrowArgs } from "./FindUniqueSuperContestCombosOrThrowArgs";
+export { GroupBySuperContestCombosArgs } from "./GroupBySuperContestCombosArgs";
+export { UpdateManySuperContestCombosArgs } from "./UpdateManySuperContestCombosArgs";
+export { UpdateOneSuperContestCombosArgs } from "./UpdateOneSuperContestCombosArgs";
+export { UpsertOneSuperContestCombosArgs } from "./UpsertOneSuperContestCombosArgs";

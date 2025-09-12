@@ -5,6 +5,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../libs/infra-pokedex-data/src/entities"
+  readOnly = true
+  include  = ["Pokemon", "PokemonSpecies", "Moves", "Types", "Abilities", "Items", "Stats", "Generations", "Regions"]
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")

@@ -1,0 +1,15 @@
+export { AggregateItemGameIndicesArgs } from "./AggregateItemGameIndicesArgs";
+export { CreateManyAndReturnItemGameIndicesArgs } from "./CreateManyAndReturnItemGameIndicesArgs";
+export { CreateManyItemGameIndicesArgs } from "./CreateManyItemGameIndicesArgs";
+export { CreateOneItemGameIndicesArgs } from "./CreateOneItemGameIndicesArgs";
+export { DeleteManyItemGameIndicesArgs } from "./DeleteManyItemGameIndicesArgs";
+export { DeleteOneItemGameIndicesArgs } from "./DeleteOneItemGameIndicesArgs";
+export { FindFirstItemGameIndicesArgs } from "./FindFirstItemGameIndicesArgs";
+export { FindFirstItemGameIndicesOrThrowArgs } from "./FindFirstItemGameIndicesOrThrowArgs";
+export { FindManyItemGameIndicesArgs } from "./FindManyItemGameIndicesArgs";
+export { FindUniqueItemGameIndicesArgs } from "./FindUniqueItemGameIndicesArgs";
+export { FindUniqueItemGameIndicesOrThrowArgs } from "./FindUniqueItemGameIndicesOrThrowArgs";
+export { GroupByItemGameIndicesArgs } from "./GroupByItemGameIndicesArgs";
+export { UpdateManyItemGameIndicesArgs } from "./UpdateManyItemGameIndicesArgs";
+export { UpdateOneItemGameIndicesArgs } from "./UpdateOneItemGameIndicesArgs";
+export { UpsertOneItemGameIndicesArgs } from "./UpsertOneItemGameIndicesArgs";
