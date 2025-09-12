@@ -1,15 +1,9 @@
 export { AggregateMoveBattleStylesArgs } from "./AggregateMoveBattleStylesArgs";
-export { CreateManyAndReturnMoveBattleStylesArgs } from "./CreateManyAndReturnMoveBattleStylesArgs";
-export { CreateManyMoveBattleStylesArgs } from "./CreateManyMoveBattleStylesArgs";
-export { CreateOneMoveBattleStylesArgs } from "./CreateOneMoveBattleStylesArgs";
-export { DeleteManyMoveBattleStylesArgs } from "./DeleteManyMoveBattleStylesArgs";
-export { DeleteOneMoveBattleStylesArgs } from "./DeleteOneMoveBattleStylesArgs";
+
 export { FindFirstMoveBattleStylesArgs } from "./FindFirstMoveBattleStylesArgs";
 export { FindFirstMoveBattleStylesOrThrowArgs } from "./FindFirstMoveBattleStylesOrThrowArgs";
 export { FindManyMoveBattleStylesArgs } from "./FindManyMoveBattleStylesArgs";
 export { FindUniqueMoveBattleStylesArgs } from "./FindUniqueMoveBattleStylesArgs";
 export { FindUniqueMoveBattleStylesOrThrowArgs } from "./FindUniqueMoveBattleStylesOrThrowArgs";
 export { GroupByMoveBattleStylesArgs } from "./GroupByMoveBattleStylesArgs";
-export { UpdateManyMoveBattleStylesArgs } from "./UpdateManyMoveBattleStylesArgs";
-export { UpdateOneMoveBattleStylesArgs } from "./UpdateOneMoveBattleStylesArgs";
-export { UpsertOneMoveBattleStylesArgs } from "./UpsertOneMoveBattleStylesArgs";
+

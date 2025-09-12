@@ -1,15 +1,9 @@
 export { AggregateContestCombosArgs } from "./AggregateContestCombosArgs";
-export { CreateManyAndReturnContestCombosArgs } from "./CreateManyAndReturnContestCombosArgs";
-export { CreateManyContestCombosArgs } from "./CreateManyContestCombosArgs";
-export { CreateOneContestCombosArgs } from "./CreateOneContestCombosArgs";
-export { DeleteManyContestCombosArgs } from "./DeleteManyContestCombosArgs";
-export { DeleteOneContestCombosArgs } from "./DeleteOneContestCombosArgs";
+
 export { FindFirstContestCombosArgs } from "./FindFirstContestCombosArgs";
 export { FindFirstContestCombosOrThrowArgs } from "./FindFirstContestCombosOrThrowArgs";
 export { FindManyContestCombosArgs } from "./FindManyContestCombosArgs";
 export { FindUniqueContestCombosArgs } from "./FindUniqueContestCombosArgs";
 export { FindUniqueContestCombosOrThrowArgs } from "./FindUniqueContestCombosOrThrowArgs";
 export { GroupByContestCombosArgs } from "./GroupByContestCombosArgs";
-export { UpdateManyContestCombosArgs } from "./UpdateManyContestCombosArgs";
-export { UpdateOneContestCombosArgs } from "./UpdateOneContestCombosArgs";
-export { UpsertOneContestCombosArgs } from "./UpsertOneContestCombosArgs";
+

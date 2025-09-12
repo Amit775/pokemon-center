@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokemonFormsArgs } from "./args/AggregatePokemonFormsArgs";
-import { CreateManyAndReturnPokemonFormsArgs } from "./args/CreateManyAndReturnPokemonFormsArgs";
-import { CreateManyPokemonFormsArgs } from "./args/CreateManyPokemonFormsArgs";
-import { CreateOnePokemonFormsArgs } from "./args/CreateOnePokemonFormsArgs";
-import { DeleteManyPokemonFormsArgs } from "./args/DeleteManyPokemonFormsArgs";
-import { DeleteOnePokemonFormsArgs } from "./args/DeleteOnePokemonFormsArgs";
+
 import { FindFirstPokemonFormsArgs } from "./args/FindFirstPokemonFormsArgs";
 import { FindFirstPokemonFormsOrThrowArgs } from "./args/FindFirstPokemonFormsOrThrowArgs";
 import { FindManyPokemonFormsArgs } from "./args/FindManyPokemonFormsArgs";
 import { FindUniquePokemonFormsArgs } from "./args/FindUniquePokemonFormsArgs";
 import { FindUniquePokemonFormsOrThrowArgs } from "./args/FindUniquePokemonFormsOrThrowArgs";
 import { GroupByPokemonFormsArgs } from "./args/GroupByPokemonFormsArgs";
-import { UpdateManyPokemonFormsArgs } from "./args/UpdateManyPokemonFormsArgs";
-import { UpdateOnePokemonFormsArgs } from "./args/UpdateOnePokemonFormsArgs";
-import { UpsertOnePokemonFormsArgs } from "./args/UpsertOnePokemonFormsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { PokemonForms } from "../../../models/PokemonForms";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

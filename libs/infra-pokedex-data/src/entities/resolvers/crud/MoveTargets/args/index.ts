@@ -1,15 +1,9 @@
 export { AggregateMoveTargetsArgs } from "./AggregateMoveTargetsArgs";
-export { CreateManyAndReturnMoveTargetsArgs } from "./CreateManyAndReturnMoveTargetsArgs";
-export { CreateManyMoveTargetsArgs } from "./CreateManyMoveTargetsArgs";
-export { CreateOneMoveTargetsArgs } from "./CreateOneMoveTargetsArgs";
-export { DeleteManyMoveTargetsArgs } from "./DeleteManyMoveTargetsArgs";
-export { DeleteOneMoveTargetsArgs } from "./DeleteOneMoveTargetsArgs";
+
 export { FindFirstMoveTargetsArgs } from "./FindFirstMoveTargetsArgs";
 export { FindFirstMoveTargetsOrThrowArgs } from "./FindFirstMoveTargetsOrThrowArgs";
 export { FindManyMoveTargetsArgs } from "./FindManyMoveTargetsArgs";
 export { FindUniqueMoveTargetsArgs } from "./FindUniqueMoveTargetsArgs";
 export { FindUniqueMoveTargetsOrThrowArgs } from "./FindUniqueMoveTargetsOrThrowArgs";
 export { GroupByMoveTargetsArgs } from "./GroupByMoveTargetsArgs";
-export { UpdateManyMoveTargetsArgs } from "./UpdateManyMoveTargetsArgs";
-export { UpdateOneMoveTargetsArgs } from "./UpdateOneMoveTargetsArgs";
-export { UpsertOneMoveTargetsArgs } from "./UpsertOneMoveTargetsArgs";
+

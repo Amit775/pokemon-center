@@ -1,15 +1,9 @@
 export { AggregatePokemonGameIndicesArgs } from "./AggregatePokemonGameIndicesArgs";
-export { CreateManyAndReturnPokemonGameIndicesArgs } from "./CreateManyAndReturnPokemonGameIndicesArgs";
-export { CreateManyPokemonGameIndicesArgs } from "./CreateManyPokemonGameIndicesArgs";
-export { CreateOnePokemonGameIndicesArgs } from "./CreateOnePokemonGameIndicesArgs";
-export { DeleteManyPokemonGameIndicesArgs } from "./DeleteManyPokemonGameIndicesArgs";
-export { DeleteOnePokemonGameIndicesArgs } from "./DeleteOnePokemonGameIndicesArgs";
+
 export { FindFirstPokemonGameIndicesArgs } from "./FindFirstPokemonGameIndicesArgs";
 export { FindFirstPokemonGameIndicesOrThrowArgs } from "./FindFirstPokemonGameIndicesOrThrowArgs";
 export { FindManyPokemonGameIndicesArgs } from "./FindManyPokemonGameIndicesArgs";
 export { FindUniquePokemonGameIndicesArgs } from "./FindUniquePokemonGameIndicesArgs";
 export { FindUniquePokemonGameIndicesOrThrowArgs } from "./FindUniquePokemonGameIndicesOrThrowArgs";
 export { GroupByPokemonGameIndicesArgs } from "./GroupByPokemonGameIndicesArgs";
-export { UpdateManyPokemonGameIndicesArgs } from "./UpdateManyPokemonGameIndicesArgs";
-export { UpdateOnePokemonGameIndicesArgs } from "./UpdateOnePokemonGameIndicesArgs";
-export { UpsertOnePokemonGameIndicesArgs } from "./UpsertOnePokemonGameIndicesArgs";
+

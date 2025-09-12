@@ -1,15 +1,9 @@
 export { AggregateMachinesArgs } from "./AggregateMachinesArgs";
-export { CreateManyAndReturnMachinesArgs } from "./CreateManyAndReturnMachinesArgs";
-export { CreateManyMachinesArgs } from "./CreateManyMachinesArgs";
-export { CreateOneMachinesArgs } from "./CreateOneMachinesArgs";
-export { DeleteManyMachinesArgs } from "./DeleteManyMachinesArgs";
-export { DeleteOneMachinesArgs } from "./DeleteOneMachinesArgs";
+
 export { FindFirstMachinesArgs } from "./FindFirstMachinesArgs";
 export { FindFirstMachinesOrThrowArgs } from "./FindFirstMachinesOrThrowArgs";
 export { FindManyMachinesArgs } from "./FindManyMachinesArgs";
 export { FindUniqueMachinesArgs } from "./FindUniqueMachinesArgs";
 export { FindUniqueMachinesOrThrowArgs } from "./FindUniqueMachinesOrThrowArgs";
 export { GroupByMachinesArgs } from "./GroupByMachinesArgs";
-export { UpdateManyMachinesArgs } from "./UpdateManyMachinesArgs";
-export { UpdateOneMachinesArgs } from "./UpdateOneMachinesArgs";
-export { UpsertOneMachinesArgs } from "./UpsertOneMachinesArgs";
+

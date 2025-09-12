@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateRegionsArgs } from "./args/AggregateRegionsArgs";
-import { CreateManyAndReturnRegionsArgs } from "./args/CreateManyAndReturnRegionsArgs";
-import { CreateManyRegionsArgs } from "./args/CreateManyRegionsArgs";
-import { CreateOneRegionsArgs } from "./args/CreateOneRegionsArgs";
-import { DeleteManyRegionsArgs } from "./args/DeleteManyRegionsArgs";
-import { DeleteOneRegionsArgs } from "./args/DeleteOneRegionsArgs";
+
 import { FindFirstRegionsArgs } from "./args/FindFirstRegionsArgs";
 import { FindFirstRegionsOrThrowArgs } from "./args/FindFirstRegionsOrThrowArgs";
 import { FindManyRegionsArgs } from "./args/FindManyRegionsArgs";
 import { FindUniqueRegionsArgs } from "./args/FindUniqueRegionsArgs";
 import { FindUniqueRegionsOrThrowArgs } from "./args/FindUniqueRegionsOrThrowArgs";
 import { GroupByRegionsArgs } from "./args/GroupByRegionsArgs";
-import { UpdateManyRegionsArgs } from "./args/UpdateManyRegionsArgs";
-import { UpdateOneRegionsArgs } from "./args/UpdateOneRegionsArgs";
-import { UpsertOneRegionsArgs } from "./args/UpsertOneRegionsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Regions } from "../../../models/Regions";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

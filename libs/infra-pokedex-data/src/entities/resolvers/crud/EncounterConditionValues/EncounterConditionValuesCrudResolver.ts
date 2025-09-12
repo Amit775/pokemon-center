@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateEncounterConditionValuesArgs } from "./args/AggregateEncounterConditionValuesArgs";
-import { CreateManyAndReturnEncounterConditionValuesArgs } from "./args/CreateManyAndReturnEncounterConditionValuesArgs";
-import { CreateManyEncounterConditionValuesArgs } from "./args/CreateManyEncounterConditionValuesArgs";
-import { CreateOneEncounterConditionValuesArgs } from "./args/CreateOneEncounterConditionValuesArgs";
-import { DeleteManyEncounterConditionValuesArgs } from "./args/DeleteManyEncounterConditionValuesArgs";
-import { DeleteOneEncounterConditionValuesArgs } from "./args/DeleteOneEncounterConditionValuesArgs";
+
 import { FindFirstEncounterConditionValuesArgs } from "./args/FindFirstEncounterConditionValuesArgs";
 import { FindFirstEncounterConditionValuesOrThrowArgs } from "./args/FindFirstEncounterConditionValuesOrThrowArgs";
 import { FindManyEncounterConditionValuesArgs } from "./args/FindManyEncounterConditionValuesArgs";
 import { FindUniqueEncounterConditionValuesArgs } from "./args/FindUniqueEncounterConditionValuesArgs";
 import { FindUniqueEncounterConditionValuesOrThrowArgs } from "./args/FindUniqueEncounterConditionValuesOrThrowArgs";
 import { GroupByEncounterConditionValuesArgs } from "./args/GroupByEncounterConditionValuesArgs";
-import { UpdateManyEncounterConditionValuesArgs } from "./args/UpdateManyEncounterConditionValuesArgs";
-import { UpdateOneEncounterConditionValuesArgs } from "./args/UpdateOneEncounterConditionValuesArgs";
-import { UpsertOneEncounterConditionValuesArgs } from "./args/UpsertOneEncounterConditionValuesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { EncounterConditionValues } from "../../../models/EncounterConditionValues";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

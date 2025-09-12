@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateItemPocketsArgs } from "./args/AggregateItemPocketsArgs";
-import { CreateManyAndReturnItemPocketsArgs } from "./args/CreateManyAndReturnItemPocketsArgs";
-import { CreateManyItemPocketsArgs } from "./args/CreateManyItemPocketsArgs";
-import { CreateOneItemPocketsArgs } from "./args/CreateOneItemPocketsArgs";
-import { DeleteManyItemPocketsArgs } from "./args/DeleteManyItemPocketsArgs";
-import { DeleteOneItemPocketsArgs } from "./args/DeleteOneItemPocketsArgs";
+
 import { FindFirstItemPocketsArgs } from "./args/FindFirstItemPocketsArgs";
 import { FindFirstItemPocketsOrThrowArgs } from "./args/FindFirstItemPocketsOrThrowArgs";
 import { FindManyItemPocketsArgs } from "./args/FindManyItemPocketsArgs";
 import { FindUniqueItemPocketsArgs } from "./args/FindUniqueItemPocketsArgs";
 import { FindUniqueItemPocketsOrThrowArgs } from "./args/FindUniqueItemPocketsOrThrowArgs";
 import { GroupByItemPocketsArgs } from "./args/GroupByItemPocketsArgs";
-import { UpdateManyItemPocketsArgs } from "./args/UpdateManyItemPocketsArgs";
-import { UpdateOneItemPocketsArgs } from "./args/UpdateOneItemPocketsArgs";
-import { UpsertOneItemPocketsArgs } from "./args/UpsertOneItemPocketsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { ItemPockets } from "../../../models/ItemPockets";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

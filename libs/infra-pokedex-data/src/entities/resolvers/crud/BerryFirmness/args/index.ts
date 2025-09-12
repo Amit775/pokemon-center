@@ -1,15 +1,9 @@
 export { AggregateBerryFirmnessArgs } from "./AggregateBerryFirmnessArgs";
-export { CreateManyAndReturnBerryFirmnessArgs } from "./CreateManyAndReturnBerryFirmnessArgs";
-export { CreateManyBerryFirmnessArgs } from "./CreateManyBerryFirmnessArgs";
-export { CreateOneBerryFirmnessArgs } from "./CreateOneBerryFirmnessArgs";
-export { DeleteManyBerryFirmnessArgs } from "./DeleteManyBerryFirmnessArgs";
-export { DeleteOneBerryFirmnessArgs } from "./DeleteOneBerryFirmnessArgs";
+
 export { FindFirstBerryFirmnessArgs } from "./FindFirstBerryFirmnessArgs";
 export { FindFirstBerryFirmnessOrThrowArgs } from "./FindFirstBerryFirmnessOrThrowArgs";
 export { FindManyBerryFirmnessArgs } from "./FindManyBerryFirmnessArgs";
 export { FindUniqueBerryFirmnessArgs } from "./FindUniqueBerryFirmnessArgs";
 export { FindUniqueBerryFirmnessOrThrowArgs } from "./FindUniqueBerryFirmnessOrThrowArgs";
 export { GroupByBerryFirmnessArgs } from "./GroupByBerryFirmnessArgs";
-export { UpdateManyBerryFirmnessArgs } from "./UpdateManyBerryFirmnessArgs";
-export { UpdateOneBerryFirmnessArgs } from "./UpdateOneBerryFirmnessArgs";
-export { UpsertOneBerryFirmnessArgs } from "./UpsertOneBerryFirmnessArgs";
+

@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateEncountersArgs } from "./args/AggregateEncountersArgs";
-import { CreateManyAndReturnEncountersArgs } from "./args/CreateManyAndReturnEncountersArgs";
-import { CreateManyEncountersArgs } from "./args/CreateManyEncountersArgs";
-import { CreateOneEncountersArgs } from "./args/CreateOneEncountersArgs";
-import { DeleteManyEncountersArgs } from "./args/DeleteManyEncountersArgs";
-import { DeleteOneEncountersArgs } from "./args/DeleteOneEncountersArgs";
+
 import { FindFirstEncountersArgs } from "./args/FindFirstEncountersArgs";
 import { FindFirstEncountersOrThrowArgs } from "./args/FindFirstEncountersOrThrowArgs";
 import { FindManyEncountersArgs } from "./args/FindManyEncountersArgs";
 import { FindUniqueEncountersArgs } from "./args/FindUniqueEncountersArgs";
 import { FindUniqueEncountersOrThrowArgs } from "./args/FindUniqueEncountersOrThrowArgs";
 import { GroupByEncountersArgs } from "./args/GroupByEncountersArgs";
-import { UpdateManyEncountersArgs } from "./args/UpdateManyEncountersArgs";
-import { UpdateOneEncountersArgs } from "./args/UpdateOneEncountersArgs";
-import { UpsertOneEncountersArgs } from "./args/UpsertOneEncountersArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Encounters } from "../../../models/Encounters";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

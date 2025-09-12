@@ -1,15 +1,9 @@
 export { AggregateTypeGameIndicesArgs } from "./AggregateTypeGameIndicesArgs";
-export { CreateManyAndReturnTypeGameIndicesArgs } from "./CreateManyAndReturnTypeGameIndicesArgs";
-export { CreateManyTypeGameIndicesArgs } from "./CreateManyTypeGameIndicesArgs";
-export { CreateOneTypeGameIndicesArgs } from "./CreateOneTypeGameIndicesArgs";
-export { DeleteManyTypeGameIndicesArgs } from "./DeleteManyTypeGameIndicesArgs";
-export { DeleteOneTypeGameIndicesArgs } from "./DeleteOneTypeGameIndicesArgs";
+
 export { FindFirstTypeGameIndicesArgs } from "./FindFirstTypeGameIndicesArgs";
 export { FindFirstTypeGameIndicesOrThrowArgs } from "./FindFirstTypeGameIndicesOrThrowArgs";
 export { FindManyTypeGameIndicesArgs } from "./FindManyTypeGameIndicesArgs";
 export { FindUniqueTypeGameIndicesArgs } from "./FindUniqueTypeGameIndicesArgs";
 export { FindUniqueTypeGameIndicesOrThrowArgs } from "./FindUniqueTypeGameIndicesOrThrowArgs";
 export { GroupByTypeGameIndicesArgs } from "./GroupByTypeGameIndicesArgs";
-export { UpdateManyTypeGameIndicesArgs } from "./UpdateManyTypeGameIndicesArgs";
-export { UpdateOneTypeGameIndicesArgs } from "./UpdateOneTypeGameIndicesArgs";
-export { UpsertOneTypeGameIndicesArgs } from "./UpsertOneTypeGameIndicesArgs";
+

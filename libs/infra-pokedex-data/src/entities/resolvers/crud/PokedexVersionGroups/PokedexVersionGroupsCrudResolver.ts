@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokedexVersionGroupsArgs } from "./args/AggregatePokedexVersionGroupsArgs";
-import { CreateManyAndReturnPokedexVersionGroupsArgs } from "./args/CreateManyAndReturnPokedexVersionGroupsArgs";
-import { CreateManyPokedexVersionGroupsArgs } from "./args/CreateManyPokedexVersionGroupsArgs";
-import { CreateOnePokedexVersionGroupsArgs } from "./args/CreateOnePokedexVersionGroupsArgs";
-import { DeleteManyPokedexVersionGroupsArgs } from "./args/DeleteManyPokedexVersionGroupsArgs";
-import { DeleteOnePokedexVersionGroupsArgs } from "./args/DeleteOnePokedexVersionGroupsArgs";
+
 import { FindFirstPokedexVersionGroupsArgs } from "./args/FindFirstPokedexVersionGroupsArgs";
 import { FindFirstPokedexVersionGroupsOrThrowArgs } from "./args/FindFirstPokedexVersionGroupsOrThrowArgs";
 import { FindManyPokedexVersionGroupsArgs } from "./args/FindManyPokedexVersionGroupsArgs";
 import { FindUniquePokedexVersionGroupsArgs } from "./args/FindUniquePokedexVersionGroupsArgs";
 import { FindUniquePokedexVersionGroupsOrThrowArgs } from "./args/FindUniquePokedexVersionGroupsOrThrowArgs";
 import { GroupByPokedexVersionGroupsArgs } from "./args/GroupByPokedexVersionGroupsArgs";
-import { UpdateManyPokedexVersionGroupsArgs } from "./args/UpdateManyPokedexVersionGroupsArgs";
-import { UpdateOnePokedexVersionGroupsArgs } from "./args/UpdateOnePokedexVersionGroupsArgs";
-import { UpsertOnePokedexVersionGroupsArgs } from "./args/UpsertOnePokedexVersionGroupsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { PokedexVersionGroups } from "../../../models/PokedexVersionGroups";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

@@ -1,15 +1,9 @@
 export { AggregatePokedexesArgs } from "./AggregatePokedexesArgs";
-export { CreateManyAndReturnPokedexesArgs } from "./CreateManyAndReturnPokedexesArgs";
-export { CreateManyPokedexesArgs } from "./CreateManyPokedexesArgs";
-export { CreateOnePokedexesArgs } from "./CreateOnePokedexesArgs";
-export { DeleteManyPokedexesArgs } from "./DeleteManyPokedexesArgs";
-export { DeleteOnePokedexesArgs } from "./DeleteOnePokedexesArgs";
+
 export { FindFirstPokedexesArgs } from "./FindFirstPokedexesArgs";
 export { FindFirstPokedexesOrThrowArgs } from "./FindFirstPokedexesOrThrowArgs";
 export { FindManyPokedexesArgs } from "./FindManyPokedexesArgs";
 export { FindUniquePokedexesArgs } from "./FindUniquePokedexesArgs";
 export { FindUniquePokedexesOrThrowArgs } from "./FindUniquePokedexesOrThrowArgs";
 export { GroupByPokedexesArgs } from "./GroupByPokedexesArgs";
-export { UpdateManyPokedexesArgs } from "./UpdateManyPokedexesArgs";
-export { UpdateOnePokedexesArgs } from "./UpdateOnePokedexesArgs";
-export { UpsertOnePokedexesArgs } from "./UpsertOnePokedexesArgs";
+

@@ -1,15 +1,9 @@
 export { AggregateEncounterMethodsArgs } from "./AggregateEncounterMethodsArgs";
-export { CreateManyAndReturnEncounterMethodsArgs } from "./CreateManyAndReturnEncounterMethodsArgs";
-export { CreateManyEncounterMethodsArgs } from "./CreateManyEncounterMethodsArgs";
-export { CreateOneEncounterMethodsArgs } from "./CreateOneEncounterMethodsArgs";
-export { DeleteManyEncounterMethodsArgs } from "./DeleteManyEncounterMethodsArgs";
-export { DeleteOneEncounterMethodsArgs } from "./DeleteOneEncounterMethodsArgs";
+
 export { FindFirstEncounterMethodsArgs } from "./FindFirstEncounterMethodsArgs";
 export { FindFirstEncounterMethodsOrThrowArgs } from "./FindFirstEncounterMethodsOrThrowArgs";
 export { FindManyEncounterMethodsArgs } from "./FindManyEncounterMethodsArgs";
 export { FindUniqueEncounterMethodsArgs } from "./FindUniqueEncounterMethodsArgs";
 export { FindUniqueEncounterMethodsOrThrowArgs } from "./FindUniqueEncounterMethodsOrThrowArgs";
 export { GroupByEncounterMethodsArgs } from "./GroupByEncounterMethodsArgs";
-export { UpdateManyEncounterMethodsArgs } from "./UpdateManyEncounterMethodsArgs";
-export { UpdateOneEncounterMethodsArgs } from "./UpdateOneEncounterMethodsArgs";
-export { UpsertOneEncounterMethodsArgs } from "./UpsertOneEncounterMethodsArgs";
+

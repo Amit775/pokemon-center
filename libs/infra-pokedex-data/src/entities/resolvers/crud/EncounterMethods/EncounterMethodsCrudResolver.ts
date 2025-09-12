@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateEncounterMethodsArgs } from "./args/AggregateEncounterMethodsArgs";
-import { CreateManyAndReturnEncounterMethodsArgs } from "./args/CreateManyAndReturnEncounterMethodsArgs";
-import { CreateManyEncounterMethodsArgs } from "./args/CreateManyEncounterMethodsArgs";
-import { CreateOneEncounterMethodsArgs } from "./args/CreateOneEncounterMethodsArgs";
-import { DeleteManyEncounterMethodsArgs } from "./args/DeleteManyEncounterMethodsArgs";
-import { DeleteOneEncounterMethodsArgs } from "./args/DeleteOneEncounterMethodsArgs";
+
 import { FindFirstEncounterMethodsArgs } from "./args/FindFirstEncounterMethodsArgs";
 import { FindFirstEncounterMethodsOrThrowArgs } from "./args/FindFirstEncounterMethodsOrThrowArgs";
 import { FindManyEncounterMethodsArgs } from "./args/FindManyEncounterMethodsArgs";
 import { FindUniqueEncounterMethodsArgs } from "./args/FindUniqueEncounterMethodsArgs";
 import { FindUniqueEncounterMethodsOrThrowArgs } from "./args/FindUniqueEncounterMethodsOrThrowArgs";
 import { GroupByEncounterMethodsArgs } from "./args/GroupByEncounterMethodsArgs";
-import { UpdateManyEncounterMethodsArgs } from "./args/UpdateManyEncounterMethodsArgs";
-import { UpdateOneEncounterMethodsArgs } from "./args/UpdateOneEncounterMethodsArgs";
-import { UpsertOneEncounterMethodsArgs } from "./args/UpsertOneEncounterMethodsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { EncounterMethods } from "../../../models/EncounterMethods";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

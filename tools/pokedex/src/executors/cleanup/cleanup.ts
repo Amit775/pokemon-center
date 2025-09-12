@@ -75,7 +75,10 @@ class PokedexCleanupService {
 		// 2. Delete mutation argument files
 		await this.deleteMutationArgs(modelPath, modelName);
 
-		// 3. Clean up main CRUD resolver
+		// 3. Clean up args index file
+		await this.cleanupArgsIndexFile(modelPath, modelName);
+
+		// 4. Clean up main CRUD resolver
 		await this.cleanupMainCrudResolver(modelPath, modelName);
 	}
 
@@ -108,6 +111,44 @@ class PokedexCleanupService {
 				const filePath = path.join(argsPath, file);
 				await this.deleteFile(filePath, `mutation args: ${file}`);
 			}
+		}
+	}
+
+	private async cleanupArgsIndexFile(modelPath: string, modelName: string): Promise<void> {
+		const argsIndexPath = path.join(modelPath, 'args', 'index.ts');
+
+		if (!fs.existsSync(argsIndexPath)) {
+			return;
+		}
+
+		logger.log(`📝 Cleaning up args index file: ${modelName}/args/index.ts`);
+
+		let content = fs.readFileSync(argsIndexPath, 'utf8');
+		let modified = false;
+
+		// Remove mutation-related exports
+		const mutationExportPatterns = [
+			/export { [^}]*CreateMany[^}]* } from "\.\/[^"]*";/g,
+			/export { [^}]*CreateOne[^}]* } from "\.\/[^"]*";/g,
+			/export { [^}]*UpdateMany[^}]* } from "\.\/[^"]*";/g,
+			/export { [^}]*UpdateOne[^}]* } from "\.\/[^"]*";/g,
+			/export { [^}]*DeleteMany[^}]* } from "\.\/[^"]*";/g,
+			/export { [^}]*DeleteOne[^}]* } from "\.\/[^"]*";/g,
+			/export { [^}]*UpsertOne[^}]* } from "\.\/[^"]*";/g,
+		];
+
+		for (const pattern of mutationExportPatterns) {
+			if (pattern.test(content)) {
+				content = content.replace(pattern, '');
+				modified = true;
+			}
+		}
+
+		// Clean up extra whitespace
+		content = content.replace(/\n\s*\n\s*\n/g, '\n\n');
+
+		if (modified) {
+			await this.writeFile(argsIndexPath, content, `args index file: ${modelName}/args/index.ts`);
 		}
 	}
 

@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateGenerationsArgs } from "./args/AggregateGenerationsArgs";
-import { CreateManyAndReturnGenerationsArgs } from "./args/CreateManyAndReturnGenerationsArgs";
-import { CreateManyGenerationsArgs } from "./args/CreateManyGenerationsArgs";
-import { CreateOneGenerationsArgs } from "./args/CreateOneGenerationsArgs";
-import { DeleteManyGenerationsArgs } from "./args/DeleteManyGenerationsArgs";
-import { DeleteOneGenerationsArgs } from "./args/DeleteOneGenerationsArgs";
+
 import { FindFirstGenerationsArgs } from "./args/FindFirstGenerationsArgs";
 import { FindFirstGenerationsOrThrowArgs } from "./args/FindFirstGenerationsOrThrowArgs";
 import { FindManyGenerationsArgs } from "./args/FindManyGenerationsArgs";
 import { FindUniqueGenerationsArgs } from "./args/FindUniqueGenerationsArgs";
 import { FindUniqueGenerationsOrThrowArgs } from "./args/FindUniqueGenerationsOrThrowArgs";
 import { GroupByGenerationsArgs } from "./args/GroupByGenerationsArgs";
-import { UpdateManyGenerationsArgs } from "./args/UpdateManyGenerationsArgs";
-import { UpdateOneGenerationsArgs } from "./args/UpdateOneGenerationsArgs";
-import { UpsertOneGenerationsArgs } from "./args/UpsertOneGenerationsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Generations } from "../../../models/Generations";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

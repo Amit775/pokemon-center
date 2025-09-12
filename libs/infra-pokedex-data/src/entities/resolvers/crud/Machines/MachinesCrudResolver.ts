@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateMachinesArgs } from "./args/AggregateMachinesArgs";
-import { CreateManyAndReturnMachinesArgs } from "./args/CreateManyAndReturnMachinesArgs";
-import { CreateManyMachinesArgs } from "./args/CreateManyMachinesArgs";
-import { CreateOneMachinesArgs } from "./args/CreateOneMachinesArgs";
-import { DeleteManyMachinesArgs } from "./args/DeleteManyMachinesArgs";
-import { DeleteOneMachinesArgs } from "./args/DeleteOneMachinesArgs";
+
 import { FindFirstMachinesArgs } from "./args/FindFirstMachinesArgs";
 import { FindFirstMachinesOrThrowArgs } from "./args/FindFirstMachinesOrThrowArgs";
 import { FindManyMachinesArgs } from "./args/FindManyMachinesArgs";
 import { FindUniqueMachinesArgs } from "./args/FindUniqueMachinesArgs";
 import { FindUniqueMachinesOrThrowArgs } from "./args/FindUniqueMachinesOrThrowArgs";
 import { GroupByMachinesArgs } from "./args/GroupByMachinesArgs";
-import { UpdateManyMachinesArgs } from "./args/UpdateManyMachinesArgs";
-import { UpdateOneMachinesArgs } from "./args/UpdateOneMachinesArgs";
-import { UpsertOneMachinesArgs } from "./args/UpsertOneMachinesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Machines } from "../../../models/Machines";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

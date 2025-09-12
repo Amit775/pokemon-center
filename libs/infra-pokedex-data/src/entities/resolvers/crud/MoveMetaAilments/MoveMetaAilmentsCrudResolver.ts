@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateMoveMetaAilmentsArgs } from "./args/AggregateMoveMetaAilmentsArgs";
-import { CreateManyAndReturnMoveMetaAilmentsArgs } from "./args/CreateManyAndReturnMoveMetaAilmentsArgs";
-import { CreateManyMoveMetaAilmentsArgs } from "./args/CreateManyMoveMetaAilmentsArgs";
-import { CreateOneMoveMetaAilmentsArgs } from "./args/CreateOneMoveMetaAilmentsArgs";
-import { DeleteManyMoveMetaAilmentsArgs } from "./args/DeleteManyMoveMetaAilmentsArgs";
-import { DeleteOneMoveMetaAilmentsArgs } from "./args/DeleteOneMoveMetaAilmentsArgs";
+
 import { FindFirstMoveMetaAilmentsArgs } from "./args/FindFirstMoveMetaAilmentsArgs";
 import { FindFirstMoveMetaAilmentsOrThrowArgs } from "./args/FindFirstMoveMetaAilmentsOrThrowArgs";
 import { FindManyMoveMetaAilmentsArgs } from "./args/FindManyMoveMetaAilmentsArgs";
 import { FindUniqueMoveMetaAilmentsArgs } from "./args/FindUniqueMoveMetaAilmentsArgs";
 import { FindUniqueMoveMetaAilmentsOrThrowArgs } from "./args/FindUniqueMoveMetaAilmentsOrThrowArgs";
 import { GroupByMoveMetaAilmentsArgs } from "./args/GroupByMoveMetaAilmentsArgs";
-import { UpdateManyMoveMetaAilmentsArgs } from "./args/UpdateManyMoveMetaAilmentsArgs";
-import { UpdateOneMoveMetaAilmentsArgs } from "./args/UpdateOneMoveMetaAilmentsArgs";
-import { UpsertOneMoveMetaAilmentsArgs } from "./args/UpsertOneMoveMetaAilmentsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { MoveMetaAilments } from "../../../models/MoveMetaAilments";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

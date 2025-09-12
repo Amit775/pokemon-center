@@ -1,15 +1,9 @@
 export { AggregateEncounterSlotsArgs } from "./AggregateEncounterSlotsArgs";
-export { CreateManyAndReturnEncounterSlotsArgs } from "./CreateManyAndReturnEncounterSlotsArgs";
-export { CreateManyEncounterSlotsArgs } from "./CreateManyEncounterSlotsArgs";
-export { CreateOneEncounterSlotsArgs } from "./CreateOneEncounterSlotsArgs";
-export { DeleteManyEncounterSlotsArgs } from "./DeleteManyEncounterSlotsArgs";
-export { DeleteOneEncounterSlotsArgs } from "./DeleteOneEncounterSlotsArgs";
+
 export { FindFirstEncounterSlotsArgs } from "./FindFirstEncounterSlotsArgs";
 export { FindFirstEncounterSlotsOrThrowArgs } from "./FindFirstEncounterSlotsOrThrowArgs";
 export { FindManyEncounterSlotsArgs } from "./FindManyEncounterSlotsArgs";
 export { FindUniqueEncounterSlotsArgs } from "./FindUniqueEncounterSlotsArgs";
 export { FindUniqueEncounterSlotsOrThrowArgs } from "./FindUniqueEncounterSlotsOrThrowArgs";
 export { GroupByEncounterSlotsArgs } from "./GroupByEncounterSlotsArgs";
-export { UpdateManyEncounterSlotsArgs } from "./UpdateManyEncounterSlotsArgs";
-export { UpdateOneEncounterSlotsArgs } from "./UpdateOneEncounterSlotsArgs";
-export { UpsertOneEncounterSlotsArgs } from "./UpsertOneEncounterSlotsArgs";
+

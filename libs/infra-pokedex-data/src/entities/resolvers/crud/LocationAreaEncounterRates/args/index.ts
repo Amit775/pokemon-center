@@ -1,15 +1,9 @@
 export { AggregateLocationAreaEncounterRatesArgs } from "./AggregateLocationAreaEncounterRatesArgs";
-export { CreateManyAndReturnLocationAreaEncounterRatesArgs } from "./CreateManyAndReturnLocationAreaEncounterRatesArgs";
-export { CreateManyLocationAreaEncounterRatesArgs } from "./CreateManyLocationAreaEncounterRatesArgs";
-export { CreateOneLocationAreaEncounterRatesArgs } from "./CreateOneLocationAreaEncounterRatesArgs";
-export { DeleteManyLocationAreaEncounterRatesArgs } from "./DeleteManyLocationAreaEncounterRatesArgs";
-export { DeleteOneLocationAreaEncounterRatesArgs } from "./DeleteOneLocationAreaEncounterRatesArgs";
+
 export { FindFirstLocationAreaEncounterRatesArgs } from "./FindFirstLocationAreaEncounterRatesArgs";
 export { FindFirstLocationAreaEncounterRatesOrThrowArgs } from "./FindFirstLocationAreaEncounterRatesOrThrowArgs";
 export { FindManyLocationAreaEncounterRatesArgs } from "./FindManyLocationAreaEncounterRatesArgs";
 export { FindUniqueLocationAreaEncounterRatesArgs } from "./FindUniqueLocationAreaEncounterRatesArgs";
 export { FindUniqueLocationAreaEncounterRatesOrThrowArgs } from "./FindUniqueLocationAreaEncounterRatesOrThrowArgs";
 export { GroupByLocationAreaEncounterRatesArgs } from "./GroupByLocationAreaEncounterRatesArgs";
-export { UpdateManyLocationAreaEncounterRatesArgs } from "./UpdateManyLocationAreaEncounterRatesArgs";
-export { UpdateOneLocationAreaEncounterRatesArgs } from "./UpdateOneLocationAreaEncounterRatesArgs";
-export { UpsertOneLocationAreaEncounterRatesArgs } from "./UpsertOneLocationAreaEncounterRatesArgs";
+

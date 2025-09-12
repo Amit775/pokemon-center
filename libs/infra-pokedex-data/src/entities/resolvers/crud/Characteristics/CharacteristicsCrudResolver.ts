@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateCharacteristicsArgs } from "./args/AggregateCharacteristicsArgs";
-import { CreateManyAndReturnCharacteristicsArgs } from "./args/CreateManyAndReturnCharacteristicsArgs";
-import { CreateManyCharacteristicsArgs } from "./args/CreateManyCharacteristicsArgs";
-import { CreateOneCharacteristicsArgs } from "./args/CreateOneCharacteristicsArgs";
-import { DeleteManyCharacteristicsArgs } from "./args/DeleteManyCharacteristicsArgs";
-import { DeleteOneCharacteristicsArgs } from "./args/DeleteOneCharacteristicsArgs";
+
 import { FindFirstCharacteristicsArgs } from "./args/FindFirstCharacteristicsArgs";
 import { FindFirstCharacteristicsOrThrowArgs } from "./args/FindFirstCharacteristicsOrThrowArgs";
 import { FindManyCharacteristicsArgs } from "./args/FindManyCharacteristicsArgs";
 import { FindUniqueCharacteristicsArgs } from "./args/FindUniqueCharacteristicsArgs";
 import { FindUniqueCharacteristicsOrThrowArgs } from "./args/FindUniqueCharacteristicsOrThrowArgs";
 import { GroupByCharacteristicsArgs } from "./args/GroupByCharacteristicsArgs";
-import { UpdateManyCharacteristicsArgs } from "./args/UpdateManyCharacteristicsArgs";
-import { UpdateOneCharacteristicsArgs } from "./args/UpdateOneCharacteristicsArgs";
-import { UpsertOneCharacteristicsArgs } from "./args/UpsertOneCharacteristicsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Characteristics } from "../../../models/Characteristics";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

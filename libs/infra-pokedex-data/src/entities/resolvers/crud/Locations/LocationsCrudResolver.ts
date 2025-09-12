@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateLocationsArgs } from "./args/AggregateLocationsArgs";
-import { CreateManyAndReturnLocationsArgs } from "./args/CreateManyAndReturnLocationsArgs";
-import { CreateManyLocationsArgs } from "./args/CreateManyLocationsArgs";
-import { CreateOneLocationsArgs } from "./args/CreateOneLocationsArgs";
-import { DeleteManyLocationsArgs } from "./args/DeleteManyLocationsArgs";
-import { DeleteOneLocationsArgs } from "./args/DeleteOneLocationsArgs";
+
 import { FindFirstLocationsArgs } from "./args/FindFirstLocationsArgs";
 import { FindFirstLocationsOrThrowArgs } from "./args/FindFirstLocationsOrThrowArgs";
 import { FindManyLocationsArgs } from "./args/FindManyLocationsArgs";
 import { FindUniqueLocationsArgs } from "./args/FindUniqueLocationsArgs";
 import { FindUniqueLocationsOrThrowArgs } from "./args/FindUniqueLocationsOrThrowArgs";
 import { GroupByLocationsArgs } from "./args/GroupByLocationsArgs";
-import { UpdateManyLocationsArgs } from "./args/UpdateManyLocationsArgs";
-import { UpdateOneLocationsArgs } from "./args/UpdateOneLocationsArgs";
-import { UpsertOneLocationsArgs } from "./args/UpsertOneLocationsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Locations } from "../../../models/Locations";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

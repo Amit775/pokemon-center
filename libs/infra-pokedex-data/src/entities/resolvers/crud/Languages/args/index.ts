@@ -1,15 +1,9 @@
 export { AggregateLanguagesArgs } from "./AggregateLanguagesArgs";
-export { CreateManyAndReturnLanguagesArgs } from "./CreateManyAndReturnLanguagesArgs";
-export { CreateManyLanguagesArgs } from "./CreateManyLanguagesArgs";
-export { CreateOneLanguagesArgs } from "./CreateOneLanguagesArgs";
-export { DeleteManyLanguagesArgs } from "./DeleteManyLanguagesArgs";
-export { DeleteOneLanguagesArgs } from "./DeleteOneLanguagesArgs";
+
 export { FindFirstLanguagesArgs } from "./FindFirstLanguagesArgs";
 export { FindFirstLanguagesOrThrowArgs } from "./FindFirstLanguagesOrThrowArgs";
 export { FindManyLanguagesArgs } from "./FindManyLanguagesArgs";
 export { FindUniqueLanguagesArgs } from "./FindUniqueLanguagesArgs";
 export { FindUniqueLanguagesOrThrowArgs } from "./FindUniqueLanguagesOrThrowArgs";
 export { GroupByLanguagesArgs } from "./GroupByLanguagesArgs";
-export { UpdateManyLanguagesArgs } from "./UpdateManyLanguagesArgs";
-export { UpdateOneLanguagesArgs } from "./UpdateOneLanguagesArgs";
-export { UpsertOneLanguagesArgs } from "./UpsertOneLanguagesArgs";
+

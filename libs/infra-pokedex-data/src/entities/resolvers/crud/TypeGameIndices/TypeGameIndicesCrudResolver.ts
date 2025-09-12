@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateTypeGameIndicesArgs } from "./args/AggregateTypeGameIndicesArgs";
-import { CreateManyAndReturnTypeGameIndicesArgs } from "./args/CreateManyAndReturnTypeGameIndicesArgs";
-import { CreateManyTypeGameIndicesArgs } from "./args/CreateManyTypeGameIndicesArgs";
-import { CreateOneTypeGameIndicesArgs } from "./args/CreateOneTypeGameIndicesArgs";
-import { DeleteManyTypeGameIndicesArgs } from "./args/DeleteManyTypeGameIndicesArgs";
-import { DeleteOneTypeGameIndicesArgs } from "./args/DeleteOneTypeGameIndicesArgs";
+
 import { FindFirstTypeGameIndicesArgs } from "./args/FindFirstTypeGameIndicesArgs";
 import { FindFirstTypeGameIndicesOrThrowArgs } from "./args/FindFirstTypeGameIndicesOrThrowArgs";
 import { FindManyTypeGameIndicesArgs } from "./args/FindManyTypeGameIndicesArgs";
 import { FindUniqueTypeGameIndicesArgs } from "./args/FindUniqueTypeGameIndicesArgs";
 import { FindUniqueTypeGameIndicesOrThrowArgs } from "./args/FindUniqueTypeGameIndicesOrThrowArgs";
 import { GroupByTypeGameIndicesArgs } from "./args/GroupByTypeGameIndicesArgs";
-import { UpdateManyTypeGameIndicesArgs } from "./args/UpdateManyTypeGameIndicesArgs";
-import { UpdateOneTypeGameIndicesArgs } from "./args/UpdateOneTypeGameIndicesArgs";
-import { UpsertOneTypeGameIndicesArgs } from "./args/UpsertOneTypeGameIndicesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { TypeGameIndices } from "../../../models/TypeGameIndices";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

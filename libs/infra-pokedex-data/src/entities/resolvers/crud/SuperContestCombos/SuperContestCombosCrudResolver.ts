@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateSuperContestCombosArgs } from "./args/AggregateSuperContestCombosArgs";
-import { CreateManyAndReturnSuperContestCombosArgs } from "./args/CreateManyAndReturnSuperContestCombosArgs";
-import { CreateManySuperContestCombosArgs } from "./args/CreateManySuperContestCombosArgs";
-import { CreateOneSuperContestCombosArgs } from "./args/CreateOneSuperContestCombosArgs";
-import { DeleteManySuperContestCombosArgs } from "./args/DeleteManySuperContestCombosArgs";
-import { DeleteOneSuperContestCombosArgs } from "./args/DeleteOneSuperContestCombosArgs";
+
 import { FindFirstSuperContestCombosArgs } from "./args/FindFirstSuperContestCombosArgs";
 import { FindFirstSuperContestCombosOrThrowArgs } from "./args/FindFirstSuperContestCombosOrThrowArgs";
 import { FindManySuperContestCombosArgs } from "./args/FindManySuperContestCombosArgs";
 import { FindUniqueSuperContestCombosArgs } from "./args/FindUniqueSuperContestCombosArgs";
 import { FindUniqueSuperContestCombosOrThrowArgs } from "./args/FindUniqueSuperContestCombosOrThrowArgs";
 import { GroupBySuperContestCombosArgs } from "./args/GroupBySuperContestCombosArgs";
-import { UpdateManySuperContestCombosArgs } from "./args/UpdateManySuperContestCombosArgs";
-import { UpdateOneSuperContestCombosArgs } from "./args/UpdateOneSuperContestCombosArgs";
-import { UpsertOneSuperContestCombosArgs } from "./args/UpsertOneSuperContestCombosArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { SuperContestCombos } from "../../../models/SuperContestCombos";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

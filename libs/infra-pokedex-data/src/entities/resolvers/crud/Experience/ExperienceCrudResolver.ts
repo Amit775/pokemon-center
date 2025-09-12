@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateExperienceArgs } from "./args/AggregateExperienceArgs";
-import { CreateManyAndReturnExperienceArgs } from "./args/CreateManyAndReturnExperienceArgs";
-import { CreateManyExperienceArgs } from "./args/CreateManyExperienceArgs";
-import { CreateOneExperienceArgs } from "./args/CreateOneExperienceArgs";
-import { DeleteManyExperienceArgs } from "./args/DeleteManyExperienceArgs";
-import { DeleteOneExperienceArgs } from "./args/DeleteOneExperienceArgs";
+
 import { FindFirstExperienceArgs } from "./args/FindFirstExperienceArgs";
 import { FindFirstExperienceOrThrowArgs } from "./args/FindFirstExperienceOrThrowArgs";
 import { FindManyExperienceArgs } from "./args/FindManyExperienceArgs";
 import { FindUniqueExperienceArgs } from "./args/FindUniqueExperienceArgs";
 import { FindUniqueExperienceOrThrowArgs } from "./args/FindUniqueExperienceOrThrowArgs";
 import { GroupByExperienceArgs } from "./args/GroupByExperienceArgs";
-import { UpdateManyExperienceArgs } from "./args/UpdateManyExperienceArgs";
-import { UpdateOneExperienceArgs } from "./args/UpdateOneExperienceArgs";
-import { UpsertOneExperienceArgs } from "./args/UpsertOneExperienceArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Experience } from "../../../models/Experience";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

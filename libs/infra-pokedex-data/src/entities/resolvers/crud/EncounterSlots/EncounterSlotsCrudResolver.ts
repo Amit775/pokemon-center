@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateEncounterSlotsArgs } from "./args/AggregateEncounterSlotsArgs";
-import { CreateManyAndReturnEncounterSlotsArgs } from "./args/CreateManyAndReturnEncounterSlotsArgs";
-import { CreateManyEncounterSlotsArgs } from "./args/CreateManyEncounterSlotsArgs";
-import { CreateOneEncounterSlotsArgs } from "./args/CreateOneEncounterSlotsArgs";
-import { DeleteManyEncounterSlotsArgs } from "./args/DeleteManyEncounterSlotsArgs";
-import { DeleteOneEncounterSlotsArgs } from "./args/DeleteOneEncounterSlotsArgs";
+
 import { FindFirstEncounterSlotsArgs } from "./args/FindFirstEncounterSlotsArgs";
 import { FindFirstEncounterSlotsOrThrowArgs } from "./args/FindFirstEncounterSlotsOrThrowArgs";
 import { FindManyEncounterSlotsArgs } from "./args/FindManyEncounterSlotsArgs";
 import { FindUniqueEncounterSlotsArgs } from "./args/FindUniqueEncounterSlotsArgs";
 import { FindUniqueEncounterSlotsOrThrowArgs } from "./args/FindUniqueEncounterSlotsOrThrowArgs";
 import { GroupByEncounterSlotsArgs } from "./args/GroupByEncounterSlotsArgs";
-import { UpdateManyEncounterSlotsArgs } from "./args/UpdateManyEncounterSlotsArgs";
-import { UpdateOneEncounterSlotsArgs } from "./args/UpdateOneEncounterSlotsArgs";
-import { UpsertOneEncounterSlotsArgs } from "./args/UpsertOneEncounterSlotsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { EncounterSlots } from "../../../models/EncounterSlots";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

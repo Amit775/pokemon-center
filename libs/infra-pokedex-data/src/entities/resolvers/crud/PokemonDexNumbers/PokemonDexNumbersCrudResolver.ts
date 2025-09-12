@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokemonDexNumbersArgs } from "./args/AggregatePokemonDexNumbersArgs";
-import { CreateManyAndReturnPokemonDexNumbersArgs } from "./args/CreateManyAndReturnPokemonDexNumbersArgs";
-import { CreateManyPokemonDexNumbersArgs } from "./args/CreateManyPokemonDexNumbersArgs";
-import { CreateOnePokemonDexNumbersArgs } from "./args/CreateOnePokemonDexNumbersArgs";
-import { DeleteManyPokemonDexNumbersArgs } from "./args/DeleteManyPokemonDexNumbersArgs";
-import { DeleteOnePokemonDexNumbersArgs } from "./args/DeleteOnePokemonDexNumbersArgs";
+
 import { FindFirstPokemonDexNumbersArgs } from "./args/FindFirstPokemonDexNumbersArgs";
 import { FindFirstPokemonDexNumbersOrThrowArgs } from "./args/FindFirstPokemonDexNumbersOrThrowArgs";
 import { FindManyPokemonDexNumbersArgs } from "./args/FindManyPokemonDexNumbersArgs";
 import { FindUniquePokemonDexNumbersArgs } from "./args/FindUniquePokemonDexNumbersArgs";
 import { FindUniquePokemonDexNumbersOrThrowArgs } from "./args/FindUniquePokemonDexNumbersOrThrowArgs";
 import { GroupByPokemonDexNumbersArgs } from "./args/GroupByPokemonDexNumbersArgs";
-import { UpdateManyPokemonDexNumbersArgs } from "./args/UpdateManyPokemonDexNumbersArgs";
-import { UpdateOnePokemonDexNumbersArgs } from "./args/UpdateOnePokemonDexNumbersArgs";
-import { UpsertOnePokemonDexNumbersArgs } from "./args/UpsertOnePokemonDexNumbersArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { PokemonDexNumbers } from "../../../models/PokemonDexNumbers";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

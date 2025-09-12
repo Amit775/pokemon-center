@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateItemsArgs } from "./args/AggregateItemsArgs";
-import { CreateManyAndReturnItemsArgs } from "./args/CreateManyAndReturnItemsArgs";
-import { CreateManyItemsArgs } from "./args/CreateManyItemsArgs";
-import { CreateOneItemsArgs } from "./args/CreateOneItemsArgs";
-import { DeleteManyItemsArgs } from "./args/DeleteManyItemsArgs";
-import { DeleteOneItemsArgs } from "./args/DeleteOneItemsArgs";
+
 import { FindFirstItemsArgs } from "./args/FindFirstItemsArgs";
 import { FindFirstItemsOrThrowArgs } from "./args/FindFirstItemsOrThrowArgs";
 import { FindManyItemsArgs } from "./args/FindManyItemsArgs";
 import { FindUniqueItemsArgs } from "./args/FindUniqueItemsArgs";
 import { FindUniqueItemsOrThrowArgs } from "./args/FindUniqueItemsOrThrowArgs";
 import { GroupByItemsArgs } from "./args/GroupByItemsArgs";
-import { UpdateManyItemsArgs } from "./args/UpdateManyItemsArgs";
-import { UpdateOneItemsArgs } from "./args/UpdateOneItemsArgs";
-import { UpsertOneItemsArgs } from "./args/UpsertOneItemsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Items } from "../../../models/Items";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

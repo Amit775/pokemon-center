@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateNatureBattleStylePreferencesArgs } from "./args/AggregateNatureBattleStylePreferencesArgs";
-import { CreateManyAndReturnNatureBattleStylePreferencesArgs } from "./args/CreateManyAndReturnNatureBattleStylePreferencesArgs";
-import { CreateManyNatureBattleStylePreferencesArgs } from "./args/CreateManyNatureBattleStylePreferencesArgs";
-import { CreateOneNatureBattleStylePreferencesArgs } from "./args/CreateOneNatureBattleStylePreferencesArgs";
-import { DeleteManyNatureBattleStylePreferencesArgs } from "./args/DeleteManyNatureBattleStylePreferencesArgs";
-import { DeleteOneNatureBattleStylePreferencesArgs } from "./args/DeleteOneNatureBattleStylePreferencesArgs";
+
 import { FindFirstNatureBattleStylePreferencesArgs } from "./args/FindFirstNatureBattleStylePreferencesArgs";
 import { FindFirstNatureBattleStylePreferencesOrThrowArgs } from "./args/FindFirstNatureBattleStylePreferencesOrThrowArgs";
 import { FindManyNatureBattleStylePreferencesArgs } from "./args/FindManyNatureBattleStylePreferencesArgs";
 import { FindUniqueNatureBattleStylePreferencesArgs } from "./args/FindUniqueNatureBattleStylePreferencesArgs";
 import { FindUniqueNatureBattleStylePreferencesOrThrowArgs } from "./args/FindUniqueNatureBattleStylePreferencesOrThrowArgs";
 import { GroupByNatureBattleStylePreferencesArgs } from "./args/GroupByNatureBattleStylePreferencesArgs";
-import { UpdateManyNatureBattleStylePreferencesArgs } from "./args/UpdateManyNatureBattleStylePreferencesArgs";
-import { UpdateOneNatureBattleStylePreferencesArgs } from "./args/UpdateOneNatureBattleStylePreferencesArgs";
-import { UpsertOneNatureBattleStylePreferencesArgs } from "./args/UpsertOneNatureBattleStylePreferencesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { NatureBattleStylePreferences } from "../../../models/NatureBattleStylePreferences";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

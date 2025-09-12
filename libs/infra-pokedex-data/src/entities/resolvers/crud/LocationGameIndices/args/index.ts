@@ -1,15 +1,9 @@
 export { AggregateLocationGameIndicesArgs } from "./AggregateLocationGameIndicesArgs";
-export { CreateManyAndReturnLocationGameIndicesArgs } from "./CreateManyAndReturnLocationGameIndicesArgs";
-export { CreateManyLocationGameIndicesArgs } from "./CreateManyLocationGameIndicesArgs";
-export { CreateOneLocationGameIndicesArgs } from "./CreateOneLocationGameIndicesArgs";
-export { DeleteManyLocationGameIndicesArgs } from "./DeleteManyLocationGameIndicesArgs";
-export { DeleteOneLocationGameIndicesArgs } from "./DeleteOneLocationGameIndicesArgs";
+
 export { FindFirstLocationGameIndicesArgs } from "./FindFirstLocationGameIndicesArgs";
 export { FindFirstLocationGameIndicesOrThrowArgs } from "./FindFirstLocationGameIndicesOrThrowArgs";
 export { FindManyLocationGameIndicesArgs } from "./FindManyLocationGameIndicesArgs";
 export { FindUniqueLocationGameIndicesArgs } from "./FindUniqueLocationGameIndicesArgs";
 export { FindUniqueLocationGameIndicesOrThrowArgs } from "./FindUniqueLocationGameIndicesOrThrowArgs";
 export { GroupByLocationGameIndicesArgs } from "./GroupByLocationGameIndicesArgs";
-export { UpdateManyLocationGameIndicesArgs } from "./UpdateManyLocationGameIndicesArgs";
-export { UpdateOneLocationGameIndicesArgs } from "./UpdateOneLocationGameIndicesArgs";
-export { UpsertOneLocationGameIndicesArgs } from "./UpsertOneLocationGameIndicesArgs";
+

@@ -1,15 +1,9 @@
 export { AggregateItemFlagsArgs } from "./AggregateItemFlagsArgs";
-export { CreateManyAndReturnItemFlagsArgs } from "./CreateManyAndReturnItemFlagsArgs";
-export { CreateManyItemFlagsArgs } from "./CreateManyItemFlagsArgs";
-export { CreateOneItemFlagsArgs } from "./CreateOneItemFlagsArgs";
-export { DeleteManyItemFlagsArgs } from "./DeleteManyItemFlagsArgs";
-export { DeleteOneItemFlagsArgs } from "./DeleteOneItemFlagsArgs";
+
 export { FindFirstItemFlagsArgs } from "./FindFirstItemFlagsArgs";
 export { FindFirstItemFlagsOrThrowArgs } from "./FindFirstItemFlagsOrThrowArgs";
 export { FindManyItemFlagsArgs } from "./FindManyItemFlagsArgs";
 export { FindUniqueItemFlagsArgs } from "./FindUniqueItemFlagsArgs";
 export { FindUniqueItemFlagsOrThrowArgs } from "./FindUniqueItemFlagsOrThrowArgs";
 export { GroupByItemFlagsArgs } from "./GroupByItemFlagsArgs";
-export { UpdateManyItemFlagsArgs } from "./UpdateManyItemFlagsArgs";
-export { UpdateOneItemFlagsArgs } from "./UpdateOneItemFlagsArgs";
-export { UpsertOneItemFlagsArgs } from "./UpsertOneItemFlagsArgs";
+

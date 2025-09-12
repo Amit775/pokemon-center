@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateBerryFirmnessArgs } from "./args/AggregateBerryFirmnessArgs";
-import { CreateManyAndReturnBerryFirmnessArgs } from "./args/CreateManyAndReturnBerryFirmnessArgs";
-import { CreateManyBerryFirmnessArgs } from "./args/CreateManyBerryFirmnessArgs";
-import { CreateOneBerryFirmnessArgs } from "./args/CreateOneBerryFirmnessArgs";
-import { DeleteManyBerryFirmnessArgs } from "./args/DeleteManyBerryFirmnessArgs";
-import { DeleteOneBerryFirmnessArgs } from "./args/DeleteOneBerryFirmnessArgs";
+
 import { FindFirstBerryFirmnessArgs } from "./args/FindFirstBerryFirmnessArgs";
 import { FindFirstBerryFirmnessOrThrowArgs } from "./args/FindFirstBerryFirmnessOrThrowArgs";
 import { FindManyBerryFirmnessArgs } from "./args/FindManyBerryFirmnessArgs";
 import { FindUniqueBerryFirmnessArgs } from "./args/FindUniqueBerryFirmnessArgs";
 import { FindUniqueBerryFirmnessOrThrowArgs } from "./args/FindUniqueBerryFirmnessOrThrowArgs";
 import { GroupByBerryFirmnessArgs } from "./args/GroupByBerryFirmnessArgs";
-import { UpdateManyBerryFirmnessArgs } from "./args/UpdateManyBerryFirmnessArgs";
-import { UpdateOneBerryFirmnessArgs } from "./args/UpdateOneBerryFirmnessArgs";
-import { UpsertOneBerryFirmnessArgs } from "./args/UpsertOneBerryFirmnessArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { BerryFirmness } from "../../../models/BerryFirmness";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

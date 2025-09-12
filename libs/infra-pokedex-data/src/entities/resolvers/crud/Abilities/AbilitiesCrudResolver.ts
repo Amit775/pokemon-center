@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateAbilitiesArgs } from "./args/AggregateAbilitiesArgs";
-import { CreateManyAbilitiesArgs } from "./args/CreateManyAbilitiesArgs";
-import { CreateManyAndReturnAbilitiesArgs } from "./args/CreateManyAndReturnAbilitiesArgs";
-import { CreateOneAbilitiesArgs } from "./args/CreateOneAbilitiesArgs";
-import { DeleteManyAbilitiesArgs } from "./args/DeleteManyAbilitiesArgs";
-import { DeleteOneAbilitiesArgs } from "./args/DeleteOneAbilitiesArgs";
+
 import { FindFirstAbilitiesArgs } from "./args/FindFirstAbilitiesArgs";
 import { FindFirstAbilitiesOrThrowArgs } from "./args/FindFirstAbilitiesOrThrowArgs";
 import { FindManyAbilitiesArgs } from "./args/FindManyAbilitiesArgs";
 import { FindUniqueAbilitiesArgs } from "./args/FindUniqueAbilitiesArgs";
 import { FindUniqueAbilitiesOrThrowArgs } from "./args/FindUniqueAbilitiesOrThrowArgs";
 import { GroupByAbilitiesArgs } from "./args/GroupByAbilitiesArgs";
-import { UpdateManyAbilitiesArgs } from "./args/UpdateManyAbilitiesArgs";
-import { UpdateOneAbilitiesArgs } from "./args/UpdateOneAbilitiesArgs";
-import { UpsertOneAbilitiesArgs } from "./args/UpsertOneAbilitiesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Abilities } from "../../../models/Abilities";
 import { AbilitiesGroupBy } from "../../outputs/AbilitiesGroupBy";

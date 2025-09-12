@@ -1,15 +1,9 @@
 export { AggregateContestTypesArgs } from "./AggregateContestTypesArgs";
-export { CreateManyAndReturnContestTypesArgs } from "./CreateManyAndReturnContestTypesArgs";
-export { CreateManyContestTypesArgs } from "./CreateManyContestTypesArgs";
-export { CreateOneContestTypesArgs } from "./CreateOneContestTypesArgs";
-export { DeleteManyContestTypesArgs } from "./DeleteManyContestTypesArgs";
-export { DeleteOneContestTypesArgs } from "./DeleteOneContestTypesArgs";
+
 export { FindFirstContestTypesArgs } from "./FindFirstContestTypesArgs";
 export { FindFirstContestTypesOrThrowArgs } from "./FindFirstContestTypesOrThrowArgs";
 export { FindManyContestTypesArgs } from "./FindManyContestTypesArgs";
 export { FindUniqueContestTypesArgs } from "./FindUniqueContestTypesArgs";
 export { FindUniqueContestTypesOrThrowArgs } from "./FindUniqueContestTypesOrThrowArgs";
 export { GroupByContestTypesArgs } from "./GroupByContestTypesArgs";
-export { UpdateManyContestTypesArgs } from "./UpdateManyContestTypesArgs";
-export { UpdateOneContestTypesArgs } from "./UpdateOneContestTypesArgs";
-export { UpsertOneContestTypesArgs } from "./UpsertOneContestTypesArgs";
+

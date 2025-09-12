@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateItemFlagsArgs } from "./args/AggregateItemFlagsArgs";
-import { CreateManyAndReturnItemFlagsArgs } from "./args/CreateManyAndReturnItemFlagsArgs";
-import { CreateManyItemFlagsArgs } from "./args/CreateManyItemFlagsArgs";
-import { CreateOneItemFlagsArgs } from "./args/CreateOneItemFlagsArgs";
-import { DeleteManyItemFlagsArgs } from "./args/DeleteManyItemFlagsArgs";
-import { DeleteOneItemFlagsArgs } from "./args/DeleteOneItemFlagsArgs";
+
 import { FindFirstItemFlagsArgs } from "./args/FindFirstItemFlagsArgs";
 import { FindFirstItemFlagsOrThrowArgs } from "./args/FindFirstItemFlagsOrThrowArgs";
 import { FindManyItemFlagsArgs } from "./args/FindManyItemFlagsArgs";
 import { FindUniqueItemFlagsArgs } from "./args/FindUniqueItemFlagsArgs";
 import { FindUniqueItemFlagsOrThrowArgs } from "./args/FindUniqueItemFlagsOrThrowArgs";
 import { GroupByItemFlagsArgs } from "./args/GroupByItemFlagsArgs";
-import { UpdateManyItemFlagsArgs } from "./args/UpdateManyItemFlagsArgs";
-import { UpdateOneItemFlagsArgs } from "./args/UpdateOneItemFlagsArgs";
-import { UpsertOneItemFlagsArgs } from "./args/UpsertOneItemFlagsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { ItemFlags } from "../../../models/ItemFlags";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

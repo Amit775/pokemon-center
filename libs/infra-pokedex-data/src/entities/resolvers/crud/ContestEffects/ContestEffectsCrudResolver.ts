@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateContestEffectsArgs } from "./args/AggregateContestEffectsArgs";
-import { CreateManyAndReturnContestEffectsArgs } from "./args/CreateManyAndReturnContestEffectsArgs";
-import { CreateManyContestEffectsArgs } from "./args/CreateManyContestEffectsArgs";
-import { CreateOneContestEffectsArgs } from "./args/CreateOneContestEffectsArgs";
-import { DeleteManyContestEffectsArgs } from "./args/DeleteManyContestEffectsArgs";
-import { DeleteOneContestEffectsArgs } from "./args/DeleteOneContestEffectsArgs";
+
 import { FindFirstContestEffectsArgs } from "./args/FindFirstContestEffectsArgs";
 import { FindFirstContestEffectsOrThrowArgs } from "./args/FindFirstContestEffectsOrThrowArgs";
 import { FindManyContestEffectsArgs } from "./args/FindManyContestEffectsArgs";
 import { FindUniqueContestEffectsArgs } from "./args/FindUniqueContestEffectsArgs";
 import { FindUniqueContestEffectsOrThrowArgs } from "./args/FindUniqueContestEffectsOrThrowArgs";
 import { GroupByContestEffectsArgs } from "./args/GroupByContestEffectsArgs";
-import { UpdateManyContestEffectsArgs } from "./args/UpdateManyContestEffectsArgs";
-import { UpdateOneContestEffectsArgs } from "./args/UpdateOneContestEffectsArgs";
-import { UpsertOneContestEffectsArgs } from "./args/UpsertOneContestEffectsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { ContestEffects } from "../../../models/ContestEffects";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

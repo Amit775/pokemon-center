@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateItemFlingEffectsArgs } from "./args/AggregateItemFlingEffectsArgs";
-import { CreateManyAndReturnItemFlingEffectsArgs } from "./args/CreateManyAndReturnItemFlingEffectsArgs";
-import { CreateManyItemFlingEffectsArgs } from "./args/CreateManyItemFlingEffectsArgs";
-import { CreateOneItemFlingEffectsArgs } from "./args/CreateOneItemFlingEffectsArgs";
-import { DeleteManyItemFlingEffectsArgs } from "./args/DeleteManyItemFlingEffectsArgs";
-import { DeleteOneItemFlingEffectsArgs } from "./args/DeleteOneItemFlingEffectsArgs";
+
 import { FindFirstItemFlingEffectsArgs } from "./args/FindFirstItemFlingEffectsArgs";
 import { FindFirstItemFlingEffectsOrThrowArgs } from "./args/FindFirstItemFlingEffectsOrThrowArgs";
 import { FindManyItemFlingEffectsArgs } from "./args/FindManyItemFlingEffectsArgs";
 import { FindUniqueItemFlingEffectsArgs } from "./args/FindUniqueItemFlingEffectsArgs";
 import { FindUniqueItemFlingEffectsOrThrowArgs } from "./args/FindUniqueItemFlingEffectsOrThrowArgs";
 import { GroupByItemFlingEffectsArgs } from "./args/GroupByItemFlingEffectsArgs";
-import { UpdateManyItemFlingEffectsArgs } from "./args/UpdateManyItemFlingEffectsArgs";
-import { UpdateOneItemFlingEffectsArgs } from "./args/UpdateOneItemFlingEffectsArgs";
-import { UpsertOneItemFlingEffectsArgs } from "./args/UpsertOneItemFlingEffectsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { ItemFlingEffects } from "../../../models/ItemFlingEffects";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

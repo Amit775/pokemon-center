@@ -1,15 +1,9 @@
 export { AggregateBerryFlavorsArgs } from "./AggregateBerryFlavorsArgs";
-export { CreateManyAndReturnBerryFlavorsArgs } from "./CreateManyAndReturnBerryFlavorsArgs";
-export { CreateManyBerryFlavorsArgs } from "./CreateManyBerryFlavorsArgs";
-export { CreateOneBerryFlavorsArgs } from "./CreateOneBerryFlavorsArgs";
-export { DeleteManyBerryFlavorsArgs } from "./DeleteManyBerryFlavorsArgs";
-export { DeleteOneBerryFlavorsArgs } from "./DeleteOneBerryFlavorsArgs";
+
 export { FindFirstBerryFlavorsArgs } from "./FindFirstBerryFlavorsArgs";
 export { FindFirstBerryFlavorsOrThrowArgs } from "./FindFirstBerryFlavorsOrThrowArgs";
 export { FindManyBerryFlavorsArgs } from "./FindManyBerryFlavorsArgs";
 export { FindUniqueBerryFlavorsArgs } from "./FindUniqueBerryFlavorsArgs";
 export { FindUniqueBerryFlavorsOrThrowArgs } from "./FindUniqueBerryFlavorsOrThrowArgs";
 export { GroupByBerryFlavorsArgs } from "./GroupByBerryFlavorsArgs";
-export { UpdateManyBerryFlavorsArgs } from "./UpdateManyBerryFlavorsArgs";
-export { UpdateOneBerryFlavorsArgs } from "./UpdateOneBerryFlavorsArgs";
-export { UpsertOneBerryFlavorsArgs } from "./UpsertOneBerryFlavorsArgs";
+

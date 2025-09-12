@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateEncounterConditionValueMapArgs } from "./args/AggregateEncounterConditionValueMapArgs";
-import { CreateManyAndReturnEncounterConditionValueMapArgs } from "./args/CreateManyAndReturnEncounterConditionValueMapArgs";
-import { CreateManyEncounterConditionValueMapArgs } from "./args/CreateManyEncounterConditionValueMapArgs";
-import { CreateOneEncounterConditionValueMapArgs } from "./args/CreateOneEncounterConditionValueMapArgs";
-import { DeleteManyEncounterConditionValueMapArgs } from "./args/DeleteManyEncounterConditionValueMapArgs";
-import { DeleteOneEncounterConditionValueMapArgs } from "./args/DeleteOneEncounterConditionValueMapArgs";
+
 import { FindFirstEncounterConditionValueMapArgs } from "./args/FindFirstEncounterConditionValueMapArgs";
 import { FindFirstEncounterConditionValueMapOrThrowArgs } from "./args/FindFirstEncounterConditionValueMapOrThrowArgs";
 import { FindManyEncounterConditionValueMapArgs } from "./args/FindManyEncounterConditionValueMapArgs";
 import { FindUniqueEncounterConditionValueMapArgs } from "./args/FindUniqueEncounterConditionValueMapArgs";
 import { FindUniqueEncounterConditionValueMapOrThrowArgs } from "./args/FindUniqueEncounterConditionValueMapOrThrowArgs";
 import { GroupByEncounterConditionValueMapArgs } from "./args/GroupByEncounterConditionValueMapArgs";
-import { UpdateManyEncounterConditionValueMapArgs } from "./args/UpdateManyEncounterConditionValueMapArgs";
-import { UpdateOneEncounterConditionValueMapArgs } from "./args/UpdateOneEncounterConditionValueMapArgs";
-import { UpsertOneEncounterConditionValueMapArgs } from "./args/UpsertOneEncounterConditionValueMapArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { EncounterConditionValueMap } from "../../../models/EncounterConditionValueMap";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

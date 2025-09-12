@@ -1,15 +1,9 @@
 export { AggregateItemCategoriesArgs } from "./AggregateItemCategoriesArgs";
-export { CreateManyAndReturnItemCategoriesArgs } from "./CreateManyAndReturnItemCategoriesArgs";
-export { CreateManyItemCategoriesArgs } from "./CreateManyItemCategoriesArgs";
-export { CreateOneItemCategoriesArgs } from "./CreateOneItemCategoriesArgs";
-export { DeleteManyItemCategoriesArgs } from "./DeleteManyItemCategoriesArgs";
-export { DeleteOneItemCategoriesArgs } from "./DeleteOneItemCategoriesArgs";
+
 export { FindFirstItemCategoriesArgs } from "./FindFirstItemCategoriesArgs";
 export { FindFirstItemCategoriesOrThrowArgs } from "./FindFirstItemCategoriesOrThrowArgs";
 export { FindManyItemCategoriesArgs } from "./FindManyItemCategoriesArgs";
 export { FindUniqueItemCategoriesArgs } from "./FindUniqueItemCategoriesArgs";
 export { FindUniqueItemCategoriesOrThrowArgs } from "./FindUniqueItemCategoriesOrThrowArgs";
 export { GroupByItemCategoriesArgs } from "./GroupByItemCategoriesArgs";
-export { UpdateManyItemCategoriesArgs } from "./UpdateManyItemCategoriesArgs";
-export { UpdateOneItemCategoriesArgs } from "./UpdateOneItemCategoriesArgs";
-export { UpsertOneItemCategoriesArgs } from "./UpsertOneItemCategoriesArgs";
+

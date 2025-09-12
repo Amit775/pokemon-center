@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokemonItemsArgs } from "./args/AggregatePokemonItemsArgs";
-import { CreateManyAndReturnPokemonItemsArgs } from "./args/CreateManyAndReturnPokemonItemsArgs";
-import { CreateManyPokemonItemsArgs } from "./args/CreateManyPokemonItemsArgs";
-import { CreateOnePokemonItemsArgs } from "./args/CreateOnePokemonItemsArgs";
-import { DeleteManyPokemonItemsArgs } from "./args/DeleteManyPokemonItemsArgs";
-import { DeleteOnePokemonItemsArgs } from "./args/DeleteOnePokemonItemsArgs";
+
 import { FindFirstPokemonItemsArgs } from "./args/FindFirstPokemonItemsArgs";
 import { FindFirstPokemonItemsOrThrowArgs } from "./args/FindFirstPokemonItemsOrThrowArgs";
 import { FindManyPokemonItemsArgs } from "./args/FindManyPokemonItemsArgs";
 import { FindUniquePokemonItemsArgs } from "./args/FindUniquePokemonItemsArgs";
 import { FindUniquePokemonItemsOrThrowArgs } from "./args/FindUniquePokemonItemsOrThrowArgs";
 import { GroupByPokemonItemsArgs } from "./args/GroupByPokemonItemsArgs";
-import { UpdateManyPokemonItemsArgs } from "./args/UpdateManyPokemonItemsArgs";
-import { UpdateOnePokemonItemsArgs } from "./args/UpdateOnePokemonItemsArgs";
-import { UpsertOnePokemonItemsArgs } from "./args/UpsertOnePokemonItemsArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { PokemonItems } from "../../../models/PokemonItems";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

@@ -1,15 +1,9 @@
 export { AggregateTypeEfficacyArgs } from "./AggregateTypeEfficacyArgs";
-export { CreateManyAndReturnTypeEfficacyArgs } from "./CreateManyAndReturnTypeEfficacyArgs";
-export { CreateManyTypeEfficacyArgs } from "./CreateManyTypeEfficacyArgs";
-export { CreateOneTypeEfficacyArgs } from "./CreateOneTypeEfficacyArgs";
-export { DeleteManyTypeEfficacyArgs } from "./DeleteManyTypeEfficacyArgs";
-export { DeleteOneTypeEfficacyArgs } from "./DeleteOneTypeEfficacyArgs";
+
 export { FindFirstTypeEfficacyArgs } from "./FindFirstTypeEfficacyArgs";
 export { FindFirstTypeEfficacyOrThrowArgs } from "./FindFirstTypeEfficacyOrThrowArgs";
 export { FindManyTypeEfficacyArgs } from "./FindManyTypeEfficacyArgs";
 export { FindUniqueTypeEfficacyArgs } from "./FindUniqueTypeEfficacyArgs";
 export { FindUniqueTypeEfficacyOrThrowArgs } from "./FindUniqueTypeEfficacyOrThrowArgs";
 export { GroupByTypeEfficacyArgs } from "./GroupByTypeEfficacyArgs";
-export { UpdateManyTypeEfficacyArgs } from "./UpdateManyTypeEfficacyArgs";
-export { UpdateOneTypeEfficacyArgs } from "./UpdateOneTypeEfficacyArgs";
-export { UpsertOneTypeEfficacyArgs } from "./UpsertOneTypeEfficacyArgs";
+

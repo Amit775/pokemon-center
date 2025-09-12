@@ -1,15 +1,9 @@
 export { AggregateEvolutionTriggersArgs } from "./AggregateEvolutionTriggersArgs";
-export { CreateManyAndReturnEvolutionTriggersArgs } from "./CreateManyAndReturnEvolutionTriggersArgs";
-export { CreateManyEvolutionTriggersArgs } from "./CreateManyEvolutionTriggersArgs";
-export { CreateOneEvolutionTriggersArgs } from "./CreateOneEvolutionTriggersArgs";
-export { DeleteManyEvolutionTriggersArgs } from "./DeleteManyEvolutionTriggersArgs";
-export { DeleteOneEvolutionTriggersArgs } from "./DeleteOneEvolutionTriggersArgs";
+
 export { FindFirstEvolutionTriggersArgs } from "./FindFirstEvolutionTriggersArgs";
 export { FindFirstEvolutionTriggersOrThrowArgs } from "./FindFirstEvolutionTriggersOrThrowArgs";
 export { FindManyEvolutionTriggersArgs } from "./FindManyEvolutionTriggersArgs";
 export { FindUniqueEvolutionTriggersArgs } from "./FindUniqueEvolutionTriggersArgs";
 export { FindUniqueEvolutionTriggersOrThrowArgs } from "./FindUniqueEvolutionTriggersOrThrowArgs";
 export { GroupByEvolutionTriggersArgs } from "./GroupByEvolutionTriggersArgs";
-export { UpdateManyEvolutionTriggersArgs } from "./UpdateManyEvolutionTriggersArgs";
-export { UpdateOneEvolutionTriggersArgs } from "./UpdateOneEvolutionTriggersArgs";
-export { UpsertOneEvolutionTriggersArgs } from "./UpsertOneEvolutionTriggersArgs";
+

@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateMoveDamageClassesArgs } from "./args/AggregateMoveDamageClassesArgs";
-import { CreateManyAndReturnMoveDamageClassesArgs } from "./args/CreateManyAndReturnMoveDamageClassesArgs";
-import { CreateManyMoveDamageClassesArgs } from "./args/CreateManyMoveDamageClassesArgs";
-import { CreateOneMoveDamageClassesArgs } from "./args/CreateOneMoveDamageClassesArgs";
-import { DeleteManyMoveDamageClassesArgs } from "./args/DeleteManyMoveDamageClassesArgs";
-import { DeleteOneMoveDamageClassesArgs } from "./args/DeleteOneMoveDamageClassesArgs";
+
 import { FindFirstMoveDamageClassesArgs } from "./args/FindFirstMoveDamageClassesArgs";
 import { FindFirstMoveDamageClassesOrThrowArgs } from "./args/FindFirstMoveDamageClassesOrThrowArgs";
 import { FindManyMoveDamageClassesArgs } from "./args/FindManyMoveDamageClassesArgs";
 import { FindUniqueMoveDamageClassesArgs } from "./args/FindUniqueMoveDamageClassesArgs";
 import { FindUniqueMoveDamageClassesOrThrowArgs } from "./args/FindUniqueMoveDamageClassesOrThrowArgs";
 import { GroupByMoveDamageClassesArgs } from "./args/GroupByMoveDamageClassesArgs";
-import { UpdateManyMoveDamageClassesArgs } from "./args/UpdateManyMoveDamageClassesArgs";
-import { UpdateOneMoveDamageClassesArgs } from "./args/UpdateOneMoveDamageClassesArgs";
-import { UpsertOneMoveDamageClassesArgs } from "./args/UpsertOneMoveDamageClassesArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { MoveDamageClasses } from "../../../models/MoveDamageClasses";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";

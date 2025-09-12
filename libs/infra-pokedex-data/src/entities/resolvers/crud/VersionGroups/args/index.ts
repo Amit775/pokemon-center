@@ -1,15 +1,9 @@
 export { AggregateVersionGroupsArgs } from "./AggregateVersionGroupsArgs";
-export { CreateManyAndReturnVersionGroupsArgs } from "./CreateManyAndReturnVersionGroupsArgs";
-export { CreateManyVersionGroupsArgs } from "./CreateManyVersionGroupsArgs";
-export { CreateOneVersionGroupsArgs } from "./CreateOneVersionGroupsArgs";
-export { DeleteManyVersionGroupsArgs } from "./DeleteManyVersionGroupsArgs";
-export { DeleteOneVersionGroupsArgs } from "./DeleteOneVersionGroupsArgs";
+
 export { FindFirstVersionGroupsArgs } from "./FindFirstVersionGroupsArgs";
 export { FindFirstVersionGroupsOrThrowArgs } from "./FindFirstVersionGroupsOrThrowArgs";
 export { FindManyVersionGroupsArgs } from "./FindManyVersionGroupsArgs";
 export { FindUniqueVersionGroupsArgs } from "./FindUniqueVersionGroupsArgs";
 export { FindUniqueVersionGroupsOrThrowArgs } from "./FindUniqueVersionGroupsOrThrowArgs";
 export { GroupByVersionGroupsArgs } from "./GroupByVersionGroupsArgs";
-export { UpdateManyVersionGroupsArgs } from "./UpdateManyVersionGroupsArgs";
-export { UpdateOneVersionGroupsArgs } from "./UpdateOneVersionGroupsArgs";
-export { UpsertOneVersionGroupsArgs } from "./UpsertOneVersionGroupsArgs";
+

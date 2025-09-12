@@ -1,15 +1,9 @@
 export { AggregateMoveMetaCategoriesArgs } from "./AggregateMoveMetaCategoriesArgs";
-export { CreateManyAndReturnMoveMetaCategoriesArgs } from "./CreateManyAndReturnMoveMetaCategoriesArgs";
-export { CreateManyMoveMetaCategoriesArgs } from "./CreateManyMoveMetaCategoriesArgs";
-export { CreateOneMoveMetaCategoriesArgs } from "./CreateOneMoveMetaCategoriesArgs";
-export { DeleteManyMoveMetaCategoriesArgs } from "./DeleteManyMoveMetaCategoriesArgs";
-export { DeleteOneMoveMetaCategoriesArgs } from "./DeleteOneMoveMetaCategoriesArgs";
+
 export { FindFirstMoveMetaCategoriesArgs } from "./FindFirstMoveMetaCategoriesArgs";
 export { FindFirstMoveMetaCategoriesOrThrowArgs } from "./FindFirstMoveMetaCategoriesOrThrowArgs";
 export { FindManyMoveMetaCategoriesArgs } from "./FindManyMoveMetaCategoriesArgs";
 export { FindUniqueMoveMetaCategoriesArgs } from "./FindUniqueMoveMetaCategoriesArgs";
 export { FindUniqueMoveMetaCategoriesOrThrowArgs } from "./FindUniqueMoveMetaCategoriesOrThrowArgs";
 export { GroupByMoveMetaCategoriesArgs } from "./GroupByMoveMetaCategoriesArgs";
-export { UpdateManyMoveMetaCategoriesArgs } from "./UpdateManyMoveMetaCategoriesArgs";
-export { UpdateOneMoveMetaCategoriesArgs } from "./UpdateOneMoveMetaCategoriesArgs";
-export { UpsertOneMoveMetaCategoriesArgs } from "./UpsertOneMoveMetaCategoriesArgs";
+

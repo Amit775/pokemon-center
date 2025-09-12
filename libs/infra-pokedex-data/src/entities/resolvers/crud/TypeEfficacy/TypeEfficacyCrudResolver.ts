@@ -1,20 +1,14 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateTypeEfficacyArgs } from "./args/AggregateTypeEfficacyArgs";
-import { CreateManyAndReturnTypeEfficacyArgs } from "./args/CreateManyAndReturnTypeEfficacyArgs";
-import { CreateManyTypeEfficacyArgs } from "./args/CreateManyTypeEfficacyArgs";
-import { CreateOneTypeEfficacyArgs } from "./args/CreateOneTypeEfficacyArgs";
-import { DeleteManyTypeEfficacyArgs } from "./args/DeleteManyTypeEfficacyArgs";
-import { DeleteOneTypeEfficacyArgs } from "./args/DeleteOneTypeEfficacyArgs";
+
 import { FindFirstTypeEfficacyArgs } from "./args/FindFirstTypeEfficacyArgs";
 import { FindFirstTypeEfficacyOrThrowArgs } from "./args/FindFirstTypeEfficacyOrThrowArgs";
 import { FindManyTypeEfficacyArgs } from "./args/FindManyTypeEfficacyArgs";
 import { FindUniqueTypeEfficacyArgs } from "./args/FindUniqueTypeEfficacyArgs";
 import { FindUniqueTypeEfficacyOrThrowArgs } from "./args/FindUniqueTypeEfficacyOrThrowArgs";
 import { GroupByTypeEfficacyArgs } from "./args/GroupByTypeEfficacyArgs";
-import { UpdateManyTypeEfficacyArgs } from "./args/UpdateManyTypeEfficacyArgs";
-import { UpdateOneTypeEfficacyArgs } from "./args/UpdateOneTypeEfficacyArgs";
-import { UpsertOneTypeEfficacyArgs } from "./args/UpsertOneTypeEfficacyArgs";
+
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { TypeEfficacy } from "../../../models/TypeEfficacy";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
