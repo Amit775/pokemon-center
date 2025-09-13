@@ -1,19 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateEncounterMethodsArgs } from "./args/AggregateEncounterMethodsArgs";
-
 import { FindFirstEncounterMethodsArgs } from "./args/FindFirstEncounterMethodsArgs";
 import { FindFirstEncounterMethodsOrThrowArgs } from "./args/FindFirstEncounterMethodsOrThrowArgs";
 import { FindManyEncounterMethodsArgs } from "./args/FindManyEncounterMethodsArgs";
 import { FindUniqueEncounterMethodsArgs } from "./args/FindUniqueEncounterMethodsArgs";
 import { FindUniqueEncounterMethodsOrThrowArgs } from "./args/FindUniqueEncounterMethodsOrThrowArgs";
 import { GroupByEncounterMethodsArgs } from "./args/GroupByEncounterMethodsArgs";
-
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { EncounterMethods } from "../../../models/EncounterMethods";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateEncounterMethods } from "../../outputs/AggregateEncounterMethods";
-import { CreateManyAndReturnEncounterMethods } from "../../outputs/CreateManyAndReturnEncounterMethods";
 import { EncounterMethodsGroupBy } from "../../outputs/EncounterMethodsGroupBy";
 
 @TypeGraphQL.Resolver(_of => EncounterMethods)
@@ -25,61 +21,6 @@ export class EncounterMethodsCrudResolver {
     return getPrismaFromContext(ctx).encounterMethods.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyEncounterMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyEncounterMethodsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterMethods.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnEncounterMethods], {
-    nullable: false
-  })
-  async createManyAndReturnEncounterMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnEncounterMethodsArgs): Promise<CreateManyAndReturnEncounterMethods[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterMethods.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EncounterMethods, {
-    nullable: false
-  })
-  async createOneEncounterMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneEncounterMethodsArgs): Promise<EncounterMethods> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterMethods.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyEncounterMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyEncounterMethodsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterMethods.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EncounterMethods, {
-    nullable: true
-  })
-  async deleteOneEncounterMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneEncounterMethodsArgs): Promise<EncounterMethods | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterMethods.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -151,36 +92,4 @@ export class EncounterMethodsCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyEncounterMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyEncounterMethodsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterMethods.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EncounterMethods, {
-    nullable: true
-  })
-  async updateOneEncounterMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneEncounterMethodsArgs): Promise<EncounterMethods | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterMethods.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EncounterMethods, {
-    nullable: false
-  })
-  async upsertOneEncounterMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneEncounterMethodsArgs): Promise<EncounterMethods> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterMethods.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

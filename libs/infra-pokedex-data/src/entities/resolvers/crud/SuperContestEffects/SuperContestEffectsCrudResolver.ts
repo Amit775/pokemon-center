@@ -1,19 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateSuperContestEffectsArgs } from "./args/AggregateSuperContestEffectsArgs";
-
 import { FindFirstSuperContestEffectsArgs } from "./args/FindFirstSuperContestEffectsArgs";
 import { FindFirstSuperContestEffectsOrThrowArgs } from "./args/FindFirstSuperContestEffectsOrThrowArgs";
 import { FindManySuperContestEffectsArgs } from "./args/FindManySuperContestEffectsArgs";
 import { FindUniqueSuperContestEffectsArgs } from "./args/FindUniqueSuperContestEffectsArgs";
 import { FindUniqueSuperContestEffectsOrThrowArgs } from "./args/FindUniqueSuperContestEffectsOrThrowArgs";
 import { GroupBySuperContestEffectsArgs } from "./args/GroupBySuperContestEffectsArgs";
-
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { SuperContestEffects } from "../../../models/SuperContestEffects";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateSuperContestEffects } from "../../outputs/AggregateSuperContestEffects";
-import { CreateManyAndReturnSuperContestEffects } from "../../outputs/CreateManyAndReturnSuperContestEffects";
 import { SuperContestEffectsGroupBy } from "../../outputs/SuperContestEffectsGroupBy";
 
 @TypeGraphQL.Resolver(_of => SuperContestEffects)
@@ -25,61 +21,6 @@ export class SuperContestEffectsCrudResolver {
     return getPrismaFromContext(ctx).superContestEffects.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManySuperContestEffects(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManySuperContestEffectsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).superContestEffects.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnSuperContestEffects], {
-    nullable: false
-  })
-  async createManyAndReturnSuperContestEffects(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnSuperContestEffectsArgs): Promise<CreateManyAndReturnSuperContestEffects[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).superContestEffects.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => SuperContestEffects, {
-    nullable: false
-  })
-  async createOneSuperContestEffects(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneSuperContestEffectsArgs): Promise<SuperContestEffects> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).superContestEffects.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManySuperContestEffects(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManySuperContestEffectsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).superContestEffects.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => SuperContestEffects, {
-    nullable: true
-  })
-  async deleteOneSuperContestEffects(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneSuperContestEffectsArgs): Promise<SuperContestEffects | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).superContestEffects.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -151,36 +92,4 @@ export class SuperContestEffectsCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManySuperContestEffects(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManySuperContestEffectsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).superContestEffects.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => SuperContestEffects, {
-    nullable: true
-  })
-  async updateOneSuperContestEffects(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneSuperContestEffectsArgs): Promise<SuperContestEffects | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).superContestEffects.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => SuperContestEffects, {
-    nullable: false
-  })
-  async upsertOneSuperContestEffects(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneSuperContestEffectsArgs): Promise<SuperContestEffects> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).superContestEffects.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

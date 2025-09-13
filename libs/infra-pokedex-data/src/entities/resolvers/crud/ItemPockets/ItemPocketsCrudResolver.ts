@@ -1,19 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateItemPocketsArgs } from "./args/AggregateItemPocketsArgs";
-
 import { FindFirstItemPocketsArgs } from "./args/FindFirstItemPocketsArgs";
 import { FindFirstItemPocketsOrThrowArgs } from "./args/FindFirstItemPocketsOrThrowArgs";
 import { FindManyItemPocketsArgs } from "./args/FindManyItemPocketsArgs";
 import { FindUniqueItemPocketsArgs } from "./args/FindUniqueItemPocketsArgs";
 import { FindUniqueItemPocketsOrThrowArgs } from "./args/FindUniqueItemPocketsOrThrowArgs";
 import { GroupByItemPocketsArgs } from "./args/GroupByItemPocketsArgs";
-
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { ItemPockets } from "../../../models/ItemPockets";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateItemPockets } from "../../outputs/AggregateItemPockets";
-import { CreateManyAndReturnItemPockets } from "../../outputs/CreateManyAndReturnItemPockets";
 import { ItemPocketsGroupBy } from "../../outputs/ItemPocketsGroupBy";
 
 @TypeGraphQL.Resolver(_of => ItemPockets)
@@ -25,61 +21,6 @@ export class ItemPocketsCrudResolver {
     return getPrismaFromContext(ctx).itemPockets.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyItemPockets(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyItemPocketsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemPockets.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnItemPockets], {
-    nullable: false
-  })
-  async createManyAndReturnItemPockets(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnItemPocketsArgs): Promise<CreateManyAndReturnItemPockets[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemPockets.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => ItemPockets, {
-    nullable: false
-  })
-  async createOneItemPockets(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneItemPocketsArgs): Promise<ItemPockets> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemPockets.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyItemPockets(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyItemPocketsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemPockets.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => ItemPockets, {
-    nullable: true
-  })
-  async deleteOneItemPockets(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneItemPocketsArgs): Promise<ItemPockets | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemPockets.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -151,36 +92,4 @@ export class ItemPocketsCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyItemPockets(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyItemPocketsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemPockets.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => ItemPockets, {
-    nullable: true
-  })
-  async updateOneItemPockets(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneItemPocketsArgs): Promise<ItemPockets | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemPockets.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => ItemPockets, {
-    nullable: false
-  })
-  async upsertOneItemPockets(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneItemPocketsArgs): Promise<ItemPockets> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemPockets.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

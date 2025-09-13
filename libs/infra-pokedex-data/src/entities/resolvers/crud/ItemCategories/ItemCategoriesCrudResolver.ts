@@ -1,19 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateItemCategoriesArgs } from "./args/AggregateItemCategoriesArgs";
-
 import { FindFirstItemCategoriesArgs } from "./args/FindFirstItemCategoriesArgs";
 import { FindFirstItemCategoriesOrThrowArgs } from "./args/FindFirstItemCategoriesOrThrowArgs";
 import { FindManyItemCategoriesArgs } from "./args/FindManyItemCategoriesArgs";
 import { FindUniqueItemCategoriesArgs } from "./args/FindUniqueItemCategoriesArgs";
 import { FindUniqueItemCategoriesOrThrowArgs } from "./args/FindUniqueItemCategoriesOrThrowArgs";
 import { GroupByItemCategoriesArgs } from "./args/GroupByItemCategoriesArgs";
-
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { ItemCategories } from "../../../models/ItemCategories";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateItemCategories } from "../../outputs/AggregateItemCategories";
-import { CreateManyAndReturnItemCategories } from "../../outputs/CreateManyAndReturnItemCategories";
 import { ItemCategoriesGroupBy } from "../../outputs/ItemCategoriesGroupBy";
 
 @TypeGraphQL.Resolver(_of => ItemCategories)
@@ -25,61 +21,6 @@ export class ItemCategoriesCrudResolver {
     return getPrismaFromContext(ctx).itemCategories.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyItemCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyItemCategoriesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemCategories.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnItemCategories], {
-    nullable: false
-  })
-  async createManyAndReturnItemCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnItemCategoriesArgs): Promise<CreateManyAndReturnItemCategories[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemCategories.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => ItemCategories, {
-    nullable: false
-  })
-  async createOneItemCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneItemCategoriesArgs): Promise<ItemCategories> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemCategories.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyItemCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyItemCategoriesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemCategories.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => ItemCategories, {
-    nullable: true
-  })
-  async deleteOneItemCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneItemCategoriesArgs): Promise<ItemCategories | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemCategories.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -151,36 +92,4 @@ export class ItemCategoriesCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyItemCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyItemCategoriesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemCategories.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => ItemCategories, {
-    nullable: true
-  })
-  async updateOneItemCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneItemCategoriesArgs): Promise<ItemCategories | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemCategories.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => ItemCategories, {
-    nullable: false
-  })
-  async upsertOneItemCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneItemCategoriesArgs): Promise<ItemCategories> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).itemCategories.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

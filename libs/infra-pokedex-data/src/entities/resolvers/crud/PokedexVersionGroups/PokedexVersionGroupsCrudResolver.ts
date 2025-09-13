@@ -1,19 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokedexVersionGroupsArgs } from "./args/AggregatePokedexVersionGroupsArgs";
-
 import { FindFirstPokedexVersionGroupsArgs } from "./args/FindFirstPokedexVersionGroupsArgs";
 import { FindFirstPokedexVersionGroupsOrThrowArgs } from "./args/FindFirstPokedexVersionGroupsOrThrowArgs";
 import { FindManyPokedexVersionGroupsArgs } from "./args/FindManyPokedexVersionGroupsArgs";
 import { FindUniquePokedexVersionGroupsArgs } from "./args/FindUniquePokedexVersionGroupsArgs";
 import { FindUniquePokedexVersionGroupsOrThrowArgs } from "./args/FindUniquePokedexVersionGroupsOrThrowArgs";
 import { GroupByPokedexVersionGroupsArgs } from "./args/GroupByPokedexVersionGroupsArgs";
-
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { PokedexVersionGroups } from "../../../models/PokedexVersionGroups";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregatePokedexVersionGroups } from "../../outputs/AggregatePokedexVersionGroups";
-import { CreateManyAndReturnPokedexVersionGroups } from "../../outputs/CreateManyAndReturnPokedexVersionGroups";
 import { PokedexVersionGroupsGroupBy } from "../../outputs/PokedexVersionGroupsGroupBy";
 
 @TypeGraphQL.Resolver(_of => PokedexVersionGroups)
@@ -25,61 +21,6 @@ export class PokedexVersionGroupsCrudResolver {
     return getPrismaFromContext(ctx).pokedexVersionGroups.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyPokedexVersionGroups(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyPokedexVersionGroupsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokedexVersionGroups.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnPokedexVersionGroups], {
-    nullable: false
-  })
-  async createManyAndReturnPokedexVersionGroups(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnPokedexVersionGroupsArgs): Promise<CreateManyAndReturnPokedexVersionGroups[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokedexVersionGroups.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokedexVersionGroups, {
-    nullable: false
-  })
-  async createOnePokedexVersionGroups(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOnePokedexVersionGroupsArgs): Promise<PokedexVersionGroups> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokedexVersionGroups.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyPokedexVersionGroups(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyPokedexVersionGroupsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokedexVersionGroups.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokedexVersionGroups, {
-    nullable: true
-  })
-  async deleteOnePokedexVersionGroups(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOnePokedexVersionGroupsArgs): Promise<PokedexVersionGroups | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokedexVersionGroups.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -151,36 +92,4 @@ export class PokedexVersionGroupsCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyPokedexVersionGroups(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyPokedexVersionGroupsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokedexVersionGroups.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokedexVersionGroups, {
-    nullable: true
-  })
-  async updateOnePokedexVersionGroups(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOnePokedexVersionGroupsArgs): Promise<PokedexVersionGroups | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokedexVersionGroups.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokedexVersionGroups, {
-    nullable: false
-  })
-  async upsertOnePokedexVersionGroups(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOnePokedexVersionGroupsArgs): Promise<PokedexVersionGroups> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokedexVersionGroups.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

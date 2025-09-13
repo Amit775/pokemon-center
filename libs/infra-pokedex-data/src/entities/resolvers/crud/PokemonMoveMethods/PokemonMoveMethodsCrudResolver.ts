@@ -1,19 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokemonMoveMethodsArgs } from "./args/AggregatePokemonMoveMethodsArgs";
-
 import { FindFirstPokemonMoveMethodsArgs } from "./args/FindFirstPokemonMoveMethodsArgs";
 import { FindFirstPokemonMoveMethodsOrThrowArgs } from "./args/FindFirstPokemonMoveMethodsOrThrowArgs";
 import { FindManyPokemonMoveMethodsArgs } from "./args/FindManyPokemonMoveMethodsArgs";
 import { FindUniquePokemonMoveMethodsArgs } from "./args/FindUniquePokemonMoveMethodsArgs";
 import { FindUniquePokemonMoveMethodsOrThrowArgs } from "./args/FindUniquePokemonMoveMethodsOrThrowArgs";
 import { GroupByPokemonMoveMethodsArgs } from "./args/GroupByPokemonMoveMethodsArgs";
-
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { PokemonMoveMethods } from "../../../models/PokemonMoveMethods";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregatePokemonMoveMethods } from "../../outputs/AggregatePokemonMoveMethods";
-import { CreateManyAndReturnPokemonMoveMethods } from "../../outputs/CreateManyAndReturnPokemonMoveMethods";
 import { PokemonMoveMethodsGroupBy } from "../../outputs/PokemonMoveMethodsGroupBy";
 
 @TypeGraphQL.Resolver(_of => PokemonMoveMethods)
@@ -25,61 +21,6 @@ export class PokemonMoveMethodsCrudResolver {
     return getPrismaFromContext(ctx).pokemonMoveMethods.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyPokemonMoveMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyPokemonMoveMethodsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonMoveMethods.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnPokemonMoveMethods], {
-    nullable: false
-  })
-  async createManyAndReturnPokemonMoveMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnPokemonMoveMethodsArgs): Promise<CreateManyAndReturnPokemonMoveMethods[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonMoveMethods.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokemonMoveMethods, {
-    nullable: false
-  })
-  async createOnePokemonMoveMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOnePokemonMoveMethodsArgs): Promise<PokemonMoveMethods> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonMoveMethods.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyPokemonMoveMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyPokemonMoveMethodsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonMoveMethods.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokemonMoveMethods, {
-    nullable: true
-  })
-  async deleteOnePokemonMoveMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOnePokemonMoveMethodsArgs): Promise<PokemonMoveMethods | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonMoveMethods.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -151,36 +92,4 @@ export class PokemonMoveMethodsCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyPokemonMoveMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyPokemonMoveMethodsArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonMoveMethods.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokemonMoveMethods, {
-    nullable: true
-  })
-  async updateOnePokemonMoveMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOnePokemonMoveMethodsArgs): Promise<PokemonMoveMethods | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonMoveMethods.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokemonMoveMethods, {
-    nullable: false
-  })
-  async upsertOnePokemonMoveMethods(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOnePokemonMoveMethodsArgs): Promise<PokemonMoveMethods> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonMoveMethods.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

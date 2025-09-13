@@ -1,19 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateNatureBattleStylePreferencesArgs } from "./args/AggregateNatureBattleStylePreferencesArgs";
-
 import { FindFirstNatureBattleStylePreferencesArgs } from "./args/FindFirstNatureBattleStylePreferencesArgs";
 import { FindFirstNatureBattleStylePreferencesOrThrowArgs } from "./args/FindFirstNatureBattleStylePreferencesOrThrowArgs";
 import { FindManyNatureBattleStylePreferencesArgs } from "./args/FindManyNatureBattleStylePreferencesArgs";
 import { FindUniqueNatureBattleStylePreferencesArgs } from "./args/FindUniqueNatureBattleStylePreferencesArgs";
 import { FindUniqueNatureBattleStylePreferencesOrThrowArgs } from "./args/FindUniqueNatureBattleStylePreferencesOrThrowArgs";
 import { GroupByNatureBattleStylePreferencesArgs } from "./args/GroupByNatureBattleStylePreferencesArgs";
-
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { NatureBattleStylePreferences } from "../../../models/NatureBattleStylePreferences";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateNatureBattleStylePreferences } from "../../outputs/AggregateNatureBattleStylePreferences";
-import { CreateManyAndReturnNatureBattleStylePreferences } from "../../outputs/CreateManyAndReturnNatureBattleStylePreferences";
 import { NatureBattleStylePreferencesGroupBy } from "../../outputs/NatureBattleStylePreferencesGroupBy";
 
 @TypeGraphQL.Resolver(_of => NatureBattleStylePreferences)
@@ -25,61 +21,6 @@ export class NatureBattleStylePreferencesCrudResolver {
     return getPrismaFromContext(ctx).natureBattleStylePreferences.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyNatureBattleStylePreferences(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyNatureBattleStylePreferencesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).natureBattleStylePreferences.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnNatureBattleStylePreferences], {
-    nullable: false
-  })
-  async createManyAndReturnNatureBattleStylePreferences(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnNatureBattleStylePreferencesArgs): Promise<CreateManyAndReturnNatureBattleStylePreferences[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).natureBattleStylePreferences.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => NatureBattleStylePreferences, {
-    nullable: false
-  })
-  async createOneNatureBattleStylePreferences(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneNatureBattleStylePreferencesArgs): Promise<NatureBattleStylePreferences> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).natureBattleStylePreferences.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyNatureBattleStylePreferences(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyNatureBattleStylePreferencesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).natureBattleStylePreferences.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => NatureBattleStylePreferences, {
-    nullable: true
-  })
-  async deleteOneNatureBattleStylePreferences(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneNatureBattleStylePreferencesArgs): Promise<NatureBattleStylePreferences | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).natureBattleStylePreferences.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -151,36 +92,4 @@ export class NatureBattleStylePreferencesCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyNatureBattleStylePreferences(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyNatureBattleStylePreferencesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).natureBattleStylePreferences.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => NatureBattleStylePreferences, {
-    nullable: true
-  })
-  async updateOneNatureBattleStylePreferences(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneNatureBattleStylePreferencesArgs): Promise<NatureBattleStylePreferences | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).natureBattleStylePreferences.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => NatureBattleStylePreferences, {
-    nullable: false
-  })
-  async upsertOneNatureBattleStylePreferences(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneNatureBattleStylePreferencesArgs): Promise<NatureBattleStylePreferences> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).natureBattleStylePreferences.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

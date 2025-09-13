@@ -1,19 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateLocationAreaEncounterRatesArgs } from "./args/AggregateLocationAreaEncounterRatesArgs";
-
 import { FindFirstLocationAreaEncounterRatesArgs } from "./args/FindFirstLocationAreaEncounterRatesArgs";
 import { FindFirstLocationAreaEncounterRatesOrThrowArgs } from "./args/FindFirstLocationAreaEncounterRatesOrThrowArgs";
 import { FindManyLocationAreaEncounterRatesArgs } from "./args/FindManyLocationAreaEncounterRatesArgs";
 import { FindUniqueLocationAreaEncounterRatesArgs } from "./args/FindUniqueLocationAreaEncounterRatesArgs";
 import { FindUniqueLocationAreaEncounterRatesOrThrowArgs } from "./args/FindUniqueLocationAreaEncounterRatesOrThrowArgs";
 import { GroupByLocationAreaEncounterRatesArgs } from "./args/GroupByLocationAreaEncounterRatesArgs";
-
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { LocationAreaEncounterRates } from "../../../models/LocationAreaEncounterRates";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateLocationAreaEncounterRates } from "../../outputs/AggregateLocationAreaEncounterRates";
-import { CreateManyAndReturnLocationAreaEncounterRates } from "../../outputs/CreateManyAndReturnLocationAreaEncounterRates";
 import { LocationAreaEncounterRatesGroupBy } from "../../outputs/LocationAreaEncounterRatesGroupBy";
 
 @TypeGraphQL.Resolver(_of => LocationAreaEncounterRates)
@@ -25,61 +21,6 @@ export class LocationAreaEncounterRatesCrudResolver {
     return getPrismaFromContext(ctx).locationAreaEncounterRates.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyLocationAreaEncounterRates(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyLocationAreaEncounterRatesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locationAreaEncounterRates.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnLocationAreaEncounterRates], {
-    nullable: false
-  })
-  async createManyAndReturnLocationAreaEncounterRates(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnLocationAreaEncounterRatesArgs): Promise<CreateManyAndReturnLocationAreaEncounterRates[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locationAreaEncounterRates.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => LocationAreaEncounterRates, {
-    nullable: false
-  })
-  async createOneLocationAreaEncounterRates(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneLocationAreaEncounterRatesArgs): Promise<LocationAreaEncounterRates> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locationAreaEncounterRates.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyLocationAreaEncounterRates(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyLocationAreaEncounterRatesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locationAreaEncounterRates.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => LocationAreaEncounterRates, {
-    nullable: true
-  })
-  async deleteOneLocationAreaEncounterRates(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneLocationAreaEncounterRatesArgs): Promise<LocationAreaEncounterRates | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locationAreaEncounterRates.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -151,36 +92,4 @@ export class LocationAreaEncounterRatesCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyLocationAreaEncounterRates(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyLocationAreaEncounterRatesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locationAreaEncounterRates.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => LocationAreaEncounterRates, {
-    nullable: true
-  })
-  async updateOneLocationAreaEncounterRates(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneLocationAreaEncounterRatesArgs): Promise<LocationAreaEncounterRates | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locationAreaEncounterRates.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => LocationAreaEncounterRates, {
-    nullable: false
-  })
-  async upsertOneLocationAreaEncounterRates(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneLocationAreaEncounterRatesArgs): Promise<LocationAreaEncounterRates> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locationAreaEncounterRates.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

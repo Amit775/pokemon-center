@@ -1,19 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateEncounterConditionValuesArgs } from "./args/AggregateEncounterConditionValuesArgs";
-
 import { FindFirstEncounterConditionValuesArgs } from "./args/FindFirstEncounterConditionValuesArgs";
 import { FindFirstEncounterConditionValuesOrThrowArgs } from "./args/FindFirstEncounterConditionValuesOrThrowArgs";
 import { FindManyEncounterConditionValuesArgs } from "./args/FindManyEncounterConditionValuesArgs";
 import { FindUniqueEncounterConditionValuesArgs } from "./args/FindUniqueEncounterConditionValuesArgs";
 import { FindUniqueEncounterConditionValuesOrThrowArgs } from "./args/FindUniqueEncounterConditionValuesOrThrowArgs";
 import { GroupByEncounterConditionValuesArgs } from "./args/GroupByEncounterConditionValuesArgs";
-
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { EncounterConditionValues } from "../../../models/EncounterConditionValues";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateEncounterConditionValues } from "../../outputs/AggregateEncounterConditionValues";
-import { CreateManyAndReturnEncounterConditionValues } from "../../outputs/CreateManyAndReturnEncounterConditionValues";
 import { EncounterConditionValuesGroupBy } from "../../outputs/EncounterConditionValuesGroupBy";
 
 @TypeGraphQL.Resolver(_of => EncounterConditionValues)
@@ -25,61 +21,6 @@ export class EncounterConditionValuesCrudResolver {
     return getPrismaFromContext(ctx).encounterConditionValues.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyEncounterConditionValues(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyEncounterConditionValuesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterConditionValues.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnEncounterConditionValues], {
-    nullable: false
-  })
-  async createManyAndReturnEncounterConditionValues(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnEncounterConditionValuesArgs): Promise<CreateManyAndReturnEncounterConditionValues[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterConditionValues.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EncounterConditionValues, {
-    nullable: false
-  })
-  async createOneEncounterConditionValues(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneEncounterConditionValuesArgs): Promise<EncounterConditionValues> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterConditionValues.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyEncounterConditionValues(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyEncounterConditionValuesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterConditionValues.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EncounterConditionValues, {
-    nullable: true
-  })
-  async deleteOneEncounterConditionValues(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneEncounterConditionValuesArgs): Promise<EncounterConditionValues | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterConditionValues.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -151,36 +92,4 @@ export class EncounterConditionValuesCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyEncounterConditionValues(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyEncounterConditionValuesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterConditionValues.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EncounterConditionValues, {
-    nullable: true
-  })
-  async updateOneEncounterConditionValues(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneEncounterConditionValuesArgs): Promise<EncounterConditionValues | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterConditionValues.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EncounterConditionValues, {
-    nullable: false
-  })
-  async upsertOneEncounterConditionValues(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneEncounterConditionValuesArgs): Promise<EncounterConditionValues> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterConditionValues.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

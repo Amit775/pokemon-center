@@ -1,19 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateMoveDamageClassesArgs } from "./args/AggregateMoveDamageClassesArgs";
-
 import { FindFirstMoveDamageClassesArgs } from "./args/FindFirstMoveDamageClassesArgs";
 import { FindFirstMoveDamageClassesOrThrowArgs } from "./args/FindFirstMoveDamageClassesOrThrowArgs";
 import { FindManyMoveDamageClassesArgs } from "./args/FindManyMoveDamageClassesArgs";
 import { FindUniqueMoveDamageClassesArgs } from "./args/FindUniqueMoveDamageClassesArgs";
 import { FindUniqueMoveDamageClassesOrThrowArgs } from "./args/FindUniqueMoveDamageClassesOrThrowArgs";
 import { GroupByMoveDamageClassesArgs } from "./args/GroupByMoveDamageClassesArgs";
-
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { MoveDamageClasses } from "../../../models/MoveDamageClasses";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateMoveDamageClasses } from "../../outputs/AggregateMoveDamageClasses";
-import { CreateManyAndReturnMoveDamageClasses } from "../../outputs/CreateManyAndReturnMoveDamageClasses";
 import { MoveDamageClassesGroupBy } from "../../outputs/MoveDamageClassesGroupBy";
 
 @TypeGraphQL.Resolver(_of => MoveDamageClasses)
@@ -25,61 +21,6 @@ export class MoveDamageClassesCrudResolver {
     return getPrismaFromContext(ctx).moveDamageClasses.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyMoveDamageClasses(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyMoveDamageClassesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveDamageClasses.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnMoveDamageClasses], {
-    nullable: false
-  })
-  async createManyAndReturnMoveDamageClasses(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnMoveDamageClassesArgs): Promise<CreateManyAndReturnMoveDamageClasses[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveDamageClasses.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveDamageClasses, {
-    nullable: false
-  })
-  async createOneMoveDamageClasses(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneMoveDamageClassesArgs): Promise<MoveDamageClasses> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveDamageClasses.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyMoveDamageClasses(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyMoveDamageClassesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveDamageClasses.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveDamageClasses, {
-    nullable: true
-  })
-  async deleteOneMoveDamageClasses(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneMoveDamageClassesArgs): Promise<MoveDamageClasses | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveDamageClasses.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -151,36 +92,4 @@ export class MoveDamageClassesCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyMoveDamageClasses(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyMoveDamageClassesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveDamageClasses.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveDamageClasses, {
-    nullable: true
-  })
-  async updateOneMoveDamageClasses(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneMoveDamageClassesArgs): Promise<MoveDamageClasses | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveDamageClasses.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveDamageClasses, {
-    nullable: false
-  })
-  async upsertOneMoveDamageClasses(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneMoveDamageClassesArgs): Promise<MoveDamageClasses> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveDamageClasses.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

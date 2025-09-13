@@ -1,19 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateMoveMetaCategoriesArgs } from "./args/AggregateMoveMetaCategoriesArgs";
-
 import { FindFirstMoveMetaCategoriesArgs } from "./args/FindFirstMoveMetaCategoriesArgs";
 import { FindFirstMoveMetaCategoriesOrThrowArgs } from "./args/FindFirstMoveMetaCategoriesOrThrowArgs";
 import { FindManyMoveMetaCategoriesArgs } from "./args/FindManyMoveMetaCategoriesArgs";
 import { FindUniqueMoveMetaCategoriesArgs } from "./args/FindUniqueMoveMetaCategoriesArgs";
 import { FindUniqueMoveMetaCategoriesOrThrowArgs } from "./args/FindUniqueMoveMetaCategoriesOrThrowArgs";
 import { GroupByMoveMetaCategoriesArgs } from "./args/GroupByMoveMetaCategoriesArgs";
-
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { MoveMetaCategories } from "../../../models/MoveMetaCategories";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateMoveMetaCategories } from "../../outputs/AggregateMoveMetaCategories";
-import { CreateManyAndReturnMoveMetaCategories } from "../../outputs/CreateManyAndReturnMoveMetaCategories";
 import { MoveMetaCategoriesGroupBy } from "../../outputs/MoveMetaCategoriesGroupBy";
 
 @TypeGraphQL.Resolver(_of => MoveMetaCategories)
@@ -25,61 +21,6 @@ export class MoveMetaCategoriesCrudResolver {
     return getPrismaFromContext(ctx).moveMetaCategories.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyMoveMetaCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyMoveMetaCategoriesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveMetaCategories.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnMoveMetaCategories], {
-    nullable: false
-  })
-  async createManyAndReturnMoveMetaCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnMoveMetaCategoriesArgs): Promise<CreateManyAndReturnMoveMetaCategories[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveMetaCategories.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveMetaCategories, {
-    nullable: false
-  })
-  async createOneMoveMetaCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneMoveMetaCategoriesArgs): Promise<MoveMetaCategories> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveMetaCategories.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyMoveMetaCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyMoveMetaCategoriesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveMetaCategories.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveMetaCategories, {
-    nullable: true
-  })
-  async deleteOneMoveMetaCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneMoveMetaCategoriesArgs): Promise<MoveMetaCategories | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveMetaCategories.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -151,36 +92,4 @@ export class MoveMetaCategoriesCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyMoveMetaCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyMoveMetaCategoriesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveMetaCategories.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveMetaCategories, {
-    nullable: true
-  })
-  async updateOneMoveMetaCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneMoveMetaCategoriesArgs): Promise<MoveMetaCategories | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveMetaCategories.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveMetaCategories, {
-    nullable: false
-  })
-  async upsertOneMoveMetaCategories(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneMoveMetaCategoriesArgs): Promise<MoveMetaCategories> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveMetaCategories.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

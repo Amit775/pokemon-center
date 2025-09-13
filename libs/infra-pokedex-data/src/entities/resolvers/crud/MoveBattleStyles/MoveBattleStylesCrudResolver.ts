@@ -1,19 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateMoveBattleStylesArgs } from "./args/AggregateMoveBattleStylesArgs";
-
 import { FindFirstMoveBattleStylesArgs } from "./args/FindFirstMoveBattleStylesArgs";
 import { FindFirstMoveBattleStylesOrThrowArgs } from "./args/FindFirstMoveBattleStylesOrThrowArgs";
 import { FindManyMoveBattleStylesArgs } from "./args/FindManyMoveBattleStylesArgs";
 import { FindUniqueMoveBattleStylesArgs } from "./args/FindUniqueMoveBattleStylesArgs";
 import { FindUniqueMoveBattleStylesOrThrowArgs } from "./args/FindUniqueMoveBattleStylesOrThrowArgs";
 import { GroupByMoveBattleStylesArgs } from "./args/GroupByMoveBattleStylesArgs";
-
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { MoveBattleStyles } from "../../../models/MoveBattleStyles";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateMoveBattleStyles } from "../../outputs/AggregateMoveBattleStyles";
-import { CreateManyAndReturnMoveBattleStyles } from "../../outputs/CreateManyAndReturnMoveBattleStyles";
 import { MoveBattleStylesGroupBy } from "../../outputs/MoveBattleStylesGroupBy";
 
 @TypeGraphQL.Resolver(_of => MoveBattleStyles)
@@ -25,61 +21,6 @@ export class MoveBattleStylesCrudResolver {
     return getPrismaFromContext(ctx).moveBattleStyles.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyMoveBattleStyles(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyMoveBattleStylesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveBattleStyles.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnMoveBattleStyles], {
-    nullable: false
-  })
-  async createManyAndReturnMoveBattleStyles(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnMoveBattleStylesArgs): Promise<CreateManyAndReturnMoveBattleStyles[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveBattleStyles.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveBattleStyles, {
-    nullable: false
-  })
-  async createOneMoveBattleStyles(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneMoveBattleStylesArgs): Promise<MoveBattleStyles> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveBattleStyles.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyMoveBattleStyles(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyMoveBattleStylesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveBattleStyles.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveBattleStyles, {
-    nullable: true
-  })
-  async deleteOneMoveBattleStyles(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneMoveBattleStylesArgs): Promise<MoveBattleStyles | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveBattleStyles.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -151,36 +92,4 @@ export class MoveBattleStylesCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyMoveBattleStyles(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyMoveBattleStylesArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveBattleStyles.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveBattleStyles, {
-    nullable: true
-  })
-  async updateOneMoveBattleStyles(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneMoveBattleStylesArgs): Promise<MoveBattleStyles | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveBattleStyles.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveBattleStyles, {
-    nullable: false
-  })
-  async upsertOneMoveBattleStyles(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneMoveBattleStylesArgs): Promise<MoveBattleStyles> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveBattleStyles.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

@@ -1,19 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateEvolutionTriggersArgs } from "./args/AggregateEvolutionTriggersArgs";
-
 import { FindFirstEvolutionTriggersArgs } from "./args/FindFirstEvolutionTriggersArgs";
 import { FindFirstEvolutionTriggersOrThrowArgs } from "./args/FindFirstEvolutionTriggersOrThrowArgs";
 import { FindManyEvolutionTriggersArgs } from "./args/FindManyEvolutionTriggersArgs";
 import { FindUniqueEvolutionTriggersArgs } from "./args/FindUniqueEvolutionTriggersArgs";
 import { FindUniqueEvolutionTriggersOrThrowArgs } from "./args/FindUniqueEvolutionTriggersOrThrowArgs";
 import { GroupByEvolutionTriggersArgs } from "./args/GroupByEvolutionTriggersArgs";
-
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { EvolutionTriggers } from "../../../models/EvolutionTriggers";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateEvolutionTriggers } from "../../outputs/AggregateEvolutionTriggers";
-import { CreateManyAndReturnEvolutionTriggers } from "../../outputs/CreateManyAndReturnEvolutionTriggers";
 import { EvolutionTriggersGroupBy } from "../../outputs/EvolutionTriggersGroupBy";
 
 @TypeGraphQL.Resolver(_of => EvolutionTriggers)
@@ -25,61 +21,6 @@ export class EvolutionTriggersCrudResolver {
     return getPrismaFromContext(ctx).evolutionTriggers.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyEvolutionTriggers(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyEvolutionTriggersArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).evolutionTriggers.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnEvolutionTriggers], {
-    nullable: false
-  })
-  async createManyAndReturnEvolutionTriggers(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnEvolutionTriggersArgs): Promise<CreateManyAndReturnEvolutionTriggers[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).evolutionTriggers.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EvolutionTriggers, {
-    nullable: false
-  })
-  async createOneEvolutionTriggers(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneEvolutionTriggersArgs): Promise<EvolutionTriggers> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).evolutionTriggers.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyEvolutionTriggers(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyEvolutionTriggersArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).evolutionTriggers.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EvolutionTriggers, {
-    nullable: true
-  })
-  async deleteOneEvolutionTriggers(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneEvolutionTriggersArgs): Promise<EvolutionTriggers | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).evolutionTriggers.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -151,36 +92,4 @@ export class EvolutionTriggersCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyEvolutionTriggers(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyEvolutionTriggersArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).evolutionTriggers.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EvolutionTriggers, {
-    nullable: true
-  })
-  async updateOneEvolutionTriggers(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneEvolutionTriggersArgs): Promise<EvolutionTriggers | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).evolutionTriggers.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EvolutionTriggers, {
-    nullable: false
-  })
-  async upsertOneEvolutionTriggers(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneEvolutionTriggersArgs): Promise<EvolutionTriggers> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).evolutionTriggers.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }
