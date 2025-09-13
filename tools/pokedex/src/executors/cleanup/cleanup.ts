@@ -65,6 +65,9 @@ class PokedexCleanupService {
 
 		// Clean up outputs directory
 		await this.cleanupOutputs();
+
+		// Clean up enhance.ts file
+		await this.cleanupEnhanceFile();
 	}
 
 	private async cleanupModel(modelName: string): Promise<void> {
@@ -339,6 +342,33 @@ class PokedexCleanupService {
 			if (modified) {
 				await this.writeFile(outputsIndexPath, content, 'outputs index file');
 			}
+		}
+	}
+
+	private async cleanupEnhanceFile(): Promise<void> {
+		const enhanceFilePath = path.join(this.entitiesPath, 'enhance.ts');
+		if (!fs.existsSync(enhanceFilePath)) {
+			return;
+		}
+
+		logger.log(`🧹 Cleaning up enhance.ts file`);
+
+		let content = fs.readFileSync(enhanceFilePath, 'utf8');
+		const originalContent = content;
+
+		const lines = content.split('\n');
+		const newLines = lines.filter((line) => {
+			return !this.mutationPatterns.some((pattern) => line.includes(pattern));
+		});
+
+		content = newLines.join('\n');
+
+		// Clean up extra whitespace and remove empty objects
+		content = content.replace(/,\s*};/g, '};');
+		content = content.replace(/\{\s*\}/g, '{}');
+
+		if (originalContent !== content) {
+			await this.writeFile(enhanceFilePath, content, 'enhance.ts');
 		}
 	}
 
