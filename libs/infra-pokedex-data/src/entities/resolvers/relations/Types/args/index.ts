@@ -1,0 +1,13 @@
+export { TypesBerryFlavorsArgs } from "./TypesBerryFlavorsArgs";
+export { TypesDamageClassArgs } from "./TypesDamageClassArgs";
+export { TypesEfficacyArgs } from "./TypesEfficacyArgs";
+export { TypesEfficacyTargetArgs } from "./TypesEfficacyTargetArgs";
+export { TypesFormTypesArgs } from "./TypesFormTypesArgs";
+export { TypesGameIndicesArgs } from "./TypesGameIndicesArgs";
+export { TypesKnownMoveTypesArgs } from "./TypesKnownMoveTypesArgs";
+export { TypesMovesArgs } from "./TypesMovesArgs";
+export { TypesNaturalGiftTypesArgs } from "./TypesNaturalGiftTypesArgs";
+export { TypesNaturesArgs } from "./TypesNaturesArgs";
+export { TypesNaturesIncreasedArgs } from "./TypesNaturesIncreasedArgs";
+export { TypesPartyTypesArgs } from "./TypesPartyTypesArgs";
+export { TypesPokemonTypesArgs } from "./TypesPokemonTypesArgs";

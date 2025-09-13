@@ -1,0 +1,1 @@
+export { SuperContestEffectsMovesArgs } from "./SuperContestEffectsMovesArgs";

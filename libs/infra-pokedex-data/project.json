@@ -1,5 +1,5 @@
 {
-	"name": "pokedex-data",
+	"name": "infra-pokedex-data",
 	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "libs/infra-pokedex-data/src",
 	"projectType": "library",

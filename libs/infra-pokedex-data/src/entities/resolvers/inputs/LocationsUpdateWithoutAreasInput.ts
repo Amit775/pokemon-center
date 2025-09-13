@@ -1,0 +1,35 @@
+import * as TypeGraphQL from "type-graphql";
+import * as GraphQLScalars from "graphql-scalars";
+import { Prisma } from "@prisma/client";
+import { DecimalJSScalar } from "../../scalars";
+import { LocationGameIndicesUpdateManyWithoutLocationNestedInput } from "../inputs/LocationGameIndicesUpdateManyWithoutLocationNestedInput";
+import { PokemonEvolutionUpdateManyWithoutLocationNestedInput } from "../inputs/PokemonEvolutionUpdateManyWithoutLocationNestedInput";
+import { RegionsUpdateOneWithoutLocationsNestedInput } from "../inputs/RegionsUpdateOneWithoutLocationsNestedInput";
+
+@TypeGraphQL.InputType("LocationsUpdateWithoutAreasInput", {})
+export class LocationsUpdateWithoutAreasInput {
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  id?: number | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  identifier?: string | undefined;
+
+  @TypeGraphQL.Field(_type => RegionsUpdateOneWithoutLocationsNestedInput, {
+    nullable: true
+  })
+  region?: RegionsUpdateOneWithoutLocationsNestedInput | undefined;
+
+  @TypeGraphQL.Field(_type => LocationGameIndicesUpdateManyWithoutLocationNestedInput, {
+    nullable: true
+  })
+  gameIndices?: LocationGameIndicesUpdateManyWithoutLocationNestedInput | undefined;
+
+  @TypeGraphQL.Field(_type => PokemonEvolutionUpdateManyWithoutLocationNestedInput, {
+    nullable: true
+  })
+  evolution?: PokemonEvolutionUpdateManyWithoutLocationNestedInput | undefined;
+}
