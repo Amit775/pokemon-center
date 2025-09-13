@@ -1,1 +1,0 @@
-export { AbilitiesPokemonAbilitiesArgs } from "./AbilitiesPokemonAbilitiesArgs";

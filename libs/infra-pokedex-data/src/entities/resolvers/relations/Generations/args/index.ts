@@ -1,9 +1,0 @@
-export { GenerationsAbilitiesArgs } from "./GenerationsAbilitiesArgs";
-export { GenerationsItemGameIndicesArgs } from "./GenerationsItemGameIndicesArgs";
-export { GenerationsLocationGameIndicesArgs } from "./GenerationsLocationGameIndicesArgs";
-export { GenerationsMovesArgs } from "./GenerationsMovesArgs";
-export { GenerationsPokemonFormGenerationsArgs } from "./GenerationsPokemonFormGenerationsArgs";
-export { GenerationsPokemonSpeciesArgs } from "./GenerationsPokemonSpeciesArgs";
-export { GenerationsTypeGameIndicesArgs } from "./GenerationsTypeGameIndicesArgs";
-export { GenerationsTypesArgs } from "./GenerationsTypesArgs";
-export { GenerationsVersionGroupsArgs } from "./GenerationsVersionGroupsArgs";

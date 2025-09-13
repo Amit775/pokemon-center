@@ -1,1 +1,0 @@
-export { MoveBattleStylesNaturePreferencesArgs } from "./MoveBattleStylesNaturePreferencesArgs";
