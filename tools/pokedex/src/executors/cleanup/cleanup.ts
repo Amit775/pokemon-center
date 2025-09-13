@@ -31,7 +31,7 @@ export default runExecutor;
 class PokedexCleanupService {
 	private readonly mutationPatterns = ['CreateMany', 'CreateOne', 'UpdateMany', 'UpdateOne', 'DeleteMany', 'DeleteOne', 'UpsertOne'];
 
-	private readonly argPatterns = ['CreateMany', 'CreateOne', 'UpdateMany', 'DeleteMany', 'UpsertOne'];
+	private readonly argPatterns = ['CreateMany', 'CreateOne', 'UpdateMany', 'UpdateOne', 'DeleteMany', 'DeleteOne', 'UpsertOne'];
 
 	constructor(
 		private readonly entitiesPath: string,
@@ -62,6 +62,9 @@ class PokedexCleanupService {
 
 		// Clean up index files
 		await this.cleanupIndexFiles();
+
+		// Clean up outputs directory
+		await this.cleanupOutputs();
 	}
 
 	private async cleanupModel(modelName: string): Promise<void> {
@@ -70,23 +73,23 @@ class PokedexCleanupService {
 		logger.log(`🧹 Cleaning up model: ${modelName}`);
 
 		// 1. Delete individual mutation resolver files
-		await this.deleteMutationResolvers(modelPath, modelName);
+		await this.deleteMutationResolvers(modelPath);
 
 		// 2. Delete mutation argument files
-		await this.deleteMutationArgs(modelPath, modelName);
+		await this.deleteMutationArgs(modelPath);
 
 		// 3. Clean up args index file
-		await this.cleanupArgsIndexFile(modelPath, modelName);
+		await this.cleanupArgsIndexFile(modelPath);
 
 		// 4. Clean up main CRUD resolver
 		await this.cleanupMainCrudResolver(modelPath, modelName);
 	}
 
-	private async deleteMutationResolvers(modelPath: string, modelName: string): Promise<void> {
-		const resolverFiles = fs.readdirSync(modelPath).filter((file) => file.endsWith('.ts') && file !== `${modelName}CrudResolver.ts`);
+	private async deleteMutationResolvers(modelPath: string): Promise<void> {
+		const resolverFiles = fs.readdirSync(modelPath).filter((file) => file.endsWith('.ts') && !file.endsWith('CrudResolver.ts'));
 
 		for (const file of resolverFiles) {
-			const shouldDelete = this.mutationPatterns.some((pattern) => file.includes(pattern) && file.includes('Resolver'));
+			const shouldDelete = this.mutationPatterns.some((pattern) => file.includes(pattern));
 
 			if (shouldDelete) {
 				const filePath = path.join(modelPath, file);
@@ -95,7 +98,7 @@ class PokedexCleanupService {
 		}
 	}
 
-	private async deleteMutationArgs(modelPath: string, modelName: string): Promise<void> {
+	private async deleteMutationArgs(modelPath: string): Promise<void> {
 		const argsPath = path.join(modelPath, 'args');
 
 		if (!fs.existsSync(argsPath)) {
@@ -105,7 +108,7 @@ class PokedexCleanupService {
 		const argFiles = fs.readdirSync(argsPath).filter((file) => file.endsWith('.ts') && file !== 'index.ts');
 
 		for (const file of argFiles) {
-			const shouldDelete = this.argPatterns.some((pattern) => file.includes(pattern) && file.includes('Args'));
+			const shouldDelete = this.argPatterns.some((pattern) => file.includes(pattern));
 
 			if (shouldDelete) {
 				const filePath = path.join(argsPath, file);
@@ -114,34 +117,28 @@ class PokedexCleanupService {
 		}
 	}
 
-	private async cleanupArgsIndexFile(modelPath: string, modelName: string): Promise<void> {
+	private async cleanupArgsIndexFile(modelPath: string): Promise<void> {
 		const argsIndexPath = path.join(modelPath, 'args', 'index.ts');
 
 		if (!fs.existsSync(argsIndexPath)) {
 			return;
 		}
 
+		const modelName = path.basename(modelPath);
 		logger.log(`📝 Cleaning up args index file: ${modelName}/args/index.ts`);
 
 		let content = fs.readFileSync(argsIndexPath, 'utf8');
 		let modified = false;
 
 		// Remove mutation-related exports
-		const mutationExportPatterns = [
-			/export { [^}]*CreateMany[^}]* } from "\.\/[^"]*";/g,
-			/export { [^}]*CreateOne[^}]* } from "\.\/[^"]*";/g,
-			/export { [^}]*UpdateMany[^}]* } from "\.\/[^"]*";/g,
-			/export { [^}]*UpdateOne[^}]* } from "\.\/[^"]*";/g,
-			/export { [^}]*DeleteMany[^}]* } from "\.\/[^"]*";/g,
-			/export { [^}]*DeleteOne[^}]* } from "\.\/[^"]*";/g,
-			/export { [^}]*UpsertOne[^}]* } from "\.\/[^"]*";/g,
-		];
+		const lines = content.split('\n');
+		const newLines = lines.filter((line) => {
+			return !this.argPatterns.some((pattern) => line.includes(pattern));
+		});
 
-		for (const pattern of mutationExportPatterns) {
-			if (pattern.test(content)) {
-				content = content.replace(pattern, '');
-				modified = true;
-			}
+		if (lines.length !== newLines.length) {
+			modified = true;
+			content = newLines.join('\n');
 		}
 
 		// Clean up extra whitespace
@@ -162,50 +159,73 @@ class PokedexCleanupService {
 		logger.log(`📝 Cleaning up main CRUD resolver: ${modelName}CrudResolver.ts`);
 
 		let content = fs.readFileSync(crudResolverPath, 'utf8');
-		let modified = false;
+		const originalContent = content;
 
-		// Remove mutation-related imports
-		const mutationImportPatterns = [
-			/import { [^}]*CreateMany[^}]* } from "\.\/args\/[^"]*";/g,
-			/import { [^}]*CreateOne[^}]* } from "\.\/args\/[^"]*";/g,
-			/import { [^}]*UpdateMany[^}]* } from "\.\/args\/[^"]*";/g,
-			/import { [^}]*UpdateOne[^}]* } from "\.\/args\/[^"]*";/g,
-			/import { [^}]*DeleteMany[^}]* } from "\.\/args\/[^"]*";/g,
-			/import { [^}]*DeleteOne[^}]* } from "\.\/args\/[^"]*";/g,
-			/import { [^}]*UpsertOne[^}]* } from "\.\/args\/[^"]*";/g,
-		];
-
-		for (const pattern of mutationImportPatterns) {
-			if (pattern.test(content)) {
-				content = content.replace(pattern, '');
-				modified = true;
-			}
-		}
+		// Remove mutation-related arg imports
+		const mutationArgImportPattern = new RegExp(`import\\s+\\{[^}]*(${this.argPatterns.join('|')})[^}]*\\}\\s+from\\s+"\\.\\/args";`, 'g');
+		content = content.replace(mutationArgImportPattern, '');
 
 		// Remove mutation-related output imports
-		const mutationOutputPatterns = [
-			/import { [^}]*CreateManyAndReturn[^}]* } from "\.\.\/outputs\/[^"]*";/g,
-			/import { AffectedRowsOutput } from "\.\.\/outputs\/[^"]*";/g,
-		];
+		const outputImportPatterns = ['AffectedRowsOutput', 'CreateManyAndReturn'];
+		const mutationOutputImportPattern = new RegExp(
+			`import\\s+\\{[^}]*(${outputImportPatterns.join('|')})[^}]*\\}\\s+from\\s+"\\.\\.\\/outputs";`,
+			'g',
+		);
+		content = content.replace(mutationOutputImportPattern, '');
 
-		for (const pattern of mutationOutputPatterns) {
-			if (pattern.test(content)) {
-				content = content.replace(pattern, '');
-				modified = true;
+		// Remove empty import statements
+		content = content.replace(/import\\s+\\{\\s*\\}\\s+from\\s+"[^"]+";\\r?\\n/g, '');
+
+		// Remove mutation methods
+		let newContent = '';
+		let lastIndex = 0;
+		while (true) {
+			const mutationIndex = content.indexOf('@TypeGraphQL.Mutation', lastIndex);
+			if (mutationIndex === -1) {
+				newContent += content.substring(lastIndex);
+				break;
+			}
+
+			newContent += content.substring(lastIndex, mutationIndex);
+
+			const asyncIndex = content.indexOf('async', mutationIndex);
+			if (asyncIndex === -1) {
+				lastIndex = mutationIndex + 1;
+				continue;
+			}
+
+			const bodyStartIndex = content.indexOf('{', asyncIndex);
+			if (bodyStartIndex === -1) {
+				lastIndex = mutationIndex + 1;
+				continue;
+			}
+
+			let braceLevel = 1;
+			let bodyEndIndex = bodyStartIndex + 1;
+			while (bodyEndIndex < content.length) {
+				if (content[bodyEndIndex] === '{') {
+					braceLevel++;
+				} else if (content[bodyEndIndex] === '}') {
+					braceLevel--;
+					if (braceLevel === 0) {
+						break;
+					}
+				}
+				bodyEndIndex++;
+			}
+
+			if (braceLevel === 0) {
+				lastIndex = bodyEndIndex + 1;
+			} else {
+				lastIndex = mutationIndex + '@TypeGraphQL.Mutation'.length;
 			}
 		}
-
-		// Remove mutation methods (methods decorated with @TypeGraphQL.Mutation)
-		const mutationMethodPattern = /@TypeGraphQL\.Mutation\([^}]*\)\s*async\s+\w+\([^}]*\):\s*Promise<[^>]*>\s*\{[^}]*\}/gs;
-		if (mutationMethodPattern.test(content)) {
-			content = content.replace(mutationMethodPattern, '');
-			modified = true;
-		}
+		content = newContent;
 
 		// Clean up extra whitespace
-		content = content.replace(/\n\s*\n\s*\n/g, '\n\n');
+		content = content.replace(/\n\s*\n\s*\n/g, '\n\n').trim();
 
-		if (modified) {
+		if (originalContent !== content) {
 			await this.writeFile(crudResolverPath, content, `main CRUD resolver: ${modelName}CrudResolver.ts`);
 		}
 	}
@@ -231,21 +251,14 @@ class PokedexCleanupService {
 		let modified = false;
 
 		// Remove exports for mutation resolvers
-		const mutationExportPatterns = [
-			/export \* from "\.\/[^"]*\/CreateMany[^"]*";/g,
-			/export \* from "\.\/[^"]*\/CreateOne[^"]*";/g,
-			/export \* from "\.\/[^"]*\/UpdateMany[^"]*";/g,
-			/export \* from "\.\/[^"]*\/UpdateOne[^"]*";/g,
-			/export \* from "\.\/[^"]*\/DeleteMany[^"]*";/g,
-			/export \* from "\.\/[^"]*\/DeleteOne[^"]*";/g,
-			/export \* from "\.\/[^"]*\/UpsertOne[^"]*";/g,
-		];
+		const lines = content.split('\n');
+		const newLines = lines.filter((line) => {
+			return !this.mutationPatterns.some((pattern) => line.includes(pattern));
+		});
 
-		for (const pattern of mutationExportPatterns) {
-			if (pattern.test(content)) {
-				content = content.replace(pattern, '');
-				modified = true;
-			}
+		if (lines.length !== newLines.length) {
+			modified = true;
+			content = newLines.join('\n');
 		}
 
 		// Clean up extra whitespace
@@ -253,6 +266,50 @@ class PokedexCleanupService {
 
 		if (modified) {
 			await this.writeFile(indexPath, content, `index file: ${path.basename(indexPath)}`);
+		}
+	}
+
+	private async cleanupOutputs(): Promise<void> {
+		const outputsPath = path.join(this.entitiesPath, 'resolvers', 'outputs');
+		if (!fs.existsSync(outputsPath)) {
+			return;
+		}
+
+		logger.log(`🧹 Cleaning up outputs directory: ${outputsPath}`);
+
+		// 1. Delete individual mutation output files
+		const outputFiles = fs.readdirSync(outputsPath).filter((file) => file.endsWith('.ts') && file !== 'index.ts');
+		const mutationOutputPatterns = ['AffectedRowsOutput', 'CreateManyAndReturn'];
+
+		for (const file of outputFiles) {
+			const shouldDelete = mutationOutputPatterns.some((pattern) => file.startsWith(pattern));
+			if (shouldDelete) {
+				const filePath = path.join(outputsPath, file);
+				await this.deleteFile(filePath, `mutation output: ${file}`);
+			}
+		}
+
+		// 2. Clean up outputs index file
+		const outputsIndexPath = path.join(outputsPath, 'index.ts');
+		if (fs.existsSync(outputsIndexPath)) {
+			let content = fs.readFileSync(outputsIndexPath, 'utf8');
+			let modified = false;
+
+			const lines = content.split('\n');
+			const newLines = lines.filter((line) => {
+				return !mutationOutputPatterns.some((pattern) => line.includes(pattern));
+			});
+
+			if (lines.length !== newLines.length) {
+				modified = true;
+				content = newLines.join('\n');
+			}
+
+			content = content.replace(/\n\s*\n\s*\n/g, '\n\n');
+
+			if (modified) {
+				await this.writeFile(outputsIndexPath, content, 'outputs index file');
+			}
 		}
 	}
 
