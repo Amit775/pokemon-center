@@ -1,0 +1,1 @@
+export { PokemonShapesSpeciesArgs } from "./PokemonShapesSpeciesArgs";

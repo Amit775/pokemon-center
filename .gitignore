@@ -49,5 +49,3 @@ Thumbs.db
 .github/instructions/nx.instructions.md
 
 .env
-
-libs/infra-pokedex-data/src/entities

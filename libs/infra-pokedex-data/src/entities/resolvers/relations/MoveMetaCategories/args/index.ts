@@ -1,0 +1,1 @@
+export { MoveMetaCategoriesMetaArgs } from "./MoveMetaCategoriesMetaArgs";

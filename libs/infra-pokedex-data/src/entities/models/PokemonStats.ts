@@ -1,0 +1,33 @@
+import * as TypeGraphQL from "type-graphql";
+import * as GraphQLScalars from "graphql-scalars";
+import { Prisma } from "@prisma/client";
+import { DecimalJSScalar } from "../scalars";
+import { Pokemon } from "../models/Pokemon";
+import { Stats } from "../models/Stats";
+
+@TypeGraphQL.ObjectType("PokemonStats", {})
+export class PokemonStats {
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  pokemon_id!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  stat_id!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  base_stat!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  effort!: number;
+
+  pokemon?: Pokemon;
+
+  stat?: Stats;
+}

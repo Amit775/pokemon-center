@@ -1,0 +1,9 @@
+export { PokemonSpeciesDexNumbersArgs } from "./PokemonSpeciesDexNumbersArgs";
+export { PokemonSpeciesEggGroupsArgs } from "./PokemonSpeciesEggGroupsArgs";
+export { PokemonSpeciesEvolutionArgs } from "./PokemonSpeciesEvolutionArgs";
+export { PokemonSpeciesEvolvesFromArgs } from "./PokemonSpeciesEvolvesFromArgs";
+export { PokemonSpeciesEvolvesToArgs } from "./PokemonSpeciesEvolvesToArgs";
+export { PokemonSpeciesHabitatArgs } from "./PokemonSpeciesHabitatArgs";
+export { PokemonSpeciesPartySpeciesArgs } from "./PokemonSpeciesPartySpeciesArgs";
+export { PokemonSpeciesPokemonArgs } from "./PokemonSpeciesPokemonArgs";
+export { PokemonSpeciesTradeSpeciesArgs } from "./PokemonSpeciesTradeSpeciesArgs";
