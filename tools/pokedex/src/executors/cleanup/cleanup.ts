@@ -161,21 +161,6 @@ class PokedexCleanupService {
 		let content = fs.readFileSync(crudResolverPath, 'utf8');
 		const originalContent = content;
 
-		// Remove mutation-related arg imports
-		const mutationArgImportPattern = new RegExp(`import\\s+\\{[^}]*(${this.argPatterns.join('|')})[^}]*\\}\\s+from\\s+"\\.\\/args";`, 'g');
-		content = content.replace(mutationArgImportPattern, '');
-
-		// Remove mutation-related output imports
-		const outputImportPatterns = ['AffectedRowsOutput', 'CreateManyAndReturn'];
-		const mutationOutputImportPattern = new RegExp(
-			`import\\s+\\{[^}]*(${outputImportPatterns.join('|')})[^}]*\\}\\s+from\\s+"\\.\\.\\/outputs";`,
-			'g',
-		);
-		content = content.replace(mutationOutputImportPattern, '');
-
-		// Remove empty import statements
-		content = content.replace(/import\\s+\\{\\s*\\}\\s+from\\s+"[^"]+";\\r?\\n/g, '');
-
 		// Remove mutation methods
 		let newContent = '';
 		let lastIndex = 0;
@@ -221,6 +206,50 @@ class PokedexCleanupService {
 			}
 		}
 		content = newContent;
+
+		// Remove unused imports
+		const lines = content.split('\n');
+		const importLines = lines.filter((line) => line.trim().startsWith('import '));
+		const otherLines = lines.filter((line) => !line.trim().startsWith('import '));
+		const otherLinesContent = otherLines.join('\n');
+		const newImportLines: string[] = [];
+
+		for (const line of importLines) {
+			const namedImportMatch = line.match(/import\s+(?:type\s+)?\{([^}]+)\}\s+from\s+(['"][^'"]+['"]);?/);
+			if (namedImportMatch) {
+				const importedSymbols = namedImportMatch[1]
+					.split(',')
+					.map((s) => s.trim())
+					.filter(Boolean);
+				const usedSymbols = [];
+				for (const symbol of importedSymbols) {
+					const symbolWithoutAlias = symbol.split(' as ')[0].trim();
+					if (new RegExp(`\\b${symbolWithoutAlias}\\b`).test(otherLinesContent)) {
+						usedSymbols.push(symbol);
+					}
+				}
+
+				if (usedSymbols.length > 0) {
+					const typeKeyword = line.includes('import type') ? 'type ' : '';
+					newImportLines.push(`import ${typeKeyword}{ ${usedSymbols.join(', ')} } from ${namedImportMatch[2]};`);
+				}
+			} else {
+				const otherImportMatch = line.match(/import\s+((?:[\w$]+|\* as [\w$]+))\s+from/);
+				if (otherImportMatch) {
+					let symbol = otherImportMatch[1];
+					if (symbol.startsWith('* as ')) {
+						symbol = symbol.substring(5).trim();
+					}
+					if (new RegExp(`\\b${symbol}\\b`).test(otherLinesContent)) {
+						newImportLines.push(line);
+					}
+				} else {
+					newImportLines.push(line);
+				}
+			}
+		}
+
+		content = newImportLines.join('\n') + '\n\n' + otherLines.join('\n');
 
 		// Clean up extra whitespace
 		content = content.replace(/\n\s*\n\s*\n/g, '\n\n').trim();
