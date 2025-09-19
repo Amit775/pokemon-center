@@ -1,0 +1,1 @@
+export { EggGroupSpeciesArgs } from "./EggGroupSpeciesArgs";

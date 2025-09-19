@@ -1,0 +1,15 @@
+export { AggregatePokemonDexNumberArgs } from "./AggregatePokemonDexNumberArgs";
+export { CreateManyAndReturnPokemonDexNumberArgs } from "./CreateManyAndReturnPokemonDexNumberArgs";
+export { CreateManyPokemonDexNumberArgs } from "./CreateManyPokemonDexNumberArgs";
+export { CreateOnePokemonDexNumberArgs } from "./CreateOnePokemonDexNumberArgs";
+export { DeleteManyPokemonDexNumberArgs } from "./DeleteManyPokemonDexNumberArgs";
+export { DeleteOnePokemonDexNumberArgs } from "./DeleteOnePokemonDexNumberArgs";
+export { FindFirstPokemonDexNumberArgs } from "./FindFirstPokemonDexNumberArgs";
+export { FindFirstPokemonDexNumberOrThrowArgs } from "./FindFirstPokemonDexNumberOrThrowArgs";
+export { FindManyPokemonDexNumberArgs } from "./FindManyPokemonDexNumberArgs";
+export { FindUniquePokemonDexNumberArgs } from "./FindUniquePokemonDexNumberArgs";
+export { FindUniquePokemonDexNumberOrThrowArgs } from "./FindUniquePokemonDexNumberOrThrowArgs";
+export { GroupByPokemonDexNumberArgs } from "./GroupByPokemonDexNumberArgs";
+export { UpdateManyPokemonDexNumberArgs } from "./UpdateManyPokemonDexNumberArgs";
+export { UpdateOnePokemonDexNumberArgs } from "./UpdateOnePokemonDexNumberArgs";
+export { UpsertOnePokemonDexNumberArgs } from "./UpsertOnePokemonDexNumberArgs";

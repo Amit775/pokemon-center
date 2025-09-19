@@ -1,0 +1,15 @@
+export { AggregateMoveMetaAilmentArgs } from "./AggregateMoveMetaAilmentArgs";
+export { CreateManyAndReturnMoveMetaAilmentArgs } from "./CreateManyAndReturnMoveMetaAilmentArgs";
+export { CreateManyMoveMetaAilmentArgs } from "./CreateManyMoveMetaAilmentArgs";
+export { CreateOneMoveMetaAilmentArgs } from "./CreateOneMoveMetaAilmentArgs";
+export { DeleteManyMoveMetaAilmentArgs } from "./DeleteManyMoveMetaAilmentArgs";
+export { DeleteOneMoveMetaAilmentArgs } from "./DeleteOneMoveMetaAilmentArgs";
+export { FindFirstMoveMetaAilmentArgs } from "./FindFirstMoveMetaAilmentArgs";
+export { FindFirstMoveMetaAilmentOrThrowArgs } from "./FindFirstMoveMetaAilmentOrThrowArgs";
+export { FindManyMoveMetaAilmentArgs } from "./FindManyMoveMetaAilmentArgs";
+export { FindUniqueMoveMetaAilmentArgs } from "./FindUniqueMoveMetaAilmentArgs";
+export { FindUniqueMoveMetaAilmentOrThrowArgs } from "./FindUniqueMoveMetaAilmentOrThrowArgs";
+export { GroupByMoveMetaAilmentArgs } from "./GroupByMoveMetaAilmentArgs";
+export { UpdateManyMoveMetaAilmentArgs } from "./UpdateManyMoveMetaAilmentArgs";
+export { UpdateOneMoveMetaAilmentArgs } from "./UpdateOneMoveMetaAilmentArgs";
+export { UpsertOneMoveMetaAilmentArgs } from "./UpsertOneMoveMetaAilmentArgs";

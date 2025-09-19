@@ -1,0 +1,15 @@
+export { AggregateMoveDamageClassArgs } from "./AggregateMoveDamageClassArgs";
+export { CreateManyAndReturnMoveDamageClassArgs } from "./CreateManyAndReturnMoveDamageClassArgs";
+export { CreateManyMoveDamageClassArgs } from "./CreateManyMoveDamageClassArgs";
+export { CreateOneMoveDamageClassArgs } from "./CreateOneMoveDamageClassArgs";
+export { DeleteManyMoveDamageClassArgs } from "./DeleteManyMoveDamageClassArgs";
+export { DeleteOneMoveDamageClassArgs } from "./DeleteOneMoveDamageClassArgs";
+export { FindFirstMoveDamageClassArgs } from "./FindFirstMoveDamageClassArgs";
+export { FindFirstMoveDamageClassOrThrowArgs } from "./FindFirstMoveDamageClassOrThrowArgs";
+export { FindManyMoveDamageClassArgs } from "./FindManyMoveDamageClassArgs";
+export { FindUniqueMoveDamageClassArgs } from "./FindUniqueMoveDamageClassArgs";
+export { FindUniqueMoveDamageClassOrThrowArgs } from "./FindUniqueMoveDamageClassOrThrowArgs";
+export { GroupByMoveDamageClassArgs } from "./GroupByMoveDamageClassArgs";
+export { UpdateManyMoveDamageClassArgs } from "./UpdateManyMoveDamageClassArgs";
+export { UpdateOneMoveDamageClassArgs } from "./UpdateOneMoveDamageClassArgs";
+export { UpsertOneMoveDamageClassArgs } from "./UpsertOneMoveDamageClassArgs";

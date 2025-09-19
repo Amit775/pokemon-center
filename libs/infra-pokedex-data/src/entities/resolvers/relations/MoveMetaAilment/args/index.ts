@@ -1,0 +1,1 @@
+export { MoveMetaAilmentMetaArgs } from "./MoveMetaAilmentMetaArgs";
