@@ -1,11 +1,11 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { MoveMetaAilmentsWhereInput } from "../../../inputs/MoveMetaAilmentsWhereInput";
+import { MoveMetaAilmentWhereInput } from "../../../inputs/MoveMetaAilmentWhereInput";
 
 @TypeGraphQL.ArgsType()
 export class MoveMetaMetaAilmentArgs {
-  @TypeGraphQL.Field(_type => MoveMetaAilmentsWhereInput, {
+  @TypeGraphQL.Field(_type => MoveMetaAilmentWhereInput, {
     nullable: true
   })
-  where?: MoveMetaAilmentsWhereInput | undefined;
+  where?: MoveMetaAilmentWhereInput | undefined;
 }

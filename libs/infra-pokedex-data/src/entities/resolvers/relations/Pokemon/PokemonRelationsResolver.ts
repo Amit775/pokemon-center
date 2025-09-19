@@ -1,15 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
-import { Encounters } from "../../../models/Encounters";
+import { Encounter } from "../../../models/Encounter";
 import { Pokemon } from "../../../models/Pokemon";
-import { PokemonAbilities } from "../../../models/PokemonAbilities";
-import { PokemonForms } from "../../../models/PokemonForms";
-import { PokemonGameIndices } from "../../../models/PokemonGameIndices";
-import { PokemonItems } from "../../../models/PokemonItems";
-import { PokemonMoves } from "../../../models/PokemonMoves";
+import { PokemonAbility } from "../../../models/PokemonAbility";
+import { PokemonForm } from "../../../models/PokemonForm";
+import { PokemonGameIndex } from "../../../models/PokemonGameIndex";
+import { PokemonItem } from "../../../models/PokemonItem";
+import { PokemonMove } from "../../../models/PokemonMove";
 import { PokemonSpecies } from "../../../models/PokemonSpecies";
-import { PokemonStats } from "../../../models/PokemonStats";
-import { PokemonTypes } from "../../../models/PokemonTypes";
+import { PokemonStat } from "../../../models/PokemonStat";
+import { PokemonType } from "../../../models/PokemonType";
 import { PokemonAbilitiesArgs } from "./args/PokemonAbilitiesArgs";
 import { PokemonEncountersArgs } from "./args/PokemonEncountersArgs";
 import { PokemonFormsArgs } from "./args/PokemonFormsArgs";
@@ -36,10 +36,10 @@ export class PokemonRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => [PokemonForms], {
+  @TypeGraphQL.FieldResolver(_type => [PokemonForm], {
     nullable: false
   })
-  async forms(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonFormsArgs): Promise<PokemonForms[]> {
+  async forms(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonFormsArgs): Promise<PokemonForm[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemon.findUniqueOrThrow({
       where: {
@@ -51,10 +51,10 @@ export class PokemonRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => [PokemonAbilities], {
+  @TypeGraphQL.FieldResolver(_type => [PokemonAbility], {
     nullable: false
   })
-  async abilities(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonAbilitiesArgs): Promise<PokemonAbilities[]> {
+  async abilities(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonAbilitiesArgs): Promise<PokemonAbility[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemon.findUniqueOrThrow({
       where: {
@@ -66,10 +66,10 @@ export class PokemonRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => [PokemonMoves], {
+  @TypeGraphQL.FieldResolver(_type => [PokemonMove], {
     nullable: false
   })
-  async moves(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonMovesArgs): Promise<PokemonMoves[]> {
+  async moves(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonMovesArgs): Promise<PokemonMove[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemon.findUniqueOrThrow({
       where: {
@@ -81,10 +81,10 @@ export class PokemonRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => [PokemonStats], {
+  @TypeGraphQL.FieldResolver(_type => [PokemonStat], {
     nullable: false
   })
-  async stats(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonStatsArgs): Promise<PokemonStats[]> {
+  async stats(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonStatsArgs): Promise<PokemonStat[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemon.findUniqueOrThrow({
       where: {
@@ -96,10 +96,10 @@ export class PokemonRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => [PokemonTypes], {
+  @TypeGraphQL.FieldResolver(_type => [PokemonType], {
     nullable: false
   })
-  async types(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonTypesArgs): Promise<PokemonTypes[]> {
+  async types(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonTypesArgs): Promise<PokemonType[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemon.findUniqueOrThrow({
       where: {
@@ -111,10 +111,10 @@ export class PokemonRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => [PokemonItems], {
+  @TypeGraphQL.FieldResolver(_type => [PokemonItem], {
     nullable: false
   })
-  async items(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonItemsArgs): Promise<PokemonItems[]> {
+  async items(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonItemsArgs): Promise<PokemonItem[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemon.findUniqueOrThrow({
       where: {
@@ -126,10 +126,10 @@ export class PokemonRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => [PokemonGameIndices], {
+  @TypeGraphQL.FieldResolver(_type => [PokemonGameIndex], {
     nullable: false
   })
-  async gameIndices(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonGameIndicesArgs): Promise<PokemonGameIndices[]> {
+  async gameIndices(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonGameIndicesArgs): Promise<PokemonGameIndex[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemon.findUniqueOrThrow({
       where: {
@@ -141,10 +141,10 @@ export class PokemonRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => [Encounters], {
+  @TypeGraphQL.FieldResolver(_type => [Encounter], {
     nullable: false
   })
-  async encounters(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEncountersArgs): Promise<Encounters[]> {
+  async encounters(@TypeGraphQL.Root() pokemon: Pokemon, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEncountersArgs): Promise<Encounter[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemon.findUniqueOrThrow({
       where: {

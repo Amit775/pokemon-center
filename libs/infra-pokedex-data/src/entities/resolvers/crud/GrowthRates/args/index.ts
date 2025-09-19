@@ -1,7 +1,15 @@
 export { AggregateGrowthRatesArgs } from "./AggregateGrowthRatesArgs";
+export { CreateManyAndReturnGrowthRatesArgs } from "./CreateManyAndReturnGrowthRatesArgs";
+export { CreateManyGrowthRatesArgs } from "./CreateManyGrowthRatesArgs";
+export { CreateOneGrowthRatesArgs } from "./CreateOneGrowthRatesArgs";
+export { DeleteManyGrowthRatesArgs } from "./DeleteManyGrowthRatesArgs";
+export { DeleteOneGrowthRatesArgs } from "./DeleteOneGrowthRatesArgs";
 export { FindFirstGrowthRatesArgs } from "./FindFirstGrowthRatesArgs";
 export { FindFirstGrowthRatesOrThrowArgs } from "./FindFirstGrowthRatesOrThrowArgs";
 export { FindManyGrowthRatesArgs } from "./FindManyGrowthRatesArgs";
 export { FindUniqueGrowthRatesArgs } from "./FindUniqueGrowthRatesArgs";
 export { FindUniqueGrowthRatesOrThrowArgs } from "./FindUniqueGrowthRatesOrThrowArgs";
 export { GroupByGrowthRatesArgs } from "./GroupByGrowthRatesArgs";
+export { UpdateManyGrowthRatesArgs } from "./UpdateManyGrowthRatesArgs";
+export { UpdateOneGrowthRatesArgs } from "./UpdateOneGrowthRatesArgs";
+export { UpsertOneGrowthRatesArgs } from "./UpsertOneGrowthRatesArgs";

@@ -1,26 +1,26 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { BerriesOrderByWithRelationInput } from "../../../inputs/BerriesOrderByWithRelationInput";
-import { BerriesWhereInput } from "../../../inputs/BerriesWhereInput";
-import { BerriesWhereUniqueInput } from "../../../inputs/BerriesWhereUniqueInput";
-import { BerriesScalarFieldEnum } from "../../../../enums/BerriesScalarFieldEnum";
+import { BerryOrderByWithRelationInput } from "../../../inputs/BerryOrderByWithRelationInput";
+import { BerryWhereInput } from "../../../inputs/BerryWhereInput";
+import { BerryWhereUniqueInput } from "../../../inputs/BerryWhereUniqueInput";
+import { BerryScalarFieldEnum } from "../../../../enums/BerryScalarFieldEnum";
 
 @TypeGraphQL.ArgsType()
 export class BerryFirmnessBerriesArgs {
-  @TypeGraphQL.Field(_type => BerriesWhereInput, {
+  @TypeGraphQL.Field(_type => BerryWhereInput, {
     nullable: true
   })
-  where?: BerriesWhereInput | undefined;
+  where?: BerryWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => [BerriesOrderByWithRelationInput], {
+  @TypeGraphQL.Field(_type => [BerryOrderByWithRelationInput], {
     nullable: true
   })
-  orderBy?: BerriesOrderByWithRelationInput[] | undefined;
+  orderBy?: BerryOrderByWithRelationInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => BerriesWhereUniqueInput, {
+  @TypeGraphQL.Field(_type => BerryWhereUniqueInput, {
     nullable: true
   })
-  cursor?: BerriesWhereUniqueInput | undefined;
+  cursor?: BerryWhereUniqueInput | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
@@ -32,7 +32,7 @@ export class BerryFirmnessBerriesArgs {
   })
   skip?: number | undefined;
 
-  @TypeGraphQL.Field(_type => [BerriesScalarFieldEnum], {
+  @TypeGraphQL.Field(_type => [BerryScalarFieldEnum], {
     nullable: true
   })
   distinct?: Array<"id" | "item_id" | "firmness_id" | "natural_gift_power" | "natural_gift_type_id" | "size" | "max_harvest" | "growth_time" | "soil_dryness" | "smoothness"> | undefined;

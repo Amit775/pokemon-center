@@ -1,0 +1,15 @@
+export { AggregatePokemonStatArgs } from "./AggregatePokemonStatArgs";
+export { CreateManyAndReturnPokemonStatArgs } from "./CreateManyAndReturnPokemonStatArgs";
+export { CreateManyPokemonStatArgs } from "./CreateManyPokemonStatArgs";
+export { CreateOnePokemonStatArgs } from "./CreateOnePokemonStatArgs";
+export { DeleteManyPokemonStatArgs } from "./DeleteManyPokemonStatArgs";
+export { DeleteOnePokemonStatArgs } from "./DeleteOnePokemonStatArgs";
+export { FindFirstPokemonStatArgs } from "./FindFirstPokemonStatArgs";
+export { FindFirstPokemonStatOrThrowArgs } from "./FindFirstPokemonStatOrThrowArgs";
+export { FindManyPokemonStatArgs } from "./FindManyPokemonStatArgs";
+export { FindUniquePokemonStatArgs } from "./FindUniquePokemonStatArgs";
+export { FindUniquePokemonStatOrThrowArgs } from "./FindUniquePokemonStatOrThrowArgs";
+export { GroupByPokemonStatArgs } from "./GroupByPokemonStatArgs";
+export { UpdateManyPokemonStatArgs } from "./UpdateManyPokemonStatArgs";
+export { UpdateOnePokemonStatArgs } from "./UpdateOnePokemonStatArgs";
+export { UpsertOnePokemonStatArgs } from "./UpsertOnePokemonStatArgs";

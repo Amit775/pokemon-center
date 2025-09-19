@@ -2,7 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { EvolutionTriggersRelationFilter } from "../inputs/EvolutionTriggersRelationFilter";
+import { EvolutionTriggerRelationFilter } from "../inputs/EvolutionTriggerRelationFilter";
 import { GendersNullableRelationFilter } from "../inputs/GendersNullableRelationFilter";
 import { IntFilter } from "../inputs/IntFilter";
 import { IntNullableFilter } from "../inputs/IntNullableFilter";
@@ -137,10 +137,10 @@ export class PokemonEvolutionWhereUniqueInput {
   })
   evolvedSpecies?: PokemonSpeciesRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => EvolutionTriggersRelationFilter, {
+  @TypeGraphQL.Field(_type => EvolutionTriggerRelationFilter, {
     nullable: true
   })
-  evolutionTrigger?: EvolutionTriggersRelationFilter | undefined;
+  evolutionTrigger?: EvolutionTriggerRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => ItemsNullableRelationFilter, {
     nullable: true

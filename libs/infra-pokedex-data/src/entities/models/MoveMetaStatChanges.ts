@@ -2,9 +2,9 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
+import { Move } from "../models/Move";
 import { MoveMeta } from "../models/MoveMeta";
-import { Moves } from "../models/Moves";
-import { Stats } from "../models/Stats";
+import { Stat } from "../models/Stat";
 
 @TypeGraphQL.ObjectType("MoveMetaStatChanges", {})
 export class MoveMetaStatChanges {
@@ -23,9 +23,9 @@ export class MoveMetaStatChanges {
   })
   change!: number;
 
-  move?: Moves;
+  move?: Move;
 
-  stat?: Stats;
+  stat?: Stat;
 
   meta?: MoveMeta;
 }

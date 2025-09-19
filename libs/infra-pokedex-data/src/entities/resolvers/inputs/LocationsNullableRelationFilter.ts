@@ -2,17 +2,17 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { LocationsWhereInput } from "../inputs/LocationsWhereInput";
+import { LocationWhereInput } from "../inputs/LocationWhereInput";
 
 @TypeGraphQL.InputType("LocationsNullableRelationFilter", {})
 export class LocationsNullableRelationFilter {
-  @TypeGraphQL.Field(_type => LocationsWhereInput, {
+  @TypeGraphQL.Field(_type => LocationWhereInput, {
     nullable: true
   })
-  is?: LocationsWhereInput | undefined;
+  is?: LocationWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => LocationsWhereInput, {
+  @TypeGraphQL.Field(_type => LocationWhereInput, {
     nullable: true
   })
-  isNot?: LocationsWhereInput | undefined;
+  isNot?: LocationWhereInput | undefined;
 }

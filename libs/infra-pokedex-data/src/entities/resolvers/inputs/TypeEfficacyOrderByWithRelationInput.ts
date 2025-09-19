@@ -2,7 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { TypesOrderByWithRelationInput } from "../inputs/TypesOrderByWithRelationInput";
+import { TypeOrderByWithRelationInput } from "../inputs/TypeOrderByWithRelationInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("TypeEfficacyOrderByWithRelationInput", {})
@@ -22,13 +22,13 @@ export class TypeEfficacyOrderByWithRelationInput {
   })
   damage_factor?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => TypesOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => TypeOrderByWithRelationInput, {
     nullable: true
   })
-  damageType?: TypesOrderByWithRelationInput | undefined;
+  damageType?: TypeOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => TypesOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => TypeOrderByWithRelationInput, {
     nullable: true
   })
-  targetType?: TypesOrderByWithRelationInput | undefined;
+  targetType?: TypeOrderByWithRelationInput | undefined;
 }

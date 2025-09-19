@@ -1,0 +1,44 @@
+import * as TypeGraphQL from "type-graphql";
+import * as GraphQLScalars from "graphql-scalars";
+import { Prisma } from "@prisma/client";
+import { DecimalJSScalar } from "../../scalars";
+import { IntFilter } from "../inputs/IntFilter";
+import { MoveListRelationFilter } from "../inputs/MoveListRelationFilter";
+
+@TypeGraphQL.InputType("ContestEffectWhereInput", {})
+export class ContestEffectWhereInput {
+  @TypeGraphQL.Field(_type => [ContestEffectWhereInput], {
+    nullable: true
+  })
+  AND?: ContestEffectWhereInput[] | undefined;
+
+  @TypeGraphQL.Field(_type => [ContestEffectWhereInput], {
+    nullable: true
+  })
+  OR?: ContestEffectWhereInput[] | undefined;
+
+  @TypeGraphQL.Field(_type => [ContestEffectWhereInput], {
+    nullable: true
+  })
+  NOT?: ContestEffectWhereInput[] | undefined;
+
+  @TypeGraphQL.Field(_type => IntFilter, {
+    nullable: true
+  })
+  id?: IntFilter | undefined;
+
+  @TypeGraphQL.Field(_type => IntFilter, {
+    nullable: true
+  })
+  appeal?: IntFilter | undefined;
+
+  @TypeGraphQL.Field(_type => IntFilter, {
+    nullable: true
+  })
+  jam?: IntFilter | undefined;
+
+  @TypeGraphQL.Field(_type => MoveListRelationFilter, {
+    nullable: true
+  })
+  moves?: MoveListRelationFilter | undefined;
+}

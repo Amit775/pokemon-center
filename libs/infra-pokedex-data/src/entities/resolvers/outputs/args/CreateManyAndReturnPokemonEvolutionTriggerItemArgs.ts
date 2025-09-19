@@ -1,11 +1,11 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { ItemsWhereInput } from "../../inputs/ItemsWhereInput";
+import { ItemWhereInput } from "../../inputs/ItemWhereInput";
 
 @TypeGraphQL.ArgsType()
 export class CreateManyAndReturnPokemonEvolutionTriggerItemArgs {
-  @TypeGraphQL.Field(_type => ItemsWhereInput, {
+  @TypeGraphQL.Field(_type => ItemWhereInput, {
     nullable: true
   })
-  where?: ItemsWhereInput | undefined;
+  where?: ItemWhereInput | undefined;
 }

@@ -2,16 +2,16 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { EvolutionChainsOrderByWithRelationInput } from "../inputs/EvolutionChainsOrderByWithRelationInput";
-import { GenerationsOrderByWithRelationInput } from "../inputs/GenerationsOrderByWithRelationInput";
+import { EvolutionChainOrderByWithRelationInput } from "../inputs/EvolutionChainOrderByWithRelationInput";
+import { GenerationOrderByWithRelationInput } from "../inputs/GenerationOrderByWithRelationInput";
 import { GrowthRatesOrderByWithRelationInput } from "../inputs/GrowthRatesOrderByWithRelationInput";
-import { PokemonColorsOrderByWithRelationInput } from "../inputs/PokemonColorsOrderByWithRelationInput";
-import { PokemonDexNumbersOrderByRelationAggregateInput } from "../inputs/PokemonDexNumbersOrderByRelationAggregateInput";
-import { PokemonEggGroupsOrderByRelationAggregateInput } from "../inputs/PokemonEggGroupsOrderByRelationAggregateInput";
+import { PokemonColorOrderByWithRelationInput } from "../inputs/PokemonColorOrderByWithRelationInput";
+import { PokemonDexNumberOrderByRelationAggregateInput } from "../inputs/PokemonDexNumberOrderByRelationAggregateInput";
+import { PokemonEggGroupOrderByRelationAggregateInput } from "../inputs/PokemonEggGroupOrderByRelationAggregateInput";
 import { PokemonEvolutionOrderByRelationAggregateInput } from "../inputs/PokemonEvolutionOrderByRelationAggregateInput";
-import { PokemonHabitatsOrderByWithRelationInput } from "../inputs/PokemonHabitatsOrderByWithRelationInput";
+import { PokemonHabitatOrderByWithRelationInput } from "../inputs/PokemonHabitatOrderByWithRelationInput";
 import { PokemonOrderByRelationAggregateInput } from "../inputs/PokemonOrderByRelationAggregateInput";
-import { PokemonShapesOrderByWithRelationInput } from "../inputs/PokemonShapesOrderByWithRelationInput";
+import { PokemonShapeOrderByWithRelationInput } from "../inputs/PokemonShapeOrderByWithRelationInput";
 import { PokemonSpeciesOrderByRelationAggregateInput } from "../inputs/PokemonSpeciesOrderByRelationAggregateInput";
 import { SortOrderInput } from "../inputs/SortOrderInput";
 import { SortOrder } from "../../enums/SortOrder";
@@ -118,10 +118,10 @@ export class PokemonSpeciesOrderByWithRelationInput {
   })
   conquest_order?: SortOrderInput | undefined;
 
-  @TypeGraphQL.Field(_type => GenerationsOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => GenerationOrderByWithRelationInput, {
     nullable: true
   })
-  generation?: GenerationsOrderByWithRelationInput | undefined;
+  generation?: GenerationOrderByWithRelationInput | undefined;
 
   @TypeGraphQL.Field(_type => PokemonSpeciesOrderByWithRelationInput, {
     nullable: true
@@ -133,25 +133,25 @@ export class PokemonSpeciesOrderByWithRelationInput {
   })
   evolvesTo?: PokemonSpeciesOrderByRelationAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => EvolutionChainsOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => EvolutionChainOrderByWithRelationInput, {
     nullable: true
   })
-  evolutionChain?: EvolutionChainsOrderByWithRelationInput | undefined;
+  evolutionChain?: EvolutionChainOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonColorsOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => PokemonColorOrderByWithRelationInput, {
     nullable: true
   })
-  color?: PokemonColorsOrderByWithRelationInput | undefined;
+  color?: PokemonColorOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonShapesOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => PokemonShapeOrderByWithRelationInput, {
     nullable: true
   })
-  shape?: PokemonShapesOrderByWithRelationInput | undefined;
+  shape?: PokemonShapeOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonHabitatsOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => PokemonHabitatOrderByWithRelationInput, {
     nullable: true
   })
-  habitat?: PokemonHabitatsOrderByWithRelationInput | undefined;
+  habitat?: PokemonHabitatOrderByWithRelationInput | undefined;
 
   @TypeGraphQL.Field(_type => GrowthRatesOrderByWithRelationInput, {
     nullable: true
@@ -163,15 +163,15 @@ export class PokemonSpeciesOrderByWithRelationInput {
   })
   pokemon?: PokemonOrderByRelationAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonEggGroupsOrderByRelationAggregateInput, {
+  @TypeGraphQL.Field(_type => PokemonEggGroupOrderByRelationAggregateInput, {
     nullable: true
   })
-  eggGroups?: PokemonEggGroupsOrderByRelationAggregateInput | undefined;
+  eggGroups?: PokemonEggGroupOrderByRelationAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonDexNumbersOrderByRelationAggregateInput, {
+  @TypeGraphQL.Field(_type => PokemonDexNumberOrderByRelationAggregateInput, {
     nullable: true
   })
-  dexNumbers?: PokemonDexNumbersOrderByRelationAggregateInput | undefined;
+  dexNumbers?: PokemonDexNumberOrderByRelationAggregateInput | undefined;
 
   @TypeGraphQL.Field(_type => PokemonEvolutionOrderByRelationAggregateInput, {
     nullable: true

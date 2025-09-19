@@ -2,7 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
-import { Types } from "../models/Types";
+import { Type } from "../models/Type";
 
 @TypeGraphQL.ObjectType("TypeEfficacy", {})
 export class TypeEfficacy {
@@ -21,7 +21,7 @@ export class TypeEfficacy {
   })
   damage_factor!: number;
 
-  damageType?: Types;
+  damageType?: Type;
 
-  targetType?: Types;
+  targetType?: Type;
 }

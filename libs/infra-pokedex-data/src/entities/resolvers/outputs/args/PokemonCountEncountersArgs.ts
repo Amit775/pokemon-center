@@ -1,11 +1,11 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { EncountersWhereInput } from "../../inputs/EncountersWhereInput";
+import { EncounterWhereInput } from "../../inputs/EncounterWhereInput";
 
 @TypeGraphQL.ArgsType()
 export class PokemonCountEncountersArgs {
-  @TypeGraphQL.Field(_type => EncountersWhereInput, {
+  @TypeGraphQL.Field(_type => EncounterWhereInput, {
     nullable: true
   })
-  where?: EncountersWhereInput | undefined;
+  where?: EncounterWhereInput | undefined;
 }

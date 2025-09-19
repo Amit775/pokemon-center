@@ -1,0 +1,15 @@
+export { AggregatePokemonFormGenerationArgs } from "./AggregatePokemonFormGenerationArgs";
+export { CreateManyAndReturnPokemonFormGenerationArgs } from "./CreateManyAndReturnPokemonFormGenerationArgs";
+export { CreateManyPokemonFormGenerationArgs } from "./CreateManyPokemonFormGenerationArgs";
+export { CreateOnePokemonFormGenerationArgs } from "./CreateOnePokemonFormGenerationArgs";
+export { DeleteManyPokemonFormGenerationArgs } from "./DeleteManyPokemonFormGenerationArgs";
+export { DeleteOnePokemonFormGenerationArgs } from "./DeleteOnePokemonFormGenerationArgs";
+export { FindFirstPokemonFormGenerationArgs } from "./FindFirstPokemonFormGenerationArgs";
+export { FindFirstPokemonFormGenerationOrThrowArgs } from "./FindFirstPokemonFormGenerationOrThrowArgs";
+export { FindManyPokemonFormGenerationArgs } from "./FindManyPokemonFormGenerationArgs";
+export { FindUniquePokemonFormGenerationArgs } from "./FindUniquePokemonFormGenerationArgs";
+export { FindUniquePokemonFormGenerationOrThrowArgs } from "./FindUniquePokemonFormGenerationOrThrowArgs";
+export { GroupByPokemonFormGenerationArgs } from "./GroupByPokemonFormGenerationArgs";
+export { UpdateManyPokemonFormGenerationArgs } from "./UpdateManyPokemonFormGenerationArgs";
+export { UpdateOnePokemonFormGenerationArgs } from "./UpdateOnePokemonFormGenerationArgs";
+export { UpsertOnePokemonFormGenerationArgs } from "./UpsertOnePokemonFormGenerationArgs";

@@ -1,26 +1,26 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { PokemonStatsOrderByWithRelationInput } from "../../../inputs/PokemonStatsOrderByWithRelationInput";
-import { PokemonStatsWhereInput } from "../../../inputs/PokemonStatsWhereInput";
-import { PokemonStatsWhereUniqueInput } from "../../../inputs/PokemonStatsWhereUniqueInput";
-import { PokemonStatsScalarFieldEnum } from "../../../../enums/PokemonStatsScalarFieldEnum";
+import { PokemonStatOrderByWithRelationInput } from "../../../inputs/PokemonStatOrderByWithRelationInput";
+import { PokemonStatWhereInput } from "../../../inputs/PokemonStatWhereInput";
+import { PokemonStatWhereUniqueInput } from "../../../inputs/PokemonStatWhereUniqueInput";
+import { PokemonStatScalarFieldEnum } from "../../../../enums/PokemonStatScalarFieldEnum";
 
 @TypeGraphQL.ArgsType()
 export class PokemonStatsArgs {
-  @TypeGraphQL.Field(_type => PokemonStatsWhereInput, {
+  @TypeGraphQL.Field(_type => PokemonStatWhereInput, {
     nullable: true
   })
-  where?: PokemonStatsWhereInput | undefined;
+  where?: PokemonStatWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => [PokemonStatsOrderByWithRelationInput], {
+  @TypeGraphQL.Field(_type => [PokemonStatOrderByWithRelationInput], {
     nullable: true
   })
-  orderBy?: PokemonStatsOrderByWithRelationInput[] | undefined;
+  orderBy?: PokemonStatOrderByWithRelationInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonStatsWhereUniqueInput, {
+  @TypeGraphQL.Field(_type => PokemonStatWhereUniqueInput, {
     nullable: true
   })
-  cursor?: PokemonStatsWhereUniqueInput | undefined;
+  cursor?: PokemonStatWhereUniqueInput | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
@@ -32,7 +32,7 @@ export class PokemonStatsArgs {
   })
   skip?: number | undefined;
 
-  @TypeGraphQL.Field(_type => [PokemonStatsScalarFieldEnum], {
+  @TypeGraphQL.Field(_type => [PokemonStatScalarFieldEnum], {
     nullable: true
   })
   distinct?: Array<"pokemon_id" | "stat_id" | "base_stat" | "effort"> | undefined;

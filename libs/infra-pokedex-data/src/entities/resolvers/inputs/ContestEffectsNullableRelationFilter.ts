@@ -2,17 +2,17 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { ContestEffectsWhereInput } from "../inputs/ContestEffectsWhereInput";
+import { ContestEffectWhereInput } from "../inputs/ContestEffectWhereInput";
 
 @TypeGraphQL.InputType("ContestEffectsNullableRelationFilter", {})
 export class ContestEffectsNullableRelationFilter {
-  @TypeGraphQL.Field(_type => ContestEffectsWhereInput, {
+  @TypeGraphQL.Field(_type => ContestEffectWhereInput, {
     nullable: true
   })
-  is?: ContestEffectsWhereInput | undefined;
+  is?: ContestEffectWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => ContestEffectsWhereInput, {
+  @TypeGraphQL.Field(_type => ContestEffectWhereInput, {
     nullable: true
   })
-  isNot?: ContestEffectsWhereInput | undefined;
+  isNot?: ContestEffectWhereInput | undefined;
 }

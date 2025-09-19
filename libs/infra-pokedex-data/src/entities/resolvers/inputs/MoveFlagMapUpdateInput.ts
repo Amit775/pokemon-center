@@ -2,18 +2,18 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { MoveFlagsUpdateOneRequiredWithoutFlagMapNestedInput } from "../inputs/MoveFlagsUpdateOneRequiredWithoutFlagMapNestedInput";
-import { MovesUpdateOneRequiredWithoutFlagMapNestedInput } from "../inputs/MovesUpdateOneRequiredWithoutFlagMapNestedInput";
+import { MoveFlagUpdateOneRequiredWithoutFlagMapNestedInput } from "../inputs/MoveFlagUpdateOneRequiredWithoutFlagMapNestedInput";
+import { MoveUpdateOneRequiredWithoutFlagMapNestedInput } from "../inputs/MoveUpdateOneRequiredWithoutFlagMapNestedInput";
 
 @TypeGraphQL.InputType("MoveFlagMapUpdateInput", {})
 export class MoveFlagMapUpdateInput {
-  @TypeGraphQL.Field(_type => MovesUpdateOneRequiredWithoutFlagMapNestedInput, {
+  @TypeGraphQL.Field(_type => MoveUpdateOneRequiredWithoutFlagMapNestedInput, {
     nullable: true
   })
-  move?: MovesUpdateOneRequiredWithoutFlagMapNestedInput | undefined;
+  move?: MoveUpdateOneRequiredWithoutFlagMapNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => MoveFlagsUpdateOneRequiredWithoutFlagMapNestedInput, {
+  @TypeGraphQL.Field(_type => MoveFlagUpdateOneRequiredWithoutFlagMapNestedInput, {
     nullable: true
   })
-  flag?: MoveFlagsUpdateOneRequiredWithoutFlagMapNestedInput | undefined;
+  flag?: MoveFlagUpdateOneRequiredWithoutFlagMapNestedInput | undefined;
 }

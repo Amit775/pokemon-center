@@ -2,7 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { BerriesUpdateManyWithoutFirmnessNestedInput } from "../inputs/BerriesUpdateManyWithoutFirmnessNestedInput";
+import { BerryUpdateManyWithoutFirmnessNestedInput } from "../inputs/BerryUpdateManyWithoutFirmnessNestedInput";
 
 @TypeGraphQL.InputType("BerryFirmnessUpdateInput", {})
 export class BerryFirmnessUpdateInput {
@@ -16,8 +16,8 @@ export class BerryFirmnessUpdateInput {
   })
   identifier?: string | undefined;
 
-  @TypeGraphQL.Field(_type => BerriesUpdateManyWithoutFirmnessNestedInput, {
+  @TypeGraphQL.Field(_type => BerryUpdateManyWithoutFirmnessNestedInput, {
     nullable: true
   })
-  berries?: BerriesUpdateManyWithoutFirmnessNestedInput | undefined;
+  berries?: BerryUpdateManyWithoutFirmnessNestedInput | undefined;
 }

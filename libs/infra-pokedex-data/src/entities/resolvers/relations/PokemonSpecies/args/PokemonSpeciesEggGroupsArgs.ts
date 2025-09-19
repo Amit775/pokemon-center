@@ -1,26 +1,26 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { PokemonEggGroupsOrderByWithRelationInput } from "../../../inputs/PokemonEggGroupsOrderByWithRelationInput";
-import { PokemonEggGroupsWhereInput } from "../../../inputs/PokemonEggGroupsWhereInput";
-import { PokemonEggGroupsWhereUniqueInput } from "../../../inputs/PokemonEggGroupsWhereUniqueInput";
-import { PokemonEggGroupsScalarFieldEnum } from "../../../../enums/PokemonEggGroupsScalarFieldEnum";
+import { PokemonEggGroupOrderByWithRelationInput } from "../../../inputs/PokemonEggGroupOrderByWithRelationInput";
+import { PokemonEggGroupWhereInput } from "../../../inputs/PokemonEggGroupWhereInput";
+import { PokemonEggGroupWhereUniqueInput } from "../../../inputs/PokemonEggGroupWhereUniqueInput";
+import { PokemonEggGroupScalarFieldEnum } from "../../../../enums/PokemonEggGroupScalarFieldEnum";
 
 @TypeGraphQL.ArgsType()
 export class PokemonSpeciesEggGroupsArgs {
-  @TypeGraphQL.Field(_type => PokemonEggGroupsWhereInput, {
+  @TypeGraphQL.Field(_type => PokemonEggGroupWhereInput, {
     nullable: true
   })
-  where?: PokemonEggGroupsWhereInput | undefined;
+  where?: PokemonEggGroupWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => [PokemonEggGroupsOrderByWithRelationInput], {
+  @TypeGraphQL.Field(_type => [PokemonEggGroupOrderByWithRelationInput], {
     nullable: true
   })
-  orderBy?: PokemonEggGroupsOrderByWithRelationInput[] | undefined;
+  orderBy?: PokemonEggGroupOrderByWithRelationInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonEggGroupsWhereUniqueInput, {
+  @TypeGraphQL.Field(_type => PokemonEggGroupWhereUniqueInput, {
     nullable: true
   })
-  cursor?: PokemonEggGroupsWhereUniqueInput | undefined;
+  cursor?: PokemonEggGroupWhereUniqueInput | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
@@ -32,7 +32,7 @@ export class PokemonSpeciesEggGroupsArgs {
   })
   skip?: number | undefined;
 
-  @TypeGraphQL.Field(_type => [PokemonEggGroupsScalarFieldEnum], {
+  @TypeGraphQL.Field(_type => [PokemonEggGroupScalarFieldEnum], {
     nullable: true
   })
   distinct?: Array<"species_id" | "egg_group_id"> | undefined;

@@ -2,7 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { BerriesOrderByRelationAggregateInput } from "../inputs/BerriesOrderByRelationAggregateInput";
+import { BerryOrderByRelationAggregateInput } from "../inputs/BerryOrderByRelationAggregateInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("BerryFirmnessOrderByWithRelationInput", {})
@@ -17,8 +17,8 @@ export class BerryFirmnessOrderByWithRelationInput {
   })
   identifier?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => BerriesOrderByRelationAggregateInput, {
+  @TypeGraphQL.Field(_type => BerryOrderByRelationAggregateInput, {
     nullable: true
   })
-  berries?: BerriesOrderByRelationAggregateInput | undefined;
+  berries?: BerryOrderByRelationAggregateInput | undefined;
 }

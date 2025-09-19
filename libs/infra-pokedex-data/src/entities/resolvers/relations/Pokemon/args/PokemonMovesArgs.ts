@@ -1,26 +1,26 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { PokemonMovesOrderByWithRelationInput } from "../../../inputs/PokemonMovesOrderByWithRelationInput";
-import { PokemonMovesWhereInput } from "../../../inputs/PokemonMovesWhereInput";
-import { PokemonMovesWhereUniqueInput } from "../../../inputs/PokemonMovesWhereUniqueInput";
-import { PokemonMovesScalarFieldEnum } from "../../../../enums/PokemonMovesScalarFieldEnum";
+import { PokemonMoveOrderByWithRelationInput } from "../../../inputs/PokemonMoveOrderByWithRelationInput";
+import { PokemonMoveWhereInput } from "../../../inputs/PokemonMoveWhereInput";
+import { PokemonMoveWhereUniqueInput } from "../../../inputs/PokemonMoveWhereUniqueInput";
+import { PokemonMoveScalarFieldEnum } from "../../../../enums/PokemonMoveScalarFieldEnum";
 
 @TypeGraphQL.ArgsType()
 export class PokemonMovesArgs {
-  @TypeGraphQL.Field(_type => PokemonMovesWhereInput, {
+  @TypeGraphQL.Field(_type => PokemonMoveWhereInput, {
     nullable: true
   })
-  where?: PokemonMovesWhereInput | undefined;
+  where?: PokemonMoveWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => [PokemonMovesOrderByWithRelationInput], {
+  @TypeGraphQL.Field(_type => [PokemonMoveOrderByWithRelationInput], {
     nullable: true
   })
-  orderBy?: PokemonMovesOrderByWithRelationInput[] | undefined;
+  orderBy?: PokemonMoveOrderByWithRelationInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonMovesWhereUniqueInput, {
+  @TypeGraphQL.Field(_type => PokemonMoveWhereUniqueInput, {
     nullable: true
   })
-  cursor?: PokemonMovesWhereUniqueInput | undefined;
+  cursor?: PokemonMoveWhereUniqueInput | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
@@ -32,7 +32,7 @@ export class PokemonMovesArgs {
   })
   skip?: number | undefined;
 
-  @TypeGraphQL.Field(_type => [PokemonMovesScalarFieldEnum], {
+  @TypeGraphQL.Field(_type => [PokemonMoveScalarFieldEnum], {
     nullable: true
   })
   distinct?: Array<"pokemon_id" | "version_group_id" | "move_id" | "pokemon_move_method_id" | "level" | "order" | "mastery"> | undefined;

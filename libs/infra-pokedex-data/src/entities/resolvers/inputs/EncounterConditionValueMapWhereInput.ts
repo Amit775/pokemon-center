@@ -2,8 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { EncounterConditionValuesRelationFilter } from "../inputs/EncounterConditionValuesRelationFilter";
-import { EncountersRelationFilter } from "../inputs/EncountersRelationFilter";
+import { EncounterConditionValueRelationFilter } from "../inputs/EncounterConditionValueRelationFilter";
+import { EncounterRelationFilter } from "../inputs/EncounterRelationFilter";
 import { IntFilter } from "../inputs/IntFilter";
 
 @TypeGraphQL.InputType("EncounterConditionValueMapWhereInput", {})
@@ -33,13 +33,13 @@ export class EncounterConditionValueMapWhereInput {
   })
   encounter_condition_value_id?: IntFilter | undefined;
 
-  @TypeGraphQL.Field(_type => EncountersRelationFilter, {
+  @TypeGraphQL.Field(_type => EncounterRelationFilter, {
     nullable: true
   })
-  encounter?: EncountersRelationFilter | undefined;
+  encounter?: EncounterRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => EncounterConditionValuesRelationFilter, {
+  @TypeGraphQL.Field(_type => EncounterConditionValueRelationFilter, {
     nullable: true
   })
-  conditionValue?: EncounterConditionValuesRelationFilter | undefined;
+  conditionValue?: EncounterConditionValueRelationFilter | undefined;
 }

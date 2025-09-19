@@ -2,18 +2,18 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { EvolutionChainsRelationFilter } from "../inputs/EvolutionChainsRelationFilter";
-import { GenerationsRelationFilter } from "../inputs/GenerationsRelationFilter";
+import { EvolutionChainRelationFilter } from "../inputs/EvolutionChainRelationFilter";
+import { GenerationRelationFilter } from "../inputs/GenerationRelationFilter";
 import { GrowthRatesRelationFilter } from "../inputs/GrowthRatesRelationFilter";
 import { IntFilter } from "../inputs/IntFilter";
 import { IntNullableFilter } from "../inputs/IntNullableFilter";
-import { PokemonColorsRelationFilter } from "../inputs/PokemonColorsRelationFilter";
-import { PokemonDexNumbersListRelationFilter } from "../inputs/PokemonDexNumbersListRelationFilter";
-import { PokemonEggGroupsListRelationFilter } from "../inputs/PokemonEggGroupsListRelationFilter";
+import { PokemonColorRelationFilter } from "../inputs/PokemonColorRelationFilter";
+import { PokemonDexNumberListRelationFilter } from "../inputs/PokemonDexNumberListRelationFilter";
+import { PokemonEggGroupListRelationFilter } from "../inputs/PokemonEggGroupListRelationFilter";
 import { PokemonEvolutionListRelationFilter } from "../inputs/PokemonEvolutionListRelationFilter";
 import { PokemonHabitatsNullableRelationFilter } from "../inputs/PokemonHabitatsNullableRelationFilter";
 import { PokemonListRelationFilter } from "../inputs/PokemonListRelationFilter";
-import { PokemonShapesRelationFilter } from "../inputs/PokemonShapesRelationFilter";
+import { PokemonShapeRelationFilter } from "../inputs/PokemonShapeRelationFilter";
 import { PokemonSpeciesListRelationFilter } from "../inputs/PokemonSpeciesListRelationFilter";
 import { PokemonSpeciesNullableRelationFilter } from "../inputs/PokemonSpeciesNullableRelationFilter";
 import { PokemonSpeciesWhereInput } from "../inputs/PokemonSpeciesWhereInput";
@@ -136,10 +136,10 @@ export class PokemonSpeciesWhereUniqueInput {
   })
   conquest_order?: IntNullableFilter | undefined;
 
-  @TypeGraphQL.Field(_type => GenerationsRelationFilter, {
+  @TypeGraphQL.Field(_type => GenerationRelationFilter, {
     nullable: true
   })
-  generation?: GenerationsRelationFilter | undefined;
+  generation?: GenerationRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => PokemonSpeciesNullableRelationFilter, {
     nullable: true
@@ -151,20 +151,20 @@ export class PokemonSpeciesWhereUniqueInput {
   })
   evolvesTo?: PokemonSpeciesListRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => EvolutionChainsRelationFilter, {
+  @TypeGraphQL.Field(_type => EvolutionChainRelationFilter, {
     nullable: true
   })
-  evolutionChain?: EvolutionChainsRelationFilter | undefined;
+  evolutionChain?: EvolutionChainRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonColorsRelationFilter, {
+  @TypeGraphQL.Field(_type => PokemonColorRelationFilter, {
     nullable: true
   })
-  color?: PokemonColorsRelationFilter | undefined;
+  color?: PokemonColorRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonShapesRelationFilter, {
+  @TypeGraphQL.Field(_type => PokemonShapeRelationFilter, {
     nullable: true
   })
-  shape?: PokemonShapesRelationFilter | undefined;
+  shape?: PokemonShapeRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => PokemonHabitatsNullableRelationFilter, {
     nullable: true
@@ -181,15 +181,15 @@ export class PokemonSpeciesWhereUniqueInput {
   })
   pokemon?: PokemonListRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonEggGroupsListRelationFilter, {
+  @TypeGraphQL.Field(_type => PokemonEggGroupListRelationFilter, {
     nullable: true
   })
-  eggGroups?: PokemonEggGroupsListRelationFilter | undefined;
+  eggGroups?: PokemonEggGroupListRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonDexNumbersListRelationFilter, {
+  @TypeGraphQL.Field(_type => PokemonDexNumberListRelationFilter, {
     nullable: true
   })
-  dexNumbers?: PokemonDexNumbersListRelationFilter | undefined;
+  dexNumbers?: PokemonDexNumberListRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => PokemonEvolutionListRelationFilter, {
     nullable: true

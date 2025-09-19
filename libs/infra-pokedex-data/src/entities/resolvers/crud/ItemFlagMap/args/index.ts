@@ -1,7 +1,15 @@
 export { AggregateItemFlagMapArgs } from "./AggregateItemFlagMapArgs";
+export { CreateManyAndReturnItemFlagMapArgs } from "./CreateManyAndReturnItemFlagMapArgs";
+export { CreateManyItemFlagMapArgs } from "./CreateManyItemFlagMapArgs";
+export { CreateOneItemFlagMapArgs } from "./CreateOneItemFlagMapArgs";
+export { DeleteManyItemFlagMapArgs } from "./DeleteManyItemFlagMapArgs";
+export { DeleteOneItemFlagMapArgs } from "./DeleteOneItemFlagMapArgs";
 export { FindFirstItemFlagMapArgs } from "./FindFirstItemFlagMapArgs";
 export { FindFirstItemFlagMapOrThrowArgs } from "./FindFirstItemFlagMapOrThrowArgs";
 export { FindManyItemFlagMapArgs } from "./FindManyItemFlagMapArgs";
 export { FindUniqueItemFlagMapArgs } from "./FindUniqueItemFlagMapArgs";
 export { FindUniqueItemFlagMapOrThrowArgs } from "./FindUniqueItemFlagMapOrThrowArgs";
 export { GroupByItemFlagMapArgs } from "./GroupByItemFlagMapArgs";
+export { UpdateManyItemFlagMapArgs } from "./UpdateManyItemFlagMapArgs";
+export { UpdateOneItemFlagMapArgs } from "./UpdateOneItemFlagMapArgs";
+export { UpsertOneItemFlagMapArgs } from "./UpsertOneItemFlagMapArgs";

@@ -2,15 +2,15 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { EncountersOrderByRelationAggregateInput } from "../inputs/EncountersOrderByRelationAggregateInput";
-import { PokemonAbilitiesOrderByRelationAggregateInput } from "../inputs/PokemonAbilitiesOrderByRelationAggregateInput";
-import { PokemonFormsOrderByRelationAggregateInput } from "../inputs/PokemonFormsOrderByRelationAggregateInput";
-import { PokemonGameIndicesOrderByRelationAggregateInput } from "../inputs/PokemonGameIndicesOrderByRelationAggregateInput";
-import { PokemonItemsOrderByRelationAggregateInput } from "../inputs/PokemonItemsOrderByRelationAggregateInput";
-import { PokemonMovesOrderByRelationAggregateInput } from "../inputs/PokemonMovesOrderByRelationAggregateInput";
+import { EncounterOrderByRelationAggregateInput } from "../inputs/EncounterOrderByRelationAggregateInput";
+import { PokemonAbilityOrderByRelationAggregateInput } from "../inputs/PokemonAbilityOrderByRelationAggregateInput";
+import { PokemonFormOrderByRelationAggregateInput } from "../inputs/PokemonFormOrderByRelationAggregateInput";
+import { PokemonGameIndexOrderByRelationAggregateInput } from "../inputs/PokemonGameIndexOrderByRelationAggregateInput";
+import { PokemonItemOrderByRelationAggregateInput } from "../inputs/PokemonItemOrderByRelationAggregateInput";
+import { PokemonMoveOrderByRelationAggregateInput } from "../inputs/PokemonMoveOrderByRelationAggregateInput";
 import { PokemonSpeciesOrderByWithRelationInput } from "../inputs/PokemonSpeciesOrderByWithRelationInput";
-import { PokemonStatsOrderByRelationAggregateInput } from "../inputs/PokemonStatsOrderByRelationAggregateInput";
-import { PokemonTypesOrderByRelationAggregateInput } from "../inputs/PokemonTypesOrderByRelationAggregateInput";
+import { PokemonStatOrderByRelationAggregateInput } from "../inputs/PokemonStatOrderByRelationAggregateInput";
+import { PokemonTypeOrderByRelationAggregateInput } from "../inputs/PokemonTypeOrderByRelationAggregateInput";
 import { SortOrderInput } from "../inputs/SortOrderInput";
 import { SortOrder } from "../../enums/SortOrder";
 
@@ -61,43 +61,43 @@ export class PokemonOrderByWithRelationInput {
   })
   species?: PokemonSpeciesOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonFormsOrderByRelationAggregateInput, {
+  @TypeGraphQL.Field(_type => PokemonFormOrderByRelationAggregateInput, {
     nullable: true
   })
-  forms?: PokemonFormsOrderByRelationAggregateInput | undefined;
+  forms?: PokemonFormOrderByRelationAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonAbilitiesOrderByRelationAggregateInput, {
+  @TypeGraphQL.Field(_type => PokemonAbilityOrderByRelationAggregateInput, {
     nullable: true
   })
-  abilities?: PokemonAbilitiesOrderByRelationAggregateInput | undefined;
+  abilities?: PokemonAbilityOrderByRelationAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonMovesOrderByRelationAggregateInput, {
+  @TypeGraphQL.Field(_type => PokemonMoveOrderByRelationAggregateInput, {
     nullable: true
   })
-  moves?: PokemonMovesOrderByRelationAggregateInput | undefined;
+  moves?: PokemonMoveOrderByRelationAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonStatsOrderByRelationAggregateInput, {
+  @TypeGraphQL.Field(_type => PokemonStatOrderByRelationAggregateInput, {
     nullable: true
   })
-  stats?: PokemonStatsOrderByRelationAggregateInput | undefined;
+  stats?: PokemonStatOrderByRelationAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonTypesOrderByRelationAggregateInput, {
+  @TypeGraphQL.Field(_type => PokemonTypeOrderByRelationAggregateInput, {
     nullable: true
   })
-  types?: PokemonTypesOrderByRelationAggregateInput | undefined;
+  types?: PokemonTypeOrderByRelationAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonItemsOrderByRelationAggregateInput, {
+  @TypeGraphQL.Field(_type => PokemonItemOrderByRelationAggregateInput, {
     nullable: true
   })
-  items?: PokemonItemsOrderByRelationAggregateInput | undefined;
+  items?: PokemonItemOrderByRelationAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonGameIndicesOrderByRelationAggregateInput, {
+  @TypeGraphQL.Field(_type => PokemonGameIndexOrderByRelationAggregateInput, {
     nullable: true
   })
-  gameIndices?: PokemonGameIndicesOrderByRelationAggregateInput | undefined;
+  gameIndices?: PokemonGameIndexOrderByRelationAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => EncountersOrderByRelationAggregateInput, {
+  @TypeGraphQL.Field(_type => EncounterOrderByRelationAggregateInput, {
     nullable: true
   })
-  encounters?: EncountersOrderByRelationAggregateInput | undefined;
+  encounters?: EncounterOrderByRelationAggregateInput | undefined;
 }

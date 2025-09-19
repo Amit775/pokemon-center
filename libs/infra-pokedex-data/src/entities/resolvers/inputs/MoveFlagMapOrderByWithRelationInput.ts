@@ -2,8 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { MoveFlagsOrderByWithRelationInput } from "../inputs/MoveFlagsOrderByWithRelationInput";
-import { MovesOrderByWithRelationInput } from "../inputs/MovesOrderByWithRelationInput";
+import { MoveFlagOrderByWithRelationInput } from "../inputs/MoveFlagOrderByWithRelationInput";
+import { MoveOrderByWithRelationInput } from "../inputs/MoveOrderByWithRelationInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("MoveFlagMapOrderByWithRelationInput", {})
@@ -18,13 +18,13 @@ export class MoveFlagMapOrderByWithRelationInput {
   })
   move_flag_id?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => MovesOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => MoveOrderByWithRelationInput, {
     nullable: true
   })
-  move?: MovesOrderByWithRelationInput | undefined;
+  move?: MoveOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => MoveFlagsOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => MoveFlagOrderByWithRelationInput, {
     nullable: true
   })
-  flag?: MoveFlagsOrderByWithRelationInput | undefined;
+  flag?: MoveFlagOrderByWithRelationInput | undefined;
 }

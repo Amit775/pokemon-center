@@ -3,7 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { MoveMetaUpdateOneRequiredWithoutStatChangesNestedInput } from "../inputs/MoveMetaUpdateOneRequiredWithoutStatChangesNestedInput";
-import { StatsUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput } from "../inputs/StatsUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput";
+import { StatUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput } from "../inputs/StatUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput";
 
 @TypeGraphQL.InputType("MoveMetaStatChangesUpdateWithoutMoveInput", {})
 export class MoveMetaStatChangesUpdateWithoutMoveInput {
@@ -12,10 +12,10 @@ export class MoveMetaStatChangesUpdateWithoutMoveInput {
   })
   change?: number | undefined;
 
-  @TypeGraphQL.Field(_type => StatsUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput, {
+  @TypeGraphQL.Field(_type => StatUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput, {
     nullable: true
   })
-  stat?: StatsUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput | undefined;
+  stat?: StatUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput | undefined;
 
   @TypeGraphQL.Field(_type => MoveMetaUpdateOneRequiredWithoutStatChangesNestedInput, {
     nullable: true

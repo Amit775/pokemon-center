@@ -1,16 +1,16 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
-import { Berries } from "../../../models/Berries";
+import { Berry } from "../../../models/Berry";
 import { BerryFirmness } from "../../../models/BerryFirmness";
 import { BerryFirmnessBerriesArgs } from "./args/BerryFirmnessBerriesArgs";
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 
 @TypeGraphQL.Resolver(_of => BerryFirmness)
 export class BerryFirmnessRelationsResolver {
-  @TypeGraphQL.FieldResolver(_type => [Berries], {
+  @TypeGraphQL.FieldResolver(_type => [Berry], {
     nullable: false
   })
-  async berries(@TypeGraphQL.Root() berryFirmness: BerryFirmness, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: BerryFirmnessBerriesArgs): Promise<Berries[]> {
+  async berries(@TypeGraphQL.Root() berryFirmness: BerryFirmness, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: BerryFirmnessBerriesArgs): Promise<Berry[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).berryFirmness.findUniqueOrThrow({
       where: {

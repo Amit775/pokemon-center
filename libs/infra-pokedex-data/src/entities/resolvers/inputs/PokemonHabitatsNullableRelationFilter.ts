@@ -2,17 +2,17 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { PokemonHabitatsWhereInput } from "../inputs/PokemonHabitatsWhereInput";
+import { PokemonHabitatWhereInput } from "../inputs/PokemonHabitatWhereInput";
 
 @TypeGraphQL.InputType("PokemonHabitatsNullableRelationFilter", {})
 export class PokemonHabitatsNullableRelationFilter {
-  @TypeGraphQL.Field(_type => PokemonHabitatsWhereInput, {
+  @TypeGraphQL.Field(_type => PokemonHabitatWhereInput, {
     nullable: true
   })
-  is?: PokemonHabitatsWhereInput | undefined;
+  is?: PokemonHabitatWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonHabitatsWhereInput, {
+  @TypeGraphQL.Field(_type => PokemonHabitatWhereInput, {
     nullable: true
   })
-  isNot?: PokemonHabitatsWhereInput | undefined;
+  isNot?: PokemonHabitatWhereInput | undefined;
 }

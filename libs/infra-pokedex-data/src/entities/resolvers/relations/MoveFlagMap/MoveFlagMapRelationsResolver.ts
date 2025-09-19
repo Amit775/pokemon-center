@@ -1,16 +1,16 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
+import { Move } from "../../../models/Move";
+import { MoveFlag } from "../../../models/MoveFlag";
 import { MoveFlagMap } from "../../../models/MoveFlagMap";
-import { MoveFlags } from "../../../models/MoveFlags";
-import { Moves } from "../../../models/Moves";
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 
 @TypeGraphQL.Resolver(_of => MoveFlagMap)
 export class MoveFlagMapRelationsResolver {
-  @TypeGraphQL.FieldResolver(_type => Moves, {
+  @TypeGraphQL.FieldResolver(_type => Move, {
     nullable: false
   })
-  async move(@TypeGraphQL.Root() moveFlagMap: MoveFlagMap, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<Moves> {
+  async move(@TypeGraphQL.Root() moveFlagMap: MoveFlagMap, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<Move> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).moveFlagMap.findUniqueOrThrow({
       where: {
@@ -21,10 +21,10 @@ export class MoveFlagMapRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => MoveFlags, {
+  @TypeGraphQL.FieldResolver(_type => MoveFlag, {
     nullable: false
   })
-  async flag(@TypeGraphQL.Root() moveFlagMap: MoveFlagMap, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<MoveFlags> {
+  async flag(@TypeGraphQL.Root() moveFlagMap: MoveFlagMap, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<MoveFlag> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).moveFlagMap.findUniqueOrThrow({
       where: {

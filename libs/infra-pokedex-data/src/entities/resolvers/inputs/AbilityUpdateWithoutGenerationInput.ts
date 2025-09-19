@@ -1,0 +1,28 @@
+import * as TypeGraphQL from "type-graphql";
+import * as GraphQLScalars from "graphql-scalars";
+import { Prisma } from "@prisma/client";
+import { DecimalJSScalar } from "../../scalars";
+import { PokemonAbilityUpdateManyWithoutAbilityNestedInput } from "../inputs/PokemonAbilityUpdateManyWithoutAbilityNestedInput";
+
+@TypeGraphQL.InputType("AbilityUpdateWithoutGenerationInput", {})
+export class AbilityUpdateWithoutGenerationInput {
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  id?: number | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  identifier?: string | undefined;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  is_main_series?: number | undefined;
+
+  @TypeGraphQL.Field(_type => PokemonAbilityUpdateManyWithoutAbilityNestedInput, {
+    nullable: true
+  })
+  pokemonAbilities?: PokemonAbilityUpdateManyWithoutAbilityNestedInput | undefined;
+}

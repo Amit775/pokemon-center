@@ -1,26 +1,26 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { PokemonTypesOrderByWithRelationInput } from "../../../inputs/PokemonTypesOrderByWithRelationInput";
-import { PokemonTypesWhereInput } from "../../../inputs/PokemonTypesWhereInput";
-import { PokemonTypesWhereUniqueInput } from "../../../inputs/PokemonTypesWhereUniqueInput";
-import { PokemonTypesScalarFieldEnum } from "../../../../enums/PokemonTypesScalarFieldEnum";
+import { PokemonTypeOrderByWithRelationInput } from "../../../inputs/PokemonTypeOrderByWithRelationInput";
+import { PokemonTypeWhereInput } from "../../../inputs/PokemonTypeWhereInput";
+import { PokemonTypeWhereUniqueInput } from "../../../inputs/PokemonTypeWhereUniqueInput";
+import { PokemonTypeScalarFieldEnum } from "../../../../enums/PokemonTypeScalarFieldEnum";
 
 @TypeGraphQL.ArgsType()
 export class PokemonTypesArgs {
-  @TypeGraphQL.Field(_type => PokemonTypesWhereInput, {
+  @TypeGraphQL.Field(_type => PokemonTypeWhereInput, {
     nullable: true
   })
-  where?: PokemonTypesWhereInput | undefined;
+  where?: PokemonTypeWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => [PokemonTypesOrderByWithRelationInput], {
+  @TypeGraphQL.Field(_type => [PokemonTypeOrderByWithRelationInput], {
     nullable: true
   })
-  orderBy?: PokemonTypesOrderByWithRelationInput[] | undefined;
+  orderBy?: PokemonTypeOrderByWithRelationInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonTypesWhereUniqueInput, {
+  @TypeGraphQL.Field(_type => PokemonTypeWhereUniqueInput, {
     nullable: true
   })
-  cursor?: PokemonTypesWhereUniqueInput | undefined;
+  cursor?: PokemonTypeWhereUniqueInput | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
@@ -32,7 +32,7 @@ export class PokemonTypesArgs {
   })
   skip?: number | undefined;
 
-  @TypeGraphQL.Field(_type => [PokemonTypesScalarFieldEnum], {
+  @TypeGraphQL.Field(_type => [PokemonTypeScalarFieldEnum], {
     nullable: true
   })
   distinct?: Array<"pokemon_id" | "type_id" | "slot"> | undefined;

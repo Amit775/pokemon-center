@@ -3,8 +3,8 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { IntFilter } from "../inputs/IntFilter";
-import { MoveFlagsRelationFilter } from "../inputs/MoveFlagsRelationFilter";
-import { MovesRelationFilter } from "../inputs/MovesRelationFilter";
+import { MoveFlagRelationFilter } from "../inputs/MoveFlagRelationFilter";
+import { MoveRelationFilter } from "../inputs/MoveRelationFilter";
 
 @TypeGraphQL.InputType("MoveFlagMapWhereInput", {})
 export class MoveFlagMapWhereInput {
@@ -33,13 +33,13 @@ export class MoveFlagMapWhereInput {
   })
   move_flag_id?: IntFilter | undefined;
 
-  @TypeGraphQL.Field(_type => MovesRelationFilter, {
+  @TypeGraphQL.Field(_type => MoveRelationFilter, {
     nullable: true
   })
-  move?: MovesRelationFilter | undefined;
+  move?: MoveRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => MoveFlagsRelationFilter, {
+  @TypeGraphQL.Field(_type => MoveFlagRelationFilter, {
     nullable: true
   })
-  flag?: MoveFlagsRelationFilter | undefined;
+  flag?: MoveFlagRelationFilter | undefined;
 }

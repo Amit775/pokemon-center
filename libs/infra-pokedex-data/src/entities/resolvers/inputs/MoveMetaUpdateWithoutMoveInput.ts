@@ -2,8 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { MoveMetaAilmentsUpdateOneWithoutMetaNestedInput } from "../inputs/MoveMetaAilmentsUpdateOneWithoutMetaNestedInput";
-import { MoveMetaCategoriesUpdateOneRequiredWithoutMetaNestedInput } from "../inputs/MoveMetaCategoriesUpdateOneRequiredWithoutMetaNestedInput";
+import { MoveMetaAilmentUpdateOneWithoutMetaNestedInput } from "../inputs/MoveMetaAilmentUpdateOneWithoutMetaNestedInput";
+import { MoveMetaCategoryUpdateOneRequiredWithoutMetaNestedInput } from "../inputs/MoveMetaCategoryUpdateOneRequiredWithoutMetaNestedInput";
 import { MoveMetaStatChangesUpdateManyWithoutMetaNestedInput } from "../inputs/MoveMetaStatChangesUpdateManyWithoutMetaNestedInput";
 
 @TypeGraphQL.InputType("MoveMetaUpdateWithoutMoveInput", {})
@@ -58,15 +58,15 @@ export class MoveMetaUpdateWithoutMoveInput {
   })
   stat_chance?: number | undefined;
 
-  @TypeGraphQL.Field(_type => MoveMetaCategoriesUpdateOneRequiredWithoutMetaNestedInput, {
+  @TypeGraphQL.Field(_type => MoveMetaCategoryUpdateOneRequiredWithoutMetaNestedInput, {
     nullable: true
   })
-  metaCategory?: MoveMetaCategoriesUpdateOneRequiredWithoutMetaNestedInput | undefined;
+  metaCategory?: MoveMetaCategoryUpdateOneRequiredWithoutMetaNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => MoveMetaAilmentsUpdateOneWithoutMetaNestedInput, {
+  @TypeGraphQL.Field(_type => MoveMetaAilmentUpdateOneWithoutMetaNestedInput, {
     nullable: true
   })
-  metaAilment?: MoveMetaAilmentsUpdateOneWithoutMetaNestedInput | undefined;
+  metaAilment?: MoveMetaAilmentUpdateOneWithoutMetaNestedInput | undefined;
 
   @TypeGraphQL.Field(_type => MoveMetaStatChangesUpdateManyWithoutMetaNestedInput, {
     nullable: true

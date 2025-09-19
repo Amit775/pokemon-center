@@ -1,11 +1,11 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { GendersWhereInput } from "../../inputs/GendersWhereInput";
+import { GenderWhereInput } from "../../inputs/GenderWhereInput";
 
 @TypeGraphQL.ArgsType()
 export class CreateManyAndReturnPokemonEvolutionGenderArgs {
-  @TypeGraphQL.Field(_type => GendersWhereInput, {
+  @TypeGraphQL.Field(_type => GenderWhereInput, {
     nullable: true
   })
-  where?: GendersWhereInput | undefined;
+  where?: GenderWhereInput | undefined;
 }

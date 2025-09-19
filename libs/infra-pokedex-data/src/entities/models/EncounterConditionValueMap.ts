@@ -2,8 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
-import { EncounterConditionValues } from "../models/EncounterConditionValues";
-import { Encounters } from "../models/Encounters";
+import { Encounter } from "../models/Encounter";
+import { EncounterConditionValue } from "../models/EncounterConditionValue";
 
 @TypeGraphQL.ObjectType("EncounterConditionValueMap", {})
 export class EncounterConditionValueMap {
@@ -17,7 +17,7 @@ export class EncounterConditionValueMap {
   })
   encounter_condition_value_id!: number;
 
-  encounter?: Encounters;
+  encounter?: Encounter;
 
-  conditionValue?: EncounterConditionValues;
+  conditionValue?: EncounterConditionValue;
 }

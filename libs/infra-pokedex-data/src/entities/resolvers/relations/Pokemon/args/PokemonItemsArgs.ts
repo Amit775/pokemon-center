@@ -1,26 +1,26 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { PokemonItemsOrderByWithRelationInput } from "../../../inputs/PokemonItemsOrderByWithRelationInput";
-import { PokemonItemsWhereInput } from "../../../inputs/PokemonItemsWhereInput";
-import { PokemonItemsWhereUniqueInput } from "../../../inputs/PokemonItemsWhereUniqueInput";
-import { PokemonItemsScalarFieldEnum } from "../../../../enums/PokemonItemsScalarFieldEnum";
+import { PokemonItemOrderByWithRelationInput } from "../../../inputs/PokemonItemOrderByWithRelationInput";
+import { PokemonItemWhereInput } from "../../../inputs/PokemonItemWhereInput";
+import { PokemonItemWhereUniqueInput } from "../../../inputs/PokemonItemWhereUniqueInput";
+import { PokemonItemScalarFieldEnum } from "../../../../enums/PokemonItemScalarFieldEnum";
 
 @TypeGraphQL.ArgsType()
 export class PokemonItemsArgs {
-  @TypeGraphQL.Field(_type => PokemonItemsWhereInput, {
+  @TypeGraphQL.Field(_type => PokemonItemWhereInput, {
     nullable: true
   })
-  where?: PokemonItemsWhereInput | undefined;
+  where?: PokemonItemWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => [PokemonItemsOrderByWithRelationInput], {
+  @TypeGraphQL.Field(_type => [PokemonItemOrderByWithRelationInput], {
     nullable: true
   })
-  orderBy?: PokemonItemsOrderByWithRelationInput[] | undefined;
+  orderBy?: PokemonItemOrderByWithRelationInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonItemsWhereUniqueInput, {
+  @TypeGraphQL.Field(_type => PokemonItemWhereUniqueInput, {
     nullable: true
   })
-  cursor?: PokemonItemsWhereUniqueInput | undefined;
+  cursor?: PokemonItemWhereUniqueInput | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
@@ -32,7 +32,7 @@ export class PokemonItemsArgs {
   })
   skip?: number | undefined;
 
-  @TypeGraphQL.Field(_type => [PokemonItemsScalarFieldEnum], {
+  @TypeGraphQL.Field(_type => [PokemonItemScalarFieldEnum], {
     nullable: true
   })
   distinct?: Array<"pokemon_id" | "version_id" | "item_id" | "rarity"> | undefined;

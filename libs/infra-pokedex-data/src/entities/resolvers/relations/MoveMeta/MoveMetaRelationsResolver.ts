@@ -1,20 +1,20 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
+import { Move } from "../../../models/Move";
 import { MoveMeta } from "../../../models/MoveMeta";
-import { MoveMetaAilments } from "../../../models/MoveMetaAilments";
-import { MoveMetaCategories } from "../../../models/MoveMetaCategories";
+import { MoveMetaAilment } from "../../../models/MoveMetaAilment";
+import { MoveMetaCategory } from "../../../models/MoveMetaCategory";
 import { MoveMetaStatChanges } from "../../../models/MoveMetaStatChanges";
-import { Moves } from "../../../models/Moves";
 import { MoveMetaMetaAilmentArgs } from "./args/MoveMetaMetaAilmentArgs";
 import { MoveMetaStatChangesArgs } from "./args/MoveMetaStatChangesArgs";
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 
 @TypeGraphQL.Resolver(_of => MoveMeta)
 export class MoveMetaRelationsResolver {
-  @TypeGraphQL.FieldResolver(_type => Moves, {
+  @TypeGraphQL.FieldResolver(_type => Move, {
     nullable: false
   })
-  async move(@TypeGraphQL.Root() moveMeta: MoveMeta, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<Moves> {
+  async move(@TypeGraphQL.Root() moveMeta: MoveMeta, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<Move> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).moveMeta.findUniqueOrThrow({
       where: {
@@ -25,10 +25,10 @@ export class MoveMetaRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => MoveMetaCategories, {
+  @TypeGraphQL.FieldResolver(_type => MoveMetaCategory, {
     nullable: false
   })
-  async metaCategory(@TypeGraphQL.Root() moveMeta: MoveMeta, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<MoveMetaCategories> {
+  async metaCategory(@TypeGraphQL.Root() moveMeta: MoveMeta, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<MoveMetaCategory> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).moveMeta.findUniqueOrThrow({
       where: {
@@ -39,10 +39,10 @@ export class MoveMetaRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => MoveMetaAilments, {
+  @TypeGraphQL.FieldResolver(_type => MoveMetaAilment, {
     nullable: true
   })
-  async metaAilment(@TypeGraphQL.Root() moveMeta: MoveMeta, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: MoveMetaMetaAilmentArgs): Promise<MoveMetaAilments | null> {
+  async metaAilment(@TypeGraphQL.Root() moveMeta: MoveMeta, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: MoveMetaMetaAilmentArgs): Promise<MoveMetaAilment | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).moveMeta.findUniqueOrThrow({
       where: {

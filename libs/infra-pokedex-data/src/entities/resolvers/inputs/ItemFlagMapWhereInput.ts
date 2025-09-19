@@ -3,8 +3,8 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { IntFilter } from "../inputs/IntFilter";
-import { ItemFlagsRelationFilter } from "../inputs/ItemFlagsRelationFilter";
-import { ItemsRelationFilter } from "../inputs/ItemsRelationFilter";
+import { ItemFlagRelationFilter } from "../inputs/ItemFlagRelationFilter";
+import { ItemRelationFilter } from "../inputs/ItemRelationFilter";
 
 @TypeGraphQL.InputType("ItemFlagMapWhereInput", {})
 export class ItemFlagMapWhereInput {
@@ -33,13 +33,13 @@ export class ItemFlagMapWhereInput {
   })
   item_flag_id?: IntFilter | undefined;
 
-  @TypeGraphQL.Field(_type => ItemsRelationFilter, {
+  @TypeGraphQL.Field(_type => ItemRelationFilter, {
     nullable: true
   })
-  item?: ItemsRelationFilter | undefined;
+  item?: ItemRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => ItemFlagsRelationFilter, {
+  @TypeGraphQL.Field(_type => ItemFlagRelationFilter, {
     nullable: true
   })
-  flag?: ItemFlagsRelationFilter | undefined;
+  flag?: ItemFlagRelationFilter | undefined;
 }

@@ -2,9 +2,9 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { MoveMetaAilmentsCreateNestedOneWithoutMetaInput } from "../inputs/MoveMetaAilmentsCreateNestedOneWithoutMetaInput";
-import { MoveMetaCategoriesCreateNestedOneWithoutMetaInput } from "../inputs/MoveMetaCategoriesCreateNestedOneWithoutMetaInput";
-import { MovesCreateNestedOneWithoutMetaInput } from "../inputs/MovesCreateNestedOneWithoutMetaInput";
+import { MoveCreateNestedOneWithoutMetaInput } from "../inputs/MoveCreateNestedOneWithoutMetaInput";
+import { MoveMetaAilmentCreateNestedOneWithoutMetaInput } from "../inputs/MoveMetaAilmentCreateNestedOneWithoutMetaInput";
+import { MoveMetaCategoryCreateNestedOneWithoutMetaInput } from "../inputs/MoveMetaCategoryCreateNestedOneWithoutMetaInput";
 
 @TypeGraphQL.InputType("MoveMetaCreateWithoutStatChangesInput", {})
 export class MoveMetaCreateWithoutStatChangesInput {
@@ -58,18 +58,18 @@ export class MoveMetaCreateWithoutStatChangesInput {
   })
   stat_chance!: number;
 
-  @TypeGraphQL.Field(_type => MovesCreateNestedOneWithoutMetaInput, {
+  @TypeGraphQL.Field(_type => MoveCreateNestedOneWithoutMetaInput, {
     nullable: false
   })
-  move!: MovesCreateNestedOneWithoutMetaInput;
+  move!: MoveCreateNestedOneWithoutMetaInput;
 
-  @TypeGraphQL.Field(_type => MoveMetaCategoriesCreateNestedOneWithoutMetaInput, {
+  @TypeGraphQL.Field(_type => MoveMetaCategoryCreateNestedOneWithoutMetaInput, {
     nullable: false
   })
-  metaCategory!: MoveMetaCategoriesCreateNestedOneWithoutMetaInput;
+  metaCategory!: MoveMetaCategoryCreateNestedOneWithoutMetaInput;
 
-  @TypeGraphQL.Field(_type => MoveMetaAilmentsCreateNestedOneWithoutMetaInput, {
+  @TypeGraphQL.Field(_type => MoveMetaAilmentCreateNestedOneWithoutMetaInput, {
     nullable: true
   })
-  metaAilment?: MoveMetaAilmentsCreateNestedOneWithoutMetaInput | undefined;
+  metaAilment?: MoveMetaAilmentCreateNestedOneWithoutMetaInput | undefined;
 }

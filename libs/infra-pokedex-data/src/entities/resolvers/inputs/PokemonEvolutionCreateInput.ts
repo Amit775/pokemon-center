@@ -2,17 +2,17 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { EvolutionTriggersCreateNestedOneWithoutEvolutionInput } from "../inputs/EvolutionTriggersCreateNestedOneWithoutEvolutionInput";
-import { GendersCreateNestedOneWithoutEvolutionInput } from "../inputs/GendersCreateNestedOneWithoutEvolutionInput";
-import { ItemsCreateNestedOneWithoutHeldItemsInput } from "../inputs/ItemsCreateNestedOneWithoutHeldItemsInput";
-import { ItemsCreateNestedOneWithoutTriggerItemsInput } from "../inputs/ItemsCreateNestedOneWithoutTriggerItemsInput";
-import { LocationsCreateNestedOneWithoutEvolutionInput } from "../inputs/LocationsCreateNestedOneWithoutEvolutionInput";
-import { MovesCreateNestedOneWithoutKnownMovesInput } from "../inputs/MovesCreateNestedOneWithoutKnownMovesInput";
+import { EvolutionTriggerCreateNestedOneWithoutEvolutionInput } from "../inputs/EvolutionTriggerCreateNestedOneWithoutEvolutionInput";
+import { GenderCreateNestedOneWithoutEvolutionInput } from "../inputs/GenderCreateNestedOneWithoutEvolutionInput";
+import { ItemCreateNestedOneWithoutHeldItemsInput } from "../inputs/ItemCreateNestedOneWithoutHeldItemsInput";
+import { ItemCreateNestedOneWithoutTriggerItemsInput } from "../inputs/ItemCreateNestedOneWithoutTriggerItemsInput";
+import { LocationCreateNestedOneWithoutEvolutionInput } from "../inputs/LocationCreateNestedOneWithoutEvolutionInput";
+import { MoveCreateNestedOneWithoutKnownMovesInput } from "../inputs/MoveCreateNestedOneWithoutKnownMovesInput";
 import { PokemonSpeciesCreateNestedOneWithoutEvolutionInput } from "../inputs/PokemonSpeciesCreateNestedOneWithoutEvolutionInput";
 import { PokemonSpeciesCreateNestedOneWithoutPartySpeciesInput } from "../inputs/PokemonSpeciesCreateNestedOneWithoutPartySpeciesInput";
 import { PokemonSpeciesCreateNestedOneWithoutTradeSpeciesInput } from "../inputs/PokemonSpeciesCreateNestedOneWithoutTradeSpeciesInput";
-import { TypesCreateNestedOneWithoutKnownMoveTypesInput } from "../inputs/TypesCreateNestedOneWithoutKnownMoveTypesInput";
-import { TypesCreateNestedOneWithoutPartyTypesInput } from "../inputs/TypesCreateNestedOneWithoutPartyTypesInput";
+import { TypeCreateNestedOneWithoutKnownMoveTypesInput } from "../inputs/TypeCreateNestedOneWithoutKnownMoveTypesInput";
+import { TypeCreateNestedOneWithoutPartyTypesInput } from "../inputs/TypeCreateNestedOneWithoutPartyTypesInput";
 
 @TypeGraphQL.InputType("PokemonEvolutionCreateInput", {})
 export class PokemonEvolutionCreateInput {
@@ -66,50 +66,50 @@ export class PokemonEvolutionCreateInput {
   })
   evolvedSpecies!: PokemonSpeciesCreateNestedOneWithoutEvolutionInput;
 
-  @TypeGraphQL.Field(_type => EvolutionTriggersCreateNestedOneWithoutEvolutionInput, {
+  @TypeGraphQL.Field(_type => EvolutionTriggerCreateNestedOneWithoutEvolutionInput, {
     nullable: false
   })
-  evolutionTrigger!: EvolutionTriggersCreateNestedOneWithoutEvolutionInput;
+  evolutionTrigger!: EvolutionTriggerCreateNestedOneWithoutEvolutionInput;
 
-  @TypeGraphQL.Field(_type => ItemsCreateNestedOneWithoutTriggerItemsInput, {
+  @TypeGraphQL.Field(_type => ItemCreateNestedOneWithoutTriggerItemsInput, {
     nullable: true
   })
-  triggerItem?: ItemsCreateNestedOneWithoutTriggerItemsInput | undefined;
+  triggerItem?: ItemCreateNestedOneWithoutTriggerItemsInput | undefined;
 
-  @TypeGraphQL.Field(_type => GendersCreateNestedOneWithoutEvolutionInput, {
+  @TypeGraphQL.Field(_type => GenderCreateNestedOneWithoutEvolutionInput, {
     nullable: true
   })
-  gender?: GendersCreateNestedOneWithoutEvolutionInput | undefined;
+  gender?: GenderCreateNestedOneWithoutEvolutionInput | undefined;
 
-  @TypeGraphQL.Field(_type => LocationsCreateNestedOneWithoutEvolutionInput, {
+  @TypeGraphQL.Field(_type => LocationCreateNestedOneWithoutEvolutionInput, {
     nullable: true
   })
-  location?: LocationsCreateNestedOneWithoutEvolutionInput | undefined;
+  location?: LocationCreateNestedOneWithoutEvolutionInput | undefined;
 
-  @TypeGraphQL.Field(_type => ItemsCreateNestedOneWithoutHeldItemsInput, {
+  @TypeGraphQL.Field(_type => ItemCreateNestedOneWithoutHeldItemsInput, {
     nullable: true
   })
-  heldItem?: ItemsCreateNestedOneWithoutHeldItemsInput | undefined;
+  heldItem?: ItemCreateNestedOneWithoutHeldItemsInput | undefined;
 
-  @TypeGraphQL.Field(_type => MovesCreateNestedOneWithoutKnownMovesInput, {
+  @TypeGraphQL.Field(_type => MoveCreateNestedOneWithoutKnownMovesInput, {
     nullable: true
   })
-  knownMove?: MovesCreateNestedOneWithoutKnownMovesInput | undefined;
+  knownMove?: MoveCreateNestedOneWithoutKnownMovesInput | undefined;
 
-  @TypeGraphQL.Field(_type => TypesCreateNestedOneWithoutKnownMoveTypesInput, {
+  @TypeGraphQL.Field(_type => TypeCreateNestedOneWithoutKnownMoveTypesInput, {
     nullable: true
   })
-  knownMoveType?: TypesCreateNestedOneWithoutKnownMoveTypesInput | undefined;
+  knownMoveType?: TypeCreateNestedOneWithoutKnownMoveTypesInput | undefined;
 
   @TypeGraphQL.Field(_type => PokemonSpeciesCreateNestedOneWithoutPartySpeciesInput, {
     nullable: true
   })
   partySpecies?: PokemonSpeciesCreateNestedOneWithoutPartySpeciesInput | undefined;
 
-  @TypeGraphQL.Field(_type => TypesCreateNestedOneWithoutPartyTypesInput, {
+  @TypeGraphQL.Field(_type => TypeCreateNestedOneWithoutPartyTypesInput, {
     nullable: true
   })
-  partyType?: TypesCreateNestedOneWithoutPartyTypesInput | undefined;
+  partyType?: TypeCreateNestedOneWithoutPartyTypesInput | undefined;
 
   @TypeGraphQL.Field(_type => PokemonSpeciesCreateNestedOneWithoutTradeSpeciesInput, {
     nullable: true

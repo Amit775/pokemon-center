@@ -2,18 +2,18 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { EncounterConditionValuesUpdateOneRequiredWithoutConditionValueMapNestedInput } from "../inputs/EncounterConditionValuesUpdateOneRequiredWithoutConditionValueMapNestedInput";
-import { EncountersUpdateOneRequiredWithoutConditionValueMapNestedInput } from "../inputs/EncountersUpdateOneRequiredWithoutConditionValueMapNestedInput";
+import { EncounterConditionValueUpdateOneRequiredWithoutConditionValueMapNestedInput } from "../inputs/EncounterConditionValueUpdateOneRequiredWithoutConditionValueMapNestedInput";
+import { EncounterUpdateOneRequiredWithoutConditionValueMapNestedInput } from "../inputs/EncounterUpdateOneRequiredWithoutConditionValueMapNestedInput";
 
 @TypeGraphQL.InputType("EncounterConditionValueMapUpdateInput", {})
 export class EncounterConditionValueMapUpdateInput {
-  @TypeGraphQL.Field(_type => EncountersUpdateOneRequiredWithoutConditionValueMapNestedInput, {
+  @TypeGraphQL.Field(_type => EncounterUpdateOneRequiredWithoutConditionValueMapNestedInput, {
     nullable: true
   })
-  encounter?: EncountersUpdateOneRequiredWithoutConditionValueMapNestedInput | undefined;
+  encounter?: EncounterUpdateOneRequiredWithoutConditionValueMapNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => EncounterConditionValuesUpdateOneRequiredWithoutConditionValueMapNestedInput, {
+  @TypeGraphQL.Field(_type => EncounterConditionValueUpdateOneRequiredWithoutConditionValueMapNestedInput, {
     nullable: true
   })
-  conditionValue?: EncounterConditionValuesUpdateOneRequiredWithoutConditionValueMapNestedInput | undefined;
+  conditionValue?: EncounterConditionValueUpdateOneRequiredWithoutConditionValueMapNestedInput | undefined;
 }

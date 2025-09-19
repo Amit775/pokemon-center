@@ -2,8 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { EncounterConditionValuesOrderByWithRelationInput } from "../inputs/EncounterConditionValuesOrderByWithRelationInput";
-import { EncountersOrderByWithRelationInput } from "../inputs/EncountersOrderByWithRelationInput";
+import { EncounterConditionValueOrderByWithRelationInput } from "../inputs/EncounterConditionValueOrderByWithRelationInput";
+import { EncounterOrderByWithRelationInput } from "../inputs/EncounterOrderByWithRelationInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("EncounterConditionValueMapOrderByWithRelationInput", {})
@@ -18,13 +18,13 @@ export class EncounterConditionValueMapOrderByWithRelationInput {
   })
   encounter_condition_value_id?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => EncountersOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => EncounterOrderByWithRelationInput, {
     nullable: true
   })
-  encounter?: EncountersOrderByWithRelationInput | undefined;
+  encounter?: EncounterOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => EncounterConditionValuesOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => EncounterConditionValueOrderByWithRelationInput, {
     nullable: true
   })
-  conditionValue?: EncounterConditionValuesOrderByWithRelationInput | undefined;
+  conditionValue?: EncounterConditionValueOrderByWithRelationInput | undefined;
 }

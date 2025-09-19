@@ -1,0 +1,15 @@
+export { AggregateNatureArgs } from "./AggregateNatureArgs";
+export { CreateManyAndReturnNatureArgs } from "./CreateManyAndReturnNatureArgs";
+export { CreateManyNatureArgs } from "./CreateManyNatureArgs";
+export { CreateOneNatureArgs } from "./CreateOneNatureArgs";
+export { DeleteManyNatureArgs } from "./DeleteManyNatureArgs";
+export { DeleteOneNatureArgs } from "./DeleteOneNatureArgs";
+export { FindFirstNatureArgs } from "./FindFirstNatureArgs";
+export { FindFirstNatureOrThrowArgs } from "./FindFirstNatureOrThrowArgs";
+export { FindManyNatureArgs } from "./FindManyNatureArgs";
+export { FindUniqueNatureArgs } from "./FindUniqueNatureArgs";
+export { FindUniqueNatureOrThrowArgs } from "./FindUniqueNatureOrThrowArgs";
+export { GroupByNatureArgs } from "./GroupByNatureArgs";
+export { UpdateManyNatureArgs } from "./UpdateManyNatureArgs";
+export { UpdateOneNatureArgs } from "./UpdateOneNatureArgs";
+export { UpsertOneNatureArgs } from "./UpsertOneNatureArgs";

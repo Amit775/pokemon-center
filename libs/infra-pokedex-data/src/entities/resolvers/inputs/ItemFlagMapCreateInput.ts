@@ -2,18 +2,18 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { ItemFlagsCreateNestedOneWithoutFlagMapInput } from "../inputs/ItemFlagsCreateNestedOneWithoutFlagMapInput";
-import { ItemsCreateNestedOneWithoutFlagMapInput } from "../inputs/ItemsCreateNestedOneWithoutFlagMapInput";
+import { ItemCreateNestedOneWithoutFlagMapInput } from "../inputs/ItemCreateNestedOneWithoutFlagMapInput";
+import { ItemFlagCreateNestedOneWithoutFlagMapInput } from "../inputs/ItemFlagCreateNestedOneWithoutFlagMapInput";
 
 @TypeGraphQL.InputType("ItemFlagMapCreateInput", {})
 export class ItemFlagMapCreateInput {
-  @TypeGraphQL.Field(_type => ItemsCreateNestedOneWithoutFlagMapInput, {
+  @TypeGraphQL.Field(_type => ItemCreateNestedOneWithoutFlagMapInput, {
     nullable: false
   })
-  item!: ItemsCreateNestedOneWithoutFlagMapInput;
+  item!: ItemCreateNestedOneWithoutFlagMapInput;
 
-  @TypeGraphQL.Field(_type => ItemFlagsCreateNestedOneWithoutFlagMapInput, {
+  @TypeGraphQL.Field(_type => ItemFlagCreateNestedOneWithoutFlagMapInput, {
     nullable: false
   })
-  flag!: ItemFlagsCreateNestedOneWithoutFlagMapInput;
+  flag!: ItemFlagCreateNestedOneWithoutFlagMapInput;
 }

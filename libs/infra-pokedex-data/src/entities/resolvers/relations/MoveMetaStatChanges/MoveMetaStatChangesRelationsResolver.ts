@@ -1,17 +1,17 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
+import { Move } from "../../../models/Move";
 import { MoveMeta } from "../../../models/MoveMeta";
 import { MoveMetaStatChanges } from "../../../models/MoveMetaStatChanges";
-import { Moves } from "../../../models/Moves";
-import { Stats } from "../../../models/Stats";
+import { Stat } from "../../../models/Stat";
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 
 @TypeGraphQL.Resolver(_of => MoveMetaStatChanges)
 export class MoveMetaStatChangesRelationsResolver {
-  @TypeGraphQL.FieldResolver(_type => Moves, {
+  @TypeGraphQL.FieldResolver(_type => Move, {
     nullable: false
   })
-  async move(@TypeGraphQL.Root() moveMetaStatChanges: MoveMetaStatChanges, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<Moves> {
+  async move(@TypeGraphQL.Root() moveMetaStatChanges: MoveMetaStatChanges, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<Move> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).moveMetaStatChanges.findUniqueOrThrow({
       where: {
@@ -25,10 +25,10 @@ export class MoveMetaStatChangesRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => Stats, {
+  @TypeGraphQL.FieldResolver(_type => Stat, {
     nullable: false
   })
-  async stat(@TypeGraphQL.Root() moveMetaStatChanges: MoveMetaStatChanges, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<Stats> {
+  async stat(@TypeGraphQL.Root() moveMetaStatChanges: MoveMetaStatChanges, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<Stat> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).moveMetaStatChanges.findUniqueOrThrow({
       where: {

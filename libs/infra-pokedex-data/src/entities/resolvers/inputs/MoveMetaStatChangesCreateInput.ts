@@ -2,9 +2,9 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { MoveCreateNestedOneWithoutMetaStatChangesInput } from "../inputs/MoveCreateNestedOneWithoutMetaStatChangesInput";
 import { MoveMetaCreateNestedOneWithoutStatChangesInput } from "../inputs/MoveMetaCreateNestedOneWithoutStatChangesInput";
-import { MovesCreateNestedOneWithoutMetaStatChangesInput } from "../inputs/MovesCreateNestedOneWithoutMetaStatChangesInput";
-import { StatsCreateNestedOneWithoutMoveMetaStatChangesInput } from "../inputs/StatsCreateNestedOneWithoutMoveMetaStatChangesInput";
+import { StatCreateNestedOneWithoutMoveMetaStatChangesInput } from "../inputs/StatCreateNestedOneWithoutMoveMetaStatChangesInput";
 
 @TypeGraphQL.InputType("MoveMetaStatChangesCreateInput", {})
 export class MoveMetaStatChangesCreateInput {
@@ -13,15 +13,15 @@ export class MoveMetaStatChangesCreateInput {
   })
   change!: number;
 
-  @TypeGraphQL.Field(_type => MovesCreateNestedOneWithoutMetaStatChangesInput, {
+  @TypeGraphQL.Field(_type => MoveCreateNestedOneWithoutMetaStatChangesInput, {
     nullable: false
   })
-  move!: MovesCreateNestedOneWithoutMetaStatChangesInput;
+  move!: MoveCreateNestedOneWithoutMetaStatChangesInput;
 
-  @TypeGraphQL.Field(_type => StatsCreateNestedOneWithoutMoveMetaStatChangesInput, {
+  @TypeGraphQL.Field(_type => StatCreateNestedOneWithoutMoveMetaStatChangesInput, {
     nullable: false
   })
-  stat!: StatsCreateNestedOneWithoutMoveMetaStatChangesInput;
+  stat!: StatCreateNestedOneWithoutMoveMetaStatChangesInput;
 
   @TypeGraphQL.Field(_type => MoveMetaCreateNestedOneWithoutStatChangesInput, {
     nullable: false

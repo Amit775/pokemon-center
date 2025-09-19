@@ -2,14 +2,14 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { EvolutionTriggersOrderByWithRelationInput } from "../inputs/EvolutionTriggersOrderByWithRelationInput";
-import { GendersOrderByWithRelationInput } from "../inputs/GendersOrderByWithRelationInput";
-import { ItemsOrderByWithRelationInput } from "../inputs/ItemsOrderByWithRelationInput";
-import { LocationsOrderByWithRelationInput } from "../inputs/LocationsOrderByWithRelationInput";
-import { MovesOrderByWithRelationInput } from "../inputs/MovesOrderByWithRelationInput";
+import { EvolutionTriggerOrderByWithRelationInput } from "../inputs/EvolutionTriggerOrderByWithRelationInput";
+import { GenderOrderByWithRelationInput } from "../inputs/GenderOrderByWithRelationInput";
+import { ItemOrderByWithRelationInput } from "../inputs/ItemOrderByWithRelationInput";
+import { LocationOrderByWithRelationInput } from "../inputs/LocationOrderByWithRelationInput";
+import { MoveOrderByWithRelationInput } from "../inputs/MoveOrderByWithRelationInput";
 import { PokemonSpeciesOrderByWithRelationInput } from "../inputs/PokemonSpeciesOrderByWithRelationInput";
 import { SortOrderInput } from "../inputs/SortOrderInput";
-import { TypesOrderByWithRelationInput } from "../inputs/TypesOrderByWithRelationInput";
+import { TypeOrderByWithRelationInput } from "../inputs/TypeOrderByWithRelationInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("PokemonEvolutionOrderByWithRelationInput", {})
@@ -119,50 +119,50 @@ export class PokemonEvolutionOrderByWithRelationInput {
   })
   evolvedSpecies?: PokemonSpeciesOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => EvolutionTriggersOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => EvolutionTriggerOrderByWithRelationInput, {
     nullable: true
   })
-  evolutionTrigger?: EvolutionTriggersOrderByWithRelationInput | undefined;
+  evolutionTrigger?: EvolutionTriggerOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => ItemsOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => ItemOrderByWithRelationInput, {
     nullable: true
   })
-  triggerItem?: ItemsOrderByWithRelationInput | undefined;
+  triggerItem?: ItemOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => GendersOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => GenderOrderByWithRelationInput, {
     nullable: true
   })
-  gender?: GendersOrderByWithRelationInput | undefined;
+  gender?: GenderOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => LocationsOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => LocationOrderByWithRelationInput, {
     nullable: true
   })
-  location?: LocationsOrderByWithRelationInput | undefined;
+  location?: LocationOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => ItemsOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => ItemOrderByWithRelationInput, {
     nullable: true
   })
-  heldItem?: ItemsOrderByWithRelationInput | undefined;
+  heldItem?: ItemOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => MovesOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => MoveOrderByWithRelationInput, {
     nullable: true
   })
-  knownMove?: MovesOrderByWithRelationInput | undefined;
+  knownMove?: MoveOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => TypesOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => TypeOrderByWithRelationInput, {
     nullable: true
   })
-  knownMoveType?: TypesOrderByWithRelationInput | undefined;
+  knownMoveType?: TypeOrderByWithRelationInput | undefined;
 
   @TypeGraphQL.Field(_type => PokemonSpeciesOrderByWithRelationInput, {
     nullable: true
   })
   partySpecies?: PokemonSpeciesOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => TypesOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => TypeOrderByWithRelationInput, {
     nullable: true
   })
-  partyType?: TypesOrderByWithRelationInput | undefined;
+  partyType?: TypeOrderByWithRelationInput | undefined;
 
   @TypeGraphQL.Field(_type => PokemonSpeciesOrderByWithRelationInput, {
     nullable: true

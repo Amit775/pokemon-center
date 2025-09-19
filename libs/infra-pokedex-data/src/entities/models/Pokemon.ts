@@ -2,15 +2,15 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
-import { Encounters } from "../models/Encounters";
-import { PokemonAbilities } from "../models/PokemonAbilities";
-import { PokemonForms } from "../models/PokemonForms";
-import { PokemonGameIndices } from "../models/PokemonGameIndices";
-import { PokemonItems } from "../models/PokemonItems";
-import { PokemonMoves } from "../models/PokemonMoves";
+import { Encounter } from "../models/Encounter";
+import { PokemonAbility } from "../models/PokemonAbility";
+import { PokemonForm } from "../models/PokemonForm";
+import { PokemonGameIndex } from "../models/PokemonGameIndex";
+import { PokemonItem } from "../models/PokemonItem";
+import { PokemonMove } from "../models/PokemonMove";
 import { PokemonSpecies } from "../models/PokemonSpecies";
-import { PokemonStats } from "../models/PokemonStats";
-import { PokemonTypes } from "../models/PokemonTypes";
+import { PokemonStat } from "../models/PokemonStat";
+import { PokemonType } from "../models/PokemonType";
 import { PokemonCount } from "../resolvers/outputs/PokemonCount";
 
 @TypeGraphQL.ObjectType("Pokemon", {})
@@ -57,21 +57,21 @@ export class Pokemon {
 
   species?: PokemonSpecies;
 
-  forms?: PokemonForms[];
+  forms?: PokemonForm[];
 
-  abilities?: PokemonAbilities[];
+  abilities?: PokemonAbility[];
 
-  moves?: PokemonMoves[];
+  moves?: PokemonMove[];
 
-  stats?: PokemonStats[];
+  stats?: PokemonStat[];
 
-  types?: PokemonTypes[];
+  types?: PokemonType[];
 
-  items?: PokemonItems[];
+  items?: PokemonItem[];
 
-  gameIndices?: PokemonGameIndices[];
+  gameIndices?: PokemonGameIndex[];
 
-  encounters?: Encounters[];
+  encounters?: Encounter[];
 
   @TypeGraphQL.Field(_type => PokemonCount, {
     nullable: true

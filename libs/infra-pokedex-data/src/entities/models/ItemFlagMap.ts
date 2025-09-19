@@ -2,8 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
-import { ItemFlags } from "../models/ItemFlags";
-import { Items } from "../models/Items";
+import { Item } from "../models/Item";
+import { ItemFlag } from "../models/ItemFlag";
 
 @TypeGraphQL.ObjectType("ItemFlagMap", {})
 export class ItemFlagMap {
@@ -17,7 +17,7 @@ export class ItemFlagMap {
   })
   item_flag_id!: number;
 
-  item?: Items;
+  item?: Item;
 
-  flag?: ItemFlags;
+  flag?: ItemFlag;
 }

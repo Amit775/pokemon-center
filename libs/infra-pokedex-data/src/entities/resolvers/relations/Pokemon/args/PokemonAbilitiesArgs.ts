@@ -1,26 +1,26 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { PokemonAbilitiesOrderByWithRelationInput } from "../../../inputs/PokemonAbilitiesOrderByWithRelationInput";
-import { PokemonAbilitiesWhereInput } from "../../../inputs/PokemonAbilitiesWhereInput";
-import { PokemonAbilitiesWhereUniqueInput } from "../../../inputs/PokemonAbilitiesWhereUniqueInput";
-import { PokemonAbilitiesScalarFieldEnum } from "../../../../enums/PokemonAbilitiesScalarFieldEnum";
+import { PokemonAbilityOrderByWithRelationInput } from "../../../inputs/PokemonAbilityOrderByWithRelationInput";
+import { PokemonAbilityWhereInput } from "../../../inputs/PokemonAbilityWhereInput";
+import { PokemonAbilityWhereUniqueInput } from "../../../inputs/PokemonAbilityWhereUniqueInput";
+import { PokemonAbilityScalarFieldEnum } from "../../../../enums/PokemonAbilityScalarFieldEnum";
 
 @TypeGraphQL.ArgsType()
 export class PokemonAbilitiesArgs {
-  @TypeGraphQL.Field(_type => PokemonAbilitiesWhereInput, {
+  @TypeGraphQL.Field(_type => PokemonAbilityWhereInput, {
     nullable: true
   })
-  where?: PokemonAbilitiesWhereInput | undefined;
+  where?: PokemonAbilityWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => [PokemonAbilitiesOrderByWithRelationInput], {
+  @TypeGraphQL.Field(_type => [PokemonAbilityOrderByWithRelationInput], {
     nullable: true
   })
-  orderBy?: PokemonAbilitiesOrderByWithRelationInput[] | undefined;
+  orderBy?: PokemonAbilityOrderByWithRelationInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonAbilitiesWhereUniqueInput, {
+  @TypeGraphQL.Field(_type => PokemonAbilityWhereUniqueInput, {
     nullable: true
   })
-  cursor?: PokemonAbilitiesWhereUniqueInput | undefined;
+  cursor?: PokemonAbilityWhereUniqueInput | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
@@ -32,7 +32,7 @@ export class PokemonAbilitiesArgs {
   })
   skip?: number | undefined;
 
-  @TypeGraphQL.Field(_type => [PokemonAbilitiesScalarFieldEnum], {
+  @TypeGraphQL.Field(_type => [PokemonAbilityScalarFieldEnum], {
     nullable: true
   })
   distinct?: Array<"pokemon_id" | "ability_id" | "is_hidden" | "slot"> | undefined;

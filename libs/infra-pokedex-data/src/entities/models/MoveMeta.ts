@@ -2,10 +2,10 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
-import { MoveMetaAilments } from "../models/MoveMetaAilments";
-import { MoveMetaCategories } from "../models/MoveMetaCategories";
+import { Move } from "../models/Move";
+import { MoveMetaAilment } from "../models/MoveMetaAilment";
+import { MoveMetaCategory } from "../models/MoveMetaCategory";
 import { MoveMetaStatChanges } from "../models/MoveMetaStatChanges";
-import { Moves } from "../models/Moves";
 import { MoveMetaCount } from "../resolvers/outputs/MoveMetaCount";
 
 @TypeGraphQL.ObjectType("MoveMeta", {})
@@ -75,11 +75,11 @@ export class MoveMeta {
   })
   stat_chance!: number;
 
-  move?: Moves;
+  move?: Move;
 
-  metaCategory?: MoveMetaCategories;
+  metaCategory?: MoveMetaCategory;
 
-  metaAilment?: MoveMetaAilments | null;
+  metaAilment?: MoveMetaAilment | null;
 
   statChanges?: MoveMetaStatChanges[];
 

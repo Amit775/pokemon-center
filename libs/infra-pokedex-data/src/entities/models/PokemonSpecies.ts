@@ -2,16 +2,16 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
-import { EvolutionChains } from "../models/EvolutionChains";
-import { Generations } from "../models/Generations";
+import { EvolutionChain } from "../models/EvolutionChain";
+import { Generation } from "../models/Generation";
 import { GrowthRates } from "../models/GrowthRates";
 import { Pokemon } from "../models/Pokemon";
-import { PokemonColors } from "../models/PokemonColors";
-import { PokemonDexNumbers } from "../models/PokemonDexNumbers";
-import { PokemonEggGroups } from "../models/PokemonEggGroups";
+import { PokemonColor } from "../models/PokemonColor";
+import { PokemonDexNumber } from "../models/PokemonDexNumber";
+import { PokemonEggGroup } from "../models/PokemonEggGroup";
 import { PokemonEvolution } from "../models/PokemonEvolution";
-import { PokemonHabitats } from "../models/PokemonHabitats";
-import { PokemonShapes } from "../models/PokemonShapes";
+import { PokemonHabitat } from "../models/PokemonHabitat";
+import { PokemonShape } from "../models/PokemonShape";
 import { PokemonSpeciesCount } from "../resolvers/outputs/PokemonSpeciesCount";
 
 @TypeGraphQL.ObjectType("PokemonSpecies", {})
@@ -116,27 +116,27 @@ export class PokemonSpecies {
   })
   conquest_order?: number | null;
 
-  generation?: Generations;
+  generation?: Generation;
 
   evolvesFrom?: PokemonSpecies | null;
 
   evolvesTo?: PokemonSpecies[];
 
-  evolutionChain?: EvolutionChains;
+  evolutionChain?: EvolutionChain;
 
-  color?: PokemonColors;
+  color?: PokemonColor;
 
-  shape?: PokemonShapes;
+  shape?: PokemonShape;
 
-  habitat?: PokemonHabitats | null;
+  habitat?: PokemonHabitat | null;
 
   growthRate?: GrowthRates;
 
   pokemon?: Pokemon[];
 
-  eggGroups?: PokemonEggGroups[];
+  eggGroups?: PokemonEggGroup[];
 
-  dexNumbers?: PokemonDexNumbers[];
+  dexNumbers?: PokemonDexNumber[];
 
   evolution?: PokemonEvolution[];
 

@@ -2,13 +2,13 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
-import { EvolutionTriggers } from "../models/EvolutionTriggers";
-import { Genders } from "../models/Genders";
-import { Items } from "../models/Items";
-import { Locations } from "../models/Locations";
-import { Moves } from "../models/Moves";
+import { EvolutionTrigger } from "../models/EvolutionTrigger";
+import { Gender } from "../models/Gender";
+import { Item } from "../models/Item";
+import { Location } from "../models/Location";
+import { Move } from "../models/Move";
 import { PokemonSpecies } from "../models/PokemonSpecies";
-import { Types } from "../models/Types";
+import { Type } from "../models/Type";
 
 @TypeGraphQL.ObjectType("PokemonEvolution", {})
 export class PokemonEvolution {
@@ -114,23 +114,23 @@ export class PokemonEvolution {
 
   evolvedSpecies?: PokemonSpecies;
 
-  evolutionTrigger?: EvolutionTriggers;
+  evolutionTrigger?: EvolutionTrigger;
 
-  triggerItem?: Items | null;
+  triggerItem?: Item | null;
 
-  gender?: Genders | null;
+  gender?: Gender | null;
 
-  location?: Locations | null;
+  location?: Location | null;
 
-  heldItem?: Items | null;
+  heldItem?: Item | null;
 
-  knownMove?: Moves | null;
+  knownMove?: Move | null;
 
-  knownMoveType?: Types | null;
+  knownMoveType?: Type | null;
 
   partySpecies?: PokemonSpecies | null;
 
-  partyType?: Types | null;
+  partyType?: Type | null;
 
   tradeSpecies?: PokemonSpecies | null;
 }

@@ -1,26 +1,26 @@
 import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
-import { PokemonFormsOrderByWithRelationInput } from "../../../inputs/PokemonFormsOrderByWithRelationInput";
-import { PokemonFormsWhereInput } from "../../../inputs/PokemonFormsWhereInput";
-import { PokemonFormsWhereUniqueInput } from "../../../inputs/PokemonFormsWhereUniqueInput";
-import { PokemonFormsScalarFieldEnum } from "../../../../enums/PokemonFormsScalarFieldEnum";
+import { PokemonFormOrderByWithRelationInput } from "../../../inputs/PokemonFormOrderByWithRelationInput";
+import { PokemonFormWhereInput } from "../../../inputs/PokemonFormWhereInput";
+import { PokemonFormWhereUniqueInput } from "../../../inputs/PokemonFormWhereUniqueInput";
+import { PokemonFormScalarFieldEnum } from "../../../../enums/PokemonFormScalarFieldEnum";
 
 @TypeGraphQL.ArgsType()
 export class PokemonFormsArgs {
-  @TypeGraphQL.Field(_type => PokemonFormsWhereInput, {
+  @TypeGraphQL.Field(_type => PokemonFormWhereInput, {
     nullable: true
   })
-  where?: PokemonFormsWhereInput | undefined;
+  where?: PokemonFormWhereInput | undefined;
 
-  @TypeGraphQL.Field(_type => [PokemonFormsOrderByWithRelationInput], {
+  @TypeGraphQL.Field(_type => [PokemonFormOrderByWithRelationInput], {
     nullable: true
   })
-  orderBy?: PokemonFormsOrderByWithRelationInput[] | undefined;
+  orderBy?: PokemonFormOrderByWithRelationInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonFormsWhereUniqueInput, {
+  @TypeGraphQL.Field(_type => PokemonFormWhereUniqueInput, {
     nullable: true
   })
-  cursor?: PokemonFormsWhereUniqueInput | undefined;
+  cursor?: PokemonFormWhereUniqueInput | undefined;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: true
@@ -32,7 +32,7 @@ export class PokemonFormsArgs {
   })
   skip?: number | undefined;
 
-  @TypeGraphQL.Field(_type => [PokemonFormsScalarFieldEnum], {
+  @TypeGraphQL.Field(_type => [PokemonFormScalarFieldEnum], {
     nullable: true
   })
   distinct?: Array<"id" | "identifier" | "form_identifier" | "pokemon_id" | "introduced_in_version_group_id" | "is_default" | "is_battle_only" | "is_mega" | "form_order" | "order"> | undefined;

@@ -5,9 +5,9 @@ import { DecimalJSScalar } from "../../scalars";
 import { IntFilter } from "../inputs/IntFilter";
 import { IntNullableFilter } from "../inputs/IntNullableFilter";
 import { MoveMetaAilmentsNullableRelationFilter } from "../inputs/MoveMetaAilmentsNullableRelationFilter";
-import { MoveMetaCategoriesRelationFilter } from "../inputs/MoveMetaCategoriesRelationFilter";
+import { MoveMetaCategoryRelationFilter } from "../inputs/MoveMetaCategoryRelationFilter";
 import { MoveMetaStatChangesListRelationFilter } from "../inputs/MoveMetaStatChangesListRelationFilter";
-import { MovesRelationFilter } from "../inputs/MovesRelationFilter";
+import { MoveRelationFilter } from "../inputs/MoveRelationFilter";
 
 @TypeGraphQL.InputType("MoveMetaWhereInput", {})
 export class MoveMetaWhereInput {
@@ -91,15 +91,15 @@ export class MoveMetaWhereInput {
   })
   stat_chance?: IntFilter | undefined;
 
-  @TypeGraphQL.Field(_type => MovesRelationFilter, {
+  @TypeGraphQL.Field(_type => MoveRelationFilter, {
     nullable: true
   })
-  move?: MovesRelationFilter | undefined;
+  move?: MoveRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => MoveMetaCategoriesRelationFilter, {
+  @TypeGraphQL.Field(_type => MoveMetaCategoryRelationFilter, {
     nullable: true
   })
-  metaCategory?: MoveMetaCategoriesRelationFilter | undefined;
+  metaCategory?: MoveMetaCategoryRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => MoveMetaAilmentsNullableRelationFilter, {
     nullable: true

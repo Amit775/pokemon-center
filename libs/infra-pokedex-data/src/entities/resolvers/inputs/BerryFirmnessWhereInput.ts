@@ -2,7 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { BerriesListRelationFilter } from "../inputs/BerriesListRelationFilter";
+import { BerryListRelationFilter } from "../inputs/BerryListRelationFilter";
 import { IntFilter } from "../inputs/IntFilter";
 import { StringFilter } from "../inputs/StringFilter";
 
@@ -33,8 +33,8 @@ export class BerryFirmnessWhereInput {
   })
   identifier?: StringFilter | undefined;
 
-  @TypeGraphQL.Field(_type => BerriesListRelationFilter, {
+  @TypeGraphQL.Field(_type => BerryListRelationFilter, {
     nullable: true
   })
-  berries?: BerriesListRelationFilter | undefined;
+  berries?: BerryListRelationFilter | undefined;
 }

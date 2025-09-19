@@ -1,7 +1,15 @@
 export { AggregateMoveMetaStatChangesArgs } from "./AggregateMoveMetaStatChangesArgs";
+export { CreateManyAndReturnMoveMetaStatChangesArgs } from "./CreateManyAndReturnMoveMetaStatChangesArgs";
+export { CreateManyMoveMetaStatChangesArgs } from "./CreateManyMoveMetaStatChangesArgs";
+export { CreateOneMoveMetaStatChangesArgs } from "./CreateOneMoveMetaStatChangesArgs";
+export { DeleteManyMoveMetaStatChangesArgs } from "./DeleteManyMoveMetaStatChangesArgs";
+export { DeleteOneMoveMetaStatChangesArgs } from "./DeleteOneMoveMetaStatChangesArgs";
 export { FindFirstMoveMetaStatChangesArgs } from "./FindFirstMoveMetaStatChangesArgs";
 export { FindFirstMoveMetaStatChangesOrThrowArgs } from "./FindFirstMoveMetaStatChangesOrThrowArgs";
 export { FindManyMoveMetaStatChangesArgs } from "./FindManyMoveMetaStatChangesArgs";
 export { FindUniqueMoveMetaStatChangesArgs } from "./FindUniqueMoveMetaStatChangesArgs";
 export { FindUniqueMoveMetaStatChangesOrThrowArgs } from "./FindUniqueMoveMetaStatChangesOrThrowArgs";
 export { GroupByMoveMetaStatChangesArgs } from "./GroupByMoveMetaStatChangesArgs";
+export { UpdateManyMoveMetaStatChangesArgs } from "./UpdateManyMoveMetaStatChangesArgs";
+export { UpdateOneMoveMetaStatChangesArgs } from "./UpdateOneMoveMetaStatChangesArgs";
+export { UpsertOneMoveMetaStatChangesArgs } from "./UpsertOneMoveMetaStatChangesArgs";

@@ -5,7 +5,7 @@ import { DecimalJSScalar } from "../../scalars";
 import { IntFilter } from "../inputs/IntFilter";
 import { TypeEfficacyDamage_type_idTarget_type_idCompoundUniqueInput } from "../inputs/TypeEfficacyDamage_type_idTarget_type_idCompoundUniqueInput";
 import { TypeEfficacyWhereInput } from "../inputs/TypeEfficacyWhereInput";
-import { TypesRelationFilter } from "../inputs/TypesRelationFilter";
+import { TypeRelationFilter } from "../inputs/TypeRelationFilter";
 
 @TypeGraphQL.InputType("TypeEfficacyWhereUniqueInput", {})
 export class TypeEfficacyWhereUniqueInput {
@@ -44,13 +44,13 @@ export class TypeEfficacyWhereUniqueInput {
   })
   damage_factor?: IntFilter | undefined;
 
-  @TypeGraphQL.Field(_type => TypesRelationFilter, {
+  @TypeGraphQL.Field(_type => TypeRelationFilter, {
     nullable: true
   })
-  damageType?: TypesRelationFilter | undefined;
+  damageType?: TypeRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => TypesRelationFilter, {
+  @TypeGraphQL.Field(_type => TypeRelationFilter, {
     nullable: true
   })
-  targetType?: TypesRelationFilter | undefined;
+  targetType?: TypeRelationFilter | undefined;
 }

@@ -1,13 +1,13 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
-import { EvolutionTriggers } from "../../../models/EvolutionTriggers";
-import { Genders } from "../../../models/Genders";
-import { Items } from "../../../models/Items";
-import { Locations } from "../../../models/Locations";
-import { Moves } from "../../../models/Moves";
+import { EvolutionTrigger } from "../../../models/EvolutionTrigger";
+import { Gender } from "../../../models/Gender";
+import { Item } from "../../../models/Item";
+import { Location } from "../../../models/Location";
+import { Move } from "../../../models/Move";
 import { PokemonEvolution } from "../../../models/PokemonEvolution";
 import { PokemonSpecies } from "../../../models/PokemonSpecies";
-import { Types } from "../../../models/Types";
+import { Type } from "../../../models/Type";
 import { PokemonEvolutionGenderArgs } from "./args/PokemonEvolutionGenderArgs";
 import { PokemonEvolutionHeldItemArgs } from "./args/PokemonEvolutionHeldItemArgs";
 import { PokemonEvolutionKnownMoveArgs } from "./args/PokemonEvolutionKnownMoveArgs";
@@ -35,10 +35,10 @@ export class PokemonEvolutionRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => EvolutionTriggers, {
+  @TypeGraphQL.FieldResolver(_type => EvolutionTrigger, {
     nullable: false
   })
-  async evolutionTrigger(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<EvolutionTriggers> {
+  async evolutionTrigger(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo): Promise<EvolutionTrigger> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemonEvolution.findUniqueOrThrow({
       where: {
@@ -49,10 +49,10 @@ export class PokemonEvolutionRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => Items, {
+  @TypeGraphQL.FieldResolver(_type => Item, {
     nullable: true
   })
-  async triggerItem(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEvolutionTriggerItemArgs): Promise<Items | null> {
+  async triggerItem(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEvolutionTriggerItemArgs): Promise<Item | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemonEvolution.findUniqueOrThrow({
       where: {
@@ -64,10 +64,10 @@ export class PokemonEvolutionRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => Genders, {
+  @TypeGraphQL.FieldResolver(_type => Gender, {
     nullable: true
   })
-  async gender(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEvolutionGenderArgs): Promise<Genders | null> {
+  async gender(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEvolutionGenderArgs): Promise<Gender | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemonEvolution.findUniqueOrThrow({
       where: {
@@ -79,10 +79,10 @@ export class PokemonEvolutionRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => Locations, {
+  @TypeGraphQL.FieldResolver(_type => Location, {
     nullable: true
   })
-  async location(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEvolutionLocationArgs): Promise<Locations | null> {
+  async location(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEvolutionLocationArgs): Promise<Location | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemonEvolution.findUniqueOrThrow({
       where: {
@@ -94,10 +94,10 @@ export class PokemonEvolutionRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => Items, {
+  @TypeGraphQL.FieldResolver(_type => Item, {
     nullable: true
   })
-  async heldItem(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEvolutionHeldItemArgs): Promise<Items | null> {
+  async heldItem(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEvolutionHeldItemArgs): Promise<Item | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemonEvolution.findUniqueOrThrow({
       where: {
@@ -109,10 +109,10 @@ export class PokemonEvolutionRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => Moves, {
+  @TypeGraphQL.FieldResolver(_type => Move, {
     nullable: true
   })
-  async knownMove(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEvolutionKnownMoveArgs): Promise<Moves | null> {
+  async knownMove(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEvolutionKnownMoveArgs): Promise<Move | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemonEvolution.findUniqueOrThrow({
       where: {
@@ -124,10 +124,10 @@ export class PokemonEvolutionRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => Types, {
+  @TypeGraphQL.FieldResolver(_type => Type, {
     nullable: true
   })
-  async knownMoveType(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEvolutionKnownMoveTypeArgs): Promise<Types | null> {
+  async knownMoveType(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEvolutionKnownMoveTypeArgs): Promise<Type | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemonEvolution.findUniqueOrThrow({
       where: {
@@ -154,10 +154,10 @@ export class PokemonEvolutionRelationsResolver {
     });
   }
 
-  @TypeGraphQL.FieldResolver(_type => Types, {
+  @TypeGraphQL.FieldResolver(_type => Type, {
     nullable: true
   })
-  async partyType(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEvolutionPartyTypeArgs): Promise<Types | null> {
+  async partyType(@TypeGraphQL.Root() pokemonEvolution: PokemonEvolution, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: PokemonEvolutionPartyTypeArgs): Promise<Type | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).pokemonEvolution.findUniqueOrThrow({
       where: {

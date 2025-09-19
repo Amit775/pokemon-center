@@ -2,12 +2,12 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { MoveFlagsCreateNestedOneWithoutFlagMapInput } from "../inputs/MoveFlagsCreateNestedOneWithoutFlagMapInput";
+import { MoveFlagCreateNestedOneWithoutFlagMapInput } from "../inputs/MoveFlagCreateNestedOneWithoutFlagMapInput";
 
 @TypeGraphQL.InputType("MoveFlagMapCreateWithoutMoveInput", {})
 export class MoveFlagMapCreateWithoutMoveInput {
-  @TypeGraphQL.Field(_type => MoveFlagsCreateNestedOneWithoutFlagMapInput, {
+  @TypeGraphQL.Field(_type => MoveFlagCreateNestedOneWithoutFlagMapInput, {
     nullable: false
   })
-  flag!: MoveFlagsCreateNestedOneWithoutFlagMapInput;
+  flag!: MoveFlagCreateNestedOneWithoutFlagMapInput;
 }

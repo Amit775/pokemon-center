@@ -2,17 +2,17 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { EvolutionChainsUpdateOneRequiredWithoutSpeciesNestedInput } from "../inputs/EvolutionChainsUpdateOneRequiredWithoutSpeciesNestedInput";
-import { GenerationsUpdateOneRequiredWithoutPokemonSpeciesNestedInput } from "../inputs/GenerationsUpdateOneRequiredWithoutPokemonSpeciesNestedInput";
+import { EvolutionChainUpdateOneRequiredWithoutSpeciesNestedInput } from "../inputs/EvolutionChainUpdateOneRequiredWithoutSpeciesNestedInput";
+import { GenerationUpdateOneRequiredWithoutPokemonSpeciesNestedInput } from "../inputs/GenerationUpdateOneRequiredWithoutPokemonSpeciesNestedInput";
 import { GrowthRatesUpdateOneRequiredWithoutSpeciesNestedInput } from "../inputs/GrowthRatesUpdateOneRequiredWithoutSpeciesNestedInput";
-import { PokemonColorsUpdateOneRequiredWithoutSpeciesNestedInput } from "../inputs/PokemonColorsUpdateOneRequiredWithoutSpeciesNestedInput";
-import { PokemonDexNumbersUpdateManyWithoutSpeciesNestedInput } from "../inputs/PokemonDexNumbersUpdateManyWithoutSpeciesNestedInput";
-import { PokemonEggGroupsUpdateManyWithoutSpeciesNestedInput } from "../inputs/PokemonEggGroupsUpdateManyWithoutSpeciesNestedInput";
+import { PokemonColorUpdateOneRequiredWithoutSpeciesNestedInput } from "../inputs/PokemonColorUpdateOneRequiredWithoutSpeciesNestedInput";
+import { PokemonDexNumberUpdateManyWithoutSpeciesNestedInput } from "../inputs/PokemonDexNumberUpdateManyWithoutSpeciesNestedInput";
+import { PokemonEggGroupUpdateManyWithoutSpeciesNestedInput } from "../inputs/PokemonEggGroupUpdateManyWithoutSpeciesNestedInput";
 import { PokemonEvolutionUpdateManyWithoutEvolvedSpeciesNestedInput } from "../inputs/PokemonEvolutionUpdateManyWithoutEvolvedSpeciesNestedInput";
 import { PokemonEvolutionUpdateManyWithoutPartySpeciesNestedInput } from "../inputs/PokemonEvolutionUpdateManyWithoutPartySpeciesNestedInput";
 import { PokemonEvolutionUpdateManyWithoutTradeSpeciesNestedInput } from "../inputs/PokemonEvolutionUpdateManyWithoutTradeSpeciesNestedInput";
-import { PokemonHabitatsUpdateOneWithoutSpeciesNestedInput } from "../inputs/PokemonHabitatsUpdateOneWithoutSpeciesNestedInput";
-import { PokemonShapesUpdateOneRequiredWithoutSpeciesNestedInput } from "../inputs/PokemonShapesUpdateOneRequiredWithoutSpeciesNestedInput";
+import { PokemonHabitatUpdateOneWithoutSpeciesNestedInput } from "../inputs/PokemonHabitatUpdateOneWithoutSpeciesNestedInput";
+import { PokemonShapeUpdateOneRequiredWithoutSpeciesNestedInput } from "../inputs/PokemonShapeUpdateOneRequiredWithoutSpeciesNestedInput";
 import { PokemonSpeciesUpdateManyWithoutEvolvesFromNestedInput } from "../inputs/PokemonSpeciesUpdateManyWithoutEvolvesFromNestedInput";
 import { PokemonSpeciesUpdateOneWithoutEvolvesToNestedInput } from "../inputs/PokemonSpeciesUpdateOneWithoutEvolvesToNestedInput";
 
@@ -83,10 +83,10 @@ export class PokemonSpeciesUpdateWithoutPokemonInput {
   })
   conquest_order?: number | undefined;
 
-  @TypeGraphQL.Field(_type => GenerationsUpdateOneRequiredWithoutPokemonSpeciesNestedInput, {
+  @TypeGraphQL.Field(_type => GenerationUpdateOneRequiredWithoutPokemonSpeciesNestedInput, {
     nullable: true
   })
-  generation?: GenerationsUpdateOneRequiredWithoutPokemonSpeciesNestedInput | undefined;
+  generation?: GenerationUpdateOneRequiredWithoutPokemonSpeciesNestedInput | undefined;
 
   @TypeGraphQL.Field(_type => PokemonSpeciesUpdateOneWithoutEvolvesToNestedInput, {
     nullable: true
@@ -98,40 +98,40 @@ export class PokemonSpeciesUpdateWithoutPokemonInput {
   })
   evolvesTo?: PokemonSpeciesUpdateManyWithoutEvolvesFromNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => EvolutionChainsUpdateOneRequiredWithoutSpeciesNestedInput, {
+  @TypeGraphQL.Field(_type => EvolutionChainUpdateOneRequiredWithoutSpeciesNestedInput, {
     nullable: true
   })
-  evolutionChain?: EvolutionChainsUpdateOneRequiredWithoutSpeciesNestedInput | undefined;
+  evolutionChain?: EvolutionChainUpdateOneRequiredWithoutSpeciesNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonColorsUpdateOneRequiredWithoutSpeciesNestedInput, {
+  @TypeGraphQL.Field(_type => PokemonColorUpdateOneRequiredWithoutSpeciesNestedInput, {
     nullable: true
   })
-  color?: PokemonColorsUpdateOneRequiredWithoutSpeciesNestedInput | undefined;
+  color?: PokemonColorUpdateOneRequiredWithoutSpeciesNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonShapesUpdateOneRequiredWithoutSpeciesNestedInput, {
+  @TypeGraphQL.Field(_type => PokemonShapeUpdateOneRequiredWithoutSpeciesNestedInput, {
     nullable: true
   })
-  shape?: PokemonShapesUpdateOneRequiredWithoutSpeciesNestedInput | undefined;
+  shape?: PokemonShapeUpdateOneRequiredWithoutSpeciesNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonHabitatsUpdateOneWithoutSpeciesNestedInput, {
+  @TypeGraphQL.Field(_type => PokemonHabitatUpdateOneWithoutSpeciesNestedInput, {
     nullable: true
   })
-  habitat?: PokemonHabitatsUpdateOneWithoutSpeciesNestedInput | undefined;
+  habitat?: PokemonHabitatUpdateOneWithoutSpeciesNestedInput | undefined;
 
   @TypeGraphQL.Field(_type => GrowthRatesUpdateOneRequiredWithoutSpeciesNestedInput, {
     nullable: true
   })
   growthRate?: GrowthRatesUpdateOneRequiredWithoutSpeciesNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonEggGroupsUpdateManyWithoutSpeciesNestedInput, {
+  @TypeGraphQL.Field(_type => PokemonEggGroupUpdateManyWithoutSpeciesNestedInput, {
     nullable: true
   })
-  eggGroups?: PokemonEggGroupsUpdateManyWithoutSpeciesNestedInput | undefined;
+  eggGroups?: PokemonEggGroupUpdateManyWithoutSpeciesNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonDexNumbersUpdateManyWithoutSpeciesNestedInput, {
+  @TypeGraphQL.Field(_type => PokemonDexNumberUpdateManyWithoutSpeciesNestedInput, {
     nullable: true
   })
-  dexNumbers?: PokemonDexNumbersUpdateManyWithoutSpeciesNestedInput | undefined;
+  dexNumbers?: PokemonDexNumberUpdateManyWithoutSpeciesNestedInput | undefined;
 
   @TypeGraphQL.Field(_type => PokemonEvolutionUpdateManyWithoutEvolvedSpeciesNestedInput, {
     nullable: true

@@ -1,7 +1,15 @@
 export { AggregateMoveMetaArgs } from "./AggregateMoveMetaArgs";
+export { CreateManyAndReturnMoveMetaArgs } from "./CreateManyAndReturnMoveMetaArgs";
+export { CreateManyMoveMetaArgs } from "./CreateManyMoveMetaArgs";
+export { CreateOneMoveMetaArgs } from "./CreateOneMoveMetaArgs";
+export { DeleteManyMoveMetaArgs } from "./DeleteManyMoveMetaArgs";
+export { DeleteOneMoveMetaArgs } from "./DeleteOneMoveMetaArgs";
 export { FindFirstMoveMetaArgs } from "./FindFirstMoveMetaArgs";
 export { FindFirstMoveMetaOrThrowArgs } from "./FindFirstMoveMetaOrThrowArgs";
 export { FindManyMoveMetaArgs } from "./FindManyMoveMetaArgs";
 export { FindUniqueMoveMetaArgs } from "./FindUniqueMoveMetaArgs";
 export { FindUniqueMoveMetaOrThrowArgs } from "./FindUniqueMoveMetaOrThrowArgs";
 export { GroupByMoveMetaArgs } from "./GroupByMoveMetaArgs";
+export { UpdateManyMoveMetaArgs } from "./UpdateManyMoveMetaArgs";
+export { UpdateOneMoveMetaArgs } from "./UpdateOneMoveMetaArgs";
+export { UpsertOneMoveMetaArgs } from "./UpsertOneMoveMetaArgs";

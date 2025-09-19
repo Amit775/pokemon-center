@@ -2,10 +2,10 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { MoveMetaAilmentsOrderByWithRelationInput } from "../inputs/MoveMetaAilmentsOrderByWithRelationInput";
-import { MoveMetaCategoriesOrderByWithRelationInput } from "../inputs/MoveMetaCategoriesOrderByWithRelationInput";
+import { MoveMetaAilmentOrderByWithRelationInput } from "../inputs/MoveMetaAilmentOrderByWithRelationInput";
+import { MoveMetaCategoryOrderByWithRelationInput } from "../inputs/MoveMetaCategoryOrderByWithRelationInput";
 import { MoveMetaStatChangesOrderByRelationAggregateInput } from "../inputs/MoveMetaStatChangesOrderByRelationAggregateInput";
-import { MovesOrderByWithRelationInput } from "../inputs/MovesOrderByWithRelationInput";
+import { MoveOrderByWithRelationInput } from "../inputs/MoveOrderByWithRelationInput";
 import { SortOrderInput } from "../inputs/SortOrderInput";
 import { SortOrder } from "../../enums/SortOrder";
 
@@ -76,20 +76,20 @@ export class MoveMetaOrderByWithRelationInput {
   })
   stat_chance?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => MovesOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => MoveOrderByWithRelationInput, {
     nullable: true
   })
-  move?: MovesOrderByWithRelationInput | undefined;
+  move?: MoveOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => MoveMetaCategoriesOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => MoveMetaCategoryOrderByWithRelationInput, {
     nullable: true
   })
-  metaCategory?: MoveMetaCategoriesOrderByWithRelationInput | undefined;
+  metaCategory?: MoveMetaCategoryOrderByWithRelationInput | undefined;
 
-  @TypeGraphQL.Field(_type => MoveMetaAilmentsOrderByWithRelationInput, {
+  @TypeGraphQL.Field(_type => MoveMetaAilmentOrderByWithRelationInput, {
     nullable: true
   })
-  metaAilment?: MoveMetaAilmentsOrderByWithRelationInput | undefined;
+  metaAilment?: MoveMetaAilmentOrderByWithRelationInput | undefined;
 
   @TypeGraphQL.Field(_type => MoveMetaStatChangesOrderByRelationAggregateInput, {
     nullable: true

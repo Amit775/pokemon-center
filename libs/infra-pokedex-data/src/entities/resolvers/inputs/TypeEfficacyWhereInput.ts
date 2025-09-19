@@ -3,7 +3,7 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { IntFilter } from "../inputs/IntFilter";
-import { TypesRelationFilter } from "../inputs/TypesRelationFilter";
+import { TypeRelationFilter } from "../inputs/TypeRelationFilter";
 
 @TypeGraphQL.InputType("TypeEfficacyWhereInput", {})
 export class TypeEfficacyWhereInput {
@@ -37,13 +37,13 @@ export class TypeEfficacyWhereInput {
   })
   damage_factor?: IntFilter | undefined;
 
-  @TypeGraphQL.Field(_type => TypesRelationFilter, {
+  @TypeGraphQL.Field(_type => TypeRelationFilter, {
     nullable: true
   })
-  damageType?: TypesRelationFilter | undefined;
+  damageType?: TypeRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => TypesRelationFilter, {
+  @TypeGraphQL.Field(_type => TypeRelationFilter, {
     nullable: true
   })
-  targetType?: TypesRelationFilter | undefined;
+  targetType?: TypeRelationFilter | undefined;
 }

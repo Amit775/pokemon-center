@@ -2,8 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { TypesUpdateOneRequiredWithoutEfficacyNestedInput } from "../inputs/TypesUpdateOneRequiredWithoutEfficacyNestedInput";
-import { TypesUpdateOneRequiredWithoutEfficacyTargetNestedInput } from "../inputs/TypesUpdateOneRequiredWithoutEfficacyTargetNestedInput";
+import { TypeUpdateOneRequiredWithoutEfficacyNestedInput } from "../inputs/TypeUpdateOneRequiredWithoutEfficacyNestedInput";
+import { TypeUpdateOneRequiredWithoutEfficacyTargetNestedInput } from "../inputs/TypeUpdateOneRequiredWithoutEfficacyTargetNestedInput";
 
 @TypeGraphQL.InputType("TypeEfficacyUpdateInput", {})
 export class TypeEfficacyUpdateInput {
@@ -12,13 +12,13 @@ export class TypeEfficacyUpdateInput {
   })
   damage_factor?: number | undefined;
 
-  @TypeGraphQL.Field(_type => TypesUpdateOneRequiredWithoutEfficacyNestedInput, {
+  @TypeGraphQL.Field(_type => TypeUpdateOneRequiredWithoutEfficacyNestedInput, {
     nullable: true
   })
-  damageType?: TypesUpdateOneRequiredWithoutEfficacyNestedInput | undefined;
+  damageType?: TypeUpdateOneRequiredWithoutEfficacyNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => TypesUpdateOneRequiredWithoutEfficacyTargetNestedInput, {
+  @TypeGraphQL.Field(_type => TypeUpdateOneRequiredWithoutEfficacyTargetNestedInput, {
     nullable: true
   })
-  targetType?: TypesUpdateOneRequiredWithoutEfficacyTargetNestedInput | undefined;
+  targetType?: TypeUpdateOneRequiredWithoutEfficacyTargetNestedInput | undefined;
 }

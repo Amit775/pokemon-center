@@ -1,0 +1,33 @@
+import * as TypeGraphQL from "type-graphql";
+import * as GraphQLScalars from "graphql-scalars";
+import { GenerationOrderByWithRelationInput } from "../../../inputs/GenerationOrderByWithRelationInput";
+import { GenerationWhereInput } from "../../../inputs/GenerationWhereInput";
+import { GenerationWhereUniqueInput } from "../../../inputs/GenerationWhereUniqueInput";
+
+@TypeGraphQL.ArgsType()
+export class AggregateGenerationArgs {
+  @TypeGraphQL.Field(_type => GenerationWhereInput, {
+    nullable: true
+  })
+  where?: GenerationWhereInput | undefined;
+
+  @TypeGraphQL.Field(_type => [GenerationOrderByWithRelationInput], {
+    nullable: true
+  })
+  orderBy?: GenerationOrderByWithRelationInput[] | undefined;
+
+  @TypeGraphQL.Field(_type => GenerationWhereUniqueInput, {
+    nullable: true
+  })
+  cursor?: GenerationWhereUniqueInput | undefined;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  take?: number | undefined;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  skip?: number | undefined;
+}

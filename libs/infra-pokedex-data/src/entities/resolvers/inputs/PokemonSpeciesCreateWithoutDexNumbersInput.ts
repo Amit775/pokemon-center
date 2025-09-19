@@ -2,17 +2,17 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { EvolutionChainsCreateNestedOneWithoutSpeciesInput } from "../inputs/EvolutionChainsCreateNestedOneWithoutSpeciesInput";
-import { GenerationsCreateNestedOneWithoutPokemonSpeciesInput } from "../inputs/GenerationsCreateNestedOneWithoutPokemonSpeciesInput";
+import { EvolutionChainCreateNestedOneWithoutSpeciesInput } from "../inputs/EvolutionChainCreateNestedOneWithoutSpeciesInput";
+import { GenerationCreateNestedOneWithoutPokemonSpeciesInput } from "../inputs/GenerationCreateNestedOneWithoutPokemonSpeciesInput";
 import { GrowthRatesCreateNestedOneWithoutSpeciesInput } from "../inputs/GrowthRatesCreateNestedOneWithoutSpeciesInput";
-import { PokemonColorsCreateNestedOneWithoutSpeciesInput } from "../inputs/PokemonColorsCreateNestedOneWithoutSpeciesInput";
+import { PokemonColorCreateNestedOneWithoutSpeciesInput } from "../inputs/PokemonColorCreateNestedOneWithoutSpeciesInput";
 import { PokemonCreateNestedManyWithoutSpeciesInput } from "../inputs/PokemonCreateNestedManyWithoutSpeciesInput";
-import { PokemonEggGroupsCreateNestedManyWithoutSpeciesInput } from "../inputs/PokemonEggGroupsCreateNestedManyWithoutSpeciesInput";
+import { PokemonEggGroupCreateNestedManyWithoutSpeciesInput } from "../inputs/PokemonEggGroupCreateNestedManyWithoutSpeciesInput";
 import { PokemonEvolutionCreateNestedManyWithoutEvolvedSpeciesInput } from "../inputs/PokemonEvolutionCreateNestedManyWithoutEvolvedSpeciesInput";
 import { PokemonEvolutionCreateNestedManyWithoutPartySpeciesInput } from "../inputs/PokemonEvolutionCreateNestedManyWithoutPartySpeciesInput";
 import { PokemonEvolutionCreateNestedManyWithoutTradeSpeciesInput } from "../inputs/PokemonEvolutionCreateNestedManyWithoutTradeSpeciesInput";
-import { PokemonHabitatsCreateNestedOneWithoutSpeciesInput } from "../inputs/PokemonHabitatsCreateNestedOneWithoutSpeciesInput";
-import { PokemonShapesCreateNestedOneWithoutSpeciesInput } from "../inputs/PokemonShapesCreateNestedOneWithoutSpeciesInput";
+import { PokemonHabitatCreateNestedOneWithoutSpeciesInput } from "../inputs/PokemonHabitatCreateNestedOneWithoutSpeciesInput";
+import { PokemonShapeCreateNestedOneWithoutSpeciesInput } from "../inputs/PokemonShapeCreateNestedOneWithoutSpeciesInput";
 import { PokemonSpeciesCreateNestedManyWithoutEvolvesFromInput } from "../inputs/PokemonSpeciesCreateNestedManyWithoutEvolvesFromInput";
 import { PokemonSpeciesCreateNestedOneWithoutEvolvesToInput } from "../inputs/PokemonSpeciesCreateNestedOneWithoutEvolvesToInput";
 
@@ -83,10 +83,10 @@ export class PokemonSpeciesCreateWithoutDexNumbersInput {
   })
   conquest_order?: number | undefined;
 
-  @TypeGraphQL.Field(_type => GenerationsCreateNestedOneWithoutPokemonSpeciesInput, {
+  @TypeGraphQL.Field(_type => GenerationCreateNestedOneWithoutPokemonSpeciesInput, {
     nullable: false
   })
-  generation!: GenerationsCreateNestedOneWithoutPokemonSpeciesInput;
+  generation!: GenerationCreateNestedOneWithoutPokemonSpeciesInput;
 
   @TypeGraphQL.Field(_type => PokemonSpeciesCreateNestedOneWithoutEvolvesToInput, {
     nullable: true
@@ -98,25 +98,25 @@ export class PokemonSpeciesCreateWithoutDexNumbersInput {
   })
   evolvesTo?: PokemonSpeciesCreateNestedManyWithoutEvolvesFromInput | undefined;
 
-  @TypeGraphQL.Field(_type => EvolutionChainsCreateNestedOneWithoutSpeciesInput, {
+  @TypeGraphQL.Field(_type => EvolutionChainCreateNestedOneWithoutSpeciesInput, {
     nullable: false
   })
-  evolutionChain!: EvolutionChainsCreateNestedOneWithoutSpeciesInput;
+  evolutionChain!: EvolutionChainCreateNestedOneWithoutSpeciesInput;
 
-  @TypeGraphQL.Field(_type => PokemonColorsCreateNestedOneWithoutSpeciesInput, {
+  @TypeGraphQL.Field(_type => PokemonColorCreateNestedOneWithoutSpeciesInput, {
     nullable: false
   })
-  color!: PokemonColorsCreateNestedOneWithoutSpeciesInput;
+  color!: PokemonColorCreateNestedOneWithoutSpeciesInput;
 
-  @TypeGraphQL.Field(_type => PokemonShapesCreateNestedOneWithoutSpeciesInput, {
+  @TypeGraphQL.Field(_type => PokemonShapeCreateNestedOneWithoutSpeciesInput, {
     nullable: false
   })
-  shape!: PokemonShapesCreateNestedOneWithoutSpeciesInput;
+  shape!: PokemonShapeCreateNestedOneWithoutSpeciesInput;
 
-  @TypeGraphQL.Field(_type => PokemonHabitatsCreateNestedOneWithoutSpeciesInput, {
+  @TypeGraphQL.Field(_type => PokemonHabitatCreateNestedOneWithoutSpeciesInput, {
     nullable: true
   })
-  habitat?: PokemonHabitatsCreateNestedOneWithoutSpeciesInput | undefined;
+  habitat?: PokemonHabitatCreateNestedOneWithoutSpeciesInput | undefined;
 
   @TypeGraphQL.Field(_type => GrowthRatesCreateNestedOneWithoutSpeciesInput, {
     nullable: false
@@ -128,10 +128,10 @@ export class PokemonSpeciesCreateWithoutDexNumbersInput {
   })
   pokemon?: PokemonCreateNestedManyWithoutSpeciesInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonEggGroupsCreateNestedManyWithoutSpeciesInput, {
+  @TypeGraphQL.Field(_type => PokemonEggGroupCreateNestedManyWithoutSpeciesInput, {
     nullable: true
   })
-  eggGroups?: PokemonEggGroupsCreateNestedManyWithoutSpeciesInput | undefined;
+  eggGroups?: PokemonEggGroupCreateNestedManyWithoutSpeciesInput | undefined;
 
   @TypeGraphQL.Field(_type => PokemonEvolutionCreateNestedManyWithoutEvolvedSpeciesInput, {
     nullable: true

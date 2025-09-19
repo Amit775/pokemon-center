@@ -2,7 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { TypesUpdateOneRequiredWithoutEfficacyNestedInput } from "../inputs/TypesUpdateOneRequiredWithoutEfficacyNestedInput";
+import { TypeUpdateOneRequiredWithoutEfficacyNestedInput } from "../inputs/TypeUpdateOneRequiredWithoutEfficacyNestedInput";
 
 @TypeGraphQL.InputType("TypeEfficacyUpdateWithoutTargetTypeInput", {})
 export class TypeEfficacyUpdateWithoutTargetTypeInput {
@@ -11,8 +11,8 @@ export class TypeEfficacyUpdateWithoutTargetTypeInput {
   })
   damage_factor?: number | undefined;
 
-  @TypeGraphQL.Field(_type => TypesUpdateOneRequiredWithoutEfficacyNestedInput, {
+  @TypeGraphQL.Field(_type => TypeUpdateOneRequiredWithoutEfficacyNestedInput, {
     nullable: true
   })
-  damageType?: TypesUpdateOneRequiredWithoutEfficacyNestedInput | undefined;
+  damageType?: TypeUpdateOneRequiredWithoutEfficacyNestedInput | undefined;
 }

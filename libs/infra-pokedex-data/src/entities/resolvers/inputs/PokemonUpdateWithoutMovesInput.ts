@@ -2,14 +2,14 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { EncountersUpdateManyWithoutPokemonNestedInput } from "../inputs/EncountersUpdateManyWithoutPokemonNestedInput";
-import { PokemonAbilitiesUpdateManyWithoutPokemonNestedInput } from "../inputs/PokemonAbilitiesUpdateManyWithoutPokemonNestedInput";
-import { PokemonFormsUpdateManyWithoutPokemonNestedInput } from "../inputs/PokemonFormsUpdateManyWithoutPokemonNestedInput";
-import { PokemonGameIndicesUpdateManyWithoutPokemonNestedInput } from "../inputs/PokemonGameIndicesUpdateManyWithoutPokemonNestedInput";
-import { PokemonItemsUpdateManyWithoutPokemonNestedInput } from "../inputs/PokemonItemsUpdateManyWithoutPokemonNestedInput";
+import { EncounterUpdateManyWithoutPokemonNestedInput } from "../inputs/EncounterUpdateManyWithoutPokemonNestedInput";
+import { PokemonAbilityUpdateManyWithoutPokemonNestedInput } from "../inputs/PokemonAbilityUpdateManyWithoutPokemonNestedInput";
+import { PokemonFormUpdateManyWithoutPokemonNestedInput } from "../inputs/PokemonFormUpdateManyWithoutPokemonNestedInput";
+import { PokemonGameIndexUpdateManyWithoutPokemonNestedInput } from "../inputs/PokemonGameIndexUpdateManyWithoutPokemonNestedInput";
+import { PokemonItemUpdateManyWithoutPokemonNestedInput } from "../inputs/PokemonItemUpdateManyWithoutPokemonNestedInput";
 import { PokemonSpeciesUpdateOneRequiredWithoutPokemonNestedInput } from "../inputs/PokemonSpeciesUpdateOneRequiredWithoutPokemonNestedInput";
-import { PokemonStatsUpdateManyWithoutPokemonNestedInput } from "../inputs/PokemonStatsUpdateManyWithoutPokemonNestedInput";
-import { PokemonTypesUpdateManyWithoutPokemonNestedInput } from "../inputs/PokemonTypesUpdateManyWithoutPokemonNestedInput";
+import { PokemonStatUpdateManyWithoutPokemonNestedInput } from "../inputs/PokemonStatUpdateManyWithoutPokemonNestedInput";
+import { PokemonTypeUpdateManyWithoutPokemonNestedInput } from "../inputs/PokemonTypeUpdateManyWithoutPokemonNestedInput";
 
 @TypeGraphQL.InputType("PokemonUpdateWithoutMovesInput", {})
 export class PokemonUpdateWithoutMovesInput {
@@ -53,38 +53,38 @@ export class PokemonUpdateWithoutMovesInput {
   })
   species?: PokemonSpeciesUpdateOneRequiredWithoutPokemonNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonFormsUpdateManyWithoutPokemonNestedInput, {
+  @TypeGraphQL.Field(_type => PokemonFormUpdateManyWithoutPokemonNestedInput, {
     nullable: true
   })
-  forms?: PokemonFormsUpdateManyWithoutPokemonNestedInput | undefined;
+  forms?: PokemonFormUpdateManyWithoutPokemonNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonAbilitiesUpdateManyWithoutPokemonNestedInput, {
+  @TypeGraphQL.Field(_type => PokemonAbilityUpdateManyWithoutPokemonNestedInput, {
     nullable: true
   })
-  abilities?: PokemonAbilitiesUpdateManyWithoutPokemonNestedInput | undefined;
+  abilities?: PokemonAbilityUpdateManyWithoutPokemonNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonStatsUpdateManyWithoutPokemonNestedInput, {
+  @TypeGraphQL.Field(_type => PokemonStatUpdateManyWithoutPokemonNestedInput, {
     nullable: true
   })
-  stats?: PokemonStatsUpdateManyWithoutPokemonNestedInput | undefined;
+  stats?: PokemonStatUpdateManyWithoutPokemonNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonTypesUpdateManyWithoutPokemonNestedInput, {
+  @TypeGraphQL.Field(_type => PokemonTypeUpdateManyWithoutPokemonNestedInput, {
     nullable: true
   })
-  types?: PokemonTypesUpdateManyWithoutPokemonNestedInput | undefined;
+  types?: PokemonTypeUpdateManyWithoutPokemonNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonItemsUpdateManyWithoutPokemonNestedInput, {
+  @TypeGraphQL.Field(_type => PokemonItemUpdateManyWithoutPokemonNestedInput, {
     nullable: true
   })
-  items?: PokemonItemsUpdateManyWithoutPokemonNestedInput | undefined;
+  items?: PokemonItemUpdateManyWithoutPokemonNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => PokemonGameIndicesUpdateManyWithoutPokemonNestedInput, {
+  @TypeGraphQL.Field(_type => PokemonGameIndexUpdateManyWithoutPokemonNestedInput, {
     nullable: true
   })
-  gameIndices?: PokemonGameIndicesUpdateManyWithoutPokemonNestedInput | undefined;
+  gameIndices?: PokemonGameIndexUpdateManyWithoutPokemonNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => EncountersUpdateManyWithoutPokemonNestedInput, {
+  @TypeGraphQL.Field(_type => EncounterUpdateManyWithoutPokemonNestedInput, {
     nullable: true
   })
-  encounters?: EncountersUpdateManyWithoutPokemonNestedInput | undefined;
+  encounters?: EncounterUpdateManyWithoutPokemonNestedInput | undefined;
 }

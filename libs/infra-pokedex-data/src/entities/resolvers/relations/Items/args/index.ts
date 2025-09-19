@@ -1,9 +1,0 @@
-export { ItemsBabyTriggerItemsArgs } from "./ItemsBabyTriggerItemsArgs";
-export { ItemsBerriesArgs } from "./ItemsBerriesArgs";
-export { ItemsFlagMapArgs } from "./ItemsFlagMapArgs";
-export { ItemsFlingEffectArgs } from "./ItemsFlingEffectArgs";
-export { ItemsGameIndicesArgs } from "./ItemsGameIndicesArgs";
-export { ItemsHeldItemsArgs } from "./ItemsHeldItemsArgs";
-export { ItemsMachinesArgs } from "./ItemsMachinesArgs";
-export { ItemsPokemonItemsArgs } from "./ItemsPokemonItemsArgs";
-export { ItemsTriggerItemsArgs } from "./ItemsTriggerItemsArgs";

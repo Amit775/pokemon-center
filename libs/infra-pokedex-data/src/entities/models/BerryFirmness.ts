@@ -2,7 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
-import { Berries } from "../models/Berries";
+import { Berry } from "../models/Berry";
 import { BerryFirmnessCount } from "../resolvers/outputs/BerryFirmnessCount";
 
 @TypeGraphQL.ObjectType("BerryFirmness", {})
@@ -17,7 +17,7 @@ export class BerryFirmness {
   })
   identifier!: string;
 
-  berries?: Berries[];
+  berries?: Berry[];
 
   @TypeGraphQL.Field(_type => BerryFirmnessCount, {
     nullable: true

@@ -2,18 +2,18 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { EncounterConditionValuesCreateNestedOneWithoutConditionValueMapInput } from "../inputs/EncounterConditionValuesCreateNestedOneWithoutConditionValueMapInput";
-import { EncountersCreateNestedOneWithoutConditionValueMapInput } from "../inputs/EncountersCreateNestedOneWithoutConditionValueMapInput";
+import { EncounterConditionValueCreateNestedOneWithoutConditionValueMapInput } from "../inputs/EncounterConditionValueCreateNestedOneWithoutConditionValueMapInput";
+import { EncounterCreateNestedOneWithoutConditionValueMapInput } from "../inputs/EncounterCreateNestedOneWithoutConditionValueMapInput";
 
 @TypeGraphQL.InputType("EncounterConditionValueMapCreateInput", {})
 export class EncounterConditionValueMapCreateInput {
-  @TypeGraphQL.Field(_type => EncountersCreateNestedOneWithoutConditionValueMapInput, {
+  @TypeGraphQL.Field(_type => EncounterCreateNestedOneWithoutConditionValueMapInput, {
     nullable: false
   })
-  encounter!: EncountersCreateNestedOneWithoutConditionValueMapInput;
+  encounter!: EncounterCreateNestedOneWithoutConditionValueMapInput;
 
-  @TypeGraphQL.Field(_type => EncounterConditionValuesCreateNestedOneWithoutConditionValueMapInput, {
+  @TypeGraphQL.Field(_type => EncounterConditionValueCreateNestedOneWithoutConditionValueMapInput, {
     nullable: false
   })
-  conditionValue!: EncounterConditionValuesCreateNestedOneWithoutConditionValueMapInput;
+  conditionValue!: EncounterConditionValueCreateNestedOneWithoutConditionValueMapInput;
 }
