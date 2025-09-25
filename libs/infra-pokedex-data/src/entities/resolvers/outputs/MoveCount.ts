@@ -8,7 +8,6 @@ import { MoveCountFlagMapArgs } from "./args/MoveCountFlagMapArgs";
 import { MoveCountKnownMovesArgs } from "./args/MoveCountKnownMovesArgs";
 import { MoveCountMachinesArgs } from "./args/MoveCountMachinesArgs";
 import { MoveCountMetaArgs } from "./args/MoveCountMetaArgs";
-import { MoveCountMetaStatChangesArgs } from "./args/MoveCountMetaStatChangesArgs";
 import { MoveCountPokemonMovesArgs } from "./args/MoveCountPokemonMovesArgs";
 import { MoveCountSuperContestCombosArgs } from "./args/MoveCountSuperContestCombosArgs";
 import { MoveCountSuperContestCombosSecondArgs } from "./args/MoveCountSuperContestCombosSecondArgs";
@@ -18,7 +17,6 @@ export class MoveCount {
   pokemonMoves!: number;
   machines!: number;
   meta!: number;
-  metaStatChanges!: number;
   flagMap!: number;
   contestCombos!: number;
   contestCombosSecond!: number;
@@ -48,14 +46,6 @@ export class MoveCount {
   })
   getMeta(@TypeGraphQL.Root() root: MoveCount, @TypeGraphQL.Args() args: MoveCountMetaArgs): number {
     return root.meta;
-  }
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    name: "metaStatChanges",
-    nullable: false
-  })
-  getMetaStatChanges(@TypeGraphQL.Root() root: MoveCount, @TypeGraphQL.Args() args: MoveCountMetaStatChangesArgs): number {
-    return root.metaStatChanges;
   }
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {

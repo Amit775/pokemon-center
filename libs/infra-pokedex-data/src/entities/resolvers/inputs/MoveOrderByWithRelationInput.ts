@@ -11,7 +11,6 @@ import { MoveDamageClassOrderByWithRelationInput } from "../inputs/MoveDamageCla
 import { MoveEffectOrderByWithRelationInput } from "../inputs/MoveEffectOrderByWithRelationInput";
 import { MoveFlagMapOrderByRelationAggregateInput } from "../inputs/MoveFlagMapOrderByRelationAggregateInput";
 import { MoveMetaOrderByRelationAggregateInput } from "../inputs/MoveMetaOrderByRelationAggregateInput";
-import { MoveMetaStatChangesOrderByRelationAggregateInput } from "../inputs/MoveMetaStatChangesOrderByRelationAggregateInput";
 import { MoveTargetOrderByWithRelationInput } from "../inputs/MoveTargetOrderByWithRelationInput";
 import { PokemonEvolutionOrderByRelationAggregateInput } from "../inputs/PokemonEvolutionOrderByRelationAggregateInput";
 import { PokemonMoveOrderByRelationAggregateInput } from "../inputs/PokemonMoveOrderByRelationAggregateInput";
@@ -152,11 +151,6 @@ export class MoveOrderByWithRelationInput {
     nullable: true
   })
   meta?: MoveMetaOrderByRelationAggregateInput | undefined;
-
-  @TypeGraphQL.Field(_type => MoveMetaStatChangesOrderByRelationAggregateInput, {
-    nullable: true
-  })
-  metaStatChanges?: MoveMetaStatChangesOrderByRelationAggregateInput | undefined;
 
   @TypeGraphQL.Field(_type => MoveFlagMapOrderByRelationAggregateInput, {
     nullable: true

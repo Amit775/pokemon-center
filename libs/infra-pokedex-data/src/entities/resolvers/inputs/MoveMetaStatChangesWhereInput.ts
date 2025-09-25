@@ -4,7 +4,6 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { IntFilter } from "../inputs/IntFilter";
 import { MoveMetaRelationFilter } from "../inputs/MoveMetaRelationFilter";
-import { MoveRelationFilter } from "../inputs/MoveRelationFilter";
 import { StatRelationFilter } from "../inputs/StatRelationFilter";
 
 @TypeGraphQL.InputType("MoveMetaStatChangesWhereInput", {})
@@ -38,11 +37,6 @@ export class MoveMetaStatChangesWhereInput {
     nullable: true
   })
   change?: IntFilter | undefined;
-
-  @TypeGraphQL.Field(_type => MoveRelationFilter, {
-    nullable: true
-  })
-  move?: MoveRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => StatRelationFilter, {
     nullable: true

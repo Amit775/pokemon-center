@@ -71,7 +71,6 @@ export { MoveCountFlagMapArgs } from "./MoveCountFlagMapArgs";
 export { MoveCountKnownMovesArgs } from "./MoveCountKnownMovesArgs";
 export { MoveCountMachinesArgs } from "./MoveCountMachinesArgs";
 export { MoveCountMetaArgs } from "./MoveCountMetaArgs";
-export { MoveCountMetaStatChangesArgs } from "./MoveCountMetaStatChangesArgs";
 export { MoveCountPokemonMovesArgs } from "./MoveCountPokemonMovesArgs";
 export { MoveCountSuperContestCombosArgs } from "./MoveCountSuperContestCombosArgs";
 export { MoveCountSuperContestCombosSecondArgs } from "./MoveCountSuperContestCombosSecondArgs";

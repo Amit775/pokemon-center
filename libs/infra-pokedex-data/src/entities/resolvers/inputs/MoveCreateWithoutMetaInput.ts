@@ -11,7 +11,6 @@ import { MachineCreateNestedManyWithoutMoveInput } from "../inputs/MachineCreate
 import { MoveDamageClassCreateNestedOneWithoutMovesInput } from "../inputs/MoveDamageClassCreateNestedOneWithoutMovesInput";
 import { MoveEffectCreateNestedOneWithoutMovesInput } from "../inputs/MoveEffectCreateNestedOneWithoutMovesInput";
 import { MoveFlagMapCreateNestedManyWithoutMoveInput } from "../inputs/MoveFlagMapCreateNestedManyWithoutMoveInput";
-import { MoveMetaStatChangesCreateNestedManyWithoutMoveInput } from "../inputs/MoveMetaStatChangesCreateNestedManyWithoutMoveInput";
 import { MoveTargetCreateNestedOneWithoutMovesInput } from "../inputs/MoveTargetCreateNestedOneWithoutMovesInput";
 import { PokemonEvolutionCreateNestedManyWithoutKnownMoveInput } from "../inputs/PokemonEvolutionCreateNestedManyWithoutKnownMoveInput";
 import { PokemonMoveCreateNestedManyWithoutMoveInput } from "../inputs/PokemonMoveCreateNestedManyWithoutMoveInput";
@@ -106,11 +105,6 @@ export class MoveCreateWithoutMetaInput {
     nullable: true
   })
   machines?: MachineCreateNestedManyWithoutMoveInput | undefined;
-
-  @TypeGraphQL.Field(_type => MoveMetaStatChangesCreateNestedManyWithoutMoveInput, {
-    nullable: true
-  })
-  metaStatChanges?: MoveMetaStatChangesCreateNestedManyWithoutMoveInput | undefined;
 
   @TypeGraphQL.Field(_type => MoveFlagMapCreateNestedManyWithoutMoveInput, {
     nullable: true

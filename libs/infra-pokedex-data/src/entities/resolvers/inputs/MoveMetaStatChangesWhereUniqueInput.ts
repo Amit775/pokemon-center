@@ -6,7 +6,6 @@ import { IntFilter } from "../inputs/IntFilter";
 import { MoveMetaRelationFilter } from "../inputs/MoveMetaRelationFilter";
 import { MoveMetaStatChangesMove_idStat_idCompoundUniqueInput } from "../inputs/MoveMetaStatChangesMove_idStat_idCompoundUniqueInput";
 import { MoveMetaStatChangesWhereInput } from "../inputs/MoveMetaStatChangesWhereInput";
-import { MoveRelationFilter } from "../inputs/MoveRelationFilter";
 import { StatRelationFilter } from "../inputs/StatRelationFilter";
 
 @TypeGraphQL.InputType("MoveMetaStatChangesWhereUniqueInput", {})
@@ -45,11 +44,6 @@ export class MoveMetaStatChangesWhereUniqueInput {
     nullable: true
   })
   change?: IntFilter | undefined;
-
-  @TypeGraphQL.Field(_type => MoveRelationFilter, {
-    nullable: true
-  })
-  move?: MoveRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => StatRelationFilter, {
     nullable: true

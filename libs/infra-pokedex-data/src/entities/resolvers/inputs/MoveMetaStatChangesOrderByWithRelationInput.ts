@@ -3,7 +3,6 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { MoveMetaOrderByWithRelationInput } from "../inputs/MoveMetaOrderByWithRelationInput";
-import { MoveOrderByWithRelationInput } from "../inputs/MoveOrderByWithRelationInput";
 import { StatOrderByWithRelationInput } from "../inputs/StatOrderByWithRelationInput";
 import { SortOrder } from "../../enums/SortOrder";
 
@@ -23,11 +22,6 @@ export class MoveMetaStatChangesOrderByWithRelationInput {
     nullable: true
   })
   change?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => MoveOrderByWithRelationInput, {
-    nullable: true
-  })
-  move?: MoveOrderByWithRelationInput | undefined;
 
   @TypeGraphQL.Field(_type => StatOrderByWithRelationInput, {
     nullable: true

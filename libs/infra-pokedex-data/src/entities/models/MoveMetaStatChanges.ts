@@ -2,7 +2,6 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
-import { Move } from "../models/Move";
 import { MoveMeta } from "../models/MoveMeta";
 import { Stat } from "../models/Stat";
 
@@ -22,8 +21,6 @@ export class MoveMetaStatChanges {
     nullable: false
   })
   change!: number;
-
-  move?: Move;
 
   stat?: Stat;
 

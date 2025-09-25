@@ -11,7 +11,6 @@ import { MoveDamageClass } from "../models/MoveDamageClass";
 import { MoveEffect } from "../models/MoveEffect";
 import { MoveFlagMap } from "../models/MoveFlagMap";
 import { MoveMeta } from "../models/MoveMeta";
-import { MoveMetaStatChanges } from "../models/MoveMetaStatChanges";
 import { MoveTarget } from "../models/MoveTarget";
 import { PokemonEvolution } from "../models/PokemonEvolution";
 import { PokemonMove } from "../models/PokemonMove";
@@ -118,8 +117,6 @@ export class Move {
   machines?: Machine[];
 
   meta?: MoveMeta[];
-
-  metaStatChanges?: MoveMetaStatChanges[];
 
   flagMap?: MoveFlagMap[];
 

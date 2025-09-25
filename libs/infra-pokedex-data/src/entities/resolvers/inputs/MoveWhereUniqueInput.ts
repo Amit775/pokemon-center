@@ -13,7 +13,6 @@ import { MoveDamageClassRelationFilter } from "../inputs/MoveDamageClassRelation
 import { MoveEffectsNullableRelationFilter } from "../inputs/MoveEffectsNullableRelationFilter";
 import { MoveFlagMapListRelationFilter } from "../inputs/MoveFlagMapListRelationFilter";
 import { MoveMetaListRelationFilter } from "../inputs/MoveMetaListRelationFilter";
-import { MoveMetaStatChangesListRelationFilter } from "../inputs/MoveMetaStatChangesListRelationFilter";
 import { MoveTargetRelationFilter } from "../inputs/MoveTargetRelationFilter";
 import { MoveWhereInput } from "../inputs/MoveWhereInput";
 import { PokemonEvolutionListRelationFilter } from "../inputs/PokemonEvolutionListRelationFilter";
@@ -169,11 +168,6 @@ export class MoveWhereUniqueInput {
     nullable: true
   })
   meta?: MoveMetaListRelationFilter | undefined;
-
-  @TypeGraphQL.Field(_type => MoveMetaStatChangesListRelationFilter, {
-    nullable: true
-  })
-  metaStatChanges?: MoveMetaStatChangesListRelationFilter | undefined;
 
   @TypeGraphQL.Field(_type => MoveFlagMapListRelationFilter, {
     nullable: true

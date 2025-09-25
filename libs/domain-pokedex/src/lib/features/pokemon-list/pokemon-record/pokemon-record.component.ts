@@ -1,8 +1,8 @@
 import { TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { BasePokemon } from '@pokemon-center/data';
 import { PokemonAvatarDirective } from '../pokemon-avater/pokemon-avatar.directive';
 import { IndexPipe } from './index.pipe';
+import { Pokemon } from '@pokemon-center/infra-pokedex-data';
 
 @Component({
 	selector: 'pokedex-pokemon-record',
@@ -12,5 +12,5 @@ import { IndexPipe } from './index.pipe';
 	imports: [PokemonAvatarDirective, IndexPipe, TitleCasePipe],
 })
 export class PokemonRecordComponent {
-	pokemon = input.required<BasePokemon>();
+	pokemon = input.required<Pokemon>();
 }

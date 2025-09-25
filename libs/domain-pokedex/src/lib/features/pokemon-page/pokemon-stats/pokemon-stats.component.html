@@ -1,6 +1,6 @@
 @for (stat of pokemon().stats; track stat) {
 	<div>
-		<span>{{ stat.name }}</span>
-		<span>{{ stat.baseStat }}</span>
+		<span>{{ stat.stat?.identifier }}</span>
+		<span>{{ stat.base_stat }}</span>
 	</div>
 }

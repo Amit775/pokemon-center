@@ -10,7 +10,6 @@ import { MoveDamageClass } from "../../../models/MoveDamageClass";
 import { MoveEffect } from "../../../models/MoveEffect";
 import { MoveFlagMap } from "../../../models/MoveFlagMap";
 import { MoveMeta } from "../../../models/MoveMeta";
-import { MoveMetaStatChanges } from "../../../models/MoveMetaStatChanges";
 import { MoveTarget } from "../../../models/MoveTarget";
 import { PokemonEvolution } from "../../../models/PokemonEvolution";
 import { PokemonMove } from "../../../models/PokemonMove";
@@ -26,7 +25,6 @@ import { MoveFlagMapArgs } from "./args/MoveFlagMapArgs";
 import { MoveKnownMovesArgs } from "./args/MoveKnownMovesArgs";
 import { MoveMachinesArgs } from "./args/MoveMachinesArgs";
 import { MoveMetaArgs } from "./args/MoveMetaArgs";
-import { MoveMetaStatChangesArgs } from "./args/MoveMetaStatChangesArgs";
 import { MovePokemonMovesArgs } from "./args/MovePokemonMovesArgs";
 import { MoveSuperContestCombosArgs } from "./args/MoveSuperContestCombosArgs";
 import { MoveSuperContestCombosSecondArgs } from "./args/MoveSuperContestCombosSecondArgs";
@@ -191,21 +189,6 @@ export class MoveRelationsResolver {
         id: move.id,
       },
     }).meta({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.FieldResolver(_type => [MoveMetaStatChanges], {
-    nullable: false
-  })
-  async metaStatChanges(@TypeGraphQL.Root() move: Move, @TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: MoveMetaStatChangesArgs): Promise<MoveMetaStatChanges[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moves.findUniqueOrThrow({
-      where: {
-        id: move.id,
-      },
-    }).metaStatChanges({
       ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });

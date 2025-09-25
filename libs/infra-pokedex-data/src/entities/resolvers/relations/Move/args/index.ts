@@ -7,7 +7,6 @@ export { MoveFlagMapArgs } from "./MoveFlagMapArgs";
 export { MoveKnownMovesArgs } from "./MoveKnownMovesArgs";
 export { MoveMachinesArgs } from "./MoveMachinesArgs";
 export { MoveMetaArgs } from "./MoveMetaArgs";
-export { MoveMetaStatChangesArgs } from "./MoveMetaStatChangesArgs";
 export { MovePokemonMovesArgs } from "./MovePokemonMovesArgs";
 export { MoveSuperContestCombosArgs } from "./MoveSuperContestCombosArgs";
 export { MoveSuperContestCombosSecondArgs } from "./MoveSuperContestCombosSecondArgs";

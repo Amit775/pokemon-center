@@ -140,7 +140,6 @@ model Moves {
   pokemonMoves            PokemonMoves[]
   machines                Machines[]
   meta                    MoveMeta[]
-  metaStatChanges         MoveMetaStatChanges[]
   flagMap                 MoveFlagMap[]
   contestCombos           ContestCombos[] @relation("FirstMove")
   contestCombosSecond     ContestCombos[] @relation("SecondMove")
@@ -759,9 +758,8 @@ model MoveMetaStatChanges {
   change  Int
 
   // Relations
-  move    Moves @relation(fields: [move_id], references: [id], map: "move_meta_stat_changes_move_id_fkey")
   stat    Stats @relation(fields: [stat_id], references: [id])
-  meta    MoveMeta @relation("MoveMetaStatChanges", fields: [move_id], references: [move_id], map: "move_meta_stat_changes_move_id_fkey2")
+  meta    MoveMeta @relation("MoveMetaStatChanges", fields: [move_id], references: [move_id], map: "move_meta_stat_changes_move_id_fkey")
 
   @@id([move_id, stat_id])
   @@map("move_meta_stat_changes")

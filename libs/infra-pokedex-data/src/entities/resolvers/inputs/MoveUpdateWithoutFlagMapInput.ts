@@ -10,7 +10,6 @@ import { GenerationUpdateOneRequiredWithoutMovesNestedInput } from "../inputs/Ge
 import { MachineUpdateManyWithoutMoveNestedInput } from "../inputs/MachineUpdateManyWithoutMoveNestedInput";
 import { MoveDamageClassUpdateOneRequiredWithoutMovesNestedInput } from "../inputs/MoveDamageClassUpdateOneRequiredWithoutMovesNestedInput";
 import { MoveEffectUpdateOneWithoutMovesNestedInput } from "../inputs/MoveEffectUpdateOneWithoutMovesNestedInput";
-import { MoveMetaStatChangesUpdateManyWithoutMoveNestedInput } from "../inputs/MoveMetaStatChangesUpdateManyWithoutMoveNestedInput";
 import { MoveMetaUpdateManyWithoutMoveNestedInput } from "../inputs/MoveMetaUpdateManyWithoutMoveNestedInput";
 import { MoveTargetUpdateOneRequiredWithoutMovesNestedInput } from "../inputs/MoveTargetUpdateOneRequiredWithoutMovesNestedInput";
 import { PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput } from "../inputs/PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput";
@@ -111,11 +110,6 @@ export class MoveUpdateWithoutFlagMapInput {
     nullable: true
   })
   meta?: MoveMetaUpdateManyWithoutMoveNestedInput | undefined;
-
-  @TypeGraphQL.Field(_type => MoveMetaStatChangesUpdateManyWithoutMoveNestedInput, {
-    nullable: true
-  })
-  metaStatChanges?: MoveMetaStatChangesUpdateManyWithoutMoveNestedInput | undefined;
 
   @TypeGraphQL.Field(_type => ContestComboUpdateManyWithoutFirstMoveNestedInput, {
     nullable: true
