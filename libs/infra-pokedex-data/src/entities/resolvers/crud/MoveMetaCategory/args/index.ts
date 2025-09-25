@@ -1,15 +1,7 @@
 export { AggregateMoveMetaCategoryArgs } from "./AggregateMoveMetaCategoryArgs";
-export { CreateManyAndReturnMoveMetaCategoryArgs } from "./CreateManyAndReturnMoveMetaCategoryArgs";
-export { CreateManyMoveMetaCategoryArgs } from "./CreateManyMoveMetaCategoryArgs";
-export { CreateOneMoveMetaCategoryArgs } from "./CreateOneMoveMetaCategoryArgs";
-export { DeleteManyMoveMetaCategoryArgs } from "./DeleteManyMoveMetaCategoryArgs";
-export { DeleteOneMoveMetaCategoryArgs } from "./DeleteOneMoveMetaCategoryArgs";
 export { FindFirstMoveMetaCategoryArgs } from "./FindFirstMoveMetaCategoryArgs";
 export { FindFirstMoveMetaCategoryOrThrowArgs } from "./FindFirstMoveMetaCategoryOrThrowArgs";
 export { FindManyMoveMetaCategoryArgs } from "./FindManyMoveMetaCategoryArgs";
 export { FindUniqueMoveMetaCategoryArgs } from "./FindUniqueMoveMetaCategoryArgs";
 export { FindUniqueMoveMetaCategoryOrThrowArgs } from "./FindUniqueMoveMetaCategoryOrThrowArgs";
 export { GroupByMoveMetaCategoryArgs } from "./GroupByMoveMetaCategoryArgs";
-export { UpdateManyMoveMetaCategoryArgs } from "./UpdateManyMoveMetaCategoryArgs";
-export { UpdateOneMoveMetaCategoryArgs } from "./UpdateOneMoveMetaCategoryArgs";
-export { UpsertOneMoveMetaCategoryArgs } from "./UpsertOneMoveMetaCategoryArgs";

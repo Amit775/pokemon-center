@@ -1,25 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokemonStatArgs } from "./args/AggregatePokemonStatArgs";
-import { CreateManyAndReturnPokemonStatArgs } from "./args/CreateManyAndReturnPokemonStatArgs";
-import { CreateManyPokemonStatArgs } from "./args/CreateManyPokemonStatArgs";
-import { CreateOnePokemonStatArgs } from "./args/CreateOnePokemonStatArgs";
-import { DeleteManyPokemonStatArgs } from "./args/DeleteManyPokemonStatArgs";
-import { DeleteOnePokemonStatArgs } from "./args/DeleteOnePokemonStatArgs";
 import { FindFirstPokemonStatArgs } from "./args/FindFirstPokemonStatArgs";
 import { FindFirstPokemonStatOrThrowArgs } from "./args/FindFirstPokemonStatOrThrowArgs";
 import { FindManyPokemonStatArgs } from "./args/FindManyPokemonStatArgs";
 import { FindUniquePokemonStatArgs } from "./args/FindUniquePokemonStatArgs";
 import { FindUniquePokemonStatOrThrowArgs } from "./args/FindUniquePokemonStatOrThrowArgs";
 import { GroupByPokemonStatArgs } from "./args/GroupByPokemonStatArgs";
-import { UpdateManyPokemonStatArgs } from "./args/UpdateManyPokemonStatArgs";
-import { UpdateOnePokemonStatArgs } from "./args/UpdateOnePokemonStatArgs";
-import { UpsertOnePokemonStatArgs } from "./args/UpsertOnePokemonStatArgs";
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { PokemonStat } from "../../../models/PokemonStat";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregatePokemonStat } from "../../outputs/AggregatePokemonStat";
-import { CreateManyAndReturnPokemonStat } from "../../outputs/CreateManyAndReturnPokemonStat";
 import { PokemonStatGroupBy } from "../../outputs/PokemonStatGroupBy";
 
 @TypeGraphQL.Resolver(_of => PokemonStat)
@@ -31,61 +21,6 @@ export class PokemonStatCrudResolver {
     return getPrismaFromContext(ctx).pokemonStats.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyPokemonStat(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyPokemonStatArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonStats.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnPokemonStat], {
-    nullable: false
-  })
-  async createManyAndReturnPokemonStat(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnPokemonStatArgs): Promise<CreateManyAndReturnPokemonStat[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonStats.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokemonStat, {
-    nullable: false
-  })
-  async createOnePokemonStat(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOnePokemonStatArgs): Promise<PokemonStat> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonStats.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyPokemonStat(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyPokemonStatArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonStats.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokemonStat, {
-    nullable: true
-  })
-  async deleteOnePokemonStat(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOnePokemonStatArgs): Promise<PokemonStat | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonStats.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -157,36 +92,4 @@ export class PokemonStatCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyPokemonStat(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyPokemonStatArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonStats.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokemonStat, {
-    nullable: true
-  })
-  async updateOnePokemonStat(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOnePokemonStatArgs): Promise<PokemonStat | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonStats.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokemonStat, {
-    nullable: false
-  })
-  async upsertOnePokemonStat(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOnePokemonStatArgs): Promise<PokemonStat> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonStats.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

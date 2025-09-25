@@ -1,15 +1,7 @@
 export { AggregateSuperContestEffectArgs } from "./AggregateSuperContestEffectArgs";
-export { CreateManyAndReturnSuperContestEffectArgs } from "./CreateManyAndReturnSuperContestEffectArgs";
-export { CreateManySuperContestEffectArgs } from "./CreateManySuperContestEffectArgs";
-export { CreateOneSuperContestEffectArgs } from "./CreateOneSuperContestEffectArgs";
-export { DeleteManySuperContestEffectArgs } from "./DeleteManySuperContestEffectArgs";
-export { DeleteOneSuperContestEffectArgs } from "./DeleteOneSuperContestEffectArgs";
 export { FindFirstSuperContestEffectArgs } from "./FindFirstSuperContestEffectArgs";
 export { FindFirstSuperContestEffectOrThrowArgs } from "./FindFirstSuperContestEffectOrThrowArgs";
 export { FindManySuperContestEffectArgs } from "./FindManySuperContestEffectArgs";
 export { FindUniqueSuperContestEffectArgs } from "./FindUniqueSuperContestEffectArgs";
 export { FindUniqueSuperContestEffectOrThrowArgs } from "./FindUniqueSuperContestEffectOrThrowArgs";
 export { GroupBySuperContestEffectArgs } from "./GroupBySuperContestEffectArgs";
-export { UpdateManySuperContestEffectArgs } from "./UpdateManySuperContestEffectArgs";
-export { UpdateOneSuperContestEffectArgs } from "./UpdateOneSuperContestEffectArgs";
-export { UpsertOneSuperContestEffectArgs } from "./UpsertOneSuperContestEffectArgs";

@@ -1,15 +1,7 @@
 export { AggregateMoveArgs } from "./AggregateMoveArgs";
-export { CreateManyAndReturnMoveArgs } from "./CreateManyAndReturnMoveArgs";
-export { CreateManyMoveArgs } from "./CreateManyMoveArgs";
-export { CreateOneMoveArgs } from "./CreateOneMoveArgs";
-export { DeleteManyMoveArgs } from "./DeleteManyMoveArgs";
-export { DeleteOneMoveArgs } from "./DeleteOneMoveArgs";
 export { FindFirstMoveArgs } from "./FindFirstMoveArgs";
 export { FindFirstMoveOrThrowArgs } from "./FindFirstMoveOrThrowArgs";
 export { FindManyMoveArgs } from "./FindManyMoveArgs";
 export { FindUniqueMoveArgs } from "./FindUniqueMoveArgs";
 export { FindUniqueMoveOrThrowArgs } from "./FindUniqueMoveOrThrowArgs";
 export { GroupByMoveArgs } from "./GroupByMoveArgs";
-export { UpdateManyMoveArgs } from "./UpdateManyMoveArgs";
-export { UpdateOneMoveArgs } from "./UpdateOneMoveArgs";
-export { UpsertOneMoveArgs } from "./UpsertOneMoveArgs";

@@ -1,15 +1,7 @@
 export { AggregatePokemonAbilityArgs } from "./AggregatePokemonAbilityArgs";
-export { CreateManyAndReturnPokemonAbilityArgs } from "./CreateManyAndReturnPokemonAbilityArgs";
-export { CreateManyPokemonAbilityArgs } from "./CreateManyPokemonAbilityArgs";
-export { CreateOnePokemonAbilityArgs } from "./CreateOnePokemonAbilityArgs";
-export { DeleteManyPokemonAbilityArgs } from "./DeleteManyPokemonAbilityArgs";
-export { DeleteOnePokemonAbilityArgs } from "./DeleteOnePokemonAbilityArgs";
 export { FindFirstPokemonAbilityArgs } from "./FindFirstPokemonAbilityArgs";
 export { FindFirstPokemonAbilityOrThrowArgs } from "./FindFirstPokemonAbilityOrThrowArgs";
 export { FindManyPokemonAbilityArgs } from "./FindManyPokemonAbilityArgs";
 export { FindUniquePokemonAbilityArgs } from "./FindUniquePokemonAbilityArgs";
 export { FindUniquePokemonAbilityOrThrowArgs } from "./FindUniquePokemonAbilityOrThrowArgs";
 export { GroupByPokemonAbilityArgs } from "./GroupByPokemonAbilityArgs";
-export { UpdateManyPokemonAbilityArgs } from "./UpdateManyPokemonAbilityArgs";
-export { UpdateOnePokemonAbilityArgs } from "./UpdateOnePokemonAbilityArgs";
-export { UpsertOnePokemonAbilityArgs } from "./UpsertOnePokemonAbilityArgs";

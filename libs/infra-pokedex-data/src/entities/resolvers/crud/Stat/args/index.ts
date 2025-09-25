@@ -1,15 +1,7 @@
 export { AggregateStatArgs } from "./AggregateStatArgs";
-export { CreateManyAndReturnStatArgs } from "./CreateManyAndReturnStatArgs";
-export { CreateManyStatArgs } from "./CreateManyStatArgs";
-export { CreateOneStatArgs } from "./CreateOneStatArgs";
-export { DeleteManyStatArgs } from "./DeleteManyStatArgs";
-export { DeleteOneStatArgs } from "./DeleteOneStatArgs";
 export { FindFirstStatArgs } from "./FindFirstStatArgs";
 export { FindFirstStatOrThrowArgs } from "./FindFirstStatOrThrowArgs";
 export { FindManyStatArgs } from "./FindManyStatArgs";
 export { FindUniqueStatArgs } from "./FindUniqueStatArgs";
 export { FindUniqueStatOrThrowArgs } from "./FindUniqueStatOrThrowArgs";
 export { GroupByStatArgs } from "./GroupByStatArgs";
-export { UpdateManyStatArgs } from "./UpdateManyStatArgs";
-export { UpdateOneStatArgs } from "./UpdateOneStatArgs";
-export { UpsertOneStatArgs } from "./UpsertOneStatArgs";

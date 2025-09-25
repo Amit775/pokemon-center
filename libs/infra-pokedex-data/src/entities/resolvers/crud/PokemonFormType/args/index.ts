@@ -1,15 +1,7 @@
 export { AggregatePokemonFormTypeArgs } from "./AggregatePokemonFormTypeArgs";
-export { CreateManyAndReturnPokemonFormTypeArgs } from "./CreateManyAndReturnPokemonFormTypeArgs";
-export { CreateManyPokemonFormTypeArgs } from "./CreateManyPokemonFormTypeArgs";
-export { CreateOnePokemonFormTypeArgs } from "./CreateOnePokemonFormTypeArgs";
-export { DeleteManyPokemonFormTypeArgs } from "./DeleteManyPokemonFormTypeArgs";
-export { DeleteOnePokemonFormTypeArgs } from "./DeleteOnePokemonFormTypeArgs";
 export { FindFirstPokemonFormTypeArgs } from "./FindFirstPokemonFormTypeArgs";
 export { FindFirstPokemonFormTypeOrThrowArgs } from "./FindFirstPokemonFormTypeOrThrowArgs";
 export { FindManyPokemonFormTypeArgs } from "./FindManyPokemonFormTypeArgs";
 export { FindUniquePokemonFormTypeArgs } from "./FindUniquePokemonFormTypeArgs";
 export { FindUniquePokemonFormTypeOrThrowArgs } from "./FindUniquePokemonFormTypeOrThrowArgs";
 export { GroupByPokemonFormTypeArgs } from "./GroupByPokemonFormTypeArgs";
-export { UpdateManyPokemonFormTypeArgs } from "./UpdateManyPokemonFormTypeArgs";
-export { UpdateOnePokemonFormTypeArgs } from "./UpdateOnePokemonFormTypeArgs";
-export { UpsertOnePokemonFormTypeArgs } from "./UpsertOnePokemonFormTypeArgs";

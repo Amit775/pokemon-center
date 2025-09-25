@@ -1,25 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateMoveTargetArgs } from "./args/AggregateMoveTargetArgs";
-import { CreateManyAndReturnMoveTargetArgs } from "./args/CreateManyAndReturnMoveTargetArgs";
-import { CreateManyMoveTargetArgs } from "./args/CreateManyMoveTargetArgs";
-import { CreateOneMoveTargetArgs } from "./args/CreateOneMoveTargetArgs";
-import { DeleteManyMoveTargetArgs } from "./args/DeleteManyMoveTargetArgs";
-import { DeleteOneMoveTargetArgs } from "./args/DeleteOneMoveTargetArgs";
 import { FindFirstMoveTargetArgs } from "./args/FindFirstMoveTargetArgs";
 import { FindFirstMoveTargetOrThrowArgs } from "./args/FindFirstMoveTargetOrThrowArgs";
 import { FindManyMoveTargetArgs } from "./args/FindManyMoveTargetArgs";
 import { FindUniqueMoveTargetArgs } from "./args/FindUniqueMoveTargetArgs";
 import { FindUniqueMoveTargetOrThrowArgs } from "./args/FindUniqueMoveTargetOrThrowArgs";
 import { GroupByMoveTargetArgs } from "./args/GroupByMoveTargetArgs";
-import { UpdateManyMoveTargetArgs } from "./args/UpdateManyMoveTargetArgs";
-import { UpdateOneMoveTargetArgs } from "./args/UpdateOneMoveTargetArgs";
-import { UpsertOneMoveTargetArgs } from "./args/UpsertOneMoveTargetArgs";
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { MoveTarget } from "../../../models/MoveTarget";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateMoveTarget } from "../../outputs/AggregateMoveTarget";
-import { CreateManyAndReturnMoveTarget } from "../../outputs/CreateManyAndReturnMoveTarget";
 import { MoveTargetGroupBy } from "../../outputs/MoveTargetGroupBy";
 
 @TypeGraphQL.Resolver(_of => MoveTarget)
@@ -31,61 +21,6 @@ export class MoveTargetCrudResolver {
     return getPrismaFromContext(ctx).moveTargets.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyMoveTarget(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyMoveTargetArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveTargets.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnMoveTarget], {
-    nullable: false
-  })
-  async createManyAndReturnMoveTarget(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnMoveTargetArgs): Promise<CreateManyAndReturnMoveTarget[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveTargets.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveTarget, {
-    nullable: false
-  })
-  async createOneMoveTarget(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneMoveTargetArgs): Promise<MoveTarget> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveTargets.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyMoveTarget(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyMoveTargetArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveTargets.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveTarget, {
-    nullable: true
-  })
-  async deleteOneMoveTarget(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneMoveTargetArgs): Promise<MoveTarget | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveTargets.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -157,36 +92,4 @@ export class MoveTargetCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyMoveTarget(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyMoveTargetArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveTargets.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveTarget, {
-    nullable: true
-  })
-  async updateOneMoveTarget(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneMoveTargetArgs): Promise<MoveTarget | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveTargets.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => MoveTarget, {
-    nullable: false
-  })
-  async upsertOneMoveTarget(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneMoveTargetArgs): Promise<MoveTarget> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).moveTargets.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

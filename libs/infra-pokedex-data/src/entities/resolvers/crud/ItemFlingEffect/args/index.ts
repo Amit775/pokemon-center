@@ -1,15 +1,7 @@
 export { AggregateItemFlingEffectArgs } from "./AggregateItemFlingEffectArgs";
-export { CreateManyAndReturnItemFlingEffectArgs } from "./CreateManyAndReturnItemFlingEffectArgs";
-export { CreateManyItemFlingEffectArgs } from "./CreateManyItemFlingEffectArgs";
-export { CreateOneItemFlingEffectArgs } from "./CreateOneItemFlingEffectArgs";
-export { DeleteManyItemFlingEffectArgs } from "./DeleteManyItemFlingEffectArgs";
-export { DeleteOneItemFlingEffectArgs } from "./DeleteOneItemFlingEffectArgs";
 export { FindFirstItemFlingEffectArgs } from "./FindFirstItemFlingEffectArgs";
 export { FindFirstItemFlingEffectOrThrowArgs } from "./FindFirstItemFlingEffectOrThrowArgs";
 export { FindManyItemFlingEffectArgs } from "./FindManyItemFlingEffectArgs";
 export { FindUniqueItemFlingEffectArgs } from "./FindUniqueItemFlingEffectArgs";
 export { FindUniqueItemFlingEffectOrThrowArgs } from "./FindUniqueItemFlingEffectOrThrowArgs";
 export { GroupByItemFlingEffectArgs } from "./GroupByItemFlingEffectArgs";
-export { UpdateManyItemFlingEffectArgs } from "./UpdateManyItemFlingEffectArgs";
-export { UpdateOneItemFlingEffectArgs } from "./UpdateOneItemFlingEffectArgs";
-export { UpsertOneItemFlingEffectArgs } from "./UpsertOneItemFlingEffectArgs";

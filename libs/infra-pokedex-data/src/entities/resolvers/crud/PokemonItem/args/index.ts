@@ -1,15 +1,7 @@
 export { AggregatePokemonItemArgs } from "./AggregatePokemonItemArgs";
-export { CreateManyAndReturnPokemonItemArgs } from "./CreateManyAndReturnPokemonItemArgs";
-export { CreateManyPokemonItemArgs } from "./CreateManyPokemonItemArgs";
-export { CreateOnePokemonItemArgs } from "./CreateOnePokemonItemArgs";
-export { DeleteManyPokemonItemArgs } from "./DeleteManyPokemonItemArgs";
-export { DeleteOnePokemonItemArgs } from "./DeleteOnePokemonItemArgs";
 export { FindFirstPokemonItemArgs } from "./FindFirstPokemonItemArgs";
 export { FindFirstPokemonItemOrThrowArgs } from "./FindFirstPokemonItemOrThrowArgs";
 export { FindManyPokemonItemArgs } from "./FindManyPokemonItemArgs";
 export { FindUniquePokemonItemArgs } from "./FindUniquePokemonItemArgs";
 export { FindUniquePokemonItemOrThrowArgs } from "./FindUniquePokemonItemOrThrowArgs";
 export { GroupByPokemonItemArgs } from "./GroupByPokemonItemArgs";
-export { UpdateManyPokemonItemArgs } from "./UpdateManyPokemonItemArgs";
-export { UpdateOnePokemonItemArgs } from "./UpdateOnePokemonItemArgs";
-export { UpsertOnePokemonItemArgs } from "./UpsertOnePokemonItemArgs";

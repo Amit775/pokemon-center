@@ -1,15 +1,7 @@
 export { AggregateEggGroupArgs } from "./AggregateEggGroupArgs";
-export { CreateManyAndReturnEggGroupArgs } from "./CreateManyAndReturnEggGroupArgs";
-export { CreateManyEggGroupArgs } from "./CreateManyEggGroupArgs";
-export { CreateOneEggGroupArgs } from "./CreateOneEggGroupArgs";
-export { DeleteManyEggGroupArgs } from "./DeleteManyEggGroupArgs";
-export { DeleteOneEggGroupArgs } from "./DeleteOneEggGroupArgs";
 export { FindFirstEggGroupArgs } from "./FindFirstEggGroupArgs";
 export { FindFirstEggGroupOrThrowArgs } from "./FindFirstEggGroupOrThrowArgs";
 export { FindManyEggGroupArgs } from "./FindManyEggGroupArgs";
 export { FindUniqueEggGroupArgs } from "./FindUniqueEggGroupArgs";
 export { FindUniqueEggGroupOrThrowArgs } from "./FindUniqueEggGroupOrThrowArgs";
 export { GroupByEggGroupArgs } from "./GroupByEggGroupArgs";
-export { UpdateManyEggGroupArgs } from "./UpdateManyEggGroupArgs";
-export { UpdateOneEggGroupArgs } from "./UpdateOneEggGroupArgs";
-export { UpsertOneEggGroupArgs } from "./UpsertOneEggGroupArgs";

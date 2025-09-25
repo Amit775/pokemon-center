@@ -1,15 +1,7 @@
 export { AggregateLocationAreaArgs } from "./AggregateLocationAreaArgs";
-export { CreateManyAndReturnLocationAreaArgs } from "./CreateManyAndReturnLocationAreaArgs";
-export { CreateManyLocationAreaArgs } from "./CreateManyLocationAreaArgs";
-export { CreateOneLocationAreaArgs } from "./CreateOneLocationAreaArgs";
-export { DeleteManyLocationAreaArgs } from "./DeleteManyLocationAreaArgs";
-export { DeleteOneLocationAreaArgs } from "./DeleteOneLocationAreaArgs";
 export { FindFirstLocationAreaArgs } from "./FindFirstLocationAreaArgs";
 export { FindFirstLocationAreaOrThrowArgs } from "./FindFirstLocationAreaOrThrowArgs";
 export { FindManyLocationAreaArgs } from "./FindManyLocationAreaArgs";
 export { FindUniqueLocationAreaArgs } from "./FindUniqueLocationAreaArgs";
 export { FindUniqueLocationAreaOrThrowArgs } from "./FindUniqueLocationAreaOrThrowArgs";
 export { GroupByLocationAreaArgs } from "./GroupByLocationAreaArgs";
-export { UpdateManyLocationAreaArgs } from "./UpdateManyLocationAreaArgs";
-export { UpdateOneLocationAreaArgs } from "./UpdateOneLocationAreaArgs";
-export { UpsertOneLocationAreaArgs } from "./UpsertOneLocationAreaArgs";

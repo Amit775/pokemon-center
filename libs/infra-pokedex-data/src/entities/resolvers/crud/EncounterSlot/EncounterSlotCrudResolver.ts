@@ -1,25 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateEncounterSlotArgs } from "./args/AggregateEncounterSlotArgs";
-import { CreateManyAndReturnEncounterSlotArgs } from "./args/CreateManyAndReturnEncounterSlotArgs";
-import { CreateManyEncounterSlotArgs } from "./args/CreateManyEncounterSlotArgs";
-import { CreateOneEncounterSlotArgs } from "./args/CreateOneEncounterSlotArgs";
-import { DeleteManyEncounterSlotArgs } from "./args/DeleteManyEncounterSlotArgs";
-import { DeleteOneEncounterSlotArgs } from "./args/DeleteOneEncounterSlotArgs";
 import { FindFirstEncounterSlotArgs } from "./args/FindFirstEncounterSlotArgs";
 import { FindFirstEncounterSlotOrThrowArgs } from "./args/FindFirstEncounterSlotOrThrowArgs";
 import { FindManyEncounterSlotArgs } from "./args/FindManyEncounterSlotArgs";
 import { FindUniqueEncounterSlotArgs } from "./args/FindUniqueEncounterSlotArgs";
 import { FindUniqueEncounterSlotOrThrowArgs } from "./args/FindUniqueEncounterSlotOrThrowArgs";
 import { GroupByEncounterSlotArgs } from "./args/GroupByEncounterSlotArgs";
-import { UpdateManyEncounterSlotArgs } from "./args/UpdateManyEncounterSlotArgs";
-import { UpdateOneEncounterSlotArgs } from "./args/UpdateOneEncounterSlotArgs";
-import { UpsertOneEncounterSlotArgs } from "./args/UpsertOneEncounterSlotArgs";
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { EncounterSlot } from "../../../models/EncounterSlot";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateEncounterSlot } from "../../outputs/AggregateEncounterSlot";
-import { CreateManyAndReturnEncounterSlot } from "../../outputs/CreateManyAndReturnEncounterSlot";
 import { EncounterSlotGroupBy } from "../../outputs/EncounterSlotGroupBy";
 
 @TypeGraphQL.Resolver(_of => EncounterSlot)
@@ -31,61 +21,6 @@ export class EncounterSlotCrudResolver {
     return getPrismaFromContext(ctx).encounterSlots.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyEncounterSlot(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyEncounterSlotArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterSlots.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnEncounterSlot], {
-    nullable: false
-  })
-  async createManyAndReturnEncounterSlot(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnEncounterSlotArgs): Promise<CreateManyAndReturnEncounterSlot[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterSlots.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EncounterSlot, {
-    nullable: false
-  })
-  async createOneEncounterSlot(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneEncounterSlotArgs): Promise<EncounterSlot> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterSlots.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyEncounterSlot(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyEncounterSlotArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterSlots.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EncounterSlot, {
-    nullable: true
-  })
-  async deleteOneEncounterSlot(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneEncounterSlotArgs): Promise<EncounterSlot | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterSlots.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -157,36 +92,4 @@ export class EncounterSlotCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyEncounterSlot(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyEncounterSlotArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterSlots.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EncounterSlot, {
-    nullable: true
-  })
-  async updateOneEncounterSlot(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneEncounterSlotArgs): Promise<EncounterSlot | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterSlots.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => EncounterSlot, {
-    nullable: false
-  })
-  async upsertOneEncounterSlot(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneEncounterSlotArgs): Promise<EncounterSlot> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).encounterSlots.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

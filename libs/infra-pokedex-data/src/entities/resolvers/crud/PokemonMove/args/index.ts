@@ -1,15 +1,7 @@
 export { AggregatePokemonMoveArgs } from "./AggregatePokemonMoveArgs";
-export { CreateManyAndReturnPokemonMoveArgs } from "./CreateManyAndReturnPokemonMoveArgs";
-export { CreateManyPokemonMoveArgs } from "./CreateManyPokemonMoveArgs";
-export { CreateOnePokemonMoveArgs } from "./CreateOnePokemonMoveArgs";
-export { DeleteManyPokemonMoveArgs } from "./DeleteManyPokemonMoveArgs";
-export { DeleteOnePokemonMoveArgs } from "./DeleteOnePokemonMoveArgs";
 export { FindFirstPokemonMoveArgs } from "./FindFirstPokemonMoveArgs";
 export { FindFirstPokemonMoveOrThrowArgs } from "./FindFirstPokemonMoveOrThrowArgs";
 export { FindManyPokemonMoveArgs } from "./FindManyPokemonMoveArgs";
 export { FindUniquePokemonMoveArgs } from "./FindUniquePokemonMoveArgs";
 export { FindUniquePokemonMoveOrThrowArgs } from "./FindUniquePokemonMoveOrThrowArgs";
 export { GroupByPokemonMoveArgs } from "./GroupByPokemonMoveArgs";
-export { UpdateManyPokemonMoveArgs } from "./UpdateManyPokemonMoveArgs";
-export { UpdateOnePokemonMoveArgs } from "./UpdateOnePokemonMoveArgs";
-export { UpsertOnePokemonMoveArgs } from "./UpsertOnePokemonMoveArgs";

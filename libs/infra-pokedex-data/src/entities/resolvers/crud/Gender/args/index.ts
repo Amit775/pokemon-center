@@ -1,15 +1,7 @@
 export { AggregateGenderArgs } from "./AggregateGenderArgs";
-export { CreateManyAndReturnGenderArgs } from "./CreateManyAndReturnGenderArgs";
-export { CreateManyGenderArgs } from "./CreateManyGenderArgs";
-export { CreateOneGenderArgs } from "./CreateOneGenderArgs";
-export { DeleteManyGenderArgs } from "./DeleteManyGenderArgs";
-export { DeleteOneGenderArgs } from "./DeleteOneGenderArgs";
 export { FindFirstGenderArgs } from "./FindFirstGenderArgs";
 export { FindFirstGenderOrThrowArgs } from "./FindFirstGenderOrThrowArgs";
 export { FindManyGenderArgs } from "./FindManyGenderArgs";
 export { FindUniqueGenderArgs } from "./FindUniqueGenderArgs";
 export { FindUniqueGenderOrThrowArgs } from "./FindUniqueGenderOrThrowArgs";
 export { GroupByGenderArgs } from "./GroupByGenderArgs";
-export { UpdateManyGenderArgs } from "./UpdateManyGenderArgs";
-export { UpdateOneGenderArgs } from "./UpdateOneGenderArgs";
-export { UpsertOneGenderArgs } from "./UpsertOneGenderArgs";

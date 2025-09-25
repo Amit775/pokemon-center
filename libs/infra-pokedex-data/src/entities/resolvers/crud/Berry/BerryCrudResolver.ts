@@ -1,26 +1,16 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateBerryArgs } from "./args/AggregateBerryArgs";
-import { CreateManyAndReturnBerryArgs } from "./args/CreateManyAndReturnBerryArgs";
-import { CreateManyBerryArgs } from "./args/CreateManyBerryArgs";
-import { CreateOneBerryArgs } from "./args/CreateOneBerryArgs";
-import { DeleteManyBerryArgs } from "./args/DeleteManyBerryArgs";
-import { DeleteOneBerryArgs } from "./args/DeleteOneBerryArgs";
 import { FindFirstBerryArgs } from "./args/FindFirstBerryArgs";
 import { FindFirstBerryOrThrowArgs } from "./args/FindFirstBerryOrThrowArgs";
 import { FindManyBerryArgs } from "./args/FindManyBerryArgs";
 import { FindUniqueBerryArgs } from "./args/FindUniqueBerryArgs";
 import { FindUniqueBerryOrThrowArgs } from "./args/FindUniqueBerryOrThrowArgs";
 import { GroupByBerryArgs } from "./args/GroupByBerryArgs";
-import { UpdateManyBerryArgs } from "./args/UpdateManyBerryArgs";
-import { UpdateOneBerryArgs } from "./args/UpdateOneBerryArgs";
-import { UpsertOneBerryArgs } from "./args/UpsertOneBerryArgs";
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Berry } from "../../../models/Berry";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateBerry } from "../../outputs/AggregateBerry";
 import { BerryGroupBy } from "../../outputs/BerryGroupBy";
-import { CreateManyAndReturnBerry } from "../../outputs/CreateManyAndReturnBerry";
 
 @TypeGraphQL.Resolver(_of => Berry)
 export class BerryCrudResolver {
@@ -31,61 +21,6 @@ export class BerryCrudResolver {
     return getPrismaFromContext(ctx).berries.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyBerry(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyBerryArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).berries.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnBerry], {
-    nullable: false
-  })
-  async createManyAndReturnBerry(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnBerryArgs): Promise<CreateManyAndReturnBerry[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).berries.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => Berry, {
-    nullable: false
-  })
-  async createOneBerry(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneBerryArgs): Promise<Berry> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).berries.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyBerry(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyBerryArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).berries.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => Berry, {
-    nullable: true
-  })
-  async deleteOneBerry(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneBerryArgs): Promise<Berry | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).berries.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -157,36 +92,4 @@ export class BerryCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyBerry(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyBerryArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).berries.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => Berry, {
-    nullable: true
-  })
-  async updateOneBerry(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneBerryArgs): Promise<Berry | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).berries.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => Berry, {
-    nullable: false
-  })
-  async upsertOneBerry(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneBerryArgs): Promise<Berry> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).berries.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

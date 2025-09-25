@@ -1,15 +1,7 @@
 export { AggregatePokemonShapeArgs } from "./AggregatePokemonShapeArgs";
-export { CreateManyAndReturnPokemonShapeArgs } from "./CreateManyAndReturnPokemonShapeArgs";
-export { CreateManyPokemonShapeArgs } from "./CreateManyPokemonShapeArgs";
-export { CreateOnePokemonShapeArgs } from "./CreateOnePokemonShapeArgs";
-export { DeleteManyPokemonShapeArgs } from "./DeleteManyPokemonShapeArgs";
-export { DeleteOnePokemonShapeArgs } from "./DeleteOnePokemonShapeArgs";
 export { FindFirstPokemonShapeArgs } from "./FindFirstPokemonShapeArgs";
 export { FindFirstPokemonShapeOrThrowArgs } from "./FindFirstPokemonShapeOrThrowArgs";
 export { FindManyPokemonShapeArgs } from "./FindManyPokemonShapeArgs";
 export { FindUniquePokemonShapeArgs } from "./FindUniquePokemonShapeArgs";
 export { FindUniquePokemonShapeOrThrowArgs } from "./FindUniquePokemonShapeOrThrowArgs";
 export { GroupByPokemonShapeArgs } from "./GroupByPokemonShapeArgs";
-export { UpdateManyPokemonShapeArgs } from "./UpdateManyPokemonShapeArgs";
-export { UpdateOnePokemonShapeArgs } from "./UpdateOnePokemonShapeArgs";
-export { UpsertOnePokemonShapeArgs } from "./UpsertOnePokemonShapeArgs";

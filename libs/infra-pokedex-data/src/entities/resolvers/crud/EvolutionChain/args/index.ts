@@ -1,15 +1,7 @@
 export { AggregateEvolutionChainArgs } from "./AggregateEvolutionChainArgs";
-export { CreateManyAndReturnEvolutionChainArgs } from "./CreateManyAndReturnEvolutionChainArgs";
-export { CreateManyEvolutionChainArgs } from "./CreateManyEvolutionChainArgs";
-export { CreateOneEvolutionChainArgs } from "./CreateOneEvolutionChainArgs";
-export { DeleteManyEvolutionChainArgs } from "./DeleteManyEvolutionChainArgs";
-export { DeleteOneEvolutionChainArgs } from "./DeleteOneEvolutionChainArgs";
 export { FindFirstEvolutionChainArgs } from "./FindFirstEvolutionChainArgs";
 export { FindFirstEvolutionChainOrThrowArgs } from "./FindFirstEvolutionChainOrThrowArgs";
 export { FindManyEvolutionChainArgs } from "./FindManyEvolutionChainArgs";
 export { FindUniqueEvolutionChainArgs } from "./FindUniqueEvolutionChainArgs";
 export { FindUniqueEvolutionChainOrThrowArgs } from "./FindUniqueEvolutionChainOrThrowArgs";
 export { GroupByEvolutionChainArgs } from "./GroupByEvolutionChainArgs";
-export { UpdateManyEvolutionChainArgs } from "./UpdateManyEvolutionChainArgs";
-export { UpdateOneEvolutionChainArgs } from "./UpdateOneEvolutionChainArgs";
-export { UpsertOneEvolutionChainArgs } from "./UpsertOneEvolutionChainArgs";

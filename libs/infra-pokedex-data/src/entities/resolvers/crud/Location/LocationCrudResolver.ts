@@ -1,25 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateLocationArgs } from "./args/AggregateLocationArgs";
-import { CreateManyAndReturnLocationArgs } from "./args/CreateManyAndReturnLocationArgs";
-import { CreateManyLocationArgs } from "./args/CreateManyLocationArgs";
-import { CreateOneLocationArgs } from "./args/CreateOneLocationArgs";
-import { DeleteManyLocationArgs } from "./args/DeleteManyLocationArgs";
-import { DeleteOneLocationArgs } from "./args/DeleteOneLocationArgs";
 import { FindFirstLocationArgs } from "./args/FindFirstLocationArgs";
 import { FindFirstLocationOrThrowArgs } from "./args/FindFirstLocationOrThrowArgs";
 import { FindManyLocationArgs } from "./args/FindManyLocationArgs";
 import { FindUniqueLocationArgs } from "./args/FindUniqueLocationArgs";
 import { FindUniqueLocationOrThrowArgs } from "./args/FindUniqueLocationOrThrowArgs";
 import { GroupByLocationArgs } from "./args/GroupByLocationArgs";
-import { UpdateManyLocationArgs } from "./args/UpdateManyLocationArgs";
-import { UpdateOneLocationArgs } from "./args/UpdateOneLocationArgs";
-import { UpsertOneLocationArgs } from "./args/UpsertOneLocationArgs";
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { Location } from "../../../models/Location";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateLocation } from "../../outputs/AggregateLocation";
-import { CreateManyAndReturnLocation } from "../../outputs/CreateManyAndReturnLocation";
 import { LocationGroupBy } from "../../outputs/LocationGroupBy";
 
 @TypeGraphQL.Resolver(_of => Location)
@@ -31,61 +21,6 @@ export class LocationCrudResolver {
     return getPrismaFromContext(ctx).locations.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyLocation(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyLocationArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locations.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnLocation], {
-    nullable: false
-  })
-  async createManyAndReturnLocation(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnLocationArgs): Promise<CreateManyAndReturnLocation[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locations.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => Location, {
-    nullable: false
-  })
-  async createOneLocation(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneLocationArgs): Promise<Location> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locations.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyLocation(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyLocationArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locations.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => Location, {
-    nullable: true
-  })
-  async deleteOneLocation(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneLocationArgs): Promise<Location | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locations.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -157,36 +92,4 @@ export class LocationCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyLocation(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyLocationArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locations.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => Location, {
-    nullable: true
-  })
-  async updateOneLocation(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneLocationArgs): Promise<Location | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locations.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => Location, {
-    nullable: false
-  })
-  async upsertOneLocation(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneLocationArgs): Promise<Location> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).locations.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

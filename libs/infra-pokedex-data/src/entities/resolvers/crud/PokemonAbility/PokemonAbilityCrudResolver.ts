@@ -1,25 +1,15 @@
 import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregatePokemonAbilityArgs } from "./args/AggregatePokemonAbilityArgs";
-import { CreateManyAndReturnPokemonAbilityArgs } from "./args/CreateManyAndReturnPokemonAbilityArgs";
-import { CreateManyPokemonAbilityArgs } from "./args/CreateManyPokemonAbilityArgs";
-import { CreateOnePokemonAbilityArgs } from "./args/CreateOnePokemonAbilityArgs";
-import { DeleteManyPokemonAbilityArgs } from "./args/DeleteManyPokemonAbilityArgs";
-import { DeleteOnePokemonAbilityArgs } from "./args/DeleteOnePokemonAbilityArgs";
 import { FindFirstPokemonAbilityArgs } from "./args/FindFirstPokemonAbilityArgs";
 import { FindFirstPokemonAbilityOrThrowArgs } from "./args/FindFirstPokemonAbilityOrThrowArgs";
 import { FindManyPokemonAbilityArgs } from "./args/FindManyPokemonAbilityArgs";
 import { FindUniquePokemonAbilityArgs } from "./args/FindUniquePokemonAbilityArgs";
 import { FindUniquePokemonAbilityOrThrowArgs } from "./args/FindUniquePokemonAbilityOrThrowArgs";
 import { GroupByPokemonAbilityArgs } from "./args/GroupByPokemonAbilityArgs";
-import { UpdateManyPokemonAbilityArgs } from "./args/UpdateManyPokemonAbilityArgs";
-import { UpdateOnePokemonAbilityArgs } from "./args/UpdateOnePokemonAbilityArgs";
-import { UpsertOnePokemonAbilityArgs } from "./args/UpsertOnePokemonAbilityArgs";
 import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { PokemonAbility } from "../../../models/PokemonAbility";
-import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregatePokemonAbility } from "../../outputs/AggregatePokemonAbility";
-import { CreateManyAndReturnPokemonAbility } from "../../outputs/CreateManyAndReturnPokemonAbility";
 import { PokemonAbilityGroupBy } from "../../outputs/PokemonAbilityGroupBy";
 
 @TypeGraphQL.Resolver(_of => PokemonAbility)
@@ -31,61 +21,6 @@ export class PokemonAbilityCrudResolver {
     return getPrismaFromContext(ctx).pokemonAbilities.aggregate({
       ...args,
       ...transformInfoIntoPrismaArgs(info),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async createManyPokemonAbility(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyPokemonAbilityArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonAbilities.createMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => [CreateManyAndReturnPokemonAbility], {
-    nullable: false
-  })
-  async createManyAndReturnPokemonAbility(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyAndReturnPokemonAbilityArgs): Promise<CreateManyAndReturnPokemonAbility[]> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonAbilities.createManyAndReturn({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokemonAbility, {
-    nullable: false
-  })
-  async createOnePokemonAbility(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOnePokemonAbilityArgs): Promise<PokemonAbility> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonAbilities.create({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async deleteManyPokemonAbility(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyPokemonAbilityArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonAbilities.deleteMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokemonAbility, {
-    nullable: true
-  })
-  async deleteOnePokemonAbility(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOnePokemonAbilityArgs): Promise<PokemonAbility | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonAbilities.delete({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
@@ -157,36 +92,4 @@ export class PokemonAbilityCrudResolver {
     });
   }
 
-  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
-    nullable: false
-  })
-  async updateManyPokemonAbility(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyPokemonAbilityArgs): Promise<AffectedRowsOutput> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonAbilities.updateMany({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokemonAbility, {
-    nullable: true
-  })
-  async updateOnePokemonAbility(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOnePokemonAbilityArgs): Promise<PokemonAbility | null> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonAbilities.update({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
-
-  @TypeGraphQL.Mutation(_returns => PokemonAbility, {
-    nullable: false
-  })
-  async upsertOnePokemonAbility(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOnePokemonAbilityArgs): Promise<PokemonAbility> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
-    return getPrismaFromContext(ctx).pokemonAbilities.upsert({
-      ...args,
-      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-    });
-  }
 }

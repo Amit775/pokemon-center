@@ -1,15 +1,7 @@
 export { AggregateMoveEffectArgs } from "./AggregateMoveEffectArgs";
-export { CreateManyAndReturnMoveEffectArgs } from "./CreateManyAndReturnMoveEffectArgs";
-export { CreateManyMoveEffectArgs } from "./CreateManyMoveEffectArgs";
-export { CreateOneMoveEffectArgs } from "./CreateOneMoveEffectArgs";
-export { DeleteManyMoveEffectArgs } from "./DeleteManyMoveEffectArgs";
-export { DeleteOneMoveEffectArgs } from "./DeleteOneMoveEffectArgs";
 export { FindFirstMoveEffectArgs } from "./FindFirstMoveEffectArgs";
 export { FindFirstMoveEffectOrThrowArgs } from "./FindFirstMoveEffectOrThrowArgs";
 export { FindManyMoveEffectArgs } from "./FindManyMoveEffectArgs";
 export { FindUniqueMoveEffectArgs } from "./FindUniqueMoveEffectArgs";
 export { FindUniqueMoveEffectOrThrowArgs } from "./FindUniqueMoveEffectOrThrowArgs";
 export { GroupByMoveEffectArgs } from "./GroupByMoveEffectArgs";
-export { UpdateManyMoveEffectArgs } from "./UpdateManyMoveEffectArgs";
-export { UpdateOneMoveEffectArgs } from "./UpdateOneMoveEffectArgs";
-export { UpsertOneMoveEffectArgs } from "./UpsertOneMoveEffectArgs";

@@ -1,5 +1,5 @@
 import type { GraphQLResolveInfo } from "graphql";
-import graphqlFields from "graphql-fields";
+import * as graphqlFields from "graphql-fields";
 
 export function transformInfoIntoPrismaArgs(info: GraphQLResolveInfo): Record<string, any> {
   const fields: Record<string, any> = graphqlFields(

@@ -1,15 +1,7 @@
 export { AggregateGenerationArgs } from "./AggregateGenerationArgs";
-export { CreateManyAndReturnGenerationArgs } from "./CreateManyAndReturnGenerationArgs";
-export { CreateManyGenerationArgs } from "./CreateManyGenerationArgs";
-export { CreateOneGenerationArgs } from "./CreateOneGenerationArgs";
-export { DeleteManyGenerationArgs } from "./DeleteManyGenerationArgs";
-export { DeleteOneGenerationArgs } from "./DeleteOneGenerationArgs";
 export { FindFirstGenerationArgs } from "./FindFirstGenerationArgs";
 export { FindFirstGenerationOrThrowArgs } from "./FindFirstGenerationOrThrowArgs";
 export { FindManyGenerationArgs } from "./FindManyGenerationArgs";
 export { FindUniqueGenerationArgs } from "./FindUniqueGenerationArgs";
 export { FindUniqueGenerationOrThrowArgs } from "./FindUniqueGenerationOrThrowArgs";
 export { GroupByGenerationArgs } from "./GroupByGenerationArgs";
-export { UpdateManyGenerationArgs } from "./UpdateManyGenerationArgs";
-export { UpdateOneGenerationArgs } from "./UpdateOneGenerationArgs";
-export { UpsertOneGenerationArgs } from "./UpsertOneGenerationArgs";

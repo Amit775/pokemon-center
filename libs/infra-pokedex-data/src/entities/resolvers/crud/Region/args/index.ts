@@ -1,15 +1,7 @@
 export { AggregateRegionArgs } from "./AggregateRegionArgs";
-export { CreateManyAndReturnRegionArgs } from "./CreateManyAndReturnRegionArgs";
-export { CreateManyRegionArgs } from "./CreateManyRegionArgs";
-export { CreateOneRegionArgs } from "./CreateOneRegionArgs";
-export { DeleteManyRegionArgs } from "./DeleteManyRegionArgs";
-export { DeleteOneRegionArgs } from "./DeleteOneRegionArgs";
 export { FindFirstRegionArgs } from "./FindFirstRegionArgs";
 export { FindFirstRegionOrThrowArgs } from "./FindFirstRegionOrThrowArgs";
 export { FindManyRegionArgs } from "./FindManyRegionArgs";
 export { FindUniqueRegionArgs } from "./FindUniqueRegionArgs";
 export { FindUniqueRegionOrThrowArgs } from "./FindUniqueRegionOrThrowArgs";
 export { GroupByRegionArgs } from "./GroupByRegionArgs";
-export { UpdateManyRegionArgs } from "./UpdateManyRegionArgs";
-export { UpdateOneRegionArgs } from "./UpdateOneRegionArgs";
-export { UpsertOneRegionArgs } from "./UpsertOneRegionArgs";

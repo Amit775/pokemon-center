@@ -1,15 +1,7 @@
 export { AggregateMoveFlagMapArgs } from "./AggregateMoveFlagMapArgs";
-export { CreateManyAndReturnMoveFlagMapArgs } from "./CreateManyAndReturnMoveFlagMapArgs";
-export { CreateManyMoveFlagMapArgs } from "./CreateManyMoveFlagMapArgs";
-export { CreateOneMoveFlagMapArgs } from "./CreateOneMoveFlagMapArgs";
-export { DeleteManyMoveFlagMapArgs } from "./DeleteManyMoveFlagMapArgs";
-export { DeleteOneMoveFlagMapArgs } from "./DeleteOneMoveFlagMapArgs";
 export { FindFirstMoveFlagMapArgs } from "./FindFirstMoveFlagMapArgs";
 export { FindFirstMoveFlagMapOrThrowArgs } from "./FindFirstMoveFlagMapOrThrowArgs";
 export { FindManyMoveFlagMapArgs } from "./FindManyMoveFlagMapArgs";
 export { FindUniqueMoveFlagMapArgs } from "./FindUniqueMoveFlagMapArgs";
 export { FindUniqueMoveFlagMapOrThrowArgs } from "./FindUniqueMoveFlagMapOrThrowArgs";
 export { GroupByMoveFlagMapArgs } from "./GroupByMoveFlagMapArgs";
-export { UpdateManyMoveFlagMapArgs } from "./UpdateManyMoveFlagMapArgs";
-export { UpdateOneMoveFlagMapArgs } from "./UpdateOneMoveFlagMapArgs";
-export { UpsertOneMoveFlagMapArgs } from "./UpsertOneMoveFlagMapArgs";

@@ -1,15 +1,7 @@
 export { AggregateItemCategoryArgs } from "./AggregateItemCategoryArgs";
-export { CreateManyAndReturnItemCategoryArgs } from "./CreateManyAndReturnItemCategoryArgs";
-export { CreateManyItemCategoryArgs } from "./CreateManyItemCategoryArgs";
-export { CreateOneItemCategoryArgs } from "./CreateOneItemCategoryArgs";
-export { DeleteManyItemCategoryArgs } from "./DeleteManyItemCategoryArgs";
-export { DeleteOneItemCategoryArgs } from "./DeleteOneItemCategoryArgs";
 export { FindFirstItemCategoryArgs } from "./FindFirstItemCategoryArgs";
 export { FindFirstItemCategoryOrThrowArgs } from "./FindFirstItemCategoryOrThrowArgs";
 export { FindManyItemCategoryArgs } from "./FindManyItemCategoryArgs";
 export { FindUniqueItemCategoryArgs } from "./FindUniqueItemCategoryArgs";
 export { FindUniqueItemCategoryOrThrowArgs } from "./FindUniqueItemCategoryOrThrowArgs";
 export { GroupByItemCategoryArgs } from "./GroupByItemCategoryArgs";
-export { UpdateManyItemCategoryArgs } from "./UpdateManyItemCategoryArgs";
-export { UpdateOneItemCategoryArgs } from "./UpdateOneItemCategoryArgs";
-export { UpsertOneItemCategoryArgs } from "./UpsertOneItemCategoryArgs";

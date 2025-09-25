@@ -1,15 +1,7 @@
 export { AggregateEncounterConditionArgs } from "./AggregateEncounterConditionArgs";
-export { CreateManyAndReturnEncounterConditionArgs } from "./CreateManyAndReturnEncounterConditionArgs";
-export { CreateManyEncounterConditionArgs } from "./CreateManyEncounterConditionArgs";
-export { CreateOneEncounterConditionArgs } from "./CreateOneEncounterConditionArgs";
-export { DeleteManyEncounterConditionArgs } from "./DeleteManyEncounterConditionArgs";
-export { DeleteOneEncounterConditionArgs } from "./DeleteOneEncounterConditionArgs";
 export { FindFirstEncounterConditionArgs } from "./FindFirstEncounterConditionArgs";
 export { FindFirstEncounterConditionOrThrowArgs } from "./FindFirstEncounterConditionOrThrowArgs";
 export { FindManyEncounterConditionArgs } from "./FindManyEncounterConditionArgs";
 export { FindUniqueEncounterConditionArgs } from "./FindUniqueEncounterConditionArgs";
 export { FindUniqueEncounterConditionOrThrowArgs } from "./FindUniqueEncounterConditionOrThrowArgs";
 export { GroupByEncounterConditionArgs } from "./GroupByEncounterConditionArgs";
-export { UpdateManyEncounterConditionArgs } from "./UpdateManyEncounterConditionArgs";
-export { UpdateOneEncounterConditionArgs } from "./UpdateOneEncounterConditionArgs";
-export { UpsertOneEncounterConditionArgs } from "./UpsertOneEncounterConditionArgs";

@@ -1,15 +1,7 @@
 export { AggregateVersionGroupPokemonMoveMethodArgs } from "./AggregateVersionGroupPokemonMoveMethodArgs";
-export { CreateManyAndReturnVersionGroupPokemonMoveMethodArgs } from "./CreateManyAndReturnVersionGroupPokemonMoveMethodArgs";
-export { CreateManyVersionGroupPokemonMoveMethodArgs } from "./CreateManyVersionGroupPokemonMoveMethodArgs";
-export { CreateOneVersionGroupPokemonMoveMethodArgs } from "./CreateOneVersionGroupPokemonMoveMethodArgs";
-export { DeleteManyVersionGroupPokemonMoveMethodArgs } from "./DeleteManyVersionGroupPokemonMoveMethodArgs";
-export { DeleteOneVersionGroupPokemonMoveMethodArgs } from "./DeleteOneVersionGroupPokemonMoveMethodArgs";
 export { FindFirstVersionGroupPokemonMoveMethodArgs } from "./FindFirstVersionGroupPokemonMoveMethodArgs";
 export { FindFirstVersionGroupPokemonMoveMethodOrThrowArgs } from "./FindFirstVersionGroupPokemonMoveMethodOrThrowArgs";
 export { FindManyVersionGroupPokemonMoveMethodArgs } from "./FindManyVersionGroupPokemonMoveMethodArgs";
 export { FindUniqueVersionGroupPokemonMoveMethodArgs } from "./FindUniqueVersionGroupPokemonMoveMethodArgs";
 export { FindUniqueVersionGroupPokemonMoveMethodOrThrowArgs } from "./FindUniqueVersionGroupPokemonMoveMethodOrThrowArgs";
 export { GroupByVersionGroupPokemonMoveMethodArgs } from "./GroupByVersionGroupPokemonMoveMethodArgs";
-export { UpdateManyVersionGroupPokemonMoveMethodArgs } from "./UpdateManyVersionGroupPokemonMoveMethodArgs";
-export { UpdateOneVersionGroupPokemonMoveMethodArgs } from "./UpdateOneVersionGroupPokemonMoveMethodArgs";
-export { UpsertOneVersionGroupPokemonMoveMethodArgs } from "./UpsertOneVersionGroupPokemonMoveMethodArgs";

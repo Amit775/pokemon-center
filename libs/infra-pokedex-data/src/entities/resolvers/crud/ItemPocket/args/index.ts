@@ -1,15 +1,7 @@
 export { AggregateItemPocketArgs } from "./AggregateItemPocketArgs";
-export { CreateManyAndReturnItemPocketArgs } from "./CreateManyAndReturnItemPocketArgs";
-export { CreateManyItemPocketArgs } from "./CreateManyItemPocketArgs";
-export { CreateOneItemPocketArgs } from "./CreateOneItemPocketArgs";
-export { DeleteManyItemPocketArgs } from "./DeleteManyItemPocketArgs";
-export { DeleteOneItemPocketArgs } from "./DeleteOneItemPocketArgs";
 export { FindFirstItemPocketArgs } from "./FindFirstItemPocketArgs";
 export { FindFirstItemPocketOrThrowArgs } from "./FindFirstItemPocketOrThrowArgs";
 export { FindManyItemPocketArgs } from "./FindManyItemPocketArgs";
 export { FindUniqueItemPocketArgs } from "./FindUniqueItemPocketArgs";
 export { FindUniqueItemPocketOrThrowArgs } from "./FindUniqueItemPocketOrThrowArgs";
 export { GroupByItemPocketArgs } from "./GroupByItemPocketArgs";
-export { UpdateManyItemPocketArgs } from "./UpdateManyItemPocketArgs";
-export { UpdateOneItemPocketArgs } from "./UpdateOneItemPocketArgs";
-export { UpsertOneItemPocketArgs } from "./UpsertOneItemPocketArgs";

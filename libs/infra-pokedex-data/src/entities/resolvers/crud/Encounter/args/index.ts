@@ -1,15 +1,7 @@
 export { AggregateEncounterArgs } from "./AggregateEncounterArgs";
-export { CreateManyAndReturnEncounterArgs } from "./CreateManyAndReturnEncounterArgs";
-export { CreateManyEncounterArgs } from "./CreateManyEncounterArgs";
-export { CreateOneEncounterArgs } from "./CreateOneEncounterArgs";
-export { DeleteManyEncounterArgs } from "./DeleteManyEncounterArgs";
-export { DeleteOneEncounterArgs } from "./DeleteOneEncounterArgs";
 export { FindFirstEncounterArgs } from "./FindFirstEncounterArgs";
 export { FindFirstEncounterOrThrowArgs } from "./FindFirstEncounterOrThrowArgs";
 export { FindManyEncounterArgs } from "./FindManyEncounterArgs";
 export { FindUniqueEncounterArgs } from "./FindUniqueEncounterArgs";
 export { FindUniqueEncounterOrThrowArgs } from "./FindUniqueEncounterOrThrowArgs";
 export { GroupByEncounterArgs } from "./GroupByEncounterArgs";
-export { UpdateManyEncounterArgs } from "./UpdateManyEncounterArgs";
-export { UpdateOneEncounterArgs } from "./UpdateOneEncounterArgs";
-export { UpsertOneEncounterArgs } from "./UpsertOneEncounterArgs";

@@ -1,15 +1,7 @@
 export { AggregatePokemonEggGroupArgs } from "./AggregatePokemonEggGroupArgs";
-export { CreateManyAndReturnPokemonEggGroupArgs } from "./CreateManyAndReturnPokemonEggGroupArgs";
-export { CreateManyPokemonEggGroupArgs } from "./CreateManyPokemonEggGroupArgs";
-export { CreateOnePokemonEggGroupArgs } from "./CreateOnePokemonEggGroupArgs";
-export { DeleteManyPokemonEggGroupArgs } from "./DeleteManyPokemonEggGroupArgs";
-export { DeleteOnePokemonEggGroupArgs } from "./DeleteOnePokemonEggGroupArgs";
 export { FindFirstPokemonEggGroupArgs } from "./FindFirstPokemonEggGroupArgs";
 export { FindFirstPokemonEggGroupOrThrowArgs } from "./FindFirstPokemonEggGroupOrThrowArgs";
 export { FindManyPokemonEggGroupArgs } from "./FindManyPokemonEggGroupArgs";
 export { FindUniquePokemonEggGroupArgs } from "./FindUniquePokemonEggGroupArgs";
 export { FindUniquePokemonEggGroupOrThrowArgs } from "./FindUniquePokemonEggGroupOrThrowArgs";
 export { GroupByPokemonEggGroupArgs } from "./GroupByPokemonEggGroupArgs";
-export { UpdateManyPokemonEggGroupArgs } from "./UpdateManyPokemonEggGroupArgs";
-export { UpdateOnePokemonEggGroupArgs } from "./UpdateOnePokemonEggGroupArgs";
-export { UpsertOnePokemonEggGroupArgs } from "./UpsertOnePokemonEggGroupArgs";

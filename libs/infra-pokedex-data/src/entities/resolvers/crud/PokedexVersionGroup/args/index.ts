@@ -1,15 +1,7 @@
 export { AggregatePokedexVersionGroupArgs } from "./AggregatePokedexVersionGroupArgs";
-export { CreateManyAndReturnPokedexVersionGroupArgs } from "./CreateManyAndReturnPokedexVersionGroupArgs";
-export { CreateManyPokedexVersionGroupArgs } from "./CreateManyPokedexVersionGroupArgs";
-export { CreateOnePokedexVersionGroupArgs } from "./CreateOnePokedexVersionGroupArgs";
-export { DeleteManyPokedexVersionGroupArgs } from "./DeleteManyPokedexVersionGroupArgs";
-export { DeleteOnePokedexVersionGroupArgs } from "./DeleteOnePokedexVersionGroupArgs";
 export { FindFirstPokedexVersionGroupArgs } from "./FindFirstPokedexVersionGroupArgs";
 export { FindFirstPokedexVersionGroupOrThrowArgs } from "./FindFirstPokedexVersionGroupOrThrowArgs";
 export { FindManyPokedexVersionGroupArgs } from "./FindManyPokedexVersionGroupArgs";
 export { FindUniquePokedexVersionGroupArgs } from "./FindUniquePokedexVersionGroupArgs";
 export { FindUniquePokedexVersionGroupOrThrowArgs } from "./FindUniquePokedexVersionGroupOrThrowArgs";
 export { GroupByPokedexVersionGroupArgs } from "./GroupByPokedexVersionGroupArgs";
-export { UpdateManyPokedexVersionGroupArgs } from "./UpdateManyPokedexVersionGroupArgs";
-export { UpdateOnePokedexVersionGroupArgs } from "./UpdateOnePokedexVersionGroupArgs";
-export { UpsertOnePokedexVersionGroupArgs } from "./UpsertOnePokedexVersionGroupArgs";

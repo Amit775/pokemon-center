@@ -1,15 +1,7 @@
 export { AggregatePokemonHabitatArgs } from "./AggregatePokemonHabitatArgs";
-export { CreateManyAndReturnPokemonHabitatArgs } from "./CreateManyAndReturnPokemonHabitatArgs";
-export { CreateManyPokemonHabitatArgs } from "./CreateManyPokemonHabitatArgs";
-export { CreateOnePokemonHabitatArgs } from "./CreateOnePokemonHabitatArgs";
-export { DeleteManyPokemonHabitatArgs } from "./DeleteManyPokemonHabitatArgs";
-export { DeleteOnePokemonHabitatArgs } from "./DeleteOnePokemonHabitatArgs";
 export { FindFirstPokemonHabitatArgs } from "./FindFirstPokemonHabitatArgs";
 export { FindFirstPokemonHabitatOrThrowArgs } from "./FindFirstPokemonHabitatOrThrowArgs";
 export { FindManyPokemonHabitatArgs } from "./FindManyPokemonHabitatArgs";
 export { FindUniquePokemonHabitatArgs } from "./FindUniquePokemonHabitatArgs";
 export { FindUniquePokemonHabitatOrThrowArgs } from "./FindUniquePokemonHabitatOrThrowArgs";
 export { GroupByPokemonHabitatArgs } from "./GroupByPokemonHabitatArgs";
-export { UpdateManyPokemonHabitatArgs } from "./UpdateManyPokemonHabitatArgs";
-export { UpdateOnePokemonHabitatArgs } from "./UpdateOnePokemonHabitatArgs";
-export { UpsertOnePokemonHabitatArgs } from "./UpsertOnePokemonHabitatArgs";
