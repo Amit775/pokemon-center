@@ -4,13 +4,41 @@ import { PokedexIndex, PokemonDocument } from '@pokemon-center/infra-pokedex-ind
 import { Prisma, PrismaClient } from '@prisma/client';
 import { PokedexSyncExecutorSchema } from './schema';
 
-type PokemonWithRelations = Prisma.PokemonGetPayload<{}>;
+type PokemonWithRelations = Prisma.PokemonGetPayload<{
+	include: {
+		stats: {
+			include: {
+				stat: true;
+			};
+		};
+		types: {
+			include: {
+				type: true;
+			};
+		};
+		abilities: {
+			include: {
+				ability: true;
+			};
+		};
+		moves: {
+			include: {
+				move: {
+					include: {
+						type: true;
+						damageClass: true;
+					};
+				};
+			};
+		};
+	};
+}>;
 
 const runExecutor: PromiseExecutor<PokedexSyncExecutorSchema> = async (options) => {
 	logger.log('Executor ran for PokedexSync', options);
 
 	const synchronizer = new PokedexSynchronizerService(
-		(a: PokemonWithRelations, b?: PokemonDocument) => b!,
+		PokemonTransformerService.transformPokemon,
 		new PokedexIndex(new Client({ node: options.elasticsearchUrl })),
 	);
 
@@ -63,7 +91,36 @@ class PokedexSynchronizerService {
 	}
 
 	private async fetchAllPokemon(): Promise<PokemonWithRelations[]> {
-		return await this.prisma.pokemon.findMany({ orderBy: { id: 'asc' } });
+		return await this.prisma.pokemon.findMany({
+			orderBy: { id: 'asc' },
+			include: {
+				stats: {
+					include: {
+						stat: true,
+					},
+				},
+				types: {
+					include: {
+						type: true,
+					},
+				},
+				abilities: {
+					include: {
+						ability: true,
+					},
+				},
+				moves: {
+					include: {
+						move: {
+							include: {
+								type: true,
+								damageClass: true,
+							},
+						},
+					},
+				},
+			},
+		});
 	}
 
 	async getSyncStatus(): Promise<{ status: string; message: string }> {
@@ -84,45 +141,42 @@ class PokedexSynchronizerService {
 	}
 }
 
-// class PokemonTransformerService {
-// 	static transformPokemon(pokemon: PokemonWithRelations): PokemonDocument {
-// 		return {
-// 			id: `pokemon:${pokemon.id}`,
-// 			pokedex_number: pokemon.id,
-// 			name: `${pokemon.identifier}`,
-// 			slug: `${pokemon.identifier}`,
-// 			stats: pokemon.stats.reduce(
-// 				(stats, pokemonToStat) => ({
-// 					...stats,
-// 					[pokemonToStat.stat.name]: pokemonToStat.baseStat,
-// 				}),
-// 				{} as Record<keyof PokemonDocument['stats'], number>,
-// 			),
-// 			types: pokemon.types.map((pokemonToType) => ({
-// 				id: `type:${pokemonToType.type.slug}`,
-// 				name: pokemonToType.type.name,
-// 				slug: pokemonToType.type.slug,
-// 			})),
-// 			abilities: pokemon.abilities.map((pokemonToAbility) => ({
-// 				id: `ability:${pokemonToAbility.ability.id}`,
-// 				name: pokemonToAbility.ability.name,
-// 				slug: pokemonToAbility.ability.slug,
-// 				is_hidden: pokemonToAbility.isHidden,
-// 			})),
-// 			moves: pokemon.moves.map((pokemonToMove) => ({
-// 				id: `move:${pokemonToMove.move.id}`,
-// 				name: pokemonToMove.move.name,
-// 				slug: pokemonToMove.move.slug,
-// 				power: pokemonToMove.move.power,
-// 				type: {
-// 					id: `type:${pokemonToMove.move.type.slug}`,
-// 					name: pokemonToMove.move.type.name,
-// 				},
-// 				damage_class: {
-// 					id: `damage_class:${pokemonToMove.move.damageClass.slug}`,
-// 					name: pokemonToMove.move.damageClass.name,
-// 				},
-// 			})),
-// 		};
-// 	}
-// }
+class PokemonTransformerService {
+	static transformPokemon(pokemon: PokemonWithRelations): PokemonDocument {
+		return {
+			id: `pokemon:${pokemon.id}`,
+			pokedex_number: pokemon.id,
+			name: `${pokemon.identifier}`,
+			slug: `${pokemon.identifier}`,
+			stats: pokemon.stats.reduce(
+				(stats, pokemonToStat) => ({
+					...stats,
+					[pokemonToStat.stat.identifier]: pokemonToStat.base_stat,
+				}),
+				{} as Record<keyof PokemonDocument['stats'], number>,
+			),
+			types: pokemon.types.map((pokemonToType) => ({
+				id: `type:${pokemonToType.type.id}`,
+				name: pokemonToType.type.identifier,
+			})),
+			abilities: pokemon.abilities.map((pokemonToAbility) => ({
+				id: `ability:${pokemonToAbility.ability.id}`,
+				name: pokemonToAbility.ability.identifier,
+				is_hidden: pokemonToAbility.is_hidden === 1,
+			})),
+			moves: pokemon.moves.map((pokemonToMove) => ({
+				id: `move:${pokemonToMove.move.id}`,
+				name: pokemonToMove.move.identifier,
+				power: pokemonToMove.move.power,
+				type: {
+					id: `type:${pokemonToMove.move.type.id}`,
+					name: pokemonToMove.move.type.identifier,
+				},
+				damage_class: {
+					id: `damage_class:${pokemonToMove.move.damageClass.id}`,
+					name: pokemonToMove.move.damageClass.identifier,
+				},
+			})),
+		};
+	}
+}
