@@ -1,9 +1,0 @@
-export { PokemonEvolutionGenderArgs } from "./PokemonEvolutionGenderArgs";
-export { PokemonEvolutionHeldItemArgs } from "./PokemonEvolutionHeldItemArgs";
-export { PokemonEvolutionKnownMoveArgs } from "./PokemonEvolutionKnownMoveArgs";
-export { PokemonEvolutionKnownMoveTypeArgs } from "./PokemonEvolutionKnownMoveTypeArgs";
-export { PokemonEvolutionLocationArgs } from "./PokemonEvolutionLocationArgs";
-export { PokemonEvolutionPartySpeciesArgs } from "./PokemonEvolutionPartySpeciesArgs";
-export { PokemonEvolutionPartyTypeArgs } from "./PokemonEvolutionPartyTypeArgs";
-export { PokemonEvolutionTradeSpeciesArgs } from "./PokemonEvolutionTradeSpeciesArgs";
-export { PokemonEvolutionTriggerItemArgs } from "./PokemonEvolutionTriggerItemArgs";

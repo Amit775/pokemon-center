@@ -2,7 +2,9 @@
 
 ## Overview
 
-The Pokedex Cleanup Executor removes generated mutation resolvers from the `typegraphql-prisma` generator output to create a read-only GraphQL API. This executor is designed to work with the generated entities in the `libs/infra-pokedex-data/src/entities` directory.
+**NOTE: This executor is no longer needed as the project no longer uses `typegraphql-prisma`.**
+
+The Pokedex Cleanup Executor was designed to remove generated mutation resolvers from the `typegraphql-prisma` generator output to create a read-only GraphQL API. This executor was designed to work with the generated entities in the `libs/infra-pokedex-data/src/entities` directory.
 
 ## What It Does
 
@@ -57,9 +59,9 @@ nx run pokedex:cleanup --dryRun=true
 
 ## Workflow Integration
 
-### Typical Workflow
-1. **Generate entities** with `typegraphql-prisma` generator
-2. **Run cleanup** to remove mutation resolvers
+### Typical Workflow (DEPRECATED)
+1. **Generate entities** with `typegraphql-prisma` generator (NO LONGER USED)
+2. **Run cleanup** to remove mutation resolvers (NO LONGER NEEDED)
 3. **Build and test** your read-only GraphQL API
 
 ### Example Script
