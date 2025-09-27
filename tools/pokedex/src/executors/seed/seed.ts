@@ -552,12 +552,7 @@ class CsvProcessorService {
 
 		return new Promise((resolve, reject) => {
 			fs.createReadStream(filePath)
-				.pipe(
-					csv({
-						skipEmptyLines: true,
-						skipLinesWithError: true,
-					}),
-				)
+				.pipe(csv())
 				.on('data', (data) => {
 					try {
 						results.push(this.convertCsvData(data));

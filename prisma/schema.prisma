@@ -5,6 +5,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator nestgraphql {
+    provider = "prisma-nestjs-graphql"
+    output = "../libs/infra-pokedex-data/src/entities"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -80,6 +85,7 @@ model PokemonSpecies {
   @@map("pokemon_species")
 }
 
+/// @@TypeGraphQL.type(name: "PokemonForm")
 model PokemonForms {
   id                              Int     @id
   identifier                      String
@@ -102,6 +108,7 @@ model PokemonForms {
 }
 
 // Core Move tables
+/// @@TypeGraphQL.type(name: "Move")
 model Moves {
   id                      Int     @id
   identifier              String
@@ -124,14 +131,12 @@ model Moves {
   type                    Types @relation(fields: [type_id], references: [id])
   target                  MoveTargets @relation(fields: [target_id], references: [id])
   damageClass             MoveDamageClasses @relation(fields: [damage_class_id], references: [id])
-  effect                  MoveEffects? @relation(fields: [effect_id], references: [id])
   contestType             ContestTypes? @relation(fields: [contest_type_id], references: [id])
   contestEffect           ContestEffects? @relation(fields: [contest_effect_id], references: [id])
   superContestEffect      SuperContestEffects? @relation(fields: [super_contest_effect_id], references: [id])
   pokemonMoves            PokemonMoves[]
   machines                Machines[]
   meta                    MoveMeta[]
-  metaStatChanges         MoveMetaStatChanges[]
   flagMap                 MoveFlagMap[]
   contestCombos           ContestCombos[] @relation("FirstMove")
   contestCombosSecond     ContestCombos[] @relation("SecondMove")
@@ -142,15 +147,7 @@ model Moves {
   @@map("moves")
 }
 
-model MoveEffects {
-  id Int @id
-
-  // Relations
-  moves                   Moves[]
-
-  @@map("move_effects")
-}
-
+/// @@TypeGraphQL.type(name: "MoveTarget")
 model MoveTargets {
   id         Int    @id
   identifier String
@@ -161,6 +158,7 @@ model MoveTargets {
   @@map("move_targets")
 }
 
+/// @@TypeGraphQL.type(name: "MoveDamageClass")
 model MoveDamageClasses {
   id         Int    @id
   identifier String
@@ -173,6 +171,7 @@ model MoveDamageClasses {
 }
 
 // Core Type tables
+/// @@TypeGraphQL.type(name: "Type")
 model Types {
   id              Int     @id
   identifier      String
@@ -189,8 +188,6 @@ model Types {
   efficacy        TypeEfficacy[] @relation("DamageType")
   efficacyTarget  TypeEfficacy[] @relation("TargetType")
   berryFlavors    BerryFlavors[]
-  natures         Natures[] @relation("DecreasedStat")
-  naturesIncreased Natures[] @relation("IncreasedStat")
   knownMoveTypes  PokemonEvolution[] @relation("KnownMoveType")
   partyTypes      PokemonEvolution[] @relation("PartyType")
   naturalGiftTypes Berries[]
@@ -199,6 +196,7 @@ model Types {
 }
 
 // Core Ability tables
+/// @@TypeGraphQL.type(name: "Ability")
 model Abilities {
   id              Int     @id
   identifier      String
@@ -213,6 +211,7 @@ model Abilities {
 }
 
 // Core Item tables
+/// @@TypeGraphQL.type(name: "Item")
 model Items {
   id               Int     @id
   identifier       String
@@ -236,6 +235,7 @@ model Items {
   @@map("items")
 }
 
+/// @@TypeGraphQL.type(name: "ItemCategory")
 model ItemCategories {
   id         Int    @id
   pocket_id  Int
@@ -248,6 +248,7 @@ model ItemCategories {
   @@map("item_categories")
 }
 
+/// @@TypeGraphQL.type(name: "ItemPocket")
 model ItemPockets {
   id         Int    @id
   identifier String
@@ -259,6 +260,7 @@ model ItemPockets {
 }
 
 // Core Stat tables
+/// @@TypeGraphQL.type(name: "Stat")
 model Stats {
   id              Int     @id
   damage_class_id Int?
@@ -270,13 +272,14 @@ model Stats {
   pokemonStats    PokemonStats[]
   moveMetaStatChanges MoveMetaStatChanges[]
   characteristics Characteristics[]
-  natures         Natures[] @relation("DecreasedStat")
+  naturesDecreased Natures[] @relation("DecreasedStat")
   naturesIncreased Natures[] @relation("IncreasedStat")
 
   @@map("stats")
 }
 
 // Core Generation/Version tables
+/// @@TypeGraphQL.type(name: "Generation")
 model Generations {
   id              Int     @id
   main_region_id  Int
@@ -297,6 +300,7 @@ model Generations {
   @@map("generations")
 }
 
+/// @@TypeGraphQL.type(name: "VersionGroup")
 model VersionGroups {
   id            Int     @id
   identifier    String
@@ -317,6 +321,7 @@ model VersionGroups {
   @@map("version_groups")
 }
 
+/// @@TypeGraphQL.type(name: "Version")
 model Versions {
   id               Int     @id
   version_group_id Int
@@ -333,6 +338,7 @@ model Versions {
 }
 
 // Core Region/Location tables
+/// @@TypeGraphQL.type(name: "Region")
 model Regions {
   id         Int    @id
   identifier String
@@ -346,6 +352,7 @@ model Regions {
   @@map("regions")
 }
 
+/// @@TypeGraphQL.type(name: "Location")
 model Locations {
   id         Int     @id
   region_id  Int?
@@ -360,6 +367,7 @@ model Locations {
   @@map("locations")
 }
 
+/// @@TypeGraphQL.type(name: "LocationArea")
 model LocationAreas {
   id         Int     @id
   location_id Int
@@ -376,6 +384,7 @@ model LocationAreas {
 
 
 // Core Pokedex tables
+/// @@TypeGraphQL.type(name: "Pokedex")
 model Pokedexes {
   id             Int     @id
   region_id      Int?
@@ -391,6 +400,7 @@ model Pokedexes {
 }
 
 // Core Evolution tables
+/// @@TypeGraphQL.type(name: "EvolutionChain")
 model EvolutionChains {
   id                  Int     @id
   baby_trigger_item_id Int?
@@ -402,6 +412,7 @@ model EvolutionChains {
   @@map("evolution_chains")
 }
 
+/// @@TypeGraphQL.type(name: "EvolutionTrigger")
 model EvolutionTriggers {
   id         Int    @id
   identifier String
@@ -477,6 +488,7 @@ model Experience {
 }
 
 // Core Gender tables
+/// @@TypeGraphQL.type(name: "Gender")
 model Genders {
   id         Int    @id
   identifier String
@@ -488,6 +500,7 @@ model Genders {
 }
 
 // Core Language tables
+/// @@TypeGraphQL.type(name: "Language")
 model Languages {
   id         Int    @id
   iso639     String
@@ -500,6 +513,7 @@ model Languages {
 }
 
 // Core Egg Group tables
+/// @@TypeGraphQL.type(name: "EggGroup")
 model EggGroups {
   id         Int    @id
   identifier String
@@ -511,6 +525,7 @@ model EggGroups {
 }
 
 // Core Nature tables
+/// @@TypeGraphQL.type(name: "Nature")
 model Natures {
   id                  Int     @id
   identifier          String
@@ -524,13 +539,12 @@ model Natures {
   decreasedStat       Stats @relation("DecreasedStat", fields: [decreased_stat_id], references: [id])
   increasedStat       Stats @relation("IncreasedStat", fields: [increased_stat_id], references: [id])
   battleStylePreferences NatureBattleStylePreferences[]
-  decreasedStatTypes  Types[] @relation("DecreasedStat")
-  increasedStatTypes  Types[] @relation("IncreasedStat")
 
   @@map("natures")
 }
 
 // Core Contest tables
+/// @@TypeGraphQL.type(name: "ContestType")
 model ContestTypes {
   id         Int    @id
   identifier String
@@ -542,6 +556,7 @@ model ContestTypes {
   @@map("contest_types")
 }
 
+/// @@TypeGraphQL.type(name: "ContestEffect")
 model ContestEffects {
   id     Int @id
   appeal Int
@@ -554,6 +569,7 @@ model ContestEffects {
 }
 
 // Core Super Contest tables
+/// @@TypeGraphQL.type(name: "SuperContestEffect")
 model SuperContestEffects {
   id     Int @id
   appeal Int
@@ -565,6 +581,7 @@ model SuperContestEffects {
 }
 
 // Core Machine tables
+/// @@TypeGraphQL.type(name: "Machine")
 model Machines {
   machine_number    Int
   version_group_id  Int
@@ -581,6 +598,7 @@ model Machines {
 }
 
 // Core Encounter tables
+/// @@TypeGraphQL.type(name: "EncounterMethod")
 model EncounterMethods {
   id         Int     @id
   identifier String
@@ -593,6 +611,7 @@ model EncounterMethods {
   @@map("encounter_methods")
 }
 
+/// @@TypeGraphQL.type(name: "EncounterSlot")
 model EncounterSlots {
   id                   Int     @id
   version_group_id     Int
@@ -608,6 +627,7 @@ model EncounterSlots {
   @@map("encounter_slots")
 }
 
+/// @@TypeGraphQL.type(name: "Encounter")
 model Encounters {
   id                 Int     @id
   version_id         Int
@@ -627,6 +647,7 @@ model Encounters {
   @@map("encounters")
 }
 
+/// @@TypeGraphQL.type(name: "EncounterCondition")
 model EncounterConditions {
   id         Int    @id
   identifier String
@@ -637,6 +658,7 @@ model EncounterConditions {
   @@map("encounter_conditions")
 }
 
+/// @@TypeGraphQL.type(name: "EncounterConditionValue")
 model EncounterConditionValues {
   id                      Int     @id
   encounter_condition_id  Int
@@ -650,6 +672,7 @@ model EncounterConditionValues {
   @@map("encounter_condition_values")
 }
 
+/// @@TypeGraphQL.type(name: "EncounterConditionValueMap")
 model EncounterConditionValueMap {
   encounter_id                    Int @id
   encounter_condition_value_id    Int
@@ -664,6 +687,7 @@ model EncounterConditionValueMap {
 
 
 // Core Move Meta tables
+/// @@TypeGraphQL.type(name: "MoveMetaCategory")
 model MoveMetaCategories {
   id         Int    @id
   identifier String
@@ -674,6 +698,7 @@ model MoveMetaCategories {
   @@map("move_meta_categories")
 }
 
+/// @@TypeGraphQL.type(name: "MoveMetaAilment")
 model MoveMetaAilments {
   id         Int    @id
   identifier String
@@ -684,6 +709,7 @@ model MoveMetaAilments {
   @@map("move_meta_ailments")
 }
 
+/// @@TypeGraphQL.type(name: "MoveMeta")
 model MoveMeta {
   move_id         Int     @id
   meta_category_id Int
@@ -708,21 +734,22 @@ model MoveMeta {
   @@map("move_meta")
 }
 
+/// @@TypeGraphQL.type(name: "MoveMetaStatChanges")
 model MoveMetaStatChanges {
   move_id Int
   stat_id Int
   change  Int
 
   // Relations
-  move    Moves @relation(fields: [move_id], references: [id], map: "move_meta_stat_changes_move_id_fkey")
   stat    Stats @relation(fields: [stat_id], references: [id])
-  meta    MoveMeta @relation("MoveMetaStatChanges", fields: [move_id], references: [move_id], map: "move_meta_stat_changes_move_id_fkey2")
+  meta    MoveMeta @relation("MoveMetaStatChanges", fields: [move_id], references: [move_id], map: "move_meta_stat_changes_move_id_fkey")
 
   @@id([move_id, stat_id])
   @@map("move_meta_stat_changes")
 }
 
 // Core Move Flag tables
+/// @@TypeGraphQL.type(name: "MoveFlag")
 model MoveFlags {
   id         Int    @id
   identifier String
@@ -733,6 +760,7 @@ model MoveFlags {
   @@map("move_flags")
 }
 
+/// @@TypeGraphQL.type(name: "MoveFlagMap")
 model MoveFlagMap {
   move_id      Int @id
   move_flag_id Int
@@ -745,6 +773,7 @@ model MoveFlagMap {
 }
 
 // Core Move Battle Style tables
+/// @@TypeGraphQL.type(name: "MoveBattleStyle")
 model MoveBattleStyles {
   id         Int    @id
   identifier String
@@ -756,6 +785,7 @@ model MoveBattleStyles {
 }
 
 // Core Item Flag tables
+/// @@TypeGraphQL.type(name: "ItemFlag")
 model ItemFlags {
   id         Int    @id
   identifier String
@@ -766,6 +796,7 @@ model ItemFlags {
   @@map("item_flags")
 }
 
+/// @@TypeGraphQL.type(name: "ItemFlagMap")
 model ItemFlagMap {
   item_id      Int @id
   item_flag_id Int
@@ -777,6 +808,7 @@ model ItemFlagMap {
   @@map("item_flag_map")
 }
 
+/// @@TypeGraphQL.type(name: "ItemFlingEffect")
 model ItemFlingEffects {
   id         Int    @id
   identifier String
@@ -788,6 +820,7 @@ model ItemFlingEffects {
 }
 
 // Core Berry tables
+/// @@TypeGraphQL.type(name: "Berry")
 model Berries {
   id                   Int     @id
   item_id              Int
@@ -809,6 +842,7 @@ model Berries {
   @@map("berries")
 }
 
+/// @@TypeGraphQL.type(name: "BerryFirmness")
 model BerryFirmness {
   id         Int    @id
   identifier String
@@ -819,6 +853,7 @@ model BerryFirmness {
   @@map("berry_firmness")
 }
 
+/// @@TypeGraphQL.type(name: "BerryFlavor")
 model BerryFlavors {
   berry_id        Int
   contest_type_id Int
@@ -834,6 +869,7 @@ model BerryFlavors {
 }
 
 // Core Characteristic tables
+/// @@TypeGraphQL.type(name: "Characteristic")
 model Characteristics {
   id          Int     @id
   stat_id     Int
@@ -847,6 +883,7 @@ model Characteristics {
 
 
 // Core Contest Combo tables
+/// @@TypeGraphQL.type(name: "ContestCombo")
 model ContestCombos {
   first_move_id  Int @id
   second_move_id Int
@@ -858,6 +895,7 @@ model ContestCombos {
   @@map("contest_combos")
 }
 
+/// @@TypeGraphQL.type(name: "SuperContestCombo")
 model SuperContestCombos {
   first_move_id  Int @id
   second_move_id Int
@@ -870,6 +908,7 @@ model SuperContestCombos {
 }
 
 // Core Pokemon Move Method tables
+/// @@TypeGraphQL.type(name: "PokemonMoveMethod")
 model PokemonMoveMethods {
   id         Int     @id
   identifier String
@@ -881,6 +920,7 @@ model PokemonMoveMethods {
   @@map("pokemon_move_methods")
 }
 
+/// @@TypeGraphQL.type(name: "VersionGroupPokemonMoveMethod")
 model VersionGroupPokemonMoveMethods {
   version_group_id        Int @id
   pokemon_move_method_id  Int
@@ -893,6 +933,7 @@ model VersionGroupPokemonMoveMethods {
 }
 
 // Core Pokemon Shape tables
+/// @@TypeGraphQL.type(name: "PokemonShape")
 model PokemonShapes {
   id         Int    @id
   identifier String
@@ -904,6 +945,7 @@ model PokemonShapes {
 }
 
 // Core Pokemon Color tables
+/// @@TypeGraphQL.type(name: "PokemonColor")
 model PokemonColors {
   id         Int    @id
   identifier String
@@ -915,6 +957,7 @@ model PokemonColors {
 }
 
 // Core Pokemon Habitat tables
+/// @@TypeGraphQL.type(name: "PokemonHabitat")
 model PokemonHabitats {
   id         Int    @id
   identifier String
@@ -926,6 +969,7 @@ model PokemonHabitats {
 }
 
 // Core Type Efficacy tables
+/// @@TypeGraphQL.type(name: "TypeEfficacy")
 model TypeEfficacy {
   damage_type_id Int
   target_type_id Int
@@ -941,6 +985,7 @@ model TypeEfficacy {
 
 
 // Core Version Group Region tables
+/// @@TypeGraphQL.type(name: "VersionGroupRegion")
 model VersionGroupRegions {
   version_group_id Int @id
   region_id        Int
@@ -953,6 +998,7 @@ model VersionGroupRegions {
 }
 
 // Core Pokedex Version Group tables
+/// @@TypeGraphQL.type(name: "PokedexVersionGroup")
 model PokedexVersionGroups {
   pokedex_id       Int @id
   version_group_id Int
@@ -969,6 +1015,7 @@ model PokedexVersionGroups {
 // ===========================================
 
 // Pokemon relation tables
+/// @@TypeGraphQL.type(name: "PokemonAbility")
 model PokemonAbilities {
   pokemon_id Int
   ability_id Int
@@ -984,6 +1031,7 @@ model PokemonAbilities {
 }
 
 
+/// @@TypeGraphQL.type(name: "PokemonMove")
 model PokemonMoves {
   pokemon_id              Int
   version_group_id        Int
@@ -1003,6 +1051,7 @@ model PokemonMoves {
   @@map("pokemon_moves")
 }
 
+/// @@TypeGraphQL.type(name: "PokemonStat")
 model PokemonStats {
   pokemon_id Int
   stat_id    Int
@@ -1017,6 +1066,7 @@ model PokemonStats {
   @@map("pokemon_stats")
 }
 
+/// @@TypeGraphQL.type(name: "PokemonType")
 model PokemonTypes {
   pokemon_id Int
   type_id    Int
@@ -1031,6 +1081,7 @@ model PokemonTypes {
 }
 
 
+/// @@TypeGraphQL.type(name: "PokemonEggGroup")
 model PokemonEggGroups {
   species_id  Int
   egg_group_id Int
@@ -1043,6 +1094,7 @@ model PokemonEggGroups {
   @@map("pokemon_egg_groups")
 }
 
+/// @@TypeGraphQL.type(name: "PokemonItem")
 model PokemonItems {
   pokemon_id Int
   version_id Int
@@ -1058,6 +1110,7 @@ model PokemonItems {
   @@map("pokemon_items")
 }
 
+/// @@TypeGraphQL.type(name: "PokemonGameIndex")
 model PokemonGameIndices {
   pokemon_id Int
   version_id Int
@@ -1071,6 +1124,7 @@ model PokemonGameIndices {
   @@map("pokemon_game_indices")
 }
 
+/// @@TypeGraphQL.type(name: "PokemonDexNumber")
 model PokemonDexNumbers {
   species_id    Int
   pokedex_id    Int
@@ -1084,6 +1138,7 @@ model PokemonDexNumbers {
   @@map("pokemon_dex_numbers")
 }
 
+/// @@TypeGraphQL.type(name: "PokemonFormGeneration")
 model PokemonFormGenerations {
   pokemon_form_id Int
   generation_id   Int
@@ -1097,6 +1152,7 @@ model PokemonFormGenerations {
   @@map("pokemon_form_generations")
 }
 
+/// @@TypeGraphQL.type(name: "PokemonFormType")
 model PokemonFormTypes {
   pokemon_form_id Int
   type_id         Int
@@ -1110,11 +1166,7 @@ model PokemonFormTypes {
   @@map("pokemon_form_types")
 }
 
-
-
-
-
-
+/// @@TypeGraphQL.type(name: "TypeGameIndex")
 model TypeGameIndices {
   type_id       Int
   generation_id Int
@@ -1130,6 +1182,7 @@ model TypeGameIndices {
 
 
 
+/// @@TypeGraphQL.type(name: "ItemGameIndex")
 model ItemGameIndices {
   item_id       Int
   generation_id Int
@@ -1145,6 +1198,7 @@ model ItemGameIndices {
 
 
 
+/// @@TypeGraphQL.type(name: "LocationGameIndex")
 model LocationGameIndices {
   location_id   Int
   generation_id Int
@@ -1159,6 +1213,7 @@ model LocationGameIndices {
 }
 
 
+/// @@TypeGraphQL.type(name: "LocationAreaEncounterRate")
 model LocationAreaEncounterRates {
   location_area_id     Int
   encounter_method_id  Int
@@ -1175,6 +1230,7 @@ model LocationAreaEncounterRates {
 }
 
 
+/// @@TypeGraphQL.type(name: "NatureBattleStylePreference")
 model NatureBattleStylePreferences {
   nature_id           Int     @id
   move_battle_style_id Int

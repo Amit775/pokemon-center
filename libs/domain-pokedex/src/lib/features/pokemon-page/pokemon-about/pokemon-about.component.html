@@ -4,17 +4,17 @@
 </div>
 <div>
 	<span>name</span>
-	<span>{{ pokemon().name }}</span>
+	<span>{{ pokemon().identifier }}</span>
 </div>
 <div>
 	<span>types</span>
 	@for (type of pokemon().types; track type) {
-		<span>{{ type.name }}</span>
+		<span>{{ type.type?.identifier }}</span>
 	}
 </div>
 <div>
 	<span>abilities</span>
 	@for (ability of pokemon().abilities; track ability) {
-		<span>{{ ability.name }}</span>
+		<span>{{ ability.ability?.identifier }}</span>
 	}
 </div>

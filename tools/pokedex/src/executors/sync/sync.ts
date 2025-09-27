@@ -4,14 +4,43 @@ import { PokedexIndex, PokemonDocument } from '@pokemon-center/infra-pokedex-ind
 import { Prisma, PrismaClient } from '@prisma/client';
 import { PokedexSyncExecutorSchema } from './schema';
 
-type PokemonWithRelations = Prisma.PokemonGetPayload<{}>;
+type PokemonWithRelations = Prisma.PokemonGetPayload<{
+	include: {
+		stats: {
+			include: {
+				stat: true;
+			};
+		};
+		types: {
+			include: {
+				type: true;
+			};
+		};
+		abilities: {
+			include: {
+				ability: true;
+			};
+		};
+		moves: {
+			include: {
+				move: {
+					include: {
+						type: true;
+						damageClass: true;
+					};
+				};
+			};
+		};
+	};
+}>;
 
 const runExecutor: PromiseExecutor<PokedexSyncExecutorSchema> = async (options) => {
 	logger.log('Executor ran for PokedexSync', options);
 
 	const synchronizer = new PokedexSynchronizerService(
-		(a: PokemonWithRelations, b?: PokemonDocument) => b!,
+		PokemonTransformerService.transformPokemon,
 		new PokedexIndex(new Client({ node: options.elasticsearchUrl })),
+		options.batchSize,
 	);
 
 	await synchronizer.synchronize();
@@ -27,31 +56,38 @@ class PokedexSynchronizerService {
 	constructor(
 		private readonly transform: (pokemon: PokemonWithRelations) => PokemonDocument,
 		private readonly index: PokedexIndex,
+		private readonly batchSize: number = 100,
 	) {}
 
 	async synchronize(): Promise<void> {
 		try {
 			logger.log('Starting Pokedex synchronization process...');
 
-			// Step 1: Fetch all Pokemon data with relations
-			logger.log('Fetching Pokemon data from database...');
-			const pokemonData = await this.fetchAllPokemon();
-			logger.log(`Fetched ${pokemonData.length} Pokemon records`);
-
-			// Step 2: Transform data to Elasticsearch format
-			logger.log('Transforming data to Elasticsearch format...');
-			const documents = pokemonData.map(this.transform);
-			logger.log(`Transformed ${documents.length} documents`);
-
-			// Step 3: Ensure Elasticsearch index exists and is clean
 			logger.log('Preparing Elasticsearch index...');
 			await this.index.ensureIndexExists();
 
-			// Step 4: Bulk index all documents
-			logger.log('Indexing documents into Elasticsearch...');
-			await this.index.bulkIndex(documents);
+			let offset = 0;
+			let hasMore = true;
 
-			// Step 5: Get final stats
+			while (hasMore) {
+				logger.log(`Fetching Pokemon data from database... Batch offset: ${offset}, size: ${this.batchSize}`);
+				const pokemonData = await this.fetchPokemonBatch(offset, this.batchSize);
+				logger.log(`Fetched ${pokemonData.length} Pokemon records`);
+
+				if (pokemonData.length > 0) {
+					logger.log('Transforming data to Elasticsearch format...');
+					const documents = pokemonData.map(this.transform);
+					logger.log(`Transformed ${documents.length} documents`);
+
+					logger.log('Indexing documents into Elasticsearch...');
+					await this.index.bulkIndex(documents);
+
+					offset += this.batchSize;
+				} else {
+					hasMore = false;
+				}
+			}
+
 			const stats = await this.index.getIndexStats();
 			logger.log(`Synchronization completed successfully. Index stats:`, stats);
 		} catch (error) {
@@ -62,8 +98,39 @@ class PokedexSynchronizerService {
 		}
 	}
 
-	private async fetchAllPokemon(): Promise<PokemonWithRelations[]> {
-		return await this.prisma.pokemon.findMany({ orderBy: { id: 'asc' } });
+	private async fetchPokemonBatch(offset: number, limit: number): Promise<PokemonWithRelations[]> {
+		return await this.prisma.pokemon.findMany({
+			skip: offset,
+			take: limit,
+			orderBy: { id: 'asc' },
+			include: {
+				stats: {
+					include: {
+						stat: true,
+					},
+				},
+				types: {
+					include: {
+						type: true,
+					},
+				},
+				abilities: {
+					include: {
+						ability: true,
+					},
+				},
+				moves: {
+					include: {
+						move: {
+							include: {
+								type: true,
+								damageClass: true,
+							},
+						},
+					},
+				},
+			},
+		});
 	}
 
 	async getSyncStatus(): Promise<{ status: string; message: string }> {
@@ -84,45 +151,42 @@ class PokedexSynchronizerService {
 	}
 }
 
-// class PokemonTransformerService {
-// 	static transformPokemon(pokemon: PokemonWithRelations): PokemonDocument {
-// 		return {
-// 			id: `pokemon:${pokemon.id}`,
-// 			pokedex_number: pokemon.id,
-// 			name: `${pokemon.identifier}`,
-// 			slug: `${pokemon.identifier}`,
-// 			stats: pokemon.stats.reduce(
-// 				(stats, pokemonToStat) => ({
-// 					...stats,
-// 					[pokemonToStat.stat.name]: pokemonToStat.baseStat,
-// 				}),
-// 				{} as Record<keyof PokemonDocument['stats'], number>,
-// 			),
-// 			types: pokemon.types.map((pokemonToType) => ({
-// 				id: `type:${pokemonToType.type.slug}`,
-// 				name: pokemonToType.type.name,
-// 				slug: pokemonToType.type.slug,
-// 			})),
-// 			abilities: pokemon.abilities.map((pokemonToAbility) => ({
-// 				id: `ability:${pokemonToAbility.ability.id}`,
-// 				name: pokemonToAbility.ability.name,
-// 				slug: pokemonToAbility.ability.slug,
-// 				is_hidden: pokemonToAbility.isHidden,
-// 			})),
-// 			moves: pokemon.moves.map((pokemonToMove) => ({
-// 				id: `move:${pokemonToMove.move.id}`,
-// 				name: pokemonToMove.move.name,
-// 				slug: pokemonToMove.move.slug,
-// 				power: pokemonToMove.move.power,
-// 				type: {
-// 					id: `type:${pokemonToMove.move.type.slug}`,
-// 					name: pokemonToMove.move.type.name,
-// 				},
-// 				damage_class: {
-// 					id: `damage_class:${pokemonToMove.move.damageClass.slug}`,
-// 					name: pokemonToMove.move.damageClass.name,
-// 				},
-// 			})),
-// 		};
-// 	}
-// }
+class PokemonTransformerService {
+	static transformPokemon(pokemon: PokemonWithRelations): PokemonDocument {
+		return {
+			id: `pokemon:${pokemon.id}`,
+			pokedex_number: pokemon.id,
+			name: `${pokemon.identifier}`,
+			slug: `${pokemon.identifier}`,
+			stats: pokemon.stats.reduce(
+				(stats, pokemonToStat) => ({
+					...stats,
+					[pokemonToStat.stat.identifier]: pokemonToStat.base_stat,
+				}),
+				{} as Record<keyof PokemonDocument['stats'], number>,
+			),
+			types: pokemon.types.map((pokemonToType) => ({
+				id: `type:${pokemonToType.type.id}`,
+				name: pokemonToType.type.identifier,
+			})),
+			abilities: pokemon.abilities.map((pokemonToAbility) => ({
+				id: `ability:${pokemonToAbility.ability.id}`,
+				name: pokemonToAbility.ability.identifier,
+				is_hidden: pokemonToAbility.is_hidden === 1,
+			})),
+			moves: pokemon.moves.map((pokemonToMove) => ({
+				id: `move:${pokemonToMove.move.id}`,
+				name: pokemonToMove.move.identifier,
+				power: pokemonToMove.move.power,
+				type: {
+					id: `type:${pokemonToMove.move.type.id}`,
+					name: pokemonToMove.move.type.identifier,
+				},
+				damage_class: {
+					id: `damage_class:${pokemonToMove.move.damageClass.id}`,
+					name: pokemonToMove.move.damageClass.identifier,
+				},
+			})),
+		};
+	}
+}

@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, input, computed } from '@angular/core';
+import { httpResource } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router, RouterModule } from '@angular/router';
-import { PokemonService } from '@pokemon-center/data';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Pokemon } from '@pokemon-center/infra-pokedex-data';
 
 @Component({
 	templateUrl: './pokemon-page.component.html',
@@ -12,14 +12,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
 	imports: [MatTabsModule, RouterModule, MatIconModule],
 })
 export class PokemonPageComponent {
-	private api = inject(PokemonService);
 	private router = inject(Router);
 
 	public id = input.required({
 		transform: (value: number | string) => Number(value),
 	});
 
-	public pokemon = toSignal(this.api.getPokemon(this.id()), { initialValue: null });
+	public pokemon = httpResource<Pokemon>(() => `/pokemon/${this.id()}`);
 
 	public tabs = [
 		{ label: 'About', path: 'about' },

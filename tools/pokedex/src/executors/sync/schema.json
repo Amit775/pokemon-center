@@ -8,6 +8,11 @@
 		"elasticsearchUrl": {
 			"type": "string",
 			"description": "The URL of the Elasticsearch instance"
+		},
+		"batchSize": {
+			"type": "number",
+			"description": "The batch size for synchronization",
+			"default": 100
 		}
 	},
 	"required": [
