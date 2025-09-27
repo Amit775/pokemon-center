@@ -43,6 +43,12 @@
 				"outputPath": "dist/tools/pokedex"
 			}
 		},
+		"initialize": {
+			"executor": "@pokemon-center/pokedex:initialize",
+			"options": {
+				"outputPath": "dist/tools/pokedex"
+			}
+		},
 		"sync": {
 			"executor": "@pokemon-center/pokedex:sync",
 			"options": {

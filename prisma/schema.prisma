@@ -133,7 +133,6 @@ model Moves {
   type                    Types @relation(fields: [type_id], references: [id])
   target                  MoveTargets @relation(fields: [target_id], references: [id])
   damageClass             MoveDamageClasses @relation(fields: [damage_class_id], references: [id])
-  effect                  MoveEffects? @relation(fields: [effect_id], references: [id])
   contestType             ContestTypes? @relation(fields: [contest_type_id], references: [id])
   contestEffect           ContestEffects? @relation(fields: [contest_effect_id], references: [id])
   superContestEffect      SuperContestEffects? @relation(fields: [super_contest_effect_id], references: [id])
@@ -148,16 +147,6 @@ model Moves {
   knownMoves              PokemonEvolution[] @relation("KnownMove")
 
   @@map("moves")
-}
-
-/// @@TypeGraphQL.type(name: "MoveEffect")
-model MoveEffects {
-  id Int @id
-
-  // Relations
-  moves                   Moves[]
-
-  @@map("move_effects")
 }
 
 /// @@TypeGraphQL.type(name: "MoveTarget")
@@ -201,8 +190,6 @@ model Types {
   efficacy        TypeEfficacy[] @relation("DamageType")
   efficacyTarget  TypeEfficacy[] @relation("TargetType")
   berryFlavors    BerryFlavors[]
-  natures         Natures[] @relation("DecreasedStat")
-  naturesIncreased Natures[] @relation("IncreasedStat")
   knownMoveTypes  PokemonEvolution[] @relation("KnownMoveType")
   partyTypes      PokemonEvolution[] @relation("PartyType")
   naturalGiftTypes Berries[]
@@ -287,7 +274,7 @@ model Stats {
   pokemonStats    PokemonStats[]
   moveMetaStatChanges MoveMetaStatChanges[]
   characteristics Characteristics[]
-  natures         Natures[] @relation("DecreasedStat")
+  naturesDecreased Natures[] @relation("DecreasedStat")
   naturesIncreased Natures[] @relation("IncreasedStat")
 
   @@map("stats")
@@ -554,8 +541,6 @@ model Natures {
   decreasedStat       Stats @relation("DecreasedStat", fields: [decreased_stat_id], references: [id])
   increasedStat       Stats @relation("IncreasedStat", fields: [increased_stat_id], references: [id])
   battleStylePreferences NatureBattleStylePreferences[]
-  decreasedStatTypes  Types[] @relation("DecreasedStat")
-  increasedStatTypes  Types[] @relation("IncreasedStat")
 
   @@map("natures")
 }

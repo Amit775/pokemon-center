@@ -14,6 +14,11 @@
 			"implementation": "./src/executors/cleanup/cleanup",
 			"schema": "./src/executors/cleanup/schema.json",
 			"description": "pokedex cleanup executor - removes mutation resolvers for read-only GraphQL API"
+		},
+		"initialize": {
+			"implementation": "./src/executors/initialize/executor",
+			"schema": "./src/executors/initialize/schema.json",
+			"description": "initialize executor"
 		}
 	}
 }
