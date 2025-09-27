@@ -1,0 +1,20 @@
+{
+	"$schema": "https://json-schema.org/schema",
+	"version": 2,
+	"title": "PokedexCleanup executor",
+	"description": "Cleans up generated mutation resolvers to create a read-only GraphQL API",
+	"type": "object",
+	"properties": {
+		"entitiesPath": {
+			"type": "string",
+			"description": "Path to the generated entities directory",
+			"default": "libs/infra-pokedex-data/src/entities"
+		},
+		"dryRun": {
+			"type": "boolean",
+			"description": "Show what would be deleted without actually deleting files",
+			"default": false
+		}
+	},
+	"required": []
+}

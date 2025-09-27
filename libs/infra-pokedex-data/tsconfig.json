@@ -4,6 +4,8 @@
 		"module": "commonjs",
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
+		"esModuleInterop": true, // <-- Add or set this to true
+		"allowSyntheticDefaultImports": true, // Often used with esModuleInterop
 		"importHelpers": true,
 		"noImplicitOverride": true,
 		"noImplicitReturns": true,

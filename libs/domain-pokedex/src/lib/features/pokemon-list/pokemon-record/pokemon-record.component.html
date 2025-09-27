@@ -1,8 +1,8 @@
 <div class="record">
-  <span> <img [index]="pokemon().index" /></span>
-  <span class="pokemon">
-    <span class="name"> {{ pokemon().name | titlecase }} </span>
-    <span class="index"> {{ pokemon().index | index }} </span>
-  </span>
-  <span class="stats"> stats </span>
+	<span> <img [index]="pokemon().id" /></span>
+	<span class="pokemon">
+		<span class="name"> {{ pokemon().identifier | titlecase }} </span>
+		<span class="index"> {{ pokemon().id | index }} </span>
+	</span>
+	<span class="stats"> stats </span>
 </div>

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Move, Pokemon } from '@pokemon-center/infra-pokedex-data';
 import { ListComponent, ListItemDirective } from '@pokemon-center/ui-list';
-import { Pokemon, Move } from '@pokemon-center/data';
 
 export const type = <T>() => undefined as T;
 

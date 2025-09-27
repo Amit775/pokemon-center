@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { Pokemon } from '@pokemon-center/data';
+import { Pokemon } from '@pokemon-center/infra-pokedex-data';
 
 @Component({
 	standalone: true,

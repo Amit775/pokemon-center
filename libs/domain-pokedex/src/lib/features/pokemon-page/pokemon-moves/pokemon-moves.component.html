@@ -1,8 +1,8 @@
 <ui-list [list]="pokemon().moves || []">
 	<ng-template let-move [listItem]="moveType">
-		<div class="move" [routerLink]="['/', 'pokedex', 'moves', move.name]">
-			<div class="move-name">{{ move.name }}</div>
-			<div class="move-url">{{ move.slug }}</div>
+		<div class="move" [routerLink]="['/', 'pokedex', 'moves', move.id]">
+			<div class="move-name">{{ move.identifier }}</div>
+			<div class="move-url">{{ move.id }}</div>
 		</div>
 	</ng-template>
 </ui-list>

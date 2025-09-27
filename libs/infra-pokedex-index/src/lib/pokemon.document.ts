@@ -16,18 +16,15 @@ export interface PokemonDocument {
 	types: Array<{
 		id: string;
 		name: string;
-		slug: string;
 	}>;
 	abilities: Array<{
 		id: string;
 		name: string;
-		slug: string;
 		is_hidden: boolean;
 	}>;
 	moves: Array<{
 		id: string;
 		name: string;
-		slug: string;
 		power: number | null;
 		type: {
 			id: string;
