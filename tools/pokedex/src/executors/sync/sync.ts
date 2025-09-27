@@ -40,6 +40,7 @@ const runExecutor: PromiseExecutor<PokedexSyncExecutorSchema> = async (options) 
 	const synchronizer = new PokedexSynchronizerService(
 		PokemonTransformerService.transformPokemon,
 		new PokedexIndex(new Client({ node: options.elasticsearchUrl })),
+		options.batchSize,
 	);
 
 	await synchronizer.synchronize();
@@ -55,31 +56,38 @@ class PokedexSynchronizerService {
 	constructor(
 		private readonly transform: (pokemon: PokemonWithRelations) => PokemonDocument,
 		private readonly index: PokedexIndex,
+		private readonly batchSize: number = 100,
 	) {}
 
 	async synchronize(): Promise<void> {
 		try {
 			logger.log('Starting Pokedex synchronization process...');
 
-			// Step 1: Fetch all Pokemon data with relations
-			logger.log('Fetching Pokemon data from database...');
-			const pokemonData = await this.fetchAllPokemon();
-			logger.log(`Fetched ${pokemonData.length} Pokemon records`);
-
-			// Step 2: Transform data to Elasticsearch format
-			logger.log('Transforming data to Elasticsearch format...');
-			const documents = pokemonData.map(this.transform);
-			logger.log(`Transformed ${documents.length} documents`);
-
-			// Step 3: Ensure Elasticsearch index exists and is clean
 			logger.log('Preparing Elasticsearch index...');
 			await this.index.ensureIndexExists();
 
-			// Step 4: Bulk index all documents
-			logger.log('Indexing documents into Elasticsearch...');
-			await this.index.bulkIndex(documents);
+			let offset = 0;
+			let hasMore = true;
 
-			// Step 5: Get final stats
+			while (hasMore) {
+				logger.log(`Fetching Pokemon data from database... Batch offset: ${offset}, size: ${this.batchSize}`);
+				const pokemonData = await this.fetchPokemonBatch(offset, this.batchSize);
+				logger.log(`Fetched ${pokemonData.length} Pokemon records`);
+
+				if (pokemonData.length > 0) {
+					logger.log('Transforming data to Elasticsearch format...');
+					const documents = pokemonData.map(this.transform);
+					logger.log(`Transformed ${documents.length} documents`);
+
+					logger.log('Indexing documents into Elasticsearch...');
+					await this.index.bulkIndex(documents);
+
+					offset += this.batchSize;
+				} else {
+					hasMore = false;
+				}
+			}
+
 			const stats = await this.index.getIndexStats();
 			logger.log(`Synchronization completed successfully. Index stats:`, stats);
 		} catch (error) {
@@ -90,8 +98,10 @@ class PokedexSynchronizerService {
 		}
 	}
 
-	private async fetchAllPokemon(): Promise<PokemonWithRelations[]> {
+	private async fetchPokemonBatch(offset: number, limit: number): Promise<PokemonWithRelations[]> {
 		return await this.prisma.pokemon.findMany({
+			skip: offset,
+			take: limit,
 			orderBy: { id: 'asc' },
 			include: {
 				stats: {

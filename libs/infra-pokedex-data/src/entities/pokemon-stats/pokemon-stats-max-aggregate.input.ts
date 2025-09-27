@@ -1,0 +1,18 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+
+@InputType()
+export class PokemonStatsMaxAggregateInput {
+
+    @Field(() => Boolean, {nullable:true})
+    pokemon_id?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    stat_id?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    base_stat?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    effort?: true;
+}

@@ -1,0 +1,25 @@
+import { Field } from '@nestjs/graphql';
+import { ObjectType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
+
+@ObjectType()
+export class EncounterSlotsCountAggregate {
+
+    @Field(() => Int, {nullable:false})
+    id!: number;
+
+    @Field(() => Int, {nullable:false})
+    version_group_id!: number;
+
+    @Field(() => Int, {nullable:false})
+    encounter_method_id!: number;
+
+    @Field(() => Int, {nullable:false})
+    slot!: number;
+
+    @Field(() => Int, {nullable:false})
+    rarity!: number;
+
+    @Field(() => Int, {nullable:false})
+    _all!: number;
+}

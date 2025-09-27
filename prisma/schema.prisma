@@ -5,6 +5,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator nestgraphql {
+    provider = "prisma-nestjs-graphql"
+    output = "../libs/infra-pokedex-data/src/entities"
+}
 
 datasource db {
   provider = "postgresql"
