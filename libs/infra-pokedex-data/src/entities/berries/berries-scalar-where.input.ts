@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 
 @InputType()
 export class BerriesScalarWhereInput {
@@ -16,32 +16,32 @@ export class BerriesScalarWhereInput {
     NOT?: Array<BerriesScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    item_id?: IntFilter;
+    item_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    firmness_id?: IntFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    natural_gift_power?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    natural_gift_type_id?: IntNullableFilter;
+    firmness_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    size?: IntFilter;
+    natural_gift_power?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    max_harvest?: IntFilter;
+    natural_gift_type_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    growth_time?: IntFilter;
+    size?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    soil_dryness?: IntFilter;
+    max_harvest?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    smoothness?: IntFilter;
+    growth_time?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    soil_dryness?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    smoothness?: Identity<IntFilter>;
 }

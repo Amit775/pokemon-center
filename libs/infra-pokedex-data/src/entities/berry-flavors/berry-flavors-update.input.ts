@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { BerriesUpdateOneRequiredWithoutFlavorsNestedInput } from '../berries/berries-update-one-required-without-flavors-nested.input';
 import { ContestTypesUpdateOneRequiredWithoutBerryFlavorsNestedInput } from '../contest-types/contest-types-update-one-required-without-berry-flavors-nested.input';
 import { TypesUpdateOneRequiredWithoutBerryFlavorsNestedInput } from '../types/types-update-one-required-without-berry-flavors-nested.input';
@@ -8,15 +9,15 @@ import { TypesUpdateOneRequiredWithoutBerryFlavorsNestedInput } from '../types/t
 @InputType()
 export class BerryFlavorsUpdateInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    flavor?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    flavor?: number;
 
     @Field(() => BerriesUpdateOneRequiredWithoutFlavorsNestedInput, {nullable:true})
-    berry?: BerriesUpdateOneRequiredWithoutFlavorsNestedInput;
+    berry?: Identity<BerriesUpdateOneRequiredWithoutFlavorsNestedInput>;
 
     @Field(() => ContestTypesUpdateOneRequiredWithoutBerryFlavorsNestedInput, {nullable:true})
-    contestType?: ContestTypesUpdateOneRequiredWithoutBerryFlavorsNestedInput;
+    contestType?: Identity<ContestTypesUpdateOneRequiredWithoutBerryFlavorsNestedInput>;
 
     @Field(() => TypesUpdateOneRequiredWithoutBerryFlavorsNestedInput, {nullable:true})
-    type?: TypesUpdateOneRequiredWithoutBerryFlavorsNestedInput;
+    type?: Identity<TypesUpdateOneRequiredWithoutBerryFlavorsNestedInput>;
 }

@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokedexesCreateWithoutVersionGroupsInput } from './pokedexes-create-without-version-groups.input';
 import { Type } from 'class-transformer';
 import { PokedexesCreateOrConnectWithoutVersionGroupsInput } from './pokedexes-create-or-connect-without-version-groups.input';
 import { PokedexesUpsertWithoutVersionGroupsInput } from './pokedexes-upsert-without-version-groups.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokedexesWhereUniqueInput } from './pokedexes-where-unique.input';
 import { PokedexesUpdateToOneWithWhereWithoutVersionGroupsInput } from './pokedexes-update-to-one-with-where-without-version-groups.input';
 
@@ -13,15 +14,15 @@ export class PokedexesUpdateOneRequiredWithoutVersionGroupsNestedInput {
 
     @Field(() => PokedexesCreateWithoutVersionGroupsInput, {nullable:true})
     @Type(() => PokedexesCreateWithoutVersionGroupsInput)
-    create?: PokedexesCreateWithoutVersionGroupsInput;
+    create?: Identity<PokedexesCreateWithoutVersionGroupsInput>;
 
     @Field(() => PokedexesCreateOrConnectWithoutVersionGroupsInput, {nullable:true})
     @Type(() => PokedexesCreateOrConnectWithoutVersionGroupsInput)
-    connectOrCreate?: PokedexesCreateOrConnectWithoutVersionGroupsInput;
+    connectOrCreate?: Identity<PokedexesCreateOrConnectWithoutVersionGroupsInput>;
 
     @Field(() => PokedexesUpsertWithoutVersionGroupsInput, {nullable:true})
     @Type(() => PokedexesUpsertWithoutVersionGroupsInput)
-    upsert?: PokedexesUpsertWithoutVersionGroupsInput;
+    upsert?: Identity<PokedexesUpsertWithoutVersionGroupsInput>;
 
     @Field(() => PokedexesWhereUniqueInput, {nullable:true})
     @Type(() => PokedexesWhereUniqueInput)
@@ -29,5 +30,5 @@ export class PokedexesUpdateOneRequiredWithoutVersionGroupsNestedInput {
 
     @Field(() => PokedexesUpdateToOneWithWhereWithoutVersionGroupsInput, {nullable:true})
     @Type(() => PokedexesUpdateToOneWithWhereWithoutVersionGroupsInput)
-    update?: PokedexesUpdateToOneWithWhereWithoutVersionGroupsInput;
+    update?: Identity<PokedexesUpdateToOneWithWhereWithoutVersionGroupsInput>;
 }

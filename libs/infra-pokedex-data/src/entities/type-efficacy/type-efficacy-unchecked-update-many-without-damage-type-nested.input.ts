@@ -4,8 +4,9 @@ import { TypeEfficacyCreateWithoutDamageTypeInput } from './type-efficacy-create
 import { Type } from 'class-transformer';
 import { TypeEfficacyCreateOrConnectWithoutDamageTypeInput } from './type-efficacy-create-or-connect-without-damage-type.input';
 import { TypeEfficacyUpsertWithWhereUniqueWithoutDamageTypeInput } from './type-efficacy-upsert-with-where-unique-without-damage-type.input';
+import type { Identity } from 'identity-type';
 import { TypeEfficacyCreateManyDamageTypeInputEnvelope } from './type-efficacy-create-many-damage-type-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { TypeEfficacyWhereUniqueInput } from './type-efficacy-where-unique.input';
 import { TypeEfficacyUpdateWithWhereUniqueWithoutDamageTypeInput } from './type-efficacy-update-with-where-unique-without-damage-type.input';
 import { TypeEfficacyUpdateManyWithWhereWithoutDamageTypeInput } from './type-efficacy-update-many-with-where-without-damage-type.input';
@@ -28,7 +29,7 @@ export class TypeEfficacyUncheckedUpdateManyWithoutDamageTypeNestedInput {
 
     @Field(() => TypeEfficacyCreateManyDamageTypeInputEnvelope, {nullable:true})
     @Type(() => TypeEfficacyCreateManyDamageTypeInputEnvelope)
-    createMany?: TypeEfficacyCreateManyDamageTypeInputEnvelope;
+    createMany?: Identity<TypeEfficacyCreateManyDamageTypeInputEnvelope>;
 
     @Field(() => [TypeEfficacyWhereUniqueInput], {nullable:true})
     @Type(() => TypeEfficacyWhereUniqueInput)

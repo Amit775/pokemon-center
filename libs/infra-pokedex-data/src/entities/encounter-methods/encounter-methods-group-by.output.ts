@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterMethodsCountAggregate } from './encounter-methods-count-aggregate.output';
 import { EncounterMethodsAvgAggregate } from './encounter-methods-avg-aggregate.output';
 import { EncounterMethodsSumAggregate } from './encounter-methods-sum-aggregate.output';
@@ -20,17 +21,17 @@ export class EncounterMethodsGroupBy {
     order!: number;
 
     @Field(() => EncounterMethodsCountAggregate, {nullable:true})
-    _count?: EncounterMethodsCountAggregate;
+    _count?: Identity<EncounterMethodsCountAggregate>;
 
     @Field(() => EncounterMethodsAvgAggregate, {nullable:true})
-    _avg?: EncounterMethodsAvgAggregate;
+    _avg?: Identity<EncounterMethodsAvgAggregate>;
 
     @Field(() => EncounterMethodsSumAggregate, {nullable:true})
-    _sum?: EncounterMethodsSumAggregate;
+    _sum?: Identity<EncounterMethodsSumAggregate>;
 
     @Field(() => EncounterMethodsMinAggregate, {nullable:true})
-    _min?: EncounterMethodsMinAggregate;
+    _min?: Identity<EncounterMethodsMinAggregate>;
 
     @Field(() => EncounterMethodsMaxAggregate, {nullable:true})
-    _max?: EncounterMethodsMaxAggregate;
+    _max?: Identity<EncounterMethodsMaxAggregate>;
 }

@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
-import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class EncounterSlotsScalarWhereWithAggregatesInput {
@@ -16,17 +16,17 @@ export class EncounterSlotsScalarWhereWithAggregatesInput {
     NOT?: Array<EncounterSlotsScalarWhereWithAggregatesInput>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
+    id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    version_group_id?: IntWithAggregatesFilter;
+    version_group_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    encounter_method_id?: IntWithAggregatesFilter;
-
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    slot?: IntNullableWithAggregatesFilter;
+    encounter_method_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    rarity?: IntWithAggregatesFilter;
+    slot?: Identity<IntWithAggregatesFilter>;
+
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    rarity?: Identity<IntWithAggregatesFilter>;
 }

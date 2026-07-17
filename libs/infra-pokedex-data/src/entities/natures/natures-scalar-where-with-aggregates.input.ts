@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 
@@ -16,23 +17,23 @@ export class NaturesScalarWhereWithAggregatesInput {
     NOT?: Array<NaturesScalarWhereWithAggregatesInput>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
+    id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
-    identifier?: StringWithAggregatesFilter;
+    identifier?: Identity<StringWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    decreased_stat_id?: IntWithAggregatesFilter;
+    decreased_stat_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    increased_stat_id?: IntWithAggregatesFilter;
+    increased_stat_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    hates_flavor_id?: IntWithAggregatesFilter;
+    hates_flavor_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    likes_flavor_id?: IntWithAggregatesFilter;
+    likes_flavor_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    game_index?: IntWithAggregatesFilter;
+    game_index?: Identity<IntWithAggregatesFilter>;
 }

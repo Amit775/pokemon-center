@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupsCreateNestedOneWithoutVersionGroupRegionsInput } from '../version-groups/version-groups-create-nested-one-without-version-group-regions.input';
 import { RegionsCreateNestedOneWithoutVersionGroupsInput } from '../regions/regions-create-nested-one-without-version-groups.input';
 
@@ -7,8 +8,8 @@ import { RegionsCreateNestedOneWithoutVersionGroupsInput } from '../regions/regi
 export class VersionGroupRegionsCreateInput {
 
     @Field(() => VersionGroupsCreateNestedOneWithoutVersionGroupRegionsInput, {nullable:false})
-    versionGroup!: VersionGroupsCreateNestedOneWithoutVersionGroupRegionsInput;
+    versionGroup!: Identity<VersionGroupsCreateNestedOneWithoutVersionGroupRegionsInput>;
 
     @Field(() => RegionsCreateNestedOneWithoutVersionGroupsInput, {nullable:false})
-    region!: RegionsCreateNestedOneWithoutVersionGroupsInput;
+    region!: Identity<RegionsCreateNestedOneWithoutVersionGroupsInput>;
 }

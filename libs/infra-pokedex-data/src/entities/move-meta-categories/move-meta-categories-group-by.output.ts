@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaCategoriesCountAggregate } from './move-meta-categories-count-aggregate.output';
 import { MoveMetaCategoriesAvgAggregate } from './move-meta-categories-avg-aggregate.output';
 import { MoveMetaCategoriesSumAggregate } from './move-meta-categories-sum-aggregate.output';
@@ -17,17 +18,17 @@ export class MoveMetaCategoriesGroupBy {
     identifier!: string;
 
     @Field(() => MoveMetaCategoriesCountAggregate, {nullable:true})
-    _count?: MoveMetaCategoriesCountAggregate;
+    _count?: Identity<MoveMetaCategoriesCountAggregate>;
 
     @Field(() => MoveMetaCategoriesAvgAggregate, {nullable:true})
-    _avg?: MoveMetaCategoriesAvgAggregate;
+    _avg?: Identity<MoveMetaCategoriesAvgAggregate>;
 
     @Field(() => MoveMetaCategoriesSumAggregate, {nullable:true})
-    _sum?: MoveMetaCategoriesSumAggregate;
+    _sum?: Identity<MoveMetaCategoriesSumAggregate>;
 
     @Field(() => MoveMetaCategoriesMinAggregate, {nullable:true})
-    _min?: MoveMetaCategoriesMinAggregate;
+    _min?: Identity<MoveMetaCategoriesMinAggregate>;
 
     @Field(() => MoveMetaCategoriesMaxAggregate, {nullable:true})
-    _max?: MoveMetaCategoriesMaxAggregate;
+    _max?: Identity<MoveMetaCategoriesMaxAggregate>;
 }

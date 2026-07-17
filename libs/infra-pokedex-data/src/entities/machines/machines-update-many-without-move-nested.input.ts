@@ -4,8 +4,9 @@ import { MachinesCreateWithoutMoveInput } from './machines-create-without-move.i
 import { Type } from 'class-transformer';
 import { MachinesCreateOrConnectWithoutMoveInput } from './machines-create-or-connect-without-move.input';
 import { MachinesUpsertWithWhereUniqueWithoutMoveInput } from './machines-upsert-with-where-unique-without-move.input';
+import type { Identity } from 'identity-type';
 import { MachinesCreateManyMoveInputEnvelope } from './machines-create-many-move-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MachinesWhereUniqueInput } from './machines-where-unique.input';
 import { MachinesUpdateWithWhereUniqueWithoutMoveInput } from './machines-update-with-where-unique-without-move.input';
 import { MachinesUpdateManyWithWhereWithoutMoveInput } from './machines-update-many-with-where-without-move.input';
@@ -28,7 +29,7 @@ export class MachinesUpdateManyWithoutMoveNestedInput {
 
     @Field(() => MachinesCreateManyMoveInputEnvelope, {nullable:true})
     @Type(() => MachinesCreateManyMoveInputEnvelope)
-    createMany?: MachinesCreateManyMoveInputEnvelope;
+    createMany?: Identity<MachinesCreateManyMoveInputEnvelope>;
 
     @Field(() => [MachinesWhereUniqueInput], {nullable:true})
     @Type(() => MachinesWhereUniqueInput)

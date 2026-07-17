@@ -5,6 +5,7 @@ import { Int } from '@nestjs/graphql';
 import { EncounterSlots } from '../encounter-slots/encounter-slots.model';
 import { LocationAreaEncounterRates } from '../location-area-encounter-rates/location-area-encounter-rates.model';
 import { EncounterMethodsCount } from './encounter-methods-count.output';
+import type { Identity } from 'identity-type';
 
 /**
  * @@TypeGraphQL.type(name: "EncounterMethod")
@@ -21,12 +22,12 @@ export class EncounterMethods {
     @Field(() => Int, {nullable:false})
     order!: number;
 
-    @Field(() => [EncounterSlots], {nullable:true})
+    @Field(() => [EncounterSlots], {nullable:false})
     slots?: Array<EncounterSlots>;
 
-    @Field(() => [LocationAreaEncounterRates], {nullable:true})
+    @Field(() => [LocationAreaEncounterRates], {nullable:false})
     encounterRates?: Array<LocationAreaEncounterRates>;
 
     @Field(() => EncounterMethodsCount, {nullable:false})
-    _count?: EncounterMethodsCount;
+    _count?: Identity<EncounterMethodsCount>;
 }

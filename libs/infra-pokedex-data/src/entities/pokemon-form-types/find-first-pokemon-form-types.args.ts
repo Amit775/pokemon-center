@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormTypesWhereInput } from './pokemon-form-types-where.input';
 import { Type } from 'class-transformer';
 import { PokemonFormTypesOrderByWithRelationInput } from './pokemon-form-types-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonFormTypesWhereUniqueInput } from './pokemon-form-types-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokemonFormTypesScalarFieldEnum } from './pokemon-form-types-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstPokemonFormTypesArgs {
 
     @Field(() => PokemonFormTypesWhereInput, {nullable:true})
     @Type(() => PokemonFormTypesWhereInput)
-    where?: PokemonFormTypesWhereInput;
+    where?: Identity<PokemonFormTypesWhereInput>;
 
     @Field(() => [PokemonFormTypesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokemonFormTypesOrderByWithRelationInput>;

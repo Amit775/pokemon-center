@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { VersionsScalarRelationFilter } from '../versions/versions-scalar-relation-filter.input';
 import { LocationAreasScalarRelationFilter } from '../location-areas/location-areas-scalar-relation-filter.input';
@@ -20,38 +21,38 @@ export class EncountersWhereInput {
     NOT?: Array<EncountersWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    version_id?: IntFilter;
+    version_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    location_area_id?: IntFilter;
+    location_area_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    encounter_slot_id?: IntFilter;
+    encounter_slot_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    pokemon_id?: IntFilter;
+    pokemon_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    min_level?: IntFilter;
+    min_level?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    max_level?: IntFilter;
+    max_level?: Identity<IntFilter>;
 
     @Field(() => VersionsScalarRelationFilter, {nullable:true})
-    version?: VersionsScalarRelationFilter;
+    version?: Identity<VersionsScalarRelationFilter>;
 
     @Field(() => LocationAreasScalarRelationFilter, {nullable:true})
-    locationArea?: LocationAreasScalarRelationFilter;
+    locationArea?: Identity<LocationAreasScalarRelationFilter>;
 
     @Field(() => EncounterSlotsScalarRelationFilter, {nullable:true})
-    encounterSlot?: EncounterSlotsScalarRelationFilter;
+    encounterSlot?: Identity<EncounterSlotsScalarRelationFilter>;
 
     @Field(() => PokemonScalarRelationFilter, {nullable:true})
-    pokemon?: PokemonScalarRelationFilter;
+    pokemon?: Identity<PokemonScalarRelationFilter>;
 
     @Field(() => EncounterConditionValueMapListRelationFilter, {nullable:true})
-    conditionValueMap?: EncounterConditionValueMapListRelationFilter;
+    conditionValueMap?: Identity<EncounterConditionValueMapListRelationFilter>;
 }

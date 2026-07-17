@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Encounters } from '../encounters/encounters.model';
+import type { Identity } from 'identity-type';
 import { EncounterConditionValues } from '../encounter-condition-values/encounter-condition-values.model';
 
 /**
@@ -18,8 +19,8 @@ export class EncounterConditionValueMap {
     encounter_condition_value_id!: number;
 
     @Field(() => Encounters, {nullable:false})
-    encounter?: Encounters;
+    encounter?: Identity<Encounters>;
 
     @Field(() => EncounterConditionValues, {nullable:false})
-    conditionValue?: EncounterConditionValues;
+    conditionValue?: Identity<EncounterConditionValues>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemsCreateNestedOneWithoutBerriesInput } from '../items/items-create-nested-one-without-berries.input';
 import { BerryFirmnessCreateNestedOneWithoutBerriesInput } from '../berry-firmness/berry-firmness-create-nested-one-without-berries.input';
 import { TypesCreateNestedOneWithoutNaturalGiftTypesInput } from '../types/types-create-nested-one-without-natural-gift-types.input';
@@ -30,11 +31,11 @@ export class BerriesCreateWithoutFlavorsInput {
     smoothness!: number;
 
     @Field(() => ItemsCreateNestedOneWithoutBerriesInput, {nullable:false})
-    item!: ItemsCreateNestedOneWithoutBerriesInput;
+    item!: Identity<ItemsCreateNestedOneWithoutBerriesInput>;
 
     @Field(() => BerryFirmnessCreateNestedOneWithoutBerriesInput, {nullable:false})
-    firmness!: BerryFirmnessCreateNestedOneWithoutBerriesInput;
+    firmness!: Identity<BerryFirmnessCreateNestedOneWithoutBerriesInput>;
 
     @Field(() => TypesCreateNestedOneWithoutNaturalGiftTypesInput, {nullable:true})
-    naturalGiftType?: TypesCreateNestedOneWithoutNaturalGiftTypesInput;
+    naturalGiftType?: Identity<TypesCreateNestedOneWithoutNaturalGiftTypesInput>;
 }

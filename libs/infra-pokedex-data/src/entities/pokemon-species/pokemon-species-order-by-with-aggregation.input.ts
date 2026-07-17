@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { PokemonSpeciesCountOrderByAggregateInput } from './pokemon-species-count-order-by-aggregate.input';
 import { PokemonSpeciesAvgOrderByAggregateInput } from './pokemon-species-avg-order-by-aggregate.input';
@@ -21,7 +22,7 @@ export class PokemonSpeciesOrderByWithAggregationInput {
     generation_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    evolves_from_species_id?: SortOrderInput;
+    evolves_from_species_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrder, {nullable:true})
     evolution_chain_id?: `${SortOrder}`;
@@ -33,7 +34,7 @@ export class PokemonSpeciesOrderByWithAggregationInput {
     shape_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    habitat_id?: SortOrderInput;
+    habitat_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrder, {nullable:true})
     gender_rate?: `${SortOrder}`;
@@ -69,20 +70,20 @@ export class PokemonSpeciesOrderByWithAggregationInput {
     order?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    conquest_order?: SortOrderInput;
+    conquest_order?: Identity<SortOrderInput>;
 
     @Field(() => PokemonSpeciesCountOrderByAggregateInput, {nullable:true})
-    _count?: PokemonSpeciesCountOrderByAggregateInput;
+    _count?: Identity<PokemonSpeciesCountOrderByAggregateInput>;
 
     @Field(() => PokemonSpeciesAvgOrderByAggregateInput, {nullable:true})
-    _avg?: PokemonSpeciesAvgOrderByAggregateInput;
+    _avg?: Identity<PokemonSpeciesAvgOrderByAggregateInput>;
 
     @Field(() => PokemonSpeciesMaxOrderByAggregateInput, {nullable:true})
-    _max?: PokemonSpeciesMaxOrderByAggregateInput;
+    _max?: Identity<PokemonSpeciesMaxOrderByAggregateInput>;
 
     @Field(() => PokemonSpeciesMinOrderByAggregateInput, {nullable:true})
-    _min?: PokemonSpeciesMinOrderByAggregateInput;
+    _min?: Identity<PokemonSpeciesMinOrderByAggregateInput>;
 
     @Field(() => PokemonSpeciesSumOrderByAggregateInput, {nullable:true})
-    _sum?: PokemonSpeciesSumOrderByAggregateInput;
+    _sum?: Identity<PokemonSpeciesSumOrderByAggregateInput>;
 }

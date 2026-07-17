@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonCreateNestedOneWithoutFormsInput } from '../pokemon/pokemon-create-nested-one-without-forms.input';
 import { PokemonFormGenerationsCreateNestedManyWithoutPokemonFormInput } from '../pokemon-form-generations/pokemon-form-generations-create-nested-many-without-pokemon-form.input';
 import { PokemonFormTypesCreateNestedManyWithoutPokemonFormInput } from '../pokemon-form-types/pokemon-form-types-create-nested-many-without-pokemon-form.input';
@@ -33,11 +34,11 @@ export class PokemonFormsCreateWithoutVersionGroupInput {
     order!: number;
 
     @Field(() => PokemonCreateNestedOneWithoutFormsInput, {nullable:false})
-    pokemon!: PokemonCreateNestedOneWithoutFormsInput;
+    pokemon!: Identity<PokemonCreateNestedOneWithoutFormsInput>;
 
     @Field(() => PokemonFormGenerationsCreateNestedManyWithoutPokemonFormInput, {nullable:true})
-    generations?: PokemonFormGenerationsCreateNestedManyWithoutPokemonFormInput;
+    generations?: Identity<PokemonFormGenerationsCreateNestedManyWithoutPokemonFormInput>;
 
     @Field(() => PokemonFormTypesCreateNestedManyWithoutPokemonFormInput, {nullable:true})
-    types?: PokemonFormTypesCreateNestedManyWithoutPokemonFormInput;
+    types?: Identity<PokemonFormTypesCreateNestedManyWithoutPokemonFormInput>;
 }

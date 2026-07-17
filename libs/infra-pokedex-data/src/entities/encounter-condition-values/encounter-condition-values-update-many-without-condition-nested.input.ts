@@ -4,8 +4,9 @@ import { EncounterConditionValuesCreateWithoutConditionInput } from './encounter
 import { Type } from 'class-transformer';
 import { EncounterConditionValuesCreateOrConnectWithoutConditionInput } from './encounter-condition-values-create-or-connect-without-condition.input';
 import { EncounterConditionValuesUpsertWithWhereUniqueWithoutConditionInput } from './encounter-condition-values-upsert-with-where-unique-without-condition.input';
+import type { Identity } from 'identity-type';
 import { EncounterConditionValuesCreateManyConditionInputEnvelope } from './encounter-condition-values-create-many-condition-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncounterConditionValuesWhereUniqueInput } from './encounter-condition-values-where-unique.input';
 import { EncounterConditionValuesUpdateWithWhereUniqueWithoutConditionInput } from './encounter-condition-values-update-with-where-unique-without-condition.input';
 import { EncounterConditionValuesUpdateManyWithWhereWithoutConditionInput } from './encounter-condition-values-update-many-with-where-without-condition.input';
@@ -28,7 +29,7 @@ export class EncounterConditionValuesUpdateManyWithoutConditionNestedInput {
 
     @Field(() => EncounterConditionValuesCreateManyConditionInputEnvelope, {nullable:true})
     @Type(() => EncounterConditionValuesCreateManyConditionInputEnvelope)
-    createMany?: EncounterConditionValuesCreateManyConditionInputEnvelope;
+    createMany?: Identity<EncounterConditionValuesCreateManyConditionInputEnvelope>;
 
     @Field(() => [EncounterConditionValuesWhereUniqueInput], {nullable:true})
     @Type(() => EncounterConditionValuesWhereUniqueInput)

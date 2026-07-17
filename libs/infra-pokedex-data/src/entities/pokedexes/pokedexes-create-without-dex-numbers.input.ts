@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { RegionsCreateNestedOneWithoutPokedexesInput } from '../regions/regions-create-nested-one-without-pokedexes.input';
 import { PokedexVersionGroupsCreateNestedManyWithoutPokedexInput } from '../pokedex-version-groups/pokedex-version-groups-create-nested-many-without-pokedex.input';
 
@@ -17,8 +18,8 @@ export class PokedexesCreateWithoutDexNumbersInput {
     is_main_series!: number;
 
     @Field(() => RegionsCreateNestedOneWithoutPokedexesInput, {nullable:true})
-    region?: RegionsCreateNestedOneWithoutPokedexesInput;
+    region?: Identity<RegionsCreateNestedOneWithoutPokedexesInput>;
 
     @Field(() => PokedexVersionGroupsCreateNestedManyWithoutPokedexInput, {nullable:true})
-    versionGroups?: PokedexVersionGroupsCreateNestedManyWithoutPokedexInput;
+    versionGroups?: Identity<PokedexVersionGroupsCreateNestedManyWithoutPokedexInput>;
 }

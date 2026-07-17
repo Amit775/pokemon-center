@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Generations } from '../generations/generations.model';
+import type { Identity } from 'identity-type';
 import { MoveDamageClasses } from '../move-damage-classes/move-damage-classes.model';
 import { Moves } from '../moves/moves.model';
 import { PokemonTypes } from '../pokemon-types/pokemon-types.model';
@@ -33,41 +34,41 @@ export class Types {
     damage_class_id!: number | null;
 
     @Field(() => Generations, {nullable:false})
-    generation?: Generations;
+    generation?: Identity<Generations>;
 
     @Field(() => MoveDamageClasses, {nullable:true})
-    damageClass?: MoveDamageClasses | null;
+    damageClass?: Identity<MoveDamageClasses> | null;
 
-    @Field(() => [Moves], {nullable:true})
+    @Field(() => [Moves], {nullable:false})
     moves?: Array<Moves>;
 
-    @Field(() => [PokemonTypes], {nullable:true})
+    @Field(() => [PokemonTypes], {nullable:false})
     pokemonTypes?: Array<PokemonTypes>;
 
-    @Field(() => [PokemonFormTypes], {nullable:true})
+    @Field(() => [PokemonFormTypes], {nullable:false})
     formTypes?: Array<PokemonFormTypes>;
 
-    @Field(() => [TypeGameIndices], {nullable:true})
+    @Field(() => [TypeGameIndices], {nullable:false})
     gameIndices?: Array<TypeGameIndices>;
 
-    @Field(() => [TypeEfficacy], {nullable:true})
+    @Field(() => [TypeEfficacy], {nullable:false})
     efficacy?: Array<TypeEfficacy>;
 
-    @Field(() => [TypeEfficacy], {nullable:true})
+    @Field(() => [TypeEfficacy], {nullable:false})
     efficacyTarget?: Array<TypeEfficacy>;
 
-    @Field(() => [BerryFlavors], {nullable:true})
+    @Field(() => [BerryFlavors], {nullable:false})
     berryFlavors?: Array<BerryFlavors>;
 
-    @Field(() => [PokemonEvolution], {nullable:true})
+    @Field(() => [PokemonEvolution], {nullable:false})
     knownMoveTypes?: Array<PokemonEvolution>;
 
-    @Field(() => [PokemonEvolution], {nullable:true})
+    @Field(() => [PokemonEvolution], {nullable:false})
     partyTypes?: Array<PokemonEvolution>;
 
-    @Field(() => [Berries], {nullable:true})
+    @Field(() => [Berries], {nullable:false})
     naturalGiftTypes?: Array<Berries>;
 
     @Field(() => TypesCount, {nullable:false})
-    _count?: TypesCount;
+    _count?: Identity<TypesCount>;
 }

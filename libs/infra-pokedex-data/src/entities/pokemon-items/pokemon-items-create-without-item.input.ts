@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonCreateNestedOneWithoutItemsInput } from '../pokemon/pokemon-create-nested-one-without-items.input';
 import { VersionsCreateNestedOneWithoutPokemonItemsInput } from '../versions/versions-create-nested-one-without-pokemon-items.input';
 
@@ -11,8 +12,8 @@ export class PokemonItemsCreateWithoutItemInput {
     rarity!: number;
 
     @Field(() => PokemonCreateNestedOneWithoutItemsInput, {nullable:false})
-    pokemon!: PokemonCreateNestedOneWithoutItemsInput;
+    pokemon!: Identity<PokemonCreateNestedOneWithoutItemsInput>;
 
     @Field(() => VersionsCreateNestedOneWithoutPokemonItemsInput, {nullable:false})
-    version!: VersionsCreateNestedOneWithoutPokemonItemsInput;
+    version!: Identity<VersionsCreateNestedOneWithoutPokemonItemsInput>;
 }

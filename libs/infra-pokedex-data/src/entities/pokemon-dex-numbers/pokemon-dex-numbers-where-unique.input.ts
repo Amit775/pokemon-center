@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonDexNumbersSpecies_idPokedex_idCompoundUniqueInput } from './pokemon-dex-numbers-species-id-pokedex-id-compound-unique.input';
 import { PokemonDexNumbersWhereInput } from './pokemon-dex-numbers-where.input';
 import { IntFilter } from '../prisma/int-filter.input';
@@ -10,7 +11,7 @@ import { PokedexesScalarRelationFilter } from '../pokedexes/pokedexes-scalar-rel
 export class PokemonDexNumbersWhereUniqueInput {
 
     @Field(() => PokemonDexNumbersSpecies_idPokedex_idCompoundUniqueInput, {nullable:true})
-    species_id_pokedex_id?: PokemonDexNumbersSpecies_idPokedex_idCompoundUniqueInput;
+    species_id_pokedex_id?: Identity<PokemonDexNumbersSpecies_idPokedex_idCompoundUniqueInput>;
 
     @Field(() => [PokemonDexNumbersWhereInput], {nullable:true})
     AND?: Array<PokemonDexNumbersWhereInput>;
@@ -22,17 +23,17 @@ export class PokemonDexNumbersWhereUniqueInput {
     NOT?: Array<PokemonDexNumbersWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    species_id?: IntFilter;
+    species_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    pokedex_id?: IntFilter;
+    pokedex_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    pokedex_number?: IntFilter;
+    pokedex_number?: Identity<IntFilter>;
 
     @Field(() => PokemonSpeciesScalarRelationFilter, {nullable:true})
-    species?: PokemonSpeciesScalarRelationFilter;
+    species?: Identity<PokemonSpeciesScalarRelationFilter>;
 
     @Field(() => PokedexesScalarRelationFilter, {nullable:true})
-    pokedex?: PokedexesScalarRelationFilter;
+    pokedex?: Identity<PokedexesScalarRelationFilter>;
 }

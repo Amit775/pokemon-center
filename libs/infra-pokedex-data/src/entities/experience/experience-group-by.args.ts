@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ExperienceWhereInput } from './experience-where.input';
 import { Type } from 'class-transformer';
 import { ExperienceOrderByWithAggregationInput } from './experience-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class ExperienceGroupByArgs {
 
     @Field(() => ExperienceWhereInput, {nullable:true})
     @Type(() => ExperienceWhereInput)
-    where?: ExperienceWhereInput;
+    where?: Identity<ExperienceWhereInput>;
 
     @Field(() => [ExperienceOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<ExperienceOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class ExperienceGroupByArgs {
     by!: Array<`${ExperienceScalarFieldEnum}`>;
 
     @Field(() => ExperienceScalarWhereWithAggregatesInput, {nullable:true})
-    having?: ExperienceScalarWhereWithAggregatesInput;
+    having?: Identity<ExperienceScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class ExperienceGroupByArgs {
     skip?: number;
 
     @Field(() => ExperienceCountAggregateInput, {nullable:true})
-    _count?: ExperienceCountAggregateInput;
+    _count?: Identity<ExperienceCountAggregateInput>;
 
     @Field(() => ExperienceAvgAggregateInput, {nullable:true})
-    _avg?: ExperienceAvgAggregateInput;
+    _avg?: Identity<ExperienceAvgAggregateInput>;
 
     @Field(() => ExperienceSumAggregateInput, {nullable:true})
-    _sum?: ExperienceSumAggregateInput;
+    _sum?: Identity<ExperienceSumAggregateInput>;
 
     @Field(() => ExperienceMinAggregateInput, {nullable:true})
-    _min?: ExperienceMinAggregateInput;
+    _min?: Identity<ExperienceMinAggregateInput>;
 
     @Field(() => ExperienceMaxAggregateInput, {nullable:true})
-    _max?: ExperienceMaxAggregateInput;
+    _max?: Identity<ExperienceMaxAggregateInput>;
 }

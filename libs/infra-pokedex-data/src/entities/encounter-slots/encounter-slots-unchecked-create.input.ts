@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncountersUncheckedCreateNestedManyWithoutEncounterSlotInput } from '../encounters/encounters-unchecked-create-nested-many-without-encounter-slot.input';
 
 @InputType()
@@ -22,5 +23,5 @@ export class EncounterSlotsUncheckedCreateInput {
     rarity!: number;
 
     @Field(() => EncountersUncheckedCreateNestedManyWithoutEncounterSlotInput, {nullable:true})
-    encounters?: EncountersUncheckedCreateNestedManyWithoutEncounterSlotInput;
+    encounters?: Identity<EncountersUncheckedCreateNestedManyWithoutEncounterSlotInput>;
 }

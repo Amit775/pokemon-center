@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesCreateNestedOneWithoutEvolutionInput } from '../pokemon-species/pokemon-species-create-nested-one-without-evolution.input';
 import { EvolutionTriggersCreateNestedOneWithoutEvolutionInput } from '../evolution-triggers/evolution-triggers-create-nested-one-without-evolution.input';
 import { ItemsCreateNestedOneWithoutTriggerItemsInput } from '../items/items-create-nested-one-without-trigger-items.input';
@@ -43,32 +44,32 @@ export class PokemonEvolutionCreateWithoutGenderInput {
     turn_upside_down!: number;
 
     @Field(() => PokemonSpeciesCreateNestedOneWithoutEvolutionInput, {nullable:false})
-    evolvedSpecies!: PokemonSpeciesCreateNestedOneWithoutEvolutionInput;
+    evolvedSpecies!: Identity<PokemonSpeciesCreateNestedOneWithoutEvolutionInput>;
 
     @Field(() => EvolutionTriggersCreateNestedOneWithoutEvolutionInput, {nullable:false})
-    evolutionTrigger!: EvolutionTriggersCreateNestedOneWithoutEvolutionInput;
+    evolutionTrigger!: Identity<EvolutionTriggersCreateNestedOneWithoutEvolutionInput>;
 
     @Field(() => ItemsCreateNestedOneWithoutTriggerItemsInput, {nullable:true})
-    triggerItem?: ItemsCreateNestedOneWithoutTriggerItemsInput;
+    triggerItem?: Identity<ItemsCreateNestedOneWithoutTriggerItemsInput>;
 
     @Field(() => LocationsCreateNestedOneWithoutEvolutionInput, {nullable:true})
-    location?: LocationsCreateNestedOneWithoutEvolutionInput;
+    location?: Identity<LocationsCreateNestedOneWithoutEvolutionInput>;
 
     @Field(() => ItemsCreateNestedOneWithoutHeldItemsInput, {nullable:true})
-    heldItem?: ItemsCreateNestedOneWithoutHeldItemsInput;
+    heldItem?: Identity<ItemsCreateNestedOneWithoutHeldItemsInput>;
 
     @Field(() => MovesCreateNestedOneWithoutKnownMovesInput, {nullable:true})
-    knownMove?: MovesCreateNestedOneWithoutKnownMovesInput;
+    knownMove?: Identity<MovesCreateNestedOneWithoutKnownMovesInput>;
 
     @Field(() => TypesCreateNestedOneWithoutKnownMoveTypesInput, {nullable:true})
-    knownMoveType?: TypesCreateNestedOneWithoutKnownMoveTypesInput;
+    knownMoveType?: Identity<TypesCreateNestedOneWithoutKnownMoveTypesInput>;
 
     @Field(() => PokemonSpeciesCreateNestedOneWithoutPartySpeciesInput, {nullable:true})
-    partySpecies?: PokemonSpeciesCreateNestedOneWithoutPartySpeciesInput;
+    partySpecies?: Identity<PokemonSpeciesCreateNestedOneWithoutPartySpeciesInput>;
 
     @Field(() => TypesCreateNestedOneWithoutPartyTypesInput, {nullable:true})
-    partyType?: TypesCreateNestedOneWithoutPartyTypesInput;
+    partyType?: Identity<TypesCreateNestedOneWithoutPartyTypesInput>;
 
     @Field(() => PokemonSpeciesCreateNestedOneWithoutTradeSpeciesInput, {nullable:true})
-    tradeSpecies?: PokemonSpeciesCreateNestedOneWithoutTradeSpeciesInput;
+    tradeSpecies?: Identity<PokemonSpeciesCreateNestedOneWithoutTradeSpeciesInput>;
 }

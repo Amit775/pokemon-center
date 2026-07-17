@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { RegionsCreateNestedOneWithoutGenerationsInput } from '../regions/regions-create-nested-one-without-generations.input';
 import { PokemonSpeciesCreateNestedManyWithoutGenerationInput } from '../pokemon-species/pokemon-species-create-nested-many-without-generation.input';
 import { MovesCreateNestedManyWithoutGenerationInput } from '../moves/moves-create-nested-many-without-generation.input';
@@ -21,29 +22,29 @@ export class GenerationsCreateWithoutItemGameIndicesInput {
     identifier!: string;
 
     @Field(() => RegionsCreateNestedOneWithoutGenerationsInput, {nullable:false})
-    region!: RegionsCreateNestedOneWithoutGenerationsInput;
+    region!: Identity<RegionsCreateNestedOneWithoutGenerationsInput>;
 
     @Field(() => PokemonSpeciesCreateNestedManyWithoutGenerationInput, {nullable:true})
-    pokemonSpecies?: PokemonSpeciesCreateNestedManyWithoutGenerationInput;
+    pokemonSpecies?: Identity<PokemonSpeciesCreateNestedManyWithoutGenerationInput>;
 
     @Field(() => MovesCreateNestedManyWithoutGenerationInput, {nullable:true})
-    moves?: MovesCreateNestedManyWithoutGenerationInput;
+    moves?: Identity<MovesCreateNestedManyWithoutGenerationInput>;
 
     @Field(() => TypesCreateNestedManyWithoutGenerationInput, {nullable:true})
-    types?: TypesCreateNestedManyWithoutGenerationInput;
+    types?: Identity<TypesCreateNestedManyWithoutGenerationInput>;
 
     @Field(() => AbilitiesCreateNestedManyWithoutGenerationInput, {nullable:true})
-    abilities?: AbilitiesCreateNestedManyWithoutGenerationInput;
+    abilities?: Identity<AbilitiesCreateNestedManyWithoutGenerationInput>;
 
     @Field(() => PokemonFormGenerationsCreateNestedManyWithoutGenerationInput, {nullable:true})
-    pokemonFormGenerations?: PokemonFormGenerationsCreateNestedManyWithoutGenerationInput;
+    pokemonFormGenerations?: Identity<PokemonFormGenerationsCreateNestedManyWithoutGenerationInput>;
 
     @Field(() => TypeGameIndicesCreateNestedManyWithoutGenerationInput, {nullable:true})
-    typeGameIndices?: TypeGameIndicesCreateNestedManyWithoutGenerationInput;
+    typeGameIndices?: Identity<TypeGameIndicesCreateNestedManyWithoutGenerationInput>;
 
     @Field(() => LocationGameIndicesCreateNestedManyWithoutGenerationInput, {nullable:true})
-    locationGameIndices?: LocationGameIndicesCreateNestedManyWithoutGenerationInput;
+    locationGameIndices?: Identity<LocationGameIndicesCreateNestedManyWithoutGenerationInput>;
 
     @Field(() => VersionGroupsCreateNestedManyWithoutGenerationInput, {nullable:true})
-    versionGroups?: VersionGroupsCreateNestedManyWithoutGenerationInput;
+    versionGroups?: Identity<VersionGroupsCreateNestedManyWithoutGenerationInput>;
 }

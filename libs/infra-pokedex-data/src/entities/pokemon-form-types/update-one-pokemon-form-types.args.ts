@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormTypesUpdateInput } from './pokemon-form-types-update.input';
 import { Type } from 'class-transformer';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonFormTypesWhereUniqueInput } from './pokemon-form-types-where-unique.input';
 
 @ArgsType()
@@ -10,7 +11,7 @@ export class UpdateOnePokemonFormTypesArgs {
 
     @Field(() => PokemonFormTypesUpdateInput, {nullable:false})
     @Type(() => PokemonFormTypesUpdateInput)
-    data!: PokemonFormTypesUpdateInput;
+    data!: Identity<PokemonFormTypesUpdateInput>;
 
     @Field(() => PokemonFormTypesWhereUniqueInput, {nullable:false})
     @Type(() => PokemonFormTypesWhereUniqueInput)

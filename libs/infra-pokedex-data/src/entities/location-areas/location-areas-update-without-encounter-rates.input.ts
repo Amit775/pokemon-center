@@ -1,25 +1,25 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationsUpdateOneRequiredWithoutAreasNestedInput } from '../locations/locations-update-one-required-without-areas-nested.input';
 import { EncountersUpdateManyWithoutLocationAreaNestedInput } from '../encounters/encounters-update-many-without-location-area-nested.input';
 
 @InputType()
 export class LocationAreasUpdateWithoutEncounterRatesInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    game_index?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    game_index?: number;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: NullableStringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
     @Field(() => LocationsUpdateOneRequiredWithoutAreasNestedInput, {nullable:true})
-    location?: LocationsUpdateOneRequiredWithoutAreasNestedInput;
+    location?: Identity<LocationsUpdateOneRequiredWithoutAreasNestedInput>;
 
     @Field(() => EncountersUpdateManyWithoutLocationAreaNestedInput, {nullable:true})
-    encounters?: EncountersUpdateManyWithoutLocationAreaNestedInput;
+    encounters?: Identity<EncountersUpdateManyWithoutLocationAreaNestedInput>;
 }

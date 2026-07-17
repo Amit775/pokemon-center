@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { SuperContestCombosWhereInput } from './super-contest-combos-where.input';
 import { Type } from 'class-transformer';
 import { SuperContestCombosOrderByWithRelationInput } from './super-contest-combos-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { SuperContestCombosWhereUniqueInput } from './super-contest-combos-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { SuperContestCombosScalarFieldEnum } from './super-contest-combos-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManySuperContestCombosArgs {
 
     @Field(() => SuperContestCombosWhereInput, {nullable:true})
     @Type(() => SuperContestCombosWhereInput)
-    where?: SuperContestCombosWhereInput;
+    where?: Identity<SuperContestCombosWhereInput>;
 
     @Field(() => [SuperContestCombosOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<SuperContestCombosOrderByWithRelationInput>;

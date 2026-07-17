@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterMethodsWhereInput } from './encounter-methods-where.input';
 import { Type } from 'class-transformer';
 import { EncounterMethodsOrderByWithRelationInput } from './encounter-methods-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncounterMethodsWhereUniqueInput } from './encounter-methods-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { EncounterMethodsScalarFieldEnum } from './encounter-methods-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManyEncounterMethodsArgs {
 
     @Field(() => EncounterMethodsWhereInput, {nullable:true})
     @Type(() => EncounterMethodsWhereInput)
-    where?: EncounterMethodsWhereInput;
+    where?: Identity<EncounterMethodsWhereInput>;
 
     @Field(() => [EncounterMethodsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<EncounterMethodsOrderByWithRelationInput>;

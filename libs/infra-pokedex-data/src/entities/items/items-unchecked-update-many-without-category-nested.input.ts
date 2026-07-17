@@ -4,8 +4,9 @@ import { ItemsCreateWithoutCategoryInput } from './items-create-without-category
 import { Type } from 'class-transformer';
 import { ItemsCreateOrConnectWithoutCategoryInput } from './items-create-or-connect-without-category.input';
 import { ItemsUpsertWithWhereUniqueWithoutCategoryInput } from './items-upsert-with-where-unique-without-category.input';
+import type { Identity } from 'identity-type';
 import { ItemsCreateManyCategoryInputEnvelope } from './items-create-many-category-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemsWhereUniqueInput } from './items-where-unique.input';
 import { ItemsUpdateWithWhereUniqueWithoutCategoryInput } from './items-update-with-where-unique-without-category.input';
 import { ItemsUpdateManyWithWhereWithoutCategoryInput } from './items-update-many-with-where-without-category.input';
@@ -28,7 +29,7 @@ export class ItemsUncheckedUpdateManyWithoutCategoryNestedInput {
 
     @Field(() => ItemsCreateManyCategoryInputEnvelope, {nullable:true})
     @Type(() => ItemsCreateManyCategoryInputEnvelope)
-    createMany?: ItemsCreateManyCategoryInputEnvelope;
+    createMany?: Identity<ItemsCreateManyCategoryInputEnvelope>;
 
     @Field(() => [ItemsWhereUniqueInput], {nullable:true})
     @Type(() => ItemsWhereUniqueInput)

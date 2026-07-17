@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ContestCombosWhereInput } from './contest-combos-where.input';
 import { Type } from 'class-transformer';
 import { ContestCombosOrderByWithRelationInput } from './contest-combos-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ContestCombosWhereUniqueInput } from './contest-combos-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { ContestCombosScalarFieldEnum } from './contest-combos-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstContestCombosArgs {
 
     @Field(() => ContestCombosWhereInput, {nullable:true})
     @Type(() => ContestCombosWhereInput)
-    where?: ContestCombosWhereInput;
+    where?: Identity<ContestCombosWhereInput>;
 
     @Field(() => [ContestCombosOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<ContestCombosOrderByWithRelationInput>;

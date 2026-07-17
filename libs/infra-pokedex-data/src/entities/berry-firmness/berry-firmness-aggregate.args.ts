@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { BerryFirmnessWhereInput } from './berry-firmness-where.input';
 import { Type } from 'class-transformer';
 import { BerryFirmnessOrderByWithRelationInput } from './berry-firmness-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { BerryFirmnessWhereUniqueInput } from './berry-firmness-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { BerryFirmnessCountAggregateInput } from './berry-firmness-count-aggregate.input';
@@ -17,7 +18,7 @@ export class BerryFirmnessAggregateArgs {
 
     @Field(() => BerryFirmnessWhereInput, {nullable:true})
     @Type(() => BerryFirmnessWhereInput)
-    where?: BerryFirmnessWhereInput;
+    where?: Identity<BerryFirmnessWhereInput>;
 
     @Field(() => [BerryFirmnessOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<BerryFirmnessOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class BerryFirmnessAggregateArgs {
     skip?: number;
 
     @Field(() => BerryFirmnessCountAggregateInput, {nullable:true})
-    _count?: BerryFirmnessCountAggregateInput;
+    _count?: Identity<BerryFirmnessCountAggregateInput>;
 
     @Field(() => BerryFirmnessAvgAggregateInput, {nullable:true})
-    _avg?: BerryFirmnessAvgAggregateInput;
+    _avg?: Identity<BerryFirmnessAvgAggregateInput>;
 
     @Field(() => BerryFirmnessSumAggregateInput, {nullable:true})
-    _sum?: BerryFirmnessSumAggregateInput;
+    _sum?: Identity<BerryFirmnessSumAggregateInput>;
 
     @Field(() => BerryFirmnessMinAggregateInput, {nullable:true})
-    _min?: BerryFirmnessMinAggregateInput;
+    _min?: Identity<BerryFirmnessMinAggregateInput>;
 
     @Field(() => BerryFirmnessMaxAggregateInput, {nullable:true})
-    _max?: BerryFirmnessMaxAggregateInput;
+    _max?: Identity<BerryFirmnessMaxAggregateInput>;
 }

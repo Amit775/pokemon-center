@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { SuperContestEffectsWhereInput } from './super-contest-effects-where.input';
 import { Type } from 'class-transformer';
 import { SuperContestEffectsOrderByWithRelationInput } from './super-contest-effects-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { SuperContestEffectsWhereUniqueInput } from './super-contest-effects-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { SuperContestEffectsScalarFieldEnum } from './super-contest-effects-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManySuperContestEffectsArgs {
 
     @Field(() => SuperContestEffectsWhereInput, {nullable:true})
     @Type(() => SuperContestEffectsWhereInput)
-    where?: SuperContestEffectsWhereInput;
+    where?: Identity<SuperContestEffectsWhereInput>;
 
     @Field(() => [SuperContestEffectsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<SuperContestEffectsOrderByWithRelationInput>;

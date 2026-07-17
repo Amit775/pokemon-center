@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { LanguagesCountOrderByAggregateInput } from './languages-count-order-by-aggregate.input';
 import { LanguagesAvgOrderByAggregateInput } from './languages-avg-order-by-aggregate.input';
 import { LanguagesMaxOrderByAggregateInput } from './languages-max-order-by-aggregate.input';
@@ -29,17 +30,17 @@ export class LanguagesOrderByWithAggregationInput {
     order?: `${SortOrder}`;
 
     @Field(() => LanguagesCountOrderByAggregateInput, {nullable:true})
-    _count?: LanguagesCountOrderByAggregateInput;
+    _count?: Identity<LanguagesCountOrderByAggregateInput>;
 
     @Field(() => LanguagesAvgOrderByAggregateInput, {nullable:true})
-    _avg?: LanguagesAvgOrderByAggregateInput;
+    _avg?: Identity<LanguagesAvgOrderByAggregateInput>;
 
     @Field(() => LanguagesMaxOrderByAggregateInput, {nullable:true})
-    _max?: LanguagesMaxOrderByAggregateInput;
+    _max?: Identity<LanguagesMaxOrderByAggregateInput>;
 
     @Field(() => LanguagesMinOrderByAggregateInput, {nullable:true})
-    _min?: LanguagesMinOrderByAggregateInput;
+    _min?: Identity<LanguagesMinOrderByAggregateInput>;
 
     @Field(() => LanguagesSumOrderByAggregateInput, {nullable:true})
-    _sum?: LanguagesSumOrderByAggregateInput;
+    _sum?: Identity<LanguagesSumOrderByAggregateInput>;
 }

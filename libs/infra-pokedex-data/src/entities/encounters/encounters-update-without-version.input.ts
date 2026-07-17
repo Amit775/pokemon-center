@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationAreasUpdateOneRequiredWithoutEncountersNestedInput } from '../location-areas/location-areas-update-one-required-without-encounters-nested.input';
 import { EncounterSlotsUpdateOneRequiredWithoutEncountersNestedInput } from '../encounter-slots/encounter-slots-update-one-required-without-encounters-nested.input';
 import { PokemonUpdateOneRequiredWithoutEncountersNestedInput } from '../pokemon/pokemon-update-one-required-without-encounters-nested.input';
@@ -9,24 +10,24 @@ import { EncounterConditionValueMapUpdateManyWithoutEncounterNestedInput } from 
 @InputType()
 export class EncountersUpdateWithoutVersionInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    min_level?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    min_level?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    max_level?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    max_level?: number;
 
     @Field(() => LocationAreasUpdateOneRequiredWithoutEncountersNestedInput, {nullable:true})
-    locationArea?: LocationAreasUpdateOneRequiredWithoutEncountersNestedInput;
+    locationArea?: Identity<LocationAreasUpdateOneRequiredWithoutEncountersNestedInput>;
 
     @Field(() => EncounterSlotsUpdateOneRequiredWithoutEncountersNestedInput, {nullable:true})
-    encounterSlot?: EncounterSlotsUpdateOneRequiredWithoutEncountersNestedInput;
+    encounterSlot?: Identity<EncounterSlotsUpdateOneRequiredWithoutEncountersNestedInput>;
 
     @Field(() => PokemonUpdateOneRequiredWithoutEncountersNestedInput, {nullable:true})
-    pokemon?: PokemonUpdateOneRequiredWithoutEncountersNestedInput;
+    pokemon?: Identity<PokemonUpdateOneRequiredWithoutEncountersNestedInput>;
 
     @Field(() => EncounterConditionValueMapUpdateManyWithoutEncounterNestedInput, {nullable:true})
-    conditionValueMap?: EncounterConditionValueMapUpdateManyWithoutEncounterNestedInput;
+    conditionValueMap?: Identity<EncounterConditionValueMapUpdateManyWithoutEncounterNestedInput>;
 }

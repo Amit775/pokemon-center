@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Moves } from '../moves/moves.model';
+import type { Identity } from 'identity-type';
 import { MoveMetaCategories } from '../move-meta-categories/move-meta-categories.model';
 import { MoveMetaAilments } from '../move-meta-ailments/move-meta-ailments.model';
 import { MoveMetaStatChanges } from '../move-meta-stat-changes/move-meta-stat-changes.model';
@@ -54,17 +55,17 @@ export class MoveMeta {
     stat_chance!: number;
 
     @Field(() => Moves, {nullable:false})
-    move?: Moves;
+    move?: Identity<Moves>;
 
     @Field(() => MoveMetaCategories, {nullable:false})
-    metaCategory?: MoveMetaCategories;
+    metaCategory?: Identity<MoveMetaCategories>;
 
     @Field(() => MoveMetaAilments, {nullable:true})
-    metaAilment?: MoveMetaAilments | null;
+    metaAilment?: Identity<MoveMetaAilments> | null;
 
-    @Field(() => [MoveMetaStatChanges], {nullable:true})
+    @Field(() => [MoveMetaStatChanges], {nullable:false})
     statChanges?: Array<MoveMetaStatChanges>;
 
     @Field(() => MoveMetaCount, {nullable:false})
-    _count?: MoveMetaCount;
+    _count?: Identity<MoveMetaCount>;
 }

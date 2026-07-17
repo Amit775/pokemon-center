@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonFormGenerationsWhereUniqueInput } from './pokemon-form-generations-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonFormGenerationsCreateInput } from './pokemon-form-generations-create.input';
 import { PokemonFormGenerationsUpdateInput } from './pokemon-form-generations-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOnePokemonFormGenerationsArgs {
 
     @Field(() => PokemonFormGenerationsCreateInput, {nullable:false})
     @Type(() => PokemonFormGenerationsCreateInput)
-    create!: PokemonFormGenerationsCreateInput;
+    create!: Identity<PokemonFormGenerationsCreateInput>;
 
     @Field(() => PokemonFormGenerationsUpdateInput, {nullable:false})
     @Type(() => PokemonFormGenerationsUpdateInput)
-    update!: PokemonFormGenerationsUpdateInput;
+    update!: Identity<PokemonFormGenerationsUpdateInput>;
 }

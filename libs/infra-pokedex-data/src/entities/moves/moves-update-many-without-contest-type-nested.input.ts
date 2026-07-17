@@ -4,8 +4,9 @@ import { MovesCreateWithoutContestTypeInput } from './moves-create-without-conte
 import { Type } from 'class-transformer';
 import { MovesCreateOrConnectWithoutContestTypeInput } from './moves-create-or-connect-without-contest-type.input';
 import { MovesUpsertWithWhereUniqueWithoutContestTypeInput } from './moves-upsert-with-where-unique-without-contest-type.input';
+import type { Identity } from 'identity-type';
 import { MovesCreateManyContestTypeInputEnvelope } from './moves-create-many-contest-type-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MovesWhereUniqueInput } from './moves-where-unique.input';
 import { MovesUpdateWithWhereUniqueWithoutContestTypeInput } from './moves-update-with-where-unique-without-contest-type.input';
 import { MovesUpdateManyWithWhereWithoutContestTypeInput } from './moves-update-many-with-where-without-contest-type.input';
@@ -28,7 +29,7 @@ export class MovesUpdateManyWithoutContestTypeNestedInput {
 
     @Field(() => MovesCreateManyContestTypeInputEnvelope, {nullable:true})
     @Type(() => MovesCreateManyContestTypeInputEnvelope)
-    createMany?: MovesCreateManyContestTypeInputEnvelope;
+    createMany?: Identity<MovesCreateManyContestTypeInputEnvelope>;
 
     @Field(() => [MovesWhereUniqueInput], {nullable:true})
     @Type(() => MovesWhereUniqueInput)

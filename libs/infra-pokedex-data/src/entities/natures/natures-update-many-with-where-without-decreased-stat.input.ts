@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NaturesScalarWhereInput } from './natures-scalar-where.input';
 import { Type } from 'class-transformer';
 import { NaturesUpdateManyMutationInput } from './natures-update-many-mutation.input';
@@ -9,9 +10,9 @@ export class NaturesUpdateManyWithWhereWithoutDecreasedStatInput {
 
     @Field(() => NaturesScalarWhereInput, {nullable:false})
     @Type(() => NaturesScalarWhereInput)
-    where!: NaturesScalarWhereInput;
+    where!: Identity<NaturesScalarWhereInput>;
 
     @Field(() => NaturesUpdateManyMutationInput, {nullable:false})
     @Type(() => NaturesUpdateManyMutationInput)
-    data!: NaturesUpdateManyMutationInput;
+    data!: Identity<NaturesUpdateManyMutationInput>;
 }

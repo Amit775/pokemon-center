@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonDexNumbersWhereInput } from './pokemon-dex-numbers-where.input';
 import { Type } from 'class-transformer';
 import { PokemonDexNumbersOrderByWithAggregationInput } from './pokemon-dex-numbers-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class PokemonDexNumbersGroupByArgs {
 
     @Field(() => PokemonDexNumbersWhereInput, {nullable:true})
     @Type(() => PokemonDexNumbersWhereInput)
-    where?: PokemonDexNumbersWhereInput;
+    where?: Identity<PokemonDexNumbersWhereInput>;
 
     @Field(() => [PokemonDexNumbersOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<PokemonDexNumbersOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class PokemonDexNumbersGroupByArgs {
     by!: Array<`${PokemonDexNumbersScalarFieldEnum}`>;
 
     @Field(() => PokemonDexNumbersScalarWhereWithAggregatesInput, {nullable:true})
-    having?: PokemonDexNumbersScalarWhereWithAggregatesInput;
+    having?: Identity<PokemonDexNumbersScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class PokemonDexNumbersGroupByArgs {
     skip?: number;
 
     @Field(() => PokemonDexNumbersCountAggregateInput, {nullable:true})
-    _count?: PokemonDexNumbersCountAggregateInput;
+    _count?: Identity<PokemonDexNumbersCountAggregateInput>;
 
     @Field(() => PokemonDexNumbersAvgAggregateInput, {nullable:true})
-    _avg?: PokemonDexNumbersAvgAggregateInput;
+    _avg?: Identity<PokemonDexNumbersAvgAggregateInput>;
 
     @Field(() => PokemonDexNumbersSumAggregateInput, {nullable:true})
-    _sum?: PokemonDexNumbersSumAggregateInput;
+    _sum?: Identity<PokemonDexNumbersSumAggregateInput>;
 
     @Field(() => PokemonDexNumbersMinAggregateInput, {nullable:true})
-    _min?: PokemonDexNumbersMinAggregateInput;
+    _min?: Identity<PokemonDexNumbersMinAggregateInput>;
 
     @Field(() => PokemonDexNumbersMaxAggregateInput, {nullable:true})
-    _max?: PokemonDexNumbersMaxAggregateInput;
+    _max?: Identity<PokemonDexNumbersMaxAggregateInput>;
 }

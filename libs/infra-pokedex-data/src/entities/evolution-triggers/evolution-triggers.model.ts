@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { PokemonEvolution } from '../pokemon-evolution/pokemon-evolution.model';
 import { EvolutionTriggersCount } from './evolution-triggers-count.output';
+import type { Identity } from 'identity-type';
 
 /**
  * @@TypeGraphQL.type(name: "EvolutionTrigger")
@@ -16,9 +17,9 @@ export class EvolutionTriggers {
     @Field(() => String, {nullable:false})
     identifier!: string;
 
-    @Field(() => [PokemonEvolution], {nullable:true})
+    @Field(() => [PokemonEvolution], {nullable:false})
     evolution?: Array<PokemonEvolution>;
 
     @Field(() => EvolutionTriggersCount, {nullable:false})
-    _count?: EvolutionTriggersCount;
+    _count?: Identity<EvolutionTriggersCount>;
 }

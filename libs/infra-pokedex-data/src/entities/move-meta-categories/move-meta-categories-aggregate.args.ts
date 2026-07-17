@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaCategoriesWhereInput } from './move-meta-categories-where.input';
 import { Type } from 'class-transformer';
 import { MoveMetaCategoriesOrderByWithRelationInput } from './move-meta-categories-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveMetaCategoriesWhereUniqueInput } from './move-meta-categories-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { MoveMetaCategoriesCountAggregateInput } from './move-meta-categories-count-aggregate.input';
@@ -17,7 +18,7 @@ export class MoveMetaCategoriesAggregateArgs {
 
     @Field(() => MoveMetaCategoriesWhereInput, {nullable:true})
     @Type(() => MoveMetaCategoriesWhereInput)
-    where?: MoveMetaCategoriesWhereInput;
+    where?: Identity<MoveMetaCategoriesWhereInput>;
 
     @Field(() => [MoveMetaCategoriesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<MoveMetaCategoriesOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class MoveMetaCategoriesAggregateArgs {
     skip?: number;
 
     @Field(() => MoveMetaCategoriesCountAggregateInput, {nullable:true})
-    _count?: MoveMetaCategoriesCountAggregateInput;
+    _count?: Identity<MoveMetaCategoriesCountAggregateInput>;
 
     @Field(() => MoveMetaCategoriesAvgAggregateInput, {nullable:true})
-    _avg?: MoveMetaCategoriesAvgAggregateInput;
+    _avg?: Identity<MoveMetaCategoriesAvgAggregateInput>;
 
     @Field(() => MoveMetaCategoriesSumAggregateInput, {nullable:true})
-    _sum?: MoveMetaCategoriesSumAggregateInput;
+    _sum?: Identity<MoveMetaCategoriesSumAggregateInput>;
 
     @Field(() => MoveMetaCategoriesMinAggregateInput, {nullable:true})
-    _min?: MoveMetaCategoriesMinAggregateInput;
+    _min?: Identity<MoveMetaCategoriesMinAggregateInput>;
 
     @Field(() => MoveMetaCategoriesMaxAggregateInput, {nullable:true})
-    _max?: MoveMetaCategoriesMaxAggregateInput;
+    _max?: Identity<MoveMetaCategoriesMaxAggregateInput>;
 }

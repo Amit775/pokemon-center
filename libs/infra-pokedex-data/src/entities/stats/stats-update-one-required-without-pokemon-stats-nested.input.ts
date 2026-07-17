@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StatsCreateWithoutPokemonStatsInput } from './stats-create-without-pokemon-stats.input';
 import { Type } from 'class-transformer';
 import { StatsCreateOrConnectWithoutPokemonStatsInput } from './stats-create-or-connect-without-pokemon-stats.input';
 import { StatsUpsertWithoutPokemonStatsInput } from './stats-upsert-without-pokemon-stats.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { StatsWhereUniqueInput } from './stats-where-unique.input';
 import { StatsUpdateToOneWithWhereWithoutPokemonStatsInput } from './stats-update-to-one-with-where-without-pokemon-stats.input';
 
@@ -13,15 +14,15 @@ export class StatsUpdateOneRequiredWithoutPokemonStatsNestedInput {
 
     @Field(() => StatsCreateWithoutPokemonStatsInput, {nullable:true})
     @Type(() => StatsCreateWithoutPokemonStatsInput)
-    create?: StatsCreateWithoutPokemonStatsInput;
+    create?: Identity<StatsCreateWithoutPokemonStatsInput>;
 
     @Field(() => StatsCreateOrConnectWithoutPokemonStatsInput, {nullable:true})
     @Type(() => StatsCreateOrConnectWithoutPokemonStatsInput)
-    connectOrCreate?: StatsCreateOrConnectWithoutPokemonStatsInput;
+    connectOrCreate?: Identity<StatsCreateOrConnectWithoutPokemonStatsInput>;
 
     @Field(() => StatsUpsertWithoutPokemonStatsInput, {nullable:true})
     @Type(() => StatsUpsertWithoutPokemonStatsInput)
-    upsert?: StatsUpsertWithoutPokemonStatsInput;
+    upsert?: Identity<StatsUpsertWithoutPokemonStatsInput>;
 
     @Field(() => StatsWhereUniqueInput, {nullable:true})
     @Type(() => StatsWhereUniqueInput)
@@ -29,5 +30,5 @@ export class StatsUpdateOneRequiredWithoutPokemonStatsNestedInput {
 
     @Field(() => StatsUpdateToOneWithWhereWithoutPokemonStatsInput, {nullable:true})
     @Type(() => StatsUpdateToOneWithWhereWithoutPokemonStatsInput)
-    update?: StatsUpdateToOneWithWhereWithoutPokemonStatsInput;
+    update?: Identity<StatsUpdateToOneWithWhereWithoutPokemonStatsInput>;
 }

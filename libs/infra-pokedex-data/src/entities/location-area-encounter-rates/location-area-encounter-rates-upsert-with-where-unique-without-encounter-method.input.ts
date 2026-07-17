@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationAreaEncounterRatesWhereUniqueInput } from './location-area-encounter-rates-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { LocationAreaEncounterRatesUpdateWithoutEncounterMethodInput } from './location-area-encounter-rates-update-without-encounter-method.input';
 import { LocationAreaEncounterRatesCreateWithoutEncounterMethodInput } from './location-area-encounter-rates-create-without-encounter-method.input';
 
@@ -15,9 +16,9 @@ export class LocationAreaEncounterRatesUpsertWithWhereUniqueWithoutEncounterMeth
 
     @Field(() => LocationAreaEncounterRatesUpdateWithoutEncounterMethodInput, {nullable:false})
     @Type(() => LocationAreaEncounterRatesUpdateWithoutEncounterMethodInput)
-    update!: LocationAreaEncounterRatesUpdateWithoutEncounterMethodInput;
+    update!: Identity<LocationAreaEncounterRatesUpdateWithoutEncounterMethodInput>;
 
     @Field(() => LocationAreaEncounterRatesCreateWithoutEncounterMethodInput, {nullable:false})
     @Type(() => LocationAreaEncounterRatesCreateWithoutEncounterMethodInput)
-    create!: LocationAreaEncounterRatesCreateWithoutEncounterMethodInput;
+    create!: Identity<LocationAreaEncounterRatesCreateWithoutEncounterMethodInput>;
 }

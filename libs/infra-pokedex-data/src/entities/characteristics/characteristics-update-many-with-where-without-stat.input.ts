@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { CharacteristicsScalarWhereInput } from './characteristics-scalar-where.input';
 import { Type } from 'class-transformer';
 import { CharacteristicsUpdateManyMutationInput } from './characteristics-update-many-mutation.input';
@@ -9,9 +10,9 @@ export class CharacteristicsUpdateManyWithWhereWithoutStatInput {
 
     @Field(() => CharacteristicsScalarWhereInput, {nullable:false})
     @Type(() => CharacteristicsScalarWhereInput)
-    where!: CharacteristicsScalarWhereInput;
+    where!: Identity<CharacteristicsScalarWhereInput>;
 
     @Field(() => CharacteristicsUpdateManyMutationInput, {nullable:false})
     @Type(() => CharacteristicsUpdateManyMutationInput)
-    data!: CharacteristicsUpdateManyMutationInput;
+    data!: Identity<CharacteristicsUpdateManyMutationInput>;
 }

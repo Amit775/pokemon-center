@@ -1,18 +1,18 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemCategoriesUpdateManyWithoutPocketNestedInput } from '../item-categories/item-categories-update-many-without-pocket-nested.input';
 
 @InputType()
 export class ItemPocketsUpdateInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
     @Field(() => ItemCategoriesUpdateManyWithoutPocketNestedInput, {nullable:true})
-    categories?: ItemCategoriesUpdateManyWithoutPocketNestedInput;
+    categories?: Identity<ItemCategoriesUpdateManyWithoutPocketNestedInput>;
 }

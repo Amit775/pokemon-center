@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { VersionGroups } from '../version-groups/version-groups.model';
+import type { Identity } from 'identity-type';
 import { Items } from '../items/items.model';
 import { Moves } from '../moves/moves.model';
 
@@ -24,11 +25,11 @@ export class Machines {
     move_id!: number;
 
     @Field(() => VersionGroups, {nullable:false})
-    versionGroup?: VersionGroups;
+    versionGroup?: Identity<VersionGroups>;
 
     @Field(() => Items, {nullable:false})
-    item?: Items;
+    item?: Identity<Items>;
 
     @Field(() => Moves, {nullable:false})
-    move?: Moves;
+    move?: Identity<Moves>;
 }

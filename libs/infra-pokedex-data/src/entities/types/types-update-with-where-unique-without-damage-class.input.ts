@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { TypesWhereUniqueInput } from './types-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { TypesUpdateWithoutDamageClassInput } from './types-update-without-damage-class.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class TypesUpdateWithWhereUniqueWithoutDamageClassInput {
 
     @Field(() => TypesUpdateWithoutDamageClassInput, {nullable:false})
     @Type(() => TypesUpdateWithoutDamageClassInput)
-    data!: TypesUpdateWithoutDamageClassInput;
+    data!: Identity<TypesUpdateWithoutDamageClassInput>;
 }

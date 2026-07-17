@@ -1,13 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class ExperienceUpdateWithoutGrowthRateInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    level?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    level?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    experience?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    experience?: number;
 }

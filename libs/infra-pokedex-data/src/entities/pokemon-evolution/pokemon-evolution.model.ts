@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { PokemonSpecies } from '../pokemon-species/pokemon-species.model';
+import type { Identity } from 'identity-type';
 import { EvolutionTriggers } from '../evolution-triggers/evolution-triggers.model';
 import { Items } from '../items/items.model';
 import { Genders } from '../genders/genders.model';
@@ -74,35 +75,35 @@ export class PokemonEvolution {
     turn_upside_down!: number;
 
     @Field(() => PokemonSpecies, {nullable:false})
-    evolvedSpecies?: PokemonSpecies;
+    evolvedSpecies?: Identity<PokemonSpecies>;
 
     @Field(() => EvolutionTriggers, {nullable:false})
-    evolutionTrigger?: EvolutionTriggers;
+    evolutionTrigger?: Identity<EvolutionTriggers>;
 
     @Field(() => Items, {nullable:true})
-    triggerItem?: Items | null;
+    triggerItem?: Identity<Items> | null;
 
     @Field(() => Genders, {nullable:true})
-    gender?: Genders | null;
+    gender?: Identity<Genders> | null;
 
     @Field(() => Locations, {nullable:true})
-    location?: Locations | null;
+    location?: Identity<Locations> | null;
 
     @Field(() => Items, {nullable:true})
-    heldItem?: Items | null;
+    heldItem?: Identity<Items> | null;
 
     @Field(() => Moves, {nullable:true})
-    knownMove?: Moves | null;
+    knownMove?: Identity<Moves> | null;
 
     @Field(() => Types, {nullable:true})
-    knownMoveType?: Types | null;
+    knownMoveType?: Identity<Types> | null;
 
     @Field(() => PokemonSpecies, {nullable:true})
-    partySpecies?: PokemonSpecies | null;
+    partySpecies?: Identity<PokemonSpecies> | null;
 
     @Field(() => Types, {nullable:true})
-    partyType?: Types | null;
+    partyType?: Identity<Types> | null;
 
     @Field(() => PokemonSpecies, {nullable:true})
-    tradeSpecies?: PokemonSpecies | null;
+    tradeSpecies?: Identity<PokemonSpecies> | null;
 }

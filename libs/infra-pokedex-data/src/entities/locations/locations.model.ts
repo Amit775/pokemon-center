@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Regions } from '../regions/regions.model';
+import type { Identity } from 'identity-type';
 import { LocationAreas } from '../location-areas/location-areas.model';
 import { LocationGameIndices } from '../location-game-indices/location-game-indices.model';
 import { PokemonEvolution } from '../pokemon-evolution/pokemon-evolution.model';
@@ -24,17 +25,17 @@ export class Locations {
     identifier!: string;
 
     @Field(() => Regions, {nullable:true})
-    region?: Regions | null;
+    region?: Identity<Regions> | null;
 
-    @Field(() => [LocationAreas], {nullable:true})
+    @Field(() => [LocationAreas], {nullable:false})
     areas?: Array<LocationAreas>;
 
-    @Field(() => [LocationGameIndices], {nullable:true})
+    @Field(() => [LocationGameIndices], {nullable:false})
     gameIndices?: Array<LocationGameIndices>;
 
-    @Field(() => [PokemonEvolution], {nullable:true})
+    @Field(() => [PokemonEvolution], {nullable:false})
     evolution?: Array<PokemonEvolution>;
 
     @Field(() => LocationsCount, {nullable:false})
-    _count?: LocationsCount;
+    _count?: Identity<LocationsCount>;
 }

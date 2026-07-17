@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { AbilitiesWhereInput } from './abilities-where.input';
+import type { Identity } from 'identity-type';
 import { StringFilter } from '../prisma/string-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
 import { GenerationsScalarRelationFilter } from '../generations/generations-scalar-relation-filter.input';
@@ -23,17 +24,17 @@ export class AbilitiesWhereUniqueInput {
     NOT?: Array<AbilitiesWhereInput>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    generation_id?: IntFilter;
+    generation_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    is_main_series?: IntFilter;
+    is_main_series?: Identity<IntFilter>;
 
     @Field(() => GenerationsScalarRelationFilter, {nullable:true})
-    generation?: GenerationsScalarRelationFilter;
+    generation?: Identity<GenerationsScalarRelationFilter>;
 
     @Field(() => PokemonAbilitiesListRelationFilter, {nullable:true})
-    pokemonAbilities?: PokemonAbilitiesListRelationFilter;
+    pokemonAbilities?: Identity<PokemonAbilitiesListRelationFilter>;
 }

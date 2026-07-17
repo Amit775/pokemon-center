@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormTypesWhereInput } from './pokemon-form-types-where.input';
 import { Type } from 'class-transformer';
 import { PokemonFormTypesOrderByWithRelationInput } from './pokemon-form-types-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonFormTypesWhereUniqueInput } from './pokemon-form-types-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokemonFormTypesCountAggregateInput } from './pokemon-form-types-count-aggregate.input';
@@ -17,7 +18,7 @@ export class PokemonFormTypesAggregateArgs {
 
     @Field(() => PokemonFormTypesWhereInput, {nullable:true})
     @Type(() => PokemonFormTypesWhereInput)
-    where?: PokemonFormTypesWhereInput;
+    where?: Identity<PokemonFormTypesWhereInput>;
 
     @Field(() => [PokemonFormTypesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokemonFormTypesOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class PokemonFormTypesAggregateArgs {
     skip?: number;
 
     @Field(() => PokemonFormTypesCountAggregateInput, {nullable:true})
-    _count?: PokemonFormTypesCountAggregateInput;
+    _count?: Identity<PokemonFormTypesCountAggregateInput>;
 
     @Field(() => PokemonFormTypesAvgAggregateInput, {nullable:true})
-    _avg?: PokemonFormTypesAvgAggregateInput;
+    _avg?: Identity<PokemonFormTypesAvgAggregateInput>;
 
     @Field(() => PokemonFormTypesSumAggregateInput, {nullable:true})
-    _sum?: PokemonFormTypesSumAggregateInput;
+    _sum?: Identity<PokemonFormTypesSumAggregateInput>;
 
     @Field(() => PokemonFormTypesMinAggregateInput, {nullable:true})
-    _min?: PokemonFormTypesMinAggregateInput;
+    _min?: Identity<PokemonFormTypesMinAggregateInput>;
 
     @Field(() => PokemonFormTypesMaxAggregateInput, {nullable:true})
-    _max?: PokemonFormTypesMaxAggregateInput;
+    _max?: Identity<PokemonFormTypesMaxAggregateInput>;
 }

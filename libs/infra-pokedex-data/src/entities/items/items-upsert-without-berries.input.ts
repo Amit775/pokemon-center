@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemsUpdateWithoutBerriesInput } from './items-update-without-berries.input';
 import { Type } from 'class-transformer';
 import { ItemsCreateWithoutBerriesInput } from './items-create-without-berries.input';
@@ -10,13 +11,13 @@ export class ItemsUpsertWithoutBerriesInput {
 
     @Field(() => ItemsUpdateWithoutBerriesInput, {nullable:false})
     @Type(() => ItemsUpdateWithoutBerriesInput)
-    update!: ItemsUpdateWithoutBerriesInput;
+    update!: Identity<ItemsUpdateWithoutBerriesInput>;
 
     @Field(() => ItemsCreateWithoutBerriesInput, {nullable:false})
     @Type(() => ItemsCreateWithoutBerriesInput)
-    create!: ItemsCreateWithoutBerriesInput;
+    create!: Identity<ItemsCreateWithoutBerriesInput>;
 
     @Field(() => ItemsWhereInput, {nullable:true})
     @Type(() => ItemsWhereInput)
-    where?: ItemsWhereInput;
+    where?: Identity<ItemsWhereInput>;
 }

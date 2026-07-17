@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokedexesWhereUniqueInput } from './pokedexes-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokedexesCreateWithoutVersionGroupsInput } from './pokedexes-create-without-version-groups.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class PokedexesCreateOrConnectWithoutVersionGroupsInput {
 
     @Field(() => PokedexesCreateWithoutVersionGroupsInput, {nullable:false})
     @Type(() => PokedexesCreateWithoutVersionGroupsInput)
-    create!: PokedexesCreateWithoutVersionGroupsInput;
+    create!: Identity<PokedexesCreateWithoutVersionGroupsInput>;
 }

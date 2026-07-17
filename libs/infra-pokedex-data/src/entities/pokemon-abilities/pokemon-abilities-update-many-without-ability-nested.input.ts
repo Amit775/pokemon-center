@@ -4,8 +4,9 @@ import { PokemonAbilitiesCreateWithoutAbilityInput } from './pokemon-abilities-c
 import { Type } from 'class-transformer';
 import { PokemonAbilitiesCreateOrConnectWithoutAbilityInput } from './pokemon-abilities-create-or-connect-without-ability.input';
 import { PokemonAbilitiesUpsertWithWhereUniqueWithoutAbilityInput } from './pokemon-abilities-upsert-with-where-unique-without-ability.input';
+import type { Identity } from 'identity-type';
 import { PokemonAbilitiesCreateManyAbilityInputEnvelope } from './pokemon-abilities-create-many-ability-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonAbilitiesWhereUniqueInput } from './pokemon-abilities-where-unique.input';
 import { PokemonAbilitiesUpdateWithWhereUniqueWithoutAbilityInput } from './pokemon-abilities-update-with-where-unique-without-ability.input';
 import { PokemonAbilitiesUpdateManyWithWhereWithoutAbilityInput } from './pokemon-abilities-update-many-with-where-without-ability.input';
@@ -28,7 +29,7 @@ export class PokemonAbilitiesUpdateManyWithoutAbilityNestedInput {
 
     @Field(() => PokemonAbilitiesCreateManyAbilityInputEnvelope, {nullable:true})
     @Type(() => PokemonAbilitiesCreateManyAbilityInputEnvelope)
-    createMany?: PokemonAbilitiesCreateManyAbilityInputEnvelope;
+    createMany?: Identity<PokemonAbilitiesCreateManyAbilityInputEnvelope>;
 
     @Field(() => [PokemonAbilitiesWhereUniqueInput], {nullable:true})
     @Type(() => PokemonAbilitiesWhereUniqueInput)

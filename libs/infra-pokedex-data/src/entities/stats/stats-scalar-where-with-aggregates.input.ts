@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
-import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 
 @InputType()
@@ -17,17 +17,17 @@ export class StatsScalarWhereWithAggregatesInput {
     NOT?: Array<StatsScalarWhereWithAggregatesInput>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
-
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    damage_class_id?: IntNullableWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    identifier?: StringWithAggregatesFilter;
+    id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    is_battle_only?: IntWithAggregatesFilter;
+    damage_class_id?: Identity<IntWithAggregatesFilter>;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    game_index?: IntNullableWithAggregatesFilter;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    identifier?: Identity<StringWithAggregatesFilter>;
+
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    is_battle_only?: Identity<IntWithAggregatesFilter>;
+
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    game_index?: Identity<IntWithAggregatesFilter>;
 }

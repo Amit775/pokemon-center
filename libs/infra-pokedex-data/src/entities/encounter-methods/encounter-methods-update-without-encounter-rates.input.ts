@@ -1,21 +1,21 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterSlotsUpdateManyWithoutEncounterMethodNestedInput } from '../encounter-slots/encounter-slots-update-many-without-encounter-method-nested.input';
 
 @InputType()
 export class EncounterMethodsUpdateWithoutEncounterRatesInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    order?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    order?: number;
 
     @Field(() => EncounterSlotsUpdateManyWithoutEncounterMethodNestedInput, {nullable:true})
-    slots?: EncounterSlotsUpdateManyWithoutEncounterMethodNestedInput;
+    slots?: Identity<EncounterSlotsUpdateManyWithoutEncounterMethodNestedInput>;
 }

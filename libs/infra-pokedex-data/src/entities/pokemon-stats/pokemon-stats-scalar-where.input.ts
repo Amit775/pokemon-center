@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 
 @InputType()
@@ -15,14 +16,14 @@ export class PokemonStatsScalarWhereInput {
     NOT?: Array<PokemonStatsScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    pokemon_id?: IntFilter;
+    pokemon_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    stat_id?: IntFilter;
+    stat_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    base_stat?: IntFilter;
+    base_stat?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    effort?: IntFilter;
+    effort?: Identity<IntFilter>;
 }

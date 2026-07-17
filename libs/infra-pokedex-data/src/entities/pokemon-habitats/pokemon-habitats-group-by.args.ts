@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonHabitatsWhereInput } from './pokemon-habitats-where.input';
 import { Type } from 'class-transformer';
 import { PokemonHabitatsOrderByWithAggregationInput } from './pokemon-habitats-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class PokemonHabitatsGroupByArgs {
 
     @Field(() => PokemonHabitatsWhereInput, {nullable:true})
     @Type(() => PokemonHabitatsWhereInput)
-    where?: PokemonHabitatsWhereInput;
+    where?: Identity<PokemonHabitatsWhereInput>;
 
     @Field(() => [PokemonHabitatsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<PokemonHabitatsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class PokemonHabitatsGroupByArgs {
     by!: Array<`${PokemonHabitatsScalarFieldEnum}`>;
 
     @Field(() => PokemonHabitatsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: PokemonHabitatsScalarWhereWithAggregatesInput;
+    having?: Identity<PokemonHabitatsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class PokemonHabitatsGroupByArgs {
     skip?: number;
 
     @Field(() => PokemonHabitatsCountAggregateInput, {nullable:true})
-    _count?: PokemonHabitatsCountAggregateInput;
+    _count?: Identity<PokemonHabitatsCountAggregateInput>;
 
     @Field(() => PokemonHabitatsAvgAggregateInput, {nullable:true})
-    _avg?: PokemonHabitatsAvgAggregateInput;
+    _avg?: Identity<PokemonHabitatsAvgAggregateInput>;
 
     @Field(() => PokemonHabitatsSumAggregateInput, {nullable:true})
-    _sum?: PokemonHabitatsSumAggregateInput;
+    _sum?: Identity<PokemonHabitatsSumAggregateInput>;
 
     @Field(() => PokemonHabitatsMinAggregateInput, {nullable:true})
-    _min?: PokemonHabitatsMinAggregateInput;
+    _min?: Identity<PokemonHabitatsMinAggregateInput>;
 
     @Field(() => PokemonHabitatsMaxAggregateInput, {nullable:true})
-    _max?: PokemonHabitatsMaxAggregateInput;
+    _max?: Identity<PokemonHabitatsMaxAggregateInput>;
 }

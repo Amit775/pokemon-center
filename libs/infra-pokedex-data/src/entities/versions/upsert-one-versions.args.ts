@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionsWhereUniqueInput } from './versions-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { VersionsCreateInput } from './versions-create.input';
 import { VersionsUpdateInput } from './versions-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneVersionsArgs {
 
     @Field(() => VersionsCreateInput, {nullable:false})
     @Type(() => VersionsCreateInput)
-    create!: VersionsCreateInput;
+    create!: Identity<VersionsCreateInput>;
 
     @Field(() => VersionsUpdateInput, {nullable:false})
     @Type(() => VersionsUpdateInput)
-    update!: VersionsUpdateInput;
+    update!: Identity<VersionsUpdateInput>;
 }

@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Natures } from '../natures/natures.model';
+import type { Identity } from 'identity-type';
 import { MoveBattleStyles } from '../move-battle-styles/move-battle-styles.model';
 
 /**
@@ -24,8 +25,8 @@ export class NatureBattleStylePreferences {
     high_hp_preference!: number;
 
     @Field(() => Natures, {nullable:false})
-    nature?: Natures;
+    nature?: Identity<Natures>;
 
     @Field(() => MoveBattleStyles, {nullable:false})
-    battleStyle?: MoveBattleStyles;
+    battleStyle?: Identity<MoveBattleStyles>;
 }

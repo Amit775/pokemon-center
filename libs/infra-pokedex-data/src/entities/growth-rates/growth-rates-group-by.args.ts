@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GrowthRatesWhereInput } from './growth-rates-where.input';
 import { Type } from 'class-transformer';
 import { GrowthRatesOrderByWithAggregationInput } from './growth-rates-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class GrowthRatesGroupByArgs {
 
     @Field(() => GrowthRatesWhereInput, {nullable:true})
     @Type(() => GrowthRatesWhereInput)
-    where?: GrowthRatesWhereInput;
+    where?: Identity<GrowthRatesWhereInput>;
 
     @Field(() => [GrowthRatesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<GrowthRatesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class GrowthRatesGroupByArgs {
     by!: Array<`${GrowthRatesScalarFieldEnum}`>;
 
     @Field(() => GrowthRatesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: GrowthRatesScalarWhereWithAggregatesInput;
+    having?: Identity<GrowthRatesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class GrowthRatesGroupByArgs {
     skip?: number;
 
     @Field(() => GrowthRatesCountAggregateInput, {nullable:true})
-    _count?: GrowthRatesCountAggregateInput;
+    _count?: Identity<GrowthRatesCountAggregateInput>;
 
     @Field(() => GrowthRatesAvgAggregateInput, {nullable:true})
-    _avg?: GrowthRatesAvgAggregateInput;
+    _avg?: Identity<GrowthRatesAvgAggregateInput>;
 
     @Field(() => GrowthRatesSumAggregateInput, {nullable:true})
-    _sum?: GrowthRatesSumAggregateInput;
+    _sum?: Identity<GrowthRatesSumAggregateInput>;
 
     @Field(() => GrowthRatesMinAggregateInput, {nullable:true})
-    _min?: GrowthRatesMinAggregateInput;
+    _min?: Identity<GrowthRatesMinAggregateInput>;
 
     @Field(() => GrowthRatesMaxAggregateInput, {nullable:true})
-    _max?: GrowthRatesMaxAggregateInput;
+    _max?: Identity<GrowthRatesMaxAggregateInput>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupsUpdateOneRequiredWithoutMachinesNestedInput } from '../version-groups/version-groups-update-one-required-without-machines-nested.input';
 import { ItemsUpdateOneRequiredWithoutMachinesNestedInput } from '../items/items-update-one-required-without-machines-nested.input';
 import { MovesUpdateOneRequiredWithoutMachinesNestedInput } from '../moves/moves-update-one-required-without-machines-nested.input';
@@ -8,15 +9,15 @@ import { MovesUpdateOneRequiredWithoutMachinesNestedInput } from '../moves/moves
 @InputType()
 export class MachinesUpdateInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    machine_number?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    machine_number?: number;
 
     @Field(() => VersionGroupsUpdateOneRequiredWithoutMachinesNestedInput, {nullable:true})
-    versionGroup?: VersionGroupsUpdateOneRequiredWithoutMachinesNestedInput;
+    versionGroup?: Identity<VersionGroupsUpdateOneRequiredWithoutMachinesNestedInput>;
 
     @Field(() => ItemsUpdateOneRequiredWithoutMachinesNestedInput, {nullable:true})
-    item?: ItemsUpdateOneRequiredWithoutMachinesNestedInput;
+    item?: Identity<ItemsUpdateOneRequiredWithoutMachinesNestedInput>;
 
     @Field(() => MovesUpdateOneRequiredWithoutMachinesNestedInput, {nullable:true})
-    move?: MovesUpdateOneRequiredWithoutMachinesNestedInput;
+    move?: Identity<MovesUpdateOneRequiredWithoutMachinesNestedInput>;
 }

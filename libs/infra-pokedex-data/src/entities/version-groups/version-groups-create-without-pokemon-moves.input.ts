@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GenerationsCreateNestedOneWithoutVersionGroupsInput } from '../generations/generations-create-nested-one-without-version-groups.input';
 import { VersionsCreateNestedManyWithoutVersionGroupInput } from '../versions/versions-create-nested-many-without-version-group.input';
 import { EncounterSlotsCreateNestedManyWithoutVersionGroupInput } from '../encounter-slots/encounter-slots-create-nested-many-without-version-group.input';
@@ -23,26 +24,26 @@ export class VersionGroupsCreateWithoutPokemonMovesInput {
     order!: number;
 
     @Field(() => GenerationsCreateNestedOneWithoutVersionGroupsInput, {nullable:false})
-    generation!: GenerationsCreateNestedOneWithoutVersionGroupsInput;
+    generation!: Identity<GenerationsCreateNestedOneWithoutVersionGroupsInput>;
 
     @Field(() => VersionsCreateNestedManyWithoutVersionGroupInput, {nullable:true})
-    versions?: VersionsCreateNestedManyWithoutVersionGroupInput;
+    versions?: Identity<VersionsCreateNestedManyWithoutVersionGroupInput>;
 
     @Field(() => EncounterSlotsCreateNestedManyWithoutVersionGroupInput, {nullable:true})
-    encounterSlots?: EncounterSlotsCreateNestedManyWithoutVersionGroupInput;
+    encounterSlots?: Identity<EncounterSlotsCreateNestedManyWithoutVersionGroupInput>;
 
     @Field(() => MachinesCreateNestedManyWithoutVersionGroupInput, {nullable:true})
-    machines?: MachinesCreateNestedManyWithoutVersionGroupInput;
+    machines?: Identity<MachinesCreateNestedManyWithoutVersionGroupInput>;
 
     @Field(() => VersionGroupPokemonMoveMethodsCreateNestedManyWithoutVersionGroupInput, {nullable:true})
-    versionGroupPokemonMoveMethods?: VersionGroupPokemonMoveMethodsCreateNestedManyWithoutVersionGroupInput;
+    versionGroupPokemonMoveMethods?: Identity<VersionGroupPokemonMoveMethodsCreateNestedManyWithoutVersionGroupInput>;
 
     @Field(() => VersionGroupRegionsCreateNestedManyWithoutVersionGroupInput, {nullable:true})
-    versionGroupRegions?: VersionGroupRegionsCreateNestedManyWithoutVersionGroupInput;
+    versionGroupRegions?: Identity<VersionGroupRegionsCreateNestedManyWithoutVersionGroupInput>;
 
     @Field(() => PokedexVersionGroupsCreateNestedManyWithoutVersionGroupInput, {nullable:true})
-    pokedexVersionGroups?: PokedexVersionGroupsCreateNestedManyWithoutVersionGroupInput;
+    pokedexVersionGroups?: Identity<PokedexVersionGroupsCreateNestedManyWithoutVersionGroupInput>;
 
     @Field(() => PokemonFormsCreateNestedManyWithoutVersionGroupInput, {nullable:true})
-    pokemonForms?: PokemonFormsCreateNestedManyWithoutVersionGroupInput;
+    pokemonForms?: Identity<PokemonFormsCreateNestedManyWithoutVersionGroupInput>;
 }

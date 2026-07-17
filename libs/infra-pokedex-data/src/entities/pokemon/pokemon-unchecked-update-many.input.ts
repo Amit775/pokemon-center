@@ -1,33 +1,31 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class PokemonUncheckedUpdateManyInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    species_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    species_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    height?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    height?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    weight?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    weight?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    base_experience?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    base_experience?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    order?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    order?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    is_default?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    is_default?: number;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemFlingEffectsWhereInput } from './item-fling-effects-where.input';
 import { Type } from 'class-transformer';
 import { ItemFlingEffectsOrderByWithAggregationInput } from './item-fling-effects-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class ItemFlingEffectsGroupByArgs {
 
     @Field(() => ItemFlingEffectsWhereInput, {nullable:true})
     @Type(() => ItemFlingEffectsWhereInput)
-    where?: ItemFlingEffectsWhereInput;
+    where?: Identity<ItemFlingEffectsWhereInput>;
 
     @Field(() => [ItemFlingEffectsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<ItemFlingEffectsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class ItemFlingEffectsGroupByArgs {
     by!: Array<`${ItemFlingEffectsScalarFieldEnum}`>;
 
     @Field(() => ItemFlingEffectsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: ItemFlingEffectsScalarWhereWithAggregatesInput;
+    having?: Identity<ItemFlingEffectsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class ItemFlingEffectsGroupByArgs {
     skip?: number;
 
     @Field(() => ItemFlingEffectsCountAggregateInput, {nullable:true})
-    _count?: ItemFlingEffectsCountAggregateInput;
+    _count?: Identity<ItemFlingEffectsCountAggregateInput>;
 
     @Field(() => ItemFlingEffectsAvgAggregateInput, {nullable:true})
-    _avg?: ItemFlingEffectsAvgAggregateInput;
+    _avg?: Identity<ItemFlingEffectsAvgAggregateInput>;
 
     @Field(() => ItemFlingEffectsSumAggregateInput, {nullable:true})
-    _sum?: ItemFlingEffectsSumAggregateInput;
+    _sum?: Identity<ItemFlingEffectsSumAggregateInput>;
 
     @Field(() => ItemFlingEffectsMinAggregateInput, {nullable:true})
-    _min?: ItemFlingEffectsMinAggregateInput;
+    _min?: Identity<ItemFlingEffectsMinAggregateInput>;
 
     @Field(() => ItemFlingEffectsMaxAggregateInput, {nullable:true})
-    _max?: ItemFlingEffectsMaxAggregateInput;
+    _max?: Identity<ItemFlingEffectsMaxAggregateInput>;
 }

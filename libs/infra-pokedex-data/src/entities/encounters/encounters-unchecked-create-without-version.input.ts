@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterConditionValueMapUncheckedCreateNestedManyWithoutEncounterInput } from '../encounter-condition-value-map/encounter-condition-value-map-unchecked-create-nested-many-without-encounter.input';
 
 @InputType()
@@ -25,5 +26,5 @@ export class EncountersUncheckedCreateWithoutVersionInput {
     max_level!: number;
 
     @Field(() => EncounterConditionValueMapUncheckedCreateNestedManyWithoutEncounterInput, {nullable:true})
-    conditionValueMap?: EncounterConditionValueMapUncheckedCreateNestedManyWithoutEncounterInput;
+    conditionValueMap?: Identity<EncounterConditionValueMapUncheckedCreateNestedManyWithoutEncounterInput>;
 }

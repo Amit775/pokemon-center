@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonWhereInput } from './pokemon-where.input';
 import { Type } from 'class-transformer';
 import { PokemonOrderByWithRelationInput } from './pokemon-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonWhereUniqueInput } from './pokemon-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokemonCountAggregateInput } from './pokemon-count-aggregate.input';
@@ -17,7 +18,7 @@ export class PokemonAggregateArgs {
 
     @Field(() => PokemonWhereInput, {nullable:true})
     @Type(() => PokemonWhereInput)
-    where?: PokemonWhereInput;
+    where?: Identity<PokemonWhereInput>;
 
     @Field(() => [PokemonOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokemonOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class PokemonAggregateArgs {
     skip?: number;
 
     @Field(() => PokemonCountAggregateInput, {nullable:true})
-    _count?: PokemonCountAggregateInput;
+    _count?: Identity<PokemonCountAggregateInput>;
 
     @Field(() => PokemonAvgAggregateInput, {nullable:true})
-    _avg?: PokemonAvgAggregateInput;
+    _avg?: Identity<PokemonAvgAggregateInput>;
 
     @Field(() => PokemonSumAggregateInput, {nullable:true})
-    _sum?: PokemonSumAggregateInput;
+    _sum?: Identity<PokemonSumAggregateInput>;
 
     @Field(() => PokemonMinAggregateInput, {nullable:true})
-    _min?: PokemonMinAggregateInput;
+    _min?: Identity<PokemonMinAggregateInput>;
 
     @Field(() => PokemonMaxAggregateInput, {nullable:true})
-    _max?: PokemonMaxAggregateInput;
+    _max?: Identity<PokemonMaxAggregateInput>;
 }

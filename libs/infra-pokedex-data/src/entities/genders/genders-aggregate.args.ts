@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GendersWhereInput } from './genders-where.input';
 import { Type } from 'class-transformer';
 import { GendersOrderByWithRelationInput } from './genders-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { GendersWhereUniqueInput } from './genders-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { GendersCountAggregateInput } from './genders-count-aggregate.input';
@@ -17,7 +18,7 @@ export class GendersAggregateArgs {
 
     @Field(() => GendersWhereInput, {nullable:true})
     @Type(() => GendersWhereInput)
-    where?: GendersWhereInput;
+    where?: Identity<GendersWhereInput>;
 
     @Field(() => [GendersOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<GendersOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class GendersAggregateArgs {
     skip?: number;
 
     @Field(() => GendersCountAggregateInput, {nullable:true})
-    _count?: GendersCountAggregateInput;
+    _count?: Identity<GendersCountAggregateInput>;
 
     @Field(() => GendersAvgAggregateInput, {nullable:true})
-    _avg?: GendersAvgAggregateInput;
+    _avg?: Identity<GendersAvgAggregateInput>;
 
     @Field(() => GendersSumAggregateInput, {nullable:true})
-    _sum?: GendersSumAggregateInput;
+    _sum?: Identity<GendersSumAggregateInput>;
 
     @Field(() => GendersMinAggregateInput, {nullable:true})
-    _min?: GendersMinAggregateInput;
+    _min?: Identity<GendersMinAggregateInput>;
 
     @Field(() => GendersMaxAggregateInput, {nullable:true})
-    _max?: GendersMaxAggregateInput;
+    _max?: Identity<GendersMaxAggregateInput>;
 }

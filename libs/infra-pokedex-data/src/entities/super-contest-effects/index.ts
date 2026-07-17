@@ -29,10 +29,10 @@ export { SuperContestEffectsMaxOrderByAggregateInput } from './super-contest-eff
 export { SuperContestEffectsMinAggregateInput } from './super-contest-effects-min-aggregate.input';
 export { SuperContestEffectsMinAggregate } from './super-contest-effects-min-aggregate.output';
 export { SuperContestEffectsMinOrderByAggregateInput } from './super-contest-effects-min-order-by-aggregate.input';
-export { SuperContestEffectsNullableScalarRelationFilter } from './super-contest-effects-nullable-scalar-relation-filter.input';
 export { SuperContestEffectsOrderByWithAggregationInput } from './super-contest-effects-order-by-with-aggregation.input';
 export { SuperContestEffectsOrderByWithRelationInput } from './super-contest-effects-order-by-with-relation.input';
 export { SuperContestEffectsScalarFieldEnum } from './super-contest-effects-scalar-field.enum';
+export { SuperContestEffectsScalarRelationFilter } from './super-contest-effects-scalar-relation-filter.input';
 export { SuperContestEffectsScalarWhereWithAggregatesInput } from './super-contest-effects-scalar-where-with-aggregates.input';
 export { SuperContestEffectsSumAggregateInput } from './super-contest-effects-sum-aggregate.input';
 export { SuperContestEffectsSumAggregate } from './super-contest-effects-sum-aggregate.output';

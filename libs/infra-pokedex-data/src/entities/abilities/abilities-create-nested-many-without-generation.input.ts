@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { AbilitiesCreateWithoutGenerationInput } from './abilities-create-without-generation.input';
 import { Type } from 'class-transformer';
 import { AbilitiesCreateOrConnectWithoutGenerationInput } from './abilities-create-or-connect-without-generation.input';
+import type { Identity } from 'identity-type';
 import { AbilitiesCreateManyGenerationInputEnvelope } from './abilities-create-many-generation-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { AbilitiesWhereUniqueInput } from './abilities-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class AbilitiesCreateNestedManyWithoutGenerationInput {
 
     @Field(() => AbilitiesCreateManyGenerationInputEnvelope, {nullable:true})
     @Type(() => AbilitiesCreateManyGenerationInputEnvelope)
-    createMany?: AbilitiesCreateManyGenerationInputEnvelope;
+    createMany?: Identity<AbilitiesCreateManyGenerationInputEnvelope>;
 
     @Field(() => [AbilitiesWhereUniqueInput], {nullable:true})
     @Type(() => AbilitiesWhereUniqueInput)

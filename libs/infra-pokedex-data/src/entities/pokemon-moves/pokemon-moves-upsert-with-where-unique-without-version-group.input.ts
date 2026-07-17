@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonMovesWhereUniqueInput } from './pokemon-moves-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonMovesUpdateWithoutVersionGroupInput } from './pokemon-moves-update-without-version-group.input';
 import { PokemonMovesCreateWithoutVersionGroupInput } from './pokemon-moves-create-without-version-group.input';
 
@@ -15,9 +16,9 @@ export class PokemonMovesUpsertWithWhereUniqueWithoutVersionGroupInput {
 
     @Field(() => PokemonMovesUpdateWithoutVersionGroupInput, {nullable:false})
     @Type(() => PokemonMovesUpdateWithoutVersionGroupInput)
-    update!: PokemonMovesUpdateWithoutVersionGroupInput;
+    update!: Identity<PokemonMovesUpdateWithoutVersionGroupInput>;
 
     @Field(() => PokemonMovesCreateWithoutVersionGroupInput, {nullable:false})
     @Type(() => PokemonMovesCreateWithoutVersionGroupInput)
-    create!: PokemonMovesCreateWithoutVersionGroupInput;
+    create!: Identity<PokemonMovesCreateWithoutVersionGroupInput>;
 }

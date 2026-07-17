@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesUpdateWithoutPartySpeciesInput } from './pokemon-species-update-without-party-species.input';
 import { Type } from 'class-transformer';
 import { PokemonSpeciesCreateWithoutPartySpeciesInput } from './pokemon-species-create-without-party-species.input';
@@ -10,13 +11,13 @@ export class PokemonSpeciesUpsertWithoutPartySpeciesInput {
 
     @Field(() => PokemonSpeciesUpdateWithoutPartySpeciesInput, {nullable:false})
     @Type(() => PokemonSpeciesUpdateWithoutPartySpeciesInput)
-    update!: PokemonSpeciesUpdateWithoutPartySpeciesInput;
+    update!: Identity<PokemonSpeciesUpdateWithoutPartySpeciesInput>;
 
     @Field(() => PokemonSpeciesCreateWithoutPartySpeciesInput, {nullable:false})
     @Type(() => PokemonSpeciesCreateWithoutPartySpeciesInput)
-    create!: PokemonSpeciesCreateWithoutPartySpeciesInput;
+    create!: Identity<PokemonSpeciesCreateWithoutPartySpeciesInput>;
 
     @Field(() => PokemonSpeciesWhereInput, {nullable:true})
     @Type(() => PokemonSpeciesWhereInput)
-    where?: PokemonSpeciesWhereInput;
+    where?: Identity<PokemonSpeciesWhereInput>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { RegionsCountOrderByAggregateInput } from './regions-count-order-by-aggregate.input';
 import { RegionsAvgOrderByAggregateInput } from './regions-avg-order-by-aggregate.input';
 import { RegionsMaxOrderByAggregateInput } from './regions-max-order-by-aggregate.input';
@@ -17,17 +18,17 @@ export class RegionsOrderByWithAggregationInput {
     identifier?: `${SortOrder}`;
 
     @Field(() => RegionsCountOrderByAggregateInput, {nullable:true})
-    _count?: RegionsCountOrderByAggregateInput;
+    _count?: Identity<RegionsCountOrderByAggregateInput>;
 
     @Field(() => RegionsAvgOrderByAggregateInput, {nullable:true})
-    _avg?: RegionsAvgOrderByAggregateInput;
+    _avg?: Identity<RegionsAvgOrderByAggregateInput>;
 
     @Field(() => RegionsMaxOrderByAggregateInput, {nullable:true})
-    _max?: RegionsMaxOrderByAggregateInput;
+    _max?: Identity<RegionsMaxOrderByAggregateInput>;
 
     @Field(() => RegionsMinOrderByAggregateInput, {nullable:true})
-    _min?: RegionsMinOrderByAggregateInput;
+    _min?: Identity<RegionsMinOrderByAggregateInput>;
 
     @Field(() => RegionsSumOrderByAggregateInput, {nullable:true})
-    _sum?: RegionsSumOrderByAggregateInput;
+    _sum?: Identity<RegionsSumOrderByAggregateInput>;
 }

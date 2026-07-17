@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { PokemonGameIndicesCreateWithoutVersionInput } from './pokemon-game-indices-create-without-version.input';
 import { Type } from 'class-transformer';
 import { PokemonGameIndicesCreateOrConnectWithoutVersionInput } from './pokemon-game-indices-create-or-connect-without-version.input';
+import type { Identity } from 'identity-type';
 import { PokemonGameIndicesCreateManyVersionInputEnvelope } from './pokemon-game-indices-create-many-version-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonGameIndicesWhereUniqueInput } from './pokemon-game-indices-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class PokemonGameIndicesUncheckedCreateNestedManyWithoutVersionInput {
 
     @Field(() => PokemonGameIndicesCreateManyVersionInputEnvelope, {nullable:true})
     @Type(() => PokemonGameIndicesCreateManyVersionInputEnvelope)
-    createMany?: PokemonGameIndicesCreateManyVersionInputEnvelope;
+    createMany?: Identity<PokemonGameIndicesCreateManyVersionInputEnvelope>;
 
     @Field(() => [PokemonGameIndicesWhereUniqueInput], {nullable:true})
     @Type(() => PokemonGameIndicesWhereUniqueInput)

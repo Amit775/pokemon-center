@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Moves } from '../moves/moves.model';
+import type { Identity } from 'identity-type';
 
 /**
  * @@TypeGraphQL.type(name: "ContestCombo")
@@ -17,8 +18,8 @@ export class ContestCombos {
     second_move_id!: number;
 
     @Field(() => Moves, {nullable:false})
-    firstMove?: Moves;
+    firstMove?: Identity<Moves>;
 
     @Field(() => Moves, {nullable:false})
-    secondMove?: Moves;
+    secondMove?: Identity<Moves>;
 }

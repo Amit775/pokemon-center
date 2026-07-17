@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Generations } from '../generations/generations.model';
+import type { Identity } from 'identity-type';
 import { Types } from '../types/types.model';
 import { MoveTargets } from '../move-targets/move-targets.model';
 import { MoveDamageClasses } from '../move-damage-classes/move-damage-classes.model';
@@ -70,53 +71,53 @@ export class Moves {
     super_contest_effect_id!: number | null;
 
     @Field(() => Generations, {nullable:false})
-    generation?: Generations;
+    generation?: Identity<Generations>;
 
     @Field(() => Types, {nullable:false})
-    type?: Types;
+    type?: Identity<Types>;
 
     @Field(() => MoveTargets, {nullable:false})
-    target?: MoveTargets;
+    target?: Identity<MoveTargets>;
 
     @Field(() => MoveDamageClasses, {nullable:false})
-    damageClass?: MoveDamageClasses;
+    damageClass?: Identity<MoveDamageClasses>;
 
     @Field(() => ContestTypes, {nullable:true})
-    contestType?: ContestTypes | null;
+    contestType?: Identity<ContestTypes> | null;
 
     @Field(() => ContestEffects, {nullable:true})
-    contestEffect?: ContestEffects | null;
+    contestEffect?: Identity<ContestEffects> | null;
 
     @Field(() => SuperContestEffects, {nullable:true})
-    superContestEffect?: SuperContestEffects | null;
+    superContestEffect?: Identity<SuperContestEffects> | null;
 
-    @Field(() => [PokemonMoves], {nullable:true})
+    @Field(() => [PokemonMoves], {nullable:false})
     pokemonMoves?: Array<PokemonMoves>;
 
-    @Field(() => [Machines], {nullable:true})
+    @Field(() => [Machines], {nullable:false})
     machines?: Array<Machines>;
 
-    @Field(() => [MoveMeta], {nullable:true})
+    @Field(() => [MoveMeta], {nullable:false})
     meta?: Array<MoveMeta>;
 
-    @Field(() => [MoveFlagMap], {nullable:true})
+    @Field(() => [MoveFlagMap], {nullable:false})
     flagMap?: Array<MoveFlagMap>;
 
-    @Field(() => [ContestCombos], {nullable:true})
+    @Field(() => [ContestCombos], {nullable:false})
     contestCombos?: Array<ContestCombos>;
 
-    @Field(() => [ContestCombos], {nullable:true})
+    @Field(() => [ContestCombos], {nullable:false})
     contestCombosSecond?: Array<ContestCombos>;
 
-    @Field(() => [SuperContestCombos], {nullable:true})
+    @Field(() => [SuperContestCombos], {nullable:false})
     superContestCombos?: Array<SuperContestCombos>;
 
-    @Field(() => [SuperContestCombos], {nullable:true})
+    @Field(() => [SuperContestCombos], {nullable:false})
     superContestCombosSecond?: Array<SuperContestCombos>;
 
-    @Field(() => [PokemonEvolution], {nullable:true})
+    @Field(() => [PokemonEvolution], {nullable:false})
     knownMoves?: Array<PokemonEvolution>;
 
     @Field(() => MovesCount, {nullable:false})
-    _count?: MovesCount;
+    _count?: Identity<MovesCount>;
 }

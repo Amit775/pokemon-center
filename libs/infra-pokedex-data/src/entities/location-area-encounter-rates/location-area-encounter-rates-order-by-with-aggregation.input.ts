@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { LocationAreaEncounterRatesCountOrderByAggregateInput } from './location-area-encounter-rates-count-order-by-aggregate.input';
 import { LocationAreaEncounterRatesAvgOrderByAggregateInput } from './location-area-encounter-rates-avg-order-by-aggregate.input';
 import { LocationAreaEncounterRatesMaxOrderByAggregateInput } from './location-area-encounter-rates-max-order-by-aggregate.input';
@@ -23,17 +24,17 @@ export class LocationAreaEncounterRatesOrderByWithAggregationInput {
     rate?: `${SortOrder}`;
 
     @Field(() => LocationAreaEncounterRatesCountOrderByAggregateInput, {nullable:true})
-    _count?: LocationAreaEncounterRatesCountOrderByAggregateInput;
+    _count?: Identity<LocationAreaEncounterRatesCountOrderByAggregateInput>;
 
     @Field(() => LocationAreaEncounterRatesAvgOrderByAggregateInput, {nullable:true})
-    _avg?: LocationAreaEncounterRatesAvgOrderByAggregateInput;
+    _avg?: Identity<LocationAreaEncounterRatesAvgOrderByAggregateInput>;
 
     @Field(() => LocationAreaEncounterRatesMaxOrderByAggregateInput, {nullable:true})
-    _max?: LocationAreaEncounterRatesMaxOrderByAggregateInput;
+    _max?: Identity<LocationAreaEncounterRatesMaxOrderByAggregateInput>;
 
     @Field(() => LocationAreaEncounterRatesMinOrderByAggregateInput, {nullable:true})
-    _min?: LocationAreaEncounterRatesMinOrderByAggregateInput;
+    _min?: Identity<LocationAreaEncounterRatesMinOrderByAggregateInput>;
 
     @Field(() => LocationAreaEncounterRatesSumOrderByAggregateInput, {nullable:true})
-    _sum?: LocationAreaEncounterRatesSumOrderByAggregateInput;
+    _sum?: Identity<LocationAreaEncounterRatesSumOrderByAggregateInput>;
 }

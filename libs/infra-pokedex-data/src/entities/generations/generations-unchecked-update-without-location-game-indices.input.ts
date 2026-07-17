@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesUncheckedUpdateManyWithoutGenerationNestedInput } from '../pokemon-species/pokemon-species-unchecked-update-many-without-generation-nested.input';
 import { MovesUncheckedUpdateManyWithoutGenerationNestedInput } from '../moves/moves-unchecked-update-many-without-generation-nested.input';
 import { TypesUncheckedUpdateManyWithoutGenerationNestedInput } from '../types/types-unchecked-update-many-without-generation-nested.input';
@@ -14,36 +14,36 @@ import { VersionGroupsUncheckedUpdateManyWithoutGenerationNestedInput } from '..
 @InputType()
 export class GenerationsUncheckedUpdateWithoutLocationGameIndicesInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    main_region_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    main_region_id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
     @Field(() => PokemonSpeciesUncheckedUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    pokemonSpecies?: PokemonSpeciesUncheckedUpdateManyWithoutGenerationNestedInput;
+    pokemonSpecies?: Identity<PokemonSpeciesUncheckedUpdateManyWithoutGenerationNestedInput>;
 
     @Field(() => MovesUncheckedUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    moves?: MovesUncheckedUpdateManyWithoutGenerationNestedInput;
+    moves?: Identity<MovesUncheckedUpdateManyWithoutGenerationNestedInput>;
 
     @Field(() => TypesUncheckedUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    types?: TypesUncheckedUpdateManyWithoutGenerationNestedInput;
+    types?: Identity<TypesUncheckedUpdateManyWithoutGenerationNestedInput>;
 
     @Field(() => AbilitiesUncheckedUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    abilities?: AbilitiesUncheckedUpdateManyWithoutGenerationNestedInput;
+    abilities?: Identity<AbilitiesUncheckedUpdateManyWithoutGenerationNestedInput>;
 
     @Field(() => PokemonFormGenerationsUncheckedUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    pokemonFormGenerations?: PokemonFormGenerationsUncheckedUpdateManyWithoutGenerationNestedInput;
+    pokemonFormGenerations?: Identity<PokemonFormGenerationsUncheckedUpdateManyWithoutGenerationNestedInput>;
 
     @Field(() => ItemGameIndicesUncheckedUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    itemGameIndices?: ItemGameIndicesUncheckedUpdateManyWithoutGenerationNestedInput;
+    itemGameIndices?: Identity<ItemGameIndicesUncheckedUpdateManyWithoutGenerationNestedInput>;
 
     @Field(() => TypeGameIndicesUncheckedUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    typeGameIndices?: TypeGameIndicesUncheckedUpdateManyWithoutGenerationNestedInput;
+    typeGameIndices?: Identity<TypeGameIndicesUncheckedUpdateManyWithoutGenerationNestedInput>;
 
     @Field(() => VersionGroupsUncheckedUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    versionGroups?: VersionGroupsUncheckedUpdateManyWithoutGenerationNestedInput;
+    versionGroups?: Identity<VersionGroupsUncheckedUpdateManyWithoutGenerationNestedInput>;
 }

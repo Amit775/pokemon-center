@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { LocationAreasScalarRelationFilter } from '../location-areas/location-areas-scalar-relation-filter.input';
 import { EncounterMethodsScalarRelationFilter } from '../encounter-methods/encounter-methods-scalar-relation-filter.input';
@@ -18,23 +19,23 @@ export class LocationAreaEncounterRatesWhereInput {
     NOT?: Array<LocationAreaEncounterRatesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    location_area_id?: IntFilter;
+    location_area_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    encounter_method_id?: IntFilter;
+    encounter_method_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    version_id?: IntFilter;
+    version_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    rate?: IntFilter;
+    rate?: Identity<IntFilter>;
 
     @Field(() => LocationAreasScalarRelationFilter, {nullable:true})
-    locationArea?: LocationAreasScalarRelationFilter;
+    locationArea?: Identity<LocationAreasScalarRelationFilter>;
 
     @Field(() => EncounterMethodsScalarRelationFilter, {nullable:true})
-    encounterMethod?: EncounterMethodsScalarRelationFilter;
+    encounterMethod?: Identity<EncounterMethodsScalarRelationFilter>;
 
     @Field(() => VersionsScalarRelationFilter, {nullable:true})
-    version?: VersionsScalarRelationFilter;
+    version?: Identity<VersionsScalarRelationFilter>;
 }

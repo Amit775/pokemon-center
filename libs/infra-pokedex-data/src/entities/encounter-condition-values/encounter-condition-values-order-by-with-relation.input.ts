@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { EncounterConditionsOrderByWithRelationInput } from '../encounter-conditions/encounter-conditions-order-by-with-relation.input';
 import { EncounterConditionValueMapOrderByRelationAggregateInput } from '../encounter-condition-value-map/encounter-condition-value-map-order-by-relation-aggregate.input';
 
@@ -20,8 +21,8 @@ export class EncounterConditionValuesOrderByWithRelationInput {
     is_default?: `${SortOrder}`;
 
     @Field(() => EncounterConditionsOrderByWithRelationInput, {nullable:true})
-    condition?: EncounterConditionsOrderByWithRelationInput;
+    condition?: Identity<EncounterConditionsOrderByWithRelationInput>;
 
     @Field(() => EncounterConditionValueMapOrderByRelationAggregateInput, {nullable:true})
-    conditionValueMap?: EncounterConditionValueMapOrderByRelationAggregateInput;
+    conditionValueMap?: Identity<EncounterConditionValueMapOrderByRelationAggregateInput>;
 }

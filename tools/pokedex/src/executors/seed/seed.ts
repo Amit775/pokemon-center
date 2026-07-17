@@ -1,5 +1,6 @@
 import { PromiseExecutor, logger } from '@nx/devkit';
-import { PrismaClient } from '@prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from '@pokemon-center/infra-pokedex-data';
 import csv from 'csv-parser';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -8,7 +9,8 @@ import { PokedexSeedExecutorSchema } from './schema';
 const runExecutor: PromiseExecutor<PokedexSeedExecutorSchema> = async (options) => {
 	logger.info(`Executor ran for PokedexSeed ${JSON.stringify(options)}`);
 
-	const csvProcessorService = new CsvProcessorService(new PrismaClient(), options.tables);
+	const adapter = new PrismaPg({ connectionString: process.env['DATABASE_URL'] });
+	const csvProcessorService = new CsvProcessorService(new PrismaClient({ adapter }), options.tables);
 	await csvProcessorService.processAllCsvFiles();
 	return {
 		success: true,

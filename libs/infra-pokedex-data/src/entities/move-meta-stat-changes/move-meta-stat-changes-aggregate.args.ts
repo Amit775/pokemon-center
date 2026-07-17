@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaStatChangesWhereInput } from './move-meta-stat-changes-where.input';
 import { Type } from 'class-transformer';
 import { MoveMetaStatChangesOrderByWithRelationInput } from './move-meta-stat-changes-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveMetaStatChangesWhereUniqueInput } from './move-meta-stat-changes-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { MoveMetaStatChangesCountAggregateInput } from './move-meta-stat-changes-count-aggregate.input';
@@ -17,7 +18,7 @@ export class MoveMetaStatChangesAggregateArgs {
 
     @Field(() => MoveMetaStatChangesWhereInput, {nullable:true})
     @Type(() => MoveMetaStatChangesWhereInput)
-    where?: MoveMetaStatChangesWhereInput;
+    where?: Identity<MoveMetaStatChangesWhereInput>;
 
     @Field(() => [MoveMetaStatChangesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<MoveMetaStatChangesOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class MoveMetaStatChangesAggregateArgs {
     skip?: number;
 
     @Field(() => MoveMetaStatChangesCountAggregateInput, {nullable:true})
-    _count?: MoveMetaStatChangesCountAggregateInput;
+    _count?: Identity<MoveMetaStatChangesCountAggregateInput>;
 
     @Field(() => MoveMetaStatChangesAvgAggregateInput, {nullable:true})
-    _avg?: MoveMetaStatChangesAvgAggregateInput;
+    _avg?: Identity<MoveMetaStatChangesAvgAggregateInput>;
 
     @Field(() => MoveMetaStatChangesSumAggregateInput, {nullable:true})
-    _sum?: MoveMetaStatChangesSumAggregateInput;
+    _sum?: Identity<MoveMetaStatChangesSumAggregateInput>;
 
     @Field(() => MoveMetaStatChangesMinAggregateInput, {nullable:true})
-    _min?: MoveMetaStatChangesMinAggregateInput;
+    _min?: Identity<MoveMetaStatChangesMinAggregateInput>;
 
     @Field(() => MoveMetaStatChangesMaxAggregateInput, {nullable:true})
-    _max?: MoveMetaStatChangesMaxAggregateInput;
+    _max?: Identity<MoveMetaStatChangesMaxAggregateInput>;
 }

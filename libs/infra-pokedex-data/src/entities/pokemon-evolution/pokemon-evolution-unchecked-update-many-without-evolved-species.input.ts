@@ -1,66 +1,64 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
-import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class PokemonEvolutionUncheckedUpdateManyWithoutEvolvedSpeciesInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    evolution_trigger_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    evolution_trigger_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    trigger_item_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    trigger_item_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    minimum_level?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    minimum_level?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    gender_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    gender_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    location_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    location_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    held_item_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    held_item_id?: number;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    time_of_day?: NullableStringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    time_of_day?: string;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    known_move_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    known_move_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    known_move_type_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    known_move_type_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    minimum_happiness?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    minimum_happiness?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    minimum_beauty?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    minimum_beauty?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    minimum_affection?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    minimum_affection?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    relative_physical_stats?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    relative_physical_stats?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    party_species_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    party_species_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    party_type_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    party_type_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    trade_species_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    trade_species_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    needs_overworld_rain?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    needs_overworld_rain?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    turn_upside_down?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    turn_upside_down?: number;
 }

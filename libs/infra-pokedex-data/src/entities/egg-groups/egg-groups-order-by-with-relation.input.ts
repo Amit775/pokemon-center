@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { PokemonEggGroupsOrderByRelationAggregateInput } from '../pokemon-egg-groups/pokemon-egg-groups-order-by-relation-aggregate.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class EggGroupsOrderByWithRelationInput {
     identifier?: `${SortOrder}`;
 
     @Field(() => PokemonEggGroupsOrderByRelationAggregateInput, {nullable:true})
-    species?: PokemonEggGroupsOrderByRelationAggregateInput;
+    species?: Identity<PokemonEggGroupsOrderByRelationAggregateInput>;
 }

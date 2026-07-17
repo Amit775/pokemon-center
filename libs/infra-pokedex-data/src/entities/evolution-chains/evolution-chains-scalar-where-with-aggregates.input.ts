@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
-import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class EvolutionChainsScalarWhereWithAggregatesInput {
@@ -16,8 +16,8 @@ export class EvolutionChainsScalarWhereWithAggregatesInput {
     NOT?: Array<EvolutionChainsScalarWhereWithAggregatesInput>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
+    id?: Identity<IntWithAggregatesFilter>;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    baby_trigger_item_id?: IntNullableWithAggregatesFilter;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    baby_trigger_item_id?: Identity<IntWithAggregatesFilter>;
 }

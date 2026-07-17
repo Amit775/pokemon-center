@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupsWhereInput } from './version-groups-where.input';
 import { Type } from 'class-transformer';
 import { VersionGroupsOrderByWithRelationInput } from './version-groups-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupsWhereUniqueInput } from './version-groups-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { VersionGroupsCountAggregateInput } from './version-groups-count-aggregate.input';
@@ -17,7 +18,7 @@ export class VersionGroupsAggregateArgs {
 
     @Field(() => VersionGroupsWhereInput, {nullable:true})
     @Type(() => VersionGroupsWhereInput)
-    where?: VersionGroupsWhereInput;
+    where?: Identity<VersionGroupsWhereInput>;
 
     @Field(() => [VersionGroupsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<VersionGroupsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class VersionGroupsAggregateArgs {
     skip?: number;
 
     @Field(() => VersionGroupsCountAggregateInput, {nullable:true})
-    _count?: VersionGroupsCountAggregateInput;
+    _count?: Identity<VersionGroupsCountAggregateInput>;
 
     @Field(() => VersionGroupsAvgAggregateInput, {nullable:true})
-    _avg?: VersionGroupsAvgAggregateInput;
+    _avg?: Identity<VersionGroupsAvgAggregateInput>;
 
     @Field(() => VersionGroupsSumAggregateInput, {nullable:true})
-    _sum?: VersionGroupsSumAggregateInput;
+    _sum?: Identity<VersionGroupsSumAggregateInput>;
 
     @Field(() => VersionGroupsMinAggregateInput, {nullable:true})
-    _min?: VersionGroupsMinAggregateInput;
+    _min?: Identity<VersionGroupsMinAggregateInput>;
 
     @Field(() => VersionGroupsMaxAggregateInput, {nullable:true})
-    _max?: VersionGroupsMaxAggregateInput;
+    _max?: Identity<VersionGroupsMaxAggregateInput>;
 }

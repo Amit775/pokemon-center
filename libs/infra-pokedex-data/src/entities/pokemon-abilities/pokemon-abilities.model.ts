@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Pokemon } from '../pokemon/pokemon.model';
+import type { Identity } from 'identity-type';
 import { Abilities } from '../abilities/abilities.model';
 
 /**
@@ -23,8 +24,8 @@ export class PokemonAbilities {
     slot!: number;
 
     @Field(() => Pokemon, {nullable:false})
-    pokemon?: Pokemon;
+    pokemon?: Identity<Pokemon>;
 
     @Field(() => Abilities, {nullable:false})
-    ability?: Abilities;
+    ability?: Identity<Abilities>;
 }

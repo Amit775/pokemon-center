@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { PokemonSpecies } from '../pokemon-species/pokemon-species.model';
+import type { Identity } from 'identity-type';
 import { PokemonForms } from '../pokemon-forms/pokemon-forms.model';
 import { PokemonAbilities } from '../pokemon-abilities/pokemon-abilities.model';
 import { PokemonMoves } from '../pokemon-moves/pokemon-moves.model';
@@ -41,32 +42,32 @@ export class Pokemon {
     is_default!: number;
 
     @Field(() => PokemonSpecies, {nullable:false})
-    species?: PokemonSpecies;
+    species?: Identity<PokemonSpecies>;
 
-    @Field(() => [PokemonForms], {nullable:true})
+    @Field(() => [PokemonForms], {nullable:false})
     forms?: Array<PokemonForms>;
 
-    @Field(() => [PokemonAbilities], {nullable:true})
+    @Field(() => [PokemonAbilities], {nullable:false})
     abilities?: Array<PokemonAbilities>;
 
-    @Field(() => [PokemonMoves], {nullable:true})
+    @Field(() => [PokemonMoves], {nullable:false})
     moves?: Array<PokemonMoves>;
 
-    @Field(() => [PokemonStats], {nullable:true})
+    @Field(() => [PokemonStats], {nullable:false})
     stats?: Array<PokemonStats>;
 
-    @Field(() => [PokemonTypes], {nullable:true})
+    @Field(() => [PokemonTypes], {nullable:false})
     types?: Array<PokemonTypes>;
 
-    @Field(() => [PokemonItems], {nullable:true})
+    @Field(() => [PokemonItems], {nullable:false})
     items?: Array<PokemonItems>;
 
-    @Field(() => [PokemonGameIndices], {nullable:true})
+    @Field(() => [PokemonGameIndices], {nullable:false})
     gameIndices?: Array<PokemonGameIndices>;
 
-    @Field(() => [Encounters], {nullable:true})
+    @Field(() => [Encounters], {nullable:false})
     encounters?: Array<Encounters>;
 
     @Field(() => PokemonCount, {nullable:false})
-    _count?: PokemonCount;
+    _count?: Identity<PokemonCount>;
 }

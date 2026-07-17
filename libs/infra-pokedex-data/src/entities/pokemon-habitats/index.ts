@@ -29,10 +29,10 @@ export { PokemonHabitatsMaxOrderByAggregateInput } from './pokemon-habitats-max-
 export { PokemonHabitatsMinAggregateInput } from './pokemon-habitats-min-aggregate.input';
 export { PokemonHabitatsMinAggregate } from './pokemon-habitats-min-aggregate.output';
 export { PokemonHabitatsMinOrderByAggregateInput } from './pokemon-habitats-min-order-by-aggregate.input';
-export { PokemonHabitatsNullableScalarRelationFilter } from './pokemon-habitats-nullable-scalar-relation-filter.input';
 export { PokemonHabitatsOrderByWithAggregationInput } from './pokemon-habitats-order-by-with-aggregation.input';
 export { PokemonHabitatsOrderByWithRelationInput } from './pokemon-habitats-order-by-with-relation.input';
 export { PokemonHabitatsScalarFieldEnum } from './pokemon-habitats-scalar-field.enum';
+export { PokemonHabitatsScalarRelationFilter } from './pokemon-habitats-scalar-relation-filter.input';
 export { PokemonHabitatsScalarWhereWithAggregatesInput } from './pokemon-habitats-scalar-where-with-aggregates.input';
 export { PokemonHabitatsSumAggregateInput } from './pokemon-habitats-sum-aggregate.input';
 export { PokemonHabitatsSumAggregate } from './pokemon-habitats-sum-aggregate.output';

@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemsWhereInput } from './items-where.input';
 import { Type } from 'class-transformer';
 import { ItemsOrderByWithRelationInput } from './items-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemsWhereUniqueInput } from './items-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { ItemsCountAggregateInput } from './items-count-aggregate.input';
@@ -17,7 +18,7 @@ export class ItemsAggregateArgs {
 
     @Field(() => ItemsWhereInput, {nullable:true})
     @Type(() => ItemsWhereInput)
-    where?: ItemsWhereInput;
+    where?: Identity<ItemsWhereInput>;
 
     @Field(() => [ItemsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<ItemsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class ItemsAggregateArgs {
     skip?: number;
 
     @Field(() => ItemsCountAggregateInput, {nullable:true})
-    _count?: ItemsCountAggregateInput;
+    _count?: Identity<ItemsCountAggregateInput>;
 
     @Field(() => ItemsAvgAggregateInput, {nullable:true})
-    _avg?: ItemsAvgAggregateInput;
+    _avg?: Identity<ItemsAvgAggregateInput>;
 
     @Field(() => ItemsSumAggregateInput, {nullable:true})
-    _sum?: ItemsSumAggregateInput;
+    _sum?: Identity<ItemsSumAggregateInput>;
 
     @Field(() => ItemsMinAggregateInput, {nullable:true})
-    _min?: ItemsMinAggregateInput;
+    _min?: Identity<ItemsMinAggregateInput>;
 
     @Field(() => ItemsMaxAggregateInput, {nullable:true})
-    _max?: ItemsMaxAggregateInput;
+    _max?: Identity<ItemsMaxAggregateInput>;
 }

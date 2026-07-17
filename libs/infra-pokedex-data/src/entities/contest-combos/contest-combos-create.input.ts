@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesCreateNestedOneWithoutContestCombosInput } from '../moves/moves-create-nested-one-without-contest-combos.input';
 import { MovesCreateNestedOneWithoutContestCombosSecondInput } from '../moves/moves-create-nested-one-without-contest-combos-second.input';
 
@@ -7,8 +8,8 @@ import { MovesCreateNestedOneWithoutContestCombosSecondInput } from '../moves/mo
 export class ContestCombosCreateInput {
 
     @Field(() => MovesCreateNestedOneWithoutContestCombosInput, {nullable:false})
-    firstMove!: MovesCreateNestedOneWithoutContestCombosInput;
+    firstMove!: Identity<MovesCreateNestedOneWithoutContestCombosInput>;
 
     @Field(() => MovesCreateNestedOneWithoutContestCombosSecondInput, {nullable:false})
-    secondMove!: MovesCreateNestedOneWithoutContestCombosSecondInput;
+    secondMove!: Identity<MovesCreateNestedOneWithoutContestCombosSecondInput>;
 }

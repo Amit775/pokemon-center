@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { RegionsNullableScalarRelationFilter } from '../regions/regions-nullable-scalar-relation-filter.input';
+import { RegionsScalarRelationFilter } from '../regions/regions-scalar-relation-filter.input';
 import { PokemonDexNumbersListRelationFilter } from '../pokemon-dex-numbers/pokemon-dex-numbers-list-relation-filter.input';
 import { PokedexVersionGroupsListRelationFilter } from '../pokedex-version-groups/pokedex-version-groups-list-relation-filter.input';
 
@@ -20,23 +20,23 @@ export class PokedexesWhereInput {
     NOT?: Array<PokedexesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    region_id?: IntNullableFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    is_main_series?: IntFilter;
+    region_id?: Identity<IntFilter>;
 
-    @Field(() => RegionsNullableScalarRelationFilter, {nullable:true})
-    region?: RegionsNullableScalarRelationFilter;
+    @Field(() => StringFilter, {nullable:true})
+    identifier?: Identity<StringFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    is_main_series?: Identity<IntFilter>;
+
+    @Field(() => RegionsScalarRelationFilter, {nullable:true})
+    region?: Identity<RegionsScalarRelationFilter>;
 
     @Field(() => PokemonDexNumbersListRelationFilter, {nullable:true})
-    dexNumbers?: PokemonDexNumbersListRelationFilter;
+    dexNumbers?: Identity<PokemonDexNumbersListRelationFilter>;
 
     @Field(() => PokedexVersionGroupsListRelationFilter, {nullable:true})
-    versionGroups?: PokedexVersionGroupsListRelationFilter;
+    versionGroups?: Identity<PokedexVersionGroupsListRelationFilter>;
 }

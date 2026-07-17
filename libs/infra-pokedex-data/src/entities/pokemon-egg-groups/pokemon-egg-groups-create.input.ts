@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesCreateNestedOneWithoutEggGroupsInput } from '../pokemon-species/pokemon-species-create-nested-one-without-egg-groups.input';
 import { EggGroupsCreateNestedOneWithoutSpeciesInput } from '../egg-groups/egg-groups-create-nested-one-without-species.input';
 
@@ -7,8 +8,8 @@ import { EggGroupsCreateNestedOneWithoutSpeciesInput } from '../egg-groups/egg-g
 export class PokemonEggGroupsCreateInput {
 
     @Field(() => PokemonSpeciesCreateNestedOneWithoutEggGroupsInput, {nullable:false})
-    species!: PokemonSpeciesCreateNestedOneWithoutEggGroupsInput;
+    species!: Identity<PokemonSpeciesCreateNestedOneWithoutEggGroupsInput>;
 
     @Field(() => EggGroupsCreateNestedOneWithoutSpeciesInput, {nullable:false})
-    eggGroup!: EggGroupsCreateNestedOneWithoutSpeciesInput;
+    eggGroup!: Identity<EggGroupsCreateNestedOneWithoutSpeciesInput>;
 }

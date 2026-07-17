@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EggGroupsUpdateWithoutSpeciesInput } from './egg-groups-update-without-species.input';
 import { Type } from 'class-transformer';
 import { EggGroupsCreateWithoutSpeciesInput } from './egg-groups-create-without-species.input';
@@ -10,13 +11,13 @@ export class EggGroupsUpsertWithoutSpeciesInput {
 
     @Field(() => EggGroupsUpdateWithoutSpeciesInput, {nullable:false})
     @Type(() => EggGroupsUpdateWithoutSpeciesInput)
-    update!: EggGroupsUpdateWithoutSpeciesInput;
+    update!: Identity<EggGroupsUpdateWithoutSpeciesInput>;
 
     @Field(() => EggGroupsCreateWithoutSpeciesInput, {nullable:false})
     @Type(() => EggGroupsCreateWithoutSpeciesInput)
-    create!: EggGroupsCreateWithoutSpeciesInput;
+    create!: Identity<EggGroupsCreateWithoutSpeciesInput>;
 
     @Field(() => EggGroupsWhereInput, {nullable:true})
     @Type(() => EggGroupsWhereInput)
-    where?: EggGroupsWhereInput;
+    where?: Identity<EggGroupsWhereInput>;
 }

@@ -4,8 +4,9 @@ import { PokemonFormsCreateWithoutVersionGroupInput } from './pokemon-forms-crea
 import { Type } from 'class-transformer';
 import { PokemonFormsCreateOrConnectWithoutVersionGroupInput } from './pokemon-forms-create-or-connect-without-version-group.input';
 import { PokemonFormsUpsertWithWhereUniqueWithoutVersionGroupInput } from './pokemon-forms-upsert-with-where-unique-without-version-group.input';
+import type { Identity } from 'identity-type';
 import { PokemonFormsCreateManyVersionGroupInputEnvelope } from './pokemon-forms-create-many-version-group-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonFormsWhereUniqueInput } from './pokemon-forms-where-unique.input';
 import { PokemonFormsUpdateWithWhereUniqueWithoutVersionGroupInput } from './pokemon-forms-update-with-where-unique-without-version-group.input';
 import { PokemonFormsUpdateManyWithWhereWithoutVersionGroupInput } from './pokemon-forms-update-many-with-where-without-version-group.input';
@@ -28,7 +29,7 @@ export class PokemonFormsUncheckedUpdateManyWithoutVersionGroupNestedInput {
 
     @Field(() => PokemonFormsCreateManyVersionGroupInputEnvelope, {nullable:true})
     @Type(() => PokemonFormsCreateManyVersionGroupInputEnvelope)
-    createMany?: PokemonFormsCreateManyVersionGroupInputEnvelope;
+    createMany?: Identity<PokemonFormsCreateManyVersionGroupInputEnvelope>;
 
     @Field(() => [PokemonFormsWhereUniqueInput], {nullable:true})
     @Type(() => PokemonFormsWhereUniqueInput)

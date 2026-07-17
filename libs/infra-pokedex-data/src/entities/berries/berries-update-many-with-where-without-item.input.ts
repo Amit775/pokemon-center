@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { BerriesScalarWhereInput } from './berries-scalar-where.input';
 import { Type } from 'class-transformer';
 import { BerriesUpdateManyMutationInput } from './berries-update-many-mutation.input';
@@ -9,9 +10,9 @@ export class BerriesUpdateManyWithWhereWithoutItemInput {
 
     @Field(() => BerriesScalarWhereInput, {nullable:false})
     @Type(() => BerriesScalarWhereInput)
-    where!: BerriesScalarWhereInput;
+    where!: Identity<BerriesScalarWhereInput>;
 
     @Field(() => BerriesUpdateManyMutationInput, {nullable:false})
     @Type(() => BerriesUpdateManyMutationInput)
-    data!: BerriesUpdateManyMutationInput;
+    data!: Identity<BerriesUpdateManyMutationInput>;
 }

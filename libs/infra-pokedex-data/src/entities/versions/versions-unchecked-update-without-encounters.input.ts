@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonItemsUncheckedUpdateManyWithoutVersionNestedInput } from '../pokemon-items/pokemon-items-unchecked-update-many-without-version-nested.input';
 import { PokemonGameIndicesUncheckedUpdateManyWithoutVersionNestedInput } from '../pokemon-game-indices/pokemon-game-indices-unchecked-update-many-without-version-nested.input';
 import { LocationAreaEncounterRatesUncheckedUpdateManyWithoutVersionNestedInput } from '../location-area-encounter-rates/location-area-encounter-rates-unchecked-update-many-without-version-nested.input';
@@ -9,21 +9,21 @@ import { LocationAreaEncounterRatesUncheckedUpdateManyWithoutVersionNestedInput 
 @InputType()
 export class VersionsUncheckedUpdateWithoutEncountersInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    version_group_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    version_group_id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
     @Field(() => PokemonItemsUncheckedUpdateManyWithoutVersionNestedInput, {nullable:true})
-    pokemonItems?: PokemonItemsUncheckedUpdateManyWithoutVersionNestedInput;
+    pokemonItems?: Identity<PokemonItemsUncheckedUpdateManyWithoutVersionNestedInput>;
 
     @Field(() => PokemonGameIndicesUncheckedUpdateManyWithoutVersionNestedInput, {nullable:true})
-    pokemonGameIndices?: PokemonGameIndicesUncheckedUpdateManyWithoutVersionNestedInput;
+    pokemonGameIndices?: Identity<PokemonGameIndicesUncheckedUpdateManyWithoutVersionNestedInput>;
 
     @Field(() => LocationAreaEncounterRatesUncheckedUpdateManyWithoutVersionNestedInput, {nullable:true})
-    locationAreaEncounterRates?: LocationAreaEncounterRatesUncheckedUpdateManyWithoutVersionNestedInput;
+    locationAreaEncounterRates?: Identity<LocationAreaEncounterRatesUncheckedUpdateManyWithoutVersionNestedInput>;
 }

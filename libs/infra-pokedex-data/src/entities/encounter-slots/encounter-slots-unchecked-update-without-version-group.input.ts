@@ -1,24 +1,24 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncountersUncheckedUpdateManyWithoutEncounterSlotNestedInput } from '../encounters/encounters-unchecked-update-many-without-encounter-slot-nested.input';
 
 @InputType()
 export class EncounterSlotsUncheckedUpdateWithoutVersionGroupInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    encounter_method_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    encounter_method_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    slot?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    slot?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    rarity?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    rarity?: number;
 
     @Field(() => EncountersUncheckedUpdateManyWithoutEncounterSlotNestedInput, {nullable:true})
-    encounters?: EncountersUncheckedUpdateManyWithoutEncounterSlotNestedInput;
+    encounters?: Identity<EncountersUncheckedUpdateManyWithoutEncounterSlotNestedInput>;
 }

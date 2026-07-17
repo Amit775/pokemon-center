@@ -1,14 +1,15 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GenerationsUpdateOneRequiredWithoutLocationGameIndicesNestedInput } from '../generations/generations-update-one-required-without-location-game-indices-nested.input';
 
 @InputType()
 export class LocationGameIndicesUpdateWithoutLocationInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    game_index?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    game_index?: number;
 
     @Field(() => GenerationsUpdateOneRequiredWithoutLocationGameIndicesNestedInput, {nullable:true})
-    generation?: GenerationsUpdateOneRequiredWithoutLocationGameIndicesNestedInput;
+    generation?: Identity<GenerationsUpdateOneRequiredWithoutLocationGameIndicesNestedInput>;
 }

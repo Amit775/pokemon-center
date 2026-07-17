@@ -1,7 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { StringFilter } from '../prisma/string-filter.input';
 
 @InputType()
 export class LocationAreasScalarWhereInput {
@@ -16,14 +17,14 @@ export class LocationAreasScalarWhereInput {
     NOT?: Array<LocationAreasScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    location_id?: IntFilter;
+    location_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    game_index?: IntFilter;
+    game_index?: Identity<IntFilter>;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    identifier?: StringNullableFilter;
+    @Field(() => StringFilter, {nullable:true})
+    identifier?: Identity<StringFilter>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormTypesCountAggregate } from './pokemon-form-types-count-aggregate.output';
 import { PokemonFormTypesAvgAggregate } from './pokemon-form-types-avg-aggregate.output';
 import { PokemonFormTypesSumAggregate } from './pokemon-form-types-sum-aggregate.output';
@@ -20,17 +21,17 @@ export class PokemonFormTypesGroupBy {
     slot!: number;
 
     @Field(() => PokemonFormTypesCountAggregate, {nullable:true})
-    _count?: PokemonFormTypesCountAggregate;
+    _count?: Identity<PokemonFormTypesCountAggregate>;
 
     @Field(() => PokemonFormTypesAvgAggregate, {nullable:true})
-    _avg?: PokemonFormTypesAvgAggregate;
+    _avg?: Identity<PokemonFormTypesAvgAggregate>;
 
     @Field(() => PokemonFormTypesSumAggregate, {nullable:true})
-    _sum?: PokemonFormTypesSumAggregate;
+    _sum?: Identity<PokemonFormTypesSumAggregate>;
 
     @Field(() => PokemonFormTypesMinAggregate, {nullable:true})
-    _min?: PokemonFormTypesMinAggregate;
+    _min?: Identity<PokemonFormTypesMinAggregate>;
 
     @Field(() => PokemonFormTypesMaxAggregate, {nullable:true})
-    _max?: PokemonFormTypesMaxAggregate;
+    _max?: Identity<PokemonFormTypesMaxAggregate>;
 }

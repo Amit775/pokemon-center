@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { BerriesCreateWithoutNaturalGiftTypeInput } from './berries-create-without-natural-gift-type.input';
 import { Type } from 'class-transformer';
 import { BerriesCreateOrConnectWithoutNaturalGiftTypeInput } from './berries-create-or-connect-without-natural-gift-type.input';
+import type { Identity } from 'identity-type';
 import { BerriesCreateManyNaturalGiftTypeInputEnvelope } from './berries-create-many-natural-gift-type-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { BerriesWhereUniqueInput } from './berries-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class BerriesCreateNestedManyWithoutNaturalGiftTypeInput {
 
     @Field(() => BerriesCreateManyNaturalGiftTypeInputEnvelope, {nullable:true})
     @Type(() => BerriesCreateManyNaturalGiftTypeInputEnvelope)
-    createMany?: BerriesCreateManyNaturalGiftTypeInputEnvelope;
+    createMany?: Identity<BerriesCreateManyNaturalGiftTypeInputEnvelope>;
 
     @Field(() => [BerriesWhereUniqueInput], {nullable:true})
     @Type(() => BerriesWhereUniqueInput)

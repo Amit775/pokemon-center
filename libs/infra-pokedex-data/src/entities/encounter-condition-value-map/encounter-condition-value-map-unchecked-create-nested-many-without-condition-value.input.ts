@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { EncounterConditionValueMapCreateWithoutConditionValueInput } from './encounter-condition-value-map-create-without-condition-value.input';
 import { Type } from 'class-transformer';
 import { EncounterConditionValueMapCreateOrConnectWithoutConditionValueInput } from './encounter-condition-value-map-create-or-connect-without-condition-value.input';
+import type { Identity } from 'identity-type';
 import { EncounterConditionValueMapCreateManyConditionValueInputEnvelope } from './encounter-condition-value-map-create-many-condition-value-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncounterConditionValueMapWhereUniqueInput } from './encounter-condition-value-map-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class EncounterConditionValueMapUncheckedCreateNestedManyWithoutCondition
 
     @Field(() => EncounterConditionValueMapCreateManyConditionValueInputEnvelope, {nullable:true})
     @Type(() => EncounterConditionValueMapCreateManyConditionValueInputEnvelope)
-    createMany?: EncounterConditionValueMapCreateManyConditionValueInputEnvelope;
+    createMany?: Identity<EncounterConditionValueMapCreateManyConditionValueInputEnvelope>;
 
     @Field(() => [EncounterConditionValueMapWhereUniqueInput], {nullable:true})
     @Type(() => EncounterConditionValueMapWhereUniqueInput)

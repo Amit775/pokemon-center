@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesUncheckedCreateNestedManyWithoutEvolvesFromInput } from './pokemon-species-unchecked-create-nested-many-without-evolves-from.input';
 import { PokemonUncheckedCreateNestedManyWithoutSpeciesInput } from '../pokemon/pokemon-unchecked-create-nested-many-without-species.input';
 import { PokemonDexNumbersUncheckedCreateNestedManyWithoutSpeciesInput } from '../pokemon-dex-numbers/pokemon-dex-numbers-unchecked-create-nested-many-without-species.input';
@@ -72,20 +73,20 @@ export class PokemonSpeciesUncheckedCreateWithoutEggGroupsInput {
     conquest_order?: number;
 
     @Field(() => PokemonSpeciesUncheckedCreateNestedManyWithoutEvolvesFromInput, {nullable:true})
-    evolvesTo?: PokemonSpeciesUncheckedCreateNestedManyWithoutEvolvesFromInput;
+    evolvesTo?: Identity<PokemonSpeciesUncheckedCreateNestedManyWithoutEvolvesFromInput>;
 
     @Field(() => PokemonUncheckedCreateNestedManyWithoutSpeciesInput, {nullable:true})
-    pokemon?: PokemonUncheckedCreateNestedManyWithoutSpeciesInput;
+    pokemon?: Identity<PokemonUncheckedCreateNestedManyWithoutSpeciesInput>;
 
     @Field(() => PokemonDexNumbersUncheckedCreateNestedManyWithoutSpeciesInput, {nullable:true})
-    dexNumbers?: PokemonDexNumbersUncheckedCreateNestedManyWithoutSpeciesInput;
+    dexNumbers?: Identity<PokemonDexNumbersUncheckedCreateNestedManyWithoutSpeciesInput>;
 
     @Field(() => PokemonEvolutionUncheckedCreateNestedManyWithoutEvolvedSpeciesInput, {nullable:true})
-    evolution?: PokemonEvolutionUncheckedCreateNestedManyWithoutEvolvedSpeciesInput;
+    evolution?: Identity<PokemonEvolutionUncheckedCreateNestedManyWithoutEvolvedSpeciesInput>;
 
     @Field(() => PokemonEvolutionUncheckedCreateNestedManyWithoutPartySpeciesInput, {nullable:true})
-    partySpecies?: PokemonEvolutionUncheckedCreateNestedManyWithoutPartySpeciesInput;
+    partySpecies?: Identity<PokemonEvolutionUncheckedCreateNestedManyWithoutPartySpeciesInput>;
 
     @Field(() => PokemonEvolutionUncheckedCreateNestedManyWithoutTradeSpeciesInput, {nullable:true})
-    tradeSpecies?: PokemonEvolutionUncheckedCreateNestedManyWithoutTradeSpeciesInput;
+    tradeSpecies?: Identity<PokemonEvolutionUncheckedCreateNestedManyWithoutTradeSpeciesInput>;
 }

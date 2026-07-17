@@ -67,7 +67,6 @@ export { TypesMaxOrderByAggregateInput } from './types-max-order-by-aggregate.in
 export { TypesMinAggregateInput } from './types-min-aggregate.input';
 export { TypesMinAggregate } from './types-min-aggregate.output';
 export { TypesMinOrderByAggregateInput } from './types-min-order-by-aggregate.input';
-export { TypesNullableScalarRelationFilter } from './types-nullable-scalar-relation-filter.input';
 export { TypesOrderByRelationAggregateInput } from './types-order-by-relation-aggregate.input';
 export { TypesOrderByWithAggregationInput } from './types-order-by-with-aggregation.input';
 export { TypesOrderByWithRelationInput } from './types-order-by-with-relation.input';

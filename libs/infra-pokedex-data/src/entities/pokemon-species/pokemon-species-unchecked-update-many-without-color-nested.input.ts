@@ -4,8 +4,9 @@ import { PokemonSpeciesCreateWithoutColorInput } from './pokemon-species-create-
 import { Type } from 'class-transformer';
 import { PokemonSpeciesCreateOrConnectWithoutColorInput } from './pokemon-species-create-or-connect-without-color.input';
 import { PokemonSpeciesUpsertWithWhereUniqueWithoutColorInput } from './pokemon-species-upsert-with-where-unique-without-color.input';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesCreateManyColorInputEnvelope } from './pokemon-species-create-many-color-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonSpeciesWhereUniqueInput } from './pokemon-species-where-unique.input';
 import { PokemonSpeciesUpdateWithWhereUniqueWithoutColorInput } from './pokemon-species-update-with-where-unique-without-color.input';
 import { PokemonSpeciesUpdateManyWithWhereWithoutColorInput } from './pokemon-species-update-many-with-where-without-color.input';
@@ -28,7 +29,7 @@ export class PokemonSpeciesUncheckedUpdateManyWithoutColorNestedInput {
 
     @Field(() => PokemonSpeciesCreateManyColorInputEnvelope, {nullable:true})
     @Type(() => PokemonSpeciesCreateManyColorInputEnvelope)
-    createMany?: PokemonSpeciesCreateManyColorInputEnvelope;
+    createMany?: Identity<PokemonSpeciesCreateManyColorInputEnvelope>;
 
     @Field(() => [PokemonSpeciesWhereUniqueInput], {nullable:true})
     @Type(() => PokemonSpeciesWhereUniqueInput)

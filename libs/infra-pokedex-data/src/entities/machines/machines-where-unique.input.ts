@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MachinesMachine_numberVersion_group_idCompoundUniqueInput } from './machines-machine-number-version-group-id-compound-unique.input';
 import { MachinesWhereInput } from './machines-where.input';
 import { IntFilter } from '../prisma/int-filter.input';
@@ -11,7 +12,7 @@ import { MovesScalarRelationFilter } from '../moves/moves-scalar-relation-filter
 export class MachinesWhereUniqueInput {
 
     @Field(() => MachinesMachine_numberVersion_group_idCompoundUniqueInput, {nullable:true})
-    machine_number_version_group_id?: MachinesMachine_numberVersion_group_idCompoundUniqueInput;
+    machine_number_version_group_id?: Identity<MachinesMachine_numberVersion_group_idCompoundUniqueInput>;
 
     @Field(() => [MachinesWhereInput], {nullable:true})
     AND?: Array<MachinesWhereInput>;
@@ -23,23 +24,23 @@ export class MachinesWhereUniqueInput {
     NOT?: Array<MachinesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    machine_number?: IntFilter;
+    machine_number?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    version_group_id?: IntFilter;
+    version_group_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    item_id?: IntFilter;
+    item_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    move_id?: IntFilter;
+    move_id?: Identity<IntFilter>;
 
     @Field(() => VersionGroupsScalarRelationFilter, {nullable:true})
-    versionGroup?: VersionGroupsScalarRelationFilter;
+    versionGroup?: Identity<VersionGroupsScalarRelationFilter>;
 
     @Field(() => ItemsScalarRelationFilter, {nullable:true})
-    item?: ItemsScalarRelationFilter;
+    item?: Identity<ItemsScalarRelationFilter>;
 
     @Field(() => MovesScalarRelationFilter, {nullable:true})
-    move?: MovesScalarRelationFilter;
+    move?: Identity<MovesScalarRelationFilter>;
 }

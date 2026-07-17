@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { RegionsWhereUniqueInput } from './regions-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { RegionsCreateInput } from './regions-create.input';
 import { RegionsUpdateInput } from './regions-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneRegionsArgs {
 
     @Field(() => RegionsCreateInput, {nullable:false})
     @Type(() => RegionsCreateInput)
-    create!: RegionsCreateInput;
+    create!: Identity<RegionsCreateInput>;
 
     @Field(() => RegionsUpdateInput, {nullable:false})
     @Type(() => RegionsUpdateInput)
-    update!: RegionsUpdateInput;
+    update!: Identity<RegionsUpdateInput>;
 }

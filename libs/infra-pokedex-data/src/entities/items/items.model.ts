@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { ItemCategories } from '../item-categories/item-categories.model';
+import type { Identity } from 'identity-type';
 import { ItemFlingEffects } from '../item-fling-effects/item-fling-effects.model';
 import { PokemonItems } from '../pokemon-items/pokemon-items.model';
 import { Machines } from '../machines/machines.model';
@@ -38,35 +39,35 @@ export class Items {
     fling_effect_id!: number | null;
 
     @Field(() => ItemCategories, {nullable:false})
-    category?: ItemCategories;
+    category?: Identity<ItemCategories>;
 
     @Field(() => ItemFlingEffects, {nullable:true})
-    flingEffect?: ItemFlingEffects | null;
+    flingEffect?: Identity<ItemFlingEffects> | null;
 
-    @Field(() => [PokemonItems], {nullable:true})
+    @Field(() => [PokemonItems], {nullable:false})
     pokemonItems?: Array<PokemonItems>;
 
-    @Field(() => [Machines], {nullable:true})
+    @Field(() => [Machines], {nullable:false})
     machines?: Array<Machines>;
 
-    @Field(() => [Berries], {nullable:true})
+    @Field(() => [Berries], {nullable:false})
     berries?: Array<Berries>;
 
-    @Field(() => [ItemGameIndices], {nullable:true})
+    @Field(() => [ItemGameIndices], {nullable:false})
     gameIndices?: Array<ItemGameIndices>;
 
-    @Field(() => [ItemFlagMap], {nullable:true})
+    @Field(() => [ItemFlagMap], {nullable:false})
     flagMap?: Array<ItemFlagMap>;
 
-    @Field(() => [EvolutionChains], {nullable:true})
+    @Field(() => [EvolutionChains], {nullable:false})
     babyTriggerItems?: Array<EvolutionChains>;
 
-    @Field(() => [PokemonEvolution], {nullable:true})
+    @Field(() => [PokemonEvolution], {nullable:false})
     triggerItems?: Array<PokemonEvolution>;
 
-    @Field(() => [PokemonEvolution], {nullable:true})
+    @Field(() => [PokemonEvolution], {nullable:false})
     heldItems?: Array<PokemonEvolution>;
 
     @Field(() => ItemsCount, {nullable:false})
-    _count?: ItemsCount;
+    _count?: Identity<ItemsCount>;
 }

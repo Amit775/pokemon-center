@@ -1,16 +1,16 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class EncountersUpdateManyMutationInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    min_level?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    min_level?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    max_level?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    max_level?: number;
 }

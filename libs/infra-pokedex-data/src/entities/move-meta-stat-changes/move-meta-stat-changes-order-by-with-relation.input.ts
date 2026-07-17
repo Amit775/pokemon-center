@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { StatsOrderByWithRelationInput } from '../stats/stats-order-by-with-relation.input';
 import { MoveMetaOrderByWithRelationInput } from '../move-meta/move-meta-order-by-with-relation.input';
 
@@ -17,8 +18,8 @@ export class MoveMetaStatChangesOrderByWithRelationInput {
     change?: `${SortOrder}`;
 
     @Field(() => StatsOrderByWithRelationInput, {nullable:true})
-    stat?: StatsOrderByWithRelationInput;
+    stat?: Identity<StatsOrderByWithRelationInput>;
 
     @Field(() => MoveMetaOrderByWithRelationInput, {nullable:true})
-    meta?: MoveMetaOrderByWithRelationInput;
+    meta?: Identity<MoveMetaOrderByWithRelationInput>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupsCreateNestedOneWithoutVersionGroupPokemonMoveMethodsInput } from '../version-groups/version-groups-create-nested-one-without-version-group-pokemon-move-methods.input';
 import { PokemonMoveMethodsCreateNestedOneWithoutVersionGroupsInput } from '../pokemon-move-methods/pokemon-move-methods-create-nested-one-without-version-groups.input';
 
@@ -7,8 +8,8 @@ import { PokemonMoveMethodsCreateNestedOneWithoutVersionGroupsInput } from '../p
 export class VersionGroupPokemonMoveMethodsCreateInput {
 
     @Field(() => VersionGroupsCreateNestedOneWithoutVersionGroupPokemonMoveMethodsInput, {nullable:false})
-    versionGroup!: VersionGroupsCreateNestedOneWithoutVersionGroupPokemonMoveMethodsInput;
+    versionGroup!: Identity<VersionGroupsCreateNestedOneWithoutVersionGroupPokemonMoveMethodsInput>;
 
     @Field(() => PokemonMoveMethodsCreateNestedOneWithoutVersionGroupsInput, {nullable:false})
-    moveMethod!: PokemonMoveMethodsCreateNestedOneWithoutVersionGroupsInput;
+    moveMethod!: Identity<PokemonMoveMethodsCreateNestedOneWithoutVersionGroupsInput>;
 }

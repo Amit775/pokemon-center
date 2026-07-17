@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonDexNumbersWhereInput } from './pokemon-dex-numbers-where.input';
 import { Type } from 'class-transformer';
 import { PokemonDexNumbersOrderByWithRelationInput } from './pokemon-dex-numbers-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonDexNumbersWhereUniqueInput } from './pokemon-dex-numbers-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokemonDexNumbersScalarFieldEnum } from './pokemon-dex-numbers-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstPokemonDexNumbersOrThrowArgs {
 
     @Field(() => PokemonDexNumbersWhereInput, {nullable:true})
     @Type(() => PokemonDexNumbersWhereInput)
-    where?: PokemonDexNumbersWhereInput;
+    where?: Identity<PokemonDexNumbersWhereInput>;
 
     @Field(() => [PokemonDexNumbersOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokemonDexNumbersOrderByWithRelationInput>;

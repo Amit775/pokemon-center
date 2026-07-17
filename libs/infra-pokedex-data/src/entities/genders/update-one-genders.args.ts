@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GendersUpdateInput } from './genders-update.input';
 import { Type } from 'class-transformer';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { GendersWhereUniqueInput } from './genders-where-unique.input';
 
 @ArgsType()
@@ -10,7 +11,7 @@ export class UpdateOneGendersArgs {
 
     @Field(() => GendersUpdateInput, {nullable:false})
     @Type(() => GendersUpdateInput)
-    data!: GendersUpdateInput;
+    data!: Identity<GendersUpdateInput>;
 
     @Field(() => GendersWhereUniqueInput, {nullable:false})
     @Type(() => GendersWhereUniqueInput)

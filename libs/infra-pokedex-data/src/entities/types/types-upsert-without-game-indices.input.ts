@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TypesUpdateWithoutGameIndicesInput } from './types-update-without-game-indices.input';
 import { Type } from 'class-transformer';
 import { TypesCreateWithoutGameIndicesInput } from './types-create-without-game-indices.input';
@@ -10,13 +11,13 @@ export class TypesUpsertWithoutGameIndicesInput {
 
     @Field(() => TypesUpdateWithoutGameIndicesInput, {nullable:false})
     @Type(() => TypesUpdateWithoutGameIndicesInput)
-    update!: TypesUpdateWithoutGameIndicesInput;
+    update!: Identity<TypesUpdateWithoutGameIndicesInput>;
 
     @Field(() => TypesCreateWithoutGameIndicesInput, {nullable:false})
     @Type(() => TypesCreateWithoutGameIndicesInput)
-    create!: TypesCreateWithoutGameIndicesInput;
+    create!: Identity<TypesCreateWithoutGameIndicesInput>;
 
     @Field(() => TypesWhereInput, {nullable:true})
     @Type(() => TypesWhereInput)
-    where?: TypesWhereInput;
+    where?: Identity<TypesWhereInput>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { PokemonFormsScalarRelationFilter } from '../pokemon-forms/pokemon-forms-scalar-relation-filter.input';
 import { GenerationsScalarRelationFilter } from '../generations/generations-scalar-relation-filter.input';
@@ -17,17 +18,17 @@ export class PokemonFormGenerationsWhereInput {
     NOT?: Array<PokemonFormGenerationsWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    pokemon_form_id?: IntFilter;
+    pokemon_form_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    generation_id?: IntFilter;
+    generation_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    game_index?: IntFilter;
+    game_index?: Identity<IntFilter>;
 
     @Field(() => PokemonFormsScalarRelationFilter, {nullable:true})
-    pokemonForm?: PokemonFormsScalarRelationFilter;
+    pokemonForm?: Identity<PokemonFormsScalarRelationFilter>;
 
     @Field(() => GenerationsScalarRelationFilter, {nullable:true})
-    generation?: GenerationsScalarRelationFilter;
+    generation?: Identity<GenerationsScalarRelationFilter>;
 }

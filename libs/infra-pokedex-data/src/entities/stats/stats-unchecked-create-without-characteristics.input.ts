@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonStatsUncheckedCreateNestedManyWithoutStatInput } from '../pokemon-stats/pokemon-stats-unchecked-create-nested-many-without-stat.input';
 import { MoveMetaStatChangesUncheckedCreateNestedManyWithoutStatInput } from '../move-meta-stat-changes/move-meta-stat-changes-unchecked-create-nested-many-without-stat.input';
 import { NaturesUncheckedCreateNestedManyWithoutDecreasedStatInput } from '../natures/natures-unchecked-create-nested-many-without-decreased-stat.input';
@@ -25,14 +26,14 @@ export class StatsUncheckedCreateWithoutCharacteristicsInput {
     game_index?: number;
 
     @Field(() => PokemonStatsUncheckedCreateNestedManyWithoutStatInput, {nullable:true})
-    pokemonStats?: PokemonStatsUncheckedCreateNestedManyWithoutStatInput;
+    pokemonStats?: Identity<PokemonStatsUncheckedCreateNestedManyWithoutStatInput>;
 
     @Field(() => MoveMetaStatChangesUncheckedCreateNestedManyWithoutStatInput, {nullable:true})
-    moveMetaStatChanges?: MoveMetaStatChangesUncheckedCreateNestedManyWithoutStatInput;
+    moveMetaStatChanges?: Identity<MoveMetaStatChangesUncheckedCreateNestedManyWithoutStatInput>;
 
     @Field(() => NaturesUncheckedCreateNestedManyWithoutDecreasedStatInput, {nullable:true})
-    naturesDecreased?: NaturesUncheckedCreateNestedManyWithoutDecreasedStatInput;
+    naturesDecreased?: Identity<NaturesUncheckedCreateNestedManyWithoutDecreasedStatInput>;
 
     @Field(() => NaturesUncheckedCreateNestedManyWithoutIncreasedStatInput, {nullable:true})
-    naturesIncreased?: NaturesUncheckedCreateNestedManyWithoutIncreasedStatInput;
+    naturesIncreased?: Identity<NaturesUncheckedCreateNestedManyWithoutIncreasedStatInput>;
 }

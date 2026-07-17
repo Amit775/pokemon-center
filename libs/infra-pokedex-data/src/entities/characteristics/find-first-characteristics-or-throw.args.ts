@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { CharacteristicsWhereInput } from './characteristics-where.input';
 import { Type } from 'class-transformer';
 import { CharacteristicsOrderByWithRelationInput } from './characteristics-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { CharacteristicsWhereUniqueInput } from './characteristics-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { CharacteristicsScalarFieldEnum } from './characteristics-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstCharacteristicsOrThrowArgs {
 
     @Field(() => CharacteristicsWhereInput, {nullable:true})
     @Type(() => CharacteristicsWhereInput)
-    where?: CharacteristicsWhereInput;
+    where?: Identity<CharacteristicsWhereInput>;
 
     @Field(() => [CharacteristicsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<CharacteristicsOrderByWithRelationInput>;

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationAreasWhereInput } from './location-areas-where.input';
 import { Type } from 'class-transformer';
 import { LocationAreasOrderByWithAggregationInput } from './location-areas-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class LocationAreasGroupByArgs {
 
     @Field(() => LocationAreasWhereInput, {nullable:true})
     @Type(() => LocationAreasWhereInput)
-    where?: LocationAreasWhereInput;
+    where?: Identity<LocationAreasWhereInput>;
 
     @Field(() => [LocationAreasOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<LocationAreasOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class LocationAreasGroupByArgs {
     by!: Array<`${LocationAreasScalarFieldEnum}`>;
 
     @Field(() => LocationAreasScalarWhereWithAggregatesInput, {nullable:true})
-    having?: LocationAreasScalarWhereWithAggregatesInput;
+    having?: Identity<LocationAreasScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class LocationAreasGroupByArgs {
     skip?: number;
 
     @Field(() => LocationAreasCountAggregateInput, {nullable:true})
-    _count?: LocationAreasCountAggregateInput;
+    _count?: Identity<LocationAreasCountAggregateInput>;
 
     @Field(() => LocationAreasAvgAggregateInput, {nullable:true})
-    _avg?: LocationAreasAvgAggregateInput;
+    _avg?: Identity<LocationAreasAvgAggregateInput>;
 
     @Field(() => LocationAreasSumAggregateInput, {nullable:true})
-    _sum?: LocationAreasSumAggregateInput;
+    _sum?: Identity<LocationAreasSumAggregateInput>;
 
     @Field(() => LocationAreasMinAggregateInput, {nullable:true})
-    _min?: LocationAreasMinAggregateInput;
+    _min?: Identity<LocationAreasMinAggregateInput>;
 
     @Field(() => LocationAreasMaxAggregateInput, {nullable:true})
-    _max?: LocationAreasMaxAggregateInput;
+    _max?: Identity<LocationAreasMaxAggregateInput>;
 }

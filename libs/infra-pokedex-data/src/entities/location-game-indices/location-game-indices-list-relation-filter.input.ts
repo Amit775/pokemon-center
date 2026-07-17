@@ -1,16 +1,17 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationGameIndicesWhereInput } from './location-game-indices-where.input';
 
 @InputType()
 export class LocationGameIndicesListRelationFilter {
 
     @Field(() => LocationGameIndicesWhereInput, {nullable:true})
-    every?: LocationGameIndicesWhereInput;
+    every?: Identity<LocationGameIndicesWhereInput>;
 
     @Field(() => LocationGameIndicesWhereInput, {nullable:true})
-    some?: LocationGameIndicesWhereInput;
+    some?: Identity<LocationGameIndicesWhereInput>;
 
     @Field(() => LocationGameIndicesWhereInput, {nullable:true})
-    none?: LocationGameIndicesWhereInput;
+    none?: Identity<LocationGameIndicesWhereInput>;
 }

@@ -4,8 +4,9 @@ import { ItemGameIndicesCreateWithoutGenerationInput } from './item-game-indices
 import { Type } from 'class-transformer';
 import { ItemGameIndicesCreateOrConnectWithoutGenerationInput } from './item-game-indices-create-or-connect-without-generation.input';
 import { ItemGameIndicesUpsertWithWhereUniqueWithoutGenerationInput } from './item-game-indices-upsert-with-where-unique-without-generation.input';
+import type { Identity } from 'identity-type';
 import { ItemGameIndicesCreateManyGenerationInputEnvelope } from './item-game-indices-create-many-generation-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemGameIndicesWhereUniqueInput } from './item-game-indices-where-unique.input';
 import { ItemGameIndicesUpdateWithWhereUniqueWithoutGenerationInput } from './item-game-indices-update-with-where-unique-without-generation.input';
 import { ItemGameIndicesUpdateManyWithWhereWithoutGenerationInput } from './item-game-indices-update-many-with-where-without-generation.input';
@@ -28,7 +29,7 @@ export class ItemGameIndicesUpdateManyWithoutGenerationNestedInput {
 
     @Field(() => ItemGameIndicesCreateManyGenerationInputEnvelope, {nullable:true})
     @Type(() => ItemGameIndicesCreateManyGenerationInputEnvelope)
-    createMany?: ItemGameIndicesCreateManyGenerationInputEnvelope;
+    createMany?: Identity<ItemGameIndicesCreateManyGenerationInputEnvelope>;
 
     @Field(() => [ItemGameIndicesWhereUniqueInput], {nullable:true})
     @Type(() => ItemGameIndicesWhereUniqueInput)

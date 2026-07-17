@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { GendersWhereInput } from './genders-where.input';
+import type { Identity } from 'identity-type';
 import { StringFilter } from '../prisma/string-filter.input';
 import { PokemonEvolutionListRelationFilter } from '../pokemon-evolution/pokemon-evolution-list-relation-filter.input';
 
@@ -21,8 +22,8 @@ export class GendersWhereUniqueInput {
     NOT?: Array<GendersWhereInput>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => PokemonEvolutionListRelationFilter, {nullable:true})
-    evolution?: PokemonEvolutionListRelationFilter;
+    evolution?: Identity<PokemonEvolutionListRelationFilter>;
 }

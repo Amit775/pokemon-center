@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { VersionGroupPokemonMoveMethodsCreateWithoutVersionGroupInput } from './version-group-pokemon-move-methods-create-without-version-group.input';
 import { Type } from 'class-transformer';
 import { VersionGroupPokemonMoveMethodsCreateOrConnectWithoutVersionGroupInput } from './version-group-pokemon-move-methods-create-or-connect-without-version-group.input';
+import type { Identity } from 'identity-type';
 import { VersionGroupPokemonMoveMethodsCreateManyVersionGroupInputEnvelope } from './version-group-pokemon-move-methods-create-many-version-group-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupPokemonMoveMethodsWhereUniqueInput } from './version-group-pokemon-move-methods-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class VersionGroupPokemonMoveMethodsCreateNestedManyWithoutVersionGroupIn
 
     @Field(() => VersionGroupPokemonMoveMethodsCreateManyVersionGroupInputEnvelope, {nullable:true})
     @Type(() => VersionGroupPokemonMoveMethodsCreateManyVersionGroupInputEnvelope)
-    createMany?: VersionGroupPokemonMoveMethodsCreateManyVersionGroupInputEnvelope;
+    createMany?: Identity<VersionGroupPokemonMoveMethodsCreateManyVersionGroupInputEnvelope>;
 
     @Field(() => [VersionGroupPokemonMoveMethodsWhereUniqueInput], {nullable:true})
     @Type(() => VersionGroupPokemonMoveMethodsWhereUniqueInput)

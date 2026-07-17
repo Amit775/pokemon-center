@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationsWhereInput } from './locations-where.input';
 import { Type } from 'class-transformer';
 import { LocationsUpdateWithoutGameIndicesInput } from './locations-update-without-game-indices.input';
@@ -9,9 +10,9 @@ export class LocationsUpdateToOneWithWhereWithoutGameIndicesInput {
 
     @Field(() => LocationsWhereInput, {nullable:true})
     @Type(() => LocationsWhereInput)
-    where?: LocationsWhereInput;
+    where?: Identity<LocationsWhereInput>;
 
     @Field(() => LocationsUpdateWithoutGameIndicesInput, {nullable:false})
     @Type(() => LocationsUpdateWithoutGameIndicesInput)
-    data!: LocationsUpdateWithoutGameIndicesInput;
+    data!: Identity<LocationsUpdateWithoutGameIndicesInput>;
 }

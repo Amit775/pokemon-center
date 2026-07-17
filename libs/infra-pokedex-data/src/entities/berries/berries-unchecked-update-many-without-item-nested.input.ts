@@ -4,8 +4,9 @@ import { BerriesCreateWithoutItemInput } from './berries-create-without-item.inp
 import { Type } from 'class-transformer';
 import { BerriesCreateOrConnectWithoutItemInput } from './berries-create-or-connect-without-item.input';
 import { BerriesUpsertWithWhereUniqueWithoutItemInput } from './berries-upsert-with-where-unique-without-item.input';
+import type { Identity } from 'identity-type';
 import { BerriesCreateManyItemInputEnvelope } from './berries-create-many-item-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { BerriesWhereUniqueInput } from './berries-where-unique.input';
 import { BerriesUpdateWithWhereUniqueWithoutItemInput } from './berries-update-with-where-unique-without-item.input';
 import { BerriesUpdateManyWithWhereWithoutItemInput } from './berries-update-many-with-where-without-item.input';
@@ -28,7 +29,7 @@ export class BerriesUncheckedUpdateManyWithoutItemNestedInput {
 
     @Field(() => BerriesCreateManyItemInputEnvelope, {nullable:true})
     @Type(() => BerriesCreateManyItemInputEnvelope)
-    createMany?: BerriesCreateManyItemInputEnvelope;
+    createMany?: Identity<BerriesCreateManyItemInputEnvelope>;
 
     @Field(() => [BerriesWhereUniqueInput], {nullable:true})
     @Type(() => BerriesWhereUniqueInput)

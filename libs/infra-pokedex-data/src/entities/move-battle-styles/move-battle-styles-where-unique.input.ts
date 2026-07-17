@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { MoveBattleStylesWhereInput } from './move-battle-styles-where.input';
+import type { Identity } from 'identity-type';
 import { StringFilter } from '../prisma/string-filter.input';
 import { NatureBattleStylePreferencesListRelationFilter } from '../nature-battle-style-preferences/nature-battle-style-preferences-list-relation-filter.input';
 
@@ -21,8 +22,8 @@ export class MoveBattleStylesWhereUniqueInput {
     NOT?: Array<MoveBattleStylesWhereInput>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => NatureBattleStylePreferencesListRelationFilter, {nullable:true})
-    naturePreferences?: NatureBattleStylePreferencesListRelationFilter;
+    naturePreferences?: Identity<NatureBattleStylePreferencesListRelationFilter>;
 }

@@ -4,8 +4,9 @@ import { PokemonEvolutionCreateWithoutHeldItemInput } from './pokemon-evolution-
 import { Type } from 'class-transformer';
 import { PokemonEvolutionCreateOrConnectWithoutHeldItemInput } from './pokemon-evolution-create-or-connect-without-held-item.input';
 import { PokemonEvolutionUpsertWithWhereUniqueWithoutHeldItemInput } from './pokemon-evolution-upsert-with-where-unique-without-held-item.input';
+import type { Identity } from 'identity-type';
 import { PokemonEvolutionCreateManyHeldItemInputEnvelope } from './pokemon-evolution-create-many-held-item-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEvolutionWhereUniqueInput } from './pokemon-evolution-where-unique.input';
 import { PokemonEvolutionUpdateWithWhereUniqueWithoutHeldItemInput } from './pokemon-evolution-update-with-where-unique-without-held-item.input';
 import { PokemonEvolutionUpdateManyWithWhereWithoutHeldItemInput } from './pokemon-evolution-update-many-with-where-without-held-item.input';
@@ -28,7 +29,7 @@ export class PokemonEvolutionUncheckedUpdateManyWithoutHeldItemNestedInput {
 
     @Field(() => PokemonEvolutionCreateManyHeldItemInputEnvelope, {nullable:true})
     @Type(() => PokemonEvolutionCreateManyHeldItemInputEnvelope)
-    createMany?: PokemonEvolutionCreateManyHeldItemInputEnvelope;
+    createMany?: Identity<PokemonEvolutionCreateManyHeldItemInputEnvelope>;
 
     @Field(() => [PokemonEvolutionWhereUniqueInput], {nullable:true})
     @Type(() => PokemonEvolutionWhereUniqueInput)

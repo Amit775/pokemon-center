@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesUpdateOneRequiredWithoutContestCombosNestedInput } from '../moves/moves-update-one-required-without-contest-combos-nested.input';
 import { MovesUpdateOneRequiredWithoutContestCombosSecondNestedInput } from '../moves/moves-update-one-required-without-contest-combos-second-nested.input';
 
@@ -7,8 +8,8 @@ import { MovesUpdateOneRequiredWithoutContestCombosSecondNestedInput } from '../
 export class ContestCombosUpdateInput {
 
     @Field(() => MovesUpdateOneRequiredWithoutContestCombosNestedInput, {nullable:true})
-    firstMove?: MovesUpdateOneRequiredWithoutContestCombosNestedInput;
+    firstMove?: Identity<MovesUpdateOneRequiredWithoutContestCombosNestedInput>;
 
     @Field(() => MovesUpdateOneRequiredWithoutContestCombosSecondNestedInput, {nullable:true})
-    secondMove?: MovesUpdateOneRequiredWithoutContestCombosSecondNestedInput;
+    secondMove?: Identity<MovesUpdateOneRequiredWithoutContestCombosSecondNestedInput>;
 }

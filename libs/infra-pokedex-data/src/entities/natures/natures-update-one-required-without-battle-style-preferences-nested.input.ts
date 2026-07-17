@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NaturesCreateWithoutBattleStylePreferencesInput } from './natures-create-without-battle-style-preferences.input';
 import { Type } from 'class-transformer';
 import { NaturesCreateOrConnectWithoutBattleStylePreferencesInput } from './natures-create-or-connect-without-battle-style-preferences.input';
 import { NaturesUpsertWithoutBattleStylePreferencesInput } from './natures-upsert-without-battle-style-preferences.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { NaturesWhereUniqueInput } from './natures-where-unique.input';
 import { NaturesUpdateToOneWithWhereWithoutBattleStylePreferencesInput } from './natures-update-to-one-with-where-without-battle-style-preferences.input';
 
@@ -13,15 +14,15 @@ export class NaturesUpdateOneRequiredWithoutBattleStylePreferencesNestedInput {
 
     @Field(() => NaturesCreateWithoutBattleStylePreferencesInput, {nullable:true})
     @Type(() => NaturesCreateWithoutBattleStylePreferencesInput)
-    create?: NaturesCreateWithoutBattleStylePreferencesInput;
+    create?: Identity<NaturesCreateWithoutBattleStylePreferencesInput>;
 
     @Field(() => NaturesCreateOrConnectWithoutBattleStylePreferencesInput, {nullable:true})
     @Type(() => NaturesCreateOrConnectWithoutBattleStylePreferencesInput)
-    connectOrCreate?: NaturesCreateOrConnectWithoutBattleStylePreferencesInput;
+    connectOrCreate?: Identity<NaturesCreateOrConnectWithoutBattleStylePreferencesInput>;
 
     @Field(() => NaturesUpsertWithoutBattleStylePreferencesInput, {nullable:true})
     @Type(() => NaturesUpsertWithoutBattleStylePreferencesInput)
-    upsert?: NaturesUpsertWithoutBattleStylePreferencesInput;
+    upsert?: Identity<NaturesUpsertWithoutBattleStylePreferencesInput>;
 
     @Field(() => NaturesWhereUniqueInput, {nullable:true})
     @Type(() => NaturesWhereUniqueInput)
@@ -29,5 +30,5 @@ export class NaturesUpdateOneRequiredWithoutBattleStylePreferencesNestedInput {
 
     @Field(() => NaturesUpdateToOneWithWhereWithoutBattleStylePreferencesInput, {nullable:true})
     @Type(() => NaturesUpdateToOneWithWhereWithoutBattleStylePreferencesInput)
-    update?: NaturesUpdateToOneWithWhereWithoutBattleStylePreferencesInput;
+    update?: Identity<NaturesUpdateToOneWithWhereWithoutBattleStylePreferencesInput>;
 }

@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonStatsWhereInput } from './pokemon-stats-where.input';
 import { Type } from 'class-transformer';
 import { PokemonStatsOrderByWithRelationInput } from './pokemon-stats-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonStatsWhereUniqueInput } from './pokemon-stats-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokemonStatsScalarFieldEnum } from './pokemon-stats-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManyPokemonStatsArgs {
 
     @Field(() => PokemonStatsWhereInput, {nullable:true})
     @Type(() => PokemonStatsWhereInput)
-    where?: PokemonStatsWhereInput;
+    where?: Identity<PokemonStatsWhereInput>;
 
     @Field(() => [PokemonStatsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokemonStatsOrderByWithRelationInput>;

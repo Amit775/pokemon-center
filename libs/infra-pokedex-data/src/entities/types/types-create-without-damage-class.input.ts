@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GenerationsCreateNestedOneWithoutTypesInput } from '../generations/generations-create-nested-one-without-types.input';
 import { MovesCreateNestedManyWithoutTypeInput } from '../moves/moves-create-nested-many-without-type.input';
 import { PokemonTypesCreateNestedManyWithoutTypeInput } from '../pokemon-types/pokemon-types-create-nested-many-without-type.input';
@@ -23,35 +24,35 @@ export class TypesCreateWithoutDamageClassInput {
     identifier!: string;
 
     @Field(() => GenerationsCreateNestedOneWithoutTypesInput, {nullable:false})
-    generation!: GenerationsCreateNestedOneWithoutTypesInput;
+    generation!: Identity<GenerationsCreateNestedOneWithoutTypesInput>;
 
     @Field(() => MovesCreateNestedManyWithoutTypeInput, {nullable:true})
-    moves?: MovesCreateNestedManyWithoutTypeInput;
+    moves?: Identity<MovesCreateNestedManyWithoutTypeInput>;
 
     @Field(() => PokemonTypesCreateNestedManyWithoutTypeInput, {nullable:true})
-    pokemonTypes?: PokemonTypesCreateNestedManyWithoutTypeInput;
+    pokemonTypes?: Identity<PokemonTypesCreateNestedManyWithoutTypeInput>;
 
     @Field(() => PokemonFormTypesCreateNestedManyWithoutTypeInput, {nullable:true})
-    formTypes?: PokemonFormTypesCreateNestedManyWithoutTypeInput;
+    formTypes?: Identity<PokemonFormTypesCreateNestedManyWithoutTypeInput>;
 
     @Field(() => TypeGameIndicesCreateNestedManyWithoutTypeInput, {nullable:true})
-    gameIndices?: TypeGameIndicesCreateNestedManyWithoutTypeInput;
+    gameIndices?: Identity<TypeGameIndicesCreateNestedManyWithoutTypeInput>;
 
     @Field(() => TypeEfficacyCreateNestedManyWithoutDamageTypeInput, {nullable:true})
-    efficacy?: TypeEfficacyCreateNestedManyWithoutDamageTypeInput;
+    efficacy?: Identity<TypeEfficacyCreateNestedManyWithoutDamageTypeInput>;
 
     @Field(() => TypeEfficacyCreateNestedManyWithoutTargetTypeInput, {nullable:true})
-    efficacyTarget?: TypeEfficacyCreateNestedManyWithoutTargetTypeInput;
+    efficacyTarget?: Identity<TypeEfficacyCreateNestedManyWithoutTargetTypeInput>;
 
     @Field(() => BerryFlavorsCreateNestedManyWithoutTypeInput, {nullable:true})
-    berryFlavors?: BerryFlavorsCreateNestedManyWithoutTypeInput;
+    berryFlavors?: Identity<BerryFlavorsCreateNestedManyWithoutTypeInput>;
 
     @Field(() => PokemonEvolutionCreateNestedManyWithoutKnownMoveTypeInput, {nullable:true})
-    knownMoveTypes?: PokemonEvolutionCreateNestedManyWithoutKnownMoveTypeInput;
+    knownMoveTypes?: Identity<PokemonEvolutionCreateNestedManyWithoutKnownMoveTypeInput>;
 
     @Field(() => PokemonEvolutionCreateNestedManyWithoutPartyTypeInput, {nullable:true})
-    partyTypes?: PokemonEvolutionCreateNestedManyWithoutPartyTypeInput;
+    partyTypes?: Identity<PokemonEvolutionCreateNestedManyWithoutPartyTypeInput>;
 
     @Field(() => BerriesCreateNestedManyWithoutNaturalGiftTypeInput, {nullable:true})
-    naturalGiftTypes?: BerriesCreateNestedManyWithoutNaturalGiftTypeInput;
+    naturalGiftTypes?: Identity<BerriesCreateNestedManyWithoutNaturalGiftTypeInput>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { TypeEfficacyCountOrderByAggregateInput } from './type-efficacy-count-order-by-aggregate.input';
 import { TypeEfficacyAvgOrderByAggregateInput } from './type-efficacy-avg-order-by-aggregate.input';
 import { TypeEfficacyMaxOrderByAggregateInput } from './type-efficacy-max-order-by-aggregate.input';
@@ -20,17 +21,17 @@ export class TypeEfficacyOrderByWithAggregationInput {
     damage_factor?: `${SortOrder}`;
 
     @Field(() => TypeEfficacyCountOrderByAggregateInput, {nullable:true})
-    _count?: TypeEfficacyCountOrderByAggregateInput;
+    _count?: Identity<TypeEfficacyCountOrderByAggregateInput>;
 
     @Field(() => TypeEfficacyAvgOrderByAggregateInput, {nullable:true})
-    _avg?: TypeEfficacyAvgOrderByAggregateInput;
+    _avg?: Identity<TypeEfficacyAvgOrderByAggregateInput>;
 
     @Field(() => TypeEfficacyMaxOrderByAggregateInput, {nullable:true})
-    _max?: TypeEfficacyMaxOrderByAggregateInput;
+    _max?: Identity<TypeEfficacyMaxOrderByAggregateInput>;
 
     @Field(() => TypeEfficacyMinOrderByAggregateInput, {nullable:true})
-    _min?: TypeEfficacyMinOrderByAggregateInput;
+    _min?: Identity<TypeEfficacyMinOrderByAggregateInput>;
 
     @Field(() => TypeEfficacySumOrderByAggregateInput, {nullable:true})
-    _sum?: TypeEfficacySumOrderByAggregateInput;
+    _sum?: Identity<TypeEfficacySumOrderByAggregateInput>;
 }

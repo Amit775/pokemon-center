@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 
@@ -16,14 +17,14 @@ export class EncounterConditionValuesScalarWhereInput {
     NOT?: Array<EncounterConditionValuesScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    encounter_condition_id?: IntFilter;
+    encounter_condition_id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    is_default?: IntFilter;
+    is_default?: Identity<IntFilter>;
 }

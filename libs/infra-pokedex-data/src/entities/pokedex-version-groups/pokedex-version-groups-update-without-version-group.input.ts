@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokedexesUpdateOneRequiredWithoutVersionGroupsNestedInput } from '../pokedexes/pokedexes-update-one-required-without-version-groups-nested.input';
 
 @InputType()
 export class PokedexVersionGroupsUpdateWithoutVersionGroupInput {
 
     @Field(() => PokedexesUpdateOneRequiredWithoutVersionGroupsNestedInput, {nullable:true})
-    pokedex?: PokedexesUpdateOneRequiredWithoutVersionGroupsNestedInput;
+    pokedex?: Identity<PokedexesUpdateOneRequiredWithoutVersionGroupsNestedInput>;
 }

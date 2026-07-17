@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { PokemonEvolutionCreateWithoutHeldItemInput } from './pokemon-evolution-create-without-held-item.input';
 import { Type } from 'class-transformer';
 import { PokemonEvolutionCreateOrConnectWithoutHeldItemInput } from './pokemon-evolution-create-or-connect-without-held-item.input';
+import type { Identity } from 'identity-type';
 import { PokemonEvolutionCreateManyHeldItemInputEnvelope } from './pokemon-evolution-create-many-held-item-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEvolutionWhereUniqueInput } from './pokemon-evolution-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class PokemonEvolutionCreateNestedManyWithoutHeldItemInput {
 
     @Field(() => PokemonEvolutionCreateManyHeldItemInputEnvelope, {nullable:true})
     @Type(() => PokemonEvolutionCreateManyHeldItemInputEnvelope)
-    createMany?: PokemonEvolutionCreateManyHeldItemInputEnvelope;
+    createMany?: Identity<PokemonEvolutionCreateManyHeldItemInputEnvelope>;
 
     @Field(() => [PokemonEvolutionWhereUniqueInput], {nullable:true})
     @Type(() => PokemonEvolutionWhereUniqueInput)

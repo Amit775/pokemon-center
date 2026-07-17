@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationGameIndicesLocation_idGeneration_idCompoundUniqueInput } from './location-game-indices-location-id-generation-id-compound-unique.input';
 import { LocationGameIndicesWhereInput } from './location-game-indices-where.input';
 import { IntFilter } from '../prisma/int-filter.input';
@@ -10,7 +11,7 @@ import { GenerationsScalarRelationFilter } from '../generations/generations-scal
 export class LocationGameIndicesWhereUniqueInput {
 
     @Field(() => LocationGameIndicesLocation_idGeneration_idCompoundUniqueInput, {nullable:true})
-    location_id_generation_id?: LocationGameIndicesLocation_idGeneration_idCompoundUniqueInput;
+    location_id_generation_id?: Identity<LocationGameIndicesLocation_idGeneration_idCompoundUniqueInput>;
 
     @Field(() => [LocationGameIndicesWhereInput], {nullable:true})
     AND?: Array<LocationGameIndicesWhereInput>;
@@ -22,17 +23,17 @@ export class LocationGameIndicesWhereUniqueInput {
     NOT?: Array<LocationGameIndicesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    location_id?: IntFilter;
+    location_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    generation_id?: IntFilter;
+    generation_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    game_index?: IntFilter;
+    game_index?: Identity<IntFilter>;
 
     @Field(() => LocationsScalarRelationFilter, {nullable:true})
-    location?: LocationsScalarRelationFilter;
+    location?: Identity<LocationsScalarRelationFilter>;
 
     @Field(() => GenerationsScalarRelationFilter, {nullable:true})
-    generation?: GenerationsScalarRelationFilter;
+    generation?: Identity<GenerationsScalarRelationFilter>;
 }

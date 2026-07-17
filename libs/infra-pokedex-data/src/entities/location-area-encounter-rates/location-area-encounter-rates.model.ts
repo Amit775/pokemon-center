@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { LocationAreas } from '../location-areas/location-areas.model';
+import type { Identity } from 'identity-type';
 import { EncounterMethods } from '../encounter-methods/encounter-methods.model';
 import { Versions } from '../versions/versions.model';
 
@@ -24,11 +25,11 @@ export class LocationAreaEncounterRates {
     rate!: number;
 
     @Field(() => LocationAreas, {nullable:false})
-    locationArea?: LocationAreas;
+    locationArea?: Identity<LocationAreas>;
 
     @Field(() => EncounterMethods, {nullable:false})
-    encounterMethod?: EncounterMethods;
+    encounterMethod?: Identity<EncounterMethods>;
 
     @Field(() => Versions, {nullable:false})
-    version?: Versions;
+    version?: Identity<Versions>;
 }

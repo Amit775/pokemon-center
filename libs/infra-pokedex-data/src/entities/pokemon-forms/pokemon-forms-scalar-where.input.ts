@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 
 @InputType()
 export class PokemonFormsScalarWhereInput {
@@ -17,32 +17,32 @@ export class PokemonFormsScalarWhereInput {
     NOT?: Array<PokemonFormsScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    form_identifier?: StringNullableFilter;
-
-    @Field(() => IntFilter, {nullable:true})
-    pokemon_id?: IntFilter;
+    @Field(() => StringFilter, {nullable:true})
+    form_identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    introduced_in_version_group_id?: IntFilter;
+    pokemon_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    is_default?: IntFilter;
+    introduced_in_version_group_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    is_battle_only?: IntFilter;
+    is_default?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    is_mega?: IntFilter;
+    is_battle_only?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    form_order?: IntFilter;
+    is_mega?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    order?: IntFilter;
+    form_order?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    order?: Identity<IntFilter>;
 }

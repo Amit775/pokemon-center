@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MachinesCountAggregate } from './machines-count-aggregate.output';
 import { MachinesAvgAggregate } from './machines-avg-aggregate.output';
 import { MachinesSumAggregate } from './machines-sum-aggregate.output';
@@ -23,17 +24,17 @@ export class MachinesGroupBy {
     move_id!: number;
 
     @Field(() => MachinesCountAggregate, {nullable:true})
-    _count?: MachinesCountAggregate;
+    _count?: Identity<MachinesCountAggregate>;
 
     @Field(() => MachinesAvgAggregate, {nullable:true})
-    _avg?: MachinesAvgAggregate;
+    _avg?: Identity<MachinesAvgAggregate>;
 
     @Field(() => MachinesSumAggregate, {nullable:true})
-    _sum?: MachinesSumAggregate;
+    _sum?: Identity<MachinesSumAggregate>;
 
     @Field(() => MachinesMinAggregate, {nullable:true})
-    _min?: MachinesMinAggregate;
+    _min?: Identity<MachinesMinAggregate>;
 
     @Field(() => MachinesMaxAggregate, {nullable:true})
-    _max?: MachinesMaxAggregate;
+    _max?: Identity<MachinesMaxAggregate>;
 }

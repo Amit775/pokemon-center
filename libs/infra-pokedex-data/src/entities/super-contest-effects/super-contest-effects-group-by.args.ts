@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { SuperContestEffectsWhereInput } from './super-contest-effects-where.input';
 import { Type } from 'class-transformer';
 import { SuperContestEffectsOrderByWithAggregationInput } from './super-contest-effects-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class SuperContestEffectsGroupByArgs {
 
     @Field(() => SuperContestEffectsWhereInput, {nullable:true})
     @Type(() => SuperContestEffectsWhereInput)
-    where?: SuperContestEffectsWhereInput;
+    where?: Identity<SuperContestEffectsWhereInput>;
 
     @Field(() => [SuperContestEffectsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<SuperContestEffectsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class SuperContestEffectsGroupByArgs {
     by!: Array<`${SuperContestEffectsScalarFieldEnum}`>;
 
     @Field(() => SuperContestEffectsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: SuperContestEffectsScalarWhereWithAggregatesInput;
+    having?: Identity<SuperContestEffectsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class SuperContestEffectsGroupByArgs {
     skip?: number;
 
     @Field(() => SuperContestEffectsCountAggregateInput, {nullable:true})
-    _count?: SuperContestEffectsCountAggregateInput;
+    _count?: Identity<SuperContestEffectsCountAggregateInput>;
 
     @Field(() => SuperContestEffectsAvgAggregateInput, {nullable:true})
-    _avg?: SuperContestEffectsAvgAggregateInput;
+    _avg?: Identity<SuperContestEffectsAvgAggregateInput>;
 
     @Field(() => SuperContestEffectsSumAggregateInput, {nullable:true})
-    _sum?: SuperContestEffectsSumAggregateInput;
+    _sum?: Identity<SuperContestEffectsSumAggregateInput>;
 
     @Field(() => SuperContestEffectsMinAggregateInput, {nullable:true})
-    _min?: SuperContestEffectsMinAggregateInput;
+    _min?: Identity<SuperContestEffectsMinAggregateInput>;
 
     @Field(() => SuperContestEffectsMaxAggregateInput, {nullable:true})
-    _max?: SuperContestEffectsMaxAggregateInput;
+    _max?: Identity<SuperContestEffectsMaxAggregateInput>;
 }

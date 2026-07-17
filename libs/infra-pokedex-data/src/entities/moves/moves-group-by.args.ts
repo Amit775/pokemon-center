@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesWhereInput } from './moves-where.input';
 import { Type } from 'class-transformer';
 import { MovesOrderByWithAggregationInput } from './moves-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class MovesGroupByArgs {
 
     @Field(() => MovesWhereInput, {nullable:true})
     @Type(() => MovesWhereInput)
-    where?: MovesWhereInput;
+    where?: Identity<MovesWhereInput>;
 
     @Field(() => [MovesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<MovesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class MovesGroupByArgs {
     by!: Array<`${MovesScalarFieldEnum}`>;
 
     @Field(() => MovesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: MovesScalarWhereWithAggregatesInput;
+    having?: Identity<MovesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class MovesGroupByArgs {
     skip?: number;
 
     @Field(() => MovesCountAggregateInput, {nullable:true})
-    _count?: MovesCountAggregateInput;
+    _count?: Identity<MovesCountAggregateInput>;
 
     @Field(() => MovesAvgAggregateInput, {nullable:true})
-    _avg?: MovesAvgAggregateInput;
+    _avg?: Identity<MovesAvgAggregateInput>;
 
     @Field(() => MovesSumAggregateInput, {nullable:true})
-    _sum?: MovesSumAggregateInput;
+    _sum?: Identity<MovesSumAggregateInput>;
 
     @Field(() => MovesMinAggregateInput, {nullable:true})
-    _min?: MovesMinAggregateInput;
+    _min?: Identity<MovesMinAggregateInput>;
 
     @Field(() => MovesMaxAggregateInput, {nullable:true})
-    _max?: MovesMaxAggregateInput;
+    _max?: Identity<MovesMaxAggregateInput>;
 }

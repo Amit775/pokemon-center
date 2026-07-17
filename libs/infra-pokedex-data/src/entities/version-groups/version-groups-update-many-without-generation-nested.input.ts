@@ -4,8 +4,9 @@ import { VersionGroupsCreateWithoutGenerationInput } from './version-groups-crea
 import { Type } from 'class-transformer';
 import { VersionGroupsCreateOrConnectWithoutGenerationInput } from './version-groups-create-or-connect-without-generation.input';
 import { VersionGroupsUpsertWithWhereUniqueWithoutGenerationInput } from './version-groups-upsert-with-where-unique-without-generation.input';
+import type { Identity } from 'identity-type';
 import { VersionGroupsCreateManyGenerationInputEnvelope } from './version-groups-create-many-generation-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupsWhereUniqueInput } from './version-groups-where-unique.input';
 import { VersionGroupsUpdateWithWhereUniqueWithoutGenerationInput } from './version-groups-update-with-where-unique-without-generation.input';
 import { VersionGroupsUpdateManyWithWhereWithoutGenerationInput } from './version-groups-update-many-with-where-without-generation.input';
@@ -28,7 +29,7 @@ export class VersionGroupsUpdateManyWithoutGenerationNestedInput {
 
     @Field(() => VersionGroupsCreateManyGenerationInputEnvelope, {nullable:true})
     @Type(() => VersionGroupsCreateManyGenerationInputEnvelope)
-    createMany?: VersionGroupsCreateManyGenerationInputEnvelope;
+    createMany?: Identity<VersionGroupsCreateManyGenerationInputEnvelope>;
 
     @Field(() => [VersionGroupsWhereUniqueInput], {nullable:true})
     @Type(() => VersionGroupsWhereUniqueInput)

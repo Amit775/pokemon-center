@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationsUncheckedCreateNestedManyWithoutRegionInput } from '../locations/locations-unchecked-create-nested-many-without-region.input';
 import { PokedexesUncheckedCreateNestedManyWithoutRegionInput } from '../pokedexes/pokedexes-unchecked-create-nested-many-without-region.input';
 import { VersionGroupRegionsUncheckedCreateNestedManyWithoutRegionInput } from '../version-group-regions/version-group-regions-unchecked-create-nested-many-without-region.input';
@@ -15,11 +16,11 @@ export class RegionsUncheckedCreateWithoutGenerationsInput {
     identifier!: string;
 
     @Field(() => LocationsUncheckedCreateNestedManyWithoutRegionInput, {nullable:true})
-    locations?: LocationsUncheckedCreateNestedManyWithoutRegionInput;
+    locations?: Identity<LocationsUncheckedCreateNestedManyWithoutRegionInput>;
 
     @Field(() => PokedexesUncheckedCreateNestedManyWithoutRegionInput, {nullable:true})
-    pokedexes?: PokedexesUncheckedCreateNestedManyWithoutRegionInput;
+    pokedexes?: Identity<PokedexesUncheckedCreateNestedManyWithoutRegionInput>;
 
     @Field(() => VersionGroupRegionsUncheckedCreateNestedManyWithoutRegionInput, {nullable:true})
-    versionGroups?: VersionGroupRegionsUncheckedCreateNestedManyWithoutRegionInput;
+    versionGroups?: Identity<VersionGroupRegionsUncheckedCreateNestedManyWithoutRegionInput>;
 }

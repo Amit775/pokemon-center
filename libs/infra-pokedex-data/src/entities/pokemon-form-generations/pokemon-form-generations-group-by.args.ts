@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormGenerationsWhereInput } from './pokemon-form-generations-where.input';
 import { Type } from 'class-transformer';
 import { PokemonFormGenerationsOrderByWithAggregationInput } from './pokemon-form-generations-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class PokemonFormGenerationsGroupByArgs {
 
     @Field(() => PokemonFormGenerationsWhereInput, {nullable:true})
     @Type(() => PokemonFormGenerationsWhereInput)
-    where?: PokemonFormGenerationsWhereInput;
+    where?: Identity<PokemonFormGenerationsWhereInput>;
 
     @Field(() => [PokemonFormGenerationsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<PokemonFormGenerationsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class PokemonFormGenerationsGroupByArgs {
     by!: Array<`${PokemonFormGenerationsScalarFieldEnum}`>;
 
     @Field(() => PokemonFormGenerationsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: PokemonFormGenerationsScalarWhereWithAggregatesInput;
+    having?: Identity<PokemonFormGenerationsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class PokemonFormGenerationsGroupByArgs {
     skip?: number;
 
     @Field(() => PokemonFormGenerationsCountAggregateInput, {nullable:true})
-    _count?: PokemonFormGenerationsCountAggregateInput;
+    _count?: Identity<PokemonFormGenerationsCountAggregateInput>;
 
     @Field(() => PokemonFormGenerationsAvgAggregateInput, {nullable:true})
-    _avg?: PokemonFormGenerationsAvgAggregateInput;
+    _avg?: Identity<PokemonFormGenerationsAvgAggregateInput>;
 
     @Field(() => PokemonFormGenerationsSumAggregateInput, {nullable:true})
-    _sum?: PokemonFormGenerationsSumAggregateInput;
+    _sum?: Identity<PokemonFormGenerationsSumAggregateInput>;
 
     @Field(() => PokemonFormGenerationsMinAggregateInput, {nullable:true})
-    _min?: PokemonFormGenerationsMinAggregateInput;
+    _min?: Identity<PokemonFormGenerationsMinAggregateInput>;
 
     @Field(() => PokemonFormGenerationsMaxAggregateInput, {nullable:true})
-    _max?: PokemonFormGenerationsMaxAggregateInput;
+    _max?: Identity<PokemonFormGenerationsMaxAggregateInput>;
 }

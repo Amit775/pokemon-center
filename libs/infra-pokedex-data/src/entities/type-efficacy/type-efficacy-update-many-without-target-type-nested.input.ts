@@ -4,8 +4,9 @@ import { TypeEfficacyCreateWithoutTargetTypeInput } from './type-efficacy-create
 import { Type } from 'class-transformer';
 import { TypeEfficacyCreateOrConnectWithoutTargetTypeInput } from './type-efficacy-create-or-connect-without-target-type.input';
 import { TypeEfficacyUpsertWithWhereUniqueWithoutTargetTypeInput } from './type-efficacy-upsert-with-where-unique-without-target-type.input';
+import type { Identity } from 'identity-type';
 import { TypeEfficacyCreateManyTargetTypeInputEnvelope } from './type-efficacy-create-many-target-type-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { TypeEfficacyWhereUniqueInput } from './type-efficacy-where-unique.input';
 import { TypeEfficacyUpdateWithWhereUniqueWithoutTargetTypeInput } from './type-efficacy-update-with-where-unique-without-target-type.input';
 import { TypeEfficacyUpdateManyWithWhereWithoutTargetTypeInput } from './type-efficacy-update-many-with-where-without-target-type.input';
@@ -28,7 +29,7 @@ export class TypeEfficacyUpdateManyWithoutTargetTypeNestedInput {
 
     @Field(() => TypeEfficacyCreateManyTargetTypeInputEnvelope, {nullable:true})
     @Type(() => TypeEfficacyCreateManyTargetTypeInputEnvelope)
-    createMany?: TypeEfficacyCreateManyTargetTypeInputEnvelope;
+    createMany?: Identity<TypeEfficacyCreateManyTargetTypeInputEnvelope>;
 
     @Field(() => [TypeEfficacyWhereUniqueInput], {nullable:true})
     @Type(() => TypeEfficacyWhereUniqueInput)

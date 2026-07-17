@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationAreasCreateNestedOneWithoutEncounterRatesInput } from '../location-areas/location-areas-create-nested-one-without-encounter-rates.input';
 import { VersionsCreateNestedOneWithoutLocationAreaEncounterRatesInput } from '../versions/versions-create-nested-one-without-location-area-encounter-rates.input';
 
@@ -11,8 +12,8 @@ export class LocationAreaEncounterRatesCreateWithoutEncounterMethodInput {
     rate!: number;
 
     @Field(() => LocationAreasCreateNestedOneWithoutEncounterRatesInput, {nullable:false})
-    locationArea!: LocationAreasCreateNestedOneWithoutEncounterRatesInput;
+    locationArea!: Identity<LocationAreasCreateNestedOneWithoutEncounterRatesInput>;
 
     @Field(() => VersionsCreateNestedOneWithoutLocationAreaEncounterRatesInput, {nullable:false})
-    version!: VersionsCreateNestedOneWithoutLocationAreaEncounterRatesInput;
+    version!: Identity<VersionsCreateNestedOneWithoutLocationAreaEncounterRatesInput>;
 }

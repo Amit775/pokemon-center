@@ -4,8 +4,9 @@ import { LocationAreasCreateWithoutLocationInput } from './location-areas-create
 import { Type } from 'class-transformer';
 import { LocationAreasCreateOrConnectWithoutLocationInput } from './location-areas-create-or-connect-without-location.input';
 import { LocationAreasUpsertWithWhereUniqueWithoutLocationInput } from './location-areas-upsert-with-where-unique-without-location.input';
+import type { Identity } from 'identity-type';
 import { LocationAreasCreateManyLocationInputEnvelope } from './location-areas-create-many-location-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationAreasWhereUniqueInput } from './location-areas-where-unique.input';
 import { LocationAreasUpdateWithWhereUniqueWithoutLocationInput } from './location-areas-update-with-where-unique-without-location.input';
 import { LocationAreasUpdateManyWithWhereWithoutLocationInput } from './location-areas-update-many-with-where-without-location.input';
@@ -28,7 +29,7 @@ export class LocationAreasUncheckedUpdateManyWithoutLocationNestedInput {
 
     @Field(() => LocationAreasCreateManyLocationInputEnvelope, {nullable:true})
     @Type(() => LocationAreasCreateManyLocationInputEnvelope)
-    createMany?: LocationAreasCreateManyLocationInputEnvelope;
+    createMany?: Identity<LocationAreasCreateManyLocationInputEnvelope>;
 
     @Field(() => [LocationAreasWhereUniqueInput], {nullable:true})
     @Type(() => LocationAreasWhereUniqueInput)

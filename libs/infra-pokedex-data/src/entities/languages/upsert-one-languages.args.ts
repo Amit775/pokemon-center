@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LanguagesWhereUniqueInput } from './languages-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { LanguagesCreateInput } from './languages-create.input';
 import { LanguagesUpdateInput } from './languages-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneLanguagesArgs {
 
     @Field(() => LanguagesCreateInput, {nullable:false})
     @Type(() => LanguagesCreateInput)
-    create!: LanguagesCreateInput;
+    create!: Identity<LanguagesCreateInput>;
 
     @Field(() => LanguagesUpdateInput, {nullable:false})
     @Type(() => LanguagesUpdateInput)
-    update!: LanguagesUpdateInput;
+    update!: Identity<LanguagesUpdateInput>;
 }

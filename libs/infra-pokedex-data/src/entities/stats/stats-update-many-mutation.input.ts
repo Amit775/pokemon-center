@@ -1,24 +1,22 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class StatsUpdateManyMutationInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    damage_class_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    damage_class_id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    is_battle_only?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    is_battle_only?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    game_index?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    game_index?: number;
 }

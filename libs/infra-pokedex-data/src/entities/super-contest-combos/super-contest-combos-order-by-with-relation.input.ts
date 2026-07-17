@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { MovesOrderByWithRelationInput } from '../moves/moves-order-by-with-relation.input';
 
 @InputType()
@@ -13,8 +14,8 @@ export class SuperContestCombosOrderByWithRelationInput {
     second_move_id?: `${SortOrder}`;
 
     @Field(() => MovesOrderByWithRelationInput, {nullable:true})
-    firstMove?: MovesOrderByWithRelationInput;
+    firstMove?: Identity<MovesOrderByWithRelationInput>;
 
     @Field(() => MovesOrderByWithRelationInput, {nullable:true})
-    secondMove?: MovesOrderByWithRelationInput;
+    secondMove?: Identity<MovesOrderByWithRelationInput>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupsWhereInput } from './version-groups-where.input';
 import { Type } from 'class-transformer';
 import { VersionGroupsOrderByWithAggregationInput } from './version-groups-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class VersionGroupsGroupByArgs {
 
     @Field(() => VersionGroupsWhereInput, {nullable:true})
     @Type(() => VersionGroupsWhereInput)
-    where?: VersionGroupsWhereInput;
+    where?: Identity<VersionGroupsWhereInput>;
 
     @Field(() => [VersionGroupsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<VersionGroupsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class VersionGroupsGroupByArgs {
     by!: Array<`${VersionGroupsScalarFieldEnum}`>;
 
     @Field(() => VersionGroupsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: VersionGroupsScalarWhereWithAggregatesInput;
+    having?: Identity<VersionGroupsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class VersionGroupsGroupByArgs {
     skip?: number;
 
     @Field(() => VersionGroupsCountAggregateInput, {nullable:true})
-    _count?: VersionGroupsCountAggregateInput;
+    _count?: Identity<VersionGroupsCountAggregateInput>;
 
     @Field(() => VersionGroupsAvgAggregateInput, {nullable:true})
-    _avg?: VersionGroupsAvgAggregateInput;
+    _avg?: Identity<VersionGroupsAvgAggregateInput>;
 
     @Field(() => VersionGroupsSumAggregateInput, {nullable:true})
-    _sum?: VersionGroupsSumAggregateInput;
+    _sum?: Identity<VersionGroupsSumAggregateInput>;
 
     @Field(() => VersionGroupsMinAggregateInput, {nullable:true})
-    _min?: VersionGroupsMinAggregateInput;
+    _min?: Identity<VersionGroupsMinAggregateInput>;
 
     @Field(() => VersionGroupsMaxAggregateInput, {nullable:true})
-    _max?: VersionGroupsMaxAggregateInput;
+    _max?: Identity<VersionGroupsMaxAggregateInput>;
 }

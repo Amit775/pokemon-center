@@ -4,8 +4,9 @@ import { PokemonDexNumbersCreateWithoutPokedexInput } from './pokemon-dex-number
 import { Type } from 'class-transformer';
 import { PokemonDexNumbersCreateOrConnectWithoutPokedexInput } from './pokemon-dex-numbers-create-or-connect-without-pokedex.input';
 import { PokemonDexNumbersUpsertWithWhereUniqueWithoutPokedexInput } from './pokemon-dex-numbers-upsert-with-where-unique-without-pokedex.input';
+import type { Identity } from 'identity-type';
 import { PokemonDexNumbersCreateManyPokedexInputEnvelope } from './pokemon-dex-numbers-create-many-pokedex-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonDexNumbersWhereUniqueInput } from './pokemon-dex-numbers-where-unique.input';
 import { PokemonDexNumbersUpdateWithWhereUniqueWithoutPokedexInput } from './pokemon-dex-numbers-update-with-where-unique-without-pokedex.input';
 import { PokemonDexNumbersUpdateManyWithWhereWithoutPokedexInput } from './pokemon-dex-numbers-update-many-with-where-without-pokedex.input';
@@ -28,7 +29,7 @@ export class PokemonDexNumbersUncheckedUpdateManyWithoutPokedexNestedInput {
 
     @Field(() => PokemonDexNumbersCreateManyPokedexInputEnvelope, {nullable:true})
     @Type(() => PokemonDexNumbersCreateManyPokedexInputEnvelope)
-    createMany?: PokemonDexNumbersCreateManyPokedexInputEnvelope;
+    createMany?: Identity<PokemonDexNumbersCreateManyPokedexInputEnvelope>;
 
     @Field(() => [PokemonDexNumbersWhereUniqueInput], {nullable:true})
     @Type(() => PokemonDexNumbersWhereUniqueInput)

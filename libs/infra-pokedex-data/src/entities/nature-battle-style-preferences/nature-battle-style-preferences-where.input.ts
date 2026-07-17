@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { NaturesScalarRelationFilter } from '../natures/natures-scalar-relation-filter.input';
 import { MoveBattleStylesScalarRelationFilter } from '../move-battle-styles/move-battle-styles-scalar-relation-filter.input';
@@ -17,20 +18,20 @@ export class NatureBattleStylePreferencesWhereInput {
     NOT?: Array<NatureBattleStylePreferencesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    nature_id?: IntFilter;
+    nature_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    move_battle_style_id?: IntFilter;
+    move_battle_style_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    low_hp_preference?: IntFilter;
+    low_hp_preference?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    high_hp_preference?: IntFilter;
+    high_hp_preference?: Identity<IntFilter>;
 
     @Field(() => NaturesScalarRelationFilter, {nullable:true})
-    nature?: NaturesScalarRelationFilter;
+    nature?: Identity<NaturesScalarRelationFilter>;
 
     @Field(() => MoveBattleStylesScalarRelationFilter, {nullable:true})
-    battleStyle?: MoveBattleStylesScalarRelationFilter;
+    battleStyle?: Identity<MoveBattleStylesScalarRelationFilter>;
 }

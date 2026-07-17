@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveTargetsWhereUniqueInput } from './move-targets-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { MoveTargetsCreateInput } from './move-targets-create.input';
 import { MoveTargetsUpdateInput } from './move-targets-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneMoveTargetsArgs {
 
     @Field(() => MoveTargetsCreateInput, {nullable:false})
     @Type(() => MoveTargetsCreateInput)
-    create!: MoveTargetsCreateInput;
+    create!: Identity<MoveTargetsCreateInput>;
 
     @Field(() => MoveTargetsUpdateInput, {nullable:false})
     @Type(() => MoveTargetsUpdateInput)
-    update!: MoveTargetsUpdateInput;
+    update!: Identity<MoveTargetsUpdateInput>;
 }

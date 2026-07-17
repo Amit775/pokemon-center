@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveFlagMapCreateNestedManyWithoutFlagInput } from '../move-flag-map/move-flag-map-create-nested-many-without-flag.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class MoveFlagsCreateInput {
     identifier!: string;
 
     @Field(() => MoveFlagMapCreateNestedManyWithoutFlagInput, {nullable:true})
-    flagMap?: MoveFlagMapCreateNestedManyWithoutFlagInput;
+    flagMap?: Identity<MoveFlagMapCreateNestedManyWithoutFlagInput>;
 }

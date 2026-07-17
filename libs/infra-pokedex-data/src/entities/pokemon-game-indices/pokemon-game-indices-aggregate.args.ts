@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonGameIndicesWhereInput } from './pokemon-game-indices-where.input';
 import { Type } from 'class-transformer';
 import { PokemonGameIndicesOrderByWithRelationInput } from './pokemon-game-indices-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonGameIndicesWhereUniqueInput } from './pokemon-game-indices-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokemonGameIndicesCountAggregateInput } from './pokemon-game-indices-count-aggregate.input';
@@ -17,7 +18,7 @@ export class PokemonGameIndicesAggregateArgs {
 
     @Field(() => PokemonGameIndicesWhereInput, {nullable:true})
     @Type(() => PokemonGameIndicesWhereInput)
-    where?: PokemonGameIndicesWhereInput;
+    where?: Identity<PokemonGameIndicesWhereInput>;
 
     @Field(() => [PokemonGameIndicesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokemonGameIndicesOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class PokemonGameIndicesAggregateArgs {
     skip?: number;
 
     @Field(() => PokemonGameIndicesCountAggregateInput, {nullable:true})
-    _count?: PokemonGameIndicesCountAggregateInput;
+    _count?: Identity<PokemonGameIndicesCountAggregateInput>;
 
     @Field(() => PokemonGameIndicesAvgAggregateInput, {nullable:true})
-    _avg?: PokemonGameIndicesAvgAggregateInput;
+    _avg?: Identity<PokemonGameIndicesAvgAggregateInput>;
 
     @Field(() => PokemonGameIndicesSumAggregateInput, {nullable:true})
-    _sum?: PokemonGameIndicesSumAggregateInput;
+    _sum?: Identity<PokemonGameIndicesSumAggregateInput>;
 
     @Field(() => PokemonGameIndicesMinAggregateInput, {nullable:true})
-    _min?: PokemonGameIndicesMinAggregateInput;
+    _min?: Identity<PokemonGameIndicesMinAggregateInput>;
 
     @Field(() => PokemonGameIndicesMaxAggregateInput, {nullable:true})
-    _max?: PokemonGameIndicesMaxAggregateInput;
+    _max?: Identity<PokemonGameIndicesMaxAggregateInput>;
 }

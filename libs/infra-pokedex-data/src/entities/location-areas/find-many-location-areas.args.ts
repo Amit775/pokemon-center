@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationAreasWhereInput } from './location-areas-where.input';
 import { Type } from 'class-transformer';
 import { LocationAreasOrderByWithRelationInput } from './location-areas-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationAreasWhereUniqueInput } from './location-areas-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { LocationAreasScalarFieldEnum } from './location-areas-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManyLocationAreasArgs {
 
     @Field(() => LocationAreasWhereInput, {nullable:true})
     @Type(() => LocationAreasWhereInput)
-    where?: LocationAreasWhereInput;
+    where?: Identity<LocationAreasWhereInput>;
 
     @Field(() => [LocationAreasOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<LocationAreasOrderByWithRelationInput>;

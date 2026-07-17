@@ -4,8 +4,9 @@ import { PokemonCreateWithoutSpeciesInput } from './pokemon-create-without-speci
 import { Type } from 'class-transformer';
 import { PokemonCreateOrConnectWithoutSpeciesInput } from './pokemon-create-or-connect-without-species.input';
 import { PokemonUpsertWithWhereUniqueWithoutSpeciesInput } from './pokemon-upsert-with-where-unique-without-species.input';
+import type { Identity } from 'identity-type';
 import { PokemonCreateManySpeciesInputEnvelope } from './pokemon-create-many-species-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonWhereUniqueInput } from './pokemon-where-unique.input';
 import { PokemonUpdateWithWhereUniqueWithoutSpeciesInput } from './pokemon-update-with-where-unique-without-species.input';
 import { PokemonUpdateManyWithWhereWithoutSpeciesInput } from './pokemon-update-many-with-where-without-species.input';
@@ -28,7 +29,7 @@ export class PokemonUncheckedUpdateManyWithoutSpeciesNestedInput {
 
     @Field(() => PokemonCreateManySpeciesInputEnvelope, {nullable:true})
     @Type(() => PokemonCreateManySpeciesInputEnvelope)
-    createMany?: PokemonCreateManySpeciesInputEnvelope;
+    createMany?: Identity<PokemonCreateManySpeciesInputEnvelope>;
 
     @Field(() => [PokemonWhereUniqueInput], {nullable:true})
     @Type(() => PokemonWhereUniqueInput)

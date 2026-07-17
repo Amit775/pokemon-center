@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { PokemonForms } from '../pokemon-forms/pokemon-forms.model';
+import type { Identity } from 'identity-type';
 import { Generations } from '../generations/generations.model';
 
 /**
@@ -20,8 +21,8 @@ export class PokemonFormGenerations {
     game_index!: number;
 
     @Field(() => PokemonForms, {nullable:false})
-    pokemonForm?: PokemonForms;
+    pokemonForm?: Identity<PokemonForms>;
 
     @Field(() => Generations, {nullable:false})
-    generation?: Generations;
+    generation?: Identity<Generations>;
 }

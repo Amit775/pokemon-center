@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterConditionsWhereInput } from './encounter-conditions-where.input';
 import { Type } from 'class-transformer';
 import { EncounterConditionsOrderByWithAggregationInput } from './encounter-conditions-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class EncounterConditionsGroupByArgs {
 
     @Field(() => EncounterConditionsWhereInput, {nullable:true})
     @Type(() => EncounterConditionsWhereInput)
-    where?: EncounterConditionsWhereInput;
+    where?: Identity<EncounterConditionsWhereInput>;
 
     @Field(() => [EncounterConditionsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<EncounterConditionsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class EncounterConditionsGroupByArgs {
     by!: Array<`${EncounterConditionsScalarFieldEnum}`>;
 
     @Field(() => EncounterConditionsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: EncounterConditionsScalarWhereWithAggregatesInput;
+    having?: Identity<EncounterConditionsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class EncounterConditionsGroupByArgs {
     skip?: number;
 
     @Field(() => EncounterConditionsCountAggregateInput, {nullable:true})
-    _count?: EncounterConditionsCountAggregateInput;
+    _count?: Identity<EncounterConditionsCountAggregateInput>;
 
     @Field(() => EncounterConditionsAvgAggregateInput, {nullable:true})
-    _avg?: EncounterConditionsAvgAggregateInput;
+    _avg?: Identity<EncounterConditionsAvgAggregateInput>;
 
     @Field(() => EncounterConditionsSumAggregateInput, {nullable:true})
-    _sum?: EncounterConditionsSumAggregateInput;
+    _sum?: Identity<EncounterConditionsSumAggregateInput>;
 
     @Field(() => EncounterConditionsMinAggregateInput, {nullable:true})
-    _min?: EncounterConditionsMinAggregateInput;
+    _min?: Identity<EncounterConditionsMinAggregateInput>;
 
     @Field(() => EncounterConditionsMaxAggregateInput, {nullable:true})
-    _max?: EncounterConditionsMaxAggregateInput;
+    _max?: Identity<EncounterConditionsMaxAggregateInput>;
 }

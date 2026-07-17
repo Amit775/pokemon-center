@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Locations } from '../locations/locations.model';
+import type { Identity } from 'identity-type';
 import { Encounters } from '../encounters/encounters.model';
 import { LocationAreaEncounterRates } from '../location-area-encounter-rates/location-area-encounter-rates.model';
 import { LocationAreasCount } from './location-areas-count.output';
@@ -26,14 +27,14 @@ export class LocationAreas {
     identifier!: string | null;
 
     @Field(() => Locations, {nullable:false})
-    location?: Locations;
+    location?: Identity<Locations>;
 
-    @Field(() => [Encounters], {nullable:true})
+    @Field(() => [Encounters], {nullable:false})
     encounters?: Array<Encounters>;
 
-    @Field(() => [LocationAreaEncounterRates], {nullable:true})
+    @Field(() => [LocationAreaEncounterRates], {nullable:false})
     encounterRates?: Array<LocationAreaEncounterRates>;
 
     @Field(() => LocationAreasCount, {nullable:false})
-    _count?: LocationAreasCount;
+    _count?: Identity<LocationAreasCount>;
 }

@@ -1,7 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
-import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
+import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 
 @InputType()
 export class LocationAreasScalarWhereWithAggregatesInput {
@@ -16,14 +17,14 @@ export class LocationAreasScalarWhereWithAggregatesInput {
     NOT?: Array<LocationAreasScalarWhereWithAggregatesInput>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
+    id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    location_id?: IntWithAggregatesFilter;
+    location_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    game_index?: IntWithAggregatesFilter;
+    game_index?: Identity<IntWithAggregatesFilter>;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    identifier?: StringNullableWithAggregatesFilter;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    identifier?: Identity<StringWithAggregatesFilter>;
 }

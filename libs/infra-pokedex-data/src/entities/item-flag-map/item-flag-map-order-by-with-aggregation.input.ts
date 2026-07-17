@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { ItemFlagMapCountOrderByAggregateInput } from './item-flag-map-count-order-by-aggregate.input';
 import { ItemFlagMapAvgOrderByAggregateInput } from './item-flag-map-avg-order-by-aggregate.input';
 import { ItemFlagMapMaxOrderByAggregateInput } from './item-flag-map-max-order-by-aggregate.input';
@@ -17,17 +18,17 @@ export class ItemFlagMapOrderByWithAggregationInput {
     item_flag_id?: `${SortOrder}`;
 
     @Field(() => ItemFlagMapCountOrderByAggregateInput, {nullable:true})
-    _count?: ItemFlagMapCountOrderByAggregateInput;
+    _count?: Identity<ItemFlagMapCountOrderByAggregateInput>;
 
     @Field(() => ItemFlagMapAvgOrderByAggregateInput, {nullable:true})
-    _avg?: ItemFlagMapAvgOrderByAggregateInput;
+    _avg?: Identity<ItemFlagMapAvgOrderByAggregateInput>;
 
     @Field(() => ItemFlagMapMaxOrderByAggregateInput, {nullable:true})
-    _max?: ItemFlagMapMaxOrderByAggregateInput;
+    _max?: Identity<ItemFlagMapMaxOrderByAggregateInput>;
 
     @Field(() => ItemFlagMapMinOrderByAggregateInput, {nullable:true})
-    _min?: ItemFlagMapMinOrderByAggregateInput;
+    _min?: Identity<ItemFlagMapMinOrderByAggregateInput>;
 
     @Field(() => ItemFlagMapSumOrderByAggregateInput, {nullable:true})
-    _sum?: ItemFlagMapSumOrderByAggregateInput;
+    _sum?: Identity<ItemFlagMapSumOrderByAggregateInput>;
 }

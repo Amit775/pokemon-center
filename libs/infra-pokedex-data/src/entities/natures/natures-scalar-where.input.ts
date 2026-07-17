@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 
@@ -16,23 +17,23 @@ export class NaturesScalarWhereInput {
     NOT?: Array<NaturesScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    decreased_stat_id?: IntFilter;
+    decreased_stat_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    increased_stat_id?: IntFilter;
+    increased_stat_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    hates_flavor_id?: IntFilter;
+    hates_flavor_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    likes_flavor_id?: IntFilter;
+    likes_flavor_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    game_index?: IntFilter;
+    game_index?: Identity<IntFilter>;
 }

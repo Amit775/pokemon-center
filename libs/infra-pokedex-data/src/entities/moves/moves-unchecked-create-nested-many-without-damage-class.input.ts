@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { MovesCreateWithoutDamageClassInput } from './moves-create-without-damage-class.input';
 import { Type } from 'class-transformer';
 import { MovesCreateOrConnectWithoutDamageClassInput } from './moves-create-or-connect-without-damage-class.input';
+import type { Identity } from 'identity-type';
 import { MovesCreateManyDamageClassInputEnvelope } from './moves-create-many-damage-class-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MovesWhereUniqueInput } from './moves-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class MovesUncheckedCreateNestedManyWithoutDamageClassInput {
 
     @Field(() => MovesCreateManyDamageClassInputEnvelope, {nullable:true})
     @Type(() => MovesCreateManyDamageClassInputEnvelope)
-    createMany?: MovesCreateManyDamageClassInputEnvelope;
+    createMany?: Identity<MovesCreateManyDamageClassInputEnvelope>;
 
     @Field(() => [MovesWhereUniqueInput], {nullable:true})
     @Type(() => MovesWhereUniqueInput)

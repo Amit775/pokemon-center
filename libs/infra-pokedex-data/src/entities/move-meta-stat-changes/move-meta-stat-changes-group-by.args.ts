@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaStatChangesWhereInput } from './move-meta-stat-changes-where.input';
 import { Type } from 'class-transformer';
 import { MoveMetaStatChangesOrderByWithAggregationInput } from './move-meta-stat-changes-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class MoveMetaStatChangesGroupByArgs {
 
     @Field(() => MoveMetaStatChangesWhereInput, {nullable:true})
     @Type(() => MoveMetaStatChangesWhereInput)
-    where?: MoveMetaStatChangesWhereInput;
+    where?: Identity<MoveMetaStatChangesWhereInput>;
 
     @Field(() => [MoveMetaStatChangesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<MoveMetaStatChangesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class MoveMetaStatChangesGroupByArgs {
     by!: Array<`${MoveMetaStatChangesScalarFieldEnum}`>;
 
     @Field(() => MoveMetaStatChangesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: MoveMetaStatChangesScalarWhereWithAggregatesInput;
+    having?: Identity<MoveMetaStatChangesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class MoveMetaStatChangesGroupByArgs {
     skip?: number;
 
     @Field(() => MoveMetaStatChangesCountAggregateInput, {nullable:true})
-    _count?: MoveMetaStatChangesCountAggregateInput;
+    _count?: Identity<MoveMetaStatChangesCountAggregateInput>;
 
     @Field(() => MoveMetaStatChangesAvgAggregateInput, {nullable:true})
-    _avg?: MoveMetaStatChangesAvgAggregateInput;
+    _avg?: Identity<MoveMetaStatChangesAvgAggregateInput>;
 
     @Field(() => MoveMetaStatChangesSumAggregateInput, {nullable:true})
-    _sum?: MoveMetaStatChangesSumAggregateInput;
+    _sum?: Identity<MoveMetaStatChangesSumAggregateInput>;
 
     @Field(() => MoveMetaStatChangesMinAggregateInput, {nullable:true})
-    _min?: MoveMetaStatChangesMinAggregateInput;
+    _min?: Identity<MoveMetaStatChangesMinAggregateInput>;
 
     @Field(() => MoveMetaStatChangesMaxAggregateInput, {nullable:true})
-    _max?: MoveMetaStatChangesMaxAggregateInput;
+    _max?: Identity<MoveMetaStatChangesMaxAggregateInput>;
 }

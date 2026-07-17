@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
 
 @InputType()
@@ -15,11 +16,11 @@ export class CharacteristicsScalarWhereWithAggregatesInput {
     NOT?: Array<CharacteristicsScalarWhereWithAggregatesInput>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
+    id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    stat_id?: IntWithAggregatesFilter;
+    stat_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    gene_mod_5?: IntWithAggregatesFilter;
+    gene_mod_5?: Identity<IntWithAggregatesFilter>;
 }

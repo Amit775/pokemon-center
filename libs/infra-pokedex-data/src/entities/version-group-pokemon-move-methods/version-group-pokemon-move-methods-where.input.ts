@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { VersionGroupsScalarRelationFilter } from '../version-groups/version-groups-scalar-relation-filter.input';
 import { PokemonMoveMethodsScalarRelationFilter } from '../pokemon-move-methods/pokemon-move-methods-scalar-relation-filter.input';
@@ -17,14 +18,14 @@ export class VersionGroupPokemonMoveMethodsWhereInput {
     NOT?: Array<VersionGroupPokemonMoveMethodsWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    version_group_id?: IntFilter;
+    version_group_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    pokemon_move_method_id?: IntFilter;
+    pokemon_move_method_id?: Identity<IntFilter>;
 
     @Field(() => VersionGroupsScalarRelationFilter, {nullable:true})
-    versionGroup?: VersionGroupsScalarRelationFilter;
+    versionGroup?: Identity<VersionGroupsScalarRelationFilter>;
 
     @Field(() => PokemonMoveMethodsScalarRelationFilter, {nullable:true})
-    moveMethod?: PokemonMoveMethodsScalarRelationFilter;
+    moveMethod?: Identity<PokemonMoveMethodsScalarRelationFilter>;
 }

@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationsWhereInput } from './locations-where.input';
 import { Type } from 'class-transformer';
 import { LocationsOrderByWithRelationInput } from './locations-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationsWhereUniqueInput } from './locations-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { LocationsScalarFieldEnum } from './locations-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstLocationsOrThrowArgs {
 
     @Field(() => LocationsWhereInput, {nullable:true})
     @Type(() => LocationsWhereInput)
-    where?: LocationsWhereInput;
+    where?: Identity<LocationsWhereInput>;
 
     @Field(() => [LocationsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<LocationsOrderByWithRelationInput>;

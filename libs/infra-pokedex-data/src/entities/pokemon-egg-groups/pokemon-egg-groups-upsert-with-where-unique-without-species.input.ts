@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEggGroupsWhereUniqueInput } from './pokemon-egg-groups-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonEggGroupsUpdateWithoutSpeciesInput } from './pokemon-egg-groups-update-without-species.input';
 import { PokemonEggGroupsCreateWithoutSpeciesInput } from './pokemon-egg-groups-create-without-species.input';
 
@@ -15,9 +16,9 @@ export class PokemonEggGroupsUpsertWithWhereUniqueWithoutSpeciesInput {
 
     @Field(() => PokemonEggGroupsUpdateWithoutSpeciesInput, {nullable:false})
     @Type(() => PokemonEggGroupsUpdateWithoutSpeciesInput)
-    update!: PokemonEggGroupsUpdateWithoutSpeciesInput;
+    update!: Identity<PokemonEggGroupsUpdateWithoutSpeciesInput>;
 
     @Field(() => PokemonEggGroupsCreateWithoutSpeciesInput, {nullable:false})
     @Type(() => PokemonEggGroupsCreateWithoutSpeciesInput)
-    create!: PokemonEggGroupsCreateWithoutSpeciesInput;
+    create!: Identity<PokemonEggGroupsCreateWithoutSpeciesInput>;
 }

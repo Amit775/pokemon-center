@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { MoveBattleStylesCountOrderByAggregateInput } from './move-battle-styles-count-order-by-aggregate.input';
 import { MoveBattleStylesAvgOrderByAggregateInput } from './move-battle-styles-avg-order-by-aggregate.input';
 import { MoveBattleStylesMaxOrderByAggregateInput } from './move-battle-styles-max-order-by-aggregate.input';
@@ -17,17 +18,17 @@ export class MoveBattleStylesOrderByWithAggregationInput {
     identifier?: `${SortOrder}`;
 
     @Field(() => MoveBattleStylesCountOrderByAggregateInput, {nullable:true})
-    _count?: MoveBattleStylesCountOrderByAggregateInput;
+    _count?: Identity<MoveBattleStylesCountOrderByAggregateInput>;
 
     @Field(() => MoveBattleStylesAvgOrderByAggregateInput, {nullable:true})
-    _avg?: MoveBattleStylesAvgOrderByAggregateInput;
+    _avg?: Identity<MoveBattleStylesAvgOrderByAggregateInput>;
 
     @Field(() => MoveBattleStylesMaxOrderByAggregateInput, {nullable:true})
-    _max?: MoveBattleStylesMaxOrderByAggregateInput;
+    _max?: Identity<MoveBattleStylesMaxOrderByAggregateInput>;
 
     @Field(() => MoveBattleStylesMinOrderByAggregateInput, {nullable:true})
-    _min?: MoveBattleStylesMinOrderByAggregateInput;
+    _min?: Identity<MoveBattleStylesMinOrderByAggregateInput>;
 
     @Field(() => MoveBattleStylesSumOrderByAggregateInput, {nullable:true})
-    _sum?: MoveBattleStylesSumOrderByAggregateInput;
+    _sum?: Identity<MoveBattleStylesSumOrderByAggregateInput>;
 }

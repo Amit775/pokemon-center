@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Versions } from '../versions/versions.model';
+import type { Identity } from 'identity-type';
 import { LocationAreas } from '../location-areas/location-areas.model';
 import { EncounterSlots } from '../encounter-slots/encounter-slots.model';
 import { Pokemon } from '../pokemon/pokemon.model';
@@ -37,20 +38,20 @@ export class Encounters {
     max_level!: number;
 
     @Field(() => Versions, {nullable:false})
-    version?: Versions;
+    version?: Identity<Versions>;
 
     @Field(() => LocationAreas, {nullable:false})
-    locationArea?: LocationAreas;
+    locationArea?: Identity<LocationAreas>;
 
     @Field(() => EncounterSlots, {nullable:false})
-    encounterSlot?: EncounterSlots;
+    encounterSlot?: Identity<EncounterSlots>;
 
     @Field(() => Pokemon, {nullable:false})
-    pokemon?: Pokemon;
+    pokemon?: Identity<Pokemon>;
 
-    @Field(() => [EncounterConditionValueMap], {nullable:true})
+    @Field(() => [EncounterConditionValueMap], {nullable:false})
     conditionValueMap?: Array<EncounterConditionValueMap>;
 
     @Field(() => EncountersCount, {nullable:false})
-    _count?: EncountersCount;
+    _count?: Identity<EncountersCount>;
 }

@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { PokemonMovesCreateWithoutVersionGroupInput } from './pokemon-moves-create-without-version-group.input';
 import { Type } from 'class-transformer';
 import { PokemonMovesCreateOrConnectWithoutVersionGroupInput } from './pokemon-moves-create-or-connect-without-version-group.input';
+import type { Identity } from 'identity-type';
 import { PokemonMovesCreateManyVersionGroupInputEnvelope } from './pokemon-moves-create-many-version-group-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonMovesWhereUniqueInput } from './pokemon-moves-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class PokemonMovesUncheckedCreateNestedManyWithoutVersionGroupInput {
 
     @Field(() => PokemonMovesCreateManyVersionGroupInputEnvelope, {nullable:true})
     @Type(() => PokemonMovesCreateManyVersionGroupInputEnvelope)
-    createMany?: PokemonMovesCreateManyVersionGroupInputEnvelope;
+    createMany?: Identity<PokemonMovesCreateManyVersionGroupInputEnvelope>;
 
     @Field(() => [PokemonMovesWhereUniqueInput], {nullable:true})
     @Type(() => PokemonMovesWhereUniqueInput)

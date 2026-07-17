@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EvolutionChainsWhereInput } from './evolution-chains-where.input';
 import { Type } from 'class-transformer';
 import { EvolutionChainsOrderByWithRelationInput } from './evolution-chains-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EvolutionChainsWhereUniqueInput } from './evolution-chains-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { EvolutionChainsCountAggregateInput } from './evolution-chains-count-aggregate.input';
@@ -17,7 +18,7 @@ export class EvolutionChainsAggregateArgs {
 
     @Field(() => EvolutionChainsWhereInput, {nullable:true})
     @Type(() => EvolutionChainsWhereInput)
-    where?: EvolutionChainsWhereInput;
+    where?: Identity<EvolutionChainsWhereInput>;
 
     @Field(() => [EvolutionChainsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<EvolutionChainsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class EvolutionChainsAggregateArgs {
     skip?: number;
 
     @Field(() => EvolutionChainsCountAggregateInput, {nullable:true})
-    _count?: EvolutionChainsCountAggregateInput;
+    _count?: Identity<EvolutionChainsCountAggregateInput>;
 
     @Field(() => EvolutionChainsAvgAggregateInput, {nullable:true})
-    _avg?: EvolutionChainsAvgAggregateInput;
+    _avg?: Identity<EvolutionChainsAvgAggregateInput>;
 
     @Field(() => EvolutionChainsSumAggregateInput, {nullable:true})
-    _sum?: EvolutionChainsSumAggregateInput;
+    _sum?: Identity<EvolutionChainsSumAggregateInput>;
 
     @Field(() => EvolutionChainsMinAggregateInput, {nullable:true})
-    _min?: EvolutionChainsMinAggregateInput;
+    _min?: Identity<EvolutionChainsMinAggregateInput>;
 
     @Field(() => EvolutionChainsMaxAggregateInput, {nullable:true})
-    _max?: EvolutionChainsMaxAggregateInput;
+    _max?: Identity<EvolutionChainsMaxAggregateInput>;
 }

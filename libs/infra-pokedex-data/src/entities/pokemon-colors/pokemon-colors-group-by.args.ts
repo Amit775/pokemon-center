@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonColorsWhereInput } from './pokemon-colors-where.input';
 import { Type } from 'class-transformer';
 import { PokemonColorsOrderByWithAggregationInput } from './pokemon-colors-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class PokemonColorsGroupByArgs {
 
     @Field(() => PokemonColorsWhereInput, {nullable:true})
     @Type(() => PokemonColorsWhereInput)
-    where?: PokemonColorsWhereInput;
+    where?: Identity<PokemonColorsWhereInput>;
 
     @Field(() => [PokemonColorsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<PokemonColorsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class PokemonColorsGroupByArgs {
     by!: Array<`${PokemonColorsScalarFieldEnum}`>;
 
     @Field(() => PokemonColorsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: PokemonColorsScalarWhereWithAggregatesInput;
+    having?: Identity<PokemonColorsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class PokemonColorsGroupByArgs {
     skip?: number;
 
     @Field(() => PokemonColorsCountAggregateInput, {nullable:true})
-    _count?: PokemonColorsCountAggregateInput;
+    _count?: Identity<PokemonColorsCountAggregateInput>;
 
     @Field(() => PokemonColorsAvgAggregateInput, {nullable:true})
-    _avg?: PokemonColorsAvgAggregateInput;
+    _avg?: Identity<PokemonColorsAvgAggregateInput>;
 
     @Field(() => PokemonColorsSumAggregateInput, {nullable:true})
-    _sum?: PokemonColorsSumAggregateInput;
+    _sum?: Identity<PokemonColorsSumAggregateInput>;
 
     @Field(() => PokemonColorsMinAggregateInput, {nullable:true})
-    _min?: PokemonColorsMinAggregateInput;
+    _min?: Identity<PokemonColorsMinAggregateInput>;
 
     @Field(() => PokemonColorsMaxAggregateInput, {nullable:true})
-    _max?: PokemonColorsMaxAggregateInput;
+    _max?: Identity<PokemonColorsMaxAggregateInput>;
 }

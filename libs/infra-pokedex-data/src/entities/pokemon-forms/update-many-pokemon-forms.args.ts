@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormsUpdateManyMutationInput } from './pokemon-forms-update-many-mutation.input';
 import { Type } from 'class-transformer';
 import { PokemonFormsWhereInput } from './pokemon-forms-where.input';
@@ -10,11 +11,11 @@ export class UpdateManyPokemonFormsArgs {
 
     @Field(() => PokemonFormsUpdateManyMutationInput, {nullable:false})
     @Type(() => PokemonFormsUpdateManyMutationInput)
-    data!: PokemonFormsUpdateManyMutationInput;
+    data!: Identity<PokemonFormsUpdateManyMutationInput>;
 
     @Field(() => PokemonFormsWhereInput, {nullable:true})
     @Type(() => PokemonFormsWhereInput)
-    where?: PokemonFormsWhereInput;
+    where?: Identity<PokemonFormsWhereInput>;
 
     @Field(() => Int, {nullable:true})
     limit?: number;

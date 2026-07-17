@@ -7,6 +7,7 @@ import { MoveMetaStatChanges } from '../move-meta-stat-changes/move-meta-stat-ch
 import { Characteristics } from '../characteristics/characteristics.model';
 import { Natures } from '../natures/natures.model';
 import { StatsCount } from './stats-count.output';
+import type { Identity } from 'identity-type';
 
 /**
  * @@TypeGraphQL.type(name: "Stat")
@@ -29,21 +30,21 @@ export class Stats {
     @Field(() => Int, {nullable:true})
     game_index!: number | null;
 
-    @Field(() => [PokemonStats], {nullable:true})
+    @Field(() => [PokemonStats], {nullable:false})
     pokemonStats?: Array<PokemonStats>;
 
-    @Field(() => [MoveMetaStatChanges], {nullable:true})
+    @Field(() => [MoveMetaStatChanges], {nullable:false})
     moveMetaStatChanges?: Array<MoveMetaStatChanges>;
 
-    @Field(() => [Characteristics], {nullable:true})
+    @Field(() => [Characteristics], {nullable:false})
     characteristics?: Array<Characteristics>;
 
-    @Field(() => [Natures], {nullable:true})
+    @Field(() => [Natures], {nullable:false})
     naturesDecreased?: Array<Natures>;
 
-    @Field(() => [Natures], {nullable:true})
+    @Field(() => [Natures], {nullable:false})
     naturesIncreased?: Array<Natures>;
 
     @Field(() => StatsCount, {nullable:false})
-    _count?: StatsCount;
+    _count?: Identity<StatsCount>;
 }

@@ -2,9 +2,9 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { StatsWhereInput } from './stats-where.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
-import { StringFilter } from '../prisma/string-filter.input';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
+import { StringFilter } from '../prisma/string-filter.input';
 import { PokemonStatsListRelationFilter } from '../pokemon-stats/pokemon-stats-list-relation-filter.input';
 import { MoveMetaStatChangesListRelationFilter } from '../move-meta-stat-changes/move-meta-stat-changes-list-relation-filter.input';
 import { CharacteristicsListRelationFilter } from '../characteristics/characteristics-list-relation-filter.input';
@@ -25,30 +25,30 @@ export class StatsWhereUniqueInput {
     @Field(() => [StatsWhereInput], {nullable:true})
     NOT?: Array<StatsWhereInput>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    damage_class_id?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    damage_class_id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    is_battle_only?: IntFilter;
+    is_battle_only?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    game_index?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    game_index?: Identity<IntFilter>;
 
     @Field(() => PokemonStatsListRelationFilter, {nullable:true})
-    pokemonStats?: PokemonStatsListRelationFilter;
+    pokemonStats?: Identity<PokemonStatsListRelationFilter>;
 
     @Field(() => MoveMetaStatChangesListRelationFilter, {nullable:true})
-    moveMetaStatChanges?: MoveMetaStatChangesListRelationFilter;
+    moveMetaStatChanges?: Identity<MoveMetaStatChangesListRelationFilter>;
 
     @Field(() => CharacteristicsListRelationFilter, {nullable:true})
-    characteristics?: CharacteristicsListRelationFilter;
+    characteristics?: Identity<CharacteristicsListRelationFilter>;
 
     @Field(() => NaturesListRelationFilter, {nullable:true})
-    naturesDecreased?: NaturesListRelationFilter;
+    naturesDecreased?: Identity<NaturesListRelationFilter>;
 
     @Field(() => NaturesListRelationFilter, {nullable:true})
-    naturesIncreased?: NaturesListRelationFilter;
+    naturesIncreased?: Identity<NaturesListRelationFilter>;
 }

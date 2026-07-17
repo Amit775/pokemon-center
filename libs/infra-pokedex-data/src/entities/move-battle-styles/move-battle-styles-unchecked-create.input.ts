@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NatureBattleStylePreferencesUncheckedCreateNestedManyWithoutBattleStyleInput } from '../nature-battle-style-preferences/nature-battle-style-preferences-unchecked-create-nested-many-without-battle-style.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class MoveBattleStylesUncheckedCreateInput {
     identifier!: string;
 
     @Field(() => NatureBattleStylePreferencesUncheckedCreateNestedManyWithoutBattleStyleInput, {nullable:true})
-    naturePreferences?: NatureBattleStylePreferencesUncheckedCreateNestedManyWithoutBattleStyleInput;
+    naturePreferences?: Identity<NatureBattleStylePreferencesUncheckedCreateNestedManyWithoutBattleStyleInput>;
 }

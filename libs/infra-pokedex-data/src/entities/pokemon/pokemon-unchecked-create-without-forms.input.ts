@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonAbilitiesUncheckedCreateNestedManyWithoutPokemonInput } from '../pokemon-abilities/pokemon-abilities-unchecked-create-nested-many-without-pokemon.input';
 import { PokemonMovesUncheckedCreateNestedManyWithoutPokemonInput } from '../pokemon-moves/pokemon-moves-unchecked-create-nested-many-without-pokemon.input';
 import { PokemonStatsUncheckedCreateNestedManyWithoutPokemonInput } from '../pokemon-stats/pokemon-stats-unchecked-create-nested-many-without-pokemon.input';
@@ -37,23 +38,23 @@ export class PokemonUncheckedCreateWithoutFormsInput {
     is_default!: number;
 
     @Field(() => PokemonAbilitiesUncheckedCreateNestedManyWithoutPokemonInput, {nullable:true})
-    abilities?: PokemonAbilitiesUncheckedCreateNestedManyWithoutPokemonInput;
+    abilities?: Identity<PokemonAbilitiesUncheckedCreateNestedManyWithoutPokemonInput>;
 
     @Field(() => PokemonMovesUncheckedCreateNestedManyWithoutPokemonInput, {nullable:true})
-    moves?: PokemonMovesUncheckedCreateNestedManyWithoutPokemonInput;
+    moves?: Identity<PokemonMovesUncheckedCreateNestedManyWithoutPokemonInput>;
 
     @Field(() => PokemonStatsUncheckedCreateNestedManyWithoutPokemonInput, {nullable:true})
-    stats?: PokemonStatsUncheckedCreateNestedManyWithoutPokemonInput;
+    stats?: Identity<PokemonStatsUncheckedCreateNestedManyWithoutPokemonInput>;
 
     @Field(() => PokemonTypesUncheckedCreateNestedManyWithoutPokemonInput, {nullable:true})
-    types?: PokemonTypesUncheckedCreateNestedManyWithoutPokemonInput;
+    types?: Identity<PokemonTypesUncheckedCreateNestedManyWithoutPokemonInput>;
 
     @Field(() => PokemonItemsUncheckedCreateNestedManyWithoutPokemonInput, {nullable:true})
-    items?: PokemonItemsUncheckedCreateNestedManyWithoutPokemonInput;
+    items?: Identity<PokemonItemsUncheckedCreateNestedManyWithoutPokemonInput>;
 
     @Field(() => PokemonGameIndicesUncheckedCreateNestedManyWithoutPokemonInput, {nullable:true})
-    gameIndices?: PokemonGameIndicesUncheckedCreateNestedManyWithoutPokemonInput;
+    gameIndices?: Identity<PokemonGameIndicesUncheckedCreateNestedManyWithoutPokemonInput>;
 
     @Field(() => EncountersUncheckedCreateNestedManyWithoutPokemonInput, {nullable:true})
-    encounters?: EncountersUncheckedCreateNestedManyWithoutPokemonInput;
+    encounters?: Identity<EncountersUncheckedCreateNestedManyWithoutPokemonInput>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationAreaEncounterRatesLocation_area_idEncounter_method_idVersion_idCompoundUniqueInput } from './location-area-encounter-rates-location-area-id-encounter-method-id-version-id-compound-unique.input';
 import { LocationAreaEncounterRatesWhereInput } from './location-area-encounter-rates-where.input';
 import { IntFilter } from '../prisma/int-filter.input';
@@ -11,7 +12,7 @@ import { VersionsScalarRelationFilter } from '../versions/versions-scalar-relati
 export class LocationAreaEncounterRatesWhereUniqueInput {
 
     @Field(() => LocationAreaEncounterRatesLocation_area_idEncounter_method_idVersion_idCompoundUniqueInput, {nullable:true})
-    location_area_id_encounter_method_id_version_id?: LocationAreaEncounterRatesLocation_area_idEncounter_method_idVersion_idCompoundUniqueInput;
+    location_area_id_encounter_method_id_version_id?: Identity<LocationAreaEncounterRatesLocation_area_idEncounter_method_idVersion_idCompoundUniqueInput>;
 
     @Field(() => [LocationAreaEncounterRatesWhereInput], {nullable:true})
     AND?: Array<LocationAreaEncounterRatesWhereInput>;
@@ -23,23 +24,23 @@ export class LocationAreaEncounterRatesWhereUniqueInput {
     NOT?: Array<LocationAreaEncounterRatesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    location_area_id?: IntFilter;
+    location_area_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    encounter_method_id?: IntFilter;
+    encounter_method_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    version_id?: IntFilter;
+    version_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    rate?: IntFilter;
+    rate?: Identity<IntFilter>;
 
     @Field(() => LocationAreasScalarRelationFilter, {nullable:true})
-    locationArea?: LocationAreasScalarRelationFilter;
+    locationArea?: Identity<LocationAreasScalarRelationFilter>;
 
     @Field(() => EncounterMethodsScalarRelationFilter, {nullable:true})
-    encounterMethod?: EncounterMethodsScalarRelationFilter;
+    encounterMethod?: Identity<EncounterMethodsScalarRelationFilter>;
 
     @Field(() => VersionsScalarRelationFilter, {nullable:true})
-    version?: VersionsScalarRelationFilter;
+    version?: Identity<VersionsScalarRelationFilter>;
 }

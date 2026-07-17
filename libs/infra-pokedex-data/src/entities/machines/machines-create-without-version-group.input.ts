@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemsCreateNestedOneWithoutMachinesInput } from '../items/items-create-nested-one-without-machines.input';
 import { MovesCreateNestedOneWithoutMachinesInput } from '../moves/moves-create-nested-one-without-machines.input';
 
@@ -11,8 +12,8 @@ export class MachinesCreateWithoutVersionGroupInput {
     machine_number!: number;
 
     @Field(() => ItemsCreateNestedOneWithoutMachinesInput, {nullable:false})
-    item!: ItemsCreateNestedOneWithoutMachinesInput;
+    item!: Identity<ItemsCreateNestedOneWithoutMachinesInput>;
 
     @Field(() => MovesCreateNestedOneWithoutMachinesInput, {nullable:false})
-    move!: MovesCreateNestedOneWithoutMachinesInput;
+    move!: Identity<MovesCreateNestedOneWithoutMachinesInput>;
 }

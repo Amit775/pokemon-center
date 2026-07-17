@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveTargetsWhereInput } from './move-targets-where.input';
 import { Type } from 'class-transformer';
 import { MoveTargetsOrderByWithRelationInput } from './move-targets-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveTargetsWhereUniqueInput } from './move-targets-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { MoveTargetsCountAggregateInput } from './move-targets-count-aggregate.input';
@@ -17,7 +18,7 @@ export class MoveTargetsAggregateArgs {
 
     @Field(() => MoveTargetsWhereInput, {nullable:true})
     @Type(() => MoveTargetsWhereInput)
-    where?: MoveTargetsWhereInput;
+    where?: Identity<MoveTargetsWhereInput>;
 
     @Field(() => [MoveTargetsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<MoveTargetsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class MoveTargetsAggregateArgs {
     skip?: number;
 
     @Field(() => MoveTargetsCountAggregateInput, {nullable:true})
-    _count?: MoveTargetsCountAggregateInput;
+    _count?: Identity<MoveTargetsCountAggregateInput>;
 
     @Field(() => MoveTargetsAvgAggregateInput, {nullable:true})
-    _avg?: MoveTargetsAvgAggregateInput;
+    _avg?: Identity<MoveTargetsAvgAggregateInput>;
 
     @Field(() => MoveTargetsSumAggregateInput, {nullable:true})
-    _sum?: MoveTargetsSumAggregateInput;
+    _sum?: Identity<MoveTargetsSumAggregateInput>;
 
     @Field(() => MoveTargetsMinAggregateInput, {nullable:true})
-    _min?: MoveTargetsMinAggregateInput;
+    _min?: Identity<MoveTargetsMinAggregateInput>;
 
     @Field(() => MoveTargetsMaxAggregateInput, {nullable:true})
-    _max?: MoveTargetsMaxAggregateInput;
+    _max?: Identity<MoveTargetsMaxAggregateInput>;
 }

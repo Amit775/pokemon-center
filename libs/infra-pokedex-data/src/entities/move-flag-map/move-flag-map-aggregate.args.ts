@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveFlagMapWhereInput } from './move-flag-map-where.input';
 import { Type } from 'class-transformer';
 import { MoveFlagMapOrderByWithRelationInput } from './move-flag-map-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveFlagMapWhereUniqueInput } from './move-flag-map-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { MoveFlagMapCountAggregateInput } from './move-flag-map-count-aggregate.input';
@@ -17,7 +18,7 @@ export class MoveFlagMapAggregateArgs {
 
     @Field(() => MoveFlagMapWhereInput, {nullable:true})
     @Type(() => MoveFlagMapWhereInput)
-    where?: MoveFlagMapWhereInput;
+    where?: Identity<MoveFlagMapWhereInput>;
 
     @Field(() => [MoveFlagMapOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<MoveFlagMapOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class MoveFlagMapAggregateArgs {
     skip?: number;
 
     @Field(() => MoveFlagMapCountAggregateInput, {nullable:true})
-    _count?: MoveFlagMapCountAggregateInput;
+    _count?: Identity<MoveFlagMapCountAggregateInput>;
 
     @Field(() => MoveFlagMapAvgAggregateInput, {nullable:true})
-    _avg?: MoveFlagMapAvgAggregateInput;
+    _avg?: Identity<MoveFlagMapAvgAggregateInput>;
 
     @Field(() => MoveFlagMapSumAggregateInput, {nullable:true})
-    _sum?: MoveFlagMapSumAggregateInput;
+    _sum?: Identity<MoveFlagMapSumAggregateInput>;
 
     @Field(() => MoveFlagMapMinAggregateInput, {nullable:true})
-    _min?: MoveFlagMapMinAggregateInput;
+    _min?: Identity<MoveFlagMapMinAggregateInput>;
 
     @Field(() => MoveFlagMapMaxAggregateInput, {nullable:true})
-    _max?: MoveFlagMapMaxAggregateInput;
+    _max?: Identity<MoveFlagMapMaxAggregateInput>;
 }

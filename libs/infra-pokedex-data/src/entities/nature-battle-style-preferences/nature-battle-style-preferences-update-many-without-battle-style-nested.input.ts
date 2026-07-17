@@ -4,8 +4,9 @@ import { NatureBattleStylePreferencesCreateWithoutBattleStyleInput } from './nat
 import { Type } from 'class-transformer';
 import { NatureBattleStylePreferencesCreateOrConnectWithoutBattleStyleInput } from './nature-battle-style-preferences-create-or-connect-without-battle-style.input';
 import { NatureBattleStylePreferencesUpsertWithWhereUniqueWithoutBattleStyleInput } from './nature-battle-style-preferences-upsert-with-where-unique-without-battle-style.input';
+import type { Identity } from 'identity-type';
 import { NatureBattleStylePreferencesCreateManyBattleStyleInputEnvelope } from './nature-battle-style-preferences-create-many-battle-style-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { NatureBattleStylePreferencesWhereUniqueInput } from './nature-battle-style-preferences-where-unique.input';
 import { NatureBattleStylePreferencesUpdateWithWhereUniqueWithoutBattleStyleInput } from './nature-battle-style-preferences-update-with-where-unique-without-battle-style.input';
 import { NatureBattleStylePreferencesUpdateManyWithWhereWithoutBattleStyleInput } from './nature-battle-style-preferences-update-many-with-where-without-battle-style.input';
@@ -28,7 +29,7 @@ export class NatureBattleStylePreferencesUpdateManyWithoutBattleStyleNestedInput
 
     @Field(() => NatureBattleStylePreferencesCreateManyBattleStyleInputEnvelope, {nullable:true})
     @Type(() => NatureBattleStylePreferencesCreateManyBattleStyleInputEnvelope)
-    createMany?: NatureBattleStylePreferencesCreateManyBattleStyleInputEnvelope;
+    createMany?: Identity<NatureBattleStylePreferencesCreateManyBattleStyleInputEnvelope>;
 
     @Field(() => [NatureBattleStylePreferencesWhereUniqueInput], {nullable:true})
     @Type(() => NatureBattleStylePreferencesWhereUniqueInput)

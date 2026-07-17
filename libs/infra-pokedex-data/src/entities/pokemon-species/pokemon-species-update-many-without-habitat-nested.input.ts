@@ -4,8 +4,9 @@ import { PokemonSpeciesCreateWithoutHabitatInput } from './pokemon-species-creat
 import { Type } from 'class-transformer';
 import { PokemonSpeciesCreateOrConnectWithoutHabitatInput } from './pokemon-species-create-or-connect-without-habitat.input';
 import { PokemonSpeciesUpsertWithWhereUniqueWithoutHabitatInput } from './pokemon-species-upsert-with-where-unique-without-habitat.input';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesCreateManyHabitatInputEnvelope } from './pokemon-species-create-many-habitat-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonSpeciesWhereUniqueInput } from './pokemon-species-where-unique.input';
 import { PokemonSpeciesUpdateWithWhereUniqueWithoutHabitatInput } from './pokemon-species-update-with-where-unique-without-habitat.input';
 import { PokemonSpeciesUpdateManyWithWhereWithoutHabitatInput } from './pokemon-species-update-many-with-where-without-habitat.input';
@@ -28,7 +29,7 @@ export class PokemonSpeciesUpdateManyWithoutHabitatNestedInput {
 
     @Field(() => PokemonSpeciesCreateManyHabitatInputEnvelope, {nullable:true})
     @Type(() => PokemonSpeciesCreateManyHabitatInputEnvelope)
-    createMany?: PokemonSpeciesCreateManyHabitatInputEnvelope;
+    createMany?: Identity<PokemonSpeciesCreateManyHabitatInputEnvelope>;
 
     @Field(() => [PokemonSpeciesWhereUniqueInput], {nullable:true})
     @Type(() => PokemonSpeciesWhereUniqueInput)

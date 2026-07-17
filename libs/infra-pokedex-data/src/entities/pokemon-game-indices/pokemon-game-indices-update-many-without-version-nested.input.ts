@@ -4,8 +4,9 @@ import { PokemonGameIndicesCreateWithoutVersionInput } from './pokemon-game-indi
 import { Type } from 'class-transformer';
 import { PokemonGameIndicesCreateOrConnectWithoutVersionInput } from './pokemon-game-indices-create-or-connect-without-version.input';
 import { PokemonGameIndicesUpsertWithWhereUniqueWithoutVersionInput } from './pokemon-game-indices-upsert-with-where-unique-without-version.input';
+import type { Identity } from 'identity-type';
 import { PokemonGameIndicesCreateManyVersionInputEnvelope } from './pokemon-game-indices-create-many-version-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonGameIndicesWhereUniqueInput } from './pokemon-game-indices-where-unique.input';
 import { PokemonGameIndicesUpdateWithWhereUniqueWithoutVersionInput } from './pokemon-game-indices-update-with-where-unique-without-version.input';
 import { PokemonGameIndicesUpdateManyWithWhereWithoutVersionInput } from './pokemon-game-indices-update-many-with-where-without-version.input';
@@ -28,7 +29,7 @@ export class PokemonGameIndicesUpdateManyWithoutVersionNestedInput {
 
     @Field(() => PokemonGameIndicesCreateManyVersionInputEnvelope, {nullable:true})
     @Type(() => PokemonGameIndicesCreateManyVersionInputEnvelope)
-    createMany?: PokemonGameIndicesCreateManyVersionInputEnvelope;
+    createMany?: Identity<PokemonGameIndicesCreateManyVersionInputEnvelope>;
 
     @Field(() => [PokemonGameIndicesWhereUniqueInput], {nullable:true})
     @Type(() => PokemonGameIndicesWhereUniqueInput)

@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { TypeEfficacyWhereUniqueInput } from './type-efficacy-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { TypeEfficacyUpdateWithoutTargetTypeInput } from './type-efficacy-update-without-target-type.input';
 import { TypeEfficacyCreateWithoutTargetTypeInput } from './type-efficacy-create-without-target-type.input';
 
@@ -15,9 +16,9 @@ export class TypeEfficacyUpsertWithWhereUniqueWithoutTargetTypeInput {
 
     @Field(() => TypeEfficacyUpdateWithoutTargetTypeInput, {nullable:false})
     @Type(() => TypeEfficacyUpdateWithoutTargetTypeInput)
-    update!: TypeEfficacyUpdateWithoutTargetTypeInput;
+    update!: Identity<TypeEfficacyUpdateWithoutTargetTypeInput>;
 
     @Field(() => TypeEfficacyCreateWithoutTargetTypeInput, {nullable:false})
     @Type(() => TypeEfficacyCreateWithoutTargetTypeInput)
-    create!: TypeEfficacyCreateWithoutTargetTypeInput;
+    create!: Identity<TypeEfficacyCreateWithoutTargetTypeInput>;
 }

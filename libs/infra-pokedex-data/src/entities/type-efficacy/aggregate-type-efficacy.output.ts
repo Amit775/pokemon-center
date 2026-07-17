@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TypeEfficacyCountAggregate } from './type-efficacy-count-aggregate.output';
 import { TypeEfficacyAvgAggregate } from './type-efficacy-avg-aggregate.output';
 import { TypeEfficacySumAggregate } from './type-efficacy-sum-aggregate.output';
@@ -10,17 +11,17 @@ import { TypeEfficacyMaxAggregate } from './type-efficacy-max-aggregate.output';
 export class AggregateTypeEfficacy {
 
     @Field(() => TypeEfficacyCountAggregate, {nullable:true})
-    _count?: TypeEfficacyCountAggregate;
+    _count?: Identity<TypeEfficacyCountAggregate>;
 
     @Field(() => TypeEfficacyAvgAggregate, {nullable:true})
-    _avg?: TypeEfficacyAvgAggregate;
+    _avg?: Identity<TypeEfficacyAvgAggregate>;
 
     @Field(() => TypeEfficacySumAggregate, {nullable:true})
-    _sum?: TypeEfficacySumAggregate;
+    _sum?: Identity<TypeEfficacySumAggregate>;
 
     @Field(() => TypeEfficacyMinAggregate, {nullable:true})
-    _min?: TypeEfficacyMinAggregate;
+    _min?: Identity<TypeEfficacyMinAggregate>;
 
     @Field(() => TypeEfficacyMaxAggregate, {nullable:true})
-    _max?: TypeEfficacyMaxAggregate;
+    _max?: Identity<TypeEfficacyMaxAggregate>;
 }

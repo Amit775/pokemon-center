@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { PokemonItemsCreateWithoutItemInput } from './pokemon-items-create-without-item.input';
 import { Type } from 'class-transformer';
 import { PokemonItemsCreateOrConnectWithoutItemInput } from './pokemon-items-create-or-connect-without-item.input';
+import type { Identity } from 'identity-type';
 import { PokemonItemsCreateManyItemInputEnvelope } from './pokemon-items-create-many-item-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonItemsWhereUniqueInput } from './pokemon-items-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class PokemonItemsUncheckedCreateNestedManyWithoutItemInput {
 
     @Field(() => PokemonItemsCreateManyItemInputEnvelope, {nullable:true})
     @Type(() => PokemonItemsCreateManyItemInputEnvelope)
-    createMany?: PokemonItemsCreateManyItemInputEnvelope;
+    createMany?: Identity<PokemonItemsCreateManyItemInputEnvelope>;
 
     @Field(() => [PokemonItemsWhereUniqueInput], {nullable:true})
     @Type(() => PokemonItemsWhereUniqueInput)

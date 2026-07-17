@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { PokemonSpecies } from '../pokemon-species/pokemon-species.model';
+import type { Identity } from 'identity-type';
 import { EggGroups } from '../egg-groups/egg-groups.model';
 
 /**
@@ -17,8 +18,8 @@ export class PokemonEggGroups {
     egg_group_id!: number;
 
     @Field(() => PokemonSpecies, {nullable:false})
-    species?: PokemonSpecies;
+    species?: Identity<PokemonSpecies>;
 
     @Field(() => EggGroups, {nullable:false})
-    eggGroup?: EggGroups;
+    eggGroup?: Identity<EggGroups>;
 }

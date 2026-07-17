@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { ItemCategoriesScalarRelationFilter } from '../item-categories/item-categories-scalar-relation-filter.input';
-import { ItemFlingEffectsNullableScalarRelationFilter } from '../item-fling-effects/item-fling-effects-nullable-scalar-relation-filter.input';
+import { ItemFlingEffectsScalarRelationFilter } from '../item-fling-effects/item-fling-effects-scalar-relation-filter.input';
 import { PokemonItemsListRelationFilter } from '../pokemon-items/pokemon-items-list-relation-filter.input';
 import { MachinesListRelationFilter } from '../machines/machines-list-relation-filter.input';
 import { BerriesListRelationFilter } from '../berries/berries-list-relation-filter.input';
@@ -26,50 +26,50 @@ export class ItemsWhereInput {
     NOT?: Array<ItemsWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    category_id?: IntFilter;
+    category_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    cost?: IntFilter;
+    cost?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    fling_power?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    fling_power?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    fling_effect_id?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    fling_effect_id?: Identity<IntFilter>;
 
     @Field(() => ItemCategoriesScalarRelationFilter, {nullable:true})
-    category?: ItemCategoriesScalarRelationFilter;
+    category?: Identity<ItemCategoriesScalarRelationFilter>;
 
-    @Field(() => ItemFlingEffectsNullableScalarRelationFilter, {nullable:true})
-    flingEffect?: ItemFlingEffectsNullableScalarRelationFilter;
+    @Field(() => ItemFlingEffectsScalarRelationFilter, {nullable:true})
+    flingEffect?: Identity<ItemFlingEffectsScalarRelationFilter>;
 
     @Field(() => PokemonItemsListRelationFilter, {nullable:true})
-    pokemonItems?: PokemonItemsListRelationFilter;
+    pokemonItems?: Identity<PokemonItemsListRelationFilter>;
 
     @Field(() => MachinesListRelationFilter, {nullable:true})
-    machines?: MachinesListRelationFilter;
+    machines?: Identity<MachinesListRelationFilter>;
 
     @Field(() => BerriesListRelationFilter, {nullable:true})
-    berries?: BerriesListRelationFilter;
+    berries?: Identity<BerriesListRelationFilter>;
 
     @Field(() => ItemGameIndicesListRelationFilter, {nullable:true})
-    gameIndices?: ItemGameIndicesListRelationFilter;
+    gameIndices?: Identity<ItemGameIndicesListRelationFilter>;
 
     @Field(() => ItemFlagMapListRelationFilter, {nullable:true})
-    flagMap?: ItemFlagMapListRelationFilter;
+    flagMap?: Identity<ItemFlagMapListRelationFilter>;
 
     @Field(() => EvolutionChainsListRelationFilter, {nullable:true})
-    babyTriggerItems?: EvolutionChainsListRelationFilter;
+    babyTriggerItems?: Identity<EvolutionChainsListRelationFilter>;
 
     @Field(() => PokemonEvolutionListRelationFilter, {nullable:true})
-    triggerItems?: PokemonEvolutionListRelationFilter;
+    triggerItems?: Identity<PokemonEvolutionListRelationFilter>;
 
     @Field(() => PokemonEvolutionListRelationFilter, {nullable:true})
-    heldItems?: PokemonEvolutionListRelationFilter;
+    heldItems?: Identity<PokemonEvolutionListRelationFilter>;
 }

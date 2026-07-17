@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { RegionsWhereUniqueInput } from './regions-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { RegionsCreateWithoutLocationsInput } from './regions-create-without-locations.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class RegionsCreateOrConnectWithoutLocationsInput {
 
     @Field(() => RegionsCreateWithoutLocationsInput, {nullable:false})
     @Type(() => RegionsCreateWithoutLocationsInput)
-    create!: RegionsCreateWithoutLocationsInput;
+    create!: Identity<RegionsCreateWithoutLocationsInput>;
 }

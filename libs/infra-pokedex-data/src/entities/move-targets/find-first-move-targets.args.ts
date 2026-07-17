@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveTargetsWhereInput } from './move-targets-where.input';
 import { Type } from 'class-transformer';
 import { MoveTargetsOrderByWithRelationInput } from './move-targets-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveTargetsWhereUniqueInput } from './move-targets-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { MoveTargetsScalarFieldEnum } from './move-targets-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstMoveTargetsArgs {
 
     @Field(() => MoveTargetsWhereInput, {nullable:true})
     @Type(() => MoveTargetsWhereInput)
-    where?: MoveTargetsWhereInput;
+    where?: Identity<MoveTargetsWhereInput>;
 
     @Field(() => [MoveTargetsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<MoveTargetsOrderByWithRelationInput>;

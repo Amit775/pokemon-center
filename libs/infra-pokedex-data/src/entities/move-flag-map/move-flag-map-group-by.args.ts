@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveFlagMapWhereInput } from './move-flag-map-where.input';
 import { Type } from 'class-transformer';
 import { MoveFlagMapOrderByWithAggregationInput } from './move-flag-map-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class MoveFlagMapGroupByArgs {
 
     @Field(() => MoveFlagMapWhereInput, {nullable:true})
     @Type(() => MoveFlagMapWhereInput)
-    where?: MoveFlagMapWhereInput;
+    where?: Identity<MoveFlagMapWhereInput>;
 
     @Field(() => [MoveFlagMapOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<MoveFlagMapOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class MoveFlagMapGroupByArgs {
     by!: Array<`${MoveFlagMapScalarFieldEnum}`>;
 
     @Field(() => MoveFlagMapScalarWhereWithAggregatesInput, {nullable:true})
-    having?: MoveFlagMapScalarWhereWithAggregatesInput;
+    having?: Identity<MoveFlagMapScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class MoveFlagMapGroupByArgs {
     skip?: number;
 
     @Field(() => MoveFlagMapCountAggregateInput, {nullable:true})
-    _count?: MoveFlagMapCountAggregateInput;
+    _count?: Identity<MoveFlagMapCountAggregateInput>;
 
     @Field(() => MoveFlagMapAvgAggregateInput, {nullable:true})
-    _avg?: MoveFlagMapAvgAggregateInput;
+    _avg?: Identity<MoveFlagMapAvgAggregateInput>;
 
     @Field(() => MoveFlagMapSumAggregateInput, {nullable:true})
-    _sum?: MoveFlagMapSumAggregateInput;
+    _sum?: Identity<MoveFlagMapSumAggregateInput>;
 
     @Field(() => MoveFlagMapMinAggregateInput, {nullable:true})
-    _min?: MoveFlagMapMinAggregateInput;
+    _min?: Identity<MoveFlagMapMinAggregateInput>;
 
     @Field(() => MoveFlagMapMaxAggregateInput, {nullable:true})
-    _max?: MoveFlagMapMaxAggregateInput;
+    _max?: Identity<MoveFlagMapMaxAggregateInput>;
 }

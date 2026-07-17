@@ -61,7 +61,6 @@ export { ItemsMaxOrderByAggregateInput } from './items-max-order-by-aggregate.in
 export { ItemsMinAggregateInput } from './items-min-aggregate.input';
 export { ItemsMinAggregate } from './items-min-aggregate.output';
 export { ItemsMinOrderByAggregateInput } from './items-min-order-by-aggregate.input';
-export { ItemsNullableScalarRelationFilter } from './items-nullable-scalar-relation-filter.input';
 export { ItemsOrderByRelationAggregateInput } from './items-order-by-relation-aggregate.input';
 export { ItemsOrderByWithAggregationInput } from './items-order-by-with-aggregation.input';
 export { ItemsOrderByWithRelationInput } from './items-order-by-with-relation.input';

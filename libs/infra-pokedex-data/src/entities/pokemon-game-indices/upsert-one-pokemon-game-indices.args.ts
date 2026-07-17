@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonGameIndicesWhereUniqueInput } from './pokemon-game-indices-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonGameIndicesCreateInput } from './pokemon-game-indices-create.input';
 import { PokemonGameIndicesUpdateInput } from './pokemon-game-indices-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOnePokemonGameIndicesArgs {
 
     @Field(() => PokemonGameIndicesCreateInput, {nullable:false})
     @Type(() => PokemonGameIndicesCreateInput)
-    create!: PokemonGameIndicesCreateInput;
+    create!: Identity<PokemonGameIndicesCreateInput>;
 
     @Field(() => PokemonGameIndicesUpdateInput, {nullable:false})
     @Type(() => PokemonGameIndicesUpdateInput)
-    update!: PokemonGameIndicesUpdateInput;
+    update!: Identity<PokemonGameIndicesUpdateInput>;
 }

@@ -4,8 +4,9 @@ import { PokemonEvolutionCreateWithoutKnownMoveInput } from './pokemon-evolution
 import { Type } from 'class-transformer';
 import { PokemonEvolutionCreateOrConnectWithoutKnownMoveInput } from './pokemon-evolution-create-or-connect-without-known-move.input';
 import { PokemonEvolutionUpsertWithWhereUniqueWithoutKnownMoveInput } from './pokemon-evolution-upsert-with-where-unique-without-known-move.input';
+import type { Identity } from 'identity-type';
 import { PokemonEvolutionCreateManyKnownMoveInputEnvelope } from './pokemon-evolution-create-many-known-move-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEvolutionWhereUniqueInput } from './pokemon-evolution-where-unique.input';
 import { PokemonEvolutionUpdateWithWhereUniqueWithoutKnownMoveInput } from './pokemon-evolution-update-with-where-unique-without-known-move.input';
 import { PokemonEvolutionUpdateManyWithWhereWithoutKnownMoveInput } from './pokemon-evolution-update-many-with-where-without-known-move.input';
@@ -28,7 +29,7 @@ export class PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput {
 
     @Field(() => PokemonEvolutionCreateManyKnownMoveInputEnvelope, {nullable:true})
     @Type(() => PokemonEvolutionCreateManyKnownMoveInputEnvelope)
-    createMany?: PokemonEvolutionCreateManyKnownMoveInputEnvelope;
+    createMany?: Identity<PokemonEvolutionCreateManyKnownMoveInputEnvelope>;
 
     @Field(() => [PokemonEvolutionWhereUniqueInput], {nullable:true})
     @Type(() => PokemonEvolutionWhereUniqueInput)

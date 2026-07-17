@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { SuperContestCombosWhereInput } from './super-contest-combos-where.input';
 import { Type } from 'class-transformer';
 import { SuperContestCombosOrderByWithRelationInput } from './super-contest-combos-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { SuperContestCombosWhereUniqueInput } from './super-contest-combos-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { SuperContestCombosCountAggregateInput } from './super-contest-combos-count-aggregate.input';
@@ -17,7 +18,7 @@ export class SuperContestCombosAggregateArgs {
 
     @Field(() => SuperContestCombosWhereInput, {nullable:true})
     @Type(() => SuperContestCombosWhereInput)
-    where?: SuperContestCombosWhereInput;
+    where?: Identity<SuperContestCombosWhereInput>;
 
     @Field(() => [SuperContestCombosOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<SuperContestCombosOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class SuperContestCombosAggregateArgs {
     skip?: number;
 
     @Field(() => SuperContestCombosCountAggregateInput, {nullable:true})
-    _count?: SuperContestCombosCountAggregateInput;
+    _count?: Identity<SuperContestCombosCountAggregateInput>;
 
     @Field(() => SuperContestCombosAvgAggregateInput, {nullable:true})
-    _avg?: SuperContestCombosAvgAggregateInput;
+    _avg?: Identity<SuperContestCombosAvgAggregateInput>;
 
     @Field(() => SuperContestCombosSumAggregateInput, {nullable:true})
-    _sum?: SuperContestCombosSumAggregateInput;
+    _sum?: Identity<SuperContestCombosSumAggregateInput>;
 
     @Field(() => SuperContestCombosMinAggregateInput, {nullable:true})
-    _min?: SuperContestCombosMinAggregateInput;
+    _min?: Identity<SuperContestCombosMinAggregateInput>;
 
     @Field(() => SuperContestCombosMaxAggregateInput, {nullable:true})
-    _max?: SuperContestCombosMaxAggregateInput;
+    _max?: Identity<SuperContestCombosMaxAggregateInput>;
 }

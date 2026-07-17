@@ -4,8 +4,9 @@ import { CharacteristicsCreateWithoutStatInput } from './characteristics-create-
 import { Type } from 'class-transformer';
 import { CharacteristicsCreateOrConnectWithoutStatInput } from './characteristics-create-or-connect-without-stat.input';
 import { CharacteristicsUpsertWithWhereUniqueWithoutStatInput } from './characteristics-upsert-with-where-unique-without-stat.input';
+import type { Identity } from 'identity-type';
 import { CharacteristicsCreateManyStatInputEnvelope } from './characteristics-create-many-stat-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { CharacteristicsWhereUniqueInput } from './characteristics-where-unique.input';
 import { CharacteristicsUpdateWithWhereUniqueWithoutStatInput } from './characteristics-update-with-where-unique-without-stat.input';
 import { CharacteristicsUpdateManyWithWhereWithoutStatInput } from './characteristics-update-many-with-where-without-stat.input';
@@ -28,7 +29,7 @@ export class CharacteristicsUncheckedUpdateManyWithoutStatNestedInput {
 
     @Field(() => CharacteristicsCreateManyStatInputEnvelope, {nullable:true})
     @Type(() => CharacteristicsCreateManyStatInputEnvelope)
-    createMany?: CharacteristicsCreateManyStatInputEnvelope;
+    createMany?: Identity<CharacteristicsCreateManyStatInputEnvelope>;
 
     @Field(() => [CharacteristicsWhereUniqueInput], {nullable:true})
     @Type(() => CharacteristicsWhereUniqueInput)

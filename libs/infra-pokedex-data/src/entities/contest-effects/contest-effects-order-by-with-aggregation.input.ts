@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { ContestEffectsCountOrderByAggregateInput } from './contest-effects-count-order-by-aggregate.input';
 import { ContestEffectsAvgOrderByAggregateInput } from './contest-effects-avg-order-by-aggregate.input';
 import { ContestEffectsMaxOrderByAggregateInput } from './contest-effects-max-order-by-aggregate.input';
@@ -20,17 +21,17 @@ export class ContestEffectsOrderByWithAggregationInput {
     jam?: `${SortOrder}`;
 
     @Field(() => ContestEffectsCountOrderByAggregateInput, {nullable:true})
-    _count?: ContestEffectsCountOrderByAggregateInput;
+    _count?: Identity<ContestEffectsCountOrderByAggregateInput>;
 
     @Field(() => ContestEffectsAvgOrderByAggregateInput, {nullable:true})
-    _avg?: ContestEffectsAvgOrderByAggregateInput;
+    _avg?: Identity<ContestEffectsAvgOrderByAggregateInput>;
 
     @Field(() => ContestEffectsMaxOrderByAggregateInput, {nullable:true})
-    _max?: ContestEffectsMaxOrderByAggregateInput;
+    _max?: Identity<ContestEffectsMaxOrderByAggregateInput>;
 
     @Field(() => ContestEffectsMinOrderByAggregateInput, {nullable:true})
-    _min?: ContestEffectsMinOrderByAggregateInput;
+    _min?: Identity<ContestEffectsMinOrderByAggregateInput>;
 
     @Field(() => ContestEffectsSumOrderByAggregateInput, {nullable:true})
-    _sum?: ContestEffectsSumOrderByAggregateInput;
+    _sum?: Identity<ContestEffectsSumOrderByAggregateInput>;
 }

@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { PokedexVersionGroupsCreateWithoutVersionGroupInput } from './pokedex-version-groups-create-without-version-group.input';
 import { Type } from 'class-transformer';
 import { PokedexVersionGroupsCreateOrConnectWithoutVersionGroupInput } from './pokedex-version-groups-create-or-connect-without-version-group.input';
+import type { Identity } from 'identity-type';
 import { PokedexVersionGroupsCreateManyVersionGroupInputEnvelope } from './pokedex-version-groups-create-many-version-group-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokedexVersionGroupsWhereUniqueInput } from './pokedex-version-groups-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class PokedexVersionGroupsUncheckedCreateNestedManyWithoutVersionGroupInp
 
     @Field(() => PokedexVersionGroupsCreateManyVersionGroupInputEnvelope, {nullable:true})
     @Type(() => PokedexVersionGroupsCreateManyVersionGroupInputEnvelope)
-    createMany?: PokedexVersionGroupsCreateManyVersionGroupInputEnvelope;
+    createMany?: Identity<PokedexVersionGroupsCreateManyVersionGroupInputEnvelope>;
 
     @Field(() => [PokedexVersionGroupsWhereUniqueInput], {nullable:true})
     @Type(() => PokedexVersionGroupsWhereUniqueInput)

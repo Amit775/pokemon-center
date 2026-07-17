@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonFormTypesWhereUniqueInput } from './pokemon-form-types-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonFormTypesUpdateWithoutTypeInput } from './pokemon-form-types-update-without-type.input';
 import { PokemonFormTypesCreateWithoutTypeInput } from './pokemon-form-types-create-without-type.input';
 
@@ -15,9 +16,9 @@ export class PokemonFormTypesUpsertWithWhereUniqueWithoutTypeInput {
 
     @Field(() => PokemonFormTypesUpdateWithoutTypeInput, {nullable:false})
     @Type(() => PokemonFormTypesUpdateWithoutTypeInput)
-    update!: PokemonFormTypesUpdateWithoutTypeInput;
+    update!: Identity<PokemonFormTypesUpdateWithoutTypeInput>;
 
     @Field(() => PokemonFormTypesCreateWithoutTypeInput, {nullable:false})
     @Type(() => PokemonFormTypesCreateWithoutTypeInput)
-    create!: PokemonFormTypesCreateWithoutTypeInput;
+    create!: Identity<PokemonFormTypesCreateWithoutTypeInput>;
 }

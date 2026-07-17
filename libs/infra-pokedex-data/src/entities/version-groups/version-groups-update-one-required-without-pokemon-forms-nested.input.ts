@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupsCreateWithoutPokemonFormsInput } from './version-groups-create-without-pokemon-forms.input';
 import { Type } from 'class-transformer';
 import { VersionGroupsCreateOrConnectWithoutPokemonFormsInput } from './version-groups-create-or-connect-without-pokemon-forms.input';
 import { VersionGroupsUpsertWithoutPokemonFormsInput } from './version-groups-upsert-without-pokemon-forms.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupsWhereUniqueInput } from './version-groups-where-unique.input';
 import { VersionGroupsUpdateToOneWithWhereWithoutPokemonFormsInput } from './version-groups-update-to-one-with-where-without-pokemon-forms.input';
 
@@ -13,15 +14,15 @@ export class VersionGroupsUpdateOneRequiredWithoutPokemonFormsNestedInput {
 
     @Field(() => VersionGroupsCreateWithoutPokemonFormsInput, {nullable:true})
     @Type(() => VersionGroupsCreateWithoutPokemonFormsInput)
-    create?: VersionGroupsCreateWithoutPokemonFormsInput;
+    create?: Identity<VersionGroupsCreateWithoutPokemonFormsInput>;
 
     @Field(() => VersionGroupsCreateOrConnectWithoutPokemonFormsInput, {nullable:true})
     @Type(() => VersionGroupsCreateOrConnectWithoutPokemonFormsInput)
-    connectOrCreate?: VersionGroupsCreateOrConnectWithoutPokemonFormsInput;
+    connectOrCreate?: Identity<VersionGroupsCreateOrConnectWithoutPokemonFormsInput>;
 
     @Field(() => VersionGroupsUpsertWithoutPokemonFormsInput, {nullable:true})
     @Type(() => VersionGroupsUpsertWithoutPokemonFormsInput)
-    upsert?: VersionGroupsUpsertWithoutPokemonFormsInput;
+    upsert?: Identity<VersionGroupsUpsertWithoutPokemonFormsInput>;
 
     @Field(() => VersionGroupsWhereUniqueInput, {nullable:true})
     @Type(() => VersionGroupsWhereUniqueInput)
@@ -29,5 +30,5 @@ export class VersionGroupsUpdateOneRequiredWithoutPokemonFormsNestedInput {
 
     @Field(() => VersionGroupsUpdateToOneWithWhereWithoutPokemonFormsInput, {nullable:true})
     @Type(() => VersionGroupsUpdateToOneWithWhereWithoutPokemonFormsInput)
-    update?: VersionGroupsUpdateToOneWithWhereWithoutPokemonFormsInput;
+    update?: Identity<VersionGroupsUpdateToOneWithWhereWithoutPokemonFormsInput>;
 }

@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupsCreateWithoutVersionGroupPokemonMoveMethodsInput } from './version-groups-create-without-version-group-pokemon-move-methods.input';
 import { Type } from 'class-transformer';
 import { VersionGroupsCreateOrConnectWithoutVersionGroupPokemonMoveMethodsInput } from './version-groups-create-or-connect-without-version-group-pokemon-move-methods.input';
 import { VersionGroupsUpsertWithoutVersionGroupPokemonMoveMethodsInput } from './version-groups-upsert-without-version-group-pokemon-move-methods.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupsWhereUniqueInput } from './version-groups-where-unique.input';
 import { VersionGroupsUpdateToOneWithWhereWithoutVersionGroupPokemonMoveMethodsInput } from './version-groups-update-to-one-with-where-without-version-group-pokemon-move-methods.input';
 
@@ -13,15 +14,15 @@ export class VersionGroupsUpdateOneRequiredWithoutVersionGroupPokemonMoveMethods
 
     @Field(() => VersionGroupsCreateWithoutVersionGroupPokemonMoveMethodsInput, {nullable:true})
     @Type(() => VersionGroupsCreateWithoutVersionGroupPokemonMoveMethodsInput)
-    create?: VersionGroupsCreateWithoutVersionGroupPokemonMoveMethodsInput;
+    create?: Identity<VersionGroupsCreateWithoutVersionGroupPokemonMoveMethodsInput>;
 
     @Field(() => VersionGroupsCreateOrConnectWithoutVersionGroupPokemonMoveMethodsInput, {nullable:true})
     @Type(() => VersionGroupsCreateOrConnectWithoutVersionGroupPokemonMoveMethodsInput)
-    connectOrCreate?: VersionGroupsCreateOrConnectWithoutVersionGroupPokemonMoveMethodsInput;
+    connectOrCreate?: Identity<VersionGroupsCreateOrConnectWithoutVersionGroupPokemonMoveMethodsInput>;
 
     @Field(() => VersionGroupsUpsertWithoutVersionGroupPokemonMoveMethodsInput, {nullable:true})
     @Type(() => VersionGroupsUpsertWithoutVersionGroupPokemonMoveMethodsInput)
-    upsert?: VersionGroupsUpsertWithoutVersionGroupPokemonMoveMethodsInput;
+    upsert?: Identity<VersionGroupsUpsertWithoutVersionGroupPokemonMoveMethodsInput>;
 
     @Field(() => VersionGroupsWhereUniqueInput, {nullable:true})
     @Type(() => VersionGroupsWhereUniqueInput)
@@ -29,5 +30,5 @@ export class VersionGroupsUpdateOneRequiredWithoutVersionGroupPokemonMoveMethods
 
     @Field(() => VersionGroupsUpdateToOneWithWhereWithoutVersionGroupPokemonMoveMethodsInput, {nullable:true})
     @Type(() => VersionGroupsUpdateToOneWithWhereWithoutVersionGroupPokemonMoveMethodsInput)
-    update?: VersionGroupsUpdateToOneWithWhereWithoutVersionGroupPokemonMoveMethodsInput;
+    update?: Identity<VersionGroupsUpdateToOneWithWhereWithoutVersionGroupPokemonMoveMethodsInput>;
 }

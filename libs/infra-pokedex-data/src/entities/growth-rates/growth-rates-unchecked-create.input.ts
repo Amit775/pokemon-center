@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesUncheckedCreateNestedManyWithoutGrowthRateInput } from '../pokemon-species/pokemon-species-unchecked-create-nested-many-without-growth-rate.input';
 import { ExperienceUncheckedCreateNestedManyWithoutGrowthRateInput } from '../experience/experience-unchecked-create-nested-many-without-growth-rate.input';
 
@@ -17,8 +18,8 @@ export class GrowthRatesUncheckedCreateInput {
     formula!: string;
 
     @Field(() => PokemonSpeciesUncheckedCreateNestedManyWithoutGrowthRateInput, {nullable:true})
-    species?: PokemonSpeciesUncheckedCreateNestedManyWithoutGrowthRateInput;
+    species?: Identity<PokemonSpeciesUncheckedCreateNestedManyWithoutGrowthRateInput>;
 
     @Field(() => ExperienceUncheckedCreateNestedManyWithoutGrowthRateInput, {nullable:true})
-    experience?: ExperienceUncheckedCreateNestedManyWithoutGrowthRateInput;
+    experience?: Identity<ExperienceUncheckedCreateNestedManyWithoutGrowthRateInput>;
 }

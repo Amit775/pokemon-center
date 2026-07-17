@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemsCreateInput } from './items-create.input';
 import { Type } from 'class-transformer';
 
@@ -8,5 +9,5 @@ export class CreateOneItemsArgs {
 
     @Field(() => ItemsCreateInput, {nullable:false})
     @Type(() => ItemsCreateInput)
-    data!: ItemsCreateInput;
+    data!: Identity<ItemsCreateInput>;
 }

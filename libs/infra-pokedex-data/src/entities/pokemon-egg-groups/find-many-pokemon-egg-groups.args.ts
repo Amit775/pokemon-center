@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonEggGroupsWhereInput } from './pokemon-egg-groups-where.input';
 import { Type } from 'class-transformer';
 import { PokemonEggGroupsOrderByWithRelationInput } from './pokemon-egg-groups-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEggGroupsWhereUniqueInput } from './pokemon-egg-groups-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokemonEggGroupsScalarFieldEnum } from './pokemon-egg-groups-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManyPokemonEggGroupsArgs {
 
     @Field(() => PokemonEggGroupsWhereInput, {nullable:true})
     @Type(() => PokemonEggGroupsWhereInput)
-    where?: PokemonEggGroupsWhereInput;
+    where?: Identity<PokemonEggGroupsWhereInput>;
 
     @Field(() => [PokemonEggGroupsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokemonEggGroupsOrderByWithRelationInput>;

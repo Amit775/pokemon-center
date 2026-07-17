@@ -2,18 +2,20 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider     = "prisma-client"
+  output       = "../libs/infra-pokedex-data/src/prisma-client"
+  moduleFormat = "cjs"
 }
 
 generator nestgraphql {
     provider = "prisma-nestjs-graphql"
     output = "../libs/infra-pokedex-data/src/entities"
     reExport = All
+    prismaClientImport = "@pokemon-center/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 // ===========================================

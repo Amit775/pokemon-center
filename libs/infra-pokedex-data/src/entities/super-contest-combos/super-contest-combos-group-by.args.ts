@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { SuperContestCombosWhereInput } from './super-contest-combos-where.input';
 import { Type } from 'class-transformer';
 import { SuperContestCombosOrderByWithAggregationInput } from './super-contest-combos-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class SuperContestCombosGroupByArgs {
 
     @Field(() => SuperContestCombosWhereInput, {nullable:true})
     @Type(() => SuperContestCombosWhereInput)
-    where?: SuperContestCombosWhereInput;
+    where?: Identity<SuperContestCombosWhereInput>;
 
     @Field(() => [SuperContestCombosOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<SuperContestCombosOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class SuperContestCombosGroupByArgs {
     by!: Array<`${SuperContestCombosScalarFieldEnum}`>;
 
     @Field(() => SuperContestCombosScalarWhereWithAggregatesInput, {nullable:true})
-    having?: SuperContestCombosScalarWhereWithAggregatesInput;
+    having?: Identity<SuperContestCombosScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class SuperContestCombosGroupByArgs {
     skip?: number;
 
     @Field(() => SuperContestCombosCountAggregateInput, {nullable:true})
-    _count?: SuperContestCombosCountAggregateInput;
+    _count?: Identity<SuperContestCombosCountAggregateInput>;
 
     @Field(() => SuperContestCombosAvgAggregateInput, {nullable:true})
-    _avg?: SuperContestCombosAvgAggregateInput;
+    _avg?: Identity<SuperContestCombosAvgAggregateInput>;
 
     @Field(() => SuperContestCombosSumAggregateInput, {nullable:true})
-    _sum?: SuperContestCombosSumAggregateInput;
+    _sum?: Identity<SuperContestCombosSumAggregateInput>;
 
     @Field(() => SuperContestCombosMinAggregateInput, {nullable:true})
-    _min?: SuperContestCombosMinAggregateInput;
+    _min?: Identity<SuperContestCombosMinAggregateInput>;
 
     @Field(() => SuperContestCombosMaxAggregateInput, {nullable:true})
-    _max?: SuperContestCombosMaxAggregateInput;
+    _max?: Identity<SuperContestCombosMaxAggregateInput>;
 }

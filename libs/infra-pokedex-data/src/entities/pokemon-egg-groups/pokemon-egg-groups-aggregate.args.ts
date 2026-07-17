@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonEggGroupsWhereInput } from './pokemon-egg-groups-where.input';
 import { Type } from 'class-transformer';
 import { PokemonEggGroupsOrderByWithRelationInput } from './pokemon-egg-groups-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEggGroupsWhereUniqueInput } from './pokemon-egg-groups-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokemonEggGroupsCountAggregateInput } from './pokemon-egg-groups-count-aggregate.input';
@@ -17,7 +18,7 @@ export class PokemonEggGroupsAggregateArgs {
 
     @Field(() => PokemonEggGroupsWhereInput, {nullable:true})
     @Type(() => PokemonEggGroupsWhereInput)
-    where?: PokemonEggGroupsWhereInput;
+    where?: Identity<PokemonEggGroupsWhereInput>;
 
     @Field(() => [PokemonEggGroupsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokemonEggGroupsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class PokemonEggGroupsAggregateArgs {
     skip?: number;
 
     @Field(() => PokemonEggGroupsCountAggregateInput, {nullable:true})
-    _count?: PokemonEggGroupsCountAggregateInput;
+    _count?: Identity<PokemonEggGroupsCountAggregateInput>;
 
     @Field(() => PokemonEggGroupsAvgAggregateInput, {nullable:true})
-    _avg?: PokemonEggGroupsAvgAggregateInput;
+    _avg?: Identity<PokemonEggGroupsAvgAggregateInput>;
 
     @Field(() => PokemonEggGroupsSumAggregateInput, {nullable:true})
-    _sum?: PokemonEggGroupsSumAggregateInput;
+    _sum?: Identity<PokemonEggGroupsSumAggregateInput>;
 
     @Field(() => PokemonEggGroupsMinAggregateInput, {nullable:true})
-    _min?: PokemonEggGroupsMinAggregateInput;
+    _min?: Identity<PokemonEggGroupsMinAggregateInput>;
 
     @Field(() => PokemonEggGroupsMaxAggregateInput, {nullable:true})
-    _max?: PokemonEggGroupsMaxAggregateInput;
+    _max?: Identity<PokemonEggGroupsMaxAggregateInput>;
 }

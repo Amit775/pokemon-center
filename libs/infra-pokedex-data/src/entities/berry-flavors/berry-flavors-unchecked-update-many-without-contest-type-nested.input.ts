@@ -4,8 +4,9 @@ import { BerryFlavorsCreateWithoutContestTypeInput } from './berry-flavors-creat
 import { Type } from 'class-transformer';
 import { BerryFlavorsCreateOrConnectWithoutContestTypeInput } from './berry-flavors-create-or-connect-without-contest-type.input';
 import { BerryFlavorsUpsertWithWhereUniqueWithoutContestTypeInput } from './berry-flavors-upsert-with-where-unique-without-contest-type.input';
+import type { Identity } from 'identity-type';
 import { BerryFlavorsCreateManyContestTypeInputEnvelope } from './berry-flavors-create-many-contest-type-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { BerryFlavorsWhereUniqueInput } from './berry-flavors-where-unique.input';
 import { BerryFlavorsUpdateWithWhereUniqueWithoutContestTypeInput } from './berry-flavors-update-with-where-unique-without-contest-type.input';
 import { BerryFlavorsUpdateManyWithWhereWithoutContestTypeInput } from './berry-flavors-update-many-with-where-without-contest-type.input';
@@ -28,7 +29,7 @@ export class BerryFlavorsUncheckedUpdateManyWithoutContestTypeNestedInput {
 
     @Field(() => BerryFlavorsCreateManyContestTypeInputEnvelope, {nullable:true})
     @Type(() => BerryFlavorsCreateManyContestTypeInputEnvelope)
-    createMany?: BerryFlavorsCreateManyContestTypeInputEnvelope;
+    createMany?: Identity<BerryFlavorsCreateManyContestTypeInputEnvelope>;
 
     @Field(() => [BerryFlavorsWhereUniqueInput], {nullable:true})
     @Type(() => BerryFlavorsWhereUniqueInput)

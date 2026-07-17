@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonEggGroupsCountAggregate } from './pokemon-egg-groups-count-aggregate.output';
 import { PokemonEggGroupsAvgAggregate } from './pokemon-egg-groups-avg-aggregate.output';
 import { PokemonEggGroupsSumAggregate } from './pokemon-egg-groups-sum-aggregate.output';
@@ -10,17 +11,17 @@ import { PokemonEggGroupsMaxAggregate } from './pokemon-egg-groups-max-aggregate
 export class AggregatePokemonEggGroups {
 
     @Field(() => PokemonEggGroupsCountAggregate, {nullable:true})
-    _count?: PokemonEggGroupsCountAggregate;
+    _count?: Identity<PokemonEggGroupsCountAggregate>;
 
     @Field(() => PokemonEggGroupsAvgAggregate, {nullable:true})
-    _avg?: PokemonEggGroupsAvgAggregate;
+    _avg?: Identity<PokemonEggGroupsAvgAggregate>;
 
     @Field(() => PokemonEggGroupsSumAggregate, {nullable:true})
-    _sum?: PokemonEggGroupsSumAggregate;
+    _sum?: Identity<PokemonEggGroupsSumAggregate>;
 
     @Field(() => PokemonEggGroupsMinAggregate, {nullable:true})
-    _min?: PokemonEggGroupsMinAggregate;
+    _min?: Identity<PokemonEggGroupsMinAggregate>;
 
     @Field(() => PokemonEggGroupsMaxAggregate, {nullable:true})
-    _max?: PokemonEggGroupsMaxAggregate;
+    _max?: Identity<PokemonEggGroupsMaxAggregate>;
 }

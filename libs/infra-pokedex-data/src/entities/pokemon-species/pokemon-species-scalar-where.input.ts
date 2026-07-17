@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 
 @InputType()
 export class PokemonSpeciesScalarWhereInput {
@@ -17,62 +17,62 @@ export class PokemonSpeciesScalarWhereInput {
     NOT?: Array<PokemonSpeciesScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    generation_id?: IntFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    evolves_from_species_id?: IntNullableFilter;
+    generation_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    evolution_chain_id?: IntFilter;
+    evolves_from_species_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    color_id?: IntFilter;
+    evolution_chain_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    shape_id?: IntFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    habitat_id?: IntNullableFilter;
+    color_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    gender_rate?: IntFilter;
+    shape_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    capture_rate?: IntFilter;
+    habitat_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    base_happiness?: IntFilter;
+    gender_rate?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    is_baby?: IntFilter;
+    capture_rate?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    hatch_counter?: IntFilter;
+    base_happiness?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    has_gender_differences?: IntFilter;
+    is_baby?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    growth_rate_id?: IntFilter;
+    hatch_counter?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    forms_switchable?: IntFilter;
+    has_gender_differences?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    is_legendary?: IntFilter;
+    growth_rate_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    is_mythical?: IntFilter;
+    forms_switchable?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    order?: IntFilter;
+    is_legendary?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    conquest_order?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    is_mythical?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    order?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    conquest_order?: Identity<IntFilter>;
 }

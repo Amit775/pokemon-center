@@ -1,8 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormsUncheckedUpdateManyWithoutPokemonNestedInput } from '../pokemon-forms/pokemon-forms-unchecked-update-many-without-pokemon-nested.input';
 import { PokemonAbilitiesUncheckedUpdateManyWithoutPokemonNestedInput } from '../pokemon-abilities/pokemon-abilities-unchecked-update-many-without-pokemon-nested.input';
 import { PokemonMovesUncheckedUpdateManyWithoutPokemonNestedInput } from '../pokemon-moves/pokemon-moves-unchecked-update-many-without-pokemon-nested.input';
@@ -14,48 +13,48 @@ import { EncountersUncheckedUpdateManyWithoutPokemonNestedInput } from '../encou
 @InputType()
 export class PokemonUncheckedUpdateWithoutItemsInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    species_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    species_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    height?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    height?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    weight?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    weight?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    base_experience?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    base_experience?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    order?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    order?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    is_default?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    is_default?: number;
 
     @Field(() => PokemonFormsUncheckedUpdateManyWithoutPokemonNestedInput, {nullable:true})
-    forms?: PokemonFormsUncheckedUpdateManyWithoutPokemonNestedInput;
+    forms?: Identity<PokemonFormsUncheckedUpdateManyWithoutPokemonNestedInput>;
 
     @Field(() => PokemonAbilitiesUncheckedUpdateManyWithoutPokemonNestedInput, {nullable:true})
-    abilities?: PokemonAbilitiesUncheckedUpdateManyWithoutPokemonNestedInput;
+    abilities?: Identity<PokemonAbilitiesUncheckedUpdateManyWithoutPokemonNestedInput>;
 
     @Field(() => PokemonMovesUncheckedUpdateManyWithoutPokemonNestedInput, {nullable:true})
-    moves?: PokemonMovesUncheckedUpdateManyWithoutPokemonNestedInput;
+    moves?: Identity<PokemonMovesUncheckedUpdateManyWithoutPokemonNestedInput>;
 
     @Field(() => PokemonStatsUncheckedUpdateManyWithoutPokemonNestedInput, {nullable:true})
-    stats?: PokemonStatsUncheckedUpdateManyWithoutPokemonNestedInput;
+    stats?: Identity<PokemonStatsUncheckedUpdateManyWithoutPokemonNestedInput>;
 
     @Field(() => PokemonTypesUncheckedUpdateManyWithoutPokemonNestedInput, {nullable:true})
-    types?: PokemonTypesUncheckedUpdateManyWithoutPokemonNestedInput;
+    types?: Identity<PokemonTypesUncheckedUpdateManyWithoutPokemonNestedInput>;
 
     @Field(() => PokemonGameIndicesUncheckedUpdateManyWithoutPokemonNestedInput, {nullable:true})
-    gameIndices?: PokemonGameIndicesUncheckedUpdateManyWithoutPokemonNestedInput;
+    gameIndices?: Identity<PokemonGameIndicesUncheckedUpdateManyWithoutPokemonNestedInput>;
 
     @Field(() => EncountersUncheckedUpdateManyWithoutPokemonNestedInput, {nullable:true})
-    encounters?: EncountersUncheckedUpdateManyWithoutPokemonNestedInput;
+    encounters?: Identity<EncountersUncheckedUpdateManyWithoutPokemonNestedInput>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SuperContestCombosCountOrderByAggregateInput } from './super-contest-combos-count-order-by-aggregate.input';
 import { SuperContestCombosAvgOrderByAggregateInput } from './super-contest-combos-avg-order-by-aggregate.input';
 import { SuperContestCombosMaxOrderByAggregateInput } from './super-contest-combos-max-order-by-aggregate.input';
@@ -17,17 +18,17 @@ export class SuperContestCombosOrderByWithAggregationInput {
     second_move_id?: `${SortOrder}`;
 
     @Field(() => SuperContestCombosCountOrderByAggregateInput, {nullable:true})
-    _count?: SuperContestCombosCountOrderByAggregateInput;
+    _count?: Identity<SuperContestCombosCountOrderByAggregateInput>;
 
     @Field(() => SuperContestCombosAvgOrderByAggregateInput, {nullable:true})
-    _avg?: SuperContestCombosAvgOrderByAggregateInput;
+    _avg?: Identity<SuperContestCombosAvgOrderByAggregateInput>;
 
     @Field(() => SuperContestCombosMaxOrderByAggregateInput, {nullable:true})
-    _max?: SuperContestCombosMaxOrderByAggregateInput;
+    _max?: Identity<SuperContestCombosMaxOrderByAggregateInput>;
 
     @Field(() => SuperContestCombosMinOrderByAggregateInput, {nullable:true})
-    _min?: SuperContestCombosMinOrderByAggregateInput;
+    _min?: Identity<SuperContestCombosMinOrderByAggregateInput>;
 
     @Field(() => SuperContestCombosSumOrderByAggregateInput, {nullable:true})
-    _sum?: SuperContestCombosSumOrderByAggregateInput;
+    _sum?: Identity<SuperContestCombosSumOrderByAggregateInput>;
 }

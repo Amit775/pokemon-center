@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { GenerationsOrderByWithRelationInput } from '../generations/generations-order-by-with-relation.input';
 import { TypesOrderByWithRelationInput } from '../types/types-order-by-with-relation.input';
@@ -33,13 +34,13 @@ export class MovesOrderByWithRelationInput {
     type_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    power?: SortOrderInput;
+    power?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    pp?: SortOrderInput;
+    pp?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    accuracy?: SortOrderInput;
+    accuracy?: Identity<SortOrderInput>;
 
     @Field(() => SortOrder, {nullable:true})
     priority?: `${SortOrder}`;
@@ -51,65 +52,65 @@ export class MovesOrderByWithRelationInput {
     damage_class_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    effect_id?: SortOrderInput;
+    effect_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    effect_chance?: SortOrderInput;
+    effect_chance?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    contest_type_id?: SortOrderInput;
+    contest_type_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    contest_effect_id?: SortOrderInput;
+    contest_effect_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    super_contest_effect_id?: SortOrderInput;
+    super_contest_effect_id?: Identity<SortOrderInput>;
 
     @Field(() => GenerationsOrderByWithRelationInput, {nullable:true})
-    generation?: GenerationsOrderByWithRelationInput;
+    generation?: Identity<GenerationsOrderByWithRelationInput>;
 
     @Field(() => TypesOrderByWithRelationInput, {nullable:true})
-    type?: TypesOrderByWithRelationInput;
+    type?: Identity<TypesOrderByWithRelationInput>;
 
     @Field(() => MoveTargetsOrderByWithRelationInput, {nullable:true})
-    target?: MoveTargetsOrderByWithRelationInput;
+    target?: Identity<MoveTargetsOrderByWithRelationInput>;
 
     @Field(() => MoveDamageClassesOrderByWithRelationInput, {nullable:true})
-    damageClass?: MoveDamageClassesOrderByWithRelationInput;
+    damageClass?: Identity<MoveDamageClassesOrderByWithRelationInput>;
 
     @Field(() => ContestTypesOrderByWithRelationInput, {nullable:true})
-    contestType?: ContestTypesOrderByWithRelationInput;
+    contestType?: Identity<ContestTypesOrderByWithRelationInput>;
 
     @Field(() => ContestEffectsOrderByWithRelationInput, {nullable:true})
-    contestEffect?: ContestEffectsOrderByWithRelationInput;
+    contestEffect?: Identity<ContestEffectsOrderByWithRelationInput>;
 
     @Field(() => SuperContestEffectsOrderByWithRelationInput, {nullable:true})
-    superContestEffect?: SuperContestEffectsOrderByWithRelationInput;
+    superContestEffect?: Identity<SuperContestEffectsOrderByWithRelationInput>;
 
     @Field(() => PokemonMovesOrderByRelationAggregateInput, {nullable:true})
-    pokemonMoves?: PokemonMovesOrderByRelationAggregateInput;
+    pokemonMoves?: Identity<PokemonMovesOrderByRelationAggregateInput>;
 
     @Field(() => MachinesOrderByRelationAggregateInput, {nullable:true})
-    machines?: MachinesOrderByRelationAggregateInput;
+    machines?: Identity<MachinesOrderByRelationAggregateInput>;
 
     @Field(() => MoveMetaOrderByRelationAggregateInput, {nullable:true})
-    meta?: MoveMetaOrderByRelationAggregateInput;
+    meta?: Identity<MoveMetaOrderByRelationAggregateInput>;
 
     @Field(() => MoveFlagMapOrderByRelationAggregateInput, {nullable:true})
-    flagMap?: MoveFlagMapOrderByRelationAggregateInput;
+    flagMap?: Identity<MoveFlagMapOrderByRelationAggregateInput>;
 
     @Field(() => ContestCombosOrderByRelationAggregateInput, {nullable:true})
-    contestCombos?: ContestCombosOrderByRelationAggregateInput;
+    contestCombos?: Identity<ContestCombosOrderByRelationAggregateInput>;
 
     @Field(() => ContestCombosOrderByRelationAggregateInput, {nullable:true})
-    contestCombosSecond?: ContestCombosOrderByRelationAggregateInput;
+    contestCombosSecond?: Identity<ContestCombosOrderByRelationAggregateInput>;
 
     @Field(() => SuperContestCombosOrderByRelationAggregateInput, {nullable:true})
-    superContestCombos?: SuperContestCombosOrderByRelationAggregateInput;
+    superContestCombos?: Identity<SuperContestCombosOrderByRelationAggregateInput>;
 
     @Field(() => SuperContestCombosOrderByRelationAggregateInput, {nullable:true})
-    superContestCombosSecond?: SuperContestCombosOrderByRelationAggregateInput;
+    superContestCombosSecond?: Identity<SuperContestCombosOrderByRelationAggregateInput>;
 
     @Field(() => PokemonEvolutionOrderByRelationAggregateInput, {nullable:true})
-    knownMoves?: PokemonEvolutionOrderByRelationAggregateInput;
+    knownMoves?: Identity<PokemonEvolutionOrderByRelationAggregateInput>;
 }

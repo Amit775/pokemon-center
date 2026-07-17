@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EvolutionTriggersWhereInput } from './evolution-triggers-where.input';
 import { Type } from 'class-transformer';
 import { EvolutionTriggersOrderByWithAggregationInput } from './evolution-triggers-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class EvolutionTriggersGroupByArgs {
 
     @Field(() => EvolutionTriggersWhereInput, {nullable:true})
     @Type(() => EvolutionTriggersWhereInput)
-    where?: EvolutionTriggersWhereInput;
+    where?: Identity<EvolutionTriggersWhereInput>;
 
     @Field(() => [EvolutionTriggersOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<EvolutionTriggersOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class EvolutionTriggersGroupByArgs {
     by!: Array<`${EvolutionTriggersScalarFieldEnum}`>;
 
     @Field(() => EvolutionTriggersScalarWhereWithAggregatesInput, {nullable:true})
-    having?: EvolutionTriggersScalarWhereWithAggregatesInput;
+    having?: Identity<EvolutionTriggersScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class EvolutionTriggersGroupByArgs {
     skip?: number;
 
     @Field(() => EvolutionTriggersCountAggregateInput, {nullable:true})
-    _count?: EvolutionTriggersCountAggregateInput;
+    _count?: Identity<EvolutionTriggersCountAggregateInput>;
 
     @Field(() => EvolutionTriggersAvgAggregateInput, {nullable:true})
-    _avg?: EvolutionTriggersAvgAggregateInput;
+    _avg?: Identity<EvolutionTriggersAvgAggregateInput>;
 
     @Field(() => EvolutionTriggersSumAggregateInput, {nullable:true})
-    _sum?: EvolutionTriggersSumAggregateInput;
+    _sum?: Identity<EvolutionTriggersSumAggregateInput>;
 
     @Field(() => EvolutionTriggersMinAggregateInput, {nullable:true})
-    _min?: EvolutionTriggersMinAggregateInput;
+    _min?: Identity<EvolutionTriggersMinAggregateInput>;
 
     @Field(() => EvolutionTriggersMaxAggregateInput, {nullable:true})
-    _max?: EvolutionTriggersMaxAggregateInput;
+    _max?: Identity<EvolutionTriggersMaxAggregateInput>;
 }

@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { TypeGameIndicesWhereUniqueInput } from './type-game-indices-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { TypeGameIndicesUpdateWithoutGenerationInput } from './type-game-indices-update-without-generation.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class TypeGameIndicesUpdateWithWhereUniqueWithoutGenerationInput {
 
     @Field(() => TypeGameIndicesUpdateWithoutGenerationInput, {nullable:false})
     @Type(() => TypeGameIndicesUpdateWithoutGenerationInput)
-    data!: TypeGameIndicesUpdateWithoutGenerationInput;
+    data!: Identity<TypeGameIndicesUpdateWithoutGenerationInput>;
 }

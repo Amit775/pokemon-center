@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { GenerationsScalarRelationFilter } from '../generations/generations-scalar-relation-filter.input';
-import { MoveDamageClassesNullableScalarRelationFilter } from '../move-damage-classes/move-damage-classes-nullable-scalar-relation-filter.input';
+import { MoveDamageClassesScalarRelationFilter } from '../move-damage-classes/move-damage-classes-scalar-relation-filter.input';
 import { MovesListRelationFilter } from '../moves/moves-list-relation-filter.input';
 import { PokemonTypesListRelationFilter } from '../pokemon-types/pokemon-types-list-relation-filter.input';
 import { PokemonFormTypesListRelationFilter } from '../pokemon-form-types/pokemon-form-types-list-relation-filter.input';
@@ -27,50 +27,50 @@ export class TypesWhereInput {
     NOT?: Array<TypesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    generation_id?: IntFilter;
+    generation_id?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    damage_class_id?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    damage_class_id?: Identity<IntFilter>;
 
     @Field(() => GenerationsScalarRelationFilter, {nullable:true})
-    generation?: GenerationsScalarRelationFilter;
+    generation?: Identity<GenerationsScalarRelationFilter>;
 
-    @Field(() => MoveDamageClassesNullableScalarRelationFilter, {nullable:true})
-    damageClass?: MoveDamageClassesNullableScalarRelationFilter;
+    @Field(() => MoveDamageClassesScalarRelationFilter, {nullable:true})
+    damageClass?: Identity<MoveDamageClassesScalarRelationFilter>;
 
     @Field(() => MovesListRelationFilter, {nullable:true})
-    moves?: MovesListRelationFilter;
+    moves?: Identity<MovesListRelationFilter>;
 
     @Field(() => PokemonTypesListRelationFilter, {nullable:true})
-    pokemonTypes?: PokemonTypesListRelationFilter;
+    pokemonTypes?: Identity<PokemonTypesListRelationFilter>;
 
     @Field(() => PokemonFormTypesListRelationFilter, {nullable:true})
-    formTypes?: PokemonFormTypesListRelationFilter;
+    formTypes?: Identity<PokemonFormTypesListRelationFilter>;
 
     @Field(() => TypeGameIndicesListRelationFilter, {nullable:true})
-    gameIndices?: TypeGameIndicesListRelationFilter;
+    gameIndices?: Identity<TypeGameIndicesListRelationFilter>;
 
     @Field(() => TypeEfficacyListRelationFilter, {nullable:true})
-    efficacy?: TypeEfficacyListRelationFilter;
+    efficacy?: Identity<TypeEfficacyListRelationFilter>;
 
     @Field(() => TypeEfficacyListRelationFilter, {nullable:true})
-    efficacyTarget?: TypeEfficacyListRelationFilter;
+    efficacyTarget?: Identity<TypeEfficacyListRelationFilter>;
 
     @Field(() => BerryFlavorsListRelationFilter, {nullable:true})
-    berryFlavors?: BerryFlavorsListRelationFilter;
+    berryFlavors?: Identity<BerryFlavorsListRelationFilter>;
 
     @Field(() => PokemonEvolutionListRelationFilter, {nullable:true})
-    knownMoveTypes?: PokemonEvolutionListRelationFilter;
+    knownMoveTypes?: Identity<PokemonEvolutionListRelationFilter>;
 
     @Field(() => PokemonEvolutionListRelationFilter, {nullable:true})
-    partyTypes?: PokemonEvolutionListRelationFilter;
+    partyTypes?: Identity<PokemonEvolutionListRelationFilter>;
 
     @Field(() => BerriesListRelationFilter, {nullable:true})
-    naturalGiftTypes?: BerriesListRelationFilter;
+    naturalGiftTypes?: Identity<BerriesListRelationFilter>;
 }

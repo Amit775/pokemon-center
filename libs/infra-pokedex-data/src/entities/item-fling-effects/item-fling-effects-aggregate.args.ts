@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemFlingEffectsWhereInput } from './item-fling-effects-where.input';
 import { Type } from 'class-transformer';
 import { ItemFlingEffectsOrderByWithRelationInput } from './item-fling-effects-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemFlingEffectsWhereUniqueInput } from './item-fling-effects-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { ItemFlingEffectsCountAggregateInput } from './item-fling-effects-count-aggregate.input';
@@ -17,7 +18,7 @@ export class ItemFlingEffectsAggregateArgs {
 
     @Field(() => ItemFlingEffectsWhereInput, {nullable:true})
     @Type(() => ItemFlingEffectsWhereInput)
-    where?: ItemFlingEffectsWhereInput;
+    where?: Identity<ItemFlingEffectsWhereInput>;
 
     @Field(() => [ItemFlingEffectsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<ItemFlingEffectsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class ItemFlingEffectsAggregateArgs {
     skip?: number;
 
     @Field(() => ItemFlingEffectsCountAggregateInput, {nullable:true})
-    _count?: ItemFlingEffectsCountAggregateInput;
+    _count?: Identity<ItemFlingEffectsCountAggregateInput>;
 
     @Field(() => ItemFlingEffectsAvgAggregateInput, {nullable:true})
-    _avg?: ItemFlingEffectsAvgAggregateInput;
+    _avg?: Identity<ItemFlingEffectsAvgAggregateInput>;
 
     @Field(() => ItemFlingEffectsSumAggregateInput, {nullable:true})
-    _sum?: ItemFlingEffectsSumAggregateInput;
+    _sum?: Identity<ItemFlingEffectsSumAggregateInput>;
 
     @Field(() => ItemFlingEffectsMinAggregateInput, {nullable:true})
-    _min?: ItemFlingEffectsMinAggregateInput;
+    _min?: Identity<ItemFlingEffectsMinAggregateInput>;
 
     @Field(() => ItemFlingEffectsMaxAggregateInput, {nullable:true})
-    _max?: ItemFlingEffectsMaxAggregateInput;
+    _max?: Identity<ItemFlingEffectsMaxAggregateInput>;
 }

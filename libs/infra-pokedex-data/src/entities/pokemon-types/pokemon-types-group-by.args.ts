@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonTypesWhereInput } from './pokemon-types-where.input';
 import { Type } from 'class-transformer';
 import { PokemonTypesOrderByWithAggregationInput } from './pokemon-types-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class PokemonTypesGroupByArgs {
 
     @Field(() => PokemonTypesWhereInput, {nullable:true})
     @Type(() => PokemonTypesWhereInput)
-    where?: PokemonTypesWhereInput;
+    where?: Identity<PokemonTypesWhereInput>;
 
     @Field(() => [PokemonTypesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<PokemonTypesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class PokemonTypesGroupByArgs {
     by!: Array<`${PokemonTypesScalarFieldEnum}`>;
 
     @Field(() => PokemonTypesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: PokemonTypesScalarWhereWithAggregatesInput;
+    having?: Identity<PokemonTypesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class PokemonTypesGroupByArgs {
     skip?: number;
 
     @Field(() => PokemonTypesCountAggregateInput, {nullable:true})
-    _count?: PokemonTypesCountAggregateInput;
+    _count?: Identity<PokemonTypesCountAggregateInput>;
 
     @Field(() => PokemonTypesAvgAggregateInput, {nullable:true})
-    _avg?: PokemonTypesAvgAggregateInput;
+    _avg?: Identity<PokemonTypesAvgAggregateInput>;
 
     @Field(() => PokemonTypesSumAggregateInput, {nullable:true})
-    _sum?: PokemonTypesSumAggregateInput;
+    _sum?: Identity<PokemonTypesSumAggregateInput>;
 
     @Field(() => PokemonTypesMinAggregateInput, {nullable:true})
-    _min?: PokemonTypesMinAggregateInput;
+    _min?: Identity<PokemonTypesMinAggregateInput>;
 
     @Field(() => PokemonTypesMaxAggregateInput, {nullable:true})
-    _max?: PokemonTypesMaxAggregateInput;
+    _max?: Identity<PokemonTypesMaxAggregateInput>;
 }

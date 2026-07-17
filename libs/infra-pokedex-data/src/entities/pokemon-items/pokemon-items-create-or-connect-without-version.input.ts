@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonItemsWhereUniqueInput } from './pokemon-items-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonItemsCreateWithoutVersionInput } from './pokemon-items-create-without-version.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class PokemonItemsCreateOrConnectWithoutVersionInput {
 
     @Field(() => PokemonItemsCreateWithoutVersionInput, {nullable:false})
     @Type(() => PokemonItemsCreateWithoutVersionInput)
-    create!: PokemonItemsCreateWithoutVersionInput;
+    create!: Identity<PokemonItemsCreateWithoutVersionInput>;
 }

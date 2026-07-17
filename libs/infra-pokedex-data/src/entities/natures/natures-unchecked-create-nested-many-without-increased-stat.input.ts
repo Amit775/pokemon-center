@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { NaturesCreateWithoutIncreasedStatInput } from './natures-create-without-increased-stat.input';
 import { Type } from 'class-transformer';
 import { NaturesCreateOrConnectWithoutIncreasedStatInput } from './natures-create-or-connect-without-increased-stat.input';
+import type { Identity } from 'identity-type';
 import { NaturesCreateManyIncreasedStatInputEnvelope } from './natures-create-many-increased-stat-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { NaturesWhereUniqueInput } from './natures-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class NaturesUncheckedCreateNestedManyWithoutIncreasedStatInput {
 
     @Field(() => NaturesCreateManyIncreasedStatInputEnvelope, {nullable:true})
     @Type(() => NaturesCreateManyIncreasedStatInputEnvelope)
-    createMany?: NaturesCreateManyIncreasedStatInputEnvelope;
+    createMany?: Identity<NaturesCreateManyIncreasedStatInputEnvelope>;
 
     @Field(() => [NaturesWhereUniqueInput], {nullable:true})
     @Type(() => NaturesWhereUniqueInput)

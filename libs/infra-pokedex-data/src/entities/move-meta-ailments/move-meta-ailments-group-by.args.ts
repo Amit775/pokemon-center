@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaAilmentsWhereInput } from './move-meta-ailments-where.input';
 import { Type } from 'class-transformer';
 import { MoveMetaAilmentsOrderByWithAggregationInput } from './move-meta-ailments-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class MoveMetaAilmentsGroupByArgs {
 
     @Field(() => MoveMetaAilmentsWhereInput, {nullable:true})
     @Type(() => MoveMetaAilmentsWhereInput)
-    where?: MoveMetaAilmentsWhereInput;
+    where?: Identity<MoveMetaAilmentsWhereInput>;
 
     @Field(() => [MoveMetaAilmentsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<MoveMetaAilmentsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class MoveMetaAilmentsGroupByArgs {
     by!: Array<`${MoveMetaAilmentsScalarFieldEnum}`>;
 
     @Field(() => MoveMetaAilmentsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: MoveMetaAilmentsScalarWhereWithAggregatesInput;
+    having?: Identity<MoveMetaAilmentsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class MoveMetaAilmentsGroupByArgs {
     skip?: number;
 
     @Field(() => MoveMetaAilmentsCountAggregateInput, {nullable:true})
-    _count?: MoveMetaAilmentsCountAggregateInput;
+    _count?: Identity<MoveMetaAilmentsCountAggregateInput>;
 
     @Field(() => MoveMetaAilmentsAvgAggregateInput, {nullable:true})
-    _avg?: MoveMetaAilmentsAvgAggregateInput;
+    _avg?: Identity<MoveMetaAilmentsAvgAggregateInput>;
 
     @Field(() => MoveMetaAilmentsSumAggregateInput, {nullable:true})
-    _sum?: MoveMetaAilmentsSumAggregateInput;
+    _sum?: Identity<MoveMetaAilmentsSumAggregateInput>;
 
     @Field(() => MoveMetaAilmentsMinAggregateInput, {nullable:true})
-    _min?: MoveMetaAilmentsMinAggregateInput;
+    _min?: Identity<MoveMetaAilmentsMinAggregateInput>;
 
     @Field(() => MoveMetaAilmentsMaxAggregateInput, {nullable:true})
-    _max?: MoveMetaAilmentsMaxAggregateInput;
+    _max?: Identity<MoveMetaAilmentsMaxAggregateInput>;
 }

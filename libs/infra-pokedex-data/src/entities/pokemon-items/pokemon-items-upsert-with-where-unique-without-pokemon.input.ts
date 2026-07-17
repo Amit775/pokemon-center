@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonItemsWhereUniqueInput } from './pokemon-items-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonItemsUpdateWithoutPokemonInput } from './pokemon-items-update-without-pokemon.input';
 import { PokemonItemsCreateWithoutPokemonInput } from './pokemon-items-create-without-pokemon.input';
 
@@ -15,9 +16,9 @@ export class PokemonItemsUpsertWithWhereUniqueWithoutPokemonInput {
 
     @Field(() => PokemonItemsUpdateWithoutPokemonInput, {nullable:false})
     @Type(() => PokemonItemsUpdateWithoutPokemonInput)
-    update!: PokemonItemsUpdateWithoutPokemonInput;
+    update!: Identity<PokemonItemsUpdateWithoutPokemonInput>;
 
     @Field(() => PokemonItemsCreateWithoutPokemonInput, {nullable:false})
     @Type(() => PokemonItemsCreateWithoutPokemonInput)
-    create!: PokemonItemsCreateWithoutPokemonInput;
+    create!: Identity<PokemonItemsCreateWithoutPokemonInput>;
 }

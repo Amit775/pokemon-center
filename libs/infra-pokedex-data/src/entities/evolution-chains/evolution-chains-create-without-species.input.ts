@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemsCreateNestedOneWithoutBabyTriggerItemsInput } from '../items/items-create-nested-one-without-baby-trigger-items.input';
 
 @InputType()
@@ -10,5 +11,5 @@ export class EvolutionChainsCreateWithoutSpeciesInput {
     id!: number;
 
     @Field(() => ItemsCreateNestedOneWithoutBabyTriggerItemsInput, {nullable:true})
-    babyTriggerItem?: ItemsCreateNestedOneWithoutBabyTriggerItemsInput;
+    babyTriggerItem?: Identity<ItemsCreateNestedOneWithoutBabyTriggerItemsInput>;
 }

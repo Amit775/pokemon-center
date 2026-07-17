@@ -1,16 +1,17 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormGenerationsWhereInput } from './pokemon-form-generations-where.input';
 
 @InputType()
 export class PokemonFormGenerationsListRelationFilter {
 
     @Field(() => PokemonFormGenerationsWhereInput, {nullable:true})
-    every?: PokemonFormGenerationsWhereInput;
+    every?: Identity<PokemonFormGenerationsWhereInput>;
 
     @Field(() => PokemonFormGenerationsWhereInput, {nullable:true})
-    some?: PokemonFormGenerationsWhereInput;
+    some?: Identity<PokemonFormGenerationsWhereInput>;
 
     @Field(() => PokemonFormGenerationsWhereInput, {nullable:true})
-    none?: PokemonFormGenerationsWhereInput;
+    none?: Identity<PokemonFormGenerationsWhereInput>;
 }

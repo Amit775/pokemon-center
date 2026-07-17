@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { VersionGroupPokemonMoveMethodsCountOrderByAggregateInput } from './version-group-pokemon-move-methods-count-order-by-aggregate.input';
 import { VersionGroupPokemonMoveMethodsAvgOrderByAggregateInput } from './version-group-pokemon-move-methods-avg-order-by-aggregate.input';
 import { VersionGroupPokemonMoveMethodsMaxOrderByAggregateInput } from './version-group-pokemon-move-methods-max-order-by-aggregate.input';
@@ -17,17 +18,17 @@ export class VersionGroupPokemonMoveMethodsOrderByWithAggregationInput {
     pokemon_move_method_id?: `${SortOrder}`;
 
     @Field(() => VersionGroupPokemonMoveMethodsCountOrderByAggregateInput, {nullable:true})
-    _count?: VersionGroupPokemonMoveMethodsCountOrderByAggregateInput;
+    _count?: Identity<VersionGroupPokemonMoveMethodsCountOrderByAggregateInput>;
 
     @Field(() => VersionGroupPokemonMoveMethodsAvgOrderByAggregateInput, {nullable:true})
-    _avg?: VersionGroupPokemonMoveMethodsAvgOrderByAggregateInput;
+    _avg?: Identity<VersionGroupPokemonMoveMethodsAvgOrderByAggregateInput>;
 
     @Field(() => VersionGroupPokemonMoveMethodsMaxOrderByAggregateInput, {nullable:true})
-    _max?: VersionGroupPokemonMoveMethodsMaxOrderByAggregateInput;
+    _max?: Identity<VersionGroupPokemonMoveMethodsMaxOrderByAggregateInput>;
 
     @Field(() => VersionGroupPokemonMoveMethodsMinOrderByAggregateInput, {nullable:true})
-    _min?: VersionGroupPokemonMoveMethodsMinOrderByAggregateInput;
+    _min?: Identity<VersionGroupPokemonMoveMethodsMinOrderByAggregateInput>;
 
     @Field(() => VersionGroupPokemonMoveMethodsSumOrderByAggregateInput, {nullable:true})
-    _sum?: VersionGroupPokemonMoveMethodsSumOrderByAggregateInput;
+    _sum?: Identity<VersionGroupPokemonMoveMethodsSumOrderByAggregateInput>;
 }

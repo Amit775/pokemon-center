@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { EncounterConditionValuesWhereInput } from './encounter-condition-values-where.input';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { EncounterConditionsScalarRelationFilter } from '../encounter-conditions/encounter-conditions-scalar-relation-filter.input';
@@ -23,17 +24,17 @@ export class EncounterConditionValuesWhereUniqueInput {
     NOT?: Array<EncounterConditionValuesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    encounter_condition_id?: IntFilter;
+    encounter_condition_id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    is_default?: IntFilter;
+    is_default?: Identity<IntFilter>;
 
     @Field(() => EncounterConditionsScalarRelationFilter, {nullable:true})
-    condition?: EncounterConditionsScalarRelationFilter;
+    condition?: Identity<EncounterConditionsScalarRelationFilter>;
 
     @Field(() => EncounterConditionValueMapListRelationFilter, {nullable:true})
-    conditionValueMap?: EncounterConditionValueMapListRelationFilter;
+    conditionValueMap?: Identity<EncounterConditionValueMapListRelationFilter>;
 }

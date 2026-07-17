@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { GenerationsOrderByWithRelationInput } from '../generations/generations-order-by-with-relation.input';
 import { MoveDamageClassesOrderByWithRelationInput } from '../move-damage-classes/move-damage-classes-order-by-with-relation.input';
@@ -26,41 +27,41 @@ export class TypesOrderByWithRelationInput {
     generation_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    damage_class_id?: SortOrderInput;
+    damage_class_id?: Identity<SortOrderInput>;
 
     @Field(() => GenerationsOrderByWithRelationInput, {nullable:true})
-    generation?: GenerationsOrderByWithRelationInput;
+    generation?: Identity<GenerationsOrderByWithRelationInput>;
 
     @Field(() => MoveDamageClassesOrderByWithRelationInput, {nullable:true})
-    damageClass?: MoveDamageClassesOrderByWithRelationInput;
+    damageClass?: Identity<MoveDamageClassesOrderByWithRelationInput>;
 
     @Field(() => MovesOrderByRelationAggregateInput, {nullable:true})
-    moves?: MovesOrderByRelationAggregateInput;
+    moves?: Identity<MovesOrderByRelationAggregateInput>;
 
     @Field(() => PokemonTypesOrderByRelationAggregateInput, {nullable:true})
-    pokemonTypes?: PokemonTypesOrderByRelationAggregateInput;
+    pokemonTypes?: Identity<PokemonTypesOrderByRelationAggregateInput>;
 
     @Field(() => PokemonFormTypesOrderByRelationAggregateInput, {nullable:true})
-    formTypes?: PokemonFormTypesOrderByRelationAggregateInput;
+    formTypes?: Identity<PokemonFormTypesOrderByRelationAggregateInput>;
 
     @Field(() => TypeGameIndicesOrderByRelationAggregateInput, {nullable:true})
-    gameIndices?: TypeGameIndicesOrderByRelationAggregateInput;
+    gameIndices?: Identity<TypeGameIndicesOrderByRelationAggregateInput>;
 
     @Field(() => TypeEfficacyOrderByRelationAggregateInput, {nullable:true})
-    efficacy?: TypeEfficacyOrderByRelationAggregateInput;
+    efficacy?: Identity<TypeEfficacyOrderByRelationAggregateInput>;
 
     @Field(() => TypeEfficacyOrderByRelationAggregateInput, {nullable:true})
-    efficacyTarget?: TypeEfficacyOrderByRelationAggregateInput;
+    efficacyTarget?: Identity<TypeEfficacyOrderByRelationAggregateInput>;
 
     @Field(() => BerryFlavorsOrderByRelationAggregateInput, {nullable:true})
-    berryFlavors?: BerryFlavorsOrderByRelationAggregateInput;
+    berryFlavors?: Identity<BerryFlavorsOrderByRelationAggregateInput>;
 
     @Field(() => PokemonEvolutionOrderByRelationAggregateInput, {nullable:true})
-    knownMoveTypes?: PokemonEvolutionOrderByRelationAggregateInput;
+    knownMoveTypes?: Identity<PokemonEvolutionOrderByRelationAggregateInput>;
 
     @Field(() => PokemonEvolutionOrderByRelationAggregateInput, {nullable:true})
-    partyTypes?: PokemonEvolutionOrderByRelationAggregateInput;
+    partyTypes?: Identity<PokemonEvolutionOrderByRelationAggregateInput>;
 
     @Field(() => BerriesOrderByRelationAggregateInput, {nullable:true})
-    naturalGiftTypes?: BerriesOrderByRelationAggregateInput;
+    naturalGiftTypes?: Identity<BerriesOrderByRelationAggregateInput>;
 }

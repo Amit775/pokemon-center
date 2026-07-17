@@ -1,16 +1,17 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionsWhereInput } from './versions-where.input';
 
 @InputType()
 export class VersionsListRelationFilter {
 
     @Field(() => VersionsWhereInput, {nullable:true})
-    every?: VersionsWhereInput;
+    every?: Identity<VersionsWhereInput>;
 
     @Field(() => VersionsWhereInput, {nullable:true})
-    some?: VersionsWhereInput;
+    some?: Identity<VersionsWhereInput>;
 
     @Field(() => VersionsWhereInput, {nullable:true})
-    none?: VersionsWhereInput;
+    none?: Identity<VersionsWhereInput>;
 }

@@ -1,17 +1,16 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class LocationAreasUncheckedUpdateManyWithoutLocationInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    game_index?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    game_index?: number;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: NullableStringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 }

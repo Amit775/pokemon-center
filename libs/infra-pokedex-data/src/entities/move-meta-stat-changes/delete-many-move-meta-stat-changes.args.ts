@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaStatChangesWhereInput } from './move-meta-stat-changes-where.input';
 import { Type } from 'class-transformer';
 import { Int } from '@nestjs/graphql';
@@ -9,7 +10,7 @@ export class DeleteManyMoveMetaStatChangesArgs {
 
     @Field(() => MoveMetaStatChangesWhereInput, {nullable:true})
     @Type(() => MoveMetaStatChangesWhereInput)
-    where?: MoveMetaStatChangesWhereInput;
+    where?: Identity<MoveMetaStatChangesWhereInput>;
 
     @Field(() => Int, {nullable:true})
     limit?: number;

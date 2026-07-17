@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionsUpdateManyWithoutVersionGroupNestedInput } from '../versions/versions-update-many-without-version-group-nested.input';
 import { EncounterSlotsUpdateManyWithoutVersionGroupNestedInput } from '../encounter-slots/encounter-slots-update-many-without-version-group-nested.input';
 import { MachinesUpdateManyWithoutVersionGroupNestedInput } from '../machines/machines-update-many-without-version-group-nested.input';
@@ -14,36 +14,36 @@ import { PokemonFormsUpdateManyWithoutVersionGroupNestedInput } from '../pokemon
 @InputType()
 export class VersionGroupsUpdateWithoutGenerationInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    order?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    order?: number;
 
     @Field(() => VersionsUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    versions?: VersionsUpdateManyWithoutVersionGroupNestedInput;
+    versions?: Identity<VersionsUpdateManyWithoutVersionGroupNestedInput>;
 
     @Field(() => EncounterSlotsUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    encounterSlots?: EncounterSlotsUpdateManyWithoutVersionGroupNestedInput;
+    encounterSlots?: Identity<EncounterSlotsUpdateManyWithoutVersionGroupNestedInput>;
 
     @Field(() => MachinesUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    machines?: MachinesUpdateManyWithoutVersionGroupNestedInput;
+    machines?: Identity<MachinesUpdateManyWithoutVersionGroupNestedInput>;
 
     @Field(() => VersionGroupPokemonMoveMethodsUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    versionGroupPokemonMoveMethods?: VersionGroupPokemonMoveMethodsUpdateManyWithoutVersionGroupNestedInput;
+    versionGroupPokemonMoveMethods?: Identity<VersionGroupPokemonMoveMethodsUpdateManyWithoutVersionGroupNestedInput>;
 
     @Field(() => VersionGroupRegionsUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    versionGroupRegions?: VersionGroupRegionsUpdateManyWithoutVersionGroupNestedInput;
+    versionGroupRegions?: Identity<VersionGroupRegionsUpdateManyWithoutVersionGroupNestedInput>;
 
     @Field(() => PokedexVersionGroupsUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    pokedexVersionGroups?: PokedexVersionGroupsUpdateManyWithoutVersionGroupNestedInput;
+    pokedexVersionGroups?: Identity<PokedexVersionGroupsUpdateManyWithoutVersionGroupNestedInput>;
 
     @Field(() => PokemonMovesUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    pokemonMoves?: PokemonMovesUpdateManyWithoutVersionGroupNestedInput;
+    pokemonMoves?: Identity<PokemonMovesUpdateManyWithoutVersionGroupNestedInput>;
 
     @Field(() => PokemonFormsUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    pokemonForms?: PokemonFormsUpdateManyWithoutVersionGroupNestedInput;
+    pokemonForms?: Identity<PokemonFormsUpdateManyWithoutVersionGroupNestedInput>;
 }

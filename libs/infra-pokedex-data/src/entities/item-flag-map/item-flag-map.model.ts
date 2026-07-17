@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Items } from '../items/items.model';
+import type { Identity } from 'identity-type';
 import { ItemFlags } from '../item-flags/item-flags.model';
 
 /**
@@ -18,8 +19,8 @@ export class ItemFlagMap {
     item_flag_id!: number;
 
     @Field(() => Items, {nullable:false})
-    item?: Items;
+    item?: Identity<Items>;
 
     @Field(() => ItemFlags, {nullable:false})
-    flag?: ItemFlags;
+    flag?: Identity<ItemFlags>;
 }

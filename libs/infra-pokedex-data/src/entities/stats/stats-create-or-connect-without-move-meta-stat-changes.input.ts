@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { StatsWhereUniqueInput } from './stats-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { StatsCreateWithoutMoveMetaStatChangesInput } from './stats-create-without-move-meta-stat-changes.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class StatsCreateOrConnectWithoutMoveMetaStatChangesInput {
 
     @Field(() => StatsCreateWithoutMoveMetaStatChangesInput, {nullable:false})
     @Type(() => StatsCreateWithoutMoveMetaStatChangesInput)
-    create!: StatsCreateWithoutMoveMetaStatChangesInput;
+    create!: Identity<StatsCreateWithoutMoveMetaStatChangesInput>;
 }

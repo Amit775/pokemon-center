@@ -4,8 +4,9 @@ import { PokemonMovesCreateWithoutMoveMethodInput } from './pokemon-moves-create
 import { Type } from 'class-transformer';
 import { PokemonMovesCreateOrConnectWithoutMoveMethodInput } from './pokemon-moves-create-or-connect-without-move-method.input';
 import { PokemonMovesUpsertWithWhereUniqueWithoutMoveMethodInput } from './pokemon-moves-upsert-with-where-unique-without-move-method.input';
+import type { Identity } from 'identity-type';
 import { PokemonMovesCreateManyMoveMethodInputEnvelope } from './pokemon-moves-create-many-move-method-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonMovesWhereUniqueInput } from './pokemon-moves-where-unique.input';
 import { PokemonMovesUpdateWithWhereUniqueWithoutMoveMethodInput } from './pokemon-moves-update-with-where-unique-without-move-method.input';
 import { PokemonMovesUpdateManyWithWhereWithoutMoveMethodInput } from './pokemon-moves-update-many-with-where-without-move-method.input';
@@ -28,7 +29,7 @@ export class PokemonMovesUncheckedUpdateManyWithoutMoveMethodNestedInput {
 
     @Field(() => PokemonMovesCreateManyMoveMethodInputEnvelope, {nullable:true})
     @Type(() => PokemonMovesCreateManyMoveMethodInputEnvelope)
-    createMany?: PokemonMovesCreateManyMoveMethodInputEnvelope;
+    createMany?: Identity<PokemonMovesCreateManyMoveMethodInputEnvelope>;
 
     @Field(() => [PokemonMovesWhereUniqueInput], {nullable:true})
     @Type(() => PokemonMovesWhereUniqueInput)

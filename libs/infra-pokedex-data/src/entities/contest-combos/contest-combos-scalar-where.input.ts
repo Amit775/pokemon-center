@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 
 @InputType()
@@ -15,8 +16,8 @@ export class ContestCombosScalarWhereInput {
     NOT?: Array<ContestCombosScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    first_move_id?: IntFilter;
+    first_move_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    second_move_id?: IntFilter;
+    second_move_id?: Identity<IntFilter>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationGameIndicesWhereInput } from './location-game-indices-where.input';
 import { Type } from 'class-transformer';
 import { LocationGameIndicesOrderByWithAggregationInput } from './location-game-indices-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class LocationGameIndicesGroupByArgs {
 
     @Field(() => LocationGameIndicesWhereInput, {nullable:true})
     @Type(() => LocationGameIndicesWhereInput)
-    where?: LocationGameIndicesWhereInput;
+    where?: Identity<LocationGameIndicesWhereInput>;
 
     @Field(() => [LocationGameIndicesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<LocationGameIndicesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class LocationGameIndicesGroupByArgs {
     by!: Array<`${LocationGameIndicesScalarFieldEnum}`>;
 
     @Field(() => LocationGameIndicesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: LocationGameIndicesScalarWhereWithAggregatesInput;
+    having?: Identity<LocationGameIndicesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class LocationGameIndicesGroupByArgs {
     skip?: number;
 
     @Field(() => LocationGameIndicesCountAggregateInput, {nullable:true})
-    _count?: LocationGameIndicesCountAggregateInput;
+    _count?: Identity<LocationGameIndicesCountAggregateInput>;
 
     @Field(() => LocationGameIndicesAvgAggregateInput, {nullable:true})
-    _avg?: LocationGameIndicesAvgAggregateInput;
+    _avg?: Identity<LocationGameIndicesAvgAggregateInput>;
 
     @Field(() => LocationGameIndicesSumAggregateInput, {nullable:true})
-    _sum?: LocationGameIndicesSumAggregateInput;
+    _sum?: Identity<LocationGameIndicesSumAggregateInput>;
 
     @Field(() => LocationGameIndicesMinAggregateInput, {nullable:true})
-    _min?: LocationGameIndicesMinAggregateInput;
+    _min?: Identity<LocationGameIndicesMinAggregateInput>;
 
     @Field(() => LocationGameIndicesMaxAggregateInput, {nullable:true})
-    _max?: LocationGameIndicesMaxAggregateInput;
+    _max?: Identity<LocationGameIndicesMaxAggregateInput>;
 }

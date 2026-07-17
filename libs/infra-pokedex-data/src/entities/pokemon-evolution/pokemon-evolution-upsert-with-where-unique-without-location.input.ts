@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEvolutionWhereUniqueInput } from './pokemon-evolution-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonEvolutionUpdateWithoutLocationInput } from './pokemon-evolution-update-without-location.input';
 import { PokemonEvolutionCreateWithoutLocationInput } from './pokemon-evolution-create-without-location.input';
 
@@ -15,9 +16,9 @@ export class PokemonEvolutionUpsertWithWhereUniqueWithoutLocationInput {
 
     @Field(() => PokemonEvolutionUpdateWithoutLocationInput, {nullable:false})
     @Type(() => PokemonEvolutionUpdateWithoutLocationInput)
-    update!: PokemonEvolutionUpdateWithoutLocationInput;
+    update!: Identity<PokemonEvolutionUpdateWithoutLocationInput>;
 
     @Field(() => PokemonEvolutionCreateWithoutLocationInput, {nullable:false})
     @Type(() => PokemonEvolutionCreateWithoutLocationInput)
-    create!: PokemonEvolutionCreateWithoutLocationInput;
+    create!: Identity<PokemonEvolutionCreateWithoutLocationInput>;
 }

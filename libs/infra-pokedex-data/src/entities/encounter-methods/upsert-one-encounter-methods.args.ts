@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncounterMethodsWhereUniqueInput } from './encounter-methods-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { EncounterMethodsCreateInput } from './encounter-methods-create.input';
 import { EncounterMethodsUpdateInput } from './encounter-methods-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneEncounterMethodsArgs {
 
     @Field(() => EncounterMethodsCreateInput, {nullable:false})
     @Type(() => EncounterMethodsCreateInput)
-    create!: EncounterMethodsCreateInput;
+    create!: Identity<EncounterMethodsCreateInput>;
 
     @Field(() => EncounterMethodsUpdateInput, {nullable:false})
     @Type(() => EncounterMethodsUpdateInput)
-    update!: EncounterMethodsUpdateInput;
+    update!: Identity<EncounterMethodsUpdateInput>;
 }

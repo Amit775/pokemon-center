@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionsCreateWithoutLocationAreaEncounterRatesInput } from './versions-create-without-location-area-encounter-rates.input';
 import { Type } from 'class-transformer';
 import { VersionsCreateOrConnectWithoutLocationAreaEncounterRatesInput } from './versions-create-or-connect-without-location-area-encounter-rates.input';
 import { VersionsUpsertWithoutLocationAreaEncounterRatesInput } from './versions-upsert-without-location-area-encounter-rates.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionsWhereUniqueInput } from './versions-where-unique.input';
 import { VersionsUpdateToOneWithWhereWithoutLocationAreaEncounterRatesInput } from './versions-update-to-one-with-where-without-location-area-encounter-rates.input';
 
@@ -13,15 +14,15 @@ export class VersionsUpdateOneRequiredWithoutLocationAreaEncounterRatesNestedInp
 
     @Field(() => VersionsCreateWithoutLocationAreaEncounterRatesInput, {nullable:true})
     @Type(() => VersionsCreateWithoutLocationAreaEncounterRatesInput)
-    create?: VersionsCreateWithoutLocationAreaEncounterRatesInput;
+    create?: Identity<VersionsCreateWithoutLocationAreaEncounterRatesInput>;
 
     @Field(() => VersionsCreateOrConnectWithoutLocationAreaEncounterRatesInput, {nullable:true})
     @Type(() => VersionsCreateOrConnectWithoutLocationAreaEncounterRatesInput)
-    connectOrCreate?: VersionsCreateOrConnectWithoutLocationAreaEncounterRatesInput;
+    connectOrCreate?: Identity<VersionsCreateOrConnectWithoutLocationAreaEncounterRatesInput>;
 
     @Field(() => VersionsUpsertWithoutLocationAreaEncounterRatesInput, {nullable:true})
     @Type(() => VersionsUpsertWithoutLocationAreaEncounterRatesInput)
-    upsert?: VersionsUpsertWithoutLocationAreaEncounterRatesInput;
+    upsert?: Identity<VersionsUpsertWithoutLocationAreaEncounterRatesInput>;
 
     @Field(() => VersionsWhereUniqueInput, {nullable:true})
     @Type(() => VersionsWhereUniqueInput)
@@ -29,5 +30,5 @@ export class VersionsUpdateOneRequiredWithoutLocationAreaEncounterRatesNestedInp
 
     @Field(() => VersionsUpdateToOneWithWhereWithoutLocationAreaEncounterRatesInput, {nullable:true})
     @Type(() => VersionsUpdateToOneWithWhereWithoutLocationAreaEncounterRatesInput)
-    update?: VersionsUpdateToOneWithWhereWithoutLocationAreaEncounterRatesInput;
+    update?: Identity<VersionsUpdateToOneWithWhereWithoutLocationAreaEncounterRatesInput>;
 }

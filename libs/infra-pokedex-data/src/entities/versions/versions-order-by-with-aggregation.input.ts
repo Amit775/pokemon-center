@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { VersionsCountOrderByAggregateInput } from './versions-count-order-by-aggregate.input';
 import { VersionsAvgOrderByAggregateInput } from './versions-avg-order-by-aggregate.input';
 import { VersionsMaxOrderByAggregateInput } from './versions-max-order-by-aggregate.input';
@@ -20,17 +21,17 @@ export class VersionsOrderByWithAggregationInput {
     identifier?: `${SortOrder}`;
 
     @Field(() => VersionsCountOrderByAggregateInput, {nullable:true})
-    _count?: VersionsCountOrderByAggregateInput;
+    _count?: Identity<VersionsCountOrderByAggregateInput>;
 
     @Field(() => VersionsAvgOrderByAggregateInput, {nullable:true})
-    _avg?: VersionsAvgOrderByAggregateInput;
+    _avg?: Identity<VersionsAvgOrderByAggregateInput>;
 
     @Field(() => VersionsMaxOrderByAggregateInput, {nullable:true})
-    _max?: VersionsMaxOrderByAggregateInput;
+    _max?: Identity<VersionsMaxOrderByAggregateInput>;
 
     @Field(() => VersionsMinOrderByAggregateInput, {nullable:true})
-    _min?: VersionsMinOrderByAggregateInput;
+    _min?: Identity<VersionsMinOrderByAggregateInput>;
 
     @Field(() => VersionsSumOrderByAggregateInput, {nullable:true})
-    _sum?: VersionsSumOrderByAggregateInput;
+    _sum?: Identity<VersionsSumOrderByAggregateInput>;
 }

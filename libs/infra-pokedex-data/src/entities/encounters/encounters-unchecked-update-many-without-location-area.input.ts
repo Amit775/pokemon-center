@@ -1,25 +1,25 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class EncountersUncheckedUpdateManyWithoutLocationAreaInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    version_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    version_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    encounter_slot_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    encounter_slot_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    pokemon_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    pokemon_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    min_level?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    min_level?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    max_level?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    max_level?: number;
 }

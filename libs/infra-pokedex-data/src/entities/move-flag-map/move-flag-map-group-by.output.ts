@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveFlagMapCountAggregate } from './move-flag-map-count-aggregate.output';
 import { MoveFlagMapAvgAggregate } from './move-flag-map-avg-aggregate.output';
 import { MoveFlagMapSumAggregate } from './move-flag-map-sum-aggregate.output';
@@ -17,17 +18,17 @@ export class MoveFlagMapGroupBy {
     move_flag_id!: number;
 
     @Field(() => MoveFlagMapCountAggregate, {nullable:true})
-    _count?: MoveFlagMapCountAggregate;
+    _count?: Identity<MoveFlagMapCountAggregate>;
 
     @Field(() => MoveFlagMapAvgAggregate, {nullable:true})
-    _avg?: MoveFlagMapAvgAggregate;
+    _avg?: Identity<MoveFlagMapAvgAggregate>;
 
     @Field(() => MoveFlagMapSumAggregate, {nullable:true})
-    _sum?: MoveFlagMapSumAggregate;
+    _sum?: Identity<MoveFlagMapSumAggregate>;
 
     @Field(() => MoveFlagMapMinAggregate, {nullable:true})
-    _min?: MoveFlagMapMinAggregate;
+    _min?: Identity<MoveFlagMapMinAggregate>;
 
     @Field(() => MoveFlagMapMaxAggregate, {nullable:true})
-    _max?: MoveFlagMapMaxAggregate;
+    _max?: Identity<MoveFlagMapMaxAggregate>;
 }

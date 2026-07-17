@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { ItemsOrderByWithRelationInput } from '../items/items-order-by-with-relation.input';
 import { GenerationsOrderByWithRelationInput } from '../generations/generations-order-by-with-relation.input';
 
@@ -17,8 +18,8 @@ export class ItemGameIndicesOrderByWithRelationInput {
     game_index?: `${SortOrder}`;
 
     @Field(() => ItemsOrderByWithRelationInput, {nullable:true})
-    item?: ItemsOrderByWithRelationInput;
+    item?: Identity<ItemsOrderByWithRelationInput>;
 
     @Field(() => GenerationsOrderByWithRelationInput, {nullable:true})
-    generation?: GenerationsOrderByWithRelationInput;
+    generation?: Identity<GenerationsOrderByWithRelationInput>;
 }

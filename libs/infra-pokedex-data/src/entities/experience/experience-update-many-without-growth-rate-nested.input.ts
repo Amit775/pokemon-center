@@ -4,8 +4,9 @@ import { ExperienceCreateWithoutGrowthRateInput } from './experience-create-with
 import { Type } from 'class-transformer';
 import { ExperienceCreateOrConnectWithoutGrowthRateInput } from './experience-create-or-connect-without-growth-rate.input';
 import { ExperienceUpsertWithWhereUniqueWithoutGrowthRateInput } from './experience-upsert-with-where-unique-without-growth-rate.input';
+import type { Identity } from 'identity-type';
 import { ExperienceCreateManyGrowthRateInputEnvelope } from './experience-create-many-growth-rate-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ExperienceWhereUniqueInput } from './experience-where-unique.input';
 import { ExperienceUpdateWithWhereUniqueWithoutGrowthRateInput } from './experience-update-with-where-unique-without-growth-rate.input';
 import { ExperienceUpdateManyWithWhereWithoutGrowthRateInput } from './experience-update-many-with-where-without-growth-rate.input';
@@ -28,7 +29,7 @@ export class ExperienceUpdateManyWithoutGrowthRateNestedInput {
 
     @Field(() => ExperienceCreateManyGrowthRateInputEnvelope, {nullable:true})
     @Type(() => ExperienceCreateManyGrowthRateInputEnvelope)
-    createMany?: ExperienceCreateManyGrowthRateInputEnvelope;
+    createMany?: Identity<ExperienceCreateManyGrowthRateInputEnvelope>;
 
     @Field(() => [ExperienceWhereUniqueInput], {nullable:true})
     @Type(() => ExperienceWhereUniqueInput)

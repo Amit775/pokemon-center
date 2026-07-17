@@ -4,8 +4,9 @@ import { EncountersCreateWithoutVersionInput } from './encounters-create-without
 import { Type } from 'class-transformer';
 import { EncountersCreateOrConnectWithoutVersionInput } from './encounters-create-or-connect-without-version.input';
 import { EncountersUpsertWithWhereUniqueWithoutVersionInput } from './encounters-upsert-with-where-unique-without-version.input';
+import type { Identity } from 'identity-type';
 import { EncountersCreateManyVersionInputEnvelope } from './encounters-create-many-version-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncountersWhereUniqueInput } from './encounters-where-unique.input';
 import { EncountersUpdateWithWhereUniqueWithoutVersionInput } from './encounters-update-with-where-unique-without-version.input';
 import { EncountersUpdateManyWithWhereWithoutVersionInput } from './encounters-update-many-with-where-without-version.input';
@@ -28,7 +29,7 @@ export class EncountersUncheckedUpdateManyWithoutVersionNestedInput {
 
     @Field(() => EncountersCreateManyVersionInputEnvelope, {nullable:true})
     @Type(() => EncountersCreateManyVersionInputEnvelope)
-    createMany?: EncountersCreateManyVersionInputEnvelope;
+    createMany?: Identity<EncountersCreateManyVersionInputEnvelope>;
 
     @Field(() => [EncountersWhereUniqueInput], {nullable:true})
     @Type(() => EncountersWhereUniqueInput)

@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { CharacteristicsWhereUniqueInput } from './characteristics-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { CharacteristicsUpdateWithoutStatInput } from './characteristics-update-without-stat.input';
 import { CharacteristicsCreateWithoutStatInput } from './characteristics-create-without-stat.input';
 
@@ -15,9 +16,9 @@ export class CharacteristicsUpsertWithWhereUniqueWithoutStatInput {
 
     @Field(() => CharacteristicsUpdateWithoutStatInput, {nullable:false})
     @Type(() => CharacteristicsUpdateWithoutStatInput)
-    update!: CharacteristicsUpdateWithoutStatInput;
+    update!: Identity<CharacteristicsUpdateWithoutStatInput>;
 
     @Field(() => CharacteristicsCreateWithoutStatInput, {nullable:false})
     @Type(() => CharacteristicsCreateWithoutStatInput)
-    create!: CharacteristicsCreateWithoutStatInput;
+    create!: Identity<CharacteristicsCreateWithoutStatInput>;
 }

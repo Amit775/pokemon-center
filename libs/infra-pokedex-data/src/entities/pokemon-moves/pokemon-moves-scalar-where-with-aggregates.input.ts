@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
-import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class PokemonMovesScalarWhereWithAggregatesInput {
@@ -16,23 +16,23 @@ export class PokemonMovesScalarWhereWithAggregatesInput {
     NOT?: Array<PokemonMovesScalarWhereWithAggregatesInput>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    pokemon_id?: IntWithAggregatesFilter;
+    pokemon_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    version_group_id?: IntWithAggregatesFilter;
+    version_group_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    move_id?: IntWithAggregatesFilter;
+    move_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    pokemon_move_method_id?: IntWithAggregatesFilter;
+    pokemon_move_method_id?: Identity<IntWithAggregatesFilter>;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    level?: IntNullableWithAggregatesFilter;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    level?: Identity<IntWithAggregatesFilter>;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    order?: IntNullableWithAggregatesFilter;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    order?: Identity<IntWithAggregatesFilter>;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    mastery?: IntNullableWithAggregatesFilter;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    mastery?: Identity<IntWithAggregatesFilter>;
 }

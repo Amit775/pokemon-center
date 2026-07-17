@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { LocationAreaEncounterRatesCreateWithoutEncounterMethodInput } from './location-area-encounter-rates-create-without-encounter-method.input';
 import { Type } from 'class-transformer';
 import { LocationAreaEncounterRatesCreateOrConnectWithoutEncounterMethodInput } from './location-area-encounter-rates-create-or-connect-without-encounter-method.input';
+import type { Identity } from 'identity-type';
 import { LocationAreaEncounterRatesCreateManyEncounterMethodInputEnvelope } from './location-area-encounter-rates-create-many-encounter-method-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationAreaEncounterRatesWhereUniqueInput } from './location-area-encounter-rates-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class LocationAreaEncounterRatesUncheckedCreateNestedManyWithoutEncounter
 
     @Field(() => LocationAreaEncounterRatesCreateManyEncounterMethodInputEnvelope, {nullable:true})
     @Type(() => LocationAreaEncounterRatesCreateManyEncounterMethodInputEnvelope)
-    createMany?: LocationAreaEncounterRatesCreateManyEncounterMethodInputEnvelope;
+    createMany?: Identity<LocationAreaEncounterRatesCreateManyEncounterMethodInputEnvelope>;
 
     @Field(() => [LocationAreaEncounterRatesWhereUniqueInput], {nullable:true})
     @Type(() => LocationAreaEncounterRatesWhereUniqueInput)

@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveFlagMapWhereUniqueInput } from './move-flag-map-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { MoveFlagMapUpdateWithoutMoveInput } from './move-flag-map-update-without-move.input';
 import { MoveFlagMapCreateWithoutMoveInput } from './move-flag-map-create-without-move.input';
 
@@ -15,9 +16,9 @@ export class MoveFlagMapUpsertWithWhereUniqueWithoutMoveInput {
 
     @Field(() => MoveFlagMapUpdateWithoutMoveInput, {nullable:false})
     @Type(() => MoveFlagMapUpdateWithoutMoveInput)
-    update!: MoveFlagMapUpdateWithoutMoveInput;
+    update!: Identity<MoveFlagMapUpdateWithoutMoveInput>;
 
     @Field(() => MoveFlagMapCreateWithoutMoveInput, {nullable:false})
     @Type(() => MoveFlagMapCreateWithoutMoveInput)
-    create!: MoveFlagMapCreateWithoutMoveInput;
+    create!: Identity<MoveFlagMapCreateWithoutMoveInput>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormTypesWhereInput } from './pokemon-form-types-where.input';
 import { Type } from 'class-transformer';
 import { PokemonFormTypesOrderByWithAggregationInput } from './pokemon-form-types-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class PokemonFormTypesGroupByArgs {
 
     @Field(() => PokemonFormTypesWhereInput, {nullable:true})
     @Type(() => PokemonFormTypesWhereInput)
-    where?: PokemonFormTypesWhereInput;
+    where?: Identity<PokemonFormTypesWhereInput>;
 
     @Field(() => [PokemonFormTypesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<PokemonFormTypesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class PokemonFormTypesGroupByArgs {
     by!: Array<`${PokemonFormTypesScalarFieldEnum}`>;
 
     @Field(() => PokemonFormTypesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: PokemonFormTypesScalarWhereWithAggregatesInput;
+    having?: Identity<PokemonFormTypesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class PokemonFormTypesGroupByArgs {
     skip?: number;
 
     @Field(() => PokemonFormTypesCountAggregateInput, {nullable:true})
-    _count?: PokemonFormTypesCountAggregateInput;
+    _count?: Identity<PokemonFormTypesCountAggregateInput>;
 
     @Field(() => PokemonFormTypesAvgAggregateInput, {nullable:true})
-    _avg?: PokemonFormTypesAvgAggregateInput;
+    _avg?: Identity<PokemonFormTypesAvgAggregateInput>;
 
     @Field(() => PokemonFormTypesSumAggregateInput, {nullable:true})
-    _sum?: PokemonFormTypesSumAggregateInput;
+    _sum?: Identity<PokemonFormTypesSumAggregateInput>;
 
     @Field(() => PokemonFormTypesMinAggregateInput, {nullable:true})
-    _min?: PokemonFormTypesMinAggregateInput;
+    _min?: Identity<PokemonFormTypesMinAggregateInput>;
 
     @Field(() => PokemonFormTypesMaxAggregateInput, {nullable:true})
-    _max?: PokemonFormTypesMaxAggregateInput;
+    _max?: Identity<PokemonFormTypesMaxAggregateInput>;
 }

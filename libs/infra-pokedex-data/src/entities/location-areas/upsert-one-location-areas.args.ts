@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationAreasWhereUniqueInput } from './location-areas-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { LocationAreasCreateInput } from './location-areas-create.input';
 import { LocationAreasUpdateInput } from './location-areas-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneLocationAreasArgs {
 
     @Field(() => LocationAreasCreateInput, {nullable:false})
     @Type(() => LocationAreasCreateInput)
-    create!: LocationAreasCreateInput;
+    create!: Identity<LocationAreasCreateInput>;
 
     @Field(() => LocationAreasUpdateInput, {nullable:false})
     @Type(() => LocationAreasUpdateInput)
-    update!: LocationAreasUpdateInput;
+    update!: Identity<LocationAreasUpdateInput>;
 }

@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ContestCombosWhereUniqueInput } from './contest-combos-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { ContestCombosCreateWithoutSecondMoveInput } from './contest-combos-create-without-second-move.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class ContestCombosCreateOrConnectWithoutSecondMoveInput {
 
     @Field(() => ContestCombosCreateWithoutSecondMoveInput, {nullable:false})
     @Type(() => ContestCombosCreateWithoutSecondMoveInput)
-    create!: ContestCombosCreateWithoutSecondMoveInput;
+    create!: Identity<ContestCombosCreateWithoutSecondMoveInput>;
 }

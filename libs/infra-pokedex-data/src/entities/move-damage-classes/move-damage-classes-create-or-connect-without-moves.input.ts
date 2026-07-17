@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveDamageClassesWhereUniqueInput } from './move-damage-classes-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { MoveDamageClassesCreateWithoutMovesInput } from './move-damage-classes-create-without-moves.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class MoveDamageClassesCreateOrConnectWithoutMovesInput {
 
     @Field(() => MoveDamageClassesCreateWithoutMovesInput, {nullable:false})
     @Type(() => MoveDamageClassesCreateWithoutMovesInput)
-    create!: MoveDamageClassesCreateWithoutMovesInput;
+    create!: Identity<MoveDamageClassesCreateWithoutMovesInput>;
 }

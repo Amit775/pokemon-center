@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemCategoriesWhereInput } from './item-categories-where.input';
 import { Type } from 'class-transformer';
 import { ItemCategoriesOrderByWithAggregationInput } from './item-categories-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class ItemCategoriesGroupByArgs {
 
     @Field(() => ItemCategoriesWhereInput, {nullable:true})
     @Type(() => ItemCategoriesWhereInput)
-    where?: ItemCategoriesWhereInput;
+    where?: Identity<ItemCategoriesWhereInput>;
 
     @Field(() => [ItemCategoriesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<ItemCategoriesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class ItemCategoriesGroupByArgs {
     by!: Array<`${ItemCategoriesScalarFieldEnum}`>;
 
     @Field(() => ItemCategoriesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: ItemCategoriesScalarWhereWithAggregatesInput;
+    having?: Identity<ItemCategoriesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class ItemCategoriesGroupByArgs {
     skip?: number;
 
     @Field(() => ItemCategoriesCountAggregateInput, {nullable:true})
-    _count?: ItemCategoriesCountAggregateInput;
+    _count?: Identity<ItemCategoriesCountAggregateInput>;
 
     @Field(() => ItemCategoriesAvgAggregateInput, {nullable:true})
-    _avg?: ItemCategoriesAvgAggregateInput;
+    _avg?: Identity<ItemCategoriesAvgAggregateInput>;
 
     @Field(() => ItemCategoriesSumAggregateInput, {nullable:true})
-    _sum?: ItemCategoriesSumAggregateInput;
+    _sum?: Identity<ItemCategoriesSumAggregateInput>;
 
     @Field(() => ItemCategoriesMinAggregateInput, {nullable:true})
-    _min?: ItemCategoriesMinAggregateInput;
+    _min?: Identity<ItemCategoriesMinAggregateInput>;
 
     @Field(() => ItemCategoriesMaxAggregateInput, {nullable:true})
-    _max?: ItemCategoriesMaxAggregateInput;
+    _max?: Identity<ItemCategoriesMaxAggregateInput>;
 }

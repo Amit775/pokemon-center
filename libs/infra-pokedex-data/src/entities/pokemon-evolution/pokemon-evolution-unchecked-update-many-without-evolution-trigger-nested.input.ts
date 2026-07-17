@@ -4,8 +4,9 @@ import { PokemonEvolutionCreateWithoutEvolutionTriggerInput } from './pokemon-ev
 import { Type } from 'class-transformer';
 import { PokemonEvolutionCreateOrConnectWithoutEvolutionTriggerInput } from './pokemon-evolution-create-or-connect-without-evolution-trigger.input';
 import { PokemonEvolutionUpsertWithWhereUniqueWithoutEvolutionTriggerInput } from './pokemon-evolution-upsert-with-where-unique-without-evolution-trigger.input';
+import type { Identity } from 'identity-type';
 import { PokemonEvolutionCreateManyEvolutionTriggerInputEnvelope } from './pokemon-evolution-create-many-evolution-trigger-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEvolutionWhereUniqueInput } from './pokemon-evolution-where-unique.input';
 import { PokemonEvolutionUpdateWithWhereUniqueWithoutEvolutionTriggerInput } from './pokemon-evolution-update-with-where-unique-without-evolution-trigger.input';
 import { PokemonEvolutionUpdateManyWithWhereWithoutEvolutionTriggerInput } from './pokemon-evolution-update-many-with-where-without-evolution-trigger.input';
@@ -28,7 +29,7 @@ export class PokemonEvolutionUncheckedUpdateManyWithoutEvolutionTriggerNestedInp
 
     @Field(() => PokemonEvolutionCreateManyEvolutionTriggerInputEnvelope, {nullable:true})
     @Type(() => PokemonEvolutionCreateManyEvolutionTriggerInputEnvelope)
-    createMany?: PokemonEvolutionCreateManyEvolutionTriggerInputEnvelope;
+    createMany?: Identity<PokemonEvolutionCreateManyEvolutionTriggerInputEnvelope>;
 
     @Field(() => [PokemonEvolutionWhereUniqueInput], {nullable:true})
     @Type(() => PokemonEvolutionWhereUniqueInput)

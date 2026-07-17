@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEvolutionWhereUniqueInput } from './pokemon-evolution-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonEvolutionUpdateWithoutGenderInput } from './pokemon-evolution-update-without-gender.input';
 import { PokemonEvolutionCreateWithoutGenderInput } from './pokemon-evolution-create-without-gender.input';
 
@@ -15,9 +16,9 @@ export class PokemonEvolutionUpsertWithWhereUniqueWithoutGenderInput {
 
     @Field(() => PokemonEvolutionUpdateWithoutGenderInput, {nullable:false})
     @Type(() => PokemonEvolutionUpdateWithoutGenderInput)
-    update!: PokemonEvolutionUpdateWithoutGenderInput;
+    update!: Identity<PokemonEvolutionUpdateWithoutGenderInput>;
 
     @Field(() => PokemonEvolutionCreateWithoutGenderInput, {nullable:false})
     @Type(() => PokemonEvolutionCreateWithoutGenderInput)
-    create!: PokemonEvolutionCreateWithoutGenderInput;
+    create!: Identity<PokemonEvolutionCreateWithoutGenderInput>;
 }

@@ -4,8 +4,9 @@ import { ItemCategoriesCreateWithoutPocketInput } from './item-categories-create
 import { Type } from 'class-transformer';
 import { ItemCategoriesCreateOrConnectWithoutPocketInput } from './item-categories-create-or-connect-without-pocket.input';
 import { ItemCategoriesUpsertWithWhereUniqueWithoutPocketInput } from './item-categories-upsert-with-where-unique-without-pocket.input';
+import type { Identity } from 'identity-type';
 import { ItemCategoriesCreateManyPocketInputEnvelope } from './item-categories-create-many-pocket-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemCategoriesWhereUniqueInput } from './item-categories-where-unique.input';
 import { ItemCategoriesUpdateWithWhereUniqueWithoutPocketInput } from './item-categories-update-with-where-unique-without-pocket.input';
 import { ItemCategoriesUpdateManyWithWhereWithoutPocketInput } from './item-categories-update-many-with-where-without-pocket.input';
@@ -28,7 +29,7 @@ export class ItemCategoriesUncheckedUpdateManyWithoutPocketNestedInput {
 
     @Field(() => ItemCategoriesCreateManyPocketInputEnvelope, {nullable:true})
     @Type(() => ItemCategoriesCreateManyPocketInputEnvelope)
-    createMany?: ItemCategoriesCreateManyPocketInputEnvelope;
+    createMany?: Identity<ItemCategoriesCreateManyPocketInputEnvelope>;
 
     @Field(() => [ItemCategoriesWhereUniqueInput], {nullable:true})
     @Type(() => ItemCategoriesWhereUniqueInput)

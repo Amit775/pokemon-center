@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesUpdateWithoutPokemonMovesInput } from './moves-update-without-pokemon-moves.input';
 import { Type } from 'class-transformer';
 import { MovesCreateWithoutPokemonMovesInput } from './moves-create-without-pokemon-moves.input';
@@ -10,13 +11,13 @@ export class MovesUpsertWithoutPokemonMovesInput {
 
     @Field(() => MovesUpdateWithoutPokemonMovesInput, {nullable:false})
     @Type(() => MovesUpdateWithoutPokemonMovesInput)
-    update!: MovesUpdateWithoutPokemonMovesInput;
+    update!: Identity<MovesUpdateWithoutPokemonMovesInput>;
 
     @Field(() => MovesCreateWithoutPokemonMovesInput, {nullable:false})
     @Type(() => MovesCreateWithoutPokemonMovesInput)
-    create!: MovesCreateWithoutPokemonMovesInput;
+    create!: Identity<MovesCreateWithoutPokemonMovesInput>;
 
     @Field(() => MovesWhereInput, {nullable:true})
     @Type(() => MovesWhereInput)
-    where?: MovesWhereInput;
+    where?: Identity<MovesWhereInput>;
 }

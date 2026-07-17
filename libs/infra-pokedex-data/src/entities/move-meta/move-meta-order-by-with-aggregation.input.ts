@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { MoveMetaCountOrderByAggregateInput } from './move-meta-count-order-by-aggregate.input';
 import { MoveMetaAvgOrderByAggregateInput } from './move-meta-avg-order-by-aggregate.input';
@@ -18,19 +19,19 @@ export class MoveMetaOrderByWithAggregationInput {
     meta_category_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    meta_ailment_id?: SortOrderInput;
+    meta_ailment_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    min_hits?: SortOrderInput;
+    min_hits?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    max_hits?: SortOrderInput;
+    max_hits?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    min_turns?: SortOrderInput;
+    min_turns?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    max_turns?: SortOrderInput;
+    max_turns?: Identity<SortOrderInput>;
 
     @Field(() => SortOrder, {nullable:true})
     drain?: `${SortOrder}`;
@@ -51,17 +52,17 @@ export class MoveMetaOrderByWithAggregationInput {
     stat_chance?: `${SortOrder}`;
 
     @Field(() => MoveMetaCountOrderByAggregateInput, {nullable:true})
-    _count?: MoveMetaCountOrderByAggregateInput;
+    _count?: Identity<MoveMetaCountOrderByAggregateInput>;
 
     @Field(() => MoveMetaAvgOrderByAggregateInput, {nullable:true})
-    _avg?: MoveMetaAvgOrderByAggregateInput;
+    _avg?: Identity<MoveMetaAvgOrderByAggregateInput>;
 
     @Field(() => MoveMetaMaxOrderByAggregateInput, {nullable:true})
-    _max?: MoveMetaMaxOrderByAggregateInput;
+    _max?: Identity<MoveMetaMaxOrderByAggregateInput>;
 
     @Field(() => MoveMetaMinOrderByAggregateInput, {nullable:true})
-    _min?: MoveMetaMinOrderByAggregateInput;
+    _min?: Identity<MoveMetaMinOrderByAggregateInput>;
 
     @Field(() => MoveMetaSumOrderByAggregateInput, {nullable:true})
-    _sum?: MoveMetaSumOrderByAggregateInput;
+    _sum?: Identity<MoveMetaSumOrderByAggregateInput>;
 }

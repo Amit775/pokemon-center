@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EvolutionTriggersWhereInput } from './evolution-triggers-where.input';
 import { Type } from 'class-transformer';
 import { EvolutionTriggersOrderByWithRelationInput } from './evolution-triggers-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EvolutionTriggersWhereUniqueInput } from './evolution-triggers-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { EvolutionTriggersCountAggregateInput } from './evolution-triggers-count-aggregate.input';
@@ -17,7 +18,7 @@ export class EvolutionTriggersAggregateArgs {
 
     @Field(() => EvolutionTriggersWhereInput, {nullable:true})
     @Type(() => EvolutionTriggersWhereInput)
-    where?: EvolutionTriggersWhereInput;
+    where?: Identity<EvolutionTriggersWhereInput>;
 
     @Field(() => [EvolutionTriggersOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<EvolutionTriggersOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class EvolutionTriggersAggregateArgs {
     skip?: number;
 
     @Field(() => EvolutionTriggersCountAggregateInput, {nullable:true})
-    _count?: EvolutionTriggersCountAggregateInput;
+    _count?: Identity<EvolutionTriggersCountAggregateInput>;
 
     @Field(() => EvolutionTriggersAvgAggregateInput, {nullable:true})
-    _avg?: EvolutionTriggersAvgAggregateInput;
+    _avg?: Identity<EvolutionTriggersAvgAggregateInput>;
 
     @Field(() => EvolutionTriggersSumAggregateInput, {nullable:true})
-    _sum?: EvolutionTriggersSumAggregateInput;
+    _sum?: Identity<EvolutionTriggersSumAggregateInput>;
 
     @Field(() => EvolutionTriggersMinAggregateInput, {nullable:true})
-    _min?: EvolutionTriggersMinAggregateInput;
+    _min?: Identity<EvolutionTriggersMinAggregateInput>;
 
     @Field(() => EvolutionTriggersMaxAggregateInput, {nullable:true})
-    _max?: EvolutionTriggersMaxAggregateInput;
+    _max?: Identity<EvolutionTriggersMaxAggregateInput>;
 }

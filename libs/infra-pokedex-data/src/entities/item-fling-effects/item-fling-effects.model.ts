@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Items } from '../items/items.model';
 import { ItemFlingEffectsCount } from './item-fling-effects-count.output';
+import type { Identity } from 'identity-type';
 
 /**
  * @@TypeGraphQL.type(name: "ItemFlingEffect")
@@ -16,9 +17,9 @@ export class ItemFlingEffects {
     @Field(() => String, {nullable:false})
     identifier!: string;
 
-    @Field(() => [Items], {nullable:true})
+    @Field(() => [Items], {nullable:false})
     items?: Array<Items>;
 
     @Field(() => ItemFlingEffectsCount, {nullable:false})
-    _count?: ItemFlingEffectsCount;
+    _count?: Identity<ItemFlingEffectsCount>;
 }

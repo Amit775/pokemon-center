@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationAreaEncounterRatesUpdateInput } from './location-area-encounter-rates-update.input';
 import { Type } from 'class-transformer';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationAreaEncounterRatesWhereUniqueInput } from './location-area-encounter-rates-where-unique.input';
 
 @ArgsType()
@@ -10,7 +11,7 @@ export class UpdateOneLocationAreaEncounterRatesArgs {
 
     @Field(() => LocationAreaEncounterRatesUpdateInput, {nullable:false})
     @Type(() => LocationAreaEncounterRatesUpdateInput)
-    data!: LocationAreaEncounterRatesUpdateInput;
+    data!: Identity<LocationAreaEncounterRatesUpdateInput>;
 
     @Field(() => LocationAreaEncounterRatesWhereUniqueInput, {nullable:false})
     @Type(() => LocationAreaEncounterRatesWhereUniqueInput)

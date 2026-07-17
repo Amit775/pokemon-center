@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { RegionsUpdateWithoutPokedexesInput } from './regions-update-without-pokedexes.input';
 import { Type } from 'class-transformer';
 import { RegionsCreateWithoutPokedexesInput } from './regions-create-without-pokedexes.input';
@@ -10,13 +11,13 @@ export class RegionsUpsertWithoutPokedexesInput {
 
     @Field(() => RegionsUpdateWithoutPokedexesInput, {nullable:false})
     @Type(() => RegionsUpdateWithoutPokedexesInput)
-    update!: RegionsUpdateWithoutPokedexesInput;
+    update!: Identity<RegionsUpdateWithoutPokedexesInput>;
 
     @Field(() => RegionsCreateWithoutPokedexesInput, {nullable:false})
     @Type(() => RegionsCreateWithoutPokedexesInput)
-    create!: RegionsCreateWithoutPokedexesInput;
+    create!: Identity<RegionsCreateWithoutPokedexesInput>;
 
     @Field(() => RegionsWhereInput, {nullable:true})
     @Type(() => RegionsWhereInput)
-    where?: RegionsWhereInput;
+    where?: Identity<RegionsWhereInput>;
 }

@@ -1,0 +1,4468 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model Moves
+ * @@TypeGraphQL.type(name: "Move")
+ */
+export type MovesModel = runtime.Types.Result.DefaultSelection<Prisma.$MovesPayload>;
+export type AggregateMoves = {
+    _count: MovesCountAggregateOutputType | null;
+    _avg: MovesAvgAggregateOutputType | null;
+    _sum: MovesSumAggregateOutputType | null;
+    _min: MovesMinAggregateOutputType | null;
+    _max: MovesMaxAggregateOutputType | null;
+};
+export type MovesAvgAggregateOutputType = {
+    id: number | null;
+    generation_id: number | null;
+    type_id: number | null;
+    power: number | null;
+    pp: number | null;
+    accuracy: number | null;
+    priority: number | null;
+    target_id: number | null;
+    damage_class_id: number | null;
+    effect_id: number | null;
+    effect_chance: number | null;
+    contest_type_id: number | null;
+    contest_effect_id: number | null;
+    super_contest_effect_id: number | null;
+};
+export type MovesSumAggregateOutputType = {
+    id: number | null;
+    generation_id: number | null;
+    type_id: number | null;
+    power: number | null;
+    pp: number | null;
+    accuracy: number | null;
+    priority: number | null;
+    target_id: number | null;
+    damage_class_id: number | null;
+    effect_id: number | null;
+    effect_chance: number | null;
+    contest_type_id: number | null;
+    contest_effect_id: number | null;
+    super_contest_effect_id: number | null;
+};
+export type MovesMinAggregateOutputType = {
+    id: number | null;
+    identifier: string | null;
+    generation_id: number | null;
+    type_id: number | null;
+    power: number | null;
+    pp: number | null;
+    accuracy: number | null;
+    priority: number | null;
+    target_id: number | null;
+    damage_class_id: number | null;
+    effect_id: number | null;
+    effect_chance: number | null;
+    contest_type_id: number | null;
+    contest_effect_id: number | null;
+    super_contest_effect_id: number | null;
+};
+export type MovesMaxAggregateOutputType = {
+    id: number | null;
+    identifier: string | null;
+    generation_id: number | null;
+    type_id: number | null;
+    power: number | null;
+    pp: number | null;
+    accuracy: number | null;
+    priority: number | null;
+    target_id: number | null;
+    damage_class_id: number | null;
+    effect_id: number | null;
+    effect_chance: number | null;
+    contest_type_id: number | null;
+    contest_effect_id: number | null;
+    super_contest_effect_id: number | null;
+};
+export type MovesCountAggregateOutputType = {
+    id: number;
+    identifier: number;
+    generation_id: number;
+    type_id: number;
+    power: number;
+    pp: number;
+    accuracy: number;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id: number;
+    effect_chance: number;
+    contest_type_id: number;
+    contest_effect_id: number;
+    super_contest_effect_id: number;
+    _all: number;
+};
+export type MovesAvgAggregateInputType = {
+    id?: true;
+    generation_id?: true;
+    type_id?: true;
+    power?: true;
+    pp?: true;
+    accuracy?: true;
+    priority?: true;
+    target_id?: true;
+    damage_class_id?: true;
+    effect_id?: true;
+    effect_chance?: true;
+    contest_type_id?: true;
+    contest_effect_id?: true;
+    super_contest_effect_id?: true;
+};
+export type MovesSumAggregateInputType = {
+    id?: true;
+    generation_id?: true;
+    type_id?: true;
+    power?: true;
+    pp?: true;
+    accuracy?: true;
+    priority?: true;
+    target_id?: true;
+    damage_class_id?: true;
+    effect_id?: true;
+    effect_chance?: true;
+    contest_type_id?: true;
+    contest_effect_id?: true;
+    super_contest_effect_id?: true;
+};
+export type MovesMinAggregateInputType = {
+    id?: true;
+    identifier?: true;
+    generation_id?: true;
+    type_id?: true;
+    power?: true;
+    pp?: true;
+    accuracy?: true;
+    priority?: true;
+    target_id?: true;
+    damage_class_id?: true;
+    effect_id?: true;
+    effect_chance?: true;
+    contest_type_id?: true;
+    contest_effect_id?: true;
+    super_contest_effect_id?: true;
+};
+export type MovesMaxAggregateInputType = {
+    id?: true;
+    identifier?: true;
+    generation_id?: true;
+    type_id?: true;
+    power?: true;
+    pp?: true;
+    accuracy?: true;
+    priority?: true;
+    target_id?: true;
+    damage_class_id?: true;
+    effect_id?: true;
+    effect_chance?: true;
+    contest_type_id?: true;
+    contest_effect_id?: true;
+    super_contest_effect_id?: true;
+};
+export type MovesCountAggregateInputType = {
+    id?: true;
+    identifier?: true;
+    generation_id?: true;
+    type_id?: true;
+    power?: true;
+    pp?: true;
+    accuracy?: true;
+    priority?: true;
+    target_id?: true;
+    damage_class_id?: true;
+    effect_id?: true;
+    effect_chance?: true;
+    contest_type_id?: true;
+    contest_effect_id?: true;
+    super_contest_effect_id?: true;
+    _all?: true;
+};
+export type MovesAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which Moves to aggregate.
+     */
+    where?: Prisma.MovesWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Moves to fetch.
+     */
+    orderBy?: Prisma.MovesOrderByWithRelationInput | Prisma.MovesOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.MovesWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Moves from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Moves.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned Moves
+    **/
+    _count?: true | MovesCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+    **/
+    _avg?: MovesAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: MovesSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: MovesMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: MovesMaxAggregateInputType;
+};
+export type GetMovesAggregateType<T extends MovesAggregateArgs> = {
+    [P in keyof T & keyof AggregateMoves]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateMoves[P]> : Prisma.GetScalarType<T[P], AggregateMoves[P]>;
+};
+export type MovesGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.MovesWhereInput;
+    orderBy?: Prisma.MovesOrderByWithAggregationInput | Prisma.MovesOrderByWithAggregationInput[];
+    by: Prisma.MovesScalarFieldEnum[] | Prisma.MovesScalarFieldEnum;
+    having?: Prisma.MovesScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: MovesCountAggregateInputType | true;
+    _avg?: MovesAvgAggregateInputType;
+    _sum?: MovesSumAggregateInputType;
+    _min?: MovesMinAggregateInputType;
+    _max?: MovesMaxAggregateInputType;
+};
+export type MovesGroupByOutputType = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power: number | null;
+    pp: number | null;
+    accuracy: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id: number | null;
+    effect_chance: number | null;
+    contest_type_id: number | null;
+    contest_effect_id: number | null;
+    super_contest_effect_id: number | null;
+    _count: MovesCountAggregateOutputType | null;
+    _avg: MovesAvgAggregateOutputType | null;
+    _sum: MovesSumAggregateOutputType | null;
+    _min: MovesMinAggregateOutputType | null;
+    _max: MovesMaxAggregateOutputType | null;
+};
+export type GetMovesGroupByPayload<T extends MovesGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<MovesGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof MovesGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], MovesGroupByOutputType[P]> : Prisma.GetScalarType<T[P], MovesGroupByOutputType[P]>;
+}>>;
+export type MovesWhereInput = {
+    AND?: Prisma.MovesWhereInput | Prisma.MovesWhereInput[];
+    OR?: Prisma.MovesWhereInput[];
+    NOT?: Prisma.MovesWhereInput | Prisma.MovesWhereInput[];
+    id?: Prisma.IntFilter<"Moves"> | number;
+    identifier?: Prisma.StringFilter<"Moves"> | string;
+    generation_id?: Prisma.IntFilter<"Moves"> | number;
+    type_id?: Prisma.IntFilter<"Moves"> | number;
+    power?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    pp?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    accuracy?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    priority?: Prisma.IntFilter<"Moves"> | number;
+    target_id?: Prisma.IntFilter<"Moves"> | number;
+    damage_class_id?: Prisma.IntFilter<"Moves"> | number;
+    effect_id?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    effect_chance?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    contest_type_id?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    contest_effect_id?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    super_contest_effect_id?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    generation?: Prisma.XOR<Prisma.GenerationsScalarRelationFilter, Prisma.GenerationsWhereInput>;
+    type?: Prisma.XOR<Prisma.TypesScalarRelationFilter, Prisma.TypesWhereInput>;
+    target?: Prisma.XOR<Prisma.MoveTargetsScalarRelationFilter, Prisma.MoveTargetsWhereInput>;
+    damageClass?: Prisma.XOR<Prisma.MoveDamageClassesScalarRelationFilter, Prisma.MoveDamageClassesWhereInput>;
+    contestType?: Prisma.XOR<Prisma.ContestTypesNullableScalarRelationFilter, Prisma.ContestTypesWhereInput> | null;
+    contestEffect?: Prisma.XOR<Prisma.ContestEffectsNullableScalarRelationFilter, Prisma.ContestEffectsWhereInput> | null;
+    superContestEffect?: Prisma.XOR<Prisma.SuperContestEffectsNullableScalarRelationFilter, Prisma.SuperContestEffectsWhereInput> | null;
+    pokemonMoves?: Prisma.PokemonMovesListRelationFilter;
+    machines?: Prisma.MachinesListRelationFilter;
+    meta?: Prisma.MoveMetaListRelationFilter;
+    flagMap?: Prisma.MoveFlagMapListRelationFilter;
+    contestCombos?: Prisma.ContestCombosListRelationFilter;
+    contestCombosSecond?: Prisma.ContestCombosListRelationFilter;
+    superContestCombos?: Prisma.SuperContestCombosListRelationFilter;
+    superContestCombosSecond?: Prisma.SuperContestCombosListRelationFilter;
+    knownMoves?: Prisma.PokemonEvolutionListRelationFilter;
+};
+export type MovesOrderByWithRelationInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+    generation_id?: Prisma.SortOrder;
+    type_id?: Prisma.SortOrder;
+    power?: Prisma.SortOrderInput | Prisma.SortOrder;
+    pp?: Prisma.SortOrderInput | Prisma.SortOrder;
+    accuracy?: Prisma.SortOrderInput | Prisma.SortOrder;
+    priority?: Prisma.SortOrder;
+    target_id?: Prisma.SortOrder;
+    damage_class_id?: Prisma.SortOrder;
+    effect_id?: Prisma.SortOrderInput | Prisma.SortOrder;
+    effect_chance?: Prisma.SortOrderInput | Prisma.SortOrder;
+    contest_type_id?: Prisma.SortOrderInput | Prisma.SortOrder;
+    contest_effect_id?: Prisma.SortOrderInput | Prisma.SortOrder;
+    super_contest_effect_id?: Prisma.SortOrderInput | Prisma.SortOrder;
+    generation?: Prisma.GenerationsOrderByWithRelationInput;
+    type?: Prisma.TypesOrderByWithRelationInput;
+    target?: Prisma.MoveTargetsOrderByWithRelationInput;
+    damageClass?: Prisma.MoveDamageClassesOrderByWithRelationInput;
+    contestType?: Prisma.ContestTypesOrderByWithRelationInput;
+    contestEffect?: Prisma.ContestEffectsOrderByWithRelationInput;
+    superContestEffect?: Prisma.SuperContestEffectsOrderByWithRelationInput;
+    pokemonMoves?: Prisma.PokemonMovesOrderByRelationAggregateInput;
+    machines?: Prisma.MachinesOrderByRelationAggregateInput;
+    meta?: Prisma.MoveMetaOrderByRelationAggregateInput;
+    flagMap?: Prisma.MoveFlagMapOrderByRelationAggregateInput;
+    contestCombos?: Prisma.ContestCombosOrderByRelationAggregateInput;
+    contestCombosSecond?: Prisma.ContestCombosOrderByRelationAggregateInput;
+    superContestCombos?: Prisma.SuperContestCombosOrderByRelationAggregateInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosOrderByRelationAggregateInput;
+    knownMoves?: Prisma.PokemonEvolutionOrderByRelationAggregateInput;
+};
+export type MovesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number;
+    AND?: Prisma.MovesWhereInput | Prisma.MovesWhereInput[];
+    OR?: Prisma.MovesWhereInput[];
+    NOT?: Prisma.MovesWhereInput | Prisma.MovesWhereInput[];
+    identifier?: Prisma.StringFilter<"Moves"> | string;
+    generation_id?: Prisma.IntFilter<"Moves"> | number;
+    type_id?: Prisma.IntFilter<"Moves"> | number;
+    power?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    pp?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    accuracy?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    priority?: Prisma.IntFilter<"Moves"> | number;
+    target_id?: Prisma.IntFilter<"Moves"> | number;
+    damage_class_id?: Prisma.IntFilter<"Moves"> | number;
+    effect_id?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    effect_chance?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    contest_type_id?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    contest_effect_id?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    super_contest_effect_id?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    generation?: Prisma.XOR<Prisma.GenerationsScalarRelationFilter, Prisma.GenerationsWhereInput>;
+    type?: Prisma.XOR<Prisma.TypesScalarRelationFilter, Prisma.TypesWhereInput>;
+    target?: Prisma.XOR<Prisma.MoveTargetsScalarRelationFilter, Prisma.MoveTargetsWhereInput>;
+    damageClass?: Prisma.XOR<Prisma.MoveDamageClassesScalarRelationFilter, Prisma.MoveDamageClassesWhereInput>;
+    contestType?: Prisma.XOR<Prisma.ContestTypesNullableScalarRelationFilter, Prisma.ContestTypesWhereInput> | null;
+    contestEffect?: Prisma.XOR<Prisma.ContestEffectsNullableScalarRelationFilter, Prisma.ContestEffectsWhereInput> | null;
+    superContestEffect?: Prisma.XOR<Prisma.SuperContestEffectsNullableScalarRelationFilter, Prisma.SuperContestEffectsWhereInput> | null;
+    pokemonMoves?: Prisma.PokemonMovesListRelationFilter;
+    machines?: Prisma.MachinesListRelationFilter;
+    meta?: Prisma.MoveMetaListRelationFilter;
+    flagMap?: Prisma.MoveFlagMapListRelationFilter;
+    contestCombos?: Prisma.ContestCombosListRelationFilter;
+    contestCombosSecond?: Prisma.ContestCombosListRelationFilter;
+    superContestCombos?: Prisma.SuperContestCombosListRelationFilter;
+    superContestCombosSecond?: Prisma.SuperContestCombosListRelationFilter;
+    knownMoves?: Prisma.PokemonEvolutionListRelationFilter;
+}, "id">;
+export type MovesOrderByWithAggregationInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+    generation_id?: Prisma.SortOrder;
+    type_id?: Prisma.SortOrder;
+    power?: Prisma.SortOrderInput | Prisma.SortOrder;
+    pp?: Prisma.SortOrderInput | Prisma.SortOrder;
+    accuracy?: Prisma.SortOrderInput | Prisma.SortOrder;
+    priority?: Prisma.SortOrder;
+    target_id?: Prisma.SortOrder;
+    damage_class_id?: Prisma.SortOrder;
+    effect_id?: Prisma.SortOrderInput | Prisma.SortOrder;
+    effect_chance?: Prisma.SortOrderInput | Prisma.SortOrder;
+    contest_type_id?: Prisma.SortOrderInput | Prisma.SortOrder;
+    contest_effect_id?: Prisma.SortOrderInput | Prisma.SortOrder;
+    super_contest_effect_id?: Prisma.SortOrderInput | Prisma.SortOrder;
+    _count?: Prisma.MovesCountOrderByAggregateInput;
+    _avg?: Prisma.MovesAvgOrderByAggregateInput;
+    _max?: Prisma.MovesMaxOrderByAggregateInput;
+    _min?: Prisma.MovesMinOrderByAggregateInput;
+    _sum?: Prisma.MovesSumOrderByAggregateInput;
+};
+export type MovesScalarWhereWithAggregatesInput = {
+    AND?: Prisma.MovesScalarWhereWithAggregatesInput | Prisma.MovesScalarWhereWithAggregatesInput[];
+    OR?: Prisma.MovesScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.MovesScalarWhereWithAggregatesInput | Prisma.MovesScalarWhereWithAggregatesInput[];
+    id?: Prisma.IntWithAggregatesFilter<"Moves"> | number;
+    identifier?: Prisma.StringWithAggregatesFilter<"Moves"> | string;
+    generation_id?: Prisma.IntWithAggregatesFilter<"Moves"> | number;
+    type_id?: Prisma.IntWithAggregatesFilter<"Moves"> | number;
+    power?: Prisma.IntNullableWithAggregatesFilter<"Moves"> | number | null;
+    pp?: Prisma.IntNullableWithAggregatesFilter<"Moves"> | number | null;
+    accuracy?: Prisma.IntNullableWithAggregatesFilter<"Moves"> | number | null;
+    priority?: Prisma.IntWithAggregatesFilter<"Moves"> | number;
+    target_id?: Prisma.IntWithAggregatesFilter<"Moves"> | number;
+    damage_class_id?: Prisma.IntWithAggregatesFilter<"Moves"> | number;
+    effect_id?: Prisma.IntNullableWithAggregatesFilter<"Moves"> | number | null;
+    effect_chance?: Prisma.IntNullableWithAggregatesFilter<"Moves"> | number | null;
+    contest_type_id?: Prisma.IntNullableWithAggregatesFilter<"Moves"> | number | null;
+    contest_effect_id?: Prisma.IntNullableWithAggregatesFilter<"Moves"> | number | null;
+    super_contest_effect_id?: Prisma.IntNullableWithAggregatesFilter<"Moves"> | number | null;
+};
+export type MovesCreateInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUpdateInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesCreateManyInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+};
+export type MovesUpdateManyMutationInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+export type MovesUncheckedUpdateManyInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+export type MovesCountOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+    generation_id?: Prisma.SortOrder;
+    type_id?: Prisma.SortOrder;
+    power?: Prisma.SortOrder;
+    pp?: Prisma.SortOrder;
+    accuracy?: Prisma.SortOrder;
+    priority?: Prisma.SortOrder;
+    target_id?: Prisma.SortOrder;
+    damage_class_id?: Prisma.SortOrder;
+    effect_id?: Prisma.SortOrder;
+    effect_chance?: Prisma.SortOrder;
+    contest_type_id?: Prisma.SortOrder;
+    contest_effect_id?: Prisma.SortOrder;
+    super_contest_effect_id?: Prisma.SortOrder;
+};
+export type MovesAvgOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    generation_id?: Prisma.SortOrder;
+    type_id?: Prisma.SortOrder;
+    power?: Prisma.SortOrder;
+    pp?: Prisma.SortOrder;
+    accuracy?: Prisma.SortOrder;
+    priority?: Prisma.SortOrder;
+    target_id?: Prisma.SortOrder;
+    damage_class_id?: Prisma.SortOrder;
+    effect_id?: Prisma.SortOrder;
+    effect_chance?: Prisma.SortOrder;
+    contest_type_id?: Prisma.SortOrder;
+    contest_effect_id?: Prisma.SortOrder;
+    super_contest_effect_id?: Prisma.SortOrder;
+};
+export type MovesMaxOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+    generation_id?: Prisma.SortOrder;
+    type_id?: Prisma.SortOrder;
+    power?: Prisma.SortOrder;
+    pp?: Prisma.SortOrder;
+    accuracy?: Prisma.SortOrder;
+    priority?: Prisma.SortOrder;
+    target_id?: Prisma.SortOrder;
+    damage_class_id?: Prisma.SortOrder;
+    effect_id?: Prisma.SortOrder;
+    effect_chance?: Prisma.SortOrder;
+    contest_type_id?: Prisma.SortOrder;
+    contest_effect_id?: Prisma.SortOrder;
+    super_contest_effect_id?: Prisma.SortOrder;
+};
+export type MovesMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+    generation_id?: Prisma.SortOrder;
+    type_id?: Prisma.SortOrder;
+    power?: Prisma.SortOrder;
+    pp?: Prisma.SortOrder;
+    accuracy?: Prisma.SortOrder;
+    priority?: Prisma.SortOrder;
+    target_id?: Prisma.SortOrder;
+    damage_class_id?: Prisma.SortOrder;
+    effect_id?: Prisma.SortOrder;
+    effect_chance?: Prisma.SortOrder;
+    contest_type_id?: Prisma.SortOrder;
+    contest_effect_id?: Prisma.SortOrder;
+    super_contest_effect_id?: Prisma.SortOrder;
+};
+export type MovesSumOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    generation_id?: Prisma.SortOrder;
+    type_id?: Prisma.SortOrder;
+    power?: Prisma.SortOrder;
+    pp?: Prisma.SortOrder;
+    accuracy?: Prisma.SortOrder;
+    priority?: Prisma.SortOrder;
+    target_id?: Prisma.SortOrder;
+    damage_class_id?: Prisma.SortOrder;
+    effect_id?: Prisma.SortOrder;
+    effect_chance?: Prisma.SortOrder;
+    contest_type_id?: Prisma.SortOrder;
+    contest_effect_id?: Prisma.SortOrder;
+    super_contest_effect_id?: Prisma.SortOrder;
+};
+export type MovesListRelationFilter = {
+    every?: Prisma.MovesWhereInput;
+    some?: Prisma.MovesWhereInput;
+    none?: Prisma.MovesWhereInput;
+};
+export type MovesOrderByRelationAggregateInput = {
+    _count?: Prisma.SortOrder;
+};
+export type MovesNullableScalarRelationFilter = {
+    is?: Prisma.MovesWhereInput | null;
+    isNot?: Prisma.MovesWhereInput | null;
+};
+export type MovesScalarRelationFilter = {
+    is?: Prisma.MovesWhereInput;
+    isNot?: Prisma.MovesWhereInput;
+};
+export type MovesCreateNestedManyWithoutTargetInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutTargetInput, Prisma.MovesUncheckedCreateWithoutTargetInput> | Prisma.MovesCreateWithoutTargetInput[] | Prisma.MovesUncheckedCreateWithoutTargetInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutTargetInput | Prisma.MovesCreateOrConnectWithoutTargetInput[];
+    createMany?: Prisma.MovesCreateManyTargetInputEnvelope;
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+};
+export type MovesUncheckedCreateNestedManyWithoutTargetInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutTargetInput, Prisma.MovesUncheckedCreateWithoutTargetInput> | Prisma.MovesCreateWithoutTargetInput[] | Prisma.MovesUncheckedCreateWithoutTargetInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutTargetInput | Prisma.MovesCreateOrConnectWithoutTargetInput[];
+    createMany?: Prisma.MovesCreateManyTargetInputEnvelope;
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+};
+export type MovesUpdateManyWithoutTargetNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutTargetInput, Prisma.MovesUncheckedCreateWithoutTargetInput> | Prisma.MovesCreateWithoutTargetInput[] | Prisma.MovesUncheckedCreateWithoutTargetInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutTargetInput | Prisma.MovesCreateOrConnectWithoutTargetInput[];
+    upsert?: Prisma.MovesUpsertWithWhereUniqueWithoutTargetInput | Prisma.MovesUpsertWithWhereUniqueWithoutTargetInput[];
+    createMany?: Prisma.MovesCreateManyTargetInputEnvelope;
+    set?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    disconnect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    delete?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    update?: Prisma.MovesUpdateWithWhereUniqueWithoutTargetInput | Prisma.MovesUpdateWithWhereUniqueWithoutTargetInput[];
+    updateMany?: Prisma.MovesUpdateManyWithWhereWithoutTargetInput | Prisma.MovesUpdateManyWithWhereWithoutTargetInput[];
+    deleteMany?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+};
+export type MovesUncheckedUpdateManyWithoutTargetNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutTargetInput, Prisma.MovesUncheckedCreateWithoutTargetInput> | Prisma.MovesCreateWithoutTargetInput[] | Prisma.MovesUncheckedCreateWithoutTargetInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutTargetInput | Prisma.MovesCreateOrConnectWithoutTargetInput[];
+    upsert?: Prisma.MovesUpsertWithWhereUniqueWithoutTargetInput | Prisma.MovesUpsertWithWhereUniqueWithoutTargetInput[];
+    createMany?: Prisma.MovesCreateManyTargetInputEnvelope;
+    set?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    disconnect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    delete?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    update?: Prisma.MovesUpdateWithWhereUniqueWithoutTargetInput | Prisma.MovesUpdateWithWhereUniqueWithoutTargetInput[];
+    updateMany?: Prisma.MovesUpdateManyWithWhereWithoutTargetInput | Prisma.MovesUpdateManyWithWhereWithoutTargetInput[];
+    deleteMany?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+};
+export type MovesCreateNestedManyWithoutDamageClassInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutDamageClassInput, Prisma.MovesUncheckedCreateWithoutDamageClassInput> | Prisma.MovesCreateWithoutDamageClassInput[] | Prisma.MovesUncheckedCreateWithoutDamageClassInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutDamageClassInput | Prisma.MovesCreateOrConnectWithoutDamageClassInput[];
+    createMany?: Prisma.MovesCreateManyDamageClassInputEnvelope;
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+};
+export type MovesUncheckedCreateNestedManyWithoutDamageClassInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutDamageClassInput, Prisma.MovesUncheckedCreateWithoutDamageClassInput> | Prisma.MovesCreateWithoutDamageClassInput[] | Prisma.MovesUncheckedCreateWithoutDamageClassInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutDamageClassInput | Prisma.MovesCreateOrConnectWithoutDamageClassInput[];
+    createMany?: Prisma.MovesCreateManyDamageClassInputEnvelope;
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+};
+export type MovesUpdateManyWithoutDamageClassNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutDamageClassInput, Prisma.MovesUncheckedCreateWithoutDamageClassInput> | Prisma.MovesCreateWithoutDamageClassInput[] | Prisma.MovesUncheckedCreateWithoutDamageClassInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutDamageClassInput | Prisma.MovesCreateOrConnectWithoutDamageClassInput[];
+    upsert?: Prisma.MovesUpsertWithWhereUniqueWithoutDamageClassInput | Prisma.MovesUpsertWithWhereUniqueWithoutDamageClassInput[];
+    createMany?: Prisma.MovesCreateManyDamageClassInputEnvelope;
+    set?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    disconnect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    delete?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    update?: Prisma.MovesUpdateWithWhereUniqueWithoutDamageClassInput | Prisma.MovesUpdateWithWhereUniqueWithoutDamageClassInput[];
+    updateMany?: Prisma.MovesUpdateManyWithWhereWithoutDamageClassInput | Prisma.MovesUpdateManyWithWhereWithoutDamageClassInput[];
+    deleteMany?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+};
+export type MovesUncheckedUpdateManyWithoutDamageClassNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutDamageClassInput, Prisma.MovesUncheckedCreateWithoutDamageClassInput> | Prisma.MovesCreateWithoutDamageClassInput[] | Prisma.MovesUncheckedCreateWithoutDamageClassInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutDamageClassInput | Prisma.MovesCreateOrConnectWithoutDamageClassInput[];
+    upsert?: Prisma.MovesUpsertWithWhereUniqueWithoutDamageClassInput | Prisma.MovesUpsertWithWhereUniqueWithoutDamageClassInput[];
+    createMany?: Prisma.MovesCreateManyDamageClassInputEnvelope;
+    set?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    disconnect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    delete?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    update?: Prisma.MovesUpdateWithWhereUniqueWithoutDamageClassInput | Prisma.MovesUpdateWithWhereUniqueWithoutDamageClassInput[];
+    updateMany?: Prisma.MovesUpdateManyWithWhereWithoutDamageClassInput | Prisma.MovesUpdateManyWithWhereWithoutDamageClassInput[];
+    deleteMany?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+};
+export type MovesCreateNestedManyWithoutTypeInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutTypeInput, Prisma.MovesUncheckedCreateWithoutTypeInput> | Prisma.MovesCreateWithoutTypeInput[] | Prisma.MovesUncheckedCreateWithoutTypeInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutTypeInput | Prisma.MovesCreateOrConnectWithoutTypeInput[];
+    createMany?: Prisma.MovesCreateManyTypeInputEnvelope;
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+};
+export type MovesUncheckedCreateNestedManyWithoutTypeInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutTypeInput, Prisma.MovesUncheckedCreateWithoutTypeInput> | Prisma.MovesCreateWithoutTypeInput[] | Prisma.MovesUncheckedCreateWithoutTypeInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutTypeInput | Prisma.MovesCreateOrConnectWithoutTypeInput[];
+    createMany?: Prisma.MovesCreateManyTypeInputEnvelope;
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+};
+export type MovesUpdateManyWithoutTypeNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutTypeInput, Prisma.MovesUncheckedCreateWithoutTypeInput> | Prisma.MovesCreateWithoutTypeInput[] | Prisma.MovesUncheckedCreateWithoutTypeInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutTypeInput | Prisma.MovesCreateOrConnectWithoutTypeInput[];
+    upsert?: Prisma.MovesUpsertWithWhereUniqueWithoutTypeInput | Prisma.MovesUpsertWithWhereUniqueWithoutTypeInput[];
+    createMany?: Prisma.MovesCreateManyTypeInputEnvelope;
+    set?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    disconnect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    delete?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    update?: Prisma.MovesUpdateWithWhereUniqueWithoutTypeInput | Prisma.MovesUpdateWithWhereUniqueWithoutTypeInput[];
+    updateMany?: Prisma.MovesUpdateManyWithWhereWithoutTypeInput | Prisma.MovesUpdateManyWithWhereWithoutTypeInput[];
+    deleteMany?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+};
+export type MovesUncheckedUpdateManyWithoutTypeNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutTypeInput, Prisma.MovesUncheckedCreateWithoutTypeInput> | Prisma.MovesCreateWithoutTypeInput[] | Prisma.MovesUncheckedCreateWithoutTypeInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutTypeInput | Prisma.MovesCreateOrConnectWithoutTypeInput[];
+    upsert?: Prisma.MovesUpsertWithWhereUniqueWithoutTypeInput | Prisma.MovesUpsertWithWhereUniqueWithoutTypeInput[];
+    createMany?: Prisma.MovesCreateManyTypeInputEnvelope;
+    set?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    disconnect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    delete?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    update?: Prisma.MovesUpdateWithWhereUniqueWithoutTypeInput | Prisma.MovesUpdateWithWhereUniqueWithoutTypeInput[];
+    updateMany?: Prisma.MovesUpdateManyWithWhereWithoutTypeInput | Prisma.MovesUpdateManyWithWhereWithoutTypeInput[];
+    deleteMany?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+};
+export type MovesCreateNestedManyWithoutGenerationInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutGenerationInput, Prisma.MovesUncheckedCreateWithoutGenerationInput> | Prisma.MovesCreateWithoutGenerationInput[] | Prisma.MovesUncheckedCreateWithoutGenerationInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutGenerationInput | Prisma.MovesCreateOrConnectWithoutGenerationInput[];
+    createMany?: Prisma.MovesCreateManyGenerationInputEnvelope;
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+};
+export type MovesUncheckedCreateNestedManyWithoutGenerationInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutGenerationInput, Prisma.MovesUncheckedCreateWithoutGenerationInput> | Prisma.MovesCreateWithoutGenerationInput[] | Prisma.MovesUncheckedCreateWithoutGenerationInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutGenerationInput | Prisma.MovesCreateOrConnectWithoutGenerationInput[];
+    createMany?: Prisma.MovesCreateManyGenerationInputEnvelope;
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+};
+export type MovesUpdateManyWithoutGenerationNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutGenerationInput, Prisma.MovesUncheckedCreateWithoutGenerationInput> | Prisma.MovesCreateWithoutGenerationInput[] | Prisma.MovesUncheckedCreateWithoutGenerationInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutGenerationInput | Prisma.MovesCreateOrConnectWithoutGenerationInput[];
+    upsert?: Prisma.MovesUpsertWithWhereUniqueWithoutGenerationInput | Prisma.MovesUpsertWithWhereUniqueWithoutGenerationInput[];
+    createMany?: Prisma.MovesCreateManyGenerationInputEnvelope;
+    set?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    disconnect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    delete?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    update?: Prisma.MovesUpdateWithWhereUniqueWithoutGenerationInput | Prisma.MovesUpdateWithWhereUniqueWithoutGenerationInput[];
+    updateMany?: Prisma.MovesUpdateManyWithWhereWithoutGenerationInput | Prisma.MovesUpdateManyWithWhereWithoutGenerationInput[];
+    deleteMany?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+};
+export type MovesUncheckedUpdateManyWithoutGenerationNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutGenerationInput, Prisma.MovesUncheckedCreateWithoutGenerationInput> | Prisma.MovesCreateWithoutGenerationInput[] | Prisma.MovesUncheckedCreateWithoutGenerationInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutGenerationInput | Prisma.MovesCreateOrConnectWithoutGenerationInput[];
+    upsert?: Prisma.MovesUpsertWithWhereUniqueWithoutGenerationInput | Prisma.MovesUpsertWithWhereUniqueWithoutGenerationInput[];
+    createMany?: Prisma.MovesCreateManyGenerationInputEnvelope;
+    set?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    disconnect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    delete?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    update?: Prisma.MovesUpdateWithWhereUniqueWithoutGenerationInput | Prisma.MovesUpdateWithWhereUniqueWithoutGenerationInput[];
+    updateMany?: Prisma.MovesUpdateManyWithWhereWithoutGenerationInput | Prisma.MovesUpdateManyWithWhereWithoutGenerationInput[];
+    deleteMany?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+};
+export type MovesCreateNestedOneWithoutKnownMovesInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutKnownMovesInput, Prisma.MovesUncheckedCreateWithoutKnownMovesInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutKnownMovesInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+};
+export type MovesUpdateOneWithoutKnownMovesNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutKnownMovesInput, Prisma.MovesUncheckedCreateWithoutKnownMovesInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutKnownMovesInput;
+    upsert?: Prisma.MovesUpsertWithoutKnownMovesInput;
+    disconnect?: Prisma.MovesWhereInput | boolean;
+    delete?: Prisma.MovesWhereInput | boolean;
+    connect?: Prisma.MovesWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.MovesUpdateToOneWithWhereWithoutKnownMovesInput, Prisma.MovesUpdateWithoutKnownMovesInput>, Prisma.MovesUncheckedUpdateWithoutKnownMovesInput>;
+};
+export type MovesCreateNestedManyWithoutContestTypeInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutContestTypeInput, Prisma.MovesUncheckedCreateWithoutContestTypeInput> | Prisma.MovesCreateWithoutContestTypeInput[] | Prisma.MovesUncheckedCreateWithoutContestTypeInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutContestTypeInput | Prisma.MovesCreateOrConnectWithoutContestTypeInput[];
+    createMany?: Prisma.MovesCreateManyContestTypeInputEnvelope;
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+};
+export type MovesUncheckedCreateNestedManyWithoutContestTypeInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutContestTypeInput, Prisma.MovesUncheckedCreateWithoutContestTypeInput> | Prisma.MovesCreateWithoutContestTypeInput[] | Prisma.MovesUncheckedCreateWithoutContestTypeInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutContestTypeInput | Prisma.MovesCreateOrConnectWithoutContestTypeInput[];
+    createMany?: Prisma.MovesCreateManyContestTypeInputEnvelope;
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+};
+export type MovesUpdateManyWithoutContestTypeNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutContestTypeInput, Prisma.MovesUncheckedCreateWithoutContestTypeInput> | Prisma.MovesCreateWithoutContestTypeInput[] | Prisma.MovesUncheckedCreateWithoutContestTypeInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutContestTypeInput | Prisma.MovesCreateOrConnectWithoutContestTypeInput[];
+    upsert?: Prisma.MovesUpsertWithWhereUniqueWithoutContestTypeInput | Prisma.MovesUpsertWithWhereUniqueWithoutContestTypeInput[];
+    createMany?: Prisma.MovesCreateManyContestTypeInputEnvelope;
+    set?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    disconnect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    delete?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    update?: Prisma.MovesUpdateWithWhereUniqueWithoutContestTypeInput | Prisma.MovesUpdateWithWhereUniqueWithoutContestTypeInput[];
+    updateMany?: Prisma.MovesUpdateManyWithWhereWithoutContestTypeInput | Prisma.MovesUpdateManyWithWhereWithoutContestTypeInput[];
+    deleteMany?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+};
+export type MovesUncheckedUpdateManyWithoutContestTypeNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutContestTypeInput, Prisma.MovesUncheckedCreateWithoutContestTypeInput> | Prisma.MovesCreateWithoutContestTypeInput[] | Prisma.MovesUncheckedCreateWithoutContestTypeInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutContestTypeInput | Prisma.MovesCreateOrConnectWithoutContestTypeInput[];
+    upsert?: Prisma.MovesUpsertWithWhereUniqueWithoutContestTypeInput | Prisma.MovesUpsertWithWhereUniqueWithoutContestTypeInput[];
+    createMany?: Prisma.MovesCreateManyContestTypeInputEnvelope;
+    set?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    disconnect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    delete?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    update?: Prisma.MovesUpdateWithWhereUniqueWithoutContestTypeInput | Prisma.MovesUpdateWithWhereUniqueWithoutContestTypeInput[];
+    updateMany?: Prisma.MovesUpdateManyWithWhereWithoutContestTypeInput | Prisma.MovesUpdateManyWithWhereWithoutContestTypeInput[];
+    deleteMany?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+};
+export type MovesCreateNestedManyWithoutContestEffectInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutContestEffectInput, Prisma.MovesUncheckedCreateWithoutContestEffectInput> | Prisma.MovesCreateWithoutContestEffectInput[] | Prisma.MovesUncheckedCreateWithoutContestEffectInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutContestEffectInput | Prisma.MovesCreateOrConnectWithoutContestEffectInput[];
+    createMany?: Prisma.MovesCreateManyContestEffectInputEnvelope;
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+};
+export type MovesUncheckedCreateNestedManyWithoutContestEffectInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutContestEffectInput, Prisma.MovesUncheckedCreateWithoutContestEffectInput> | Prisma.MovesCreateWithoutContestEffectInput[] | Prisma.MovesUncheckedCreateWithoutContestEffectInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutContestEffectInput | Prisma.MovesCreateOrConnectWithoutContestEffectInput[];
+    createMany?: Prisma.MovesCreateManyContestEffectInputEnvelope;
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+};
+export type MovesUpdateManyWithoutContestEffectNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutContestEffectInput, Prisma.MovesUncheckedCreateWithoutContestEffectInput> | Prisma.MovesCreateWithoutContestEffectInput[] | Prisma.MovesUncheckedCreateWithoutContestEffectInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutContestEffectInput | Prisma.MovesCreateOrConnectWithoutContestEffectInput[];
+    upsert?: Prisma.MovesUpsertWithWhereUniqueWithoutContestEffectInput | Prisma.MovesUpsertWithWhereUniqueWithoutContestEffectInput[];
+    createMany?: Prisma.MovesCreateManyContestEffectInputEnvelope;
+    set?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    disconnect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    delete?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    update?: Prisma.MovesUpdateWithWhereUniqueWithoutContestEffectInput | Prisma.MovesUpdateWithWhereUniqueWithoutContestEffectInput[];
+    updateMany?: Prisma.MovesUpdateManyWithWhereWithoutContestEffectInput | Prisma.MovesUpdateManyWithWhereWithoutContestEffectInput[];
+    deleteMany?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+};
+export type MovesUncheckedUpdateManyWithoutContestEffectNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutContestEffectInput, Prisma.MovesUncheckedCreateWithoutContestEffectInput> | Prisma.MovesCreateWithoutContestEffectInput[] | Prisma.MovesUncheckedCreateWithoutContestEffectInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutContestEffectInput | Prisma.MovesCreateOrConnectWithoutContestEffectInput[];
+    upsert?: Prisma.MovesUpsertWithWhereUniqueWithoutContestEffectInput | Prisma.MovesUpsertWithWhereUniqueWithoutContestEffectInput[];
+    createMany?: Prisma.MovesCreateManyContestEffectInputEnvelope;
+    set?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    disconnect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    delete?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    update?: Prisma.MovesUpdateWithWhereUniqueWithoutContestEffectInput | Prisma.MovesUpdateWithWhereUniqueWithoutContestEffectInput[];
+    updateMany?: Prisma.MovesUpdateManyWithWhereWithoutContestEffectInput | Prisma.MovesUpdateManyWithWhereWithoutContestEffectInput[];
+    deleteMany?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+};
+export type MovesCreateNestedManyWithoutSuperContestEffectInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutSuperContestEffectInput, Prisma.MovesUncheckedCreateWithoutSuperContestEffectInput> | Prisma.MovesCreateWithoutSuperContestEffectInput[] | Prisma.MovesUncheckedCreateWithoutSuperContestEffectInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutSuperContestEffectInput | Prisma.MovesCreateOrConnectWithoutSuperContestEffectInput[];
+    createMany?: Prisma.MovesCreateManySuperContestEffectInputEnvelope;
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+};
+export type MovesUncheckedCreateNestedManyWithoutSuperContestEffectInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutSuperContestEffectInput, Prisma.MovesUncheckedCreateWithoutSuperContestEffectInput> | Prisma.MovesCreateWithoutSuperContestEffectInput[] | Prisma.MovesUncheckedCreateWithoutSuperContestEffectInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutSuperContestEffectInput | Prisma.MovesCreateOrConnectWithoutSuperContestEffectInput[];
+    createMany?: Prisma.MovesCreateManySuperContestEffectInputEnvelope;
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+};
+export type MovesUpdateManyWithoutSuperContestEffectNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutSuperContestEffectInput, Prisma.MovesUncheckedCreateWithoutSuperContestEffectInput> | Prisma.MovesCreateWithoutSuperContestEffectInput[] | Prisma.MovesUncheckedCreateWithoutSuperContestEffectInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutSuperContestEffectInput | Prisma.MovesCreateOrConnectWithoutSuperContestEffectInput[];
+    upsert?: Prisma.MovesUpsertWithWhereUniqueWithoutSuperContestEffectInput | Prisma.MovesUpsertWithWhereUniqueWithoutSuperContestEffectInput[];
+    createMany?: Prisma.MovesCreateManySuperContestEffectInputEnvelope;
+    set?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    disconnect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    delete?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    update?: Prisma.MovesUpdateWithWhereUniqueWithoutSuperContestEffectInput | Prisma.MovesUpdateWithWhereUniqueWithoutSuperContestEffectInput[];
+    updateMany?: Prisma.MovesUpdateManyWithWhereWithoutSuperContestEffectInput | Prisma.MovesUpdateManyWithWhereWithoutSuperContestEffectInput[];
+    deleteMany?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+};
+export type MovesUncheckedUpdateManyWithoutSuperContestEffectNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutSuperContestEffectInput, Prisma.MovesUncheckedCreateWithoutSuperContestEffectInput> | Prisma.MovesCreateWithoutSuperContestEffectInput[] | Prisma.MovesUncheckedCreateWithoutSuperContestEffectInput[];
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutSuperContestEffectInput | Prisma.MovesCreateOrConnectWithoutSuperContestEffectInput[];
+    upsert?: Prisma.MovesUpsertWithWhereUniqueWithoutSuperContestEffectInput | Prisma.MovesUpsertWithWhereUniqueWithoutSuperContestEffectInput[];
+    createMany?: Prisma.MovesCreateManySuperContestEffectInputEnvelope;
+    set?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    disconnect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    delete?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    connect?: Prisma.MovesWhereUniqueInput | Prisma.MovesWhereUniqueInput[];
+    update?: Prisma.MovesUpdateWithWhereUniqueWithoutSuperContestEffectInput | Prisma.MovesUpdateWithWhereUniqueWithoutSuperContestEffectInput[];
+    updateMany?: Prisma.MovesUpdateManyWithWhereWithoutSuperContestEffectInput | Prisma.MovesUpdateManyWithWhereWithoutSuperContestEffectInput[];
+    deleteMany?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+};
+export type MovesCreateNestedOneWithoutMachinesInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutMachinesInput, Prisma.MovesUncheckedCreateWithoutMachinesInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutMachinesInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+};
+export type MovesUpdateOneRequiredWithoutMachinesNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutMachinesInput, Prisma.MovesUncheckedCreateWithoutMachinesInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutMachinesInput;
+    upsert?: Prisma.MovesUpsertWithoutMachinesInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.MovesUpdateToOneWithWhereWithoutMachinesInput, Prisma.MovesUpdateWithoutMachinesInput>, Prisma.MovesUncheckedUpdateWithoutMachinesInput>;
+};
+export type MovesCreateNestedOneWithoutMetaInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutMetaInput, Prisma.MovesUncheckedCreateWithoutMetaInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutMetaInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+};
+export type MovesUpdateOneRequiredWithoutMetaNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutMetaInput, Prisma.MovesUncheckedCreateWithoutMetaInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutMetaInput;
+    upsert?: Prisma.MovesUpsertWithoutMetaInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.MovesUpdateToOneWithWhereWithoutMetaInput, Prisma.MovesUpdateWithoutMetaInput>, Prisma.MovesUncheckedUpdateWithoutMetaInput>;
+};
+export type MovesCreateNestedOneWithoutFlagMapInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutFlagMapInput, Prisma.MovesUncheckedCreateWithoutFlagMapInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutFlagMapInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+};
+export type MovesUpdateOneRequiredWithoutFlagMapNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutFlagMapInput, Prisma.MovesUncheckedCreateWithoutFlagMapInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutFlagMapInput;
+    upsert?: Prisma.MovesUpsertWithoutFlagMapInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.MovesUpdateToOneWithWhereWithoutFlagMapInput, Prisma.MovesUpdateWithoutFlagMapInput>, Prisma.MovesUncheckedUpdateWithoutFlagMapInput>;
+};
+export type MovesCreateNestedOneWithoutContestCombosInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutContestCombosInput, Prisma.MovesUncheckedCreateWithoutContestCombosInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutContestCombosInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+};
+export type MovesCreateNestedOneWithoutContestCombosSecondInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutContestCombosSecondInput, Prisma.MovesUncheckedCreateWithoutContestCombosSecondInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutContestCombosSecondInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+};
+export type MovesUpdateOneRequiredWithoutContestCombosNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutContestCombosInput, Prisma.MovesUncheckedCreateWithoutContestCombosInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutContestCombosInput;
+    upsert?: Prisma.MovesUpsertWithoutContestCombosInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.MovesUpdateToOneWithWhereWithoutContestCombosInput, Prisma.MovesUpdateWithoutContestCombosInput>, Prisma.MovesUncheckedUpdateWithoutContestCombosInput>;
+};
+export type MovesUpdateOneRequiredWithoutContestCombosSecondNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutContestCombosSecondInput, Prisma.MovesUncheckedCreateWithoutContestCombosSecondInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutContestCombosSecondInput;
+    upsert?: Prisma.MovesUpsertWithoutContestCombosSecondInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.MovesUpdateToOneWithWhereWithoutContestCombosSecondInput, Prisma.MovesUpdateWithoutContestCombosSecondInput>, Prisma.MovesUncheckedUpdateWithoutContestCombosSecondInput>;
+};
+export type MovesCreateNestedOneWithoutSuperContestCombosInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutSuperContestCombosInput, Prisma.MovesUncheckedCreateWithoutSuperContestCombosInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutSuperContestCombosInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+};
+export type MovesCreateNestedOneWithoutSuperContestCombosSecondInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutSuperContestCombosSecondInput, Prisma.MovesUncheckedCreateWithoutSuperContestCombosSecondInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutSuperContestCombosSecondInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+};
+export type MovesUpdateOneRequiredWithoutSuperContestCombosNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutSuperContestCombosInput, Prisma.MovesUncheckedCreateWithoutSuperContestCombosInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutSuperContestCombosInput;
+    upsert?: Prisma.MovesUpsertWithoutSuperContestCombosInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.MovesUpdateToOneWithWhereWithoutSuperContestCombosInput, Prisma.MovesUpdateWithoutSuperContestCombosInput>, Prisma.MovesUncheckedUpdateWithoutSuperContestCombosInput>;
+};
+export type MovesUpdateOneRequiredWithoutSuperContestCombosSecondNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutSuperContestCombosSecondInput, Prisma.MovesUncheckedCreateWithoutSuperContestCombosSecondInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutSuperContestCombosSecondInput;
+    upsert?: Prisma.MovesUpsertWithoutSuperContestCombosSecondInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.MovesUpdateToOneWithWhereWithoutSuperContestCombosSecondInput, Prisma.MovesUpdateWithoutSuperContestCombosSecondInput>, Prisma.MovesUncheckedUpdateWithoutSuperContestCombosSecondInput>;
+};
+export type MovesCreateNestedOneWithoutPokemonMovesInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutPokemonMovesInput, Prisma.MovesUncheckedCreateWithoutPokemonMovesInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutPokemonMovesInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+};
+export type MovesUpdateOneRequiredWithoutPokemonMovesNestedInput = {
+    create?: Prisma.XOR<Prisma.MovesCreateWithoutPokemonMovesInput, Prisma.MovesUncheckedCreateWithoutPokemonMovesInput>;
+    connectOrCreate?: Prisma.MovesCreateOrConnectWithoutPokemonMovesInput;
+    upsert?: Prisma.MovesUpsertWithoutPokemonMovesInput;
+    connect?: Prisma.MovesWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.MovesUpdateToOneWithWhereWithoutPokemonMovesInput, Prisma.MovesUpdateWithoutPokemonMovesInput>, Prisma.MovesUncheckedUpdateWithoutPokemonMovesInput>;
+};
+export type MovesCreateWithoutTargetInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutTargetInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutTargetInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutTargetInput, Prisma.MovesUncheckedCreateWithoutTargetInput>;
+};
+export type MovesCreateManyTargetInputEnvelope = {
+    data: Prisma.MovesCreateManyTargetInput | Prisma.MovesCreateManyTargetInput[];
+    skipDuplicates?: boolean;
+};
+export type MovesUpsertWithWhereUniqueWithoutTargetInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutTargetInput, Prisma.MovesUncheckedUpdateWithoutTargetInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutTargetInput, Prisma.MovesUncheckedCreateWithoutTargetInput>;
+};
+export type MovesUpdateWithWhereUniqueWithoutTargetInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutTargetInput, Prisma.MovesUncheckedUpdateWithoutTargetInput>;
+};
+export type MovesUpdateManyWithWhereWithoutTargetInput = {
+    where: Prisma.MovesScalarWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateManyMutationInput, Prisma.MovesUncheckedUpdateManyWithoutTargetInput>;
+};
+export type MovesScalarWhereInput = {
+    AND?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+    OR?: Prisma.MovesScalarWhereInput[];
+    NOT?: Prisma.MovesScalarWhereInput | Prisma.MovesScalarWhereInput[];
+    id?: Prisma.IntFilter<"Moves"> | number;
+    identifier?: Prisma.StringFilter<"Moves"> | string;
+    generation_id?: Prisma.IntFilter<"Moves"> | number;
+    type_id?: Prisma.IntFilter<"Moves"> | number;
+    power?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    pp?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    accuracy?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    priority?: Prisma.IntFilter<"Moves"> | number;
+    target_id?: Prisma.IntFilter<"Moves"> | number;
+    damage_class_id?: Prisma.IntFilter<"Moves"> | number;
+    effect_id?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    effect_chance?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    contest_type_id?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    contest_effect_id?: Prisma.IntNullableFilter<"Moves"> | number | null;
+    super_contest_effect_id?: Prisma.IntNullableFilter<"Moves"> | number | null;
+};
+export type MovesCreateWithoutDamageClassInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutDamageClassInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutDamageClassInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutDamageClassInput, Prisma.MovesUncheckedCreateWithoutDamageClassInput>;
+};
+export type MovesCreateManyDamageClassInputEnvelope = {
+    data: Prisma.MovesCreateManyDamageClassInput | Prisma.MovesCreateManyDamageClassInput[];
+    skipDuplicates?: boolean;
+};
+export type MovesUpsertWithWhereUniqueWithoutDamageClassInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutDamageClassInput, Prisma.MovesUncheckedUpdateWithoutDamageClassInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutDamageClassInput, Prisma.MovesUncheckedCreateWithoutDamageClassInput>;
+};
+export type MovesUpdateWithWhereUniqueWithoutDamageClassInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutDamageClassInput, Prisma.MovesUncheckedUpdateWithoutDamageClassInput>;
+};
+export type MovesUpdateManyWithWhereWithoutDamageClassInput = {
+    where: Prisma.MovesScalarWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateManyMutationInput, Prisma.MovesUncheckedUpdateManyWithoutDamageClassInput>;
+};
+export type MovesCreateWithoutTypeInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutTypeInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutTypeInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutTypeInput, Prisma.MovesUncheckedCreateWithoutTypeInput>;
+};
+export type MovesCreateManyTypeInputEnvelope = {
+    data: Prisma.MovesCreateManyTypeInput | Prisma.MovesCreateManyTypeInput[];
+    skipDuplicates?: boolean;
+};
+export type MovesUpsertWithWhereUniqueWithoutTypeInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutTypeInput, Prisma.MovesUncheckedUpdateWithoutTypeInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutTypeInput, Prisma.MovesUncheckedCreateWithoutTypeInput>;
+};
+export type MovesUpdateWithWhereUniqueWithoutTypeInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutTypeInput, Prisma.MovesUncheckedUpdateWithoutTypeInput>;
+};
+export type MovesUpdateManyWithWhereWithoutTypeInput = {
+    where: Prisma.MovesScalarWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateManyMutationInput, Prisma.MovesUncheckedUpdateManyWithoutTypeInput>;
+};
+export type MovesCreateWithoutGenerationInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutGenerationInput = {
+    id: number;
+    identifier: string;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutGenerationInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutGenerationInput, Prisma.MovesUncheckedCreateWithoutGenerationInput>;
+};
+export type MovesCreateManyGenerationInputEnvelope = {
+    data: Prisma.MovesCreateManyGenerationInput | Prisma.MovesCreateManyGenerationInput[];
+    skipDuplicates?: boolean;
+};
+export type MovesUpsertWithWhereUniqueWithoutGenerationInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutGenerationInput, Prisma.MovesUncheckedUpdateWithoutGenerationInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutGenerationInput, Prisma.MovesUncheckedCreateWithoutGenerationInput>;
+};
+export type MovesUpdateWithWhereUniqueWithoutGenerationInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutGenerationInput, Prisma.MovesUncheckedUpdateWithoutGenerationInput>;
+};
+export type MovesUpdateManyWithWhereWithoutGenerationInput = {
+    where: Prisma.MovesScalarWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateManyMutationInput, Prisma.MovesUncheckedUpdateManyWithoutGenerationInput>;
+};
+export type MovesCreateWithoutKnownMovesInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+};
+export type MovesUncheckedCreateWithoutKnownMovesInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+};
+export type MovesCreateOrConnectWithoutKnownMovesInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutKnownMovesInput, Prisma.MovesUncheckedCreateWithoutKnownMovesInput>;
+};
+export type MovesUpsertWithoutKnownMovesInput = {
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutKnownMovesInput, Prisma.MovesUncheckedUpdateWithoutKnownMovesInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutKnownMovesInput, Prisma.MovesUncheckedCreateWithoutKnownMovesInput>;
+    where?: Prisma.MovesWhereInput;
+};
+export type MovesUpdateToOneWithWhereWithoutKnownMovesInput = {
+    where?: Prisma.MovesWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutKnownMovesInput, Prisma.MovesUncheckedUpdateWithoutKnownMovesInput>;
+};
+export type MovesUpdateWithoutKnownMovesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutKnownMovesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+};
+export type MovesCreateWithoutContestTypeInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutContestTypeInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutContestTypeInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutContestTypeInput, Prisma.MovesUncheckedCreateWithoutContestTypeInput>;
+};
+export type MovesCreateManyContestTypeInputEnvelope = {
+    data: Prisma.MovesCreateManyContestTypeInput | Prisma.MovesCreateManyContestTypeInput[];
+    skipDuplicates?: boolean;
+};
+export type MovesUpsertWithWhereUniqueWithoutContestTypeInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutContestTypeInput, Prisma.MovesUncheckedUpdateWithoutContestTypeInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutContestTypeInput, Prisma.MovesUncheckedCreateWithoutContestTypeInput>;
+};
+export type MovesUpdateWithWhereUniqueWithoutContestTypeInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutContestTypeInput, Prisma.MovesUncheckedUpdateWithoutContestTypeInput>;
+};
+export type MovesUpdateManyWithWhereWithoutContestTypeInput = {
+    where: Prisma.MovesScalarWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateManyMutationInput, Prisma.MovesUncheckedUpdateManyWithoutContestTypeInput>;
+};
+export type MovesCreateWithoutContestEffectInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutContestEffectInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutContestEffectInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutContestEffectInput, Prisma.MovesUncheckedCreateWithoutContestEffectInput>;
+};
+export type MovesCreateManyContestEffectInputEnvelope = {
+    data: Prisma.MovesCreateManyContestEffectInput | Prisma.MovesCreateManyContestEffectInput[];
+    skipDuplicates?: boolean;
+};
+export type MovesUpsertWithWhereUniqueWithoutContestEffectInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutContestEffectInput, Prisma.MovesUncheckedUpdateWithoutContestEffectInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutContestEffectInput, Prisma.MovesUncheckedCreateWithoutContestEffectInput>;
+};
+export type MovesUpdateWithWhereUniqueWithoutContestEffectInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutContestEffectInput, Prisma.MovesUncheckedUpdateWithoutContestEffectInput>;
+};
+export type MovesUpdateManyWithWhereWithoutContestEffectInput = {
+    where: Prisma.MovesScalarWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateManyMutationInput, Prisma.MovesUncheckedUpdateManyWithoutContestEffectInput>;
+};
+export type MovesCreateWithoutSuperContestEffectInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutSuperContestEffectInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutSuperContestEffectInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutSuperContestEffectInput, Prisma.MovesUncheckedCreateWithoutSuperContestEffectInput>;
+};
+export type MovesCreateManySuperContestEffectInputEnvelope = {
+    data: Prisma.MovesCreateManySuperContestEffectInput | Prisma.MovesCreateManySuperContestEffectInput[];
+    skipDuplicates?: boolean;
+};
+export type MovesUpsertWithWhereUniqueWithoutSuperContestEffectInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutSuperContestEffectInput, Prisma.MovesUncheckedUpdateWithoutSuperContestEffectInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutSuperContestEffectInput, Prisma.MovesUncheckedCreateWithoutSuperContestEffectInput>;
+};
+export type MovesUpdateWithWhereUniqueWithoutSuperContestEffectInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutSuperContestEffectInput, Prisma.MovesUncheckedUpdateWithoutSuperContestEffectInput>;
+};
+export type MovesUpdateManyWithWhereWithoutSuperContestEffectInput = {
+    where: Prisma.MovesScalarWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateManyMutationInput, Prisma.MovesUncheckedUpdateManyWithoutSuperContestEffectInput>;
+};
+export type MovesCreateWithoutMachinesInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutMachinesInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutMachinesInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutMachinesInput, Prisma.MovesUncheckedCreateWithoutMachinesInput>;
+};
+export type MovesUpsertWithoutMachinesInput = {
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutMachinesInput, Prisma.MovesUncheckedUpdateWithoutMachinesInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutMachinesInput, Prisma.MovesUncheckedCreateWithoutMachinesInput>;
+    where?: Prisma.MovesWhereInput;
+};
+export type MovesUpdateToOneWithWhereWithoutMachinesInput = {
+    where?: Prisma.MovesWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutMachinesInput, Prisma.MovesUncheckedUpdateWithoutMachinesInput>;
+};
+export type MovesUpdateWithoutMachinesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutMachinesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesCreateWithoutMetaInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutMetaInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutMetaInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutMetaInput, Prisma.MovesUncheckedCreateWithoutMetaInput>;
+};
+export type MovesUpsertWithoutMetaInput = {
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutMetaInput, Prisma.MovesUncheckedUpdateWithoutMetaInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutMetaInput, Prisma.MovesUncheckedCreateWithoutMetaInput>;
+    where?: Prisma.MovesWhereInput;
+};
+export type MovesUpdateToOneWithWhereWithoutMetaInput = {
+    where?: Prisma.MovesWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutMetaInput, Prisma.MovesUncheckedUpdateWithoutMetaInput>;
+};
+export type MovesUpdateWithoutMetaInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutMetaInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesCreateWithoutFlagMapInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutFlagMapInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutFlagMapInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutFlagMapInput, Prisma.MovesUncheckedCreateWithoutFlagMapInput>;
+};
+export type MovesUpsertWithoutFlagMapInput = {
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutFlagMapInput, Prisma.MovesUncheckedUpdateWithoutFlagMapInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutFlagMapInput, Prisma.MovesUncheckedCreateWithoutFlagMapInput>;
+    where?: Prisma.MovesWhereInput;
+};
+export type MovesUpdateToOneWithWhereWithoutFlagMapInput = {
+    where?: Prisma.MovesWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutFlagMapInput, Prisma.MovesUncheckedUpdateWithoutFlagMapInput>;
+};
+export type MovesUpdateWithoutFlagMapInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutFlagMapInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesCreateWithoutContestCombosInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutContestCombosInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutContestCombosInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutContestCombosInput, Prisma.MovesUncheckedCreateWithoutContestCombosInput>;
+};
+export type MovesCreateWithoutContestCombosSecondInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutContestCombosSecondInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutContestCombosSecondInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutContestCombosSecondInput, Prisma.MovesUncheckedCreateWithoutContestCombosSecondInput>;
+};
+export type MovesUpsertWithoutContestCombosInput = {
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutContestCombosInput, Prisma.MovesUncheckedUpdateWithoutContestCombosInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutContestCombosInput, Prisma.MovesUncheckedCreateWithoutContestCombosInput>;
+    where?: Prisma.MovesWhereInput;
+};
+export type MovesUpdateToOneWithWhereWithoutContestCombosInput = {
+    where?: Prisma.MovesWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutContestCombosInput, Prisma.MovesUncheckedUpdateWithoutContestCombosInput>;
+};
+export type MovesUpdateWithoutContestCombosInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutContestCombosInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUpsertWithoutContestCombosSecondInput = {
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutContestCombosSecondInput, Prisma.MovesUncheckedUpdateWithoutContestCombosSecondInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutContestCombosSecondInput, Prisma.MovesUncheckedCreateWithoutContestCombosSecondInput>;
+    where?: Prisma.MovesWhereInput;
+};
+export type MovesUpdateToOneWithWhereWithoutContestCombosSecondInput = {
+    where?: Prisma.MovesWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutContestCombosSecondInput, Prisma.MovesUncheckedUpdateWithoutContestCombosSecondInput>;
+};
+export type MovesUpdateWithoutContestCombosSecondInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutContestCombosSecondInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesCreateWithoutSuperContestCombosInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutSuperContestCombosInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutSuperContestCombosInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutSuperContestCombosInput, Prisma.MovesUncheckedCreateWithoutSuperContestCombosInput>;
+};
+export type MovesCreateWithoutSuperContestCombosSecondInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutSuperContestCombosSecondInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutSuperContestCombosSecondInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutSuperContestCombosSecondInput, Prisma.MovesUncheckedCreateWithoutSuperContestCombosSecondInput>;
+};
+export type MovesUpsertWithoutSuperContestCombosInput = {
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutSuperContestCombosInput, Prisma.MovesUncheckedUpdateWithoutSuperContestCombosInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutSuperContestCombosInput, Prisma.MovesUncheckedCreateWithoutSuperContestCombosInput>;
+    where?: Prisma.MovesWhereInput;
+};
+export type MovesUpdateToOneWithWhereWithoutSuperContestCombosInput = {
+    where?: Prisma.MovesWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutSuperContestCombosInput, Prisma.MovesUncheckedUpdateWithoutSuperContestCombosInput>;
+};
+export type MovesUpdateWithoutSuperContestCombosInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutSuperContestCombosInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUpsertWithoutSuperContestCombosSecondInput = {
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutSuperContestCombosSecondInput, Prisma.MovesUncheckedUpdateWithoutSuperContestCombosSecondInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutSuperContestCombosSecondInput, Prisma.MovesUncheckedCreateWithoutSuperContestCombosSecondInput>;
+    where?: Prisma.MovesWhereInput;
+};
+export type MovesUpdateToOneWithWhereWithoutSuperContestCombosSecondInput = {
+    where?: Prisma.MovesWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutSuperContestCombosSecondInput, Prisma.MovesUncheckedUpdateWithoutSuperContestCombosSecondInput>;
+};
+export type MovesUpdateWithoutSuperContestCombosSecondInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutSuperContestCombosSecondInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesCreateWithoutPokemonMovesInput = {
+    id: number;
+    identifier: string;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput;
+    type: Prisma.TypesCreateNestedOneWithoutMovesInput;
+    target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput;
+    damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput;
+    contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesUncheckedCreateWithoutPokemonMovesInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+    machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+};
+export type MovesCreateOrConnectWithoutPokemonMovesInput = {
+    where: Prisma.MovesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutPokemonMovesInput, Prisma.MovesUncheckedCreateWithoutPokemonMovesInput>;
+};
+export type MovesUpsertWithoutPokemonMovesInput = {
+    update: Prisma.XOR<Prisma.MovesUpdateWithoutPokemonMovesInput, Prisma.MovesUncheckedUpdateWithoutPokemonMovesInput>;
+    create: Prisma.XOR<Prisma.MovesCreateWithoutPokemonMovesInput, Prisma.MovesUncheckedCreateWithoutPokemonMovesInput>;
+    where?: Prisma.MovesWhereInput;
+};
+export type MovesUpdateToOneWithWhereWithoutPokemonMovesInput = {
+    where?: Prisma.MovesWhereInput;
+    data: Prisma.XOR<Prisma.MovesUpdateWithoutPokemonMovesInput, Prisma.MovesUncheckedUpdateWithoutPokemonMovesInput>;
+};
+export type MovesUpdateWithoutPokemonMovesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutPokemonMovesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesCreateManyTargetInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+};
+export type MovesUpdateWithoutTargetInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutTargetInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateManyWithoutTargetInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+export type MovesCreateManyDamageClassInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+};
+export type MovesUpdateWithoutDamageClassInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutDamageClassInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateManyWithoutDamageClassInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+export type MovesCreateManyTypeInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+};
+export type MovesUpdateWithoutTypeInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutTypeInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateManyWithoutTypeInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+export type MovesCreateManyGenerationInput = {
+    id: number;
+    identifier: string;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+};
+export type MovesUpdateWithoutGenerationInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutGenerationInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateManyWithoutGenerationInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+export type MovesCreateManyContestTypeInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_effect_id?: number | null;
+    super_contest_effect_id?: number | null;
+};
+export type MovesUpdateWithoutContestTypeInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutContestTypeInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateManyWithoutContestTypeInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+export type MovesCreateManyContestEffectInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    super_contest_effect_id?: number | null;
+};
+export type MovesUpdateWithoutContestEffectInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutContestEffectInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateManyWithoutContestEffectInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+export type MovesCreateManySuperContestEffectInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    type_id: number;
+    power?: number | null;
+    pp?: number | null;
+    accuracy?: number | null;
+    priority: number;
+    target_id: number;
+    damage_class_id: number;
+    effect_id?: number | null;
+    effect_chance?: number | null;
+    contest_type_id?: number | null;
+    contest_effect_id?: number | null;
+};
+export type MovesUpdateWithoutSuperContestEffectInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput;
+    pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateWithoutSuperContestEffectInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+};
+export type MovesUncheckedUpdateManyWithoutSuperContestEffectInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    type_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    priority?: Prisma.IntFieldUpdateOperationsInput | number;
+    target_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+/**
+ * Count Type MovesCountOutputType
+ */
+export type MovesCountOutputType = {
+    pokemonMoves: number;
+    machines: number;
+    meta: number;
+    flagMap: number;
+    contestCombos: number;
+    contestCombosSecond: number;
+    superContestCombos: number;
+    superContestCombosSecond: number;
+    knownMoves: number;
+};
+export type MovesCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    pokemonMoves?: boolean | MovesCountOutputTypeCountPokemonMovesArgs;
+    machines?: boolean | MovesCountOutputTypeCountMachinesArgs;
+    meta?: boolean | MovesCountOutputTypeCountMetaArgs;
+    flagMap?: boolean | MovesCountOutputTypeCountFlagMapArgs;
+    contestCombos?: boolean | MovesCountOutputTypeCountContestCombosArgs;
+    contestCombosSecond?: boolean | MovesCountOutputTypeCountContestCombosSecondArgs;
+    superContestCombos?: boolean | MovesCountOutputTypeCountSuperContestCombosArgs;
+    superContestCombosSecond?: boolean | MovesCountOutputTypeCountSuperContestCombosSecondArgs;
+    knownMoves?: boolean | MovesCountOutputTypeCountKnownMovesArgs;
+};
+/**
+ * MovesCountOutputType without action
+ */
+export type MovesCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MovesCountOutputType
+     */
+    select?: Prisma.MovesCountOutputTypeSelect<ExtArgs> | null;
+};
+/**
+ * MovesCountOutputType without action
+ */
+export type MovesCountOutputTypeCountPokemonMovesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.PokemonMovesWhereInput;
+};
+/**
+ * MovesCountOutputType without action
+ */
+export type MovesCountOutputTypeCountMachinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.MachinesWhereInput;
+};
+/**
+ * MovesCountOutputType without action
+ */
+export type MovesCountOutputTypeCountMetaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.MoveMetaWhereInput;
+};
+/**
+ * MovesCountOutputType without action
+ */
+export type MovesCountOutputTypeCountFlagMapArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.MoveFlagMapWhereInput;
+};
+/**
+ * MovesCountOutputType without action
+ */
+export type MovesCountOutputTypeCountContestCombosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.ContestCombosWhereInput;
+};
+/**
+ * MovesCountOutputType without action
+ */
+export type MovesCountOutputTypeCountContestCombosSecondArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.ContestCombosWhereInput;
+};
+/**
+ * MovesCountOutputType without action
+ */
+export type MovesCountOutputTypeCountSuperContestCombosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.SuperContestCombosWhereInput;
+};
+/**
+ * MovesCountOutputType without action
+ */
+export type MovesCountOutputTypeCountSuperContestCombosSecondArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.SuperContestCombosWhereInput;
+};
+/**
+ * MovesCountOutputType without action
+ */
+export type MovesCountOutputTypeCountKnownMovesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.PokemonEvolutionWhereInput;
+};
+export type MovesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    identifier?: boolean;
+    generation_id?: boolean;
+    type_id?: boolean;
+    power?: boolean;
+    pp?: boolean;
+    accuracy?: boolean;
+    priority?: boolean;
+    target_id?: boolean;
+    damage_class_id?: boolean;
+    effect_id?: boolean;
+    effect_chance?: boolean;
+    contest_type_id?: boolean;
+    contest_effect_id?: boolean;
+    super_contest_effect_id?: boolean;
+    generation?: boolean | Prisma.GenerationsDefaultArgs<ExtArgs>;
+    type?: boolean | Prisma.TypesDefaultArgs<ExtArgs>;
+    target?: boolean | Prisma.MoveTargetsDefaultArgs<ExtArgs>;
+    damageClass?: boolean | Prisma.MoveDamageClassesDefaultArgs<ExtArgs>;
+    contestType?: boolean | Prisma.Moves$contestTypeArgs<ExtArgs>;
+    contestEffect?: boolean | Prisma.Moves$contestEffectArgs<ExtArgs>;
+    superContestEffect?: boolean | Prisma.Moves$superContestEffectArgs<ExtArgs>;
+    pokemonMoves?: boolean | Prisma.Moves$pokemonMovesArgs<ExtArgs>;
+    machines?: boolean | Prisma.Moves$machinesArgs<ExtArgs>;
+    meta?: boolean | Prisma.Moves$metaArgs<ExtArgs>;
+    flagMap?: boolean | Prisma.Moves$flagMapArgs<ExtArgs>;
+    contestCombos?: boolean | Prisma.Moves$contestCombosArgs<ExtArgs>;
+    contestCombosSecond?: boolean | Prisma.Moves$contestCombosSecondArgs<ExtArgs>;
+    superContestCombos?: boolean | Prisma.Moves$superContestCombosArgs<ExtArgs>;
+    superContestCombosSecond?: boolean | Prisma.Moves$superContestCombosSecondArgs<ExtArgs>;
+    knownMoves?: boolean | Prisma.Moves$knownMovesArgs<ExtArgs>;
+    _count?: boolean | Prisma.MovesCountOutputTypeDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["moves"]>;
+export type MovesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    identifier?: boolean;
+    generation_id?: boolean;
+    type_id?: boolean;
+    power?: boolean;
+    pp?: boolean;
+    accuracy?: boolean;
+    priority?: boolean;
+    target_id?: boolean;
+    damage_class_id?: boolean;
+    effect_id?: boolean;
+    effect_chance?: boolean;
+    contest_type_id?: boolean;
+    contest_effect_id?: boolean;
+    super_contest_effect_id?: boolean;
+    generation?: boolean | Prisma.GenerationsDefaultArgs<ExtArgs>;
+    type?: boolean | Prisma.TypesDefaultArgs<ExtArgs>;
+    target?: boolean | Prisma.MoveTargetsDefaultArgs<ExtArgs>;
+    damageClass?: boolean | Prisma.MoveDamageClassesDefaultArgs<ExtArgs>;
+    contestType?: boolean | Prisma.Moves$contestTypeArgs<ExtArgs>;
+    contestEffect?: boolean | Prisma.Moves$contestEffectArgs<ExtArgs>;
+    superContestEffect?: boolean | Prisma.Moves$superContestEffectArgs<ExtArgs>;
+}, ExtArgs["result"]["moves"]>;
+export type MovesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    identifier?: boolean;
+    generation_id?: boolean;
+    type_id?: boolean;
+    power?: boolean;
+    pp?: boolean;
+    accuracy?: boolean;
+    priority?: boolean;
+    target_id?: boolean;
+    damage_class_id?: boolean;
+    effect_id?: boolean;
+    effect_chance?: boolean;
+    contest_type_id?: boolean;
+    contest_effect_id?: boolean;
+    super_contest_effect_id?: boolean;
+    generation?: boolean | Prisma.GenerationsDefaultArgs<ExtArgs>;
+    type?: boolean | Prisma.TypesDefaultArgs<ExtArgs>;
+    target?: boolean | Prisma.MoveTargetsDefaultArgs<ExtArgs>;
+    damageClass?: boolean | Prisma.MoveDamageClassesDefaultArgs<ExtArgs>;
+    contestType?: boolean | Prisma.Moves$contestTypeArgs<ExtArgs>;
+    contestEffect?: boolean | Prisma.Moves$contestEffectArgs<ExtArgs>;
+    superContestEffect?: boolean | Prisma.Moves$superContestEffectArgs<ExtArgs>;
+}, ExtArgs["result"]["moves"]>;
+export type MovesSelectScalar = {
+    id?: boolean;
+    identifier?: boolean;
+    generation_id?: boolean;
+    type_id?: boolean;
+    power?: boolean;
+    pp?: boolean;
+    accuracy?: boolean;
+    priority?: boolean;
+    target_id?: boolean;
+    damage_class_id?: boolean;
+    effect_id?: boolean;
+    effect_chance?: boolean;
+    contest_type_id?: boolean;
+    contest_effect_id?: boolean;
+    super_contest_effect_id?: boolean;
+};
+export type MovesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "identifier" | "generation_id" | "type_id" | "power" | "pp" | "accuracy" | "priority" | "target_id" | "damage_class_id" | "effect_id" | "effect_chance" | "contest_type_id" | "contest_effect_id" | "super_contest_effect_id", ExtArgs["result"]["moves"]>;
+export type MovesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    generation?: boolean | Prisma.GenerationsDefaultArgs<ExtArgs>;
+    type?: boolean | Prisma.TypesDefaultArgs<ExtArgs>;
+    target?: boolean | Prisma.MoveTargetsDefaultArgs<ExtArgs>;
+    damageClass?: boolean | Prisma.MoveDamageClassesDefaultArgs<ExtArgs>;
+    contestType?: boolean | Prisma.Moves$contestTypeArgs<ExtArgs>;
+    contestEffect?: boolean | Prisma.Moves$contestEffectArgs<ExtArgs>;
+    superContestEffect?: boolean | Prisma.Moves$superContestEffectArgs<ExtArgs>;
+    pokemonMoves?: boolean | Prisma.Moves$pokemonMovesArgs<ExtArgs>;
+    machines?: boolean | Prisma.Moves$machinesArgs<ExtArgs>;
+    meta?: boolean | Prisma.Moves$metaArgs<ExtArgs>;
+    flagMap?: boolean | Prisma.Moves$flagMapArgs<ExtArgs>;
+    contestCombos?: boolean | Prisma.Moves$contestCombosArgs<ExtArgs>;
+    contestCombosSecond?: boolean | Prisma.Moves$contestCombosSecondArgs<ExtArgs>;
+    superContestCombos?: boolean | Prisma.Moves$superContestCombosArgs<ExtArgs>;
+    superContestCombosSecond?: boolean | Prisma.Moves$superContestCombosSecondArgs<ExtArgs>;
+    knownMoves?: boolean | Prisma.Moves$knownMovesArgs<ExtArgs>;
+    _count?: boolean | Prisma.MovesCountOutputTypeDefaultArgs<ExtArgs>;
+};
+export type MovesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    generation?: boolean | Prisma.GenerationsDefaultArgs<ExtArgs>;
+    type?: boolean | Prisma.TypesDefaultArgs<ExtArgs>;
+    target?: boolean | Prisma.MoveTargetsDefaultArgs<ExtArgs>;
+    damageClass?: boolean | Prisma.MoveDamageClassesDefaultArgs<ExtArgs>;
+    contestType?: boolean | Prisma.Moves$contestTypeArgs<ExtArgs>;
+    contestEffect?: boolean | Prisma.Moves$contestEffectArgs<ExtArgs>;
+    superContestEffect?: boolean | Prisma.Moves$superContestEffectArgs<ExtArgs>;
+};
+export type MovesIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    generation?: boolean | Prisma.GenerationsDefaultArgs<ExtArgs>;
+    type?: boolean | Prisma.TypesDefaultArgs<ExtArgs>;
+    target?: boolean | Prisma.MoveTargetsDefaultArgs<ExtArgs>;
+    damageClass?: boolean | Prisma.MoveDamageClassesDefaultArgs<ExtArgs>;
+    contestType?: boolean | Prisma.Moves$contestTypeArgs<ExtArgs>;
+    contestEffect?: boolean | Prisma.Moves$contestEffectArgs<ExtArgs>;
+    superContestEffect?: boolean | Prisma.Moves$superContestEffectArgs<ExtArgs>;
+};
+export type $MovesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "Moves";
+    objects: {
+        generation: Prisma.$GenerationsPayload<ExtArgs>;
+        type: Prisma.$TypesPayload<ExtArgs>;
+        target: Prisma.$MoveTargetsPayload<ExtArgs>;
+        damageClass: Prisma.$MoveDamageClassesPayload<ExtArgs>;
+        contestType: Prisma.$ContestTypesPayload<ExtArgs> | null;
+        contestEffect: Prisma.$ContestEffectsPayload<ExtArgs> | null;
+        superContestEffect: Prisma.$SuperContestEffectsPayload<ExtArgs> | null;
+        pokemonMoves: Prisma.$PokemonMovesPayload<ExtArgs>[];
+        machines: Prisma.$MachinesPayload<ExtArgs>[];
+        meta: Prisma.$MoveMetaPayload<ExtArgs>[];
+        flagMap: Prisma.$MoveFlagMapPayload<ExtArgs>[];
+        contestCombos: Prisma.$ContestCombosPayload<ExtArgs>[];
+        contestCombosSecond: Prisma.$ContestCombosPayload<ExtArgs>[];
+        superContestCombos: Prisma.$SuperContestCombosPayload<ExtArgs>[];
+        superContestCombosSecond: Prisma.$SuperContestCombosPayload<ExtArgs>[];
+        knownMoves: Prisma.$PokemonEvolutionPayload<ExtArgs>[];
+    };
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        id: number;
+        identifier: string;
+        generation_id: number;
+        type_id: number;
+        power: number | null;
+        pp: number | null;
+        accuracy: number | null;
+        priority: number;
+        target_id: number;
+        damage_class_id: number;
+        effect_id: number | null;
+        effect_chance: number | null;
+        contest_type_id: number | null;
+        contest_effect_id: number | null;
+        super_contest_effect_id: number | null;
+    }, ExtArgs["result"]["moves"]>;
+    composites: {};
+};
+export type MovesGetPayload<S extends boolean | null | undefined | MovesDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$MovesPayload, S>;
+export type MovesCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<MovesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: MovesCountAggregateInputType | true;
+};
+export interface MovesDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['Moves'];
+        meta: {
+            name: 'Moves';
+        };
+    };
+    /**
+     * Find zero or one Moves that matches the filter.
+     * @param {MovesFindUniqueArgs} args - Arguments to find a Moves
+     * @example
+     * // Get one Moves
+     * const moves = await prisma.moves.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MovesFindUniqueArgs>(args: Prisma.SelectSubset<T, MovesFindUniqueArgs<ExtArgs>>): Prisma.Prisma__MovesClient<runtime.Types.Result.GetResult<Prisma.$MovesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one Moves that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MovesFindUniqueOrThrowArgs} args - Arguments to find a Moves
+     * @example
+     * // Get one Moves
+     * const moves = await prisma.moves.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MovesFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, MovesFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__MovesClient<runtime.Types.Result.GetResult<Prisma.$MovesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first Moves that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovesFindFirstArgs} args - Arguments to find a Moves
+     * @example
+     * // Get one Moves
+     * const moves = await prisma.moves.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MovesFindFirstArgs>(args?: Prisma.SelectSubset<T, MovesFindFirstArgs<ExtArgs>>): Prisma.Prisma__MovesClient<runtime.Types.Result.GetResult<Prisma.$MovesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first Moves that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovesFindFirstOrThrowArgs} args - Arguments to find a Moves
+     * @example
+     * // Get one Moves
+     * const moves = await prisma.moves.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MovesFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, MovesFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__MovesClient<runtime.Types.Result.GetResult<Prisma.$MovesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more Moves that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Moves
+     * const moves = await prisma.moves.findMany()
+     *
+     * // Get first 10 Moves
+     * const moves = await prisma.moves.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const movesWithIdOnly = await prisma.moves.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends MovesFindManyArgs>(args?: Prisma.SelectSubset<T, MovesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MovesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a Moves.
+     * @param {MovesCreateArgs} args - Arguments to create a Moves.
+     * @example
+     * // Create one Moves
+     * const Moves = await prisma.moves.create({
+     *   data: {
+     *     // ... data to create a Moves
+     *   }
+     * })
+     *
+     */
+    create<T extends MovesCreateArgs>(args: Prisma.SelectSubset<T, MovesCreateArgs<ExtArgs>>): Prisma.Prisma__MovesClient<runtime.Types.Result.GetResult<Prisma.$MovesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many Moves.
+     * @param {MovesCreateManyArgs} args - Arguments to create many Moves.
+     * @example
+     * // Create many Moves
+     * const moves = await prisma.moves.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends MovesCreateManyArgs>(args?: Prisma.SelectSubset<T, MovesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many Moves and returns the data saved in the database.
+     * @param {MovesCreateManyAndReturnArgs} args - Arguments to create many Moves.
+     * @example
+     * // Create many Moves
+     * const moves = await prisma.moves.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Moves and only return the `id`
+     * const movesWithIdOnly = await prisma.moves.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends MovesCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, MovesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MovesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a Moves.
+     * @param {MovesDeleteArgs} args - Arguments to delete one Moves.
+     * @example
+     * // Delete one Moves
+     * const Moves = await prisma.moves.delete({
+     *   where: {
+     *     // ... filter to delete one Moves
+     *   }
+     * })
+     *
+     */
+    delete<T extends MovesDeleteArgs>(args: Prisma.SelectSubset<T, MovesDeleteArgs<ExtArgs>>): Prisma.Prisma__MovesClient<runtime.Types.Result.GetResult<Prisma.$MovesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one Moves.
+     * @param {MovesUpdateArgs} args - Arguments to update one Moves.
+     * @example
+     * // Update one Moves
+     * const moves = await prisma.moves.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends MovesUpdateArgs>(args: Prisma.SelectSubset<T, MovesUpdateArgs<ExtArgs>>): Prisma.Prisma__MovesClient<runtime.Types.Result.GetResult<Prisma.$MovesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more Moves.
+     * @param {MovesDeleteManyArgs} args - Arguments to filter Moves to delete.
+     * @example
+     * // Delete a few Moves
+     * const { count } = await prisma.moves.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends MovesDeleteManyArgs>(args?: Prisma.SelectSubset<T, MovesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Moves.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Moves
+     * const moves = await prisma.moves.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends MovesUpdateManyArgs>(args: Prisma.SelectSubset<T, MovesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Moves and returns the data updated in the database.
+     * @param {MovesUpdateManyAndReturnArgs} args - Arguments to update many Moves.
+     * @example
+     * // Update many Moves
+     * const moves = await prisma.moves.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more Moves and only return the `id`
+     * const movesWithIdOnly = await prisma.moves.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends MovesUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, MovesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MovesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one Moves.
+     * @param {MovesUpsertArgs} args - Arguments to update or create a Moves.
+     * @example
+     * // Update or create a Moves
+     * const moves = await prisma.moves.upsert({
+     *   create: {
+     *     // ... data to create a Moves
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Moves we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MovesUpsertArgs>(args: Prisma.SelectSubset<T, MovesUpsertArgs<ExtArgs>>): Prisma.Prisma__MovesClient<runtime.Types.Result.GetResult<Prisma.$MovesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of Moves.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovesCountArgs} args - Arguments to filter Moves to count.
+     * @example
+     * // Count the number of Moves
+     * const count = await prisma.moves.count({
+     *   where: {
+     *     // ... the filter for the Moves we want to count
+     *   }
+     * })
+    **/
+    count<T extends MovesCountArgs>(args?: Prisma.Subset<T, MovesCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], MovesCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a Moves.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MovesAggregateArgs>(args: Prisma.Subset<T, MovesAggregateArgs>): Prisma.PrismaPromise<GetMovesAggregateType<T>>;
+    /**
+     * Group by Moves.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MovesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends MovesGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: MovesGroupByArgs['orderBy'];
+    } : {
+        orderBy?: MovesGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, MovesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMovesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the Moves model
+     */
+    readonly fields: MovesFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for Moves.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__MovesClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    generation<T extends Prisma.GenerationsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GenerationsDefaultArgs<ExtArgs>>): Prisma.Prisma__GenerationsClient<runtime.Types.Result.GetResult<Prisma.$GenerationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    type<T extends Prisma.TypesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TypesDefaultArgs<ExtArgs>>): Prisma.Prisma__TypesClient<runtime.Types.Result.GetResult<Prisma.$TypesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    target<T extends Prisma.MoveTargetsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MoveTargetsDefaultArgs<ExtArgs>>): Prisma.Prisma__MoveTargetsClient<runtime.Types.Result.GetResult<Prisma.$MoveTargetsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    damageClass<T extends Prisma.MoveDamageClassesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MoveDamageClassesDefaultArgs<ExtArgs>>): Prisma.Prisma__MoveDamageClassesClient<runtime.Types.Result.GetResult<Prisma.$MoveDamageClassesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    contestType<T extends Prisma.Moves$contestTypeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$contestTypeArgs<ExtArgs>>): Prisma.Prisma__ContestTypesClient<runtime.Types.Result.GetResult<Prisma.$ContestTypesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    contestEffect<T extends Prisma.Moves$contestEffectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$contestEffectArgs<ExtArgs>>): Prisma.Prisma__ContestEffectsClient<runtime.Types.Result.GetResult<Prisma.$ContestEffectsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    superContestEffect<T extends Prisma.Moves$superContestEffectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$superContestEffectArgs<ExtArgs>>): Prisma.Prisma__SuperContestEffectsClient<runtime.Types.Result.GetResult<Prisma.$SuperContestEffectsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    pokemonMoves<T extends Prisma.Moves$pokemonMovesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$pokemonMovesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PokemonMovesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    machines<T extends Prisma.Moves$machinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$machinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MachinesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    meta<T extends Prisma.Moves$metaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$metaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MoveMetaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    flagMap<T extends Prisma.Moves$flagMapArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$flagMapArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MoveFlagMapPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    contestCombos<T extends Prisma.Moves$contestCombosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$contestCombosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContestCombosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    contestCombosSecond<T extends Prisma.Moves$contestCombosSecondArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$contestCombosSecondArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContestCombosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    superContestCombos<T extends Prisma.Moves$superContestCombosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$superContestCombosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SuperContestCombosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    superContestCombosSecond<T extends Prisma.Moves$superContestCombosSecondArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$superContestCombosSecondArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SuperContestCombosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    knownMoves<T extends Prisma.Moves$knownMovesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$knownMovesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PokemonEvolutionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the Moves model
+ */
+export interface MovesFieldRefs {
+    readonly id: Prisma.FieldRef<"Moves", 'Int'>;
+    readonly identifier: Prisma.FieldRef<"Moves", 'String'>;
+    readonly generation_id: Prisma.FieldRef<"Moves", 'Int'>;
+    readonly type_id: Prisma.FieldRef<"Moves", 'Int'>;
+    readonly power: Prisma.FieldRef<"Moves", 'Int'>;
+    readonly pp: Prisma.FieldRef<"Moves", 'Int'>;
+    readonly accuracy: Prisma.FieldRef<"Moves", 'Int'>;
+    readonly priority: Prisma.FieldRef<"Moves", 'Int'>;
+    readonly target_id: Prisma.FieldRef<"Moves", 'Int'>;
+    readonly damage_class_id: Prisma.FieldRef<"Moves", 'Int'>;
+    readonly effect_id: Prisma.FieldRef<"Moves", 'Int'>;
+    readonly effect_chance: Prisma.FieldRef<"Moves", 'Int'>;
+    readonly contest_type_id: Prisma.FieldRef<"Moves", 'Int'>;
+    readonly contest_effect_id: Prisma.FieldRef<"Moves", 'Int'>;
+    readonly super_contest_effect_id: Prisma.FieldRef<"Moves", 'Int'>;
+}
+/**
+ * Moves findUnique
+ */
+export type MovesFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Moves
+     */
+    select?: Prisma.MovesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Moves
+     */
+    omit?: Prisma.MovesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MovesInclude<ExtArgs> | null;
+    /**
+     * Filter, which Moves to fetch.
+     */
+    where: Prisma.MovesWhereUniqueInput;
+};
+/**
+ * Moves findUniqueOrThrow
+ */
+export type MovesFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Moves
+     */
+    select?: Prisma.MovesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Moves
+     */
+    omit?: Prisma.MovesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MovesInclude<ExtArgs> | null;
+    /**
+     * Filter, which Moves to fetch.
+     */
+    where: Prisma.MovesWhereUniqueInput;
+};
+/**
+ * Moves findFirst
+ */
+export type MovesFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Moves
+     */
+    select?: Prisma.MovesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Moves
+     */
+    omit?: Prisma.MovesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MovesInclude<ExtArgs> | null;
+    /**
+     * Filter, which Moves to fetch.
+     */
+    where?: Prisma.MovesWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Moves to fetch.
+     */
+    orderBy?: Prisma.MovesOrderByWithRelationInput | Prisma.MovesOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Moves.
+     */
+    cursor?: Prisma.MovesWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Moves from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Moves.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Moves.
+     */
+    distinct?: Prisma.MovesScalarFieldEnum | Prisma.MovesScalarFieldEnum[];
+};
+/**
+ * Moves findFirstOrThrow
+ */
+export type MovesFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Moves
+     */
+    select?: Prisma.MovesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Moves
+     */
+    omit?: Prisma.MovesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MovesInclude<ExtArgs> | null;
+    /**
+     * Filter, which Moves to fetch.
+     */
+    where?: Prisma.MovesWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Moves to fetch.
+     */
+    orderBy?: Prisma.MovesOrderByWithRelationInput | Prisma.MovesOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Moves.
+     */
+    cursor?: Prisma.MovesWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Moves from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Moves.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Moves.
+     */
+    distinct?: Prisma.MovesScalarFieldEnum | Prisma.MovesScalarFieldEnum[];
+};
+/**
+ * Moves findMany
+ */
+export type MovesFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Moves
+     */
+    select?: Prisma.MovesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Moves
+     */
+    omit?: Prisma.MovesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MovesInclude<ExtArgs> | null;
+    /**
+     * Filter, which Moves to fetch.
+     */
+    where?: Prisma.MovesWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Moves to fetch.
+     */
+    orderBy?: Prisma.MovesOrderByWithRelationInput | Prisma.MovesOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing Moves.
+     */
+    cursor?: Prisma.MovesWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Moves from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Moves.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Moves.
+     */
+    distinct?: Prisma.MovesScalarFieldEnum | Prisma.MovesScalarFieldEnum[];
+};
+/**
+ * Moves create
+ */
+export type MovesCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Moves
+     */
+    select?: Prisma.MovesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Moves
+     */
+    omit?: Prisma.MovesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MovesInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a Moves.
+     */
+    data: Prisma.XOR<Prisma.MovesCreateInput, Prisma.MovesUncheckedCreateInput>;
+};
+/**
+ * Moves createMany
+ */
+export type MovesCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Moves.
+     */
+    data: Prisma.MovesCreateManyInput | Prisma.MovesCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * Moves createManyAndReturn
+ */
+export type MovesCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Moves
+     */
+    select?: Prisma.MovesSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Moves
+     */
+    omit?: Prisma.MovesOmit<ExtArgs> | null;
+    /**
+     * The data used to create many Moves.
+     */
+    data: Prisma.MovesCreateManyInput | Prisma.MovesCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MovesIncludeCreateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * Moves update
+ */
+export type MovesUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Moves
+     */
+    select?: Prisma.MovesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Moves
+     */
+    omit?: Prisma.MovesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MovesInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a Moves.
+     */
+    data: Prisma.XOR<Prisma.MovesUpdateInput, Prisma.MovesUncheckedUpdateInput>;
+    /**
+     * Choose, which Moves to update.
+     */
+    where: Prisma.MovesWhereUniqueInput;
+};
+/**
+ * Moves updateMany
+ */
+export type MovesUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Moves.
+     */
+    data: Prisma.XOR<Prisma.MovesUpdateManyMutationInput, Prisma.MovesUncheckedUpdateManyInput>;
+    /**
+     * Filter which Moves to update
+     */
+    where?: Prisma.MovesWhereInput;
+    /**
+     * Limit how many Moves to update.
+     */
+    limit?: number;
+};
+/**
+ * Moves updateManyAndReturn
+ */
+export type MovesUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Moves
+     */
+    select?: Prisma.MovesSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Moves
+     */
+    omit?: Prisma.MovesOmit<ExtArgs> | null;
+    /**
+     * The data used to update Moves.
+     */
+    data: Prisma.XOR<Prisma.MovesUpdateManyMutationInput, Prisma.MovesUncheckedUpdateManyInput>;
+    /**
+     * Filter which Moves to update
+     */
+    where?: Prisma.MovesWhereInput;
+    /**
+     * Limit how many Moves to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MovesIncludeUpdateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * Moves upsert
+ */
+export type MovesUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Moves
+     */
+    select?: Prisma.MovesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Moves
+     */
+    omit?: Prisma.MovesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MovesInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the Moves to update in case it exists.
+     */
+    where: Prisma.MovesWhereUniqueInput;
+    /**
+     * In case the Moves found by the `where` argument doesn't exist, create a new Moves with this data.
+     */
+    create: Prisma.XOR<Prisma.MovesCreateInput, Prisma.MovesUncheckedCreateInput>;
+    /**
+     * In case the Moves was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.MovesUpdateInput, Prisma.MovesUncheckedUpdateInput>;
+};
+/**
+ * Moves delete
+ */
+export type MovesDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Moves
+     */
+    select?: Prisma.MovesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Moves
+     */
+    omit?: Prisma.MovesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MovesInclude<ExtArgs> | null;
+    /**
+     * Filter which Moves to delete.
+     */
+    where: Prisma.MovesWhereUniqueInput;
+};
+/**
+ * Moves deleteMany
+ */
+export type MovesDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which Moves to delete
+     */
+    where?: Prisma.MovesWhereInput;
+    /**
+     * Limit how many Moves to delete.
+     */
+    limit?: number;
+};
+/**
+ * Moves.contestType
+ */
+export type Moves$contestTypeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContestTypes
+     */
+    select?: Prisma.ContestTypesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ContestTypes
+     */
+    omit?: Prisma.ContestTypesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ContestTypesInclude<ExtArgs> | null;
+    where?: Prisma.ContestTypesWhereInput;
+};
+/**
+ * Moves.contestEffect
+ */
+export type Moves$contestEffectArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContestEffects
+     */
+    select?: Prisma.ContestEffectsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ContestEffects
+     */
+    omit?: Prisma.ContestEffectsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ContestEffectsInclude<ExtArgs> | null;
+    where?: Prisma.ContestEffectsWhereInput;
+};
+/**
+ * Moves.superContestEffect
+ */
+export type Moves$superContestEffectArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuperContestEffects
+     */
+    select?: Prisma.SuperContestEffectsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the SuperContestEffects
+     */
+    omit?: Prisma.SuperContestEffectsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.SuperContestEffectsInclude<ExtArgs> | null;
+    where?: Prisma.SuperContestEffectsWhereInput;
+};
+/**
+ * Moves.pokemonMoves
+ */
+export type Moves$pokemonMovesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokemonMoves
+     */
+    select?: Prisma.PokemonMovesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokemonMoves
+     */
+    omit?: Prisma.PokemonMovesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokemonMovesInclude<ExtArgs> | null;
+    where?: Prisma.PokemonMovesWhereInput;
+    orderBy?: Prisma.PokemonMovesOrderByWithRelationInput | Prisma.PokemonMovesOrderByWithRelationInput[];
+    cursor?: Prisma.PokemonMovesWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.PokemonMovesScalarFieldEnum | Prisma.PokemonMovesScalarFieldEnum[];
+};
+/**
+ * Moves.machines
+ */
+export type Moves$machinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Machines
+     */
+    select?: Prisma.MachinesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Machines
+     */
+    omit?: Prisma.MachinesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MachinesInclude<ExtArgs> | null;
+    where?: Prisma.MachinesWhereInput;
+    orderBy?: Prisma.MachinesOrderByWithRelationInput | Prisma.MachinesOrderByWithRelationInput[];
+    cursor?: Prisma.MachinesWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.MachinesScalarFieldEnum | Prisma.MachinesScalarFieldEnum[];
+};
+/**
+ * Moves.meta
+ */
+export type Moves$metaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoveMeta
+     */
+    select?: Prisma.MoveMetaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MoveMeta
+     */
+    omit?: Prisma.MoveMetaOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MoveMetaInclude<ExtArgs> | null;
+    where?: Prisma.MoveMetaWhereInput;
+    orderBy?: Prisma.MoveMetaOrderByWithRelationInput | Prisma.MoveMetaOrderByWithRelationInput[];
+    cursor?: Prisma.MoveMetaWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.MoveMetaScalarFieldEnum | Prisma.MoveMetaScalarFieldEnum[];
+};
+/**
+ * Moves.flagMap
+ */
+export type Moves$flagMapArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoveFlagMap
+     */
+    select?: Prisma.MoveFlagMapSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MoveFlagMap
+     */
+    omit?: Prisma.MoveFlagMapOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MoveFlagMapInclude<ExtArgs> | null;
+    where?: Prisma.MoveFlagMapWhereInput;
+    orderBy?: Prisma.MoveFlagMapOrderByWithRelationInput | Prisma.MoveFlagMapOrderByWithRelationInput[];
+    cursor?: Prisma.MoveFlagMapWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.MoveFlagMapScalarFieldEnum | Prisma.MoveFlagMapScalarFieldEnum[];
+};
+/**
+ * Moves.contestCombos
+ */
+export type Moves$contestCombosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContestCombos
+     */
+    select?: Prisma.ContestCombosSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ContestCombos
+     */
+    omit?: Prisma.ContestCombosOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ContestCombosInclude<ExtArgs> | null;
+    where?: Prisma.ContestCombosWhereInput;
+    orderBy?: Prisma.ContestCombosOrderByWithRelationInput | Prisma.ContestCombosOrderByWithRelationInput[];
+    cursor?: Prisma.ContestCombosWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.ContestCombosScalarFieldEnum | Prisma.ContestCombosScalarFieldEnum[];
+};
+/**
+ * Moves.contestCombosSecond
+ */
+export type Moves$contestCombosSecondArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContestCombos
+     */
+    select?: Prisma.ContestCombosSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ContestCombos
+     */
+    omit?: Prisma.ContestCombosOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ContestCombosInclude<ExtArgs> | null;
+    where?: Prisma.ContestCombosWhereInput;
+    orderBy?: Prisma.ContestCombosOrderByWithRelationInput | Prisma.ContestCombosOrderByWithRelationInput[];
+    cursor?: Prisma.ContestCombosWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.ContestCombosScalarFieldEnum | Prisma.ContestCombosScalarFieldEnum[];
+};
+/**
+ * Moves.superContestCombos
+ */
+export type Moves$superContestCombosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuperContestCombos
+     */
+    select?: Prisma.SuperContestCombosSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the SuperContestCombos
+     */
+    omit?: Prisma.SuperContestCombosOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.SuperContestCombosInclude<ExtArgs> | null;
+    where?: Prisma.SuperContestCombosWhereInput;
+    orderBy?: Prisma.SuperContestCombosOrderByWithRelationInput | Prisma.SuperContestCombosOrderByWithRelationInput[];
+    cursor?: Prisma.SuperContestCombosWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.SuperContestCombosScalarFieldEnum | Prisma.SuperContestCombosScalarFieldEnum[];
+};
+/**
+ * Moves.superContestCombosSecond
+ */
+export type Moves$superContestCombosSecondArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuperContestCombos
+     */
+    select?: Prisma.SuperContestCombosSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the SuperContestCombos
+     */
+    omit?: Prisma.SuperContestCombosOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.SuperContestCombosInclude<ExtArgs> | null;
+    where?: Prisma.SuperContestCombosWhereInput;
+    orderBy?: Prisma.SuperContestCombosOrderByWithRelationInput | Prisma.SuperContestCombosOrderByWithRelationInput[];
+    cursor?: Prisma.SuperContestCombosWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.SuperContestCombosScalarFieldEnum | Prisma.SuperContestCombosScalarFieldEnum[];
+};
+/**
+ * Moves.knownMoves
+ */
+export type Moves$knownMovesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokemonEvolution
+     */
+    select?: Prisma.PokemonEvolutionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokemonEvolution
+     */
+    omit?: Prisma.PokemonEvolutionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokemonEvolutionInclude<ExtArgs> | null;
+    where?: Prisma.PokemonEvolutionWhereInput;
+    orderBy?: Prisma.PokemonEvolutionOrderByWithRelationInput | Prisma.PokemonEvolutionOrderByWithRelationInput[];
+    cursor?: Prisma.PokemonEvolutionWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.PokemonEvolutionScalarFieldEnum | Prisma.PokemonEvolutionScalarFieldEnum[];
+};
+/**
+ * Moves without action
+ */
+export type MovesDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Moves
+     */
+    select?: Prisma.MovesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Moves
+     */
+    omit?: Prisma.MovesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MovesInclude<ExtArgs> | null;
+};

@@ -4,8 +4,9 @@ import { EncountersCreateWithoutLocationAreaInput } from './encounters-create-wi
 import { Type } from 'class-transformer';
 import { EncountersCreateOrConnectWithoutLocationAreaInput } from './encounters-create-or-connect-without-location-area.input';
 import { EncountersUpsertWithWhereUniqueWithoutLocationAreaInput } from './encounters-upsert-with-where-unique-without-location-area.input';
+import type { Identity } from 'identity-type';
 import { EncountersCreateManyLocationAreaInputEnvelope } from './encounters-create-many-location-area-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncountersWhereUniqueInput } from './encounters-where-unique.input';
 import { EncountersUpdateWithWhereUniqueWithoutLocationAreaInput } from './encounters-update-with-where-unique-without-location-area.input';
 import { EncountersUpdateManyWithWhereWithoutLocationAreaInput } from './encounters-update-many-with-where-without-location-area.input';
@@ -28,7 +29,7 @@ export class EncountersUncheckedUpdateManyWithoutLocationAreaNestedInput {
 
     @Field(() => EncountersCreateManyLocationAreaInputEnvelope, {nullable:true})
     @Type(() => EncountersCreateManyLocationAreaInputEnvelope)
-    createMany?: EncountersCreateManyLocationAreaInputEnvelope;
+    createMany?: Identity<EncountersCreateManyLocationAreaInputEnvelope>;
 
     @Field(() => [EncountersWhereUniqueInput], {nullable:true})
     @Type(() => EncountersWhereUniqueInput)

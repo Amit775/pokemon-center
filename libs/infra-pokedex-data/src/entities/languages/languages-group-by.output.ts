@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LanguagesCountAggregate } from './languages-count-aggregate.output';
 import { LanguagesAvgAggregate } from './languages-avg-aggregate.output';
 import { LanguagesSumAggregate } from './languages-sum-aggregate.output';
@@ -29,17 +30,17 @@ export class LanguagesGroupBy {
     order!: number;
 
     @Field(() => LanguagesCountAggregate, {nullable:true})
-    _count?: LanguagesCountAggregate;
+    _count?: Identity<LanguagesCountAggregate>;
 
     @Field(() => LanguagesAvgAggregate, {nullable:true})
-    _avg?: LanguagesAvgAggregate;
+    _avg?: Identity<LanguagesAvgAggregate>;
 
     @Field(() => LanguagesSumAggregate, {nullable:true})
-    _sum?: LanguagesSumAggregate;
+    _sum?: Identity<LanguagesSumAggregate>;
 
     @Field(() => LanguagesMinAggregate, {nullable:true})
-    _min?: LanguagesMinAggregate;
+    _min?: Identity<LanguagesMinAggregate>;
 
     @Field(() => LanguagesMaxAggregate, {nullable:true})
-    _max?: LanguagesMaxAggregate;
+    _max?: Identity<LanguagesMaxAggregate>;
 }

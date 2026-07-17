@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Berries } from '../berries/berries.model';
+import type { Identity } from 'identity-type';
 import { ContestTypes } from '../contest-types/contest-types.model';
 import { Types } from '../types/types.model';
 
@@ -21,11 +22,11 @@ export class BerryFlavors {
     flavor!: number;
 
     @Field(() => Berries, {nullable:false})
-    berry?: Berries;
+    berry?: Identity<Berries>;
 
     @Field(() => ContestTypes, {nullable:false})
-    contestType?: ContestTypes;
+    contestType?: Identity<ContestTypes>;
 
     @Field(() => Types, {nullable:false})
-    type?: Types;
+    type?: Identity<Types>;
 }

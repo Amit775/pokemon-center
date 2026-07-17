@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonDexNumbersCountAggregate } from './pokemon-dex-numbers-count-aggregate.output';
 import { PokemonDexNumbersAvgAggregate } from './pokemon-dex-numbers-avg-aggregate.output';
 import { PokemonDexNumbersSumAggregate } from './pokemon-dex-numbers-sum-aggregate.output';
@@ -20,17 +21,17 @@ export class PokemonDexNumbersGroupBy {
     pokedex_number!: number;
 
     @Field(() => PokemonDexNumbersCountAggregate, {nullable:true})
-    _count?: PokemonDexNumbersCountAggregate;
+    _count?: Identity<PokemonDexNumbersCountAggregate>;
 
     @Field(() => PokemonDexNumbersAvgAggregate, {nullable:true})
-    _avg?: PokemonDexNumbersAvgAggregate;
+    _avg?: Identity<PokemonDexNumbersAvgAggregate>;
 
     @Field(() => PokemonDexNumbersSumAggregate, {nullable:true})
-    _sum?: PokemonDexNumbersSumAggregate;
+    _sum?: Identity<PokemonDexNumbersSumAggregate>;
 
     @Field(() => PokemonDexNumbersMinAggregate, {nullable:true})
-    _min?: PokemonDexNumbersMinAggregate;
+    _min?: Identity<PokemonDexNumbersMinAggregate>;
 
     @Field(() => PokemonDexNumbersMaxAggregate, {nullable:true})
-    _max?: PokemonDexNumbersMaxAggregate;
+    _max?: Identity<PokemonDexNumbersMaxAggregate>;
 }

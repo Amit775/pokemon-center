@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GenerationsWhereInput } from './generations-where.input';
 import { Type } from 'class-transformer';
 import { GenerationsOrderByWithRelationInput } from './generations-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { GenerationsWhereUniqueInput } from './generations-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { GenerationsScalarFieldEnum } from './generations-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManyGenerationsArgs {
 
     @Field(() => GenerationsWhereInput, {nullable:true})
     @Type(() => GenerationsWhereInput)
-    where?: GenerationsWhereInput;
+    where?: Identity<GenerationsWhereInput>;
 
     @Field(() => [GenerationsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<GenerationsOrderByWithRelationInput>;

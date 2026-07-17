@@ -4,8 +4,9 @@ import { MoveMetaCreateWithoutMetaCategoryInput } from './move-meta-create-witho
 import { Type } from 'class-transformer';
 import { MoveMetaCreateOrConnectWithoutMetaCategoryInput } from './move-meta-create-or-connect-without-meta-category.input';
 import { MoveMetaUpsertWithWhereUniqueWithoutMetaCategoryInput } from './move-meta-upsert-with-where-unique-without-meta-category.input';
+import type { Identity } from 'identity-type';
 import { MoveMetaCreateManyMetaCategoryInputEnvelope } from './move-meta-create-many-meta-category-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveMetaWhereUniqueInput } from './move-meta-where-unique.input';
 import { MoveMetaUpdateWithWhereUniqueWithoutMetaCategoryInput } from './move-meta-update-with-where-unique-without-meta-category.input';
 import { MoveMetaUpdateManyWithWhereWithoutMetaCategoryInput } from './move-meta-update-many-with-where-without-meta-category.input';
@@ -28,7 +29,7 @@ export class MoveMetaUpdateManyWithoutMetaCategoryNestedInput {
 
     @Field(() => MoveMetaCreateManyMetaCategoryInputEnvelope, {nullable:true})
     @Type(() => MoveMetaCreateManyMetaCategoryInputEnvelope)
-    createMany?: MoveMetaCreateManyMetaCategoryInputEnvelope;
+    createMany?: Identity<MoveMetaCreateManyMetaCategoryInputEnvelope>;
 
     @Field(() => [MoveMetaWhereUniqueInput], {nullable:true})
     @Type(() => MoveMetaWhereUniqueInput)

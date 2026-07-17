@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemGameIndicesScalarWhereInput } from './item-game-indices-scalar-where.input';
 import { Type } from 'class-transformer';
 import { ItemGameIndicesUpdateManyMutationInput } from './item-game-indices-update-many-mutation.input';
@@ -9,9 +10,9 @@ export class ItemGameIndicesUpdateManyWithWhereWithoutItemInput {
 
     @Field(() => ItemGameIndicesScalarWhereInput, {nullable:false})
     @Type(() => ItemGameIndicesScalarWhereInput)
-    where!: ItemGameIndicesScalarWhereInput;
+    where!: Identity<ItemGameIndicesScalarWhereInput>;
 
     @Field(() => ItemGameIndicesUpdateManyMutationInput, {nullable:false})
     @Type(() => ItemGameIndicesUpdateManyMutationInput)
-    data!: ItemGameIndicesUpdateManyMutationInput;
+    data!: Identity<ItemGameIndicesUpdateManyMutationInput>;
 }

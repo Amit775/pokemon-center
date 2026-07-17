@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GenerationsUpdateOneRequiredWithoutTypesNestedInput } from '../generations/generations-update-one-required-without-types-nested.input';
 import { MoveDamageClassesUpdateOneWithoutTypesNestedInput } from '../move-damage-classes/move-damage-classes-update-one-without-types-nested.input';
 import { MovesUpdateManyWithoutTypeNestedInput } from '../moves/moves-update-many-without-type-nested.input';
@@ -17,42 +17,42 @@ import { BerriesUpdateManyWithoutNaturalGiftTypeNestedInput } from '../berries/b
 @InputType()
 export class TypesUpdateWithoutGameIndicesInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
     @Field(() => GenerationsUpdateOneRequiredWithoutTypesNestedInput, {nullable:true})
-    generation?: GenerationsUpdateOneRequiredWithoutTypesNestedInput;
+    generation?: Identity<GenerationsUpdateOneRequiredWithoutTypesNestedInput>;
 
     @Field(() => MoveDamageClassesUpdateOneWithoutTypesNestedInput, {nullable:true})
-    damageClass?: MoveDamageClassesUpdateOneWithoutTypesNestedInput;
+    damageClass?: Identity<MoveDamageClassesUpdateOneWithoutTypesNestedInput>;
 
     @Field(() => MovesUpdateManyWithoutTypeNestedInput, {nullable:true})
-    moves?: MovesUpdateManyWithoutTypeNestedInput;
+    moves?: Identity<MovesUpdateManyWithoutTypeNestedInput>;
 
     @Field(() => PokemonTypesUpdateManyWithoutTypeNestedInput, {nullable:true})
-    pokemonTypes?: PokemonTypesUpdateManyWithoutTypeNestedInput;
+    pokemonTypes?: Identity<PokemonTypesUpdateManyWithoutTypeNestedInput>;
 
     @Field(() => PokemonFormTypesUpdateManyWithoutTypeNestedInput, {nullable:true})
-    formTypes?: PokemonFormTypesUpdateManyWithoutTypeNestedInput;
+    formTypes?: Identity<PokemonFormTypesUpdateManyWithoutTypeNestedInput>;
 
     @Field(() => TypeEfficacyUpdateManyWithoutDamageTypeNestedInput, {nullable:true})
-    efficacy?: TypeEfficacyUpdateManyWithoutDamageTypeNestedInput;
+    efficacy?: Identity<TypeEfficacyUpdateManyWithoutDamageTypeNestedInput>;
 
     @Field(() => TypeEfficacyUpdateManyWithoutTargetTypeNestedInput, {nullable:true})
-    efficacyTarget?: TypeEfficacyUpdateManyWithoutTargetTypeNestedInput;
+    efficacyTarget?: Identity<TypeEfficacyUpdateManyWithoutTargetTypeNestedInput>;
 
     @Field(() => BerryFlavorsUpdateManyWithoutTypeNestedInput, {nullable:true})
-    berryFlavors?: BerryFlavorsUpdateManyWithoutTypeNestedInput;
+    berryFlavors?: Identity<BerryFlavorsUpdateManyWithoutTypeNestedInput>;
 
     @Field(() => PokemonEvolutionUpdateManyWithoutKnownMoveTypeNestedInput, {nullable:true})
-    knownMoveTypes?: PokemonEvolutionUpdateManyWithoutKnownMoveTypeNestedInput;
+    knownMoveTypes?: Identity<PokemonEvolutionUpdateManyWithoutKnownMoveTypeNestedInput>;
 
     @Field(() => PokemonEvolutionUpdateManyWithoutPartyTypeNestedInput, {nullable:true})
-    partyTypes?: PokemonEvolutionUpdateManyWithoutPartyTypeNestedInput;
+    partyTypes?: Identity<PokemonEvolutionUpdateManyWithoutPartyTypeNestedInput>;
 
     @Field(() => BerriesUpdateManyWithoutNaturalGiftTypeNestedInput, {nullable:true})
-    naturalGiftTypes?: BerriesUpdateManyWithoutNaturalGiftTypeNestedInput;
+    naturalGiftTypes?: Identity<BerriesUpdateManyWithoutNaturalGiftTypeNestedInput>;
 }

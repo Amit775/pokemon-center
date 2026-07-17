@@ -1,8 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesUncheckedUpdateManyWithoutTypeNestedInput } from '../moves/moves-unchecked-update-many-without-type-nested.input';
 import { PokemonTypesUncheckedUpdateManyWithoutTypeNestedInput } from '../pokemon-types/pokemon-types-unchecked-update-many-without-type-nested.input';
 import { PokemonFormTypesUncheckedUpdateManyWithoutTypeNestedInput } from '../pokemon-form-types/pokemon-form-types-unchecked-update-many-without-type-nested.input';
@@ -16,42 +15,42 @@ import { BerriesUncheckedUpdateManyWithoutNaturalGiftTypeNestedInput } from '../
 @InputType()
 export class TypesUncheckedUpdateWithoutEfficacyInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    generation_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    generation_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    damage_class_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    damage_class_id?: number;
 
     @Field(() => MovesUncheckedUpdateManyWithoutTypeNestedInput, {nullable:true})
-    moves?: MovesUncheckedUpdateManyWithoutTypeNestedInput;
+    moves?: Identity<MovesUncheckedUpdateManyWithoutTypeNestedInput>;
 
     @Field(() => PokemonTypesUncheckedUpdateManyWithoutTypeNestedInput, {nullable:true})
-    pokemonTypes?: PokemonTypesUncheckedUpdateManyWithoutTypeNestedInput;
+    pokemonTypes?: Identity<PokemonTypesUncheckedUpdateManyWithoutTypeNestedInput>;
 
     @Field(() => PokemonFormTypesUncheckedUpdateManyWithoutTypeNestedInput, {nullable:true})
-    formTypes?: PokemonFormTypesUncheckedUpdateManyWithoutTypeNestedInput;
+    formTypes?: Identity<PokemonFormTypesUncheckedUpdateManyWithoutTypeNestedInput>;
 
     @Field(() => TypeGameIndicesUncheckedUpdateManyWithoutTypeNestedInput, {nullable:true})
-    gameIndices?: TypeGameIndicesUncheckedUpdateManyWithoutTypeNestedInput;
+    gameIndices?: Identity<TypeGameIndicesUncheckedUpdateManyWithoutTypeNestedInput>;
 
     @Field(() => TypeEfficacyUncheckedUpdateManyWithoutTargetTypeNestedInput, {nullable:true})
-    efficacyTarget?: TypeEfficacyUncheckedUpdateManyWithoutTargetTypeNestedInput;
+    efficacyTarget?: Identity<TypeEfficacyUncheckedUpdateManyWithoutTargetTypeNestedInput>;
 
     @Field(() => BerryFlavorsUncheckedUpdateManyWithoutTypeNestedInput, {nullable:true})
-    berryFlavors?: BerryFlavorsUncheckedUpdateManyWithoutTypeNestedInput;
+    berryFlavors?: Identity<BerryFlavorsUncheckedUpdateManyWithoutTypeNestedInput>;
 
     @Field(() => PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveTypeNestedInput, {nullable:true})
-    knownMoveTypes?: PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveTypeNestedInput;
+    knownMoveTypes?: Identity<PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveTypeNestedInput>;
 
     @Field(() => PokemonEvolutionUncheckedUpdateManyWithoutPartyTypeNestedInput, {nullable:true})
-    partyTypes?: PokemonEvolutionUncheckedUpdateManyWithoutPartyTypeNestedInput;
+    partyTypes?: Identity<PokemonEvolutionUncheckedUpdateManyWithoutPartyTypeNestedInput>;
 
     @Field(() => BerriesUncheckedUpdateManyWithoutNaturalGiftTypeNestedInput, {nullable:true})
-    naturalGiftTypes?: BerriesUncheckedUpdateManyWithoutNaturalGiftTypeNestedInput;
+    naturalGiftTypes?: Identity<BerriesUncheckedUpdateManyWithoutNaturalGiftTypeNestedInput>;
 }

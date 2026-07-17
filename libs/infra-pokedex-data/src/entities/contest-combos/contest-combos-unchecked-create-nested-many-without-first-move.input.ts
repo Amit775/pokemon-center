@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { ContestCombosCreateWithoutFirstMoveInput } from './contest-combos-create-without-first-move.input';
 import { Type } from 'class-transformer';
 import { ContestCombosCreateOrConnectWithoutFirstMoveInput } from './contest-combos-create-or-connect-without-first-move.input';
+import type { Identity } from 'identity-type';
 import { ContestCombosCreateManyFirstMoveInputEnvelope } from './contest-combos-create-many-first-move-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ContestCombosWhereUniqueInput } from './contest-combos-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput {
 
     @Field(() => ContestCombosCreateManyFirstMoveInputEnvelope, {nullable:true})
     @Type(() => ContestCombosCreateManyFirstMoveInputEnvelope)
-    createMany?: ContestCombosCreateManyFirstMoveInputEnvelope;
+    createMany?: Identity<ContestCombosCreateManyFirstMoveInputEnvelope>;
 
     @Field(() => [ContestCombosWhereUniqueInput], {nullable:true})
     @Type(() => ContestCombosWhereUniqueInput)

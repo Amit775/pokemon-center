@@ -2,16 +2,16 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { MovesWhereInput } from './moves-where.input';
+import type { Identity } from 'identity-type';
 import { StringFilter } from '../prisma/string-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { GenerationsScalarRelationFilter } from '../generations/generations-scalar-relation-filter.input';
 import { TypesScalarRelationFilter } from '../types/types-scalar-relation-filter.input';
 import { MoveTargetsScalarRelationFilter } from '../move-targets/move-targets-scalar-relation-filter.input';
 import { MoveDamageClassesScalarRelationFilter } from '../move-damage-classes/move-damage-classes-scalar-relation-filter.input';
-import { ContestTypesNullableScalarRelationFilter } from '../contest-types/contest-types-nullable-scalar-relation-filter.input';
-import { ContestEffectsNullableScalarRelationFilter } from '../contest-effects/contest-effects-nullable-scalar-relation-filter.input';
-import { SuperContestEffectsNullableScalarRelationFilter } from '../super-contest-effects/super-contest-effects-nullable-scalar-relation-filter.input';
+import { ContestTypesScalarRelationFilter } from '../contest-types/contest-types-scalar-relation-filter.input';
+import { ContestEffectsScalarRelationFilter } from '../contest-effects/contest-effects-scalar-relation-filter.input';
+import { SuperContestEffectsScalarRelationFilter } from '../super-contest-effects/super-contest-effects-scalar-relation-filter.input';
 import { PokemonMovesListRelationFilter } from '../pokemon-moves/pokemon-moves-list-relation-filter.input';
 import { MachinesListRelationFilter } from '../machines/machines-list-relation-filter.input';
 import { MoveMetaListRelationFilter } from '../move-meta/move-meta-list-relation-filter.input';
@@ -36,92 +36,92 @@ export class MovesWhereUniqueInput {
     NOT?: Array<MovesWhereInput>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    generation_id?: IntFilter;
+    generation_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    type_id?: IntFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    power?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    pp?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    accuracy?: IntNullableFilter;
+    type_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    priority?: IntFilter;
+    power?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    target_id?: IntFilter;
+    pp?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    damage_class_id?: IntFilter;
+    accuracy?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    effect_id?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    priority?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    effect_chance?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    target_id?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    contest_type_id?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    damage_class_id?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    contest_effect_id?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    effect_id?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    super_contest_effect_id?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    effect_chance?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    contest_type_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    contest_effect_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    super_contest_effect_id?: Identity<IntFilter>;
 
     @Field(() => GenerationsScalarRelationFilter, {nullable:true})
-    generation?: GenerationsScalarRelationFilter;
+    generation?: Identity<GenerationsScalarRelationFilter>;
 
     @Field(() => TypesScalarRelationFilter, {nullable:true})
-    type?: TypesScalarRelationFilter;
+    type?: Identity<TypesScalarRelationFilter>;
 
     @Field(() => MoveTargetsScalarRelationFilter, {nullable:true})
-    target?: MoveTargetsScalarRelationFilter;
+    target?: Identity<MoveTargetsScalarRelationFilter>;
 
     @Field(() => MoveDamageClassesScalarRelationFilter, {nullable:true})
-    damageClass?: MoveDamageClassesScalarRelationFilter;
+    damageClass?: Identity<MoveDamageClassesScalarRelationFilter>;
 
-    @Field(() => ContestTypesNullableScalarRelationFilter, {nullable:true})
-    contestType?: ContestTypesNullableScalarRelationFilter;
+    @Field(() => ContestTypesScalarRelationFilter, {nullable:true})
+    contestType?: Identity<ContestTypesScalarRelationFilter>;
 
-    @Field(() => ContestEffectsNullableScalarRelationFilter, {nullable:true})
-    contestEffect?: ContestEffectsNullableScalarRelationFilter;
+    @Field(() => ContestEffectsScalarRelationFilter, {nullable:true})
+    contestEffect?: Identity<ContestEffectsScalarRelationFilter>;
 
-    @Field(() => SuperContestEffectsNullableScalarRelationFilter, {nullable:true})
-    superContestEffect?: SuperContestEffectsNullableScalarRelationFilter;
+    @Field(() => SuperContestEffectsScalarRelationFilter, {nullable:true})
+    superContestEffect?: Identity<SuperContestEffectsScalarRelationFilter>;
 
     @Field(() => PokemonMovesListRelationFilter, {nullable:true})
-    pokemonMoves?: PokemonMovesListRelationFilter;
+    pokemonMoves?: Identity<PokemonMovesListRelationFilter>;
 
     @Field(() => MachinesListRelationFilter, {nullable:true})
-    machines?: MachinesListRelationFilter;
+    machines?: Identity<MachinesListRelationFilter>;
 
     @Field(() => MoveMetaListRelationFilter, {nullable:true})
-    meta?: MoveMetaListRelationFilter;
+    meta?: Identity<MoveMetaListRelationFilter>;
 
     @Field(() => MoveFlagMapListRelationFilter, {nullable:true})
-    flagMap?: MoveFlagMapListRelationFilter;
+    flagMap?: Identity<MoveFlagMapListRelationFilter>;
 
     @Field(() => ContestCombosListRelationFilter, {nullable:true})
-    contestCombos?: ContestCombosListRelationFilter;
+    contestCombos?: Identity<ContestCombosListRelationFilter>;
 
     @Field(() => ContestCombosListRelationFilter, {nullable:true})
-    contestCombosSecond?: ContestCombosListRelationFilter;
+    contestCombosSecond?: Identity<ContestCombosListRelationFilter>;
 
     @Field(() => SuperContestCombosListRelationFilter, {nullable:true})
-    superContestCombos?: SuperContestCombosListRelationFilter;
+    superContestCombos?: Identity<SuperContestCombosListRelationFilter>;
 
     @Field(() => SuperContestCombosListRelationFilter, {nullable:true})
-    superContestCombosSecond?: SuperContestCombosListRelationFilter;
+    superContestCombosSecond?: Identity<SuperContestCombosListRelationFilter>;
 
     @Field(() => PokemonEvolutionListRelationFilter, {nullable:true})
-    knownMoves?: PokemonEvolutionListRelationFilter;
+    knownMoves?: Identity<PokemonEvolutionListRelationFilter>;
 }

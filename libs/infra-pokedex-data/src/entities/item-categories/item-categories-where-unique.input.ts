@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { ItemCategoriesWhereInput } from './item-categories-where.input';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { ItemPocketsScalarRelationFilter } from '../item-pockets/item-pockets-scalar-relation-filter.input';
@@ -23,14 +24,14 @@ export class ItemCategoriesWhereUniqueInput {
     NOT?: Array<ItemCategoriesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    pocket_id?: IntFilter;
+    pocket_id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => ItemPocketsScalarRelationFilter, {nullable:true})
-    pocket?: ItemPocketsScalarRelationFilter;
+    pocket?: Identity<ItemPocketsScalarRelationFilter>;
 
     @Field(() => ItemsListRelationFilter, {nullable:true})
-    items?: ItemsListRelationFilter;
+    items?: Identity<ItemsListRelationFilter>;
 }

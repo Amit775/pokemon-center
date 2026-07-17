@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 
 @InputType()
@@ -17,14 +17,14 @@ export class PokedexesScalarWhereInput {
     NOT?: Array<PokedexesScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    region_id?: IntNullableFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    is_main_series?: IntFilter;
+    region_id?: Identity<IntFilter>;
+
+    @Field(() => StringFilter, {nullable:true})
+    identifier?: Identity<StringFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    is_main_series?: Identity<IntFilter>;
 }

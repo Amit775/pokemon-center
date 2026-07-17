@@ -4,8 +4,9 @@ import { PokemonSpeciesCreateWithoutGenerationInput } from './pokemon-species-cr
 import { Type } from 'class-transformer';
 import { PokemonSpeciesCreateOrConnectWithoutGenerationInput } from './pokemon-species-create-or-connect-without-generation.input';
 import { PokemonSpeciesUpsertWithWhereUniqueWithoutGenerationInput } from './pokemon-species-upsert-with-where-unique-without-generation.input';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesCreateManyGenerationInputEnvelope } from './pokemon-species-create-many-generation-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonSpeciesWhereUniqueInput } from './pokemon-species-where-unique.input';
 import { PokemonSpeciesUpdateWithWhereUniqueWithoutGenerationInput } from './pokemon-species-update-with-where-unique-without-generation.input';
 import { PokemonSpeciesUpdateManyWithWhereWithoutGenerationInput } from './pokemon-species-update-many-with-where-without-generation.input';
@@ -28,7 +29,7 @@ export class PokemonSpeciesUncheckedUpdateManyWithoutGenerationNestedInput {
 
     @Field(() => PokemonSpeciesCreateManyGenerationInputEnvelope, {nullable:true})
     @Type(() => PokemonSpeciesCreateManyGenerationInputEnvelope)
-    createMany?: PokemonSpeciesCreateManyGenerationInputEnvelope;
+    createMany?: Identity<PokemonSpeciesCreateManyGenerationInputEnvelope>;
 
     @Field(() => [PokemonSpeciesWhereUniqueInput], {nullable:true})
     @Type(() => PokemonSpeciesWhereUniqueInput)

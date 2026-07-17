@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ContestEffectsCountAggregate } from './contest-effects-count-aggregate.output';
 import { ContestEffectsAvgAggregate } from './contest-effects-avg-aggregate.output';
 import { ContestEffectsSumAggregate } from './contest-effects-sum-aggregate.output';
@@ -20,17 +21,17 @@ export class ContestEffectsGroupBy {
     jam!: number;
 
     @Field(() => ContestEffectsCountAggregate, {nullable:true})
-    _count?: ContestEffectsCountAggregate;
+    _count?: Identity<ContestEffectsCountAggregate>;
 
     @Field(() => ContestEffectsAvgAggregate, {nullable:true})
-    _avg?: ContestEffectsAvgAggregate;
+    _avg?: Identity<ContestEffectsAvgAggregate>;
 
     @Field(() => ContestEffectsSumAggregate, {nullable:true})
-    _sum?: ContestEffectsSumAggregate;
+    _sum?: Identity<ContestEffectsSumAggregate>;
 
     @Field(() => ContestEffectsMinAggregate, {nullable:true})
-    _min?: ContestEffectsMinAggregate;
+    _min?: Identity<ContestEffectsMinAggregate>;
 
     @Field(() => ContestEffectsMaxAggregate, {nullable:true})
-    _max?: ContestEffectsMaxAggregate;
+    _max?: Identity<ContestEffectsMaxAggregate>;
 }

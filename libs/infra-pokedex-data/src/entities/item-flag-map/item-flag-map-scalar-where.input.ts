@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 
 @InputType()
@@ -15,8 +16,8 @@ export class ItemFlagMapScalarWhereInput {
     NOT?: Array<ItemFlagMapScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    item_id?: IntFilter;
+    item_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    item_flag_id?: IntFilter;
+    item_flag_id?: Identity<IntFilter>;
 }

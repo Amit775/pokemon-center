@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveBattleStylesWhereInput } from './move-battle-styles-where.input';
 import { Type } from 'class-transformer';
 import { MoveBattleStylesOrderByWithAggregationInput } from './move-battle-styles-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class MoveBattleStylesGroupByArgs {
 
     @Field(() => MoveBattleStylesWhereInput, {nullable:true})
     @Type(() => MoveBattleStylesWhereInput)
-    where?: MoveBattleStylesWhereInput;
+    where?: Identity<MoveBattleStylesWhereInput>;
 
     @Field(() => [MoveBattleStylesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<MoveBattleStylesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class MoveBattleStylesGroupByArgs {
     by!: Array<`${MoveBattleStylesScalarFieldEnum}`>;
 
     @Field(() => MoveBattleStylesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: MoveBattleStylesScalarWhereWithAggregatesInput;
+    having?: Identity<MoveBattleStylesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class MoveBattleStylesGroupByArgs {
     skip?: number;
 
     @Field(() => MoveBattleStylesCountAggregateInput, {nullable:true})
-    _count?: MoveBattleStylesCountAggregateInput;
+    _count?: Identity<MoveBattleStylesCountAggregateInput>;
 
     @Field(() => MoveBattleStylesAvgAggregateInput, {nullable:true})
-    _avg?: MoveBattleStylesAvgAggregateInput;
+    _avg?: Identity<MoveBattleStylesAvgAggregateInput>;
 
     @Field(() => MoveBattleStylesSumAggregateInput, {nullable:true})
-    _sum?: MoveBattleStylesSumAggregateInput;
+    _sum?: Identity<MoveBattleStylesSumAggregateInput>;
 
     @Field(() => MoveBattleStylesMinAggregateInput, {nullable:true})
-    _min?: MoveBattleStylesMinAggregateInput;
+    _min?: Identity<MoveBattleStylesMinAggregateInput>;
 
     @Field(() => MoveBattleStylesMaxAggregateInput, {nullable:true})
-    _max?: MoveBattleStylesMaxAggregateInput;
+    _max?: Identity<MoveBattleStylesMaxAggregateInput>;
 }

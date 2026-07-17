@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GenerationsCreateNestedOneWithoutMovesInput } from '../generations/generations-create-nested-one-without-moves.input';
 import { TypesCreateNestedOneWithoutMovesInput } from '../types/types-create-nested-one-without-moves.input';
 import { MoveTargetsCreateNestedOneWithoutMovesInput } from '../move-targets/move-targets-create-nested-one-without-moves.input';
@@ -45,47 +46,47 @@ export class MovesCreateWithoutContestEffectInput {
     effect_chance?: number;
 
     @Field(() => GenerationsCreateNestedOneWithoutMovesInput, {nullable:false})
-    generation!: GenerationsCreateNestedOneWithoutMovesInput;
+    generation!: Identity<GenerationsCreateNestedOneWithoutMovesInput>;
 
     @Field(() => TypesCreateNestedOneWithoutMovesInput, {nullable:false})
-    type!: TypesCreateNestedOneWithoutMovesInput;
+    type!: Identity<TypesCreateNestedOneWithoutMovesInput>;
 
     @Field(() => MoveTargetsCreateNestedOneWithoutMovesInput, {nullable:false})
-    target!: MoveTargetsCreateNestedOneWithoutMovesInput;
+    target!: Identity<MoveTargetsCreateNestedOneWithoutMovesInput>;
 
     @Field(() => MoveDamageClassesCreateNestedOneWithoutMovesInput, {nullable:false})
-    damageClass!: MoveDamageClassesCreateNestedOneWithoutMovesInput;
+    damageClass!: Identity<MoveDamageClassesCreateNestedOneWithoutMovesInput>;
 
     @Field(() => ContestTypesCreateNestedOneWithoutMovesInput, {nullable:true})
-    contestType?: ContestTypesCreateNestedOneWithoutMovesInput;
+    contestType?: Identity<ContestTypesCreateNestedOneWithoutMovesInput>;
 
     @Field(() => SuperContestEffectsCreateNestedOneWithoutMovesInput, {nullable:true})
-    superContestEffect?: SuperContestEffectsCreateNestedOneWithoutMovesInput;
+    superContestEffect?: Identity<SuperContestEffectsCreateNestedOneWithoutMovesInput>;
 
     @Field(() => PokemonMovesCreateNestedManyWithoutMoveInput, {nullable:true})
-    pokemonMoves?: PokemonMovesCreateNestedManyWithoutMoveInput;
+    pokemonMoves?: Identity<PokemonMovesCreateNestedManyWithoutMoveInput>;
 
     @Field(() => MachinesCreateNestedManyWithoutMoveInput, {nullable:true})
-    machines?: MachinesCreateNestedManyWithoutMoveInput;
+    machines?: Identity<MachinesCreateNestedManyWithoutMoveInput>;
 
     @Field(() => MoveMetaCreateNestedManyWithoutMoveInput, {nullable:true})
-    meta?: MoveMetaCreateNestedManyWithoutMoveInput;
+    meta?: Identity<MoveMetaCreateNestedManyWithoutMoveInput>;
 
     @Field(() => MoveFlagMapCreateNestedManyWithoutMoveInput, {nullable:true})
-    flagMap?: MoveFlagMapCreateNestedManyWithoutMoveInput;
+    flagMap?: Identity<MoveFlagMapCreateNestedManyWithoutMoveInput>;
 
     @Field(() => ContestCombosCreateNestedManyWithoutFirstMoveInput, {nullable:true})
-    contestCombos?: ContestCombosCreateNestedManyWithoutFirstMoveInput;
+    contestCombos?: Identity<ContestCombosCreateNestedManyWithoutFirstMoveInput>;
 
     @Field(() => ContestCombosCreateNestedManyWithoutSecondMoveInput, {nullable:true})
-    contestCombosSecond?: ContestCombosCreateNestedManyWithoutSecondMoveInput;
+    contestCombosSecond?: Identity<ContestCombosCreateNestedManyWithoutSecondMoveInput>;
 
     @Field(() => SuperContestCombosCreateNestedManyWithoutFirstMoveInput, {nullable:true})
-    superContestCombos?: SuperContestCombosCreateNestedManyWithoutFirstMoveInput;
+    superContestCombos?: Identity<SuperContestCombosCreateNestedManyWithoutFirstMoveInput>;
 
     @Field(() => SuperContestCombosCreateNestedManyWithoutSecondMoveInput, {nullable:true})
-    superContestCombosSecond?: SuperContestCombosCreateNestedManyWithoutSecondMoveInput;
+    superContestCombosSecond?: Identity<SuperContestCombosCreateNestedManyWithoutSecondMoveInput>;
 
     @Field(() => PokemonEvolutionCreateNestedManyWithoutKnownMoveInput, {nullable:true})
-    knownMoves?: PokemonEvolutionCreateNestedManyWithoutKnownMoveInput;
+    knownMoves?: Identity<PokemonEvolutionCreateNestedManyWithoutKnownMoveInput>;
 }

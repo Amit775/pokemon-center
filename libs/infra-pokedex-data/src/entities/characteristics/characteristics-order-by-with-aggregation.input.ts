@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { CharacteristicsCountOrderByAggregateInput } from './characteristics-count-order-by-aggregate.input';
 import { CharacteristicsAvgOrderByAggregateInput } from './characteristics-avg-order-by-aggregate.input';
 import { CharacteristicsMaxOrderByAggregateInput } from './characteristics-max-order-by-aggregate.input';
@@ -20,17 +21,17 @@ export class CharacteristicsOrderByWithAggregationInput {
     gene_mod_5?: `${SortOrder}`;
 
     @Field(() => CharacteristicsCountOrderByAggregateInput, {nullable:true})
-    _count?: CharacteristicsCountOrderByAggregateInput;
+    _count?: Identity<CharacteristicsCountOrderByAggregateInput>;
 
     @Field(() => CharacteristicsAvgOrderByAggregateInput, {nullable:true})
-    _avg?: CharacteristicsAvgOrderByAggregateInput;
+    _avg?: Identity<CharacteristicsAvgOrderByAggregateInput>;
 
     @Field(() => CharacteristicsMaxOrderByAggregateInput, {nullable:true})
-    _max?: CharacteristicsMaxOrderByAggregateInput;
+    _max?: Identity<CharacteristicsMaxOrderByAggregateInput>;
 
     @Field(() => CharacteristicsMinOrderByAggregateInput, {nullable:true})
-    _min?: CharacteristicsMinOrderByAggregateInput;
+    _min?: Identity<CharacteristicsMinOrderByAggregateInput>;
 
     @Field(() => CharacteristicsSumOrderByAggregateInput, {nullable:true})
-    _sum?: CharacteristicsSumOrderByAggregateInput;
+    _sum?: Identity<CharacteristicsSumOrderByAggregateInput>;
 }

@@ -4,8 +4,9 @@ import { AbilitiesCreateWithoutGenerationInput } from './abilities-create-withou
 import { Type } from 'class-transformer';
 import { AbilitiesCreateOrConnectWithoutGenerationInput } from './abilities-create-or-connect-without-generation.input';
 import { AbilitiesUpsertWithWhereUniqueWithoutGenerationInput } from './abilities-upsert-with-where-unique-without-generation.input';
+import type { Identity } from 'identity-type';
 import { AbilitiesCreateManyGenerationInputEnvelope } from './abilities-create-many-generation-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { AbilitiesWhereUniqueInput } from './abilities-where-unique.input';
 import { AbilitiesUpdateWithWhereUniqueWithoutGenerationInput } from './abilities-update-with-where-unique-without-generation.input';
 import { AbilitiesUpdateManyWithWhereWithoutGenerationInput } from './abilities-update-many-with-where-without-generation.input';
@@ -28,7 +29,7 @@ export class AbilitiesUpdateManyWithoutGenerationNestedInput {
 
     @Field(() => AbilitiesCreateManyGenerationInputEnvelope, {nullable:true})
     @Type(() => AbilitiesCreateManyGenerationInputEnvelope)
-    createMany?: AbilitiesCreateManyGenerationInputEnvelope;
+    createMany?: Identity<AbilitiesCreateManyGenerationInputEnvelope>;
 
     @Field(() => [AbilitiesWhereUniqueInput], {nullable:true})
     @Type(() => AbilitiesWhereUniqueInput)

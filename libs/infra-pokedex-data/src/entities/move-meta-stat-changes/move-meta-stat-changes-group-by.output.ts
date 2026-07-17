@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaStatChangesCountAggregate } from './move-meta-stat-changes-count-aggregate.output';
 import { MoveMetaStatChangesAvgAggregate } from './move-meta-stat-changes-avg-aggregate.output';
 import { MoveMetaStatChangesSumAggregate } from './move-meta-stat-changes-sum-aggregate.output';
@@ -20,17 +21,17 @@ export class MoveMetaStatChangesGroupBy {
     change!: number;
 
     @Field(() => MoveMetaStatChangesCountAggregate, {nullable:true})
-    _count?: MoveMetaStatChangesCountAggregate;
+    _count?: Identity<MoveMetaStatChangesCountAggregate>;
 
     @Field(() => MoveMetaStatChangesAvgAggregate, {nullable:true})
-    _avg?: MoveMetaStatChangesAvgAggregate;
+    _avg?: Identity<MoveMetaStatChangesAvgAggregate>;
 
     @Field(() => MoveMetaStatChangesSumAggregate, {nullable:true})
-    _sum?: MoveMetaStatChangesSumAggregate;
+    _sum?: Identity<MoveMetaStatChangesSumAggregate>;
 
     @Field(() => MoveMetaStatChangesMinAggregate, {nullable:true})
-    _min?: MoveMetaStatChangesMinAggregate;
+    _min?: Identity<MoveMetaStatChangesMinAggregate>;
 
     @Field(() => MoveMetaStatChangesMaxAggregate, {nullable:true})
-    _max?: MoveMetaStatChangesMaxAggregate;
+    _max?: Identity<MoveMetaStatChangesMaxAggregate>;
 }

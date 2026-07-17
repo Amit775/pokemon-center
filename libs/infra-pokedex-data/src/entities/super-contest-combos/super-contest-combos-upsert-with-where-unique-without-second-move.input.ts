@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { SuperContestCombosWhereUniqueInput } from './super-contest-combos-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { SuperContestCombosUpdateWithoutSecondMoveInput } from './super-contest-combos-update-without-second-move.input';
 import { SuperContestCombosCreateWithoutSecondMoveInput } from './super-contest-combos-create-without-second-move.input';
 
@@ -15,9 +16,9 @@ export class SuperContestCombosUpsertWithWhereUniqueWithoutSecondMoveInput {
 
     @Field(() => SuperContestCombosUpdateWithoutSecondMoveInput, {nullable:false})
     @Type(() => SuperContestCombosUpdateWithoutSecondMoveInput)
-    update!: SuperContestCombosUpdateWithoutSecondMoveInput;
+    update!: Identity<SuperContestCombosUpdateWithoutSecondMoveInput>;
 
     @Field(() => SuperContestCombosCreateWithoutSecondMoveInput, {nullable:false})
     @Type(() => SuperContestCombosCreateWithoutSecondMoveInput)
-    create!: SuperContestCombosCreateWithoutSecondMoveInput;
+    create!: Identity<SuperContestCombosCreateWithoutSecondMoveInput>;
 }

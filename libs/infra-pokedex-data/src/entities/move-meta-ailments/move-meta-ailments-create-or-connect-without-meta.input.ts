@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveMetaAilmentsWhereUniqueInput } from './move-meta-ailments-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { MoveMetaAilmentsCreateWithoutMetaInput } from './move-meta-ailments-create-without-meta.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class MoveMetaAilmentsCreateOrConnectWithoutMetaInput {
 
     @Field(() => MoveMetaAilmentsCreateWithoutMetaInput, {nullable:false})
     @Type(() => MoveMetaAilmentsCreateWithoutMetaInput)
-    create!: MoveMetaAilmentsCreateWithoutMetaInput;
+    create!: Identity<MoveMetaAilmentsCreateWithoutMetaInput>;
 }

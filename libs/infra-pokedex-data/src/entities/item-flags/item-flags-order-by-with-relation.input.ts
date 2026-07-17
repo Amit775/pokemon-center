@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { ItemFlagMapOrderByRelationAggregateInput } from '../item-flag-map/item-flag-map-order-by-relation-aggregate.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class ItemFlagsOrderByWithRelationInput {
     identifier?: `${SortOrder}`;
 
     @Field(() => ItemFlagMapOrderByRelationAggregateInput, {nullable:true})
-    flagMap?: ItemFlagMapOrderByRelationAggregateInput;
+    flagMap?: Identity<ItemFlagMapOrderByRelationAggregateInput>;
 }

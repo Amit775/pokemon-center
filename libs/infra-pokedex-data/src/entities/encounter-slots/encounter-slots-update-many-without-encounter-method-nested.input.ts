@@ -4,8 +4,9 @@ import { EncounterSlotsCreateWithoutEncounterMethodInput } from './encounter-slo
 import { Type } from 'class-transformer';
 import { EncounterSlotsCreateOrConnectWithoutEncounterMethodInput } from './encounter-slots-create-or-connect-without-encounter-method.input';
 import { EncounterSlotsUpsertWithWhereUniqueWithoutEncounterMethodInput } from './encounter-slots-upsert-with-where-unique-without-encounter-method.input';
+import type { Identity } from 'identity-type';
 import { EncounterSlotsCreateManyEncounterMethodInputEnvelope } from './encounter-slots-create-many-encounter-method-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncounterSlotsWhereUniqueInput } from './encounter-slots-where-unique.input';
 import { EncounterSlotsUpdateWithWhereUniqueWithoutEncounterMethodInput } from './encounter-slots-update-with-where-unique-without-encounter-method.input';
 import { EncounterSlotsUpdateManyWithWhereWithoutEncounterMethodInput } from './encounter-slots-update-many-with-where-without-encounter-method.input';
@@ -28,7 +29,7 @@ export class EncounterSlotsUpdateManyWithoutEncounterMethodNestedInput {
 
     @Field(() => EncounterSlotsCreateManyEncounterMethodInputEnvelope, {nullable:true})
     @Type(() => EncounterSlotsCreateManyEncounterMethodInputEnvelope)
-    createMany?: EncounterSlotsCreateManyEncounterMethodInputEnvelope;
+    createMany?: Identity<EncounterSlotsCreateManyEncounterMethodInputEnvelope>;
 
     @Field(() => [EncounterSlotsWhereUniqueInput], {nullable:true})
     @Type(() => EncounterSlotsWhereUniqueInput)

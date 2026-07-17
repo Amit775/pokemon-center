@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Stats } from '../stats/stats.model';
+import type { Identity } from 'identity-type';
 
 /**
  * @@TypeGraphQL.type(name: "Characteristic")
@@ -20,5 +21,5 @@ export class Characteristics {
     gene_mod_5!: number;
 
     @Field(() => Stats, {nullable:false})
-    stat?: Stats;
+    stat?: Identity<Stats>;
 }

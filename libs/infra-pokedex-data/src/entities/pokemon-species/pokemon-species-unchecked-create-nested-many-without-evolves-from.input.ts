@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { PokemonSpeciesCreateWithoutEvolvesFromInput } from './pokemon-species-create-without-evolves-from.input';
 import { Type } from 'class-transformer';
 import { PokemonSpeciesCreateOrConnectWithoutEvolvesFromInput } from './pokemon-species-create-or-connect-without-evolves-from.input';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesCreateManyEvolvesFromInputEnvelope } from './pokemon-species-create-many-evolves-from-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonSpeciesWhereUniqueInput } from './pokemon-species-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class PokemonSpeciesUncheckedCreateNestedManyWithoutEvolvesFromInput {
 
     @Field(() => PokemonSpeciesCreateManyEvolvesFromInputEnvelope, {nullable:true})
     @Type(() => PokemonSpeciesCreateManyEvolvesFromInputEnvelope)
-    createMany?: PokemonSpeciesCreateManyEvolvesFromInputEnvelope;
+    createMany?: Identity<PokemonSpeciesCreateManyEvolvesFromInputEnvelope>;
 
     @Field(() => [PokemonSpeciesWhereUniqueInput], {nullable:true})
     @Type(() => PokemonSpeciesWhereUniqueInput)

@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { LocationGameIndicesCreateWithoutLocationInput } from './location-game-indices-create-without-location.input';
 import { Type } from 'class-transformer';
 import { LocationGameIndicesCreateOrConnectWithoutLocationInput } from './location-game-indices-create-or-connect-without-location.input';
+import type { Identity } from 'identity-type';
 import { LocationGameIndicesCreateManyLocationInputEnvelope } from './location-game-indices-create-many-location-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationGameIndicesWhereUniqueInput } from './location-game-indices-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class LocationGameIndicesUncheckedCreateNestedManyWithoutLocationInput {
 
     @Field(() => LocationGameIndicesCreateManyLocationInputEnvelope, {nullable:true})
     @Type(() => LocationGameIndicesCreateManyLocationInputEnvelope)
-    createMany?: LocationGameIndicesCreateManyLocationInputEnvelope;
+    createMany?: Identity<LocationGameIndicesCreateManyLocationInputEnvelope>;
 
     @Field(() => [LocationGameIndicesWhereUniqueInput], {nullable:true})
     @Type(() => LocationGameIndicesWhereUniqueInput)

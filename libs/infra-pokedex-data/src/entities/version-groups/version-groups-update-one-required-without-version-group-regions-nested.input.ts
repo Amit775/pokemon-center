@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupsCreateWithoutVersionGroupRegionsInput } from './version-groups-create-without-version-group-regions.input';
 import { Type } from 'class-transformer';
 import { VersionGroupsCreateOrConnectWithoutVersionGroupRegionsInput } from './version-groups-create-or-connect-without-version-group-regions.input';
 import { VersionGroupsUpsertWithoutVersionGroupRegionsInput } from './version-groups-upsert-without-version-group-regions.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupsWhereUniqueInput } from './version-groups-where-unique.input';
 import { VersionGroupsUpdateToOneWithWhereWithoutVersionGroupRegionsInput } from './version-groups-update-to-one-with-where-without-version-group-regions.input';
 
@@ -13,15 +14,15 @@ export class VersionGroupsUpdateOneRequiredWithoutVersionGroupRegionsNestedInput
 
     @Field(() => VersionGroupsCreateWithoutVersionGroupRegionsInput, {nullable:true})
     @Type(() => VersionGroupsCreateWithoutVersionGroupRegionsInput)
-    create?: VersionGroupsCreateWithoutVersionGroupRegionsInput;
+    create?: Identity<VersionGroupsCreateWithoutVersionGroupRegionsInput>;
 
     @Field(() => VersionGroupsCreateOrConnectWithoutVersionGroupRegionsInput, {nullable:true})
     @Type(() => VersionGroupsCreateOrConnectWithoutVersionGroupRegionsInput)
-    connectOrCreate?: VersionGroupsCreateOrConnectWithoutVersionGroupRegionsInput;
+    connectOrCreate?: Identity<VersionGroupsCreateOrConnectWithoutVersionGroupRegionsInput>;
 
     @Field(() => VersionGroupsUpsertWithoutVersionGroupRegionsInput, {nullable:true})
     @Type(() => VersionGroupsUpsertWithoutVersionGroupRegionsInput)
-    upsert?: VersionGroupsUpsertWithoutVersionGroupRegionsInput;
+    upsert?: Identity<VersionGroupsUpsertWithoutVersionGroupRegionsInput>;
 
     @Field(() => VersionGroupsWhereUniqueInput, {nullable:true})
     @Type(() => VersionGroupsWhereUniqueInput)
@@ -29,5 +30,5 @@ export class VersionGroupsUpdateOneRequiredWithoutVersionGroupRegionsNestedInput
 
     @Field(() => VersionGroupsUpdateToOneWithWhereWithoutVersionGroupRegionsInput, {nullable:true})
     @Type(() => VersionGroupsUpdateToOneWithWhereWithoutVersionGroupRegionsInput)
-    update?: VersionGroupsUpdateToOneWithWhereWithoutVersionGroupRegionsInput;
+    update?: Identity<VersionGroupsUpdateToOneWithWhereWithoutVersionGroupRegionsInput>;
 }

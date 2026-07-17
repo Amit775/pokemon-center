@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonMoveMethodsWhereInput } from './pokemon-move-methods-where.input';
 import { Type } from 'class-transformer';
 import { PokemonMoveMethodsOrderByWithAggregationInput } from './pokemon-move-methods-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class PokemonMoveMethodsGroupByArgs {
 
     @Field(() => PokemonMoveMethodsWhereInput, {nullable:true})
     @Type(() => PokemonMoveMethodsWhereInput)
-    where?: PokemonMoveMethodsWhereInput;
+    where?: Identity<PokemonMoveMethodsWhereInput>;
 
     @Field(() => [PokemonMoveMethodsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<PokemonMoveMethodsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class PokemonMoveMethodsGroupByArgs {
     by!: Array<`${PokemonMoveMethodsScalarFieldEnum}`>;
 
     @Field(() => PokemonMoveMethodsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: PokemonMoveMethodsScalarWhereWithAggregatesInput;
+    having?: Identity<PokemonMoveMethodsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class PokemonMoveMethodsGroupByArgs {
     skip?: number;
 
     @Field(() => PokemonMoveMethodsCountAggregateInput, {nullable:true})
-    _count?: PokemonMoveMethodsCountAggregateInput;
+    _count?: Identity<PokemonMoveMethodsCountAggregateInput>;
 
     @Field(() => PokemonMoveMethodsAvgAggregateInput, {nullable:true})
-    _avg?: PokemonMoveMethodsAvgAggregateInput;
+    _avg?: Identity<PokemonMoveMethodsAvgAggregateInput>;
 
     @Field(() => PokemonMoveMethodsSumAggregateInput, {nullable:true})
-    _sum?: PokemonMoveMethodsSumAggregateInput;
+    _sum?: Identity<PokemonMoveMethodsSumAggregateInput>;
 
     @Field(() => PokemonMoveMethodsMinAggregateInput, {nullable:true})
-    _min?: PokemonMoveMethodsMinAggregateInput;
+    _min?: Identity<PokemonMoveMethodsMinAggregateInput>;
 
     @Field(() => PokemonMoveMethodsMaxAggregateInput, {nullable:true})
-    _max?: PokemonMoveMethodsMaxAggregateInput;
+    _max?: Identity<PokemonMoveMethodsMaxAggregateInput>;
 }

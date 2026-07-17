@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveFlagsWhereUniqueInput } from './move-flags-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { MoveFlagsCreateInput } from './move-flags-create.input';
 import { MoveFlagsUpdateInput } from './move-flags-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneMoveFlagsArgs {
 
     @Field(() => MoveFlagsCreateInput, {nullable:false})
     @Type(() => MoveFlagsCreateInput)
-    create!: MoveFlagsCreateInput;
+    create!: Identity<MoveFlagsCreateInput>;
 
     @Field(() => MoveFlagsUpdateInput, {nullable:false})
     @Type(() => MoveFlagsUpdateInput)
-    update!: MoveFlagsUpdateInput;
+    update!: Identity<MoveFlagsUpdateInput>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { BerryFlavorsUncheckedCreateNestedManyWithoutBerryInput } from '../berry-flavors/berry-flavors-unchecked-create-nested-many-without-berry.input';
 
 @InputType()
@@ -34,5 +35,5 @@ export class BerriesUncheckedCreateWithoutFirmnessInput {
     smoothness!: number;
 
     @Field(() => BerryFlavorsUncheckedCreateNestedManyWithoutBerryInput, {nullable:true})
-    flavors?: BerryFlavorsUncheckedCreateNestedManyWithoutBerryInput;
+    flavors?: Identity<BerryFlavorsUncheckedCreateNestedManyWithoutBerryInput>;
 }

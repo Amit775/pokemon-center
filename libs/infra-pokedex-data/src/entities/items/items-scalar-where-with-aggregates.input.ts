@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
-import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class ItemsScalarWhereWithAggregatesInput {
@@ -17,20 +17,20 @@ export class ItemsScalarWhereWithAggregatesInput {
     NOT?: Array<ItemsScalarWhereWithAggregatesInput>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
+    id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
-    identifier?: StringWithAggregatesFilter;
+    identifier?: Identity<StringWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    category_id?: IntWithAggregatesFilter;
+    category_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    cost?: IntWithAggregatesFilter;
+    cost?: Identity<IntWithAggregatesFilter>;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    fling_power?: IntNullableWithAggregatesFilter;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    fling_power?: Identity<IntWithAggregatesFilter>;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    fling_effect_id?: IntNullableWithAggregatesFilter;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    fling_effect_id?: Identity<IntWithAggregatesFilter>;
 }

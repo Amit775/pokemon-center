@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionsCreateWithoutPokemonItemsInput } from './versions-create-without-pokemon-items.input';
 import { Type } from 'class-transformer';
 import { VersionsCreateOrConnectWithoutPokemonItemsInput } from './versions-create-or-connect-without-pokemon-items.input';
 import { VersionsUpsertWithoutPokemonItemsInput } from './versions-upsert-without-pokemon-items.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionsWhereUniqueInput } from './versions-where-unique.input';
 import { VersionsUpdateToOneWithWhereWithoutPokemonItemsInput } from './versions-update-to-one-with-where-without-pokemon-items.input';
 
@@ -13,15 +14,15 @@ export class VersionsUpdateOneRequiredWithoutPokemonItemsNestedInput {
 
     @Field(() => VersionsCreateWithoutPokemonItemsInput, {nullable:true})
     @Type(() => VersionsCreateWithoutPokemonItemsInput)
-    create?: VersionsCreateWithoutPokemonItemsInput;
+    create?: Identity<VersionsCreateWithoutPokemonItemsInput>;
 
     @Field(() => VersionsCreateOrConnectWithoutPokemonItemsInput, {nullable:true})
     @Type(() => VersionsCreateOrConnectWithoutPokemonItemsInput)
-    connectOrCreate?: VersionsCreateOrConnectWithoutPokemonItemsInput;
+    connectOrCreate?: Identity<VersionsCreateOrConnectWithoutPokemonItemsInput>;
 
     @Field(() => VersionsUpsertWithoutPokemonItemsInput, {nullable:true})
     @Type(() => VersionsUpsertWithoutPokemonItemsInput)
-    upsert?: VersionsUpsertWithoutPokemonItemsInput;
+    upsert?: Identity<VersionsUpsertWithoutPokemonItemsInput>;
 
     @Field(() => VersionsWhereUniqueInput, {nullable:true})
     @Type(() => VersionsWhereUniqueInput)
@@ -29,5 +30,5 @@ export class VersionsUpdateOneRequiredWithoutPokemonItemsNestedInput {
 
     @Field(() => VersionsUpdateToOneWithWhereWithoutPokemonItemsInput, {nullable:true})
     @Type(() => VersionsUpdateToOneWithWhereWithoutPokemonItemsInput)
-    update?: VersionsUpdateToOneWithWhereWithoutPokemonItemsInput;
+    update?: Identity<VersionsUpdateToOneWithWhereWithoutPokemonItemsInput>;
 }

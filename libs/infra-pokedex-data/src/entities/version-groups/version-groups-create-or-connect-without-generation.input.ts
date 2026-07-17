@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupsWhereUniqueInput } from './version-groups-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { VersionGroupsCreateWithoutGenerationInput } from './version-groups-create-without-generation.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class VersionGroupsCreateOrConnectWithoutGenerationInput {
 
     @Field(() => VersionGroupsCreateWithoutGenerationInput, {nullable:false})
     @Type(() => VersionGroupsCreateWithoutGenerationInput)
-    create!: VersionGroupsCreateWithoutGenerationInput;
+    create!: Identity<VersionGroupsCreateWithoutGenerationInput>;
 }

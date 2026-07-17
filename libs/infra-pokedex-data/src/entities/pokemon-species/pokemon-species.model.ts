@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Generations } from '../generations/generations.model';
+import type { Identity } from 'identity-type';
 import { EvolutionChains } from '../evolution-chains/evolution-chains.model';
 import { PokemonColors } from '../pokemon-colors/pokemon-colors.model';
 import { PokemonShapes } from '../pokemon-shapes/pokemon-shapes.model';
@@ -78,47 +79,47 @@ export class PokemonSpecies {
     conquest_order!: number | null;
 
     @Field(() => Generations, {nullable:false})
-    generation?: Generations;
+    generation?: Identity<Generations>;
 
     @Field(() => PokemonSpecies, {nullable:true})
-    evolvesFrom?: PokemonSpecies | null;
+    evolvesFrom?: Identity<PokemonSpecies> | null;
 
-    @Field(() => [PokemonSpecies], {nullable:true})
+    @Field(() => [PokemonSpecies], {nullable:false})
     evolvesTo?: Array<PokemonSpecies>;
 
     @Field(() => EvolutionChains, {nullable:false})
-    evolutionChain?: EvolutionChains;
+    evolutionChain?: Identity<EvolutionChains>;
 
     @Field(() => PokemonColors, {nullable:false})
-    color?: PokemonColors;
+    color?: Identity<PokemonColors>;
 
     @Field(() => PokemonShapes, {nullable:false})
-    shape?: PokemonShapes;
+    shape?: Identity<PokemonShapes>;
 
     @Field(() => PokemonHabitats, {nullable:true})
-    habitat?: PokemonHabitats | null;
+    habitat?: Identity<PokemonHabitats> | null;
 
     @Field(() => GrowthRates, {nullable:false})
-    growthRate?: GrowthRates;
+    growthRate?: Identity<GrowthRates>;
 
-    @Field(() => [Pokemon], {nullable:true})
+    @Field(() => [Pokemon], {nullable:false})
     pokemon?: Array<Pokemon>;
 
-    @Field(() => [PokemonEggGroups], {nullable:true})
+    @Field(() => [PokemonEggGroups], {nullable:false})
     eggGroups?: Array<PokemonEggGroups>;
 
-    @Field(() => [PokemonDexNumbers], {nullable:true})
+    @Field(() => [PokemonDexNumbers], {nullable:false})
     dexNumbers?: Array<PokemonDexNumbers>;
 
-    @Field(() => [PokemonEvolution], {nullable:true})
+    @Field(() => [PokemonEvolution], {nullable:false})
     evolution?: Array<PokemonEvolution>;
 
-    @Field(() => [PokemonEvolution], {nullable:true})
+    @Field(() => [PokemonEvolution], {nullable:false})
     partySpecies?: Array<PokemonEvolution>;
 
-    @Field(() => [PokemonEvolution], {nullable:true})
+    @Field(() => [PokemonEvolution], {nullable:false})
     tradeSpecies?: Array<PokemonEvolution>;
 
     @Field(() => PokemonSpeciesCount, {nullable:false})
-    _count?: PokemonSpeciesCount;
+    _count?: Identity<PokemonSpeciesCount>;
 }

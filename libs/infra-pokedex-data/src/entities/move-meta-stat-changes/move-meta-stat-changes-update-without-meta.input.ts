@@ -1,14 +1,15 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StatsUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput } from '../stats/stats-update-one-required-without-move-meta-stat-changes-nested.input';
 
 @InputType()
 export class MoveMetaStatChangesUpdateWithoutMetaInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    change?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    change?: number;
 
     @Field(() => StatsUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput, {nullable:true})
-    stat?: StatsUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput;
+    stat?: Identity<StatsUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput>;
 }

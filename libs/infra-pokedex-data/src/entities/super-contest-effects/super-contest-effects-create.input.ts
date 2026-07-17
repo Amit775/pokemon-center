@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesCreateNestedManyWithoutSuperContestEffectInput } from '../moves/moves-create-nested-many-without-super-contest-effect.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class SuperContestEffectsCreateInput {
     appeal!: number;
 
     @Field(() => MovesCreateNestedManyWithoutSuperContestEffectInput, {nullable:true})
-    moves?: MovesCreateNestedManyWithoutSuperContestEffectInput;
+    moves?: Identity<MovesCreateNestedManyWithoutSuperContestEffectInput>;
 }

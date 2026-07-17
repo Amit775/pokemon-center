@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveBattleStylesWhereInput } from './move-battle-styles-where.input';
 import { Type } from 'class-transformer';
 import { MoveBattleStylesOrderByWithRelationInput } from './move-battle-styles-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveBattleStylesWhereUniqueInput } from './move-battle-styles-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { MoveBattleStylesScalarFieldEnum } from './move-battle-styles-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstMoveBattleStylesArgs {
 
     @Field(() => MoveBattleStylesWhereInput, {nullable:true})
     @Type(() => MoveBattleStylesWhereInput)
-    where?: MoveBattleStylesWhereInput;
+    where?: Identity<MoveBattleStylesWhereInput>;
 
     @Field(() => [MoveBattleStylesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<MoveBattleStylesOrderByWithRelationInput>;

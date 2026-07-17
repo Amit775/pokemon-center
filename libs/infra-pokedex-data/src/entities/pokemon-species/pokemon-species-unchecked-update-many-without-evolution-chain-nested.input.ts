@@ -4,8 +4,9 @@ import { PokemonSpeciesCreateWithoutEvolutionChainInput } from './pokemon-specie
 import { Type } from 'class-transformer';
 import { PokemonSpeciesCreateOrConnectWithoutEvolutionChainInput } from './pokemon-species-create-or-connect-without-evolution-chain.input';
 import { PokemonSpeciesUpsertWithWhereUniqueWithoutEvolutionChainInput } from './pokemon-species-upsert-with-where-unique-without-evolution-chain.input';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesCreateManyEvolutionChainInputEnvelope } from './pokemon-species-create-many-evolution-chain-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonSpeciesWhereUniqueInput } from './pokemon-species-where-unique.input';
 import { PokemonSpeciesUpdateWithWhereUniqueWithoutEvolutionChainInput } from './pokemon-species-update-with-where-unique-without-evolution-chain.input';
 import { PokemonSpeciesUpdateManyWithWhereWithoutEvolutionChainInput } from './pokemon-species-update-many-with-where-without-evolution-chain.input';
@@ -28,7 +29,7 @@ export class PokemonSpeciesUncheckedUpdateManyWithoutEvolutionChainNestedInput {
 
     @Field(() => PokemonSpeciesCreateManyEvolutionChainInputEnvelope, {nullable:true})
     @Type(() => PokemonSpeciesCreateManyEvolutionChainInputEnvelope)
-    createMany?: PokemonSpeciesCreateManyEvolutionChainInputEnvelope;
+    createMany?: Identity<PokemonSpeciesCreateManyEvolutionChainInputEnvelope>;
 
     @Field(() => [PokemonSpeciesWhereUniqueInput], {nullable:true})
     @Type(() => PokemonSpeciesWhereUniqueInput)

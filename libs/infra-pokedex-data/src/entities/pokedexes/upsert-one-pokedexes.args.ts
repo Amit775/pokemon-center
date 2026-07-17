@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokedexesWhereUniqueInput } from './pokedexes-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokedexesCreateInput } from './pokedexes-create.input';
 import { PokedexesUpdateInput } from './pokedexes-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOnePokedexesArgs {
 
     @Field(() => PokedexesCreateInput, {nullable:false})
     @Type(() => PokedexesCreateInput)
-    create!: PokedexesCreateInput;
+    create!: Identity<PokedexesCreateInput>;
 
     @Field(() => PokedexesUpdateInput, {nullable:false})
     @Type(() => PokedexesUpdateInput)
-    update!: PokedexesUpdateInput;
+    update!: Identity<PokedexesUpdateInput>;
 }

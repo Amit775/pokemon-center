@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemsWhereUniqueInput } from './items-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { ItemsCreateInput } from './items-create.input';
 import { ItemsUpdateInput } from './items-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneItemsArgs {
 
     @Field(() => ItemsCreateInput, {nullable:false})
     @Type(() => ItemsCreateInput)
-    create!: ItemsCreateInput;
+    create!: Identity<ItemsCreateInput>;
 
     @Field(() => ItemsUpdateInput, {nullable:false})
     @Type(() => ItemsUpdateInput)
-    update!: ItemsUpdateInput;
+    update!: Identity<ItemsUpdateInput>;
 }

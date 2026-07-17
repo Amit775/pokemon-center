@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncounterConditionValuesWhereUniqueInput } from './encounter-condition-values-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { EncounterConditionValuesCreateInput } from './encounter-condition-values-create.input';
 import { EncounterConditionValuesUpdateInput } from './encounter-condition-values-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneEncounterConditionValuesArgs {
 
     @Field(() => EncounterConditionValuesCreateInput, {nullable:false})
     @Type(() => EncounterConditionValuesCreateInput)
-    create!: EncounterConditionValuesCreateInput;
+    create!: Identity<EncounterConditionValuesCreateInput>;
 
     @Field(() => EncounterConditionValuesUpdateInput, {nullable:false})
     @Type(() => EncounterConditionValuesUpdateInput)
-    update!: EncounterConditionValuesUpdateInput;
+    update!: Identity<EncounterConditionValuesUpdateInput>;
 }

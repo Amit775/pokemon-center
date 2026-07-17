@@ -1,17 +1,18 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StatsUpdateOneRequiredWithoutPokemonStatsNestedInput } from '../stats/stats-update-one-required-without-pokemon-stats-nested.input';
 
 @InputType()
 export class PokemonStatsUpdateWithoutPokemonInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    base_stat?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    base_stat?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    effort?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    effort?: number;
 
     @Field(() => StatsUpdateOneRequiredWithoutPokemonStatsNestedInput, {nullable:true})
-    stat?: StatsUpdateOneRequiredWithoutPokemonStatsNestedInput;
+    stat?: Identity<StatsUpdateOneRequiredWithoutPokemonStatsNestedInput>;
 }

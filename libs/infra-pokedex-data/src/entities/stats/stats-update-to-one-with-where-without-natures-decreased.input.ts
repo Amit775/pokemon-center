@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StatsWhereInput } from './stats-where.input';
 import { Type } from 'class-transformer';
 import { StatsUpdateWithoutNaturesDecreasedInput } from './stats-update-without-natures-decreased.input';
@@ -9,9 +10,9 @@ export class StatsUpdateToOneWithWhereWithoutNaturesDecreasedInput {
 
     @Field(() => StatsWhereInput, {nullable:true})
     @Type(() => StatsWhereInput)
-    where?: StatsWhereInput;
+    where?: Identity<StatsWhereInput>;
 
     @Field(() => StatsUpdateWithoutNaturesDecreasedInput, {nullable:false})
     @Type(() => StatsUpdateWithoutNaturesDecreasedInput)
-    data!: StatsUpdateWithoutNaturesDecreasedInput;
+    data!: Identity<StatsUpdateWithoutNaturesDecreasedInput>;
 }

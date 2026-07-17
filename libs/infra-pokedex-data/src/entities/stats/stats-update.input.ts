@@ -1,8 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonStatsUpdateManyWithoutStatNestedInput } from '../pokemon-stats/pokemon-stats-update-many-without-stat-nested.input';
 import { MoveMetaStatChangesUpdateManyWithoutStatNestedInput } from '../move-meta-stat-changes/move-meta-stat-changes-update-many-without-stat-nested.input';
 import { CharacteristicsUpdateManyWithoutStatNestedInput } from '../characteristics/characteristics-update-many-without-stat-nested.input';
@@ -12,33 +11,33 @@ import { NaturesUpdateManyWithoutIncreasedStatNestedInput } from '../natures/nat
 @InputType()
 export class StatsUpdateInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    damage_class_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    damage_class_id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    is_battle_only?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    is_battle_only?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    game_index?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    game_index?: number;
 
     @Field(() => PokemonStatsUpdateManyWithoutStatNestedInput, {nullable:true})
-    pokemonStats?: PokemonStatsUpdateManyWithoutStatNestedInput;
+    pokemonStats?: Identity<PokemonStatsUpdateManyWithoutStatNestedInput>;
 
     @Field(() => MoveMetaStatChangesUpdateManyWithoutStatNestedInput, {nullable:true})
-    moveMetaStatChanges?: MoveMetaStatChangesUpdateManyWithoutStatNestedInput;
+    moveMetaStatChanges?: Identity<MoveMetaStatChangesUpdateManyWithoutStatNestedInput>;
 
     @Field(() => CharacteristicsUpdateManyWithoutStatNestedInput, {nullable:true})
-    characteristics?: CharacteristicsUpdateManyWithoutStatNestedInput;
+    characteristics?: Identity<CharacteristicsUpdateManyWithoutStatNestedInput>;
 
     @Field(() => NaturesUpdateManyWithoutDecreasedStatNestedInput, {nullable:true})
-    naturesDecreased?: NaturesUpdateManyWithoutDecreasedStatNestedInput;
+    naturesDecreased?: Identity<NaturesUpdateManyWithoutDecreasedStatNestedInput>;
 
     @Field(() => NaturesUpdateManyWithoutIncreasedStatNestedInput, {nullable:true})
-    naturesIncreased?: NaturesUpdateManyWithoutIncreasedStatNestedInput;
+    naturesIncreased?: Identity<NaturesUpdateManyWithoutIncreasedStatNestedInput>;
 }

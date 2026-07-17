@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Items } from '../items/items.model';
+import type { Identity } from 'identity-type';
 import { PokemonSpecies } from '../pokemon-species/pokemon-species.model';
 import { EvolutionChainsCount } from './evolution-chains-count.output';
 
@@ -19,11 +20,11 @@ export class EvolutionChains {
     baby_trigger_item_id!: number | null;
 
     @Field(() => Items, {nullable:true})
-    babyTriggerItem?: Items | null;
+    babyTriggerItem?: Identity<Items> | null;
 
-    @Field(() => [PokemonSpecies], {nullable:true})
+    @Field(() => [PokemonSpecies], {nullable:false})
     species?: Array<PokemonSpecies>;
 
     @Field(() => EvolutionChainsCount, {nullable:false})
-    _count?: EvolutionChainsCount;
+    _count?: Identity<EvolutionChainsCount>;
 }

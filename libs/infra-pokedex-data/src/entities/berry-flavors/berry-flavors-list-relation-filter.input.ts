@@ -1,16 +1,17 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { BerryFlavorsWhereInput } from './berry-flavors-where.input';
 
 @InputType()
 export class BerryFlavorsListRelationFilter {
 
     @Field(() => BerryFlavorsWhereInput, {nullable:true})
-    every?: BerryFlavorsWhereInput;
+    every?: Identity<BerryFlavorsWhereInput>;
 
     @Field(() => BerryFlavorsWhereInput, {nullable:true})
-    some?: BerryFlavorsWhereInput;
+    some?: Identity<BerryFlavorsWhereInput>;
 
     @Field(() => BerryFlavorsWhereInput, {nullable:true})
-    none?: BerryFlavorsWhereInput;
+    none?: Identity<BerryFlavorsWhereInput>;
 }

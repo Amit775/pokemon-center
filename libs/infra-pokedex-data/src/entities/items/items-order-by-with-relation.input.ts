@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { ItemCategoriesOrderByWithRelationInput } from '../item-categories/item-categories-order-by-with-relation.input';
 import { ItemFlingEffectsOrderByWithRelationInput } from '../item-fling-effects/item-fling-effects-order-by-with-relation.input';
@@ -28,38 +29,38 @@ export class ItemsOrderByWithRelationInput {
     cost?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    fling_power?: SortOrderInput;
+    fling_power?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    fling_effect_id?: SortOrderInput;
+    fling_effect_id?: Identity<SortOrderInput>;
 
     @Field(() => ItemCategoriesOrderByWithRelationInput, {nullable:true})
-    category?: ItemCategoriesOrderByWithRelationInput;
+    category?: Identity<ItemCategoriesOrderByWithRelationInput>;
 
     @Field(() => ItemFlingEffectsOrderByWithRelationInput, {nullable:true})
-    flingEffect?: ItemFlingEffectsOrderByWithRelationInput;
+    flingEffect?: Identity<ItemFlingEffectsOrderByWithRelationInput>;
 
     @Field(() => PokemonItemsOrderByRelationAggregateInput, {nullable:true})
-    pokemonItems?: PokemonItemsOrderByRelationAggregateInput;
+    pokemonItems?: Identity<PokemonItemsOrderByRelationAggregateInput>;
 
     @Field(() => MachinesOrderByRelationAggregateInput, {nullable:true})
-    machines?: MachinesOrderByRelationAggregateInput;
+    machines?: Identity<MachinesOrderByRelationAggregateInput>;
 
     @Field(() => BerriesOrderByRelationAggregateInput, {nullable:true})
-    berries?: BerriesOrderByRelationAggregateInput;
+    berries?: Identity<BerriesOrderByRelationAggregateInput>;
 
     @Field(() => ItemGameIndicesOrderByRelationAggregateInput, {nullable:true})
-    gameIndices?: ItemGameIndicesOrderByRelationAggregateInput;
+    gameIndices?: Identity<ItemGameIndicesOrderByRelationAggregateInput>;
 
     @Field(() => ItemFlagMapOrderByRelationAggregateInput, {nullable:true})
-    flagMap?: ItemFlagMapOrderByRelationAggregateInput;
+    flagMap?: Identity<ItemFlagMapOrderByRelationAggregateInput>;
 
     @Field(() => EvolutionChainsOrderByRelationAggregateInput, {nullable:true})
-    babyTriggerItems?: EvolutionChainsOrderByRelationAggregateInput;
+    babyTriggerItems?: Identity<EvolutionChainsOrderByRelationAggregateInput>;
 
     @Field(() => PokemonEvolutionOrderByRelationAggregateInput, {nullable:true})
-    triggerItems?: PokemonEvolutionOrderByRelationAggregateInput;
+    triggerItems?: Identity<PokemonEvolutionOrderByRelationAggregateInput>;
 
     @Field(() => PokemonEvolutionOrderByRelationAggregateInput, {nullable:true})
-    heldItems?: PokemonEvolutionOrderByRelationAggregateInput;
+    heldItems?: Identity<PokemonEvolutionOrderByRelationAggregateInput>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { PokemonOrderByWithRelationInput } from '../pokemon/pokemon-order-by-with-relation.input';
 import { VersionGroupsOrderByWithRelationInput } from '../version-groups/version-groups-order-by-with-relation.input';
@@ -17,7 +18,7 @@ export class PokemonFormsOrderByWithRelationInput {
     identifier?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    form_identifier?: SortOrderInput;
+    form_identifier?: Identity<SortOrderInput>;
 
     @Field(() => SortOrder, {nullable:true})
     pokemon_id?: `${SortOrder}`;
@@ -41,14 +42,14 @@ export class PokemonFormsOrderByWithRelationInput {
     order?: `${SortOrder}`;
 
     @Field(() => PokemonOrderByWithRelationInput, {nullable:true})
-    pokemon?: PokemonOrderByWithRelationInput;
+    pokemon?: Identity<PokemonOrderByWithRelationInput>;
 
     @Field(() => VersionGroupsOrderByWithRelationInput, {nullable:true})
-    versionGroup?: VersionGroupsOrderByWithRelationInput;
+    versionGroup?: Identity<VersionGroupsOrderByWithRelationInput>;
 
     @Field(() => PokemonFormGenerationsOrderByRelationAggregateInput, {nullable:true})
-    generations?: PokemonFormGenerationsOrderByRelationAggregateInput;
+    generations?: Identity<PokemonFormGenerationsOrderByRelationAggregateInput>;
 
     @Field(() => PokemonFormTypesOrderByRelationAggregateInput, {nullable:true})
-    types?: PokemonFormTypesOrderByRelationAggregateInput;
+    types?: Identity<PokemonFormTypesOrderByRelationAggregateInput>;
 }

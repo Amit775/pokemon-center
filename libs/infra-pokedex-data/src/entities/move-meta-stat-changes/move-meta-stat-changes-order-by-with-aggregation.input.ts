@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { MoveMetaStatChangesCountOrderByAggregateInput } from './move-meta-stat-changes-count-order-by-aggregate.input';
 import { MoveMetaStatChangesAvgOrderByAggregateInput } from './move-meta-stat-changes-avg-order-by-aggregate.input';
 import { MoveMetaStatChangesMaxOrderByAggregateInput } from './move-meta-stat-changes-max-order-by-aggregate.input';
@@ -20,17 +21,17 @@ export class MoveMetaStatChangesOrderByWithAggregationInput {
     change?: `${SortOrder}`;
 
     @Field(() => MoveMetaStatChangesCountOrderByAggregateInput, {nullable:true})
-    _count?: MoveMetaStatChangesCountOrderByAggregateInput;
+    _count?: Identity<MoveMetaStatChangesCountOrderByAggregateInput>;
 
     @Field(() => MoveMetaStatChangesAvgOrderByAggregateInput, {nullable:true})
-    _avg?: MoveMetaStatChangesAvgOrderByAggregateInput;
+    _avg?: Identity<MoveMetaStatChangesAvgOrderByAggregateInput>;
 
     @Field(() => MoveMetaStatChangesMaxOrderByAggregateInput, {nullable:true})
-    _max?: MoveMetaStatChangesMaxOrderByAggregateInput;
+    _max?: Identity<MoveMetaStatChangesMaxOrderByAggregateInput>;
 
     @Field(() => MoveMetaStatChangesMinOrderByAggregateInput, {nullable:true})
-    _min?: MoveMetaStatChangesMinOrderByAggregateInput;
+    _min?: Identity<MoveMetaStatChangesMinOrderByAggregateInput>;
 
     @Field(() => MoveMetaStatChangesSumOrderByAggregateInput, {nullable:true})
-    _sum?: MoveMetaStatChangesSumOrderByAggregateInput;
+    _sum?: Identity<MoveMetaStatChangesSumOrderByAggregateInput>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaStatChangesUncheckedCreateNestedManyWithoutMetaInput } from '../move-meta-stat-changes/move-meta-stat-changes-unchecked-create-nested-many-without-meta.input';
 
 @InputType()
@@ -43,5 +44,5 @@ export class MoveMetaUncheckedCreateWithoutMoveInput {
     stat_chance!: number;
 
     @Field(() => MoveMetaStatChangesUncheckedCreateNestedManyWithoutMetaInput, {nullable:true})
-    statChanges?: MoveMetaStatChangesUncheckedCreateNestedManyWithoutMetaInput;
+    statChanges?: Identity<MoveMetaStatChangesUncheckedCreateNestedManyWithoutMetaInput>;
 }

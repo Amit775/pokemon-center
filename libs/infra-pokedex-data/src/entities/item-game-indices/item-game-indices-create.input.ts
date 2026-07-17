@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemsCreateNestedOneWithoutGameIndicesInput } from '../items/items-create-nested-one-without-game-indices.input';
 import { GenerationsCreateNestedOneWithoutItemGameIndicesInput } from '../generations/generations-create-nested-one-without-item-game-indices.input';
 
@@ -11,8 +12,8 @@ export class ItemGameIndicesCreateInput {
     game_index!: number;
 
     @Field(() => ItemsCreateNestedOneWithoutGameIndicesInput, {nullable:false})
-    item!: ItemsCreateNestedOneWithoutGameIndicesInput;
+    item!: Identity<ItemsCreateNestedOneWithoutGameIndicesInput>;
 
     @Field(() => GenerationsCreateNestedOneWithoutItemGameIndicesInput, {nullable:false})
-    generation!: GenerationsCreateNestedOneWithoutItemGameIndicesInput;
+    generation!: Identity<GenerationsCreateNestedOneWithoutItemGameIndicesInput>;
 }

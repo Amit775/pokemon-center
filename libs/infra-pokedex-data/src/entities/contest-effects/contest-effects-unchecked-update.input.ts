@@ -1,20 +1,21 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesUncheckedUpdateManyWithoutContestEffectNestedInput } from '../moves/moves-unchecked-update-many-without-contest-effect-nested.input';
 
 @InputType()
 export class ContestEffectsUncheckedUpdateInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    appeal?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    appeal?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    jam?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    jam?: number;
 
     @Field(() => MovesUncheckedUpdateManyWithoutContestEffectNestedInput, {nullable:true})
-    moves?: MovesUncheckedUpdateManyWithoutContestEffectNestedInput;
+    moves?: Identity<MovesUncheckedUpdateManyWithoutContestEffectNestedInput>;
 }

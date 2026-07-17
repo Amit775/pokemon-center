@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { PokemonEggGroups } from '../pokemon-egg-groups/pokemon-egg-groups.model';
 import { EggGroupsCount } from './egg-groups-count.output';
+import type { Identity } from 'identity-type';
 
 /**
  * @@TypeGraphQL.type(name: "EggGroup")
@@ -16,9 +17,9 @@ export class EggGroups {
     @Field(() => String, {nullable:false})
     identifier!: string;
 
-    @Field(() => [PokemonEggGroups], {nullable:true})
+    @Field(() => [PokemonEggGroups], {nullable:false})
     species?: Array<PokemonEggGroups>;
 
     @Field(() => EggGroupsCount, {nullable:false})
-    _count?: EggGroupsCount;
+    _count?: Identity<EggGroupsCount>;
 }

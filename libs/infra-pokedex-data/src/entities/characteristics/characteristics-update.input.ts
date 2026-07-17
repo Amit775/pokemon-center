@@ -1,17 +1,18 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StatsUpdateOneRequiredWithoutCharacteristicsNestedInput } from '../stats/stats-update-one-required-without-characteristics-nested.input';
 
 @InputType()
 export class CharacteristicsUpdateInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    gene_mod_5?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    gene_mod_5?: number;
 
     @Field(() => StatsUpdateOneRequiredWithoutCharacteristicsNestedInput, {nullable:true})
-    stat?: StatsUpdateOneRequiredWithoutCharacteristicsNestedInput;
+    stat?: Identity<StatsUpdateOneRequiredWithoutCharacteristicsNestedInput>;
 }

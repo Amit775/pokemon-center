@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GendersWhereInput } from './genders-where.input';
 import { Type } from 'class-transformer';
 import { GendersOrderByWithAggregationInput } from './genders-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class GendersGroupByArgs {
 
     @Field(() => GendersWhereInput, {nullable:true})
     @Type(() => GendersWhereInput)
-    where?: GendersWhereInput;
+    where?: Identity<GendersWhereInput>;
 
     @Field(() => [GendersOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<GendersOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class GendersGroupByArgs {
     by!: Array<`${GendersScalarFieldEnum}`>;
 
     @Field(() => GendersScalarWhereWithAggregatesInput, {nullable:true})
-    having?: GendersScalarWhereWithAggregatesInput;
+    having?: Identity<GendersScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class GendersGroupByArgs {
     skip?: number;
 
     @Field(() => GendersCountAggregateInput, {nullable:true})
-    _count?: GendersCountAggregateInput;
+    _count?: Identity<GendersCountAggregateInput>;
 
     @Field(() => GendersAvgAggregateInput, {nullable:true})
-    _avg?: GendersAvgAggregateInput;
+    _avg?: Identity<GendersAvgAggregateInput>;
 
     @Field(() => GendersSumAggregateInput, {nullable:true})
-    _sum?: GendersSumAggregateInput;
+    _sum?: Identity<GendersSumAggregateInput>;
 
     @Field(() => GendersMinAggregateInput, {nullable:true})
-    _min?: GendersMinAggregateInput;
+    _min?: Identity<GendersMinAggregateInput>;
 
     @Field(() => GendersMaxAggregateInput, {nullable:true})
-    _max?: GendersMaxAggregateInput;
+    _max?: Identity<GendersMaxAggregateInput>;
 }

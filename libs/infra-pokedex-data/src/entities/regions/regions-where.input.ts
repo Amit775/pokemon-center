@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { GenerationsListRelationFilter } from '../generations/generations-list-relation-filter.input';
@@ -20,20 +21,20 @@ export class RegionsWhereInput {
     NOT?: Array<RegionsWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => GenerationsListRelationFilter, {nullable:true})
-    generations?: GenerationsListRelationFilter;
+    generations?: Identity<GenerationsListRelationFilter>;
 
     @Field(() => LocationsListRelationFilter, {nullable:true})
-    locations?: LocationsListRelationFilter;
+    locations?: Identity<LocationsListRelationFilter>;
 
     @Field(() => PokedexesListRelationFilter, {nullable:true})
-    pokedexes?: PokedexesListRelationFilter;
+    pokedexes?: Identity<PokedexesListRelationFilter>;
 
     @Field(() => VersionGroupRegionsListRelationFilter, {nullable:true})
-    versionGroups?: VersionGroupRegionsListRelationFilter;
+    versionGroups?: Identity<VersionGroupRegionsListRelationFilter>;
 }

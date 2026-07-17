@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncountersWhereInput } from './encounters-where.input';
 import { Type } from 'class-transformer';
 import { EncountersOrderByWithAggregationInput } from './encounters-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class EncountersGroupByArgs {
 
     @Field(() => EncountersWhereInput, {nullable:true})
     @Type(() => EncountersWhereInput)
-    where?: EncountersWhereInput;
+    where?: Identity<EncountersWhereInput>;
 
     @Field(() => [EncountersOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<EncountersOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class EncountersGroupByArgs {
     by!: Array<`${EncountersScalarFieldEnum}`>;
 
     @Field(() => EncountersScalarWhereWithAggregatesInput, {nullable:true})
-    having?: EncountersScalarWhereWithAggregatesInput;
+    having?: Identity<EncountersScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class EncountersGroupByArgs {
     skip?: number;
 
     @Field(() => EncountersCountAggregateInput, {nullable:true})
-    _count?: EncountersCountAggregateInput;
+    _count?: Identity<EncountersCountAggregateInput>;
 
     @Field(() => EncountersAvgAggregateInput, {nullable:true})
-    _avg?: EncountersAvgAggregateInput;
+    _avg?: Identity<EncountersAvgAggregateInput>;
 
     @Field(() => EncountersSumAggregateInput, {nullable:true})
-    _sum?: EncountersSumAggregateInput;
+    _sum?: Identity<EncountersSumAggregateInput>;
 
     @Field(() => EncountersMinAggregateInput, {nullable:true})
-    _min?: EncountersMinAggregateInput;
+    _min?: Identity<EncountersMinAggregateInput>;
 
     @Field(() => EncountersMaxAggregateInput, {nullable:true})
-    _max?: EncountersMaxAggregateInput;
+    _max?: Identity<EncountersMaxAggregateInput>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterConditionValueMapUncheckedCreateNestedManyWithoutConditionValueInput } from '../encounter-condition-value-map/encounter-condition-value-map-unchecked-create-nested-many-without-condition-value.input';
 
 @InputType()
@@ -19,5 +20,5 @@ export class EncounterConditionValuesUncheckedCreateInput {
     is_default!: number;
 
     @Field(() => EncounterConditionValueMapUncheckedCreateNestedManyWithoutConditionValueInput, {nullable:true})
-    conditionValueMap?: EncounterConditionValueMapUncheckedCreateNestedManyWithoutConditionValueInput;
+    conditionValueMap?: Identity<EncounterConditionValueMapUncheckedCreateNestedManyWithoutConditionValueInput>;
 }

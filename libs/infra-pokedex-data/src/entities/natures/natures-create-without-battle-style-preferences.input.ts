@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StatsCreateNestedOneWithoutNaturesDecreasedInput } from '../stats/stats-create-nested-one-without-natures-decreased.input';
 import { StatsCreateNestedOneWithoutNaturesIncreasedInput } from '../stats/stats-create-nested-one-without-natures-increased.input';
 
@@ -23,8 +24,8 @@ export class NaturesCreateWithoutBattleStylePreferencesInput {
     game_index!: number;
 
     @Field(() => StatsCreateNestedOneWithoutNaturesDecreasedInput, {nullable:false})
-    decreasedStat!: StatsCreateNestedOneWithoutNaturesDecreasedInput;
+    decreasedStat!: Identity<StatsCreateNestedOneWithoutNaturesDecreasedInput>;
 
     @Field(() => StatsCreateNestedOneWithoutNaturesIncreasedInput, {nullable:false})
-    increasedStat!: StatsCreateNestedOneWithoutNaturesIncreasedInput;
+    increasedStat!: Identity<StatsCreateNestedOneWithoutNaturesIncreasedInput>;
 }

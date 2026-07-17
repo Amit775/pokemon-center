@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
-import { ItemsNullableScalarRelationFilter } from '../items/items-nullable-scalar-relation-filter.input';
+import { ItemsScalarRelationFilter } from '../items/items-scalar-relation-filter.input';
 import { PokemonSpeciesListRelationFilter } from '../pokemon-species/pokemon-species-list-relation-filter.input';
 
 @InputType()
@@ -18,14 +18,14 @@ export class EvolutionChainsWhereInput {
     NOT?: Array<EvolutionChainsWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    baby_trigger_item_id?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    baby_trigger_item_id?: Identity<IntFilter>;
 
-    @Field(() => ItemsNullableScalarRelationFilter, {nullable:true})
-    babyTriggerItem?: ItemsNullableScalarRelationFilter;
+    @Field(() => ItemsScalarRelationFilter, {nullable:true})
+    babyTriggerItem?: Identity<ItemsScalarRelationFilter>;
 
     @Field(() => PokemonSpeciesListRelationFilter, {nullable:true})
-    species?: PokemonSpeciesListRelationFilter;
+    species?: Identity<PokemonSpeciesListRelationFilter>;
 }

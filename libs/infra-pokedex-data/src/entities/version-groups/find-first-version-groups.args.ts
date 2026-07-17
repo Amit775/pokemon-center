@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupsWhereInput } from './version-groups-where.input';
 import { Type } from 'class-transformer';
 import { VersionGroupsOrderByWithRelationInput } from './version-groups-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupsWhereUniqueInput } from './version-groups-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { VersionGroupsScalarFieldEnum } from './version-groups-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstVersionGroupsArgs {
 
     @Field(() => VersionGroupsWhereInput, {nullable:true})
     @Type(() => VersionGroupsWhereInput)
-    where?: VersionGroupsWhereInput;
+    where?: Identity<VersionGroupsWhereInput>;
 
     @Field(() => [VersionGroupsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<VersionGroupsOrderByWithRelationInput>;

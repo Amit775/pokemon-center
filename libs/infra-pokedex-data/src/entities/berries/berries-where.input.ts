@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { ItemsScalarRelationFilter } from '../items/items-scalar-relation-filter.input';
 import { BerryFirmnessScalarRelationFilter } from '../berry-firmness/berry-firmness-scalar-relation-filter.input';
-import { TypesNullableScalarRelationFilter } from '../types/types-nullable-scalar-relation-filter.input';
+import { TypesScalarRelationFilter } from '../types/types-scalar-relation-filter.input';
 import { BerryFlavorsListRelationFilter } from '../berry-flavors/berry-flavors-list-relation-filter.input';
 
 @InputType()
@@ -20,44 +20,44 @@ export class BerriesWhereInput {
     NOT?: Array<BerriesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    item_id?: IntFilter;
+    item_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    firmness_id?: IntFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    natural_gift_power?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    natural_gift_type_id?: IntNullableFilter;
+    firmness_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    size?: IntFilter;
+    natural_gift_power?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    max_harvest?: IntFilter;
+    natural_gift_type_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    growth_time?: IntFilter;
+    size?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    soil_dryness?: IntFilter;
+    max_harvest?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    smoothness?: IntFilter;
+    growth_time?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    soil_dryness?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    smoothness?: Identity<IntFilter>;
 
     @Field(() => ItemsScalarRelationFilter, {nullable:true})
-    item?: ItemsScalarRelationFilter;
+    item?: Identity<ItemsScalarRelationFilter>;
 
     @Field(() => BerryFirmnessScalarRelationFilter, {nullable:true})
-    firmness?: BerryFirmnessScalarRelationFilter;
+    firmness?: Identity<BerryFirmnessScalarRelationFilter>;
 
-    @Field(() => TypesNullableScalarRelationFilter, {nullable:true})
-    naturalGiftType?: TypesNullableScalarRelationFilter;
+    @Field(() => TypesScalarRelationFilter, {nullable:true})
+    naturalGiftType?: Identity<TypesScalarRelationFilter>;
 
     @Field(() => BerryFlavorsListRelationFilter, {nullable:true})
-    flavors?: BerryFlavorsListRelationFilter;
+    flavors?: Identity<BerryFlavorsListRelationFilter>;
 }

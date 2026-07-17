@@ -29,10 +29,10 @@ export { ItemFlingEffectsMaxOrderByAggregateInput } from './item-fling-effects-m
 export { ItemFlingEffectsMinAggregateInput } from './item-fling-effects-min-aggregate.input';
 export { ItemFlingEffectsMinAggregate } from './item-fling-effects-min-aggregate.output';
 export { ItemFlingEffectsMinOrderByAggregateInput } from './item-fling-effects-min-order-by-aggregate.input';
-export { ItemFlingEffectsNullableScalarRelationFilter } from './item-fling-effects-nullable-scalar-relation-filter.input';
 export { ItemFlingEffectsOrderByWithAggregationInput } from './item-fling-effects-order-by-with-aggregation.input';
 export { ItemFlingEffectsOrderByWithRelationInput } from './item-fling-effects-order-by-with-relation.input';
 export { ItemFlingEffectsScalarFieldEnum } from './item-fling-effects-scalar-field.enum';
+export { ItemFlingEffectsScalarRelationFilter } from './item-fling-effects-scalar-relation-filter.input';
 export { ItemFlingEffectsScalarWhereWithAggregatesInput } from './item-fling-effects-scalar-where-with-aggregates.input';
 export { ItemFlingEffectsSumAggregateInput } from './item-fling-effects-sum-aggregate.input';
 export { ItemFlingEffectsSumAggregate } from './item-fling-effects-sum-aggregate.output';

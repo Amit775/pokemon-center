@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonUpdateWithoutGameIndicesInput } from './pokemon-update-without-game-indices.input';
 import { Type } from 'class-transformer';
 import { PokemonCreateWithoutGameIndicesInput } from './pokemon-create-without-game-indices.input';
@@ -10,13 +11,13 @@ export class PokemonUpsertWithoutGameIndicesInput {
 
     @Field(() => PokemonUpdateWithoutGameIndicesInput, {nullable:false})
     @Type(() => PokemonUpdateWithoutGameIndicesInput)
-    update!: PokemonUpdateWithoutGameIndicesInput;
+    update!: Identity<PokemonUpdateWithoutGameIndicesInput>;
 
     @Field(() => PokemonCreateWithoutGameIndicesInput, {nullable:false})
     @Type(() => PokemonCreateWithoutGameIndicesInput)
-    create!: PokemonCreateWithoutGameIndicesInput;
+    create!: Identity<PokemonCreateWithoutGameIndicesInput>;
 
     @Field(() => PokemonWhereInput, {nullable:true})
     @Type(() => PokemonWhereInput)
-    where?: PokemonWhereInput;
+    where?: Identity<PokemonWhereInput>;
 }

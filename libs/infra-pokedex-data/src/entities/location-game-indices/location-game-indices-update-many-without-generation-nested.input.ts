@@ -4,8 +4,9 @@ import { LocationGameIndicesCreateWithoutGenerationInput } from './location-game
 import { Type } from 'class-transformer';
 import { LocationGameIndicesCreateOrConnectWithoutGenerationInput } from './location-game-indices-create-or-connect-without-generation.input';
 import { LocationGameIndicesUpsertWithWhereUniqueWithoutGenerationInput } from './location-game-indices-upsert-with-where-unique-without-generation.input';
+import type { Identity } from 'identity-type';
 import { LocationGameIndicesCreateManyGenerationInputEnvelope } from './location-game-indices-create-many-generation-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationGameIndicesWhereUniqueInput } from './location-game-indices-where-unique.input';
 import { LocationGameIndicesUpdateWithWhereUniqueWithoutGenerationInput } from './location-game-indices-update-with-where-unique-without-generation.input';
 import { LocationGameIndicesUpdateManyWithWhereWithoutGenerationInput } from './location-game-indices-update-many-with-where-without-generation.input';
@@ -28,7 +29,7 @@ export class LocationGameIndicesUpdateManyWithoutGenerationNestedInput {
 
     @Field(() => LocationGameIndicesCreateManyGenerationInputEnvelope, {nullable:true})
     @Type(() => LocationGameIndicesCreateManyGenerationInputEnvelope)
-    createMany?: LocationGameIndicesCreateManyGenerationInputEnvelope;
+    createMany?: Identity<LocationGameIndicesCreateManyGenerationInputEnvelope>;
 
     @Field(() => [LocationGameIndicesWhereUniqueInput], {nullable:true})
     @Type(() => LocationGameIndicesWhereUniqueInput)

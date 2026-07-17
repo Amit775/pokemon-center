@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonAbilitiesWhereInput } from './pokemon-abilities-where.input';
 import { Type } from 'class-transformer';
 import { PokemonAbilitiesOrderByWithRelationInput } from './pokemon-abilities-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonAbilitiesWhereUniqueInput } from './pokemon-abilities-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokemonAbilitiesCountAggregateInput } from './pokemon-abilities-count-aggregate.input';
@@ -17,7 +18,7 @@ export class PokemonAbilitiesAggregateArgs {
 
     @Field(() => PokemonAbilitiesWhereInput, {nullable:true})
     @Type(() => PokemonAbilitiesWhereInput)
-    where?: PokemonAbilitiesWhereInput;
+    where?: Identity<PokemonAbilitiesWhereInput>;
 
     @Field(() => [PokemonAbilitiesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokemonAbilitiesOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class PokemonAbilitiesAggregateArgs {
     skip?: number;
 
     @Field(() => PokemonAbilitiesCountAggregateInput, {nullable:true})
-    _count?: PokemonAbilitiesCountAggregateInput;
+    _count?: Identity<PokemonAbilitiesCountAggregateInput>;
 
     @Field(() => PokemonAbilitiesAvgAggregateInput, {nullable:true})
-    _avg?: PokemonAbilitiesAvgAggregateInput;
+    _avg?: Identity<PokemonAbilitiesAvgAggregateInput>;
 
     @Field(() => PokemonAbilitiesSumAggregateInput, {nullable:true})
-    _sum?: PokemonAbilitiesSumAggregateInput;
+    _sum?: Identity<PokemonAbilitiesSumAggregateInput>;
 
     @Field(() => PokemonAbilitiesMinAggregateInput, {nullable:true})
-    _min?: PokemonAbilitiesMinAggregateInput;
+    _min?: Identity<PokemonAbilitiesMinAggregateInput>;
 
     @Field(() => PokemonAbilitiesMaxAggregateInput, {nullable:true})
-    _max?: PokemonAbilitiesMaxAggregateInput;
+    _max?: Identity<PokemonAbilitiesMaxAggregateInput>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { PokedexesScalarRelationFilter } from '../pokedexes/pokedexes-scalar-relation-filter.input';
 import { VersionGroupsScalarRelationFilter } from '../version-groups/version-groups-scalar-relation-filter.input';
@@ -17,14 +18,14 @@ export class PokedexVersionGroupsWhereInput {
     NOT?: Array<PokedexVersionGroupsWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    pokedex_id?: IntFilter;
+    pokedex_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    version_group_id?: IntFilter;
+    version_group_id?: Identity<IntFilter>;
 
     @Field(() => PokedexesScalarRelationFilter, {nullable:true})
-    pokedex?: PokedexesScalarRelationFilter;
+    pokedex?: Identity<PokedexesScalarRelationFilter>;
 
     @Field(() => VersionGroupsScalarRelationFilter, {nullable:true})
-    versionGroup?: VersionGroupsScalarRelationFilter;
+    versionGroup?: Identity<VersionGroupsScalarRelationFilter>;
 }

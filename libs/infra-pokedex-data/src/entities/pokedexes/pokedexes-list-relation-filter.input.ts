@@ -1,16 +1,17 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokedexesWhereInput } from './pokedexes-where.input';
 
 @InputType()
 export class PokedexesListRelationFilter {
 
     @Field(() => PokedexesWhereInput, {nullable:true})
-    every?: PokedexesWhereInput;
+    every?: Identity<PokedexesWhereInput>;
 
     @Field(() => PokedexesWhereInput, {nullable:true})
-    some?: PokedexesWhereInput;
+    some?: Identity<PokedexesWhereInput>;
 
     @Field(() => PokedexesWhereInput, {nullable:true})
-    none?: PokedexesWhereInput;
+    none?: Identity<PokedexesWhereInput>;
 }

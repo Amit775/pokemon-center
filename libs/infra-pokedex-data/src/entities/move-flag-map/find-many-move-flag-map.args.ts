@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveFlagMapWhereInput } from './move-flag-map-where.input';
 import { Type } from 'class-transformer';
 import { MoveFlagMapOrderByWithRelationInput } from './move-flag-map-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveFlagMapWhereUniqueInput } from './move-flag-map-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { MoveFlagMapScalarFieldEnum } from './move-flag-map-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManyMoveFlagMapArgs {
 
     @Field(() => MoveFlagMapWhereInput, {nullable:true})
     @Type(() => MoveFlagMapWhereInput)
-    where?: MoveFlagMapWhereInput;
+    where?: Identity<MoveFlagMapWhereInput>;
 
     @Field(() => [MoveFlagMapOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<MoveFlagMapOrderByWithRelationInput>;

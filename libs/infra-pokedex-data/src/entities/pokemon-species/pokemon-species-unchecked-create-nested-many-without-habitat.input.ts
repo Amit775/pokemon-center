@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { PokemonSpeciesCreateWithoutHabitatInput } from './pokemon-species-create-without-habitat.input';
 import { Type } from 'class-transformer';
 import { PokemonSpeciesCreateOrConnectWithoutHabitatInput } from './pokemon-species-create-or-connect-without-habitat.input';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesCreateManyHabitatInputEnvelope } from './pokemon-species-create-many-habitat-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonSpeciesWhereUniqueInput } from './pokemon-species-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class PokemonSpeciesUncheckedCreateNestedManyWithoutHabitatInput {
 
     @Field(() => PokemonSpeciesCreateManyHabitatInputEnvelope, {nullable:true})
     @Type(() => PokemonSpeciesCreateManyHabitatInputEnvelope)
-    createMany?: PokemonSpeciesCreateManyHabitatInputEnvelope;
+    createMany?: Identity<PokemonSpeciesCreateManyHabitatInputEnvelope>;
 
     @Field(() => [PokemonSpeciesWhereUniqueInput], {nullable:true})
     @Type(() => PokemonSpeciesWhereUniqueInput)

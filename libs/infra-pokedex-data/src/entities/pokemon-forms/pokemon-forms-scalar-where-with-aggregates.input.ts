@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
-import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class PokemonFormsScalarWhereWithAggregatesInput {
@@ -17,32 +17,32 @@ export class PokemonFormsScalarWhereWithAggregatesInput {
     NOT?: Array<PokemonFormsScalarWhereWithAggregatesInput>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
+    id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
-    identifier?: StringWithAggregatesFilter;
+    identifier?: Identity<StringWithAggregatesFilter>;
 
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    form_identifier?: StringNullableWithAggregatesFilter;
-
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    pokemon_id?: IntWithAggregatesFilter;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    form_identifier?: Identity<StringWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    introduced_in_version_group_id?: IntWithAggregatesFilter;
+    pokemon_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    is_default?: IntWithAggregatesFilter;
+    introduced_in_version_group_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    is_battle_only?: IntWithAggregatesFilter;
+    is_default?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    is_mega?: IntWithAggregatesFilter;
+    is_battle_only?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    form_order?: IntWithAggregatesFilter;
+    is_mega?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    order?: IntWithAggregatesFilter;
+    form_order?: Identity<IntWithAggregatesFilter>;
+
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    order?: Identity<IntWithAggregatesFilter>;
 }

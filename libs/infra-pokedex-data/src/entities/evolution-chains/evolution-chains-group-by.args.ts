@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EvolutionChainsWhereInput } from './evolution-chains-where.input';
 import { Type } from 'class-transformer';
 import { EvolutionChainsOrderByWithAggregationInput } from './evolution-chains-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class EvolutionChainsGroupByArgs {
 
     @Field(() => EvolutionChainsWhereInput, {nullable:true})
     @Type(() => EvolutionChainsWhereInput)
-    where?: EvolutionChainsWhereInput;
+    where?: Identity<EvolutionChainsWhereInput>;
 
     @Field(() => [EvolutionChainsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<EvolutionChainsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class EvolutionChainsGroupByArgs {
     by!: Array<`${EvolutionChainsScalarFieldEnum}`>;
 
     @Field(() => EvolutionChainsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: EvolutionChainsScalarWhereWithAggregatesInput;
+    having?: Identity<EvolutionChainsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class EvolutionChainsGroupByArgs {
     skip?: number;
 
     @Field(() => EvolutionChainsCountAggregateInput, {nullable:true})
-    _count?: EvolutionChainsCountAggregateInput;
+    _count?: Identity<EvolutionChainsCountAggregateInput>;
 
     @Field(() => EvolutionChainsAvgAggregateInput, {nullable:true})
-    _avg?: EvolutionChainsAvgAggregateInput;
+    _avg?: Identity<EvolutionChainsAvgAggregateInput>;
 
     @Field(() => EvolutionChainsSumAggregateInput, {nullable:true})
-    _sum?: EvolutionChainsSumAggregateInput;
+    _sum?: Identity<EvolutionChainsSumAggregateInput>;
 
     @Field(() => EvolutionChainsMinAggregateInput, {nullable:true})
-    _min?: EvolutionChainsMinAggregateInput;
+    _min?: Identity<EvolutionChainsMinAggregateInput>;
 
     @Field(() => EvolutionChainsMaxAggregateInput, {nullable:true})
-    _max?: EvolutionChainsMaxAggregateInput;
+    _max?: Identity<EvolutionChainsMaxAggregateInput>;
 }

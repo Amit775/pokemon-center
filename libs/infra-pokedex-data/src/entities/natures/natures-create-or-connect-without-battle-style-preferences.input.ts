@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { NaturesWhereUniqueInput } from './natures-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { NaturesCreateWithoutBattleStylePreferencesInput } from './natures-create-without-battle-style-preferences.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class NaturesCreateOrConnectWithoutBattleStylePreferencesInput {
 
     @Field(() => NaturesCreateWithoutBattleStylePreferencesInput, {nullable:false})
     @Type(() => NaturesCreateWithoutBattleStylePreferencesInput)
-    create!: NaturesCreateWithoutBattleStylePreferencesInput;
+    create!: Identity<NaturesCreateWithoutBattleStylePreferencesInput>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { VersionGroupsOrderByWithRelationInput } from '../version-groups/version-groups-order-by-with-relation.input';
 import { EncountersOrderByRelationAggregateInput } from '../encounters/encounters-order-by-relation-aggregate.input';
 import { PokemonItemsOrderByRelationAggregateInput } from '../pokemon-items/pokemon-items-order-by-relation-aggregate.input';
@@ -20,17 +21,17 @@ export class VersionsOrderByWithRelationInput {
     identifier?: `${SortOrder}`;
 
     @Field(() => VersionGroupsOrderByWithRelationInput, {nullable:true})
-    versionGroup?: VersionGroupsOrderByWithRelationInput;
+    versionGroup?: Identity<VersionGroupsOrderByWithRelationInput>;
 
     @Field(() => EncountersOrderByRelationAggregateInput, {nullable:true})
-    encounters?: EncountersOrderByRelationAggregateInput;
+    encounters?: Identity<EncountersOrderByRelationAggregateInput>;
 
     @Field(() => PokemonItemsOrderByRelationAggregateInput, {nullable:true})
-    pokemonItems?: PokemonItemsOrderByRelationAggregateInput;
+    pokemonItems?: Identity<PokemonItemsOrderByRelationAggregateInput>;
 
     @Field(() => PokemonGameIndicesOrderByRelationAggregateInput, {nullable:true})
-    pokemonGameIndices?: PokemonGameIndicesOrderByRelationAggregateInput;
+    pokemonGameIndices?: Identity<PokemonGameIndicesOrderByRelationAggregateInput>;
 
     @Field(() => LocationAreaEncounterRatesOrderByRelationAggregateInput, {nullable:true})
-    locationAreaEncounterRates?: LocationAreaEncounterRatesOrderByRelationAggregateInput;
+    locationAreaEncounterRates?: Identity<LocationAreaEncounterRatesOrderByRelationAggregateInput>;
 }

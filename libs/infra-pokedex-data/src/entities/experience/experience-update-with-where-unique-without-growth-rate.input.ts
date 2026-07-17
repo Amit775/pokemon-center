@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ExperienceWhereUniqueInput } from './experience-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { ExperienceUpdateWithoutGrowthRateInput } from './experience-update-without-growth-rate.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class ExperienceUpdateWithWhereUniqueWithoutGrowthRateInput {
 
     @Field(() => ExperienceUpdateWithoutGrowthRateInput, {nullable:false})
     @Type(() => ExperienceUpdateWithoutGrowthRateInput)
-    data!: ExperienceUpdateWithoutGrowthRateInput;
+    data!: Identity<ExperienceUpdateWithoutGrowthRateInput>;
 }

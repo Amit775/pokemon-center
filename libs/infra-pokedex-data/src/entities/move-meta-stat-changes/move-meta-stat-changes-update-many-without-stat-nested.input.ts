@@ -4,8 +4,9 @@ import { MoveMetaStatChangesCreateWithoutStatInput } from './move-meta-stat-chan
 import { Type } from 'class-transformer';
 import { MoveMetaStatChangesCreateOrConnectWithoutStatInput } from './move-meta-stat-changes-create-or-connect-without-stat.input';
 import { MoveMetaStatChangesUpsertWithWhereUniqueWithoutStatInput } from './move-meta-stat-changes-upsert-with-where-unique-without-stat.input';
+import type { Identity } from 'identity-type';
 import { MoveMetaStatChangesCreateManyStatInputEnvelope } from './move-meta-stat-changes-create-many-stat-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveMetaStatChangesWhereUniqueInput } from './move-meta-stat-changes-where-unique.input';
 import { MoveMetaStatChangesUpdateWithWhereUniqueWithoutStatInput } from './move-meta-stat-changes-update-with-where-unique-without-stat.input';
 import { MoveMetaStatChangesUpdateManyWithWhereWithoutStatInput } from './move-meta-stat-changes-update-many-with-where-without-stat.input';
@@ -28,7 +29,7 @@ export class MoveMetaStatChangesUpdateManyWithoutStatNestedInput {
 
     @Field(() => MoveMetaStatChangesCreateManyStatInputEnvelope, {nullable:true})
     @Type(() => MoveMetaStatChangesCreateManyStatInputEnvelope)
-    createMany?: MoveMetaStatChangesCreateManyStatInputEnvelope;
+    createMany?: Identity<MoveMetaStatChangesCreateManyStatInputEnvelope>;
 
     @Field(() => [MoveMetaStatChangesWhereUniqueInput], {nullable:true})
     @Type(() => MoveMetaStatChangesWhereUniqueInput)

@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokedexesWhereInput } from './pokedexes-where.input';
 import { Type } from 'class-transformer';
 import { PokedexesOrderByWithRelationInput } from './pokedexes-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokedexesWhereUniqueInput } from './pokedexes-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokedexesCountAggregateInput } from './pokedexes-count-aggregate.input';
@@ -17,7 +18,7 @@ export class PokedexesAggregateArgs {
 
     @Field(() => PokedexesWhereInput, {nullable:true})
     @Type(() => PokedexesWhereInput)
-    where?: PokedexesWhereInput;
+    where?: Identity<PokedexesWhereInput>;
 
     @Field(() => [PokedexesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokedexesOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class PokedexesAggregateArgs {
     skip?: number;
 
     @Field(() => PokedexesCountAggregateInput, {nullable:true})
-    _count?: PokedexesCountAggregateInput;
+    _count?: Identity<PokedexesCountAggregateInput>;
 
     @Field(() => PokedexesAvgAggregateInput, {nullable:true})
-    _avg?: PokedexesAvgAggregateInput;
+    _avg?: Identity<PokedexesAvgAggregateInput>;
 
     @Field(() => PokedexesSumAggregateInput, {nullable:true})
-    _sum?: PokedexesSumAggregateInput;
+    _sum?: Identity<PokedexesSumAggregateInput>;
 
     @Field(() => PokedexesMinAggregateInput, {nullable:true})
-    _min?: PokedexesMinAggregateInput;
+    _min?: Identity<PokedexesMinAggregateInput>;
 
     @Field(() => PokedexesMaxAggregateInput, {nullable:true})
-    _max?: PokedexesMaxAggregateInput;
+    _max?: Identity<PokedexesMaxAggregateInput>;
 }

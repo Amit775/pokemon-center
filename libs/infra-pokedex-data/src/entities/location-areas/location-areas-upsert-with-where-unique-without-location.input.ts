@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationAreasWhereUniqueInput } from './location-areas-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { LocationAreasUpdateWithoutLocationInput } from './location-areas-update-without-location.input';
 import { LocationAreasCreateWithoutLocationInput } from './location-areas-create-without-location.input';
 
@@ -15,9 +16,9 @@ export class LocationAreasUpsertWithWhereUniqueWithoutLocationInput {
 
     @Field(() => LocationAreasUpdateWithoutLocationInput, {nullable:false})
     @Type(() => LocationAreasUpdateWithoutLocationInput)
-    update!: LocationAreasUpdateWithoutLocationInput;
+    update!: Identity<LocationAreasUpdateWithoutLocationInput>;
 
     @Field(() => LocationAreasCreateWithoutLocationInput, {nullable:false})
     @Type(() => LocationAreasCreateWithoutLocationInput)
-    create!: LocationAreasCreateWithoutLocationInput;
+    create!: Identity<LocationAreasCreateWithoutLocationInput>;
 }

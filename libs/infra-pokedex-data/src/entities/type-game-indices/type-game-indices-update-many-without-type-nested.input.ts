@@ -4,8 +4,9 @@ import { TypeGameIndicesCreateWithoutTypeInput } from './type-game-indices-creat
 import { Type } from 'class-transformer';
 import { TypeGameIndicesCreateOrConnectWithoutTypeInput } from './type-game-indices-create-or-connect-without-type.input';
 import { TypeGameIndicesUpsertWithWhereUniqueWithoutTypeInput } from './type-game-indices-upsert-with-where-unique-without-type.input';
+import type { Identity } from 'identity-type';
 import { TypeGameIndicesCreateManyTypeInputEnvelope } from './type-game-indices-create-many-type-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { TypeGameIndicesWhereUniqueInput } from './type-game-indices-where-unique.input';
 import { TypeGameIndicesUpdateWithWhereUniqueWithoutTypeInput } from './type-game-indices-update-with-where-unique-without-type.input';
 import { TypeGameIndicesUpdateManyWithWhereWithoutTypeInput } from './type-game-indices-update-many-with-where-without-type.input';
@@ -28,7 +29,7 @@ export class TypeGameIndicesUpdateManyWithoutTypeNestedInput {
 
     @Field(() => TypeGameIndicesCreateManyTypeInputEnvelope, {nullable:true})
     @Type(() => TypeGameIndicesCreateManyTypeInputEnvelope)
-    createMany?: TypeGameIndicesCreateManyTypeInputEnvelope;
+    createMany?: Identity<TypeGameIndicesCreateManyTypeInputEnvelope>;
 
     @Field(() => [TypeGameIndicesWhereUniqueInput], {nullable:true})
     @Type(() => TypeGameIndicesWhereUniqueInput)

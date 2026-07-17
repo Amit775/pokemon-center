@@ -1,8 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemFlingEffectsUpdateOneWithoutItemsNestedInput } from '../item-fling-effects/item-fling-effects-update-one-without-items-nested.input';
 import { PokemonItemsUpdateManyWithoutItemNestedInput } from '../pokemon-items/pokemon-items-update-many-without-item-nested.input';
 import { MachinesUpdateManyWithoutItemNestedInput } from '../machines/machines-update-many-without-item-nested.input';
@@ -16,42 +15,42 @@ import { PokemonEvolutionUpdateManyWithoutHeldItemNestedInput } from '../pokemon
 @InputType()
 export class ItemsUpdateWithoutCategoryInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    cost?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    cost?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    fling_power?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    fling_power?: number;
 
     @Field(() => ItemFlingEffectsUpdateOneWithoutItemsNestedInput, {nullable:true})
-    flingEffect?: ItemFlingEffectsUpdateOneWithoutItemsNestedInput;
+    flingEffect?: Identity<ItemFlingEffectsUpdateOneWithoutItemsNestedInput>;
 
     @Field(() => PokemonItemsUpdateManyWithoutItemNestedInput, {nullable:true})
-    pokemonItems?: PokemonItemsUpdateManyWithoutItemNestedInput;
+    pokemonItems?: Identity<PokemonItemsUpdateManyWithoutItemNestedInput>;
 
     @Field(() => MachinesUpdateManyWithoutItemNestedInput, {nullable:true})
-    machines?: MachinesUpdateManyWithoutItemNestedInput;
+    machines?: Identity<MachinesUpdateManyWithoutItemNestedInput>;
 
     @Field(() => BerriesUpdateManyWithoutItemNestedInput, {nullable:true})
-    berries?: BerriesUpdateManyWithoutItemNestedInput;
+    berries?: Identity<BerriesUpdateManyWithoutItemNestedInput>;
 
     @Field(() => ItemGameIndicesUpdateManyWithoutItemNestedInput, {nullable:true})
-    gameIndices?: ItemGameIndicesUpdateManyWithoutItemNestedInput;
+    gameIndices?: Identity<ItemGameIndicesUpdateManyWithoutItemNestedInput>;
 
     @Field(() => ItemFlagMapUpdateManyWithoutItemNestedInput, {nullable:true})
-    flagMap?: ItemFlagMapUpdateManyWithoutItemNestedInput;
+    flagMap?: Identity<ItemFlagMapUpdateManyWithoutItemNestedInput>;
 
     @Field(() => EvolutionChainsUpdateManyWithoutBabyTriggerItemNestedInput, {nullable:true})
-    babyTriggerItems?: EvolutionChainsUpdateManyWithoutBabyTriggerItemNestedInput;
+    babyTriggerItems?: Identity<EvolutionChainsUpdateManyWithoutBabyTriggerItemNestedInput>;
 
     @Field(() => PokemonEvolutionUpdateManyWithoutTriggerItemNestedInput, {nullable:true})
-    triggerItems?: PokemonEvolutionUpdateManyWithoutTriggerItemNestedInput;
+    triggerItems?: Identity<PokemonEvolutionUpdateManyWithoutTriggerItemNestedInput>;
 
     @Field(() => PokemonEvolutionUpdateManyWithoutHeldItemNestedInput, {nullable:true})
-    heldItems?: PokemonEvolutionUpdateManyWithoutHeldItemNestedInput;
+    heldItems?: Identity<PokemonEvolutionUpdateManyWithoutHeldItemNestedInput>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { ItemPocketsScalarRelationFilter } from '../item-pockets/item-pockets-scalar-relation-filter.input';
@@ -18,17 +19,17 @@ export class ItemCategoriesWhereInput {
     NOT?: Array<ItemCategoriesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    pocket_id?: IntFilter;
+    pocket_id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => ItemPocketsScalarRelationFilter, {nullable:true})
-    pocket?: ItemPocketsScalarRelationFilter;
+    pocket?: Identity<ItemPocketsScalarRelationFilter>;
 
     @Field(() => ItemsListRelationFilter, {nullable:true})
-    items?: ItemsListRelationFilter;
+    items?: Identity<ItemsListRelationFilter>;
 }

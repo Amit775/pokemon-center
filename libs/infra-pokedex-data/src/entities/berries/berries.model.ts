@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Items } from '../items/items.model';
+import type { Identity } from 'identity-type';
 import { BerryFirmness } from '../berry-firmness/berry-firmness.model';
 import { Types } from '../types/types.model';
 import { BerryFlavors } from '../berry-flavors/berry-flavors.model';
@@ -45,17 +46,17 @@ export class Berries {
     smoothness!: number;
 
     @Field(() => Items, {nullable:false})
-    item?: Items;
+    item?: Identity<Items>;
 
     @Field(() => BerryFirmness, {nullable:false})
-    firmness?: BerryFirmness;
+    firmness?: Identity<BerryFirmness>;
 
     @Field(() => Types, {nullable:true})
-    naturalGiftType?: Types | null;
+    naturalGiftType?: Identity<Types> | null;
 
-    @Field(() => [BerryFlavors], {nullable:true})
+    @Field(() => [BerryFlavors], {nullable:false})
     flavors?: Array<BerryFlavors>;
 
     @Field(() => BerriesCount, {nullable:false})
-    _count?: BerriesCount;
+    _count?: Identity<BerriesCount>;
 }

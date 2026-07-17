@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationAreasUpdateOneRequiredWithoutEncounterRatesNestedInput } from '../location-areas/location-areas-update-one-required-without-encounter-rates-nested.input';
 import { EncounterMethodsUpdateOneRequiredWithoutEncounterRatesNestedInput } from '../encounter-methods/encounter-methods-update-one-required-without-encounter-rates-nested.input';
 import { VersionsUpdateOneRequiredWithoutLocationAreaEncounterRatesNestedInput } from '../versions/versions-update-one-required-without-location-area-encounter-rates-nested.input';
@@ -8,15 +9,15 @@ import { VersionsUpdateOneRequiredWithoutLocationAreaEncounterRatesNestedInput }
 @InputType()
 export class LocationAreaEncounterRatesUpdateInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    rate?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    rate?: number;
 
     @Field(() => LocationAreasUpdateOneRequiredWithoutEncounterRatesNestedInput, {nullable:true})
-    locationArea?: LocationAreasUpdateOneRequiredWithoutEncounterRatesNestedInput;
+    locationArea?: Identity<LocationAreasUpdateOneRequiredWithoutEncounterRatesNestedInput>;
 
     @Field(() => EncounterMethodsUpdateOneRequiredWithoutEncounterRatesNestedInput, {nullable:true})
-    encounterMethod?: EncounterMethodsUpdateOneRequiredWithoutEncounterRatesNestedInput;
+    encounterMethod?: Identity<EncounterMethodsUpdateOneRequiredWithoutEncounterRatesNestedInput>;
 
     @Field(() => VersionsUpdateOneRequiredWithoutLocationAreaEncounterRatesNestedInput, {nullable:true})
-    version?: VersionsUpdateOneRequiredWithoutLocationAreaEncounterRatesNestedInput;
+    version?: Identity<VersionsUpdateOneRequiredWithoutLocationAreaEncounterRatesNestedInput>;
 }

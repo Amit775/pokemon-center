@@ -1,13 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class PokemonTypesUncheckedUpdateManyWithoutTypeInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    pokemon_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    pokemon_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    slot?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    slot?: number;
 }

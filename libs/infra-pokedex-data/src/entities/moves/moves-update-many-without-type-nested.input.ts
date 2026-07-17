@@ -4,8 +4,9 @@ import { MovesCreateWithoutTypeInput } from './moves-create-without-type.input';
 import { Type } from 'class-transformer';
 import { MovesCreateOrConnectWithoutTypeInput } from './moves-create-or-connect-without-type.input';
 import { MovesUpsertWithWhereUniqueWithoutTypeInput } from './moves-upsert-with-where-unique-without-type.input';
+import type { Identity } from 'identity-type';
 import { MovesCreateManyTypeInputEnvelope } from './moves-create-many-type-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MovesWhereUniqueInput } from './moves-where-unique.input';
 import { MovesUpdateWithWhereUniqueWithoutTypeInput } from './moves-update-with-where-unique-without-type.input';
 import { MovesUpdateManyWithWhereWithoutTypeInput } from './moves-update-many-with-where-without-type.input';
@@ -28,7 +29,7 @@ export class MovesUpdateManyWithoutTypeNestedInput {
 
     @Field(() => MovesCreateManyTypeInputEnvelope, {nullable:true})
     @Type(() => MovesCreateManyTypeInputEnvelope)
-    createMany?: MovesCreateManyTypeInputEnvelope;
+    createMany?: Identity<MovesCreateManyTypeInputEnvelope>;
 
     @Field(() => [MovesWhereUniqueInput], {nullable:true})
     @Type(() => MovesWhereUniqueInput)

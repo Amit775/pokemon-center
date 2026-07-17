@@ -4,8 +4,9 @@ import { PokemonTypesCreateWithoutPokemonInput } from './pokemon-types-create-wi
 import { Type } from 'class-transformer';
 import { PokemonTypesCreateOrConnectWithoutPokemonInput } from './pokemon-types-create-or-connect-without-pokemon.input';
 import { PokemonTypesUpsertWithWhereUniqueWithoutPokemonInput } from './pokemon-types-upsert-with-where-unique-without-pokemon.input';
+import type { Identity } from 'identity-type';
 import { PokemonTypesCreateManyPokemonInputEnvelope } from './pokemon-types-create-many-pokemon-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonTypesWhereUniqueInput } from './pokemon-types-where-unique.input';
 import { PokemonTypesUpdateWithWhereUniqueWithoutPokemonInput } from './pokemon-types-update-with-where-unique-without-pokemon.input';
 import { PokemonTypesUpdateManyWithWhereWithoutPokemonInput } from './pokemon-types-update-many-with-where-without-pokemon.input';
@@ -28,7 +29,7 @@ export class PokemonTypesUpdateManyWithoutPokemonNestedInput {
 
     @Field(() => PokemonTypesCreateManyPokemonInputEnvelope, {nullable:true})
     @Type(() => PokemonTypesCreateManyPokemonInputEnvelope)
-    createMany?: PokemonTypesCreateManyPokemonInputEnvelope;
+    createMany?: Identity<PokemonTypesCreateManyPokemonInputEnvelope>;
 
     @Field(() => [PokemonTypesWhereUniqueInput], {nullable:true})
     @Type(() => PokemonTypesWhereUniqueInput)

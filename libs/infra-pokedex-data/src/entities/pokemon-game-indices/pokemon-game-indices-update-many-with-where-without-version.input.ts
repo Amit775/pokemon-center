@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonGameIndicesScalarWhereInput } from './pokemon-game-indices-scalar-where.input';
 import { Type } from 'class-transformer';
 import { PokemonGameIndicesUpdateManyMutationInput } from './pokemon-game-indices-update-many-mutation.input';
@@ -9,9 +10,9 @@ export class PokemonGameIndicesUpdateManyWithWhereWithoutVersionInput {
 
     @Field(() => PokemonGameIndicesScalarWhereInput, {nullable:false})
     @Type(() => PokemonGameIndicesScalarWhereInput)
-    where!: PokemonGameIndicesScalarWhereInput;
+    where!: Identity<PokemonGameIndicesScalarWhereInput>;
 
     @Field(() => PokemonGameIndicesUpdateManyMutationInput, {nullable:false})
     @Type(() => PokemonGameIndicesUpdateManyMutationInput)
-    data!: PokemonGameIndicesUpdateManyMutationInput;
+    data!: Identity<PokemonGameIndicesUpdateManyMutationInput>;
 }

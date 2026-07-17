@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormTypesPokemon_form_idType_idCompoundUniqueInput } from './pokemon-form-types-pokemon-form-id-type-id-compound-unique.input';
 import { PokemonFormTypesWhereInput } from './pokemon-form-types-where.input';
 import { IntFilter } from '../prisma/int-filter.input';
@@ -10,7 +11,7 @@ import { TypesScalarRelationFilter } from '../types/types-scalar-relation-filter
 export class PokemonFormTypesWhereUniqueInput {
 
     @Field(() => PokemonFormTypesPokemon_form_idType_idCompoundUniqueInput, {nullable:true})
-    pokemon_form_id_type_id?: PokemonFormTypesPokemon_form_idType_idCompoundUniqueInput;
+    pokemon_form_id_type_id?: Identity<PokemonFormTypesPokemon_form_idType_idCompoundUniqueInput>;
 
     @Field(() => [PokemonFormTypesWhereInput], {nullable:true})
     AND?: Array<PokemonFormTypesWhereInput>;
@@ -22,17 +23,17 @@ export class PokemonFormTypesWhereUniqueInput {
     NOT?: Array<PokemonFormTypesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    pokemon_form_id?: IntFilter;
+    pokemon_form_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    type_id?: IntFilter;
+    type_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    slot?: IntFilter;
+    slot?: Identity<IntFilter>;
 
     @Field(() => PokemonFormsScalarRelationFilter, {nullable:true})
-    pokemonForm?: PokemonFormsScalarRelationFilter;
+    pokemonForm?: Identity<PokemonFormsScalarRelationFilter>;
 
     @Field(() => TypesScalarRelationFilter, {nullable:true})
-    type?: TypesScalarRelationFilter;
+    type?: Identity<TypesScalarRelationFilter>;
 }

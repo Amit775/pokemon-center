@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemsWhereInput } from './items-where.input';
 import { Type } from 'class-transformer';
 import { Int } from '@nestjs/graphql';
@@ -9,7 +10,7 @@ export class DeleteManyItemsArgs {
 
     @Field(() => ItemsWhereInput, {nullable:true})
     @Type(() => ItemsWhereInput)
-    where?: ItemsWhereInput;
+    where?: Identity<ItemsWhereInput>;
 
     @Field(() => Int, {nullable:true})
     limit?: number;

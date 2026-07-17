@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ContestTypesWhereInput } from './contest-types-where.input';
 import { Type } from 'class-transformer';
 import { ContestTypesOrderByWithRelationInput } from './contest-types-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ContestTypesWhereUniqueInput } from './contest-types-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { ContestTypesCountAggregateInput } from './contest-types-count-aggregate.input';
@@ -17,7 +18,7 @@ export class ContestTypesAggregateArgs {
 
     @Field(() => ContestTypesWhereInput, {nullable:true})
     @Type(() => ContestTypesWhereInput)
-    where?: ContestTypesWhereInput;
+    where?: Identity<ContestTypesWhereInput>;
 
     @Field(() => [ContestTypesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<ContestTypesOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class ContestTypesAggregateArgs {
     skip?: number;
 
     @Field(() => ContestTypesCountAggregateInput, {nullable:true})
-    _count?: ContestTypesCountAggregateInput;
+    _count?: Identity<ContestTypesCountAggregateInput>;
 
     @Field(() => ContestTypesAvgAggregateInput, {nullable:true})
-    _avg?: ContestTypesAvgAggregateInput;
+    _avg?: Identity<ContestTypesAvgAggregateInput>;
 
     @Field(() => ContestTypesSumAggregateInput, {nullable:true})
-    _sum?: ContestTypesSumAggregateInput;
+    _sum?: Identity<ContestTypesSumAggregateInput>;
 
     @Field(() => ContestTypesMinAggregateInput, {nullable:true})
-    _min?: ContestTypesMinAggregateInput;
+    _min?: Identity<ContestTypesMinAggregateInput>;
 
     @Field(() => ContestTypesMaxAggregateInput, {nullable:true})
-    _max?: ContestTypesMaxAggregateInput;
+    _max?: Identity<ContestTypesMaxAggregateInput>;
 }

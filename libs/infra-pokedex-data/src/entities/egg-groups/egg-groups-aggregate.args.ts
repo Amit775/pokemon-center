@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EggGroupsWhereInput } from './egg-groups-where.input';
 import { Type } from 'class-transformer';
 import { EggGroupsOrderByWithRelationInput } from './egg-groups-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EggGroupsWhereUniqueInput } from './egg-groups-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { EggGroupsCountAggregateInput } from './egg-groups-count-aggregate.input';
@@ -17,7 +18,7 @@ export class EggGroupsAggregateArgs {
 
     @Field(() => EggGroupsWhereInput, {nullable:true})
     @Type(() => EggGroupsWhereInput)
-    where?: EggGroupsWhereInput;
+    where?: Identity<EggGroupsWhereInput>;
 
     @Field(() => [EggGroupsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<EggGroupsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class EggGroupsAggregateArgs {
     skip?: number;
 
     @Field(() => EggGroupsCountAggregateInput, {nullable:true})
-    _count?: EggGroupsCountAggregateInput;
+    _count?: Identity<EggGroupsCountAggregateInput>;
 
     @Field(() => EggGroupsAvgAggregateInput, {nullable:true})
-    _avg?: EggGroupsAvgAggregateInput;
+    _avg?: Identity<EggGroupsAvgAggregateInput>;
 
     @Field(() => EggGroupsSumAggregateInput, {nullable:true})
-    _sum?: EggGroupsSumAggregateInput;
+    _sum?: Identity<EggGroupsSumAggregateInput>;
 
     @Field(() => EggGroupsMinAggregateInput, {nullable:true})
-    _min?: EggGroupsMinAggregateInput;
+    _min?: Identity<EggGroupsMinAggregateInput>;
 
     @Field(() => EggGroupsMaxAggregateInput, {nullable:true})
-    _max?: EggGroupsMaxAggregateInput;
+    _max?: Identity<EggGroupsMaxAggregateInput>;
 }

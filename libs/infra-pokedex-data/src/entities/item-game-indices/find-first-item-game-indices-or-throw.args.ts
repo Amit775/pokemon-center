@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemGameIndicesWhereInput } from './item-game-indices-where.input';
 import { Type } from 'class-transformer';
 import { ItemGameIndicesOrderByWithRelationInput } from './item-game-indices-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemGameIndicesWhereUniqueInput } from './item-game-indices-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { ItemGameIndicesScalarFieldEnum } from './item-game-indices-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstItemGameIndicesOrThrowArgs {
 
     @Field(() => ItemGameIndicesWhereInput, {nullable:true})
     @Type(() => ItemGameIndicesWhereInput)
-    where?: ItemGameIndicesWhereInput;
+    where?: Identity<ItemGameIndicesWhereInput>;
 
     @Field(() => [ItemGameIndicesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<ItemGameIndicesOrderByWithRelationInput>;

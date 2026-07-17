@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { MoveFlagMap } from '../move-flag-map/move-flag-map.model';
 import { MoveFlagsCount } from './move-flags-count.output';
+import type { Identity } from 'identity-type';
 
 /**
  * @@TypeGraphQL.type(name: "MoveFlag")
@@ -16,9 +17,9 @@ export class MoveFlags {
     @Field(() => String, {nullable:false})
     identifier!: string;
 
-    @Field(() => [MoveFlagMap], {nullable:true})
+    @Field(() => [MoveFlagMap], {nullable:false})
     flagMap?: Array<MoveFlagMap>;
 
     @Field(() => MoveFlagsCount, {nullable:false})
-    _count?: MoveFlagsCount;
+    _count?: Identity<MoveFlagsCount>;
 }

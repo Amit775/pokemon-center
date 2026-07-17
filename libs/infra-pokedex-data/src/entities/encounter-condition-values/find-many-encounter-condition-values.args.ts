@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterConditionValuesWhereInput } from './encounter-condition-values-where.input';
 import { Type } from 'class-transformer';
 import { EncounterConditionValuesOrderByWithRelationInput } from './encounter-condition-values-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncounterConditionValuesWhereUniqueInput } from './encounter-condition-values-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { EncounterConditionValuesScalarFieldEnum } from './encounter-condition-values-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManyEncounterConditionValuesArgs {
 
     @Field(() => EncounterConditionValuesWhereInput, {nullable:true})
     @Type(() => EncounterConditionValuesWhereInput)
-    where?: EncounterConditionValuesWhereInput;
+    where?: Identity<EncounterConditionValuesWhereInput>;
 
     @Field(() => [EncounterConditionValuesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<EncounterConditionValuesOrderByWithRelationInput>;

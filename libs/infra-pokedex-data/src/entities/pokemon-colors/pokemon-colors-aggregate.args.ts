@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonColorsWhereInput } from './pokemon-colors-where.input';
 import { Type } from 'class-transformer';
 import { PokemonColorsOrderByWithRelationInput } from './pokemon-colors-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonColorsWhereUniqueInput } from './pokemon-colors-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokemonColorsCountAggregateInput } from './pokemon-colors-count-aggregate.input';
@@ -17,7 +18,7 @@ export class PokemonColorsAggregateArgs {
 
     @Field(() => PokemonColorsWhereInput, {nullable:true})
     @Type(() => PokemonColorsWhereInput)
-    where?: PokemonColorsWhereInput;
+    where?: Identity<PokemonColorsWhereInput>;
 
     @Field(() => [PokemonColorsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokemonColorsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class PokemonColorsAggregateArgs {
     skip?: number;
 
     @Field(() => PokemonColorsCountAggregateInput, {nullable:true})
-    _count?: PokemonColorsCountAggregateInput;
+    _count?: Identity<PokemonColorsCountAggregateInput>;
 
     @Field(() => PokemonColorsAvgAggregateInput, {nullable:true})
-    _avg?: PokemonColorsAvgAggregateInput;
+    _avg?: Identity<PokemonColorsAvgAggregateInput>;
 
     @Field(() => PokemonColorsSumAggregateInput, {nullable:true})
-    _sum?: PokemonColorsSumAggregateInput;
+    _sum?: Identity<PokemonColorsSumAggregateInput>;
 
     @Field(() => PokemonColorsMinAggregateInput, {nullable:true})
-    _min?: PokemonColorsMinAggregateInput;
+    _min?: Identity<PokemonColorsMinAggregateInput>;
 
     @Field(() => PokemonColorsMaxAggregateInput, {nullable:true})
-    _max?: PokemonColorsMaxAggregateInput;
+    _max?: Identity<PokemonColorsMaxAggregateInput>;
 }

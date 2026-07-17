@@ -1,20 +1,19 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class VersionGroupsUncheckedUpdateManyInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    generation_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    generation_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    order?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    order?: number;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EvolutionTriggersCountAggregate } from './evolution-triggers-count-aggregate.output';
 import { EvolutionTriggersAvgAggregate } from './evolution-triggers-avg-aggregate.output';
 import { EvolutionTriggersSumAggregate } from './evolution-triggers-sum-aggregate.output';
@@ -17,17 +18,17 @@ export class EvolutionTriggersGroupBy {
     identifier!: string;
 
     @Field(() => EvolutionTriggersCountAggregate, {nullable:true})
-    _count?: EvolutionTriggersCountAggregate;
+    _count?: Identity<EvolutionTriggersCountAggregate>;
 
     @Field(() => EvolutionTriggersAvgAggregate, {nullable:true})
-    _avg?: EvolutionTriggersAvgAggregate;
+    _avg?: Identity<EvolutionTriggersAvgAggregate>;
 
     @Field(() => EvolutionTriggersSumAggregate, {nullable:true})
-    _sum?: EvolutionTriggersSumAggregate;
+    _sum?: Identity<EvolutionTriggersSumAggregate>;
 
     @Field(() => EvolutionTriggersMinAggregate, {nullable:true})
-    _min?: EvolutionTriggersMinAggregate;
+    _min?: Identity<EvolutionTriggersMinAggregate>;
 
     @Field(() => EvolutionTriggersMaxAggregate, {nullable:true})
-    _max?: EvolutionTriggersMaxAggregate;
+    _max?: Identity<EvolutionTriggersMaxAggregate>;
 }

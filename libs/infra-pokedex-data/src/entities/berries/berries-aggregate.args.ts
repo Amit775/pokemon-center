@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { BerriesWhereInput } from './berries-where.input';
 import { Type } from 'class-transformer';
 import { BerriesOrderByWithRelationInput } from './berries-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { BerriesWhereUniqueInput } from './berries-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { BerriesCountAggregateInput } from './berries-count-aggregate.input';
@@ -17,7 +18,7 @@ export class BerriesAggregateArgs {
 
     @Field(() => BerriesWhereInput, {nullable:true})
     @Type(() => BerriesWhereInput)
-    where?: BerriesWhereInput;
+    where?: Identity<BerriesWhereInput>;
 
     @Field(() => [BerriesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<BerriesOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class BerriesAggregateArgs {
     skip?: number;
 
     @Field(() => BerriesCountAggregateInput, {nullable:true})
-    _count?: BerriesCountAggregateInput;
+    _count?: Identity<BerriesCountAggregateInput>;
 
     @Field(() => BerriesAvgAggregateInput, {nullable:true})
-    _avg?: BerriesAvgAggregateInput;
+    _avg?: Identity<BerriesAvgAggregateInput>;
 
     @Field(() => BerriesSumAggregateInput, {nullable:true})
-    _sum?: BerriesSumAggregateInput;
+    _sum?: Identity<BerriesSumAggregateInput>;
 
     @Field(() => BerriesMinAggregateInput, {nullable:true})
-    _min?: BerriesMinAggregateInput;
+    _min?: Identity<BerriesMinAggregateInput>;
 
     @Field(() => BerriesMaxAggregateInput, {nullable:true})
-    _max?: BerriesMaxAggregateInput;
+    _max?: Identity<BerriesMaxAggregateInput>;
 }

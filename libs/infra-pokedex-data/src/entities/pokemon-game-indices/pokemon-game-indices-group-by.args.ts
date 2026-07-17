@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonGameIndicesWhereInput } from './pokemon-game-indices-where.input';
 import { Type } from 'class-transformer';
 import { PokemonGameIndicesOrderByWithAggregationInput } from './pokemon-game-indices-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class PokemonGameIndicesGroupByArgs {
 
     @Field(() => PokemonGameIndicesWhereInput, {nullable:true})
     @Type(() => PokemonGameIndicesWhereInput)
-    where?: PokemonGameIndicesWhereInput;
+    where?: Identity<PokemonGameIndicesWhereInput>;
 
     @Field(() => [PokemonGameIndicesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<PokemonGameIndicesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class PokemonGameIndicesGroupByArgs {
     by!: Array<`${PokemonGameIndicesScalarFieldEnum}`>;
 
     @Field(() => PokemonGameIndicesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: PokemonGameIndicesScalarWhereWithAggregatesInput;
+    having?: Identity<PokemonGameIndicesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class PokemonGameIndicesGroupByArgs {
     skip?: number;
 
     @Field(() => PokemonGameIndicesCountAggregateInput, {nullable:true})
-    _count?: PokemonGameIndicesCountAggregateInput;
+    _count?: Identity<PokemonGameIndicesCountAggregateInput>;
 
     @Field(() => PokemonGameIndicesAvgAggregateInput, {nullable:true})
-    _avg?: PokemonGameIndicesAvgAggregateInput;
+    _avg?: Identity<PokemonGameIndicesAvgAggregateInput>;
 
     @Field(() => PokemonGameIndicesSumAggregateInput, {nullable:true})
-    _sum?: PokemonGameIndicesSumAggregateInput;
+    _sum?: Identity<PokemonGameIndicesSumAggregateInput>;
 
     @Field(() => PokemonGameIndicesMinAggregateInput, {nullable:true})
-    _min?: PokemonGameIndicesMinAggregateInput;
+    _min?: Identity<PokemonGameIndicesMinAggregateInput>;
 
     @Field(() => PokemonGameIndicesMaxAggregateInput, {nullable:true})
-    _max?: PokemonGameIndicesMaxAggregateInput;
+    _max?: Identity<PokemonGameIndicesMaxAggregateInput>;
 }

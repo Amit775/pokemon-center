@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MachinesWhereInput } from './machines-where.input';
 import { Type } from 'class-transformer';
 import { MachinesOrderByWithRelationInput } from './machines-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MachinesWhereUniqueInput } from './machines-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { MachinesScalarFieldEnum } from './machines-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManyMachinesArgs {
 
     @Field(() => MachinesWhereInput, {nullable:true})
     @Type(() => MachinesWhereInput)
-    where?: MachinesWhereInput;
+    where?: Identity<MachinesWhereInput>;
 
     @Field(() => [MachinesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<MachinesOrderByWithRelationInput>;

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { LocationsOrderByWithRelationInput } from '../locations/locations-order-by-with-relation.input';
 import { EncountersOrderByRelationAggregateInput } from '../encounters/encounters-order-by-relation-aggregate.input';
@@ -19,14 +20,14 @@ export class LocationAreasOrderByWithRelationInput {
     game_index?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    identifier?: SortOrderInput;
+    identifier?: Identity<SortOrderInput>;
 
     @Field(() => LocationsOrderByWithRelationInput, {nullable:true})
-    location?: LocationsOrderByWithRelationInput;
+    location?: Identity<LocationsOrderByWithRelationInput>;
 
     @Field(() => EncountersOrderByRelationAggregateInput, {nullable:true})
-    encounters?: EncountersOrderByRelationAggregateInput;
+    encounters?: Identity<EncountersOrderByRelationAggregateInput>;
 
     @Field(() => LocationAreaEncounterRatesOrderByRelationAggregateInput, {nullable:true})
-    encounterRates?: LocationAreaEncounterRatesOrderByRelationAggregateInput;
+    encounterRates?: Identity<LocationAreaEncounterRatesOrderByRelationAggregateInput>;
 }

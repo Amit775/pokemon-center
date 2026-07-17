@@ -1,16 +1,17 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonStatsWhereInput } from './pokemon-stats-where.input';
 
 @InputType()
 export class PokemonStatsListRelationFilter {
 
     @Field(() => PokemonStatsWhereInput, {nullable:true})
-    every?: PokemonStatsWhereInput;
+    every?: Identity<PokemonStatsWhereInput>;
 
     @Field(() => PokemonStatsWhereInput, {nullable:true})
-    some?: PokemonStatsWhereInput;
+    some?: Identity<PokemonStatsWhereInput>;
 
     @Field(() => PokemonStatsWhereInput, {nullable:true})
-    none?: PokemonStatsWhereInput;
+    none?: Identity<PokemonStatsWhereInput>;
 }

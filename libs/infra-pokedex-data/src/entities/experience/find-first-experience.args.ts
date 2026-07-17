@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ExperienceWhereInput } from './experience-where.input';
 import { Type } from 'class-transformer';
 import { ExperienceOrderByWithRelationInput } from './experience-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ExperienceWhereUniqueInput } from './experience-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { ExperienceScalarFieldEnum } from './experience-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstExperienceArgs {
 
     @Field(() => ExperienceWhereInput, {nullable:true})
     @Type(() => ExperienceWhereInput)
-    where?: ExperienceWhereInput;
+    where?: Identity<ExperienceWhereInput>;
 
     @Field(() => [ExperienceOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<ExperienceOrderByWithRelationInput>;

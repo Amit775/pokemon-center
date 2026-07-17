@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterSlotsCreateNestedManyWithoutEncounterMethodInput } from '../encounter-slots/encounter-slots-create-nested-many-without-encounter-method.input';
 import { LocationAreaEncounterRatesCreateNestedManyWithoutEncounterMethodInput } from '../location-area-encounter-rates/location-area-encounter-rates-create-nested-many-without-encounter-method.input';
 
@@ -17,8 +18,8 @@ export class EncounterMethodsCreateInput {
     order!: number;
 
     @Field(() => EncounterSlotsCreateNestedManyWithoutEncounterMethodInput, {nullable:true})
-    slots?: EncounterSlotsCreateNestedManyWithoutEncounterMethodInput;
+    slots?: Identity<EncounterSlotsCreateNestedManyWithoutEncounterMethodInput>;
 
     @Field(() => LocationAreaEncounterRatesCreateNestedManyWithoutEncounterMethodInput, {nullable:true})
-    encounterRates?: LocationAreaEncounterRatesCreateNestedManyWithoutEncounterMethodInput;
+    encounterRates?: Identity<LocationAreaEncounterRatesCreateNestedManyWithoutEncounterMethodInput>;
 }

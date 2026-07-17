@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { LanguagesWhereInput } from './languages-where.input';
+import type { Identity } from 'identity-type';
 import { StringFilter } from '../prisma/string-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
 
@@ -21,17 +22,17 @@ export class LanguagesWhereUniqueInput {
     NOT?: Array<LanguagesWhereInput>;
 
     @Field(() => StringFilter, {nullable:true})
-    iso639?: StringFilter;
+    iso639?: Identity<StringFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    iso3166?: StringFilter;
+    iso3166?: Identity<StringFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    official?: IntFilter;
+    official?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    order?: IntFilter;
+    order?: Identity<IntFilter>;
 }

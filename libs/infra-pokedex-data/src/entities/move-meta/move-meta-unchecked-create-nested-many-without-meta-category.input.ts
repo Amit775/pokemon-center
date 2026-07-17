@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { MoveMetaCreateWithoutMetaCategoryInput } from './move-meta-create-without-meta-category.input';
 import { Type } from 'class-transformer';
 import { MoveMetaCreateOrConnectWithoutMetaCategoryInput } from './move-meta-create-or-connect-without-meta-category.input';
+import type { Identity } from 'identity-type';
 import { MoveMetaCreateManyMetaCategoryInputEnvelope } from './move-meta-create-many-meta-category-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveMetaWhereUniqueInput } from './move-meta-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class MoveMetaUncheckedCreateNestedManyWithoutMetaCategoryInput {
 
     @Field(() => MoveMetaCreateManyMetaCategoryInputEnvelope, {nullable:true})
     @Type(() => MoveMetaCreateManyMetaCategoryInputEnvelope)
-    createMany?: MoveMetaCreateManyMetaCategoryInputEnvelope;
+    createMany?: Identity<MoveMetaCreateManyMetaCategoryInputEnvelope>;
 
     @Field(() => [MoveMetaWhereUniqueInput], {nullable:true})
     @Type(() => MoveMetaWhereUniqueInput)

@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { EncounterSlotsCreateWithoutEncounterMethodInput } from './encounter-slots-create-without-encounter-method.input';
 import { Type } from 'class-transformer';
 import { EncounterSlotsCreateOrConnectWithoutEncounterMethodInput } from './encounter-slots-create-or-connect-without-encounter-method.input';
+import type { Identity } from 'identity-type';
 import { EncounterSlotsCreateManyEncounterMethodInputEnvelope } from './encounter-slots-create-many-encounter-method-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncounterSlotsWhereUniqueInput } from './encounter-slots-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class EncounterSlotsCreateNestedManyWithoutEncounterMethodInput {
 
     @Field(() => EncounterSlotsCreateManyEncounterMethodInputEnvelope, {nullable:true})
     @Type(() => EncounterSlotsCreateManyEncounterMethodInputEnvelope)
-    createMany?: EncounterSlotsCreateManyEncounterMethodInputEnvelope;
+    createMany?: Identity<EncounterSlotsCreateManyEncounterMethodInputEnvelope>;
 
     @Field(() => [EncounterSlotsWhereUniqueInput], {nullable:true})
     @Type(() => EncounterSlotsWhereUniqueInput)

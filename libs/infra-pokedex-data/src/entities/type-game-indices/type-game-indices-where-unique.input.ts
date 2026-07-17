@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TypeGameIndicesType_idGeneration_idCompoundUniqueInput } from './type-game-indices-type-id-generation-id-compound-unique.input';
 import { TypeGameIndicesWhereInput } from './type-game-indices-where.input';
 import { IntFilter } from '../prisma/int-filter.input';
@@ -10,7 +11,7 @@ import { GenerationsScalarRelationFilter } from '../generations/generations-scal
 export class TypeGameIndicesWhereUniqueInput {
 
     @Field(() => TypeGameIndicesType_idGeneration_idCompoundUniqueInput, {nullable:true})
-    type_id_generation_id?: TypeGameIndicesType_idGeneration_idCompoundUniqueInput;
+    type_id_generation_id?: Identity<TypeGameIndicesType_idGeneration_idCompoundUniqueInput>;
 
     @Field(() => [TypeGameIndicesWhereInput], {nullable:true})
     AND?: Array<TypeGameIndicesWhereInput>;
@@ -22,17 +23,17 @@ export class TypeGameIndicesWhereUniqueInput {
     NOT?: Array<TypeGameIndicesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    type_id?: IntFilter;
+    type_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    generation_id?: IntFilter;
+    generation_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    game_index?: IntFilter;
+    game_index?: Identity<IntFilter>;
 
     @Field(() => TypesScalarRelationFilter, {nullable:true})
-    type?: TypesScalarRelationFilter;
+    type?: Identity<TypesScalarRelationFilter>;
 
     @Field(() => GenerationsScalarRelationFilter, {nullable:true})
-    generation?: GenerationsScalarRelationFilter;
+    generation?: Identity<GenerationsScalarRelationFilter>;
 }

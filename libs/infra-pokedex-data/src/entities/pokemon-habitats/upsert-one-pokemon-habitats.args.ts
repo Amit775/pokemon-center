@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonHabitatsWhereUniqueInput } from './pokemon-habitats-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonHabitatsCreateInput } from './pokemon-habitats-create.input';
 import { PokemonHabitatsUpdateInput } from './pokemon-habitats-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOnePokemonHabitatsArgs {
 
     @Field(() => PokemonHabitatsCreateInput, {nullable:false})
     @Type(() => PokemonHabitatsCreateInput)
-    create!: PokemonHabitatsCreateInput;
+    create!: Identity<PokemonHabitatsCreateInput>;
 
     @Field(() => PokemonHabitatsUpdateInput, {nullable:false})
     @Type(() => PokemonHabitatsUpdateInput)
-    update!: PokemonHabitatsUpdateInput;
+    update!: Identity<PokemonHabitatsUpdateInput>;
 }

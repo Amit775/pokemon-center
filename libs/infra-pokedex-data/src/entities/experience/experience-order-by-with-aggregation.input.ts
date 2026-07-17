@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { ExperienceCountOrderByAggregateInput } from './experience-count-order-by-aggregate.input';
 import { ExperienceAvgOrderByAggregateInput } from './experience-avg-order-by-aggregate.input';
 import { ExperienceMaxOrderByAggregateInput } from './experience-max-order-by-aggregate.input';
@@ -20,17 +21,17 @@ export class ExperienceOrderByWithAggregationInput {
     experience?: `${SortOrder}`;
 
     @Field(() => ExperienceCountOrderByAggregateInput, {nullable:true})
-    _count?: ExperienceCountOrderByAggregateInput;
+    _count?: Identity<ExperienceCountOrderByAggregateInput>;
 
     @Field(() => ExperienceAvgOrderByAggregateInput, {nullable:true})
-    _avg?: ExperienceAvgOrderByAggregateInput;
+    _avg?: Identity<ExperienceAvgOrderByAggregateInput>;
 
     @Field(() => ExperienceMaxOrderByAggregateInput, {nullable:true})
-    _max?: ExperienceMaxOrderByAggregateInput;
+    _max?: Identity<ExperienceMaxOrderByAggregateInput>;
 
     @Field(() => ExperienceMinOrderByAggregateInput, {nullable:true})
-    _min?: ExperienceMinOrderByAggregateInput;
+    _min?: Identity<ExperienceMinOrderByAggregateInput>;
 
     @Field(() => ExperienceSumOrderByAggregateInput, {nullable:true})
-    _sum?: ExperienceSumOrderByAggregateInput;
+    _sum?: Identity<ExperienceSumOrderByAggregateInput>;
 }

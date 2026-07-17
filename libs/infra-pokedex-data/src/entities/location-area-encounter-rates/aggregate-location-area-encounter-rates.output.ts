@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationAreaEncounterRatesCountAggregate } from './location-area-encounter-rates-count-aggregate.output';
 import { LocationAreaEncounterRatesAvgAggregate } from './location-area-encounter-rates-avg-aggregate.output';
 import { LocationAreaEncounterRatesSumAggregate } from './location-area-encounter-rates-sum-aggregate.output';
@@ -10,17 +11,17 @@ import { LocationAreaEncounterRatesMaxAggregate } from './location-area-encounte
 export class AggregateLocationAreaEncounterRates {
 
     @Field(() => LocationAreaEncounterRatesCountAggregate, {nullable:true})
-    _count?: LocationAreaEncounterRatesCountAggregate;
+    _count?: Identity<LocationAreaEncounterRatesCountAggregate>;
 
     @Field(() => LocationAreaEncounterRatesAvgAggregate, {nullable:true})
-    _avg?: LocationAreaEncounterRatesAvgAggregate;
+    _avg?: Identity<LocationAreaEncounterRatesAvgAggregate>;
 
     @Field(() => LocationAreaEncounterRatesSumAggregate, {nullable:true})
-    _sum?: LocationAreaEncounterRatesSumAggregate;
+    _sum?: Identity<LocationAreaEncounterRatesSumAggregate>;
 
     @Field(() => LocationAreaEncounterRatesMinAggregate, {nullable:true})
-    _min?: LocationAreaEncounterRatesMinAggregate;
+    _min?: Identity<LocationAreaEncounterRatesMinAggregate>;
 
     @Field(() => LocationAreaEncounterRatesMaxAggregate, {nullable:true})
-    _max?: LocationAreaEncounterRatesMaxAggregate;
+    _max?: Identity<LocationAreaEncounterRatesMaxAggregate>;
 }

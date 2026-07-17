@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonColorsWhereUniqueInput } from './pokemon-colors-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonColorsCreateInput } from './pokemon-colors-create.input';
 import { PokemonColorsUpdateInput } from './pokemon-colors-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOnePokemonColorsArgs {
 
     @Field(() => PokemonColorsCreateInput, {nullable:false})
     @Type(() => PokemonColorsCreateInput)
-    create!: PokemonColorsCreateInput;
+    create!: Identity<PokemonColorsCreateInput>;
 
     @Field(() => PokemonColorsUpdateInput, {nullable:false})
     @Type(() => PokemonColorsUpdateInput)
-    update!: PokemonColorsUpdateInput;
+    update!: Identity<PokemonColorsUpdateInput>;
 }

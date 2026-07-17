@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { RegionsWhereInput } from './regions-where.input';
 import { Type } from 'class-transformer';
 import { RegionsOrderByWithRelationInput } from './regions-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { RegionsWhereUniqueInput } from './regions-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { RegionsScalarFieldEnum } from './regions-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManyRegionsArgs {
 
     @Field(() => RegionsWhereInput, {nullable:true})
     @Type(() => RegionsWhereInput)
-    where?: RegionsWhereInput;
+    where?: Identity<RegionsWhereInput>;
 
     @Field(() => [RegionsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<RegionsOrderByWithRelationInput>;

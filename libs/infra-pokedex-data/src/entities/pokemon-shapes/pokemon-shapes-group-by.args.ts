@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonShapesWhereInput } from './pokemon-shapes-where.input';
 import { Type } from 'class-transformer';
 import { PokemonShapesOrderByWithAggregationInput } from './pokemon-shapes-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class PokemonShapesGroupByArgs {
 
     @Field(() => PokemonShapesWhereInput, {nullable:true})
     @Type(() => PokemonShapesWhereInput)
-    where?: PokemonShapesWhereInput;
+    where?: Identity<PokemonShapesWhereInput>;
 
     @Field(() => [PokemonShapesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<PokemonShapesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class PokemonShapesGroupByArgs {
     by!: Array<`${PokemonShapesScalarFieldEnum}`>;
 
     @Field(() => PokemonShapesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: PokemonShapesScalarWhereWithAggregatesInput;
+    having?: Identity<PokemonShapesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class PokemonShapesGroupByArgs {
     skip?: number;
 
     @Field(() => PokemonShapesCountAggregateInput, {nullable:true})
-    _count?: PokemonShapesCountAggregateInput;
+    _count?: Identity<PokemonShapesCountAggregateInput>;
 
     @Field(() => PokemonShapesAvgAggregateInput, {nullable:true})
-    _avg?: PokemonShapesAvgAggregateInput;
+    _avg?: Identity<PokemonShapesAvgAggregateInput>;
 
     @Field(() => PokemonShapesSumAggregateInput, {nullable:true})
-    _sum?: PokemonShapesSumAggregateInput;
+    _sum?: Identity<PokemonShapesSumAggregateInput>;
 
     @Field(() => PokemonShapesMinAggregateInput, {nullable:true})
-    _min?: PokemonShapesMinAggregateInput;
+    _min?: Identity<PokemonShapesMinAggregateInput>;
 
     @Field(() => PokemonShapesMaxAggregateInput, {nullable:true})
-    _max?: PokemonShapesMaxAggregateInput;
+    _max?: Identity<PokemonShapesMaxAggregateInput>;
 }

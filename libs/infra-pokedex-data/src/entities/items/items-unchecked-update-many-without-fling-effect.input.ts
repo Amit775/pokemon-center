@@ -1,24 +1,22 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class ItemsUncheckedUpdateManyWithoutFlingEffectInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    category_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    category_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    cost?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    cost?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    fling_power?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    fling_power?: number;
 }

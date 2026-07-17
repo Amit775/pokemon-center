@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupsUpdateWithoutVersionsInput } from './version-groups-update-without-versions.input';
 import { Type } from 'class-transformer';
 import { VersionGroupsCreateWithoutVersionsInput } from './version-groups-create-without-versions.input';
@@ -10,13 +11,13 @@ export class VersionGroupsUpsertWithoutVersionsInput {
 
     @Field(() => VersionGroupsUpdateWithoutVersionsInput, {nullable:false})
     @Type(() => VersionGroupsUpdateWithoutVersionsInput)
-    update!: VersionGroupsUpdateWithoutVersionsInput;
+    update!: Identity<VersionGroupsUpdateWithoutVersionsInput>;
 
     @Field(() => VersionGroupsCreateWithoutVersionsInput, {nullable:false})
     @Type(() => VersionGroupsCreateWithoutVersionsInput)
-    create!: VersionGroupsCreateWithoutVersionsInput;
+    create!: Identity<VersionGroupsCreateWithoutVersionsInput>;
 
     @Field(() => VersionGroupsWhereInput, {nullable:true})
     @Type(() => VersionGroupsWhereInput)
-    where?: VersionGroupsWhereInput;
+    where?: Identity<VersionGroupsWhereInput>;
 }

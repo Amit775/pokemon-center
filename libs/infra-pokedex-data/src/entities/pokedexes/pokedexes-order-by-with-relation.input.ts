@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { RegionsOrderByWithRelationInput } from '../regions/regions-order-by-with-relation.input';
 import { PokemonDexNumbersOrderByRelationAggregateInput } from '../pokemon-dex-numbers/pokemon-dex-numbers-order-by-relation-aggregate.input';
@@ -13,7 +14,7 @@ export class PokedexesOrderByWithRelationInput {
     id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    region_id?: SortOrderInput;
+    region_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrder, {nullable:true})
     identifier?: `${SortOrder}`;
@@ -22,11 +23,11 @@ export class PokedexesOrderByWithRelationInput {
     is_main_series?: `${SortOrder}`;
 
     @Field(() => RegionsOrderByWithRelationInput, {nullable:true})
-    region?: RegionsOrderByWithRelationInput;
+    region?: Identity<RegionsOrderByWithRelationInput>;
 
     @Field(() => PokemonDexNumbersOrderByRelationAggregateInput, {nullable:true})
-    dexNumbers?: PokemonDexNumbersOrderByRelationAggregateInput;
+    dexNumbers?: Identity<PokemonDexNumbersOrderByRelationAggregateInput>;
 
     @Field(() => PokedexVersionGroupsOrderByRelationAggregateInput, {nullable:true})
-    versionGroups?: PokedexVersionGroupsOrderByRelationAggregateInput;
+    versionGroups?: Identity<PokedexVersionGroupsOrderByRelationAggregateInput>;
 }

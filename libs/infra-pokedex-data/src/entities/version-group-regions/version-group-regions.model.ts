@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { VersionGroups } from '../version-groups/version-groups.model';
+import type { Identity } from 'identity-type';
 import { Regions } from '../regions/regions.model';
 
 /**
@@ -18,8 +19,8 @@ export class VersionGroupRegions {
     region_id!: number;
 
     @Field(() => VersionGroups, {nullable:false})
-    versionGroup?: VersionGroups;
+    versionGroup?: Identity<VersionGroups>;
 
     @Field(() => Regions, {nullable:false})
-    region?: Regions;
+    region?: Identity<Regions>;
 }

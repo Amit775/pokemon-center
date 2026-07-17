@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemsCreateWithoutFlagMapInput } from './items-create-without-flag-map.input';
 import { Type } from 'class-transformer';
 import { ItemsCreateOrConnectWithoutFlagMapInput } from './items-create-or-connect-without-flag-map.input';
 import { ItemsUpsertWithoutFlagMapInput } from './items-upsert-without-flag-map.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemsWhereUniqueInput } from './items-where-unique.input';
 import { ItemsUpdateToOneWithWhereWithoutFlagMapInput } from './items-update-to-one-with-where-without-flag-map.input';
 
@@ -13,15 +14,15 @@ export class ItemsUpdateOneRequiredWithoutFlagMapNestedInput {
 
     @Field(() => ItemsCreateWithoutFlagMapInput, {nullable:true})
     @Type(() => ItemsCreateWithoutFlagMapInput)
-    create?: ItemsCreateWithoutFlagMapInput;
+    create?: Identity<ItemsCreateWithoutFlagMapInput>;
 
     @Field(() => ItemsCreateOrConnectWithoutFlagMapInput, {nullable:true})
     @Type(() => ItemsCreateOrConnectWithoutFlagMapInput)
-    connectOrCreate?: ItemsCreateOrConnectWithoutFlagMapInput;
+    connectOrCreate?: Identity<ItemsCreateOrConnectWithoutFlagMapInput>;
 
     @Field(() => ItemsUpsertWithoutFlagMapInput, {nullable:true})
     @Type(() => ItemsUpsertWithoutFlagMapInput)
-    upsert?: ItemsUpsertWithoutFlagMapInput;
+    upsert?: Identity<ItemsUpsertWithoutFlagMapInput>;
 
     @Field(() => ItemsWhereUniqueInput, {nullable:true})
     @Type(() => ItemsWhereUniqueInput)
@@ -29,5 +30,5 @@ export class ItemsUpdateOneRequiredWithoutFlagMapNestedInput {
 
     @Field(() => ItemsUpdateToOneWithWhereWithoutFlagMapInput, {nullable:true})
     @Type(() => ItemsUpdateToOneWithWhereWithoutFlagMapInput)
-    update?: ItemsUpdateToOneWithWhereWithoutFlagMapInput;
+    update?: Identity<ItemsUpdateToOneWithWhereWithoutFlagMapInput>;
 }

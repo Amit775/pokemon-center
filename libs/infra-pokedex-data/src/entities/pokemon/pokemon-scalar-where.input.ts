@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 
 @InputType()
 export class PokemonScalarWhereInput {
@@ -17,26 +17,26 @@ export class PokemonScalarWhereInput {
     NOT?: Array<PokemonScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    species_id?: IntFilter;
+    species_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    height?: IntFilter;
+    height?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    weight?: IntFilter;
+    weight?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    base_experience?: IntFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    order?: IntNullableFilter;
+    base_experience?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    is_default?: IntFilter;
+    order?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    is_default?: Identity<IntFilter>;
 }

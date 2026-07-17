@@ -1,13 +1,14 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TypesWhereInput } from './types-where.input';
 
 @InputType()
 export class TypesScalarRelationFilter {
 
     @Field(() => TypesWhereInput, {nullable:true})
-    is?: TypesWhereInput;
+    is?: Identity<TypesWhereInput>;
 
     @Field(() => TypesWhereInput, {nullable:true})
-    isNot?: TypesWhereInput;
+    isNot?: Identity<TypesWhereInput>;
 }

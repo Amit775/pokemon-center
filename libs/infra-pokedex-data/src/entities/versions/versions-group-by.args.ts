@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionsWhereInput } from './versions-where.input';
 import { Type } from 'class-transformer';
 import { VersionsOrderByWithAggregationInput } from './versions-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class VersionsGroupByArgs {
 
     @Field(() => VersionsWhereInput, {nullable:true})
     @Type(() => VersionsWhereInput)
-    where?: VersionsWhereInput;
+    where?: Identity<VersionsWhereInput>;
 
     @Field(() => [VersionsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<VersionsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class VersionsGroupByArgs {
     by!: Array<`${VersionsScalarFieldEnum}`>;
 
     @Field(() => VersionsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: VersionsScalarWhereWithAggregatesInput;
+    having?: Identity<VersionsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class VersionsGroupByArgs {
     skip?: number;
 
     @Field(() => VersionsCountAggregateInput, {nullable:true})
-    _count?: VersionsCountAggregateInput;
+    _count?: Identity<VersionsCountAggregateInput>;
 
     @Field(() => VersionsAvgAggregateInput, {nullable:true})
-    _avg?: VersionsAvgAggregateInput;
+    _avg?: Identity<VersionsAvgAggregateInput>;
 
     @Field(() => VersionsSumAggregateInput, {nullable:true})
-    _sum?: VersionsSumAggregateInput;
+    _sum?: Identity<VersionsSumAggregateInput>;
 
     @Field(() => VersionsMinAggregateInput, {nullable:true})
-    _min?: VersionsMinAggregateInput;
+    _min?: Identity<VersionsMinAggregateInput>;
 
     @Field(() => VersionsMaxAggregateInput, {nullable:true})
-    _max?: VersionsMaxAggregateInput;
+    _max?: Identity<VersionsMaxAggregateInput>;
 }

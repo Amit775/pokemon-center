@@ -1,13 +1,14 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemFlagsWhereInput } from './item-flags-where.input';
 
 @InputType()
 export class ItemFlagsScalarRelationFilter {
 
     @Field(() => ItemFlagsWhereInput, {nullable:true})
-    is?: ItemFlagsWhereInput;
+    is?: Identity<ItemFlagsWhereInput>;
 
     @Field(() => ItemFlagsWhereInput, {nullable:true})
-    isNot?: ItemFlagsWhereInput;
+    isNot?: Identity<ItemFlagsWhereInput>;
 }

@@ -4,8 +4,9 @@ import { VersionGroupRegionsCreateWithoutRegionInput } from './version-group-reg
 import { Type } from 'class-transformer';
 import { VersionGroupRegionsCreateOrConnectWithoutRegionInput } from './version-group-regions-create-or-connect-without-region.input';
 import { VersionGroupRegionsUpsertWithWhereUniqueWithoutRegionInput } from './version-group-regions-upsert-with-where-unique-without-region.input';
+import type { Identity } from 'identity-type';
 import { VersionGroupRegionsCreateManyRegionInputEnvelope } from './version-group-regions-create-many-region-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupRegionsWhereUniqueInput } from './version-group-regions-where-unique.input';
 import { VersionGroupRegionsUpdateWithWhereUniqueWithoutRegionInput } from './version-group-regions-update-with-where-unique-without-region.input';
 import { VersionGroupRegionsUpdateManyWithWhereWithoutRegionInput } from './version-group-regions-update-many-with-where-without-region.input';
@@ -28,7 +29,7 @@ export class VersionGroupRegionsUncheckedUpdateManyWithoutRegionNestedInput {
 
     @Field(() => VersionGroupRegionsCreateManyRegionInputEnvelope, {nullable:true})
     @Type(() => VersionGroupRegionsCreateManyRegionInputEnvelope)
-    createMany?: VersionGroupRegionsCreateManyRegionInputEnvelope;
+    createMany?: Identity<VersionGroupRegionsCreateManyRegionInputEnvelope>;
 
     @Field(() => [VersionGroupRegionsWhereUniqueInput], {nullable:true})
     @Type(() => VersionGroupRegionsWhereUniqueInput)

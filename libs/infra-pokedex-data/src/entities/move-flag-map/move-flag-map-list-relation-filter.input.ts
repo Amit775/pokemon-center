@@ -1,16 +1,17 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveFlagMapWhereInput } from './move-flag-map-where.input';
 
 @InputType()
 export class MoveFlagMapListRelationFilter {
 
     @Field(() => MoveFlagMapWhereInput, {nullable:true})
-    every?: MoveFlagMapWhereInput;
+    every?: Identity<MoveFlagMapWhereInput>;
 
     @Field(() => MoveFlagMapWhereInput, {nullable:true})
-    some?: MoveFlagMapWhereInput;
+    some?: Identity<MoveFlagMapWhereInput>;
 
     @Field(() => MoveFlagMapWhereInput, {nullable:true})
-    none?: MoveFlagMapWhereInput;
+    none?: Identity<MoveFlagMapWhereInput>;
 }

@@ -1,16 +1,17 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { SuperContestCombosWhereInput } from './super-contest-combos-where.input';
 
 @InputType()
 export class SuperContestCombosListRelationFilter {
 
     @Field(() => SuperContestCombosWhereInput, {nullable:true})
-    every?: SuperContestCombosWhereInput;
+    every?: Identity<SuperContestCombosWhereInput>;
 
     @Field(() => SuperContestCombosWhereInput, {nullable:true})
-    some?: SuperContestCombosWhereInput;
+    some?: Identity<SuperContestCombosWhereInput>;
 
     @Field(() => SuperContestCombosWhereInput, {nullable:true})
-    none?: SuperContestCombosWhereInput;
+    none?: Identity<SuperContestCombosWhereInput>;
 }

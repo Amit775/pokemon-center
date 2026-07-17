@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemsWhereUniqueInput } from './items-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { ItemsUpdateWithoutCategoryInput } from './items-update-without-category.input';
 import { ItemsCreateWithoutCategoryInput } from './items-create-without-category.input';
 
@@ -15,9 +16,9 @@ export class ItemsUpsertWithWhereUniqueWithoutCategoryInput {
 
     @Field(() => ItemsUpdateWithoutCategoryInput, {nullable:false})
     @Type(() => ItemsUpdateWithoutCategoryInput)
-    update!: ItemsUpdateWithoutCategoryInput;
+    update!: Identity<ItemsUpdateWithoutCategoryInput>;
 
     @Field(() => ItemsCreateWithoutCategoryInput, {nullable:false})
     @Type(() => ItemsCreateWithoutCategoryInput)
-    create!: ItemsCreateWithoutCategoryInput;
+    create!: Identity<ItemsCreateWithoutCategoryInput>;
 }

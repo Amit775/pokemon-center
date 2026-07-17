@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { BerriesWhereUniqueInput } from './berries-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { BerriesCreateInput } from './berries-create.input';
 import { BerriesUpdateInput } from './berries-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneBerriesArgs {
 
     @Field(() => BerriesCreateInput, {nullable:false})
     @Type(() => BerriesCreateInput)
-    create!: BerriesCreateInput;
+    create!: Identity<BerriesCreateInput>;
 
     @Field(() => BerriesUpdateInput, {nullable:false})
     @Type(() => BerriesUpdateInput)
-    update!: BerriesUpdateInput;
+    update!: Identity<BerriesUpdateInput>;
 }

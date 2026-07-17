@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveBattleStylesUpdateWithoutNaturePreferencesInput } from './move-battle-styles-update-without-nature-preferences.input';
 import { Type } from 'class-transformer';
 import { MoveBattleStylesCreateWithoutNaturePreferencesInput } from './move-battle-styles-create-without-nature-preferences.input';
@@ -10,13 +11,13 @@ export class MoveBattleStylesUpsertWithoutNaturePreferencesInput {
 
     @Field(() => MoveBattleStylesUpdateWithoutNaturePreferencesInput, {nullable:false})
     @Type(() => MoveBattleStylesUpdateWithoutNaturePreferencesInput)
-    update!: MoveBattleStylesUpdateWithoutNaturePreferencesInput;
+    update!: Identity<MoveBattleStylesUpdateWithoutNaturePreferencesInput>;
 
     @Field(() => MoveBattleStylesCreateWithoutNaturePreferencesInput, {nullable:false})
     @Type(() => MoveBattleStylesCreateWithoutNaturePreferencesInput)
-    create!: MoveBattleStylesCreateWithoutNaturePreferencesInput;
+    create!: Identity<MoveBattleStylesCreateWithoutNaturePreferencesInput>;
 
     @Field(() => MoveBattleStylesWhereInput, {nullable:true})
     @Type(() => MoveBattleStylesWhereInput)
-    where?: MoveBattleStylesWhereInput;
+    where?: Identity<MoveBattleStylesWhereInput>;
 }

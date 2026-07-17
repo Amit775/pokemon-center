@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { RegionsOrderByWithRelationInput } from '../regions/regions-order-by-with-relation.input';
 import { PokemonSpeciesOrderByRelationAggregateInput } from '../pokemon-species/pokemon-species-order-by-relation-aggregate.input';
 import { MovesOrderByRelationAggregateInput } from '../moves/moves-order-by-relation-aggregate.input';
@@ -25,32 +26,32 @@ export class GenerationsOrderByWithRelationInput {
     identifier?: `${SortOrder}`;
 
     @Field(() => RegionsOrderByWithRelationInput, {nullable:true})
-    region?: RegionsOrderByWithRelationInput;
+    region?: Identity<RegionsOrderByWithRelationInput>;
 
     @Field(() => PokemonSpeciesOrderByRelationAggregateInput, {nullable:true})
-    pokemonSpecies?: PokemonSpeciesOrderByRelationAggregateInput;
+    pokemonSpecies?: Identity<PokemonSpeciesOrderByRelationAggregateInput>;
 
     @Field(() => MovesOrderByRelationAggregateInput, {nullable:true})
-    moves?: MovesOrderByRelationAggregateInput;
+    moves?: Identity<MovesOrderByRelationAggregateInput>;
 
     @Field(() => TypesOrderByRelationAggregateInput, {nullable:true})
-    types?: TypesOrderByRelationAggregateInput;
+    types?: Identity<TypesOrderByRelationAggregateInput>;
 
     @Field(() => AbilitiesOrderByRelationAggregateInput, {nullable:true})
-    abilities?: AbilitiesOrderByRelationAggregateInput;
+    abilities?: Identity<AbilitiesOrderByRelationAggregateInput>;
 
     @Field(() => PokemonFormGenerationsOrderByRelationAggregateInput, {nullable:true})
-    pokemonFormGenerations?: PokemonFormGenerationsOrderByRelationAggregateInput;
+    pokemonFormGenerations?: Identity<PokemonFormGenerationsOrderByRelationAggregateInput>;
 
     @Field(() => ItemGameIndicesOrderByRelationAggregateInput, {nullable:true})
-    itemGameIndices?: ItemGameIndicesOrderByRelationAggregateInput;
+    itemGameIndices?: Identity<ItemGameIndicesOrderByRelationAggregateInput>;
 
     @Field(() => TypeGameIndicesOrderByRelationAggregateInput, {nullable:true})
-    typeGameIndices?: TypeGameIndicesOrderByRelationAggregateInput;
+    typeGameIndices?: Identity<TypeGameIndicesOrderByRelationAggregateInput>;
 
     @Field(() => LocationGameIndicesOrderByRelationAggregateInput, {nullable:true})
-    locationGameIndices?: LocationGameIndicesOrderByRelationAggregateInput;
+    locationGameIndices?: Identity<LocationGameIndicesOrderByRelationAggregateInput>;
 
     @Field(() => VersionGroupsOrderByRelationAggregateInput, {nullable:true})
-    versionGroups?: VersionGroupsOrderByRelationAggregateInput;
+    versionGroups?: Identity<VersionGroupsOrderByRelationAggregateInput>;
 }

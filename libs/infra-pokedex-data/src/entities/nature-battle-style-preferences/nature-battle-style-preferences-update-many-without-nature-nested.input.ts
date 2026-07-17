@@ -4,8 +4,9 @@ import { NatureBattleStylePreferencesCreateWithoutNatureInput } from './nature-b
 import { Type } from 'class-transformer';
 import { NatureBattleStylePreferencesCreateOrConnectWithoutNatureInput } from './nature-battle-style-preferences-create-or-connect-without-nature.input';
 import { NatureBattleStylePreferencesUpsertWithWhereUniqueWithoutNatureInput } from './nature-battle-style-preferences-upsert-with-where-unique-without-nature.input';
+import type { Identity } from 'identity-type';
 import { NatureBattleStylePreferencesCreateManyNatureInputEnvelope } from './nature-battle-style-preferences-create-many-nature-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { NatureBattleStylePreferencesWhereUniqueInput } from './nature-battle-style-preferences-where-unique.input';
 import { NatureBattleStylePreferencesUpdateWithWhereUniqueWithoutNatureInput } from './nature-battle-style-preferences-update-with-where-unique-without-nature.input';
 import { NatureBattleStylePreferencesUpdateManyWithWhereWithoutNatureInput } from './nature-battle-style-preferences-update-many-with-where-without-nature.input';
@@ -28,7 +29,7 @@ export class NatureBattleStylePreferencesUpdateManyWithoutNatureNestedInput {
 
     @Field(() => NatureBattleStylePreferencesCreateManyNatureInputEnvelope, {nullable:true})
     @Type(() => NatureBattleStylePreferencesCreateManyNatureInputEnvelope)
-    createMany?: NatureBattleStylePreferencesCreateManyNatureInputEnvelope;
+    createMany?: Identity<NatureBattleStylePreferencesCreateManyNatureInputEnvelope>;
 
     @Field(() => [NatureBattleStylePreferencesWhereUniqueInput], {nullable:true})
     @Type(() => NatureBattleStylePreferencesWhereUniqueInput)

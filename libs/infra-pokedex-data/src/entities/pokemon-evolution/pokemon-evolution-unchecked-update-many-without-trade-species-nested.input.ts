@@ -4,8 +4,9 @@ import { PokemonEvolutionCreateWithoutTradeSpeciesInput } from './pokemon-evolut
 import { Type } from 'class-transformer';
 import { PokemonEvolutionCreateOrConnectWithoutTradeSpeciesInput } from './pokemon-evolution-create-or-connect-without-trade-species.input';
 import { PokemonEvolutionUpsertWithWhereUniqueWithoutTradeSpeciesInput } from './pokemon-evolution-upsert-with-where-unique-without-trade-species.input';
+import type { Identity } from 'identity-type';
 import { PokemonEvolutionCreateManyTradeSpeciesInputEnvelope } from './pokemon-evolution-create-many-trade-species-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEvolutionWhereUniqueInput } from './pokemon-evolution-where-unique.input';
 import { PokemonEvolutionUpdateWithWhereUniqueWithoutTradeSpeciesInput } from './pokemon-evolution-update-with-where-unique-without-trade-species.input';
 import { PokemonEvolutionUpdateManyWithWhereWithoutTradeSpeciesInput } from './pokemon-evolution-update-many-with-where-without-trade-species.input';
@@ -28,7 +29,7 @@ export class PokemonEvolutionUncheckedUpdateManyWithoutTradeSpeciesNestedInput {
 
     @Field(() => PokemonEvolutionCreateManyTradeSpeciesInputEnvelope, {nullable:true})
     @Type(() => PokemonEvolutionCreateManyTradeSpeciesInputEnvelope)
-    createMany?: PokemonEvolutionCreateManyTradeSpeciesInputEnvelope;
+    createMany?: Identity<PokemonEvolutionCreateManyTradeSpeciesInputEnvelope>;
 
     @Field(() => [PokemonEvolutionWhereUniqueInput], {nullable:true})
     @Type(() => PokemonEvolutionWhereUniqueInput)

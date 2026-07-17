@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { MoveMetaStatChangesCreateWithoutStatInput } from './move-meta-stat-changes-create-without-stat.input';
 import { Type } from 'class-transformer';
 import { MoveMetaStatChangesCreateOrConnectWithoutStatInput } from './move-meta-stat-changes-create-or-connect-without-stat.input';
+import type { Identity } from 'identity-type';
 import { MoveMetaStatChangesCreateManyStatInputEnvelope } from './move-meta-stat-changes-create-many-stat-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveMetaStatChangesWhereUniqueInput } from './move-meta-stat-changes-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class MoveMetaStatChangesCreateNestedManyWithoutStatInput {
 
     @Field(() => MoveMetaStatChangesCreateManyStatInputEnvelope, {nullable:true})
     @Type(() => MoveMetaStatChangesCreateManyStatInputEnvelope)
-    createMany?: MoveMetaStatChangesCreateManyStatInputEnvelope;
+    createMany?: Identity<MoveMetaStatChangesCreateManyStatInputEnvelope>;
 
     @Field(() => [MoveMetaStatChangesWhereUniqueInput], {nullable:true})
     @Type(() => MoveMetaStatChangesWhereUniqueInput)

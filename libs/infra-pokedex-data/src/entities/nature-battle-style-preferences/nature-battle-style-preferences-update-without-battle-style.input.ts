@@ -1,17 +1,18 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NaturesUpdateOneRequiredWithoutBattleStylePreferencesNestedInput } from '../natures/natures-update-one-required-without-battle-style-preferences-nested.input';
 
 @InputType()
 export class NatureBattleStylePreferencesUpdateWithoutBattleStyleInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    low_hp_preference?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    low_hp_preference?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    high_hp_preference?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    high_hp_preference?: number;
 
     @Field(() => NaturesUpdateOneRequiredWithoutBattleStylePreferencesNestedInput, {nullable:true})
-    nature?: NaturesUpdateOneRequiredWithoutBattleStylePreferencesNestedInput;
+    nature?: Identity<NaturesUpdateOneRequiredWithoutBattleStylePreferencesNestedInput>;
 }

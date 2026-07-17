@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesUpdateWithoutMetaInput } from './moves-update-without-meta.input';
 import { Type } from 'class-transformer';
 import { MovesCreateWithoutMetaInput } from './moves-create-without-meta.input';
@@ -10,13 +11,13 @@ export class MovesUpsertWithoutMetaInput {
 
     @Field(() => MovesUpdateWithoutMetaInput, {nullable:false})
     @Type(() => MovesUpdateWithoutMetaInput)
-    update!: MovesUpdateWithoutMetaInput;
+    update!: Identity<MovesUpdateWithoutMetaInput>;
 
     @Field(() => MovesCreateWithoutMetaInput, {nullable:false})
     @Type(() => MovesCreateWithoutMetaInput)
-    create!: MovesCreateWithoutMetaInput;
+    create!: Identity<MovesCreateWithoutMetaInput>;
 
     @Field(() => MovesWhereInput, {nullable:true})
     @Type(() => MovesWhereInput)
-    where?: MovesWhereInput;
+    where?: Identity<MovesWhereInput>;
 }

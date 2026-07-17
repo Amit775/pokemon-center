@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokedexVersionGroupsWhereInput } from './pokedex-version-groups-where.input';
 import { Type } from 'class-transformer';
 import { PokedexVersionGroupsOrderByWithRelationInput } from './pokedex-version-groups-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokedexVersionGroupsWhereUniqueInput } from './pokedex-version-groups-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokedexVersionGroupsScalarFieldEnum } from './pokedex-version-groups-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstPokedexVersionGroupsArgs {
 
     @Field(() => PokedexVersionGroupsWhereInput, {nullable:true})
     @Type(() => PokedexVersionGroupsWhereInput)
-    where?: PokedexVersionGroupsWhereInput;
+    where?: Identity<PokedexVersionGroupsWhereInput>;
 
     @Field(() => [PokedexVersionGroupsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokedexVersionGroupsOrderByWithRelationInput>;

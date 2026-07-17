@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 
 @InputType()
@@ -15,14 +16,14 @@ export class LocationAreaEncounterRatesScalarWhereInput {
     NOT?: Array<LocationAreaEncounterRatesScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    location_area_id?: IntFilter;
+    location_area_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    encounter_method_id?: IntFilter;
+    encounter_method_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    version_id?: IntFilter;
+    version_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    rate?: IntFilter;
+    rate?: Identity<IntFilter>;
 }

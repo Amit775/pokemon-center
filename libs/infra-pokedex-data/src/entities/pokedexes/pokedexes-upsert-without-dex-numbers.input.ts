@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokedexesUpdateWithoutDexNumbersInput } from './pokedexes-update-without-dex-numbers.input';
 import { Type } from 'class-transformer';
 import { PokedexesCreateWithoutDexNumbersInput } from './pokedexes-create-without-dex-numbers.input';
@@ -10,13 +11,13 @@ export class PokedexesUpsertWithoutDexNumbersInput {
 
     @Field(() => PokedexesUpdateWithoutDexNumbersInput, {nullable:false})
     @Type(() => PokedexesUpdateWithoutDexNumbersInput)
-    update!: PokedexesUpdateWithoutDexNumbersInput;
+    update!: Identity<PokedexesUpdateWithoutDexNumbersInput>;
 
     @Field(() => PokedexesCreateWithoutDexNumbersInput, {nullable:false})
     @Type(() => PokedexesCreateWithoutDexNumbersInput)
-    create!: PokedexesCreateWithoutDexNumbersInput;
+    create!: Identity<PokedexesCreateWithoutDexNumbersInput>;
 
     @Field(() => PokedexesWhereInput, {nullable:true})
     @Type(() => PokedexesWhereInput)
-    where?: PokedexesWhereInput;
+    where?: Identity<PokedexesWhereInput>;
 }

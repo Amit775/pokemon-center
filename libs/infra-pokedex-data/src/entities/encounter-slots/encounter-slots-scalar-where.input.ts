@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 
 @InputType()
 export class EncounterSlotsScalarWhereInput {
@@ -16,17 +16,17 @@ export class EncounterSlotsScalarWhereInput {
     NOT?: Array<EncounterSlotsScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    version_group_id?: IntFilter;
+    version_group_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    encounter_method_id?: IntFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    slot?: IntNullableFilter;
+    encounter_method_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    rarity?: IntFilter;
+    slot?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    rarity?: Identity<IntFilter>;
 }

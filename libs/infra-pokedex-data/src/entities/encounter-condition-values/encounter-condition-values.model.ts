@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { EncounterConditions } from '../encounter-conditions/encounter-conditions.model';
+import type { Identity } from 'identity-type';
 import { EncounterConditionValueMap } from '../encounter-condition-value-map/encounter-condition-value-map.model';
 import { EncounterConditionValuesCount } from './encounter-condition-values-count.output';
 
@@ -25,11 +26,11 @@ export class EncounterConditionValues {
     is_default!: number;
 
     @Field(() => EncounterConditions, {nullable:false})
-    condition?: EncounterConditions;
+    condition?: Identity<EncounterConditions>;
 
-    @Field(() => [EncounterConditionValueMap], {nullable:true})
+    @Field(() => [EncounterConditionValueMap], {nullable:false})
     conditionValueMap?: Array<EncounterConditionValueMap>;
 
     @Field(() => EncounterConditionValuesCount, {nullable:false})
-    _count?: EncounterConditionValuesCount;
+    _count?: Identity<EncounterConditionValuesCount>;
 }

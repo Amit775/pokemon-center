@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { TypesOrderByWithRelationInput } from '../types/types-order-by-with-relation.input';
 
 @InputType()
@@ -16,8 +17,8 @@ export class TypeEfficacyOrderByWithRelationInput {
     damage_factor?: `${SortOrder}`;
 
     @Field(() => TypesOrderByWithRelationInput, {nullable:true})
-    damageType?: TypesOrderByWithRelationInput;
+    damageType?: Identity<TypesOrderByWithRelationInput>;
 
     @Field(() => TypesOrderByWithRelationInput, {nullable:true})
-    targetType?: TypesOrderByWithRelationInput;
+    targetType?: Identity<TypesOrderByWithRelationInput>;
 }

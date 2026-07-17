@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { TypeEfficacyWhereUniqueInput } from './type-efficacy-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { TypeEfficacyCreateInput } from './type-efficacy-create.input';
 import { TypeEfficacyUpdateInput } from './type-efficacy-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneTypeEfficacyArgs {
 
     @Field(() => TypeEfficacyCreateInput, {nullable:false})
     @Type(() => TypeEfficacyCreateInput)
-    create!: TypeEfficacyCreateInput;
+    create!: Identity<TypeEfficacyCreateInput>;
 
     @Field(() => TypeEfficacyUpdateInput, {nullable:false})
     @Type(() => TypeEfficacyUpdateInput)
-    update!: TypeEfficacyUpdateInput;
+    update!: Identity<TypeEfficacyUpdateInput>;
 }

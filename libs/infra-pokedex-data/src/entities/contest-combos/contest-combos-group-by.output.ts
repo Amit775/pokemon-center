@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ContestCombosCountAggregate } from './contest-combos-count-aggregate.output';
 import { ContestCombosAvgAggregate } from './contest-combos-avg-aggregate.output';
 import { ContestCombosSumAggregate } from './contest-combos-sum-aggregate.output';
@@ -17,17 +18,17 @@ export class ContestCombosGroupBy {
     second_move_id!: number;
 
     @Field(() => ContestCombosCountAggregate, {nullable:true})
-    _count?: ContestCombosCountAggregate;
+    _count?: Identity<ContestCombosCountAggregate>;
 
     @Field(() => ContestCombosAvgAggregate, {nullable:true})
-    _avg?: ContestCombosAvgAggregate;
+    _avg?: Identity<ContestCombosAvgAggregate>;
 
     @Field(() => ContestCombosSumAggregate, {nullable:true})
-    _sum?: ContestCombosSumAggregate;
+    _sum?: Identity<ContestCombosSumAggregate>;
 
     @Field(() => ContestCombosMinAggregate, {nullable:true})
-    _min?: ContestCombosMinAggregate;
+    _min?: Identity<ContestCombosMinAggregate>;
 
     @Field(() => ContestCombosMaxAggregate, {nullable:true})
-    _max?: ContestCombosMaxAggregate;
+    _max?: Identity<ContestCombosMaxAggregate>;
 }

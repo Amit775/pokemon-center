@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveBattleStylesWhereInput } from './move-battle-styles-where.input';
 import { Type } from 'class-transformer';
 import { MoveBattleStylesOrderByWithRelationInput } from './move-battle-styles-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveBattleStylesWhereUniqueInput } from './move-battle-styles-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { MoveBattleStylesCountAggregateInput } from './move-battle-styles-count-aggregate.input';
@@ -17,7 +18,7 @@ export class MoveBattleStylesAggregateArgs {
 
     @Field(() => MoveBattleStylesWhereInput, {nullable:true})
     @Type(() => MoveBattleStylesWhereInput)
-    where?: MoveBattleStylesWhereInput;
+    where?: Identity<MoveBattleStylesWhereInput>;
 
     @Field(() => [MoveBattleStylesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<MoveBattleStylesOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class MoveBattleStylesAggregateArgs {
     skip?: number;
 
     @Field(() => MoveBattleStylesCountAggregateInput, {nullable:true})
-    _count?: MoveBattleStylesCountAggregateInput;
+    _count?: Identity<MoveBattleStylesCountAggregateInput>;
 
     @Field(() => MoveBattleStylesAvgAggregateInput, {nullable:true})
-    _avg?: MoveBattleStylesAvgAggregateInput;
+    _avg?: Identity<MoveBattleStylesAvgAggregateInput>;
 
     @Field(() => MoveBattleStylesSumAggregateInput, {nullable:true})
-    _sum?: MoveBattleStylesSumAggregateInput;
+    _sum?: Identity<MoveBattleStylesSumAggregateInput>;
 
     @Field(() => MoveBattleStylesMinAggregateInput, {nullable:true})
-    _min?: MoveBattleStylesMinAggregateInput;
+    _min?: Identity<MoveBattleStylesMinAggregateInput>;
 
     @Field(() => MoveBattleStylesMaxAggregateInput, {nullable:true})
-    _max?: MoveBattleStylesMaxAggregateInput;
+    _max?: Identity<MoveBattleStylesMaxAggregateInput>;
 }

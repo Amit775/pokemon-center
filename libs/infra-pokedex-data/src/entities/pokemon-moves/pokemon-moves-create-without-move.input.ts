@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonCreateNestedOneWithoutMovesInput } from '../pokemon/pokemon-create-nested-one-without-moves.input';
 import { VersionGroupsCreateNestedOneWithoutPokemonMovesInput } from '../version-groups/version-groups-create-nested-one-without-pokemon-moves.input';
 import { PokemonMoveMethodsCreateNestedOneWithoutPokemonMovesInput } from '../pokemon-move-methods/pokemon-move-methods-create-nested-one-without-pokemon-moves.input';
@@ -18,11 +19,11 @@ export class PokemonMovesCreateWithoutMoveInput {
     mastery?: number;
 
     @Field(() => PokemonCreateNestedOneWithoutMovesInput, {nullable:false})
-    pokemon!: PokemonCreateNestedOneWithoutMovesInput;
+    pokemon!: Identity<PokemonCreateNestedOneWithoutMovesInput>;
 
     @Field(() => VersionGroupsCreateNestedOneWithoutPokemonMovesInput, {nullable:false})
-    versionGroup!: VersionGroupsCreateNestedOneWithoutPokemonMovesInput;
+    versionGroup!: Identity<VersionGroupsCreateNestedOneWithoutPokemonMovesInput>;
 
     @Field(() => PokemonMoveMethodsCreateNestedOneWithoutPokemonMovesInput, {nullable:false})
-    moveMethod!: PokemonMoveMethodsCreateNestedOneWithoutPokemonMovesInput;
+    moveMethod!: Identity<PokemonMoveMethodsCreateNestedOneWithoutPokemonMovesInput>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StatsCreateNestedOneWithoutNaturesDecreasedInput } from '../stats/stats-create-nested-one-without-natures-decreased.input';
 import { StatsCreateNestedOneWithoutNaturesIncreasedInput } from '../stats/stats-create-nested-one-without-natures-increased.input';
 import { NatureBattleStylePreferencesCreateNestedManyWithoutNatureInput } from '../nature-battle-style-preferences/nature-battle-style-preferences-create-nested-many-without-nature.input';
@@ -24,11 +25,11 @@ export class NaturesCreateInput {
     game_index!: number;
 
     @Field(() => StatsCreateNestedOneWithoutNaturesDecreasedInput, {nullable:false})
-    decreasedStat!: StatsCreateNestedOneWithoutNaturesDecreasedInput;
+    decreasedStat!: Identity<StatsCreateNestedOneWithoutNaturesDecreasedInput>;
 
     @Field(() => StatsCreateNestedOneWithoutNaturesIncreasedInput, {nullable:false})
-    increasedStat!: StatsCreateNestedOneWithoutNaturesIncreasedInput;
+    increasedStat!: Identity<StatsCreateNestedOneWithoutNaturesIncreasedInput>;
 
     @Field(() => NatureBattleStylePreferencesCreateNestedManyWithoutNatureInput, {nullable:true})
-    battleStylePreferences?: NatureBattleStylePreferencesCreateNestedManyWithoutNatureInput;
+    battleStylePreferences?: Identity<NatureBattleStylePreferencesCreateNestedManyWithoutNatureInput>;
 }

@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Generations } from '../generations/generations.model';
+import type { Identity } from 'identity-type';
 import { PokemonAbilities } from '../pokemon-abilities/pokemon-abilities.model';
 import { AbilitiesCount } from './abilities-count.output';
 
@@ -25,11 +26,11 @@ export class Abilities {
     is_main_series!: number;
 
     @Field(() => Generations, {nullable:false})
-    generation?: Generations;
+    generation?: Identity<Generations>;
 
-    @Field(() => [PokemonAbilities], {nullable:true})
+    @Field(() => [PokemonAbilities], {nullable:false})
     pokemonAbilities?: Array<PokemonAbilities>;
 
     @Field(() => AbilitiesCount, {nullable:false})
-    _count?: AbilitiesCount;
+    _count?: Identity<AbilitiesCount>;
 }

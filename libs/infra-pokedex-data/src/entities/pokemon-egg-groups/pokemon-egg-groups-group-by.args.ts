@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonEggGroupsWhereInput } from './pokemon-egg-groups-where.input';
 import { Type } from 'class-transformer';
 import { PokemonEggGroupsOrderByWithAggregationInput } from './pokemon-egg-groups-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class PokemonEggGroupsGroupByArgs {
 
     @Field(() => PokemonEggGroupsWhereInput, {nullable:true})
     @Type(() => PokemonEggGroupsWhereInput)
-    where?: PokemonEggGroupsWhereInput;
+    where?: Identity<PokemonEggGroupsWhereInput>;
 
     @Field(() => [PokemonEggGroupsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<PokemonEggGroupsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class PokemonEggGroupsGroupByArgs {
     by!: Array<`${PokemonEggGroupsScalarFieldEnum}`>;
 
     @Field(() => PokemonEggGroupsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: PokemonEggGroupsScalarWhereWithAggregatesInput;
+    having?: Identity<PokemonEggGroupsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class PokemonEggGroupsGroupByArgs {
     skip?: number;
 
     @Field(() => PokemonEggGroupsCountAggregateInput, {nullable:true})
-    _count?: PokemonEggGroupsCountAggregateInput;
+    _count?: Identity<PokemonEggGroupsCountAggregateInput>;
 
     @Field(() => PokemonEggGroupsAvgAggregateInput, {nullable:true})
-    _avg?: PokemonEggGroupsAvgAggregateInput;
+    _avg?: Identity<PokemonEggGroupsAvgAggregateInput>;
 
     @Field(() => PokemonEggGroupsSumAggregateInput, {nullable:true})
-    _sum?: PokemonEggGroupsSumAggregateInput;
+    _sum?: Identity<PokemonEggGroupsSumAggregateInput>;
 
     @Field(() => PokemonEggGroupsMinAggregateInput, {nullable:true})
-    _min?: PokemonEggGroupsMinAggregateInput;
+    _min?: Identity<PokemonEggGroupsMinAggregateInput>;
 
     @Field(() => PokemonEggGroupsMaxAggregateInput, {nullable:true})
-    _max?: PokemonEggGroupsMaxAggregateInput;
+    _max?: Identity<PokemonEggGroupsMaxAggregateInput>;
 }

@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { BerryFirmnessUpdateOneRequiredWithoutBerriesNestedInput } from '../berry-firmness/berry-firmness-update-one-required-without-berries-nested.input';
 import { TypesUpdateOneWithoutNaturalGiftTypesNestedInput } from '../types/types-update-one-without-natural-gift-types-nested.input';
 import { BerryFlavorsUpdateManyWithoutBerryNestedInput } from '../berry-flavors/berry-flavors-update-many-without-berry-nested.input';
@@ -9,33 +9,33 @@ import { BerryFlavorsUpdateManyWithoutBerryNestedInput } from '../berry-flavors/
 @InputType()
 export class BerriesUpdateWithoutItemInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    natural_gift_power?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    natural_gift_power?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    size?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    size?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    max_harvest?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    max_harvest?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    growth_time?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    growth_time?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    soil_dryness?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    soil_dryness?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    smoothness?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    smoothness?: number;
 
     @Field(() => BerryFirmnessUpdateOneRequiredWithoutBerriesNestedInput, {nullable:true})
-    firmness?: BerryFirmnessUpdateOneRequiredWithoutBerriesNestedInput;
+    firmness?: Identity<BerryFirmnessUpdateOneRequiredWithoutBerriesNestedInput>;
 
     @Field(() => TypesUpdateOneWithoutNaturalGiftTypesNestedInput, {nullable:true})
-    naturalGiftType?: TypesUpdateOneWithoutNaturalGiftTypesNestedInput;
+    naturalGiftType?: Identity<TypesUpdateOneWithoutNaturalGiftTypesNestedInput>;
 
     @Field(() => BerryFlavorsUpdateManyWithoutBerryNestedInput, {nullable:true})
-    flavors?: BerryFlavorsUpdateManyWithoutBerryNestedInput;
+    flavors?: Identity<BerryFlavorsUpdateManyWithoutBerryNestedInput>;
 }

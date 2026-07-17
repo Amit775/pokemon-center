@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { PokemonOrderByWithRelationInput } from '../pokemon/pokemon-order-by-with-relation.input';
 import { AbilitiesOrderByWithRelationInput } from '../abilities/abilities-order-by-with-relation.input';
 
@@ -20,8 +21,8 @@ export class PokemonAbilitiesOrderByWithRelationInput {
     slot?: `${SortOrder}`;
 
     @Field(() => PokemonOrderByWithRelationInput, {nullable:true})
-    pokemon?: PokemonOrderByWithRelationInput;
+    pokemon?: Identity<PokemonOrderByWithRelationInput>;
 
     @Field(() => AbilitiesOrderByWithRelationInput, {nullable:true})
-    ability?: AbilitiesOrderByWithRelationInput;
+    ability?: Identity<AbilitiesOrderByWithRelationInput>;
 }

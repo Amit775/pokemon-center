@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesWhereInput } from './pokemon-species-where.input';
 import { Type } from 'class-transformer';
 import { PokemonSpeciesOrderByWithAggregationInput } from './pokemon-species-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class PokemonSpeciesGroupByArgs {
 
     @Field(() => PokemonSpeciesWhereInput, {nullable:true})
     @Type(() => PokemonSpeciesWhereInput)
-    where?: PokemonSpeciesWhereInput;
+    where?: Identity<PokemonSpeciesWhereInput>;
 
     @Field(() => [PokemonSpeciesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<PokemonSpeciesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class PokemonSpeciesGroupByArgs {
     by!: Array<`${PokemonSpeciesScalarFieldEnum}`>;
 
     @Field(() => PokemonSpeciesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: PokemonSpeciesScalarWhereWithAggregatesInput;
+    having?: Identity<PokemonSpeciesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class PokemonSpeciesGroupByArgs {
     skip?: number;
 
     @Field(() => PokemonSpeciesCountAggregateInput, {nullable:true})
-    _count?: PokemonSpeciesCountAggregateInput;
+    _count?: Identity<PokemonSpeciesCountAggregateInput>;
 
     @Field(() => PokemonSpeciesAvgAggregateInput, {nullable:true})
-    _avg?: PokemonSpeciesAvgAggregateInput;
+    _avg?: Identity<PokemonSpeciesAvgAggregateInput>;
 
     @Field(() => PokemonSpeciesSumAggregateInput, {nullable:true})
-    _sum?: PokemonSpeciesSumAggregateInput;
+    _sum?: Identity<PokemonSpeciesSumAggregateInput>;
 
     @Field(() => PokemonSpeciesMinAggregateInput, {nullable:true})
-    _min?: PokemonSpeciesMinAggregateInput;
+    _min?: Identity<PokemonSpeciesMinAggregateInput>;
 
     @Field(() => PokemonSpeciesMaxAggregateInput, {nullable:true})
-    _max?: PokemonSpeciesMaxAggregateInput;
+    _max?: Identity<PokemonSpeciesMaxAggregateInput>;
 }

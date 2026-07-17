@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationAreasCreateWithoutEncounterRatesInput } from './location-areas-create-without-encounter-rates.input';
 import { Type } from 'class-transformer';
 import { LocationAreasCreateOrConnectWithoutEncounterRatesInput } from './location-areas-create-or-connect-without-encounter-rates.input';
 import { LocationAreasUpsertWithoutEncounterRatesInput } from './location-areas-upsert-without-encounter-rates.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationAreasWhereUniqueInput } from './location-areas-where-unique.input';
 import { LocationAreasUpdateToOneWithWhereWithoutEncounterRatesInput } from './location-areas-update-to-one-with-where-without-encounter-rates.input';
 
@@ -13,15 +14,15 @@ export class LocationAreasUpdateOneRequiredWithoutEncounterRatesNestedInput {
 
     @Field(() => LocationAreasCreateWithoutEncounterRatesInput, {nullable:true})
     @Type(() => LocationAreasCreateWithoutEncounterRatesInput)
-    create?: LocationAreasCreateWithoutEncounterRatesInput;
+    create?: Identity<LocationAreasCreateWithoutEncounterRatesInput>;
 
     @Field(() => LocationAreasCreateOrConnectWithoutEncounterRatesInput, {nullable:true})
     @Type(() => LocationAreasCreateOrConnectWithoutEncounterRatesInput)
-    connectOrCreate?: LocationAreasCreateOrConnectWithoutEncounterRatesInput;
+    connectOrCreate?: Identity<LocationAreasCreateOrConnectWithoutEncounterRatesInput>;
 
     @Field(() => LocationAreasUpsertWithoutEncounterRatesInput, {nullable:true})
     @Type(() => LocationAreasUpsertWithoutEncounterRatesInput)
-    upsert?: LocationAreasUpsertWithoutEncounterRatesInput;
+    upsert?: Identity<LocationAreasUpsertWithoutEncounterRatesInput>;
 
     @Field(() => LocationAreasWhereUniqueInput, {nullable:true})
     @Type(() => LocationAreasWhereUniqueInput)
@@ -29,5 +30,5 @@ export class LocationAreasUpdateOneRequiredWithoutEncounterRatesNestedInput {
 
     @Field(() => LocationAreasUpdateToOneWithWhereWithoutEncounterRatesInput, {nullable:true})
     @Type(() => LocationAreasUpdateToOneWithWhereWithoutEncounterRatesInput)
-    update?: LocationAreasUpdateToOneWithWhereWithoutEncounterRatesInput;
+    update?: Identity<LocationAreasUpdateToOneWithWhereWithoutEncounterRatesInput>;
 }

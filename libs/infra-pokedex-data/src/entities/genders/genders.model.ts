@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { PokemonEvolution } from '../pokemon-evolution/pokemon-evolution.model';
 import { GendersCount } from './genders-count.output';
+import type { Identity } from 'identity-type';
 
 /**
  * @@TypeGraphQL.type(name: "Gender")
@@ -16,9 +17,9 @@ export class Genders {
     @Field(() => String, {nullable:false})
     identifier!: string;
 
-    @Field(() => [PokemonEvolution], {nullable:true})
+    @Field(() => [PokemonEvolution], {nullable:false})
     evolution?: Array<PokemonEvolution>;
 
     @Field(() => GendersCount, {nullable:false})
-    _count?: GendersCount;
+    _count?: Identity<GendersCount>;
 }

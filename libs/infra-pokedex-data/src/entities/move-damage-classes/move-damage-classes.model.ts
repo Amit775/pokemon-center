@@ -4,6 +4,7 @@ import { ID } from '@nestjs/graphql';
 import { Moves } from '../moves/moves.model';
 import { Types } from '../types/types.model';
 import { MoveDamageClassesCount } from './move-damage-classes-count.output';
+import type { Identity } from 'identity-type';
 
 /**
  * @@TypeGraphQL.type(name: "MoveDamageClass")
@@ -17,12 +18,12 @@ export class MoveDamageClasses {
     @Field(() => String, {nullable:false})
     identifier!: string;
 
-    @Field(() => [Moves], {nullable:true})
+    @Field(() => [Moves], {nullable:false})
     moves?: Array<Moves>;
 
-    @Field(() => [Types], {nullable:true})
+    @Field(() => [Types], {nullable:false})
     types?: Array<Types>;
 
     @Field(() => MoveDamageClassesCount, {nullable:false})
-    _count?: MoveDamageClassesCount;
+    _count?: Identity<MoveDamageClassesCount>;
 }

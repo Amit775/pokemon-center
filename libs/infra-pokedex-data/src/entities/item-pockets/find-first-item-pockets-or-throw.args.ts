@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemPocketsWhereInput } from './item-pockets-where.input';
 import { Type } from 'class-transformer';
 import { ItemPocketsOrderByWithRelationInput } from './item-pockets-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemPocketsWhereUniqueInput } from './item-pockets-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { ItemPocketsScalarFieldEnum } from './item-pockets-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstItemPocketsOrThrowArgs {
 
     @Field(() => ItemPocketsWhereInput, {nullable:true})
     @Type(() => ItemPocketsWhereInput)
-    where?: ItemPocketsWhereInput;
+    where?: Identity<ItemPocketsWhereInput>;
 
     @Field(() => [ItemPocketsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<ItemPocketsOrderByWithRelationInput>;

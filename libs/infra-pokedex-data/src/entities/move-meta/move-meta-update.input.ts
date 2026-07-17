@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesUpdateOneRequiredWithoutMetaNestedInput } from '../moves/moves-update-one-required-without-meta-nested.input';
 import { MoveMetaCategoriesUpdateOneRequiredWithoutMetaNestedInput } from '../move-meta-categories/move-meta-categories-update-one-required-without-meta-nested.input';
 import { MoveMetaAilmentsUpdateOneWithoutMetaNestedInput } from '../move-meta-ailments/move-meta-ailments-update-one-without-meta-nested.input';
@@ -10,45 +10,45 @@ import { MoveMetaStatChangesUpdateManyWithoutMetaNestedInput } from '../move-met
 @InputType()
 export class MoveMetaUpdateInput {
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    min_hits?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    min_hits?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    max_hits?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    max_hits?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    min_turns?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    min_turns?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    max_turns?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    max_turns?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    drain?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    drain?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    healing?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    healing?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    crit_rate?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    crit_rate?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    ailment_chance?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    ailment_chance?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    flinch_chance?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    flinch_chance?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    stat_chance?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    stat_chance?: number;
 
     @Field(() => MovesUpdateOneRequiredWithoutMetaNestedInput, {nullable:true})
-    move?: MovesUpdateOneRequiredWithoutMetaNestedInput;
+    move?: Identity<MovesUpdateOneRequiredWithoutMetaNestedInput>;
 
     @Field(() => MoveMetaCategoriesUpdateOneRequiredWithoutMetaNestedInput, {nullable:true})
-    metaCategory?: MoveMetaCategoriesUpdateOneRequiredWithoutMetaNestedInput;
+    metaCategory?: Identity<MoveMetaCategoriesUpdateOneRequiredWithoutMetaNestedInput>;
 
     @Field(() => MoveMetaAilmentsUpdateOneWithoutMetaNestedInput, {nullable:true})
-    metaAilment?: MoveMetaAilmentsUpdateOneWithoutMetaNestedInput;
+    metaAilment?: Identity<MoveMetaAilmentsUpdateOneWithoutMetaNestedInput>;
 
     @Field(() => MoveMetaStatChangesUpdateManyWithoutMetaNestedInput, {nullable:true})
-    statChanges?: MoveMetaStatChangesUpdateManyWithoutMetaNestedInput;
+    statChanges?: Identity<MoveMetaStatChangesUpdateManyWithoutMetaNestedInput>;
 }

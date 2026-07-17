@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { PokemonFormsCreateWithoutVersionGroupInput } from './pokemon-forms-create-without-version-group.input';
 import { Type } from 'class-transformer';
 import { PokemonFormsCreateOrConnectWithoutVersionGroupInput } from './pokemon-forms-create-or-connect-without-version-group.input';
+import type { Identity } from 'identity-type';
 import { PokemonFormsCreateManyVersionGroupInputEnvelope } from './pokemon-forms-create-many-version-group-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonFormsWhereUniqueInput } from './pokemon-forms-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class PokemonFormsCreateNestedManyWithoutVersionGroupInput {
 
     @Field(() => PokemonFormsCreateManyVersionGroupInputEnvelope, {nullable:true})
     @Type(() => PokemonFormsCreateManyVersionGroupInputEnvelope)
-    createMany?: PokemonFormsCreateManyVersionGroupInputEnvelope;
+    createMany?: Identity<PokemonFormsCreateManyVersionGroupInputEnvelope>;
 
     @Field(() => [PokemonFormsWhereUniqueInput], {nullable:true})
     @Type(() => PokemonFormsWhereUniqueInput)

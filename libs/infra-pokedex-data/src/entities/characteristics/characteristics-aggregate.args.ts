@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { CharacteristicsWhereInput } from './characteristics-where.input';
 import { Type } from 'class-transformer';
 import { CharacteristicsOrderByWithRelationInput } from './characteristics-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { CharacteristicsWhereUniqueInput } from './characteristics-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { CharacteristicsCountAggregateInput } from './characteristics-count-aggregate.input';
@@ -17,7 +18,7 @@ export class CharacteristicsAggregateArgs {
 
     @Field(() => CharacteristicsWhereInput, {nullable:true})
     @Type(() => CharacteristicsWhereInput)
-    where?: CharacteristicsWhereInput;
+    where?: Identity<CharacteristicsWhereInput>;
 
     @Field(() => [CharacteristicsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<CharacteristicsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class CharacteristicsAggregateArgs {
     skip?: number;
 
     @Field(() => CharacteristicsCountAggregateInput, {nullable:true})
-    _count?: CharacteristicsCountAggregateInput;
+    _count?: Identity<CharacteristicsCountAggregateInput>;
 
     @Field(() => CharacteristicsAvgAggregateInput, {nullable:true})
-    _avg?: CharacteristicsAvgAggregateInput;
+    _avg?: Identity<CharacteristicsAvgAggregateInput>;
 
     @Field(() => CharacteristicsSumAggregateInput, {nullable:true})
-    _sum?: CharacteristicsSumAggregateInput;
+    _sum?: Identity<CharacteristicsSumAggregateInput>;
 
     @Field(() => CharacteristicsMinAggregateInput, {nullable:true})
-    _min?: CharacteristicsMinAggregateInput;
+    _min?: Identity<CharacteristicsMinAggregateInput>;
 
     @Field(() => CharacteristicsMaxAggregateInput, {nullable:true})
-    _max?: CharacteristicsMaxAggregateInput;
+    _max?: Identity<CharacteristicsMaxAggregateInput>;
 }

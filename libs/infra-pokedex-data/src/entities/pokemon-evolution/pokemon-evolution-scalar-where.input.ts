@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { StringFilter } from '../prisma/string-filter.input';
 
 @InputType()
 export class PokemonEvolutionScalarWhereInput {
@@ -17,62 +17,62 @@ export class PokemonEvolutionScalarWhereInput {
     NOT?: Array<PokemonEvolutionScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    evolved_species_id?: IntFilter;
+    evolved_species_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    evolution_trigger_id?: IntFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    trigger_item_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    minimum_level?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    gender_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    location_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    held_item_id?: IntNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    time_of_day?: StringNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    known_move_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    known_move_type_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    minimum_happiness?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    minimum_beauty?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    minimum_affection?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    relative_physical_stats?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    party_species_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    party_type_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    trade_species_id?: IntNullableFilter;
+    evolution_trigger_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    needs_overworld_rain?: IntFilter;
+    trigger_item_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    turn_upside_down?: IntFilter;
+    minimum_level?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    gender_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    location_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    held_item_id?: Identity<IntFilter>;
+
+    @Field(() => StringFilter, {nullable:true})
+    time_of_day?: Identity<StringFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    known_move_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    known_move_type_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    minimum_happiness?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    minimum_beauty?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    minimum_affection?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    relative_physical_stats?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    party_species_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    party_type_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    trade_species_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    needs_overworld_rain?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    turn_upside_down?: Identity<IntFilter>;
 }

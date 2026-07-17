@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { NaturesWhereUniqueInput } from './natures-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { NaturesUpdateWithoutDecreasedStatInput } from './natures-update-without-decreased-stat.input';
 import { NaturesCreateWithoutDecreasedStatInput } from './natures-create-without-decreased-stat.input';
 
@@ -15,9 +16,9 @@ export class NaturesUpsertWithWhereUniqueWithoutDecreasedStatInput {
 
     @Field(() => NaturesUpdateWithoutDecreasedStatInput, {nullable:false})
     @Type(() => NaturesUpdateWithoutDecreasedStatInput)
-    update!: NaturesUpdateWithoutDecreasedStatInput;
+    update!: Identity<NaturesUpdateWithoutDecreasedStatInput>;
 
     @Field(() => NaturesCreateWithoutDecreasedStatInput, {nullable:false})
     @Type(() => NaturesCreateWithoutDecreasedStatInput)
-    create!: NaturesCreateWithoutDecreasedStatInput;
+    create!: Identity<NaturesCreateWithoutDecreasedStatInput>;
 }

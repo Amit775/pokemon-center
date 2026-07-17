@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { VersionGroupPokemonMoveMethodsCreateWithoutMoveMethodInput } from './version-group-pokemon-move-methods-create-without-move-method.input';
 import { Type } from 'class-transformer';
 import { VersionGroupPokemonMoveMethodsCreateOrConnectWithoutMoveMethodInput } from './version-group-pokemon-move-methods-create-or-connect-without-move-method.input';
+import type { Identity } from 'identity-type';
 import { VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope } from './version-group-pokemon-move-methods-create-many-move-method-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupPokemonMoveMethodsWhereUniqueInput } from './version-group-pokemon-move-methods-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class VersionGroupPokemonMoveMethodsCreateNestedManyWithoutMoveMethodInpu
 
     @Field(() => VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope, {nullable:true})
     @Type(() => VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope)
-    createMany?: VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope;
+    createMany?: Identity<VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope>;
 
     @Field(() => [VersionGroupPokemonMoveMethodsWhereUniqueInput], {nullable:true})
     @Type(() => VersionGroupPokemonMoveMethodsWhereUniqueInput)

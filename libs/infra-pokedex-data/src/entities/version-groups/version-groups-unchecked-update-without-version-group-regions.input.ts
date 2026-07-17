@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionsUncheckedUpdateManyWithoutVersionGroupNestedInput } from '../versions/versions-unchecked-update-many-without-version-group-nested.input';
 import { EncounterSlotsUncheckedUpdateManyWithoutVersionGroupNestedInput } from '../encounter-slots/encounter-slots-unchecked-update-many-without-version-group-nested.input';
 import { MachinesUncheckedUpdateManyWithoutVersionGroupNestedInput } from '../machines/machines-unchecked-update-many-without-version-group-nested.input';
@@ -13,36 +13,36 @@ import { PokemonFormsUncheckedUpdateManyWithoutVersionGroupNestedInput } from '.
 @InputType()
 export class VersionGroupsUncheckedUpdateWithoutVersionGroupRegionsInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    generation_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    generation_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    order?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    order?: number;
 
     @Field(() => VersionsUncheckedUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    versions?: VersionsUncheckedUpdateManyWithoutVersionGroupNestedInput;
+    versions?: Identity<VersionsUncheckedUpdateManyWithoutVersionGroupNestedInput>;
 
     @Field(() => EncounterSlotsUncheckedUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    encounterSlots?: EncounterSlotsUncheckedUpdateManyWithoutVersionGroupNestedInput;
+    encounterSlots?: Identity<EncounterSlotsUncheckedUpdateManyWithoutVersionGroupNestedInput>;
 
     @Field(() => MachinesUncheckedUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    machines?: MachinesUncheckedUpdateManyWithoutVersionGroupNestedInput;
+    machines?: Identity<MachinesUncheckedUpdateManyWithoutVersionGroupNestedInput>;
 
     @Field(() => VersionGroupPokemonMoveMethodsUncheckedUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    versionGroupPokemonMoveMethods?: VersionGroupPokemonMoveMethodsUncheckedUpdateManyWithoutVersionGroupNestedInput;
+    versionGroupPokemonMoveMethods?: Identity<VersionGroupPokemonMoveMethodsUncheckedUpdateManyWithoutVersionGroupNestedInput>;
 
     @Field(() => PokedexVersionGroupsUncheckedUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    pokedexVersionGroups?: PokedexVersionGroupsUncheckedUpdateManyWithoutVersionGroupNestedInput;
+    pokedexVersionGroups?: Identity<PokedexVersionGroupsUncheckedUpdateManyWithoutVersionGroupNestedInput>;
 
     @Field(() => PokemonMovesUncheckedUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    pokemonMoves?: PokemonMovesUncheckedUpdateManyWithoutVersionGroupNestedInput;
+    pokemonMoves?: Identity<PokemonMovesUncheckedUpdateManyWithoutVersionGroupNestedInput>;
 
     @Field(() => PokemonFormsUncheckedUpdateManyWithoutVersionGroupNestedInput, {nullable:true})
-    pokemonForms?: PokemonFormsUncheckedUpdateManyWithoutVersionGroupNestedInput;
+    pokemonForms?: Identity<PokemonFormsUncheckedUpdateManyWithoutVersionGroupNestedInput>;
 }

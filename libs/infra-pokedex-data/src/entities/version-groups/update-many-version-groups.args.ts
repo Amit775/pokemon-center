@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupsUpdateManyMutationInput } from './version-groups-update-many-mutation.input';
 import { Type } from 'class-transformer';
 import { VersionGroupsWhereInput } from './version-groups-where.input';
@@ -10,11 +11,11 @@ export class UpdateManyVersionGroupsArgs {
 
     @Field(() => VersionGroupsUpdateManyMutationInput, {nullable:false})
     @Type(() => VersionGroupsUpdateManyMutationInput)
-    data!: VersionGroupsUpdateManyMutationInput;
+    data!: Identity<VersionGroupsUpdateManyMutationInput>;
 
     @Field(() => VersionGroupsWhereInput, {nullable:true})
     @Type(() => VersionGroupsWhereInput)
-    where?: VersionGroupsWhereInput;
+    where?: Identity<VersionGroupsWhereInput>;
 
     @Field(() => Int, {nullable:true})
     limit?: number;

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesUncheckedCreateNestedManyWithoutGenerationInput } from '../pokemon-species/pokemon-species-unchecked-create-nested-many-without-generation.input';
 import { MovesUncheckedCreateNestedManyWithoutGenerationInput } from '../moves/moves-unchecked-create-nested-many-without-generation.input';
 import { TypesUncheckedCreateNestedManyWithoutGenerationInput } from '../types/types-unchecked-create-nested-many-without-generation.input';
@@ -23,26 +24,26 @@ export class GenerationsUncheckedCreateWithoutAbilitiesInput {
     identifier!: string;
 
     @Field(() => PokemonSpeciesUncheckedCreateNestedManyWithoutGenerationInput, {nullable:true})
-    pokemonSpecies?: PokemonSpeciesUncheckedCreateNestedManyWithoutGenerationInput;
+    pokemonSpecies?: Identity<PokemonSpeciesUncheckedCreateNestedManyWithoutGenerationInput>;
 
     @Field(() => MovesUncheckedCreateNestedManyWithoutGenerationInput, {nullable:true})
-    moves?: MovesUncheckedCreateNestedManyWithoutGenerationInput;
+    moves?: Identity<MovesUncheckedCreateNestedManyWithoutGenerationInput>;
 
     @Field(() => TypesUncheckedCreateNestedManyWithoutGenerationInput, {nullable:true})
-    types?: TypesUncheckedCreateNestedManyWithoutGenerationInput;
+    types?: Identity<TypesUncheckedCreateNestedManyWithoutGenerationInput>;
 
     @Field(() => PokemonFormGenerationsUncheckedCreateNestedManyWithoutGenerationInput, {nullable:true})
-    pokemonFormGenerations?: PokemonFormGenerationsUncheckedCreateNestedManyWithoutGenerationInput;
+    pokemonFormGenerations?: Identity<PokemonFormGenerationsUncheckedCreateNestedManyWithoutGenerationInput>;
 
     @Field(() => ItemGameIndicesUncheckedCreateNestedManyWithoutGenerationInput, {nullable:true})
-    itemGameIndices?: ItemGameIndicesUncheckedCreateNestedManyWithoutGenerationInput;
+    itemGameIndices?: Identity<ItemGameIndicesUncheckedCreateNestedManyWithoutGenerationInput>;
 
     @Field(() => TypeGameIndicesUncheckedCreateNestedManyWithoutGenerationInput, {nullable:true})
-    typeGameIndices?: TypeGameIndicesUncheckedCreateNestedManyWithoutGenerationInput;
+    typeGameIndices?: Identity<TypeGameIndicesUncheckedCreateNestedManyWithoutGenerationInput>;
 
     @Field(() => LocationGameIndicesUncheckedCreateNestedManyWithoutGenerationInput, {nullable:true})
-    locationGameIndices?: LocationGameIndicesUncheckedCreateNestedManyWithoutGenerationInput;
+    locationGameIndices?: Identity<LocationGameIndicesUncheckedCreateNestedManyWithoutGenerationInput>;
 
     @Field(() => VersionGroupsUncheckedCreateNestedManyWithoutGenerationInput, {nullable:true})
-    versionGroups?: VersionGroupsUncheckedCreateNestedManyWithoutGenerationInput;
+    versionGroups?: Identity<VersionGroupsUncheckedCreateNestedManyWithoutGenerationInput>;
 }

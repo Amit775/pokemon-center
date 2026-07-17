@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { EncounterMethodsCountOrderByAggregateInput } from './encounter-methods-count-order-by-aggregate.input';
 import { EncounterMethodsAvgOrderByAggregateInput } from './encounter-methods-avg-order-by-aggregate.input';
 import { EncounterMethodsMaxOrderByAggregateInput } from './encounter-methods-max-order-by-aggregate.input';
@@ -20,17 +21,17 @@ export class EncounterMethodsOrderByWithAggregationInput {
     order?: `${SortOrder}`;
 
     @Field(() => EncounterMethodsCountOrderByAggregateInput, {nullable:true})
-    _count?: EncounterMethodsCountOrderByAggregateInput;
+    _count?: Identity<EncounterMethodsCountOrderByAggregateInput>;
 
     @Field(() => EncounterMethodsAvgOrderByAggregateInput, {nullable:true})
-    _avg?: EncounterMethodsAvgOrderByAggregateInput;
+    _avg?: Identity<EncounterMethodsAvgOrderByAggregateInput>;
 
     @Field(() => EncounterMethodsMaxOrderByAggregateInput, {nullable:true})
-    _max?: EncounterMethodsMaxOrderByAggregateInput;
+    _max?: Identity<EncounterMethodsMaxOrderByAggregateInput>;
 
     @Field(() => EncounterMethodsMinOrderByAggregateInput, {nullable:true})
-    _min?: EncounterMethodsMinOrderByAggregateInput;
+    _min?: Identity<EncounterMethodsMinOrderByAggregateInput>;
 
     @Field(() => EncounterMethodsSumOrderByAggregateInput, {nullable:true})
-    _sum?: EncounterMethodsSumOrderByAggregateInput;
+    _sum?: Identity<EncounterMethodsSumOrderByAggregateInput>;
 }

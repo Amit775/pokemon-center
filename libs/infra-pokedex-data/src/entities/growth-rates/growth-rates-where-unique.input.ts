@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { GrowthRatesWhereInput } from './growth-rates-where.input';
+import type { Identity } from 'identity-type';
 import { StringFilter } from '../prisma/string-filter.input';
 import { PokemonSpeciesListRelationFilter } from '../pokemon-species/pokemon-species-list-relation-filter.input';
 import { ExperienceListRelationFilter } from '../experience/experience-list-relation-filter.input';
@@ -22,14 +23,14 @@ export class GrowthRatesWhereUniqueInput {
     NOT?: Array<GrowthRatesWhereInput>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    formula?: StringFilter;
+    formula?: Identity<StringFilter>;
 
     @Field(() => PokemonSpeciesListRelationFilter, {nullable:true})
-    species?: PokemonSpeciesListRelationFilter;
+    species?: Identity<PokemonSpeciesListRelationFilter>;
 
     @Field(() => ExperienceListRelationFilter, {nullable:true})
-    experience?: ExperienceListRelationFilter;
+    experience?: Identity<ExperienceListRelationFilter>;
 }

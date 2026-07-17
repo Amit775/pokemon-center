@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ExperienceCreateNestedManyWithoutGrowthRateInput } from '../experience/experience-create-nested-many-without-growth-rate.input';
 
 @InputType()
@@ -16,5 +17,5 @@ export class GrowthRatesCreateWithoutSpeciesInput {
     formula!: string;
 
     @Field(() => ExperienceCreateNestedManyWithoutGrowthRateInput, {nullable:true})
-    experience?: ExperienceCreateNestedManyWithoutGrowthRateInput;
+    experience?: Identity<ExperienceCreateNestedManyWithoutGrowthRateInput>;
 }

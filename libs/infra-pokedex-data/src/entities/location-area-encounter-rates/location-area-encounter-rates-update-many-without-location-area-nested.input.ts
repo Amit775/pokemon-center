@@ -4,8 +4,9 @@ import { LocationAreaEncounterRatesCreateWithoutLocationAreaInput } from './loca
 import { Type } from 'class-transformer';
 import { LocationAreaEncounterRatesCreateOrConnectWithoutLocationAreaInput } from './location-area-encounter-rates-create-or-connect-without-location-area.input';
 import { LocationAreaEncounterRatesUpsertWithWhereUniqueWithoutLocationAreaInput } from './location-area-encounter-rates-upsert-with-where-unique-without-location-area.input';
+import type { Identity } from 'identity-type';
 import { LocationAreaEncounterRatesCreateManyLocationAreaInputEnvelope } from './location-area-encounter-rates-create-many-location-area-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationAreaEncounterRatesWhereUniqueInput } from './location-area-encounter-rates-where-unique.input';
 import { LocationAreaEncounterRatesUpdateWithWhereUniqueWithoutLocationAreaInput } from './location-area-encounter-rates-update-with-where-unique-without-location-area.input';
 import { LocationAreaEncounterRatesUpdateManyWithWhereWithoutLocationAreaInput } from './location-area-encounter-rates-update-many-with-where-without-location-area.input';
@@ -28,7 +29,7 @@ export class LocationAreaEncounterRatesUpdateManyWithoutLocationAreaNestedInput 
 
     @Field(() => LocationAreaEncounterRatesCreateManyLocationAreaInputEnvelope, {nullable:true})
     @Type(() => LocationAreaEncounterRatesCreateManyLocationAreaInputEnvelope)
-    createMany?: LocationAreaEncounterRatesCreateManyLocationAreaInputEnvelope;
+    createMany?: Identity<LocationAreaEncounterRatesCreateManyLocationAreaInputEnvelope>;
 
     @Field(() => [LocationAreaEncounterRatesWhereUniqueInput], {nullable:true})
     @Type(() => LocationAreaEncounterRatesWhereUniqueInput)

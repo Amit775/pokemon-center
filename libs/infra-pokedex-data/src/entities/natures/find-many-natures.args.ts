@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NaturesWhereInput } from './natures-where.input';
 import { Type } from 'class-transformer';
 import { NaturesOrderByWithRelationInput } from './natures-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { NaturesWhereUniqueInput } from './natures-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { NaturesScalarFieldEnum } from './natures-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManyNaturesArgs {
 
     @Field(() => NaturesWhereInput, {nullable:true})
     @Type(() => NaturesWhereInput)
-    where?: NaturesWhereInput;
+    where?: Identity<NaturesWhereInput>;
 
     @Field(() => [NaturesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<NaturesOrderByWithRelationInput>;

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveBattleStylesCountAggregate } from './move-battle-styles-count-aggregate.output';
 import { MoveBattleStylesAvgAggregate } from './move-battle-styles-avg-aggregate.output';
 import { MoveBattleStylesSumAggregate } from './move-battle-styles-sum-aggregate.output';
@@ -10,17 +11,17 @@ import { MoveBattleStylesMaxAggregate } from './move-battle-styles-max-aggregate
 export class AggregateMoveBattleStyles {
 
     @Field(() => MoveBattleStylesCountAggregate, {nullable:true})
-    _count?: MoveBattleStylesCountAggregate;
+    _count?: Identity<MoveBattleStylesCountAggregate>;
 
     @Field(() => MoveBattleStylesAvgAggregate, {nullable:true})
-    _avg?: MoveBattleStylesAvgAggregate;
+    _avg?: Identity<MoveBattleStylesAvgAggregate>;
 
     @Field(() => MoveBattleStylesSumAggregate, {nullable:true})
-    _sum?: MoveBattleStylesSumAggregate;
+    _sum?: Identity<MoveBattleStylesSumAggregate>;
 
     @Field(() => MoveBattleStylesMinAggregate, {nullable:true})
-    _min?: MoveBattleStylesMinAggregate;
+    _min?: Identity<MoveBattleStylesMinAggregate>;
 
     @Field(() => MoveBattleStylesMaxAggregate, {nullable:true})
-    _max?: MoveBattleStylesMaxAggregate;
+    _max?: Identity<MoveBattleStylesMaxAggregate>;
 }

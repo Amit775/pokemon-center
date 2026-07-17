@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { VersionGroupsScalarRelationFilter } from '../version-groups/version-groups-scalar-relation-filter.input';
@@ -21,26 +22,26 @@ export class VersionsWhereInput {
     NOT?: Array<VersionsWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    version_group_id?: IntFilter;
+    version_group_id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => VersionGroupsScalarRelationFilter, {nullable:true})
-    versionGroup?: VersionGroupsScalarRelationFilter;
+    versionGroup?: Identity<VersionGroupsScalarRelationFilter>;
 
     @Field(() => EncountersListRelationFilter, {nullable:true})
-    encounters?: EncountersListRelationFilter;
+    encounters?: Identity<EncountersListRelationFilter>;
 
     @Field(() => PokemonItemsListRelationFilter, {nullable:true})
-    pokemonItems?: PokemonItemsListRelationFilter;
+    pokemonItems?: Identity<PokemonItemsListRelationFilter>;
 
     @Field(() => PokemonGameIndicesListRelationFilter, {nullable:true})
-    pokemonGameIndices?: PokemonGameIndicesListRelationFilter;
+    pokemonGameIndices?: Identity<PokemonGameIndicesListRelationFilter>;
 
     @Field(() => LocationAreaEncounterRatesListRelationFilter, {nullable:true})
-    locationAreaEncounterRates?: LocationAreaEncounterRatesListRelationFilter;
+    locationAreaEncounterRates?: Identity<LocationAreaEncounterRatesListRelationFilter>;
 }

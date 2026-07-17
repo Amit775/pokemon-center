@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
 
 @InputType()
@@ -15,23 +16,23 @@ export class EncountersScalarWhereWithAggregatesInput {
     NOT?: Array<EncountersScalarWhereWithAggregatesInput>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
+    id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    version_id?: IntWithAggregatesFilter;
+    version_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    location_area_id?: IntWithAggregatesFilter;
+    location_area_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    encounter_slot_id?: IntWithAggregatesFilter;
+    encounter_slot_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    pokemon_id?: IntWithAggregatesFilter;
+    pokemon_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    min_level?: IntWithAggregatesFilter;
+    min_level?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    max_level?: IntWithAggregatesFilter;
+    max_level?: Identity<IntWithAggregatesFilter>;
 }

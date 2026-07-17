@@ -1,26 +1,25 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class PokemonMovesUncheckedUpdateManyWithoutPokemonInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    version_group_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    version_group_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    move_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    move_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    pokemon_move_method_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    pokemon_move_method_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    level?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    level?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    order?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    order?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    mastery?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    mastery?: number;
 }

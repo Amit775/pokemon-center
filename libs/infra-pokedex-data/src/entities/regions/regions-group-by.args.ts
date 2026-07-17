@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { RegionsWhereInput } from './regions-where.input';
 import { Type } from 'class-transformer';
 import { RegionsOrderByWithAggregationInput } from './regions-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class RegionsGroupByArgs {
 
     @Field(() => RegionsWhereInput, {nullable:true})
     @Type(() => RegionsWhereInput)
-    where?: RegionsWhereInput;
+    where?: Identity<RegionsWhereInput>;
 
     @Field(() => [RegionsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<RegionsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class RegionsGroupByArgs {
     by!: Array<`${RegionsScalarFieldEnum}`>;
 
     @Field(() => RegionsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: RegionsScalarWhereWithAggregatesInput;
+    having?: Identity<RegionsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class RegionsGroupByArgs {
     skip?: number;
 
     @Field(() => RegionsCountAggregateInput, {nullable:true})
-    _count?: RegionsCountAggregateInput;
+    _count?: Identity<RegionsCountAggregateInput>;
 
     @Field(() => RegionsAvgAggregateInput, {nullable:true})
-    _avg?: RegionsAvgAggregateInput;
+    _avg?: Identity<RegionsAvgAggregateInput>;
 
     @Field(() => RegionsSumAggregateInput, {nullable:true})
-    _sum?: RegionsSumAggregateInput;
+    _sum?: Identity<RegionsSumAggregateInput>;
 
     @Field(() => RegionsMinAggregateInput, {nullable:true})
-    _min?: RegionsMinAggregateInput;
+    _min?: Identity<RegionsMinAggregateInput>;
 
     @Field(() => RegionsMaxAggregateInput, {nullable:true})
-    _max?: RegionsMaxAggregateInput;
+    _max?: Identity<RegionsMaxAggregateInput>;
 }

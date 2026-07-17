@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { GrowthRates } from '../growth-rates/growth-rates.model';
+import type { Identity } from 'identity-type';
 
 @ObjectType()
 export class Experience {
@@ -16,5 +17,5 @@ export class Experience {
     experience!: number;
 
     @Field(() => GrowthRates, {nullable:false})
-    growthRate?: GrowthRates;
+    growthRate?: Identity<GrowthRates>;
 }

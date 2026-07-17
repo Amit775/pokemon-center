@@ -4,8 +4,9 @@ import { VersionGroupPokemonMoveMethodsCreateWithoutMoveMethodInput } from './ve
 import { Type } from 'class-transformer';
 import { VersionGroupPokemonMoveMethodsCreateOrConnectWithoutMoveMethodInput } from './version-group-pokemon-move-methods-create-or-connect-without-move-method.input';
 import { VersionGroupPokemonMoveMethodsUpsertWithWhereUniqueWithoutMoveMethodInput } from './version-group-pokemon-move-methods-upsert-with-where-unique-without-move-method.input';
+import type { Identity } from 'identity-type';
 import { VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope } from './version-group-pokemon-move-methods-create-many-move-method-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupPokemonMoveMethodsWhereUniqueInput } from './version-group-pokemon-move-methods-where-unique.input';
 import { VersionGroupPokemonMoveMethodsUpdateWithWhereUniqueWithoutMoveMethodInput } from './version-group-pokemon-move-methods-update-with-where-unique-without-move-method.input';
 import { VersionGroupPokemonMoveMethodsUpdateManyWithWhereWithoutMoveMethodInput } from './version-group-pokemon-move-methods-update-many-with-where-without-move-method.input';
@@ -28,7 +29,7 @@ export class VersionGroupPokemonMoveMethodsUncheckedUpdateManyWithoutMoveMethodN
 
     @Field(() => VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope, {nullable:true})
     @Type(() => VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope)
-    createMany?: VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope;
+    createMany?: Identity<VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope>;
 
     @Field(() => [VersionGroupPokemonMoveMethodsWhereUniqueInput], {nullable:true})
     @Type(() => VersionGroupPokemonMoveMethodsWhereUniqueInput)

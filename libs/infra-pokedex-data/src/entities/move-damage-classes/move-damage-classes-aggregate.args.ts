@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveDamageClassesWhereInput } from './move-damage-classes-where.input';
 import { Type } from 'class-transformer';
 import { MoveDamageClassesOrderByWithRelationInput } from './move-damage-classes-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveDamageClassesWhereUniqueInput } from './move-damage-classes-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { MoveDamageClassesCountAggregateInput } from './move-damage-classes-count-aggregate.input';
@@ -17,7 +18,7 @@ export class MoveDamageClassesAggregateArgs {
 
     @Field(() => MoveDamageClassesWhereInput, {nullable:true})
     @Type(() => MoveDamageClassesWhereInput)
-    where?: MoveDamageClassesWhereInput;
+    where?: Identity<MoveDamageClassesWhereInput>;
 
     @Field(() => [MoveDamageClassesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<MoveDamageClassesOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class MoveDamageClassesAggregateArgs {
     skip?: number;
 
     @Field(() => MoveDamageClassesCountAggregateInput, {nullable:true})
-    _count?: MoveDamageClassesCountAggregateInput;
+    _count?: Identity<MoveDamageClassesCountAggregateInput>;
 
     @Field(() => MoveDamageClassesAvgAggregateInput, {nullable:true})
-    _avg?: MoveDamageClassesAvgAggregateInput;
+    _avg?: Identity<MoveDamageClassesAvgAggregateInput>;
 
     @Field(() => MoveDamageClassesSumAggregateInput, {nullable:true})
-    _sum?: MoveDamageClassesSumAggregateInput;
+    _sum?: Identity<MoveDamageClassesSumAggregateInput>;
 
     @Field(() => MoveDamageClassesMinAggregateInput, {nullable:true})
-    _min?: MoveDamageClassesMinAggregateInput;
+    _min?: Identity<MoveDamageClassesMinAggregateInput>;
 
     @Field(() => MoveDamageClassesMaxAggregateInput, {nullable:true})
-    _max?: MoveDamageClassesMaxAggregateInput;
+    _max?: Identity<MoveDamageClassesMaxAggregateInput>;
 }

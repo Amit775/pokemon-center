@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { RegionsUpdateOneRequiredWithoutGenerationsNestedInput } from '../regions/regions-update-one-required-without-generations-nested.input';
 import { MovesUpdateManyWithoutGenerationNestedInput } from '../moves/moves-update-many-without-generation-nested.input';
 import { TypesUpdateManyWithoutGenerationNestedInput } from '../types/types-update-many-without-generation-nested.input';
@@ -15,36 +15,36 @@ import { VersionGroupsUpdateManyWithoutGenerationNestedInput } from '../version-
 @InputType()
 export class GenerationsUpdateWithoutPokemonSpeciesInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
     @Field(() => RegionsUpdateOneRequiredWithoutGenerationsNestedInput, {nullable:true})
-    region?: RegionsUpdateOneRequiredWithoutGenerationsNestedInput;
+    region?: Identity<RegionsUpdateOneRequiredWithoutGenerationsNestedInput>;
 
     @Field(() => MovesUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    moves?: MovesUpdateManyWithoutGenerationNestedInput;
+    moves?: Identity<MovesUpdateManyWithoutGenerationNestedInput>;
 
     @Field(() => TypesUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    types?: TypesUpdateManyWithoutGenerationNestedInput;
+    types?: Identity<TypesUpdateManyWithoutGenerationNestedInput>;
 
     @Field(() => AbilitiesUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    abilities?: AbilitiesUpdateManyWithoutGenerationNestedInput;
+    abilities?: Identity<AbilitiesUpdateManyWithoutGenerationNestedInput>;
 
     @Field(() => PokemonFormGenerationsUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    pokemonFormGenerations?: PokemonFormGenerationsUpdateManyWithoutGenerationNestedInput;
+    pokemonFormGenerations?: Identity<PokemonFormGenerationsUpdateManyWithoutGenerationNestedInput>;
 
     @Field(() => ItemGameIndicesUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    itemGameIndices?: ItemGameIndicesUpdateManyWithoutGenerationNestedInput;
+    itemGameIndices?: Identity<ItemGameIndicesUpdateManyWithoutGenerationNestedInput>;
 
     @Field(() => TypeGameIndicesUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    typeGameIndices?: TypeGameIndicesUpdateManyWithoutGenerationNestedInput;
+    typeGameIndices?: Identity<TypeGameIndicesUpdateManyWithoutGenerationNestedInput>;
 
     @Field(() => LocationGameIndicesUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    locationGameIndices?: LocationGameIndicesUpdateManyWithoutGenerationNestedInput;
+    locationGameIndices?: Identity<LocationGameIndicesUpdateManyWithoutGenerationNestedInput>;
 
     @Field(() => VersionGroupsUpdateManyWithoutGenerationNestedInput, {nullable:true})
-    versionGroups?: VersionGroupsUpdateManyWithoutGenerationNestedInput;
+    versionGroups?: Identity<VersionGroupsUpdateManyWithoutGenerationNestedInput>;
 }

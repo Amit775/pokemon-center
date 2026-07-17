@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonMoveMethodsWhereInput } from './pokemon-move-methods-where.input';
 import { Type } from 'class-transformer';
 import { PokemonMoveMethodsOrderByWithRelationInput } from './pokemon-move-methods-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonMoveMethodsWhereUniqueInput } from './pokemon-move-methods-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokemonMoveMethodsCountAggregateInput } from './pokemon-move-methods-count-aggregate.input';
@@ -17,7 +18,7 @@ export class PokemonMoveMethodsAggregateArgs {
 
     @Field(() => PokemonMoveMethodsWhereInput, {nullable:true})
     @Type(() => PokemonMoveMethodsWhereInput)
-    where?: PokemonMoveMethodsWhereInput;
+    where?: Identity<PokemonMoveMethodsWhereInput>;
 
     @Field(() => [PokemonMoveMethodsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokemonMoveMethodsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class PokemonMoveMethodsAggregateArgs {
     skip?: number;
 
     @Field(() => PokemonMoveMethodsCountAggregateInput, {nullable:true})
-    _count?: PokemonMoveMethodsCountAggregateInput;
+    _count?: Identity<PokemonMoveMethodsCountAggregateInput>;
 
     @Field(() => PokemonMoveMethodsAvgAggregateInput, {nullable:true})
-    _avg?: PokemonMoveMethodsAvgAggregateInput;
+    _avg?: Identity<PokemonMoveMethodsAvgAggregateInput>;
 
     @Field(() => PokemonMoveMethodsSumAggregateInput, {nullable:true})
-    _sum?: PokemonMoveMethodsSumAggregateInput;
+    _sum?: Identity<PokemonMoveMethodsSumAggregateInput>;
 
     @Field(() => PokemonMoveMethodsMinAggregateInput, {nullable:true})
-    _min?: PokemonMoveMethodsMinAggregateInput;
+    _min?: Identity<PokemonMoveMethodsMinAggregateInput>;
 
     @Field(() => PokemonMoveMethodsMaxAggregateInput, {nullable:true})
-    _max?: PokemonMoveMethodsMaxAggregateInput;
+    _max?: Identity<PokemonMoveMethodsMaxAggregateInput>;
 }

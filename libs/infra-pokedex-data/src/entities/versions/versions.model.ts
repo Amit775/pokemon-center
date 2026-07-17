@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { VersionGroups } from '../version-groups/version-groups.model';
+import type { Identity } from 'identity-type';
 import { Encounters } from '../encounters/encounters.model';
 import { PokemonItems } from '../pokemon-items/pokemon-items.model';
 import { PokemonGameIndices } from '../pokemon-game-indices/pokemon-game-indices.model';
@@ -25,20 +26,20 @@ export class Versions {
     identifier!: string;
 
     @Field(() => VersionGroups, {nullable:false})
-    versionGroup?: VersionGroups;
+    versionGroup?: Identity<VersionGroups>;
 
-    @Field(() => [Encounters], {nullable:true})
+    @Field(() => [Encounters], {nullable:false})
     encounters?: Array<Encounters>;
 
-    @Field(() => [PokemonItems], {nullable:true})
+    @Field(() => [PokemonItems], {nullable:false})
     pokemonItems?: Array<PokemonItems>;
 
-    @Field(() => [PokemonGameIndices], {nullable:true})
+    @Field(() => [PokemonGameIndices], {nullable:false})
     pokemonGameIndices?: Array<PokemonGameIndices>;
 
-    @Field(() => [LocationAreaEncounterRates], {nullable:true})
+    @Field(() => [LocationAreaEncounterRates], {nullable:false})
     locationAreaEncounterRates?: Array<LocationAreaEncounterRates>;
 
     @Field(() => VersionsCount, {nullable:false})
-    _count?: VersionsCount;
+    _count?: Identity<VersionsCount>;
 }

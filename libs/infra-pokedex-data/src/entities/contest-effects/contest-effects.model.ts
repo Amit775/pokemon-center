@@ -4,6 +4,7 @@ import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Moves } from '../moves/moves.model';
 import { ContestEffectsCount } from './contest-effects-count.output';
+import type { Identity } from 'identity-type';
 
 /**
  * @@TypeGraphQL.type(name: "ContestEffect")
@@ -20,9 +21,9 @@ export class ContestEffects {
     @Field(() => Int, {nullable:false})
     jam!: number;
 
-    @Field(() => [Moves], {nullable:true})
+    @Field(() => [Moves], {nullable:false})
     moves?: Array<Moves>;
 
     @Field(() => ContestEffectsCount, {nullable:false})
-    _count?: ContestEffectsCount;
+    _count?: Identity<ContestEffectsCount>;
 }

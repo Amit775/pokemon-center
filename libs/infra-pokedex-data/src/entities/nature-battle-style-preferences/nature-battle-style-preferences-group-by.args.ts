@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NatureBattleStylePreferencesWhereInput } from './nature-battle-style-preferences-where.input';
 import { Type } from 'class-transformer';
 import { NatureBattleStylePreferencesOrderByWithAggregationInput } from './nature-battle-style-preferences-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class NatureBattleStylePreferencesGroupByArgs {
 
     @Field(() => NatureBattleStylePreferencesWhereInput, {nullable:true})
     @Type(() => NatureBattleStylePreferencesWhereInput)
-    where?: NatureBattleStylePreferencesWhereInput;
+    where?: Identity<NatureBattleStylePreferencesWhereInput>;
 
     @Field(() => [NatureBattleStylePreferencesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<NatureBattleStylePreferencesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class NatureBattleStylePreferencesGroupByArgs {
     by!: Array<`${NatureBattleStylePreferencesScalarFieldEnum}`>;
 
     @Field(() => NatureBattleStylePreferencesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: NatureBattleStylePreferencesScalarWhereWithAggregatesInput;
+    having?: Identity<NatureBattleStylePreferencesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class NatureBattleStylePreferencesGroupByArgs {
     skip?: number;
 
     @Field(() => NatureBattleStylePreferencesCountAggregateInput, {nullable:true})
-    _count?: NatureBattleStylePreferencesCountAggregateInput;
+    _count?: Identity<NatureBattleStylePreferencesCountAggregateInput>;
 
     @Field(() => NatureBattleStylePreferencesAvgAggregateInput, {nullable:true})
-    _avg?: NatureBattleStylePreferencesAvgAggregateInput;
+    _avg?: Identity<NatureBattleStylePreferencesAvgAggregateInput>;
 
     @Field(() => NatureBattleStylePreferencesSumAggregateInput, {nullable:true})
-    _sum?: NatureBattleStylePreferencesSumAggregateInput;
+    _sum?: Identity<NatureBattleStylePreferencesSumAggregateInput>;
 
     @Field(() => NatureBattleStylePreferencesMinAggregateInput, {nullable:true})
-    _min?: NatureBattleStylePreferencesMinAggregateInput;
+    _min?: Identity<NatureBattleStylePreferencesMinAggregateInput>;
 
     @Field(() => NatureBattleStylePreferencesMaxAggregateInput, {nullable:true})
-    _max?: NatureBattleStylePreferencesMaxAggregateInput;
+    _max?: Identity<NatureBattleStylePreferencesMaxAggregateInput>;
 }

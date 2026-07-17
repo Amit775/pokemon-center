@@ -4,8 +4,9 @@ import { PokedexesCreateWithoutRegionInput } from './pokedexes-create-without-re
 import { Type } from 'class-transformer';
 import { PokedexesCreateOrConnectWithoutRegionInput } from './pokedexes-create-or-connect-without-region.input';
 import { PokedexesUpsertWithWhereUniqueWithoutRegionInput } from './pokedexes-upsert-with-where-unique-without-region.input';
+import type { Identity } from 'identity-type';
 import { PokedexesCreateManyRegionInputEnvelope } from './pokedexes-create-many-region-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokedexesWhereUniqueInput } from './pokedexes-where-unique.input';
 import { PokedexesUpdateWithWhereUniqueWithoutRegionInput } from './pokedexes-update-with-where-unique-without-region.input';
 import { PokedexesUpdateManyWithWhereWithoutRegionInput } from './pokedexes-update-many-with-where-without-region.input';
@@ -28,7 +29,7 @@ export class PokedexesUncheckedUpdateManyWithoutRegionNestedInput {
 
     @Field(() => PokedexesCreateManyRegionInputEnvelope, {nullable:true})
     @Type(() => PokedexesCreateManyRegionInputEnvelope)
-    createMany?: PokedexesCreateManyRegionInputEnvelope;
+    createMany?: Identity<PokedexesCreateManyRegionInputEnvelope>;
 
     @Field(() => [PokedexesWhereUniqueInput], {nullable:true})
     @Type(() => PokedexesWhereUniqueInput)

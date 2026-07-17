@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupsUpdateWithoutPokedexVersionGroupsInput } from './version-groups-update-without-pokedex-version-groups.input';
 import { Type } from 'class-transformer';
 import { VersionGroupsCreateWithoutPokedexVersionGroupsInput } from './version-groups-create-without-pokedex-version-groups.input';
@@ -10,13 +11,13 @@ export class VersionGroupsUpsertWithoutPokedexVersionGroupsInput {
 
     @Field(() => VersionGroupsUpdateWithoutPokedexVersionGroupsInput, {nullable:false})
     @Type(() => VersionGroupsUpdateWithoutPokedexVersionGroupsInput)
-    update!: VersionGroupsUpdateWithoutPokedexVersionGroupsInput;
+    update!: Identity<VersionGroupsUpdateWithoutPokedexVersionGroupsInput>;
 
     @Field(() => VersionGroupsCreateWithoutPokedexVersionGroupsInput, {nullable:false})
     @Type(() => VersionGroupsCreateWithoutPokedexVersionGroupsInput)
-    create!: VersionGroupsCreateWithoutPokedexVersionGroupsInput;
+    create!: Identity<VersionGroupsCreateWithoutPokedexVersionGroupsInput>;
 
     @Field(() => VersionGroupsWhereInput, {nullable:true})
     @Type(() => VersionGroupsWhereInput)
-    where?: VersionGroupsWhereInput;
+    where?: Identity<VersionGroupsWhereInput>;
 }

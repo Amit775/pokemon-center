@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormGenerationsUncheckedCreateNestedManyWithoutPokemonFormInput } from '../pokemon-form-generations/pokemon-form-generations-unchecked-create-nested-many-without-pokemon-form.input';
 
 @InputType()
@@ -37,5 +38,5 @@ export class PokemonFormsUncheckedCreateWithoutTypesInput {
     order!: number;
 
     @Field(() => PokemonFormGenerationsUncheckedCreateNestedManyWithoutPokemonFormInput, {nullable:true})
-    generations?: PokemonFormGenerationsUncheckedCreateNestedManyWithoutPokemonFormInput;
+    generations?: Identity<PokemonFormGenerationsUncheckedCreateNestedManyWithoutPokemonFormInput>;
 }

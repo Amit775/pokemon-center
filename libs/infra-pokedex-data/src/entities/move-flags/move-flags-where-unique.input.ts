@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { MoveFlagsWhereInput } from './move-flags-where.input';
+import type { Identity } from 'identity-type';
 import { StringFilter } from '../prisma/string-filter.input';
 import { MoveFlagMapListRelationFilter } from '../move-flag-map/move-flag-map-list-relation-filter.input';
 
@@ -21,8 +22,8 @@ export class MoveFlagsWhereUniqueInput {
     NOT?: Array<MoveFlagsWhereInput>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => MoveFlagMapListRelationFilter, {nullable:true})
-    flagMap?: MoveFlagMapListRelationFilter;
+    flagMap?: Identity<MoveFlagMapListRelationFilter>;
 }

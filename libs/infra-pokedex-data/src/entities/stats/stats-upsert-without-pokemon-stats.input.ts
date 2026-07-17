@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StatsUpdateWithoutPokemonStatsInput } from './stats-update-without-pokemon-stats.input';
 import { Type } from 'class-transformer';
 import { StatsCreateWithoutPokemonStatsInput } from './stats-create-without-pokemon-stats.input';
@@ -10,13 +11,13 @@ export class StatsUpsertWithoutPokemonStatsInput {
 
     @Field(() => StatsUpdateWithoutPokemonStatsInput, {nullable:false})
     @Type(() => StatsUpdateWithoutPokemonStatsInput)
-    update!: StatsUpdateWithoutPokemonStatsInput;
+    update!: Identity<StatsUpdateWithoutPokemonStatsInput>;
 
     @Field(() => StatsCreateWithoutPokemonStatsInput, {nullable:false})
     @Type(() => StatsCreateWithoutPokemonStatsInput)
-    create!: StatsCreateWithoutPokemonStatsInput;
+    create!: Identity<StatsCreateWithoutPokemonStatsInput>;
 
     @Field(() => StatsWhereInput, {nullable:true})
     @Type(() => StatsWhereInput)
-    where?: StatsWhereInput;
+    where?: Identity<StatsWhereInput>;
 }

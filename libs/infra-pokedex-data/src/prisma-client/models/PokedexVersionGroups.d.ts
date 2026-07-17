@@ -1,0 +1,1200 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model PokedexVersionGroups
+ * @@TypeGraphQL.type(name: "PokedexVersionGroup")
+ */
+export type PokedexVersionGroupsModel = runtime.Types.Result.DefaultSelection<Prisma.$PokedexVersionGroupsPayload>;
+export type AggregatePokedexVersionGroups = {
+    _count: PokedexVersionGroupsCountAggregateOutputType | null;
+    _avg: PokedexVersionGroupsAvgAggregateOutputType | null;
+    _sum: PokedexVersionGroupsSumAggregateOutputType | null;
+    _min: PokedexVersionGroupsMinAggregateOutputType | null;
+    _max: PokedexVersionGroupsMaxAggregateOutputType | null;
+};
+export type PokedexVersionGroupsAvgAggregateOutputType = {
+    pokedex_id: number | null;
+    version_group_id: number | null;
+};
+export type PokedexVersionGroupsSumAggregateOutputType = {
+    pokedex_id: number | null;
+    version_group_id: number | null;
+};
+export type PokedexVersionGroupsMinAggregateOutputType = {
+    pokedex_id: number | null;
+    version_group_id: number | null;
+};
+export type PokedexVersionGroupsMaxAggregateOutputType = {
+    pokedex_id: number | null;
+    version_group_id: number | null;
+};
+export type PokedexVersionGroupsCountAggregateOutputType = {
+    pokedex_id: number;
+    version_group_id: number;
+    _all: number;
+};
+export type PokedexVersionGroupsAvgAggregateInputType = {
+    pokedex_id?: true;
+    version_group_id?: true;
+};
+export type PokedexVersionGroupsSumAggregateInputType = {
+    pokedex_id?: true;
+    version_group_id?: true;
+};
+export type PokedexVersionGroupsMinAggregateInputType = {
+    pokedex_id?: true;
+    version_group_id?: true;
+};
+export type PokedexVersionGroupsMaxAggregateInputType = {
+    pokedex_id?: true;
+    version_group_id?: true;
+};
+export type PokedexVersionGroupsCountAggregateInputType = {
+    pokedex_id?: true;
+    version_group_id?: true;
+    _all?: true;
+};
+export type PokedexVersionGroupsAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which PokedexVersionGroups to aggregate.
+     */
+    where?: Prisma.PokedexVersionGroupsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PokedexVersionGroups to fetch.
+     */
+    orderBy?: Prisma.PokedexVersionGroupsOrderByWithRelationInput | Prisma.PokedexVersionGroupsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.PokedexVersionGroupsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PokedexVersionGroups from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PokedexVersionGroups.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned PokedexVersionGroups
+    **/
+    _count?: true | PokedexVersionGroupsCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+    **/
+    _avg?: PokedexVersionGroupsAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: PokedexVersionGroupsSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: PokedexVersionGroupsMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: PokedexVersionGroupsMaxAggregateInputType;
+};
+export type GetPokedexVersionGroupsAggregateType<T extends PokedexVersionGroupsAggregateArgs> = {
+    [P in keyof T & keyof AggregatePokedexVersionGroups]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregatePokedexVersionGroups[P]> : Prisma.GetScalarType<T[P], AggregatePokedexVersionGroups[P]>;
+};
+export type PokedexVersionGroupsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.PokedexVersionGroupsWhereInput;
+    orderBy?: Prisma.PokedexVersionGroupsOrderByWithAggregationInput | Prisma.PokedexVersionGroupsOrderByWithAggregationInput[];
+    by: Prisma.PokedexVersionGroupsScalarFieldEnum[] | Prisma.PokedexVersionGroupsScalarFieldEnum;
+    having?: Prisma.PokedexVersionGroupsScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: PokedexVersionGroupsCountAggregateInputType | true;
+    _avg?: PokedexVersionGroupsAvgAggregateInputType;
+    _sum?: PokedexVersionGroupsSumAggregateInputType;
+    _min?: PokedexVersionGroupsMinAggregateInputType;
+    _max?: PokedexVersionGroupsMaxAggregateInputType;
+};
+export type PokedexVersionGroupsGroupByOutputType = {
+    pokedex_id: number;
+    version_group_id: number;
+    _count: PokedexVersionGroupsCountAggregateOutputType | null;
+    _avg: PokedexVersionGroupsAvgAggregateOutputType | null;
+    _sum: PokedexVersionGroupsSumAggregateOutputType | null;
+    _min: PokedexVersionGroupsMinAggregateOutputType | null;
+    _max: PokedexVersionGroupsMaxAggregateOutputType | null;
+};
+export type GetPokedexVersionGroupsGroupByPayload<T extends PokedexVersionGroupsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<PokedexVersionGroupsGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof PokedexVersionGroupsGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], PokedexVersionGroupsGroupByOutputType[P]> : Prisma.GetScalarType<T[P], PokedexVersionGroupsGroupByOutputType[P]>;
+}>>;
+export type PokedexVersionGroupsWhereInput = {
+    AND?: Prisma.PokedexVersionGroupsWhereInput | Prisma.PokedexVersionGroupsWhereInput[];
+    OR?: Prisma.PokedexVersionGroupsWhereInput[];
+    NOT?: Prisma.PokedexVersionGroupsWhereInput | Prisma.PokedexVersionGroupsWhereInput[];
+    pokedex_id?: Prisma.IntFilter<"PokedexVersionGroups"> | number;
+    version_group_id?: Prisma.IntFilter<"PokedexVersionGroups"> | number;
+    pokedex?: Prisma.XOR<Prisma.PokedexesScalarRelationFilter, Prisma.PokedexesWhereInput>;
+    versionGroup?: Prisma.XOR<Prisma.VersionGroupsScalarRelationFilter, Prisma.VersionGroupsWhereInput>;
+};
+export type PokedexVersionGroupsOrderByWithRelationInput = {
+    pokedex_id?: Prisma.SortOrder;
+    version_group_id?: Prisma.SortOrder;
+    pokedex?: Prisma.PokedexesOrderByWithRelationInput;
+    versionGroup?: Prisma.VersionGroupsOrderByWithRelationInput;
+};
+export type PokedexVersionGroupsWhereUniqueInput = Prisma.AtLeast<{
+    pokedex_id?: number;
+    AND?: Prisma.PokedexVersionGroupsWhereInput | Prisma.PokedexVersionGroupsWhereInput[];
+    OR?: Prisma.PokedexVersionGroupsWhereInput[];
+    NOT?: Prisma.PokedexVersionGroupsWhereInput | Prisma.PokedexVersionGroupsWhereInput[];
+    version_group_id?: Prisma.IntFilter<"PokedexVersionGroups"> | number;
+    pokedex?: Prisma.XOR<Prisma.PokedexesScalarRelationFilter, Prisma.PokedexesWhereInput>;
+    versionGroup?: Prisma.XOR<Prisma.VersionGroupsScalarRelationFilter, Prisma.VersionGroupsWhereInput>;
+}, "pokedex_id">;
+export type PokedexVersionGroupsOrderByWithAggregationInput = {
+    pokedex_id?: Prisma.SortOrder;
+    version_group_id?: Prisma.SortOrder;
+    _count?: Prisma.PokedexVersionGroupsCountOrderByAggregateInput;
+    _avg?: Prisma.PokedexVersionGroupsAvgOrderByAggregateInput;
+    _max?: Prisma.PokedexVersionGroupsMaxOrderByAggregateInput;
+    _min?: Prisma.PokedexVersionGroupsMinOrderByAggregateInput;
+    _sum?: Prisma.PokedexVersionGroupsSumOrderByAggregateInput;
+};
+export type PokedexVersionGroupsScalarWhereWithAggregatesInput = {
+    AND?: Prisma.PokedexVersionGroupsScalarWhereWithAggregatesInput | Prisma.PokedexVersionGroupsScalarWhereWithAggregatesInput[];
+    OR?: Prisma.PokedexVersionGroupsScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.PokedexVersionGroupsScalarWhereWithAggregatesInput | Prisma.PokedexVersionGroupsScalarWhereWithAggregatesInput[];
+    pokedex_id?: Prisma.IntWithAggregatesFilter<"PokedexVersionGroups"> | number;
+    version_group_id?: Prisma.IntWithAggregatesFilter<"PokedexVersionGroups"> | number;
+};
+export type PokedexVersionGroupsCreateInput = {
+    pokedex: Prisma.PokedexesCreateNestedOneWithoutVersionGroupsInput;
+    versionGroup: Prisma.VersionGroupsCreateNestedOneWithoutPokedexVersionGroupsInput;
+};
+export type PokedexVersionGroupsUncheckedCreateInput = {
+    pokedex_id: number;
+    version_group_id: number;
+};
+export type PokedexVersionGroupsUpdateInput = {
+    pokedex?: Prisma.PokedexesUpdateOneRequiredWithoutVersionGroupsNestedInput;
+    versionGroup?: Prisma.VersionGroupsUpdateOneRequiredWithoutPokedexVersionGroupsNestedInput;
+};
+export type PokedexVersionGroupsUncheckedUpdateInput = {
+    pokedex_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    version_group_id?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type PokedexVersionGroupsCreateManyInput = {
+    pokedex_id: number;
+    version_group_id: number;
+};
+export type PokedexVersionGroupsUpdateManyMutationInput = {};
+export type PokedexVersionGroupsUncheckedUpdateManyInput = {
+    pokedex_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    version_group_id?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type PokedexVersionGroupsListRelationFilter = {
+    every?: Prisma.PokedexVersionGroupsWhereInput;
+    some?: Prisma.PokedexVersionGroupsWhereInput;
+    none?: Prisma.PokedexVersionGroupsWhereInput;
+};
+export type PokedexVersionGroupsOrderByRelationAggregateInput = {
+    _count?: Prisma.SortOrder;
+};
+export type PokedexVersionGroupsCountOrderByAggregateInput = {
+    pokedex_id?: Prisma.SortOrder;
+    version_group_id?: Prisma.SortOrder;
+};
+export type PokedexVersionGroupsAvgOrderByAggregateInput = {
+    pokedex_id?: Prisma.SortOrder;
+    version_group_id?: Prisma.SortOrder;
+};
+export type PokedexVersionGroupsMaxOrderByAggregateInput = {
+    pokedex_id?: Prisma.SortOrder;
+    version_group_id?: Prisma.SortOrder;
+};
+export type PokedexVersionGroupsMinOrderByAggregateInput = {
+    pokedex_id?: Prisma.SortOrder;
+    version_group_id?: Prisma.SortOrder;
+};
+export type PokedexVersionGroupsSumOrderByAggregateInput = {
+    pokedex_id?: Prisma.SortOrder;
+    version_group_id?: Prisma.SortOrder;
+};
+export type PokedexVersionGroupsCreateNestedManyWithoutVersionGroupInput = {
+    create?: Prisma.XOR<Prisma.PokedexVersionGroupsCreateWithoutVersionGroupInput, Prisma.PokedexVersionGroupsUncheckedCreateWithoutVersionGroupInput> | Prisma.PokedexVersionGroupsCreateWithoutVersionGroupInput[] | Prisma.PokedexVersionGroupsUncheckedCreateWithoutVersionGroupInput[];
+    connectOrCreate?: Prisma.PokedexVersionGroupsCreateOrConnectWithoutVersionGroupInput | Prisma.PokedexVersionGroupsCreateOrConnectWithoutVersionGroupInput[];
+    createMany?: Prisma.PokedexVersionGroupsCreateManyVersionGroupInputEnvelope;
+    connect?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+};
+export type PokedexVersionGroupsUncheckedCreateNestedManyWithoutVersionGroupInput = {
+    create?: Prisma.XOR<Prisma.PokedexVersionGroupsCreateWithoutVersionGroupInput, Prisma.PokedexVersionGroupsUncheckedCreateWithoutVersionGroupInput> | Prisma.PokedexVersionGroupsCreateWithoutVersionGroupInput[] | Prisma.PokedexVersionGroupsUncheckedCreateWithoutVersionGroupInput[];
+    connectOrCreate?: Prisma.PokedexVersionGroupsCreateOrConnectWithoutVersionGroupInput | Prisma.PokedexVersionGroupsCreateOrConnectWithoutVersionGroupInput[];
+    createMany?: Prisma.PokedexVersionGroupsCreateManyVersionGroupInputEnvelope;
+    connect?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+};
+export type PokedexVersionGroupsUpdateManyWithoutVersionGroupNestedInput = {
+    create?: Prisma.XOR<Prisma.PokedexVersionGroupsCreateWithoutVersionGroupInput, Prisma.PokedexVersionGroupsUncheckedCreateWithoutVersionGroupInput> | Prisma.PokedexVersionGroupsCreateWithoutVersionGroupInput[] | Prisma.PokedexVersionGroupsUncheckedCreateWithoutVersionGroupInput[];
+    connectOrCreate?: Prisma.PokedexVersionGroupsCreateOrConnectWithoutVersionGroupInput | Prisma.PokedexVersionGroupsCreateOrConnectWithoutVersionGroupInput[];
+    upsert?: Prisma.PokedexVersionGroupsUpsertWithWhereUniqueWithoutVersionGroupInput | Prisma.PokedexVersionGroupsUpsertWithWhereUniqueWithoutVersionGroupInput[];
+    createMany?: Prisma.PokedexVersionGroupsCreateManyVersionGroupInputEnvelope;
+    set?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    disconnect?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    delete?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    connect?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    update?: Prisma.PokedexVersionGroupsUpdateWithWhereUniqueWithoutVersionGroupInput | Prisma.PokedexVersionGroupsUpdateWithWhereUniqueWithoutVersionGroupInput[];
+    updateMany?: Prisma.PokedexVersionGroupsUpdateManyWithWhereWithoutVersionGroupInput | Prisma.PokedexVersionGroupsUpdateManyWithWhereWithoutVersionGroupInput[];
+    deleteMany?: Prisma.PokedexVersionGroupsScalarWhereInput | Prisma.PokedexVersionGroupsScalarWhereInput[];
+};
+export type PokedexVersionGroupsUncheckedUpdateManyWithoutVersionGroupNestedInput = {
+    create?: Prisma.XOR<Prisma.PokedexVersionGroupsCreateWithoutVersionGroupInput, Prisma.PokedexVersionGroupsUncheckedCreateWithoutVersionGroupInput> | Prisma.PokedexVersionGroupsCreateWithoutVersionGroupInput[] | Prisma.PokedexVersionGroupsUncheckedCreateWithoutVersionGroupInput[];
+    connectOrCreate?: Prisma.PokedexVersionGroupsCreateOrConnectWithoutVersionGroupInput | Prisma.PokedexVersionGroupsCreateOrConnectWithoutVersionGroupInput[];
+    upsert?: Prisma.PokedexVersionGroupsUpsertWithWhereUniqueWithoutVersionGroupInput | Prisma.PokedexVersionGroupsUpsertWithWhereUniqueWithoutVersionGroupInput[];
+    createMany?: Prisma.PokedexVersionGroupsCreateManyVersionGroupInputEnvelope;
+    set?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    disconnect?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    delete?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    connect?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    update?: Prisma.PokedexVersionGroupsUpdateWithWhereUniqueWithoutVersionGroupInput | Prisma.PokedexVersionGroupsUpdateWithWhereUniqueWithoutVersionGroupInput[];
+    updateMany?: Prisma.PokedexVersionGroupsUpdateManyWithWhereWithoutVersionGroupInput | Prisma.PokedexVersionGroupsUpdateManyWithWhereWithoutVersionGroupInput[];
+    deleteMany?: Prisma.PokedexVersionGroupsScalarWhereInput | Prisma.PokedexVersionGroupsScalarWhereInput[];
+};
+export type PokedexVersionGroupsCreateNestedManyWithoutPokedexInput = {
+    create?: Prisma.XOR<Prisma.PokedexVersionGroupsCreateWithoutPokedexInput, Prisma.PokedexVersionGroupsUncheckedCreateWithoutPokedexInput> | Prisma.PokedexVersionGroupsCreateWithoutPokedexInput[] | Prisma.PokedexVersionGroupsUncheckedCreateWithoutPokedexInput[];
+    connectOrCreate?: Prisma.PokedexVersionGroupsCreateOrConnectWithoutPokedexInput | Prisma.PokedexVersionGroupsCreateOrConnectWithoutPokedexInput[];
+    createMany?: Prisma.PokedexVersionGroupsCreateManyPokedexInputEnvelope;
+    connect?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+};
+export type PokedexVersionGroupsUncheckedCreateNestedManyWithoutPokedexInput = {
+    create?: Prisma.XOR<Prisma.PokedexVersionGroupsCreateWithoutPokedexInput, Prisma.PokedexVersionGroupsUncheckedCreateWithoutPokedexInput> | Prisma.PokedexVersionGroupsCreateWithoutPokedexInput[] | Prisma.PokedexVersionGroupsUncheckedCreateWithoutPokedexInput[];
+    connectOrCreate?: Prisma.PokedexVersionGroupsCreateOrConnectWithoutPokedexInput | Prisma.PokedexVersionGroupsCreateOrConnectWithoutPokedexInput[];
+    createMany?: Prisma.PokedexVersionGroupsCreateManyPokedexInputEnvelope;
+    connect?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+};
+export type PokedexVersionGroupsUpdateManyWithoutPokedexNestedInput = {
+    create?: Prisma.XOR<Prisma.PokedexVersionGroupsCreateWithoutPokedexInput, Prisma.PokedexVersionGroupsUncheckedCreateWithoutPokedexInput> | Prisma.PokedexVersionGroupsCreateWithoutPokedexInput[] | Prisma.PokedexVersionGroupsUncheckedCreateWithoutPokedexInput[];
+    connectOrCreate?: Prisma.PokedexVersionGroupsCreateOrConnectWithoutPokedexInput | Prisma.PokedexVersionGroupsCreateOrConnectWithoutPokedexInput[];
+    upsert?: Prisma.PokedexVersionGroupsUpsertWithWhereUniqueWithoutPokedexInput | Prisma.PokedexVersionGroupsUpsertWithWhereUniqueWithoutPokedexInput[];
+    createMany?: Prisma.PokedexVersionGroupsCreateManyPokedexInputEnvelope;
+    set?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    disconnect?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    delete?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    connect?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    update?: Prisma.PokedexVersionGroupsUpdateWithWhereUniqueWithoutPokedexInput | Prisma.PokedexVersionGroupsUpdateWithWhereUniqueWithoutPokedexInput[];
+    updateMany?: Prisma.PokedexVersionGroupsUpdateManyWithWhereWithoutPokedexInput | Prisma.PokedexVersionGroupsUpdateManyWithWhereWithoutPokedexInput[];
+    deleteMany?: Prisma.PokedexVersionGroupsScalarWhereInput | Prisma.PokedexVersionGroupsScalarWhereInput[];
+};
+export type PokedexVersionGroupsUncheckedUpdateManyWithoutPokedexNestedInput = {
+    create?: Prisma.XOR<Prisma.PokedexVersionGroupsCreateWithoutPokedexInput, Prisma.PokedexVersionGroupsUncheckedCreateWithoutPokedexInput> | Prisma.PokedexVersionGroupsCreateWithoutPokedexInput[] | Prisma.PokedexVersionGroupsUncheckedCreateWithoutPokedexInput[];
+    connectOrCreate?: Prisma.PokedexVersionGroupsCreateOrConnectWithoutPokedexInput | Prisma.PokedexVersionGroupsCreateOrConnectWithoutPokedexInput[];
+    upsert?: Prisma.PokedexVersionGroupsUpsertWithWhereUniqueWithoutPokedexInput | Prisma.PokedexVersionGroupsUpsertWithWhereUniqueWithoutPokedexInput[];
+    createMany?: Prisma.PokedexVersionGroupsCreateManyPokedexInputEnvelope;
+    set?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    disconnect?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    delete?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    connect?: Prisma.PokedexVersionGroupsWhereUniqueInput | Prisma.PokedexVersionGroupsWhereUniqueInput[];
+    update?: Prisma.PokedexVersionGroupsUpdateWithWhereUniqueWithoutPokedexInput | Prisma.PokedexVersionGroupsUpdateWithWhereUniqueWithoutPokedexInput[];
+    updateMany?: Prisma.PokedexVersionGroupsUpdateManyWithWhereWithoutPokedexInput | Prisma.PokedexVersionGroupsUpdateManyWithWhereWithoutPokedexInput[];
+    deleteMany?: Prisma.PokedexVersionGroupsScalarWhereInput | Prisma.PokedexVersionGroupsScalarWhereInput[];
+};
+export type PokedexVersionGroupsCreateWithoutVersionGroupInput = {
+    pokedex: Prisma.PokedexesCreateNestedOneWithoutVersionGroupsInput;
+};
+export type PokedexVersionGroupsUncheckedCreateWithoutVersionGroupInput = {
+    pokedex_id: number;
+};
+export type PokedexVersionGroupsCreateOrConnectWithoutVersionGroupInput = {
+    where: Prisma.PokedexVersionGroupsWhereUniqueInput;
+    create: Prisma.XOR<Prisma.PokedexVersionGroupsCreateWithoutVersionGroupInput, Prisma.PokedexVersionGroupsUncheckedCreateWithoutVersionGroupInput>;
+};
+export type PokedexVersionGroupsCreateManyVersionGroupInputEnvelope = {
+    data: Prisma.PokedexVersionGroupsCreateManyVersionGroupInput | Prisma.PokedexVersionGroupsCreateManyVersionGroupInput[];
+    skipDuplicates?: boolean;
+};
+export type PokedexVersionGroupsUpsertWithWhereUniqueWithoutVersionGroupInput = {
+    where: Prisma.PokedexVersionGroupsWhereUniqueInput;
+    update: Prisma.XOR<Prisma.PokedexVersionGroupsUpdateWithoutVersionGroupInput, Prisma.PokedexVersionGroupsUncheckedUpdateWithoutVersionGroupInput>;
+    create: Prisma.XOR<Prisma.PokedexVersionGroupsCreateWithoutVersionGroupInput, Prisma.PokedexVersionGroupsUncheckedCreateWithoutVersionGroupInput>;
+};
+export type PokedexVersionGroupsUpdateWithWhereUniqueWithoutVersionGroupInput = {
+    where: Prisma.PokedexVersionGroupsWhereUniqueInput;
+    data: Prisma.XOR<Prisma.PokedexVersionGroupsUpdateWithoutVersionGroupInput, Prisma.PokedexVersionGroupsUncheckedUpdateWithoutVersionGroupInput>;
+};
+export type PokedexVersionGroupsUpdateManyWithWhereWithoutVersionGroupInput = {
+    where: Prisma.PokedexVersionGroupsScalarWhereInput;
+    data: Prisma.XOR<Prisma.PokedexVersionGroupsUpdateManyMutationInput, Prisma.PokedexVersionGroupsUncheckedUpdateManyWithoutVersionGroupInput>;
+};
+export type PokedexVersionGroupsScalarWhereInput = {
+    AND?: Prisma.PokedexVersionGroupsScalarWhereInput | Prisma.PokedexVersionGroupsScalarWhereInput[];
+    OR?: Prisma.PokedexVersionGroupsScalarWhereInput[];
+    NOT?: Prisma.PokedexVersionGroupsScalarWhereInput | Prisma.PokedexVersionGroupsScalarWhereInput[];
+    pokedex_id?: Prisma.IntFilter<"PokedexVersionGroups"> | number;
+    version_group_id?: Prisma.IntFilter<"PokedexVersionGroups"> | number;
+};
+export type PokedexVersionGroupsCreateWithoutPokedexInput = {
+    versionGroup: Prisma.VersionGroupsCreateNestedOneWithoutPokedexVersionGroupsInput;
+};
+export type PokedexVersionGroupsUncheckedCreateWithoutPokedexInput = {
+    version_group_id: number;
+};
+export type PokedexVersionGroupsCreateOrConnectWithoutPokedexInput = {
+    where: Prisma.PokedexVersionGroupsWhereUniqueInput;
+    create: Prisma.XOR<Prisma.PokedexVersionGroupsCreateWithoutPokedexInput, Prisma.PokedexVersionGroupsUncheckedCreateWithoutPokedexInput>;
+};
+export type PokedexVersionGroupsCreateManyPokedexInputEnvelope = {
+    data: Prisma.PokedexVersionGroupsCreateManyPokedexInput | Prisma.PokedexVersionGroupsCreateManyPokedexInput[];
+    skipDuplicates?: boolean;
+};
+export type PokedexVersionGroupsUpsertWithWhereUniqueWithoutPokedexInput = {
+    where: Prisma.PokedexVersionGroupsWhereUniqueInput;
+    update: Prisma.XOR<Prisma.PokedexVersionGroupsUpdateWithoutPokedexInput, Prisma.PokedexVersionGroupsUncheckedUpdateWithoutPokedexInput>;
+    create: Prisma.XOR<Prisma.PokedexVersionGroupsCreateWithoutPokedexInput, Prisma.PokedexVersionGroupsUncheckedCreateWithoutPokedexInput>;
+};
+export type PokedexVersionGroupsUpdateWithWhereUniqueWithoutPokedexInput = {
+    where: Prisma.PokedexVersionGroupsWhereUniqueInput;
+    data: Prisma.XOR<Prisma.PokedexVersionGroupsUpdateWithoutPokedexInput, Prisma.PokedexVersionGroupsUncheckedUpdateWithoutPokedexInput>;
+};
+export type PokedexVersionGroupsUpdateManyWithWhereWithoutPokedexInput = {
+    where: Prisma.PokedexVersionGroupsScalarWhereInput;
+    data: Prisma.XOR<Prisma.PokedexVersionGroupsUpdateManyMutationInput, Prisma.PokedexVersionGroupsUncheckedUpdateManyWithoutPokedexInput>;
+};
+export type PokedexVersionGroupsCreateManyVersionGroupInput = {
+    pokedex_id: number;
+};
+export type PokedexVersionGroupsUpdateWithoutVersionGroupInput = {
+    pokedex?: Prisma.PokedexesUpdateOneRequiredWithoutVersionGroupsNestedInput;
+};
+export type PokedexVersionGroupsUncheckedUpdateWithoutVersionGroupInput = {
+    pokedex_id?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type PokedexVersionGroupsUncheckedUpdateManyWithoutVersionGroupInput = {
+    pokedex_id?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type PokedexVersionGroupsCreateManyPokedexInput = {
+    version_group_id: number;
+};
+export type PokedexVersionGroupsUpdateWithoutPokedexInput = {
+    versionGroup?: Prisma.VersionGroupsUpdateOneRequiredWithoutPokedexVersionGroupsNestedInput;
+};
+export type PokedexVersionGroupsUncheckedUpdateWithoutPokedexInput = {
+    version_group_id?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type PokedexVersionGroupsUncheckedUpdateManyWithoutPokedexInput = {
+    version_group_id?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type PokedexVersionGroupsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    pokedex_id?: boolean;
+    version_group_id?: boolean;
+    pokedex?: boolean | Prisma.PokedexesDefaultArgs<ExtArgs>;
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["pokedexVersionGroups"]>;
+export type PokedexVersionGroupsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    pokedex_id?: boolean;
+    version_group_id?: boolean;
+    pokedex?: boolean | Prisma.PokedexesDefaultArgs<ExtArgs>;
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["pokedexVersionGroups"]>;
+export type PokedexVersionGroupsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    pokedex_id?: boolean;
+    version_group_id?: boolean;
+    pokedex?: boolean | Prisma.PokedexesDefaultArgs<ExtArgs>;
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["pokedexVersionGroups"]>;
+export type PokedexVersionGroupsSelectScalar = {
+    pokedex_id?: boolean;
+    version_group_id?: boolean;
+};
+export type PokedexVersionGroupsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"pokedex_id" | "version_group_id", ExtArgs["result"]["pokedexVersionGroups"]>;
+export type PokedexVersionGroupsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    pokedex?: boolean | Prisma.PokedexesDefaultArgs<ExtArgs>;
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+};
+export type PokedexVersionGroupsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    pokedex?: boolean | Prisma.PokedexesDefaultArgs<ExtArgs>;
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+};
+export type PokedexVersionGroupsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    pokedex?: boolean | Prisma.PokedexesDefaultArgs<ExtArgs>;
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+};
+export type $PokedexVersionGroupsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "PokedexVersionGroups";
+    objects: {
+        pokedex: Prisma.$PokedexesPayload<ExtArgs>;
+        versionGroup: Prisma.$VersionGroupsPayload<ExtArgs>;
+    };
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        pokedex_id: number;
+        version_group_id: number;
+    }, ExtArgs["result"]["pokedexVersionGroups"]>;
+    composites: {};
+};
+export type PokedexVersionGroupsGetPayload<S extends boolean | null | undefined | PokedexVersionGroupsDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$PokedexVersionGroupsPayload, S>;
+export type PokedexVersionGroupsCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<PokedexVersionGroupsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: PokedexVersionGroupsCountAggregateInputType | true;
+};
+export interface PokedexVersionGroupsDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['PokedexVersionGroups'];
+        meta: {
+            name: 'PokedexVersionGroups';
+        };
+    };
+    /**
+     * Find zero or one PokedexVersionGroups that matches the filter.
+     * @param {PokedexVersionGroupsFindUniqueArgs} args - Arguments to find a PokedexVersionGroups
+     * @example
+     * // Get one PokedexVersionGroups
+     * const pokedexVersionGroups = await prisma.pokedexVersionGroups.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PokedexVersionGroupsFindUniqueArgs>(args: Prisma.SelectSubset<T, PokedexVersionGroupsFindUniqueArgs<ExtArgs>>): Prisma.Prisma__PokedexVersionGroupsClient<runtime.Types.Result.GetResult<Prisma.$PokedexVersionGroupsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one PokedexVersionGroups that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PokedexVersionGroupsFindUniqueOrThrowArgs} args - Arguments to find a PokedexVersionGroups
+     * @example
+     * // Get one PokedexVersionGroups
+     * const pokedexVersionGroups = await prisma.pokedexVersionGroups.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PokedexVersionGroupsFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, PokedexVersionGroupsFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__PokedexVersionGroupsClient<runtime.Types.Result.GetResult<Prisma.$PokedexVersionGroupsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first PokedexVersionGroups that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PokedexVersionGroupsFindFirstArgs} args - Arguments to find a PokedexVersionGroups
+     * @example
+     * // Get one PokedexVersionGroups
+     * const pokedexVersionGroups = await prisma.pokedexVersionGroups.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PokedexVersionGroupsFindFirstArgs>(args?: Prisma.SelectSubset<T, PokedexVersionGroupsFindFirstArgs<ExtArgs>>): Prisma.Prisma__PokedexVersionGroupsClient<runtime.Types.Result.GetResult<Prisma.$PokedexVersionGroupsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first PokedexVersionGroups that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PokedexVersionGroupsFindFirstOrThrowArgs} args - Arguments to find a PokedexVersionGroups
+     * @example
+     * // Get one PokedexVersionGroups
+     * const pokedexVersionGroups = await prisma.pokedexVersionGroups.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PokedexVersionGroupsFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, PokedexVersionGroupsFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__PokedexVersionGroupsClient<runtime.Types.Result.GetResult<Prisma.$PokedexVersionGroupsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more PokedexVersionGroups that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PokedexVersionGroupsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PokedexVersionGroups
+     * const pokedexVersionGroups = await prisma.pokedexVersionGroups.findMany()
+     *
+     * // Get first 10 PokedexVersionGroups
+     * const pokedexVersionGroups = await prisma.pokedexVersionGroups.findMany({ take: 10 })
+     *
+     * // Only select the `pokedex_id`
+     * const pokedexVersionGroupsWithPokedex_idOnly = await prisma.pokedexVersionGroups.findMany({ select: { pokedex_id: true } })
+     *
+     */
+    findMany<T extends PokedexVersionGroupsFindManyArgs>(args?: Prisma.SelectSubset<T, PokedexVersionGroupsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PokedexVersionGroupsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a PokedexVersionGroups.
+     * @param {PokedexVersionGroupsCreateArgs} args - Arguments to create a PokedexVersionGroups.
+     * @example
+     * // Create one PokedexVersionGroups
+     * const PokedexVersionGroups = await prisma.pokedexVersionGroups.create({
+     *   data: {
+     *     // ... data to create a PokedexVersionGroups
+     *   }
+     * })
+     *
+     */
+    create<T extends PokedexVersionGroupsCreateArgs>(args: Prisma.SelectSubset<T, PokedexVersionGroupsCreateArgs<ExtArgs>>): Prisma.Prisma__PokedexVersionGroupsClient<runtime.Types.Result.GetResult<Prisma.$PokedexVersionGroupsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many PokedexVersionGroups.
+     * @param {PokedexVersionGroupsCreateManyArgs} args - Arguments to create many PokedexVersionGroups.
+     * @example
+     * // Create many PokedexVersionGroups
+     * const pokedexVersionGroups = await prisma.pokedexVersionGroups.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends PokedexVersionGroupsCreateManyArgs>(args?: Prisma.SelectSubset<T, PokedexVersionGroupsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many PokedexVersionGroups and returns the data saved in the database.
+     * @param {PokedexVersionGroupsCreateManyAndReturnArgs} args - Arguments to create many PokedexVersionGroups.
+     * @example
+     * // Create many PokedexVersionGroups
+     * const pokedexVersionGroups = await prisma.pokedexVersionGroups.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many PokedexVersionGroups and only return the `pokedex_id`
+     * const pokedexVersionGroupsWithPokedex_idOnly = await prisma.pokedexVersionGroups.createManyAndReturn({
+     *   select: { pokedex_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends PokedexVersionGroupsCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, PokedexVersionGroupsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PokedexVersionGroupsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a PokedexVersionGroups.
+     * @param {PokedexVersionGroupsDeleteArgs} args - Arguments to delete one PokedexVersionGroups.
+     * @example
+     * // Delete one PokedexVersionGroups
+     * const PokedexVersionGroups = await prisma.pokedexVersionGroups.delete({
+     *   where: {
+     *     // ... filter to delete one PokedexVersionGroups
+     *   }
+     * })
+     *
+     */
+    delete<T extends PokedexVersionGroupsDeleteArgs>(args: Prisma.SelectSubset<T, PokedexVersionGroupsDeleteArgs<ExtArgs>>): Prisma.Prisma__PokedexVersionGroupsClient<runtime.Types.Result.GetResult<Prisma.$PokedexVersionGroupsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one PokedexVersionGroups.
+     * @param {PokedexVersionGroupsUpdateArgs} args - Arguments to update one PokedexVersionGroups.
+     * @example
+     * // Update one PokedexVersionGroups
+     * const pokedexVersionGroups = await prisma.pokedexVersionGroups.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends PokedexVersionGroupsUpdateArgs>(args: Prisma.SelectSubset<T, PokedexVersionGroupsUpdateArgs<ExtArgs>>): Prisma.Prisma__PokedexVersionGroupsClient<runtime.Types.Result.GetResult<Prisma.$PokedexVersionGroupsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more PokedexVersionGroups.
+     * @param {PokedexVersionGroupsDeleteManyArgs} args - Arguments to filter PokedexVersionGroups to delete.
+     * @example
+     * // Delete a few PokedexVersionGroups
+     * const { count } = await prisma.pokedexVersionGroups.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends PokedexVersionGroupsDeleteManyArgs>(args?: Prisma.SelectSubset<T, PokedexVersionGroupsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more PokedexVersionGroups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PokedexVersionGroupsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PokedexVersionGroups
+     * const pokedexVersionGroups = await prisma.pokedexVersionGroups.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends PokedexVersionGroupsUpdateManyArgs>(args: Prisma.SelectSubset<T, PokedexVersionGroupsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more PokedexVersionGroups and returns the data updated in the database.
+     * @param {PokedexVersionGroupsUpdateManyAndReturnArgs} args - Arguments to update many PokedexVersionGroups.
+     * @example
+     * // Update many PokedexVersionGroups
+     * const pokedexVersionGroups = await prisma.pokedexVersionGroups.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more PokedexVersionGroups and only return the `pokedex_id`
+     * const pokedexVersionGroupsWithPokedex_idOnly = await prisma.pokedexVersionGroups.updateManyAndReturn({
+     *   select: { pokedex_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends PokedexVersionGroupsUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, PokedexVersionGroupsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PokedexVersionGroupsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one PokedexVersionGroups.
+     * @param {PokedexVersionGroupsUpsertArgs} args - Arguments to update or create a PokedexVersionGroups.
+     * @example
+     * // Update or create a PokedexVersionGroups
+     * const pokedexVersionGroups = await prisma.pokedexVersionGroups.upsert({
+     *   create: {
+     *     // ... data to create a PokedexVersionGroups
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PokedexVersionGroups we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PokedexVersionGroupsUpsertArgs>(args: Prisma.SelectSubset<T, PokedexVersionGroupsUpsertArgs<ExtArgs>>): Prisma.Prisma__PokedexVersionGroupsClient<runtime.Types.Result.GetResult<Prisma.$PokedexVersionGroupsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of PokedexVersionGroups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PokedexVersionGroupsCountArgs} args - Arguments to filter PokedexVersionGroups to count.
+     * @example
+     * // Count the number of PokedexVersionGroups
+     * const count = await prisma.pokedexVersionGroups.count({
+     *   where: {
+     *     // ... the filter for the PokedexVersionGroups we want to count
+     *   }
+     * })
+    **/
+    count<T extends PokedexVersionGroupsCountArgs>(args?: Prisma.Subset<T, PokedexVersionGroupsCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], PokedexVersionGroupsCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a PokedexVersionGroups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PokedexVersionGroupsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PokedexVersionGroupsAggregateArgs>(args: Prisma.Subset<T, PokedexVersionGroupsAggregateArgs>): Prisma.PrismaPromise<GetPokedexVersionGroupsAggregateType<T>>;
+    /**
+     * Group by PokedexVersionGroups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PokedexVersionGroupsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends PokedexVersionGroupsGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: PokedexVersionGroupsGroupByArgs['orderBy'];
+    } : {
+        orderBy?: PokedexVersionGroupsGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, PokedexVersionGroupsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPokedexVersionGroupsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the PokedexVersionGroups model
+     */
+    readonly fields: PokedexVersionGroupsFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for PokedexVersionGroups.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__PokedexVersionGroupsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    pokedex<T extends Prisma.PokedexesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PokedexesDefaultArgs<ExtArgs>>): Prisma.Prisma__PokedexesClient<runtime.Types.Result.GetResult<Prisma.$PokedexesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    versionGroup<T extends Prisma.VersionGroupsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VersionGroupsDefaultArgs<ExtArgs>>): Prisma.Prisma__VersionGroupsClient<runtime.Types.Result.GetResult<Prisma.$VersionGroupsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the PokedexVersionGroups model
+ */
+export interface PokedexVersionGroupsFieldRefs {
+    readonly pokedex_id: Prisma.FieldRef<"PokedexVersionGroups", 'Int'>;
+    readonly version_group_id: Prisma.FieldRef<"PokedexVersionGroups", 'Int'>;
+}
+/**
+ * PokedexVersionGroups findUnique
+ */
+export type PokedexVersionGroupsFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokedexVersionGroups
+     */
+    select?: Prisma.PokedexVersionGroupsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokedexVersionGroups
+     */
+    omit?: Prisma.PokedexVersionGroupsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokedexVersionGroupsInclude<ExtArgs> | null;
+    /**
+     * Filter, which PokedexVersionGroups to fetch.
+     */
+    where: Prisma.PokedexVersionGroupsWhereUniqueInput;
+};
+/**
+ * PokedexVersionGroups findUniqueOrThrow
+ */
+export type PokedexVersionGroupsFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokedexVersionGroups
+     */
+    select?: Prisma.PokedexVersionGroupsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokedexVersionGroups
+     */
+    omit?: Prisma.PokedexVersionGroupsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokedexVersionGroupsInclude<ExtArgs> | null;
+    /**
+     * Filter, which PokedexVersionGroups to fetch.
+     */
+    where: Prisma.PokedexVersionGroupsWhereUniqueInput;
+};
+/**
+ * PokedexVersionGroups findFirst
+ */
+export type PokedexVersionGroupsFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokedexVersionGroups
+     */
+    select?: Prisma.PokedexVersionGroupsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokedexVersionGroups
+     */
+    omit?: Prisma.PokedexVersionGroupsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokedexVersionGroupsInclude<ExtArgs> | null;
+    /**
+     * Filter, which PokedexVersionGroups to fetch.
+     */
+    where?: Prisma.PokedexVersionGroupsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PokedexVersionGroups to fetch.
+     */
+    orderBy?: Prisma.PokedexVersionGroupsOrderByWithRelationInput | Prisma.PokedexVersionGroupsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for PokedexVersionGroups.
+     */
+    cursor?: Prisma.PokedexVersionGroupsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PokedexVersionGroups from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PokedexVersionGroups.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of PokedexVersionGroups.
+     */
+    distinct?: Prisma.PokedexVersionGroupsScalarFieldEnum | Prisma.PokedexVersionGroupsScalarFieldEnum[];
+};
+/**
+ * PokedexVersionGroups findFirstOrThrow
+ */
+export type PokedexVersionGroupsFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokedexVersionGroups
+     */
+    select?: Prisma.PokedexVersionGroupsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokedexVersionGroups
+     */
+    omit?: Prisma.PokedexVersionGroupsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokedexVersionGroupsInclude<ExtArgs> | null;
+    /**
+     * Filter, which PokedexVersionGroups to fetch.
+     */
+    where?: Prisma.PokedexVersionGroupsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PokedexVersionGroups to fetch.
+     */
+    orderBy?: Prisma.PokedexVersionGroupsOrderByWithRelationInput | Prisma.PokedexVersionGroupsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for PokedexVersionGroups.
+     */
+    cursor?: Prisma.PokedexVersionGroupsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PokedexVersionGroups from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PokedexVersionGroups.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of PokedexVersionGroups.
+     */
+    distinct?: Prisma.PokedexVersionGroupsScalarFieldEnum | Prisma.PokedexVersionGroupsScalarFieldEnum[];
+};
+/**
+ * PokedexVersionGroups findMany
+ */
+export type PokedexVersionGroupsFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokedexVersionGroups
+     */
+    select?: Prisma.PokedexVersionGroupsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokedexVersionGroups
+     */
+    omit?: Prisma.PokedexVersionGroupsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokedexVersionGroupsInclude<ExtArgs> | null;
+    /**
+     * Filter, which PokedexVersionGroups to fetch.
+     */
+    where?: Prisma.PokedexVersionGroupsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of PokedexVersionGroups to fetch.
+     */
+    orderBy?: Prisma.PokedexVersionGroupsOrderByWithRelationInput | Prisma.PokedexVersionGroupsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing PokedexVersionGroups.
+     */
+    cursor?: Prisma.PokedexVersionGroupsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` PokedexVersionGroups from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` PokedexVersionGroups.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of PokedexVersionGroups.
+     */
+    distinct?: Prisma.PokedexVersionGroupsScalarFieldEnum | Prisma.PokedexVersionGroupsScalarFieldEnum[];
+};
+/**
+ * PokedexVersionGroups create
+ */
+export type PokedexVersionGroupsCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokedexVersionGroups
+     */
+    select?: Prisma.PokedexVersionGroupsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokedexVersionGroups
+     */
+    omit?: Prisma.PokedexVersionGroupsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokedexVersionGroupsInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a PokedexVersionGroups.
+     */
+    data: Prisma.XOR<Prisma.PokedexVersionGroupsCreateInput, Prisma.PokedexVersionGroupsUncheckedCreateInput>;
+};
+/**
+ * PokedexVersionGroups createMany
+ */
+export type PokedexVersionGroupsCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PokedexVersionGroups.
+     */
+    data: Prisma.PokedexVersionGroupsCreateManyInput | Prisma.PokedexVersionGroupsCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * PokedexVersionGroups createManyAndReturn
+ */
+export type PokedexVersionGroupsCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokedexVersionGroups
+     */
+    select?: Prisma.PokedexVersionGroupsSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokedexVersionGroups
+     */
+    omit?: Prisma.PokedexVersionGroupsOmit<ExtArgs> | null;
+    /**
+     * The data used to create many PokedexVersionGroups.
+     */
+    data: Prisma.PokedexVersionGroupsCreateManyInput | Prisma.PokedexVersionGroupsCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokedexVersionGroupsIncludeCreateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * PokedexVersionGroups update
+ */
+export type PokedexVersionGroupsUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokedexVersionGroups
+     */
+    select?: Prisma.PokedexVersionGroupsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokedexVersionGroups
+     */
+    omit?: Prisma.PokedexVersionGroupsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokedexVersionGroupsInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a PokedexVersionGroups.
+     */
+    data: Prisma.XOR<Prisma.PokedexVersionGroupsUpdateInput, Prisma.PokedexVersionGroupsUncheckedUpdateInput>;
+    /**
+     * Choose, which PokedexVersionGroups to update.
+     */
+    where: Prisma.PokedexVersionGroupsWhereUniqueInput;
+};
+/**
+ * PokedexVersionGroups updateMany
+ */
+export type PokedexVersionGroupsUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PokedexVersionGroups.
+     */
+    data: Prisma.XOR<Prisma.PokedexVersionGroupsUpdateManyMutationInput, Prisma.PokedexVersionGroupsUncheckedUpdateManyInput>;
+    /**
+     * Filter which PokedexVersionGroups to update
+     */
+    where?: Prisma.PokedexVersionGroupsWhereInput;
+    /**
+     * Limit how many PokedexVersionGroups to update.
+     */
+    limit?: number;
+};
+/**
+ * PokedexVersionGroups updateManyAndReturn
+ */
+export type PokedexVersionGroupsUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokedexVersionGroups
+     */
+    select?: Prisma.PokedexVersionGroupsSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokedexVersionGroups
+     */
+    omit?: Prisma.PokedexVersionGroupsOmit<ExtArgs> | null;
+    /**
+     * The data used to update PokedexVersionGroups.
+     */
+    data: Prisma.XOR<Prisma.PokedexVersionGroupsUpdateManyMutationInput, Prisma.PokedexVersionGroupsUncheckedUpdateManyInput>;
+    /**
+     * Filter which PokedexVersionGroups to update
+     */
+    where?: Prisma.PokedexVersionGroupsWhereInput;
+    /**
+     * Limit how many PokedexVersionGroups to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokedexVersionGroupsIncludeUpdateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * PokedexVersionGroups upsert
+ */
+export type PokedexVersionGroupsUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokedexVersionGroups
+     */
+    select?: Prisma.PokedexVersionGroupsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokedexVersionGroups
+     */
+    omit?: Prisma.PokedexVersionGroupsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokedexVersionGroupsInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the PokedexVersionGroups to update in case it exists.
+     */
+    where: Prisma.PokedexVersionGroupsWhereUniqueInput;
+    /**
+     * In case the PokedexVersionGroups found by the `where` argument doesn't exist, create a new PokedexVersionGroups with this data.
+     */
+    create: Prisma.XOR<Prisma.PokedexVersionGroupsCreateInput, Prisma.PokedexVersionGroupsUncheckedCreateInput>;
+    /**
+     * In case the PokedexVersionGroups was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.PokedexVersionGroupsUpdateInput, Prisma.PokedexVersionGroupsUncheckedUpdateInput>;
+};
+/**
+ * PokedexVersionGroups delete
+ */
+export type PokedexVersionGroupsDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokedexVersionGroups
+     */
+    select?: Prisma.PokedexVersionGroupsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokedexVersionGroups
+     */
+    omit?: Prisma.PokedexVersionGroupsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokedexVersionGroupsInclude<ExtArgs> | null;
+    /**
+     * Filter which PokedexVersionGroups to delete.
+     */
+    where: Prisma.PokedexVersionGroupsWhereUniqueInput;
+};
+/**
+ * PokedexVersionGroups deleteMany
+ */
+export type PokedexVersionGroupsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which PokedexVersionGroups to delete
+     */
+    where?: Prisma.PokedexVersionGroupsWhereInput;
+    /**
+     * Limit how many PokedexVersionGroups to delete.
+     */
+    limit?: number;
+};
+/**
+ * PokedexVersionGroups without action
+ */
+export type PokedexVersionGroupsDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokedexVersionGroups
+     */
+    select?: Prisma.PokedexVersionGroupsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokedexVersionGroups
+     */
+    omit?: Prisma.PokedexVersionGroupsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokedexVersionGroupsInclude<ExtArgs> | null;
+};

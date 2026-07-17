@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveDamageClassesUpdateWithoutMovesInput } from './move-damage-classes-update-without-moves.input';
 import { Type } from 'class-transformer';
 import { MoveDamageClassesCreateWithoutMovesInput } from './move-damage-classes-create-without-moves.input';
@@ -10,13 +11,13 @@ export class MoveDamageClassesUpsertWithoutMovesInput {
 
     @Field(() => MoveDamageClassesUpdateWithoutMovesInput, {nullable:false})
     @Type(() => MoveDamageClassesUpdateWithoutMovesInput)
-    update!: MoveDamageClassesUpdateWithoutMovesInput;
+    update!: Identity<MoveDamageClassesUpdateWithoutMovesInput>;
 
     @Field(() => MoveDamageClassesCreateWithoutMovesInput, {nullable:false})
     @Type(() => MoveDamageClassesCreateWithoutMovesInput)
-    create!: MoveDamageClassesCreateWithoutMovesInput;
+    create!: Identity<MoveDamageClassesCreateWithoutMovesInput>;
 
     @Field(() => MoveDamageClassesWhereInput, {nullable:true})
     @Type(() => MoveDamageClassesWhereInput)
-    where?: MoveDamageClassesWhereInput;
+    where?: Identity<MoveDamageClassesWhereInput>;
 }

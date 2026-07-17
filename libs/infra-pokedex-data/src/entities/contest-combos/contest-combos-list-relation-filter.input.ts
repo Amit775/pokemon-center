@@ -1,16 +1,17 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ContestCombosWhereInput } from './contest-combos-where.input';
 
 @InputType()
 export class ContestCombosListRelationFilter {
 
     @Field(() => ContestCombosWhereInput, {nullable:true})
-    every?: ContestCombosWhereInput;
+    every?: Identity<ContestCombosWhereInput>;
 
     @Field(() => ContestCombosWhereInput, {nullable:true})
-    some?: ContestCombosWhereInput;
+    some?: Identity<ContestCombosWhereInput>;
 
     @Field(() => ContestCombosWhereInput, {nullable:true})
-    none?: ContestCombosWhereInput;
+    none?: Identity<ContestCombosWhereInput>;
 }

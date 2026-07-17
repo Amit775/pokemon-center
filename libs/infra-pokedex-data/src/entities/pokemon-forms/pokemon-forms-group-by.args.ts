@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormsWhereInput } from './pokemon-forms-where.input';
 import { Type } from 'class-transformer';
 import { PokemonFormsOrderByWithAggregationInput } from './pokemon-forms-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class PokemonFormsGroupByArgs {
 
     @Field(() => PokemonFormsWhereInput, {nullable:true})
     @Type(() => PokemonFormsWhereInput)
-    where?: PokemonFormsWhereInput;
+    where?: Identity<PokemonFormsWhereInput>;
 
     @Field(() => [PokemonFormsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<PokemonFormsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class PokemonFormsGroupByArgs {
     by!: Array<`${PokemonFormsScalarFieldEnum}`>;
 
     @Field(() => PokemonFormsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: PokemonFormsScalarWhereWithAggregatesInput;
+    having?: Identity<PokemonFormsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class PokemonFormsGroupByArgs {
     skip?: number;
 
     @Field(() => PokemonFormsCountAggregateInput, {nullable:true})
-    _count?: PokemonFormsCountAggregateInput;
+    _count?: Identity<PokemonFormsCountAggregateInput>;
 
     @Field(() => PokemonFormsAvgAggregateInput, {nullable:true})
-    _avg?: PokemonFormsAvgAggregateInput;
+    _avg?: Identity<PokemonFormsAvgAggregateInput>;
 
     @Field(() => PokemonFormsSumAggregateInput, {nullable:true})
-    _sum?: PokemonFormsSumAggregateInput;
+    _sum?: Identity<PokemonFormsSumAggregateInput>;
 
     @Field(() => PokemonFormsMinAggregateInput, {nullable:true})
-    _min?: PokemonFormsMinAggregateInput;
+    _min?: Identity<PokemonFormsMinAggregateInput>;
 
     @Field(() => PokemonFormsMaxAggregateInput, {nullable:true})
-    _max?: PokemonFormsMaxAggregateInput;
+    _max?: Identity<PokemonFormsMaxAggregateInput>;
 }

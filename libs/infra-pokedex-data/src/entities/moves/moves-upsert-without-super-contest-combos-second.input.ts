@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesUpdateWithoutSuperContestCombosSecondInput } from './moves-update-without-super-contest-combos-second.input';
 import { Type } from 'class-transformer';
 import { MovesCreateWithoutSuperContestCombosSecondInput } from './moves-create-without-super-contest-combos-second.input';
@@ -10,13 +11,13 @@ export class MovesUpsertWithoutSuperContestCombosSecondInput {
 
     @Field(() => MovesUpdateWithoutSuperContestCombosSecondInput, {nullable:false})
     @Type(() => MovesUpdateWithoutSuperContestCombosSecondInput)
-    update!: MovesUpdateWithoutSuperContestCombosSecondInput;
+    update!: Identity<MovesUpdateWithoutSuperContestCombosSecondInput>;
 
     @Field(() => MovesCreateWithoutSuperContestCombosSecondInput, {nullable:false})
     @Type(() => MovesCreateWithoutSuperContestCombosSecondInput)
-    create!: MovesCreateWithoutSuperContestCombosSecondInput;
+    create!: Identity<MovesCreateWithoutSuperContestCombosSecondInput>;
 
     @Field(() => MovesWhereInput, {nullable:true})
     @Type(() => MovesWhereInput)
-    where?: MovesWhereInput;
+    where?: Identity<MovesWhereInput>;
 }

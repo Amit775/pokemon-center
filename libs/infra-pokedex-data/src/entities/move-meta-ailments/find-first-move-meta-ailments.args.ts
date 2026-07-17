@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaAilmentsWhereInput } from './move-meta-ailments-where.input';
 import { Type } from 'class-transformer';
 import { MoveMetaAilmentsOrderByWithRelationInput } from './move-meta-ailments-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveMetaAilmentsWhereUniqueInput } from './move-meta-ailments-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { MoveMetaAilmentsScalarFieldEnum } from './move-meta-ailments-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstMoveMetaAilmentsArgs {
 
     @Field(() => MoveMetaAilmentsWhereInput, {nullable:true})
     @Type(() => MoveMetaAilmentsWhereInput)
-    where?: MoveMetaAilmentsWhereInput;
+    where?: Identity<MoveMetaAilmentsWhereInput>;
 
     @Field(() => [MoveMetaAilmentsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<MoveMetaAilmentsOrderByWithRelationInput>;

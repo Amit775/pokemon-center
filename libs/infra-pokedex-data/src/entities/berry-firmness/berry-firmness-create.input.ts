@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { BerriesCreateNestedManyWithoutFirmnessInput } from '../berries/berries-create-nested-many-without-firmness.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class BerryFirmnessCreateInput {
     identifier!: string;
 
     @Field(() => BerriesCreateNestedManyWithoutFirmnessInput, {nullable:true})
-    berries?: BerriesCreateNestedManyWithoutFirmnessInput;
+    berries?: Identity<BerriesCreateNestedManyWithoutFirmnessInput>;
 }

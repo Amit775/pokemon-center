@@ -1,51 +1,49 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class MovesUncheckedUpdateManyWithoutSuperContestEffectInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    generation_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    generation_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    type_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    type_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    power?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    power?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    pp?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    pp?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    accuracy?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    accuracy?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    priority?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    priority?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    target_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    target_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    damage_class_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    damage_class_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    effect_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    effect_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    effect_chance?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    effect_chance?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    contest_type_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    contest_type_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    contest_effect_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    contest_effect_id?: number;
 }

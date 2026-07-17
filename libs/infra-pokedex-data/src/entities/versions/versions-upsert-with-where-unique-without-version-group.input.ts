@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionsWhereUniqueInput } from './versions-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { VersionsUpdateWithoutVersionGroupInput } from './versions-update-without-version-group.input';
 import { VersionsCreateWithoutVersionGroupInput } from './versions-create-without-version-group.input';
 
@@ -15,9 +16,9 @@ export class VersionsUpsertWithWhereUniqueWithoutVersionGroupInput {
 
     @Field(() => VersionsUpdateWithoutVersionGroupInput, {nullable:false})
     @Type(() => VersionsUpdateWithoutVersionGroupInput)
-    update!: VersionsUpdateWithoutVersionGroupInput;
+    update!: Identity<VersionsUpdateWithoutVersionGroupInput>;
 
     @Field(() => VersionsCreateWithoutVersionGroupInput, {nullable:false})
     @Type(() => VersionsCreateWithoutVersionGroupInput)
-    create!: VersionsCreateWithoutVersionGroupInput;
+    create!: Identity<VersionsCreateWithoutVersionGroupInput>;
 }

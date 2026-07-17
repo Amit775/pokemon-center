@@ -4,8 +4,9 @@ import { PokemonEvolutionCreateWithoutEvolvedSpeciesInput } from './pokemon-evol
 import { Type } from 'class-transformer';
 import { PokemonEvolutionCreateOrConnectWithoutEvolvedSpeciesInput } from './pokemon-evolution-create-or-connect-without-evolved-species.input';
 import { PokemonEvolutionUpsertWithWhereUniqueWithoutEvolvedSpeciesInput } from './pokemon-evolution-upsert-with-where-unique-without-evolved-species.input';
+import type { Identity } from 'identity-type';
 import { PokemonEvolutionCreateManyEvolvedSpeciesInputEnvelope } from './pokemon-evolution-create-many-evolved-species-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEvolutionWhereUniqueInput } from './pokemon-evolution-where-unique.input';
 import { PokemonEvolutionUpdateWithWhereUniqueWithoutEvolvedSpeciesInput } from './pokemon-evolution-update-with-where-unique-without-evolved-species.input';
 import { PokemonEvolutionUpdateManyWithWhereWithoutEvolvedSpeciesInput } from './pokemon-evolution-update-many-with-where-without-evolved-species.input';
@@ -28,7 +29,7 @@ export class PokemonEvolutionUncheckedUpdateManyWithoutEvolvedSpeciesNestedInput
 
     @Field(() => PokemonEvolutionCreateManyEvolvedSpeciesInputEnvelope, {nullable:true})
     @Type(() => PokemonEvolutionCreateManyEvolvedSpeciesInputEnvelope)
-    createMany?: PokemonEvolutionCreateManyEvolvedSpeciesInputEnvelope;
+    createMany?: Identity<PokemonEvolutionCreateManyEvolvedSpeciesInputEnvelope>;
 
     @Field(() => [PokemonEvolutionWhereUniqueInput], {nullable:true})
     @Type(() => PokemonEvolutionWhereUniqueInput)

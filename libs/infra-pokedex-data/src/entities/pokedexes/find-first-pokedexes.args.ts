@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokedexesWhereInput } from './pokedexes-where.input';
 import { Type } from 'class-transformer';
 import { PokedexesOrderByWithRelationInput } from './pokedexes-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokedexesWhereUniqueInput } from './pokedexes-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokedexesScalarFieldEnum } from './pokedexes-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstPokedexesArgs {
 
     @Field(() => PokedexesWhereInput, {nullable:true})
     @Type(() => PokedexesWhereInput)
-    where?: PokedexesWhereInput;
+    where?: Identity<PokedexesWhereInput>;
 
     @Field(() => [PokedexesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokedexesOrderByWithRelationInput>;

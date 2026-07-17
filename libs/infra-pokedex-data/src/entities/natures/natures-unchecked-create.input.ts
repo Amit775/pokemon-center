@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NatureBattleStylePreferencesUncheckedCreateNestedManyWithoutNatureInput } from '../nature-battle-style-preferences/nature-battle-style-preferences-unchecked-create-nested-many-without-nature.input';
 
 @InputType()
@@ -28,5 +29,5 @@ export class NaturesUncheckedCreateInput {
     game_index!: number;
 
     @Field(() => NatureBattleStylePreferencesUncheckedCreateNestedManyWithoutNatureInput, {nullable:true})
-    battleStylePreferences?: NatureBattleStylePreferencesUncheckedCreateNestedManyWithoutNatureInput;
+    battleStylePreferences?: Identity<NatureBattleStylePreferencesUncheckedCreateNestedManyWithoutNatureInput>;
 }

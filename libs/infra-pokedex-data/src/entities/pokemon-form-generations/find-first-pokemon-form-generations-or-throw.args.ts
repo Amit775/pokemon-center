@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormGenerationsWhereInput } from './pokemon-form-generations-where.input';
 import { Type } from 'class-transformer';
 import { PokemonFormGenerationsOrderByWithRelationInput } from './pokemon-form-generations-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonFormGenerationsWhereUniqueInput } from './pokemon-form-generations-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokemonFormGenerationsScalarFieldEnum } from './pokemon-form-generations-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstPokemonFormGenerationsOrThrowArgs {
 
     @Field(() => PokemonFormGenerationsWhereInput, {nullable:true})
     @Type(() => PokemonFormGenerationsWhereInput)
-    where?: PokemonFormGenerationsWhereInput;
+    where?: Identity<PokemonFormGenerationsWhereInput>;
 
     @Field(() => [PokemonFormGenerationsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokemonFormGenerationsOrderByWithRelationInput>;

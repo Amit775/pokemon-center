@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemFlingEffectsCountAggregate } from './item-fling-effects-count-aggregate.output';
 import { ItemFlingEffectsAvgAggregate } from './item-fling-effects-avg-aggregate.output';
 import { ItemFlingEffectsSumAggregate } from './item-fling-effects-sum-aggregate.output';
@@ -17,17 +18,17 @@ export class ItemFlingEffectsGroupBy {
     identifier!: string;
 
     @Field(() => ItemFlingEffectsCountAggregate, {nullable:true})
-    _count?: ItemFlingEffectsCountAggregate;
+    _count?: Identity<ItemFlingEffectsCountAggregate>;
 
     @Field(() => ItemFlingEffectsAvgAggregate, {nullable:true})
-    _avg?: ItemFlingEffectsAvgAggregate;
+    _avg?: Identity<ItemFlingEffectsAvgAggregate>;
 
     @Field(() => ItemFlingEffectsSumAggregate, {nullable:true})
-    _sum?: ItemFlingEffectsSumAggregate;
+    _sum?: Identity<ItemFlingEffectsSumAggregate>;
 
     @Field(() => ItemFlingEffectsMinAggregate, {nullable:true})
-    _min?: ItemFlingEffectsMinAggregate;
+    _min?: Identity<ItemFlingEffectsMinAggregate>;
 
     @Field(() => ItemFlingEffectsMaxAggregate, {nullable:true})
-    _max?: ItemFlingEffectsMaxAggregate;
+    _max?: Identity<ItemFlingEffectsMaxAggregate>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonMovesUncheckedCreateNestedManyWithoutMoveMethodInput } from '../pokemon-moves/pokemon-moves-unchecked-create-nested-many-without-move-method.input';
 import { VersionGroupPokemonMoveMethodsUncheckedCreateNestedManyWithoutMoveMethodInput } from '../version-group-pokemon-move-methods/version-group-pokemon-move-methods-unchecked-create-nested-many-without-move-method.input';
 
@@ -14,8 +15,8 @@ export class PokemonMoveMethodsUncheckedCreateInput {
     identifier!: string;
 
     @Field(() => PokemonMovesUncheckedCreateNestedManyWithoutMoveMethodInput, {nullable:true})
-    pokemonMoves?: PokemonMovesUncheckedCreateNestedManyWithoutMoveMethodInput;
+    pokemonMoves?: Identity<PokemonMovesUncheckedCreateNestedManyWithoutMoveMethodInput>;
 
     @Field(() => VersionGroupPokemonMoveMethodsUncheckedCreateNestedManyWithoutMoveMethodInput, {nullable:true})
-    versionGroups?: VersionGroupPokemonMoveMethodsUncheckedCreateNestedManyWithoutMoveMethodInput;
+    versionGroups?: Identity<VersionGroupPokemonMoveMethodsUncheckedCreateNestedManyWithoutMoveMethodInput>;
 }

@@ -4,8 +4,9 @@ import { PokemonMovesCreateWithoutVersionGroupInput } from './pokemon-moves-crea
 import { Type } from 'class-transformer';
 import { PokemonMovesCreateOrConnectWithoutVersionGroupInput } from './pokemon-moves-create-or-connect-without-version-group.input';
 import { PokemonMovesUpsertWithWhereUniqueWithoutVersionGroupInput } from './pokemon-moves-upsert-with-where-unique-without-version-group.input';
+import type { Identity } from 'identity-type';
 import { PokemonMovesCreateManyVersionGroupInputEnvelope } from './pokemon-moves-create-many-version-group-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonMovesWhereUniqueInput } from './pokemon-moves-where-unique.input';
 import { PokemonMovesUpdateWithWhereUniqueWithoutVersionGroupInput } from './pokemon-moves-update-with-where-unique-without-version-group.input';
 import { PokemonMovesUpdateManyWithWhereWithoutVersionGroupInput } from './pokemon-moves-update-many-with-where-without-version-group.input';
@@ -28,7 +29,7 @@ export class PokemonMovesUncheckedUpdateManyWithoutVersionGroupNestedInput {
 
     @Field(() => PokemonMovesCreateManyVersionGroupInputEnvelope, {nullable:true})
     @Type(() => PokemonMovesCreateManyVersionGroupInputEnvelope)
-    createMany?: PokemonMovesCreateManyVersionGroupInputEnvelope;
+    createMany?: Identity<PokemonMovesCreateManyVersionGroupInputEnvelope>;
 
     @Field(() => [PokemonMovesWhereUniqueInput], {nullable:true})
     @Type(() => PokemonMovesWhereUniqueInput)

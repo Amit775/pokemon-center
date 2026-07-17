@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncountersWhereInput } from './encounters-where.input';
 import { Type } from 'class-transformer';
 import { EncountersOrderByWithRelationInput } from './encounters-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncountersWhereUniqueInput } from './encounters-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { EncountersScalarFieldEnum } from './encounters-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstEncountersOrThrowArgs {
 
     @Field(() => EncountersWhereInput, {nullable:true})
     @Type(() => EncountersWhereInput)
-    where?: EncountersWhereInput;
+    where?: Identity<EncountersWhereInput>;
 
     @Field(() => [EncountersOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<EncountersOrderByWithRelationInput>;

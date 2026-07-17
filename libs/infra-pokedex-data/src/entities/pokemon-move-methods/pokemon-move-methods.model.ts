@@ -4,6 +4,7 @@ import { ID } from '@nestjs/graphql';
 import { PokemonMoves } from '../pokemon-moves/pokemon-moves.model';
 import { VersionGroupPokemonMoveMethods } from '../version-group-pokemon-move-methods/version-group-pokemon-move-methods.model';
 import { PokemonMoveMethodsCount } from './pokemon-move-methods-count.output';
+import type { Identity } from 'identity-type';
 
 /**
  * @@TypeGraphQL.type(name: "PokemonMoveMethod")
@@ -17,12 +18,12 @@ export class PokemonMoveMethods {
     @Field(() => String, {nullable:false})
     identifier!: string;
 
-    @Field(() => [PokemonMoves], {nullable:true})
+    @Field(() => [PokemonMoves], {nullable:false})
     pokemonMoves?: Array<PokemonMoves>;
 
-    @Field(() => [VersionGroupPokemonMoveMethods], {nullable:true})
+    @Field(() => [VersionGroupPokemonMoveMethods], {nullable:false})
     versionGroups?: Array<VersionGroupPokemonMoveMethods>;
 
     @Field(() => PokemonMoveMethodsCount, {nullable:false})
-    _count?: PokemonMoveMethodsCount;
+    _count?: Identity<PokemonMoveMethodsCount>;
 }

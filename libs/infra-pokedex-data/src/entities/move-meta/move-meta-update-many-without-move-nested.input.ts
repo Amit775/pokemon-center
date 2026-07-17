@@ -4,8 +4,9 @@ import { MoveMetaCreateWithoutMoveInput } from './move-meta-create-without-move.
 import { Type } from 'class-transformer';
 import { MoveMetaCreateOrConnectWithoutMoveInput } from './move-meta-create-or-connect-without-move.input';
 import { MoveMetaUpsertWithWhereUniqueWithoutMoveInput } from './move-meta-upsert-with-where-unique-without-move.input';
+import type { Identity } from 'identity-type';
 import { MoveMetaCreateManyMoveInputEnvelope } from './move-meta-create-many-move-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveMetaWhereUniqueInput } from './move-meta-where-unique.input';
 import { MoveMetaUpdateWithWhereUniqueWithoutMoveInput } from './move-meta-update-with-where-unique-without-move.input';
 import { MoveMetaUpdateManyWithWhereWithoutMoveInput } from './move-meta-update-many-with-where-without-move.input';
@@ -28,7 +29,7 @@ export class MoveMetaUpdateManyWithoutMoveNestedInput {
 
     @Field(() => MoveMetaCreateManyMoveInputEnvelope, {nullable:true})
     @Type(() => MoveMetaCreateManyMoveInputEnvelope)
-    createMany?: MoveMetaCreateManyMoveInputEnvelope;
+    createMany?: Identity<MoveMetaCreateManyMoveInputEnvelope>;
 
     @Field(() => [MoveMetaWhereUniqueInput], {nullable:true})
     @Type(() => MoveMetaWhereUniqueInput)

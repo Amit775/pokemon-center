@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EvolutionChainsWhereUniqueInput } from './evolution-chains-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { EvolutionChainsCreateInput } from './evolution-chains-create.input';
 import { EvolutionChainsUpdateInput } from './evolution-chains-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneEvolutionChainsArgs {
 
     @Field(() => EvolutionChainsCreateInput, {nullable:false})
     @Type(() => EvolutionChainsCreateInput)
-    create!: EvolutionChainsCreateInput;
+    create!: Identity<EvolutionChainsCreateInput>;
 
     @Field(() => EvolutionChainsUpdateInput, {nullable:false})
     @Type(() => EvolutionChainsUpdateInput)
-    update!: EvolutionChainsUpdateInput;
+    update!: Identity<EvolutionChainsUpdateInput>;
 }

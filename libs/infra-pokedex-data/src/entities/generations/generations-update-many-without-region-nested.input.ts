@@ -4,8 +4,9 @@ import { GenerationsCreateWithoutRegionInput } from './generations-create-withou
 import { Type } from 'class-transformer';
 import { GenerationsCreateOrConnectWithoutRegionInput } from './generations-create-or-connect-without-region.input';
 import { GenerationsUpsertWithWhereUniqueWithoutRegionInput } from './generations-upsert-with-where-unique-without-region.input';
+import type { Identity } from 'identity-type';
 import { GenerationsCreateManyRegionInputEnvelope } from './generations-create-many-region-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { GenerationsWhereUniqueInput } from './generations-where-unique.input';
 import { GenerationsUpdateWithWhereUniqueWithoutRegionInput } from './generations-update-with-where-unique-without-region.input';
 import { GenerationsUpdateManyWithWhereWithoutRegionInput } from './generations-update-many-with-where-without-region.input';
@@ -28,7 +29,7 @@ export class GenerationsUpdateManyWithoutRegionNestedInput {
 
     @Field(() => GenerationsCreateManyRegionInputEnvelope, {nullable:true})
     @Type(() => GenerationsCreateManyRegionInputEnvelope)
-    createMany?: GenerationsCreateManyRegionInputEnvelope;
+    createMany?: Identity<GenerationsCreateManyRegionInputEnvelope>;
 
     @Field(() => [GenerationsWhereUniqueInput], {nullable:true})
     @Type(() => GenerationsWhereUniqueInput)

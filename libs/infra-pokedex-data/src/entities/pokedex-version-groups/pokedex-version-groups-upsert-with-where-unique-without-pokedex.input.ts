@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokedexVersionGroupsWhereUniqueInput } from './pokedex-version-groups-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokedexVersionGroupsUpdateWithoutPokedexInput } from './pokedex-version-groups-update-without-pokedex.input';
 import { PokedexVersionGroupsCreateWithoutPokedexInput } from './pokedex-version-groups-create-without-pokedex.input';
 
@@ -15,9 +16,9 @@ export class PokedexVersionGroupsUpsertWithWhereUniqueWithoutPokedexInput {
 
     @Field(() => PokedexVersionGroupsUpdateWithoutPokedexInput, {nullable:false})
     @Type(() => PokedexVersionGroupsUpdateWithoutPokedexInput)
-    update!: PokedexVersionGroupsUpdateWithoutPokedexInput;
+    update!: Identity<PokedexVersionGroupsUpdateWithoutPokedexInput>;
 
     @Field(() => PokedexVersionGroupsCreateWithoutPokedexInput, {nullable:false})
     @Type(() => PokedexVersionGroupsCreateWithoutPokedexInput)
-    create!: PokedexVersionGroupsCreateWithoutPokedexInput;
+    create!: Identity<PokedexVersionGroupsCreateWithoutPokedexInput>;
 }

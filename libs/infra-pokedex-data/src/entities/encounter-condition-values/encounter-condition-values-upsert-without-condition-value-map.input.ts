@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterConditionValuesUpdateWithoutConditionValueMapInput } from './encounter-condition-values-update-without-condition-value-map.input';
 import { Type } from 'class-transformer';
 import { EncounterConditionValuesCreateWithoutConditionValueMapInput } from './encounter-condition-values-create-without-condition-value-map.input';
@@ -10,13 +11,13 @@ export class EncounterConditionValuesUpsertWithoutConditionValueMapInput {
 
     @Field(() => EncounterConditionValuesUpdateWithoutConditionValueMapInput, {nullable:false})
     @Type(() => EncounterConditionValuesUpdateWithoutConditionValueMapInput)
-    update!: EncounterConditionValuesUpdateWithoutConditionValueMapInput;
+    update!: Identity<EncounterConditionValuesUpdateWithoutConditionValueMapInput>;
 
     @Field(() => EncounterConditionValuesCreateWithoutConditionValueMapInput, {nullable:false})
     @Type(() => EncounterConditionValuesCreateWithoutConditionValueMapInput)
-    create!: EncounterConditionValuesCreateWithoutConditionValueMapInput;
+    create!: Identity<EncounterConditionValuesCreateWithoutConditionValueMapInput>;
 
     @Field(() => EncounterConditionValuesWhereInput, {nullable:true})
     @Type(() => EncounterConditionValuesWhereInput)
-    where?: EncounterConditionValuesWhereInput;
+    where?: Identity<EncounterConditionValuesWhereInput>;
 }

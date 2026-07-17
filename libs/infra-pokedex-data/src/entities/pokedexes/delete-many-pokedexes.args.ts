@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokedexesWhereInput } from './pokedexes-where.input';
 import { Type } from 'class-transformer';
 import { Int } from '@nestjs/graphql';
@@ -9,7 +10,7 @@ export class DeleteManyPokedexesArgs {
 
     @Field(() => PokedexesWhereInput, {nullable:true})
     @Type(() => PokedexesWhereInput)
-    where?: PokedexesWhereInput;
+    where?: Identity<PokedexesWhereInput>;
 
     @Field(() => Int, {nullable:true})
     limit?: number;

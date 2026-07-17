@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEvolutionWhereUniqueInput } from './pokemon-evolution-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonEvolutionUpdateWithoutTradeSpeciesInput } from './pokemon-evolution-update-without-trade-species.input';
 import { PokemonEvolutionCreateWithoutTradeSpeciesInput } from './pokemon-evolution-create-without-trade-species.input';
 
@@ -15,9 +16,9 @@ export class PokemonEvolutionUpsertWithWhereUniqueWithoutTradeSpeciesInput {
 
     @Field(() => PokemonEvolutionUpdateWithoutTradeSpeciesInput, {nullable:false})
     @Type(() => PokemonEvolutionUpdateWithoutTradeSpeciesInput)
-    update!: PokemonEvolutionUpdateWithoutTradeSpeciesInput;
+    update!: Identity<PokemonEvolutionUpdateWithoutTradeSpeciesInput>;
 
     @Field(() => PokemonEvolutionCreateWithoutTradeSpeciesInput, {nullable:false})
     @Type(() => PokemonEvolutionCreateWithoutTradeSpeciesInput)
-    create!: PokemonEvolutionCreateWithoutTradeSpeciesInput;
+    create!: Identity<PokemonEvolutionCreateWithoutTradeSpeciesInput>;
 }

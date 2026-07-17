@@ -4,6 +4,7 @@ import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Moves } from '../moves/moves.model';
 import { SuperContestEffectsCount } from './super-contest-effects-count.output';
+import type { Identity } from 'identity-type';
 
 /**
  * @@TypeGraphQL.type(name: "SuperContestEffect")
@@ -17,9 +18,9 @@ export class SuperContestEffects {
     @Field(() => Int, {nullable:false})
     appeal!: number;
 
-    @Field(() => [Moves], {nullable:true})
+    @Field(() => [Moves], {nullable:false})
     moves?: Array<Moves>;
 
     @Field(() => SuperContestEffectsCount, {nullable:false})
-    _count?: SuperContestEffectsCount;
+    _count?: Identity<SuperContestEffectsCount>;
 }

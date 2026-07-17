@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonAbilitiesWhereInput } from './pokemon-abilities-where.input';
 import { Type } from 'class-transformer';
 import { PokemonAbilitiesOrderByWithAggregationInput } from './pokemon-abilities-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class PokemonAbilitiesGroupByArgs {
 
     @Field(() => PokemonAbilitiesWhereInput, {nullable:true})
     @Type(() => PokemonAbilitiesWhereInput)
-    where?: PokemonAbilitiesWhereInput;
+    where?: Identity<PokemonAbilitiesWhereInput>;
 
     @Field(() => [PokemonAbilitiesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<PokemonAbilitiesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class PokemonAbilitiesGroupByArgs {
     by!: Array<`${PokemonAbilitiesScalarFieldEnum}`>;
 
     @Field(() => PokemonAbilitiesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: PokemonAbilitiesScalarWhereWithAggregatesInput;
+    having?: Identity<PokemonAbilitiesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class PokemonAbilitiesGroupByArgs {
     skip?: number;
 
     @Field(() => PokemonAbilitiesCountAggregateInput, {nullable:true})
-    _count?: PokemonAbilitiesCountAggregateInput;
+    _count?: Identity<PokemonAbilitiesCountAggregateInput>;
 
     @Field(() => PokemonAbilitiesAvgAggregateInput, {nullable:true})
-    _avg?: PokemonAbilitiesAvgAggregateInput;
+    _avg?: Identity<PokemonAbilitiesAvgAggregateInput>;
 
     @Field(() => PokemonAbilitiesSumAggregateInput, {nullable:true})
-    _sum?: PokemonAbilitiesSumAggregateInput;
+    _sum?: Identity<PokemonAbilitiesSumAggregateInput>;
 
     @Field(() => PokemonAbilitiesMinAggregateInput, {nullable:true})
-    _min?: PokemonAbilitiesMinAggregateInput;
+    _min?: Identity<PokemonAbilitiesMinAggregateInput>;
 
     @Field(() => PokemonAbilitiesMaxAggregateInput, {nullable:true})
-    _max?: PokemonAbilitiesMaxAggregateInput;
+    _max?: Identity<PokemonAbilitiesMaxAggregateInput>;
 }

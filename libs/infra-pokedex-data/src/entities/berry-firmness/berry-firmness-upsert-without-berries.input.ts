@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { BerryFirmnessUpdateWithoutBerriesInput } from './berry-firmness-update-without-berries.input';
 import { Type } from 'class-transformer';
 import { BerryFirmnessCreateWithoutBerriesInput } from './berry-firmness-create-without-berries.input';
@@ -10,13 +11,13 @@ export class BerryFirmnessUpsertWithoutBerriesInput {
 
     @Field(() => BerryFirmnessUpdateWithoutBerriesInput, {nullable:false})
     @Type(() => BerryFirmnessUpdateWithoutBerriesInput)
-    update!: BerryFirmnessUpdateWithoutBerriesInput;
+    update!: Identity<BerryFirmnessUpdateWithoutBerriesInput>;
 
     @Field(() => BerryFirmnessCreateWithoutBerriesInput, {nullable:false})
     @Type(() => BerryFirmnessCreateWithoutBerriesInput)
-    create!: BerryFirmnessCreateWithoutBerriesInput;
+    create!: Identity<BerryFirmnessCreateWithoutBerriesInput>;
 
     @Field(() => BerryFirmnessWhereInput, {nullable:true})
     @Type(() => BerryFirmnessWhereInput)
-    where?: BerryFirmnessWhereInput;
+    where?: Identity<BerryFirmnessWhereInput>;
 }

@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Pokedexes } from '../pokedexes/pokedexes.model';
+import type { Identity } from 'identity-type';
 import { VersionGroups } from '../version-groups/version-groups.model';
 
 /**
@@ -18,8 +19,8 @@ export class PokedexVersionGroups {
     version_group_id!: number;
 
     @Field(() => Pokedexes, {nullable:false})
-    pokedex?: Pokedexes;
+    pokedex?: Identity<Pokedexes>;
 
     @Field(() => VersionGroups, {nullable:false})
-    versionGroup?: VersionGroups;
+    versionGroup?: Identity<VersionGroups>;
 }

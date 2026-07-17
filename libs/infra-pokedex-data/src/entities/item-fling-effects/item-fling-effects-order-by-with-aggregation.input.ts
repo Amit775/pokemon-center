@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { ItemFlingEffectsCountOrderByAggregateInput } from './item-fling-effects-count-order-by-aggregate.input';
 import { ItemFlingEffectsAvgOrderByAggregateInput } from './item-fling-effects-avg-order-by-aggregate.input';
 import { ItemFlingEffectsMaxOrderByAggregateInput } from './item-fling-effects-max-order-by-aggregate.input';
@@ -17,17 +18,17 @@ export class ItemFlingEffectsOrderByWithAggregationInput {
     identifier?: `${SortOrder}`;
 
     @Field(() => ItemFlingEffectsCountOrderByAggregateInput, {nullable:true})
-    _count?: ItemFlingEffectsCountOrderByAggregateInput;
+    _count?: Identity<ItemFlingEffectsCountOrderByAggregateInput>;
 
     @Field(() => ItemFlingEffectsAvgOrderByAggregateInput, {nullable:true})
-    _avg?: ItemFlingEffectsAvgOrderByAggregateInput;
+    _avg?: Identity<ItemFlingEffectsAvgOrderByAggregateInput>;
 
     @Field(() => ItemFlingEffectsMaxOrderByAggregateInput, {nullable:true})
-    _max?: ItemFlingEffectsMaxOrderByAggregateInput;
+    _max?: Identity<ItemFlingEffectsMaxOrderByAggregateInput>;
 
     @Field(() => ItemFlingEffectsMinOrderByAggregateInput, {nullable:true})
-    _min?: ItemFlingEffectsMinOrderByAggregateInput;
+    _min?: Identity<ItemFlingEffectsMinOrderByAggregateInput>;
 
     @Field(() => ItemFlingEffectsSumOrderByAggregateInput, {nullable:true})
-    _sum?: ItemFlingEffectsSumOrderByAggregateInput;
+    _sum?: Identity<ItemFlingEffectsSumOrderByAggregateInput>;
 }

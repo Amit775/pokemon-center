@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterSlotsCountAggregate } from './encounter-slots-count-aggregate.output';
 import { EncounterSlotsAvgAggregate } from './encounter-slots-avg-aggregate.output';
 import { EncounterSlotsSumAggregate } from './encounter-slots-sum-aggregate.output';
@@ -26,17 +27,17 @@ export class EncounterSlotsGroupBy {
     rarity!: number;
 
     @Field(() => EncounterSlotsCountAggregate, {nullable:true})
-    _count?: EncounterSlotsCountAggregate;
+    _count?: Identity<EncounterSlotsCountAggregate>;
 
     @Field(() => EncounterSlotsAvgAggregate, {nullable:true})
-    _avg?: EncounterSlotsAvgAggregate;
+    _avg?: Identity<EncounterSlotsAvgAggregate>;
 
     @Field(() => EncounterSlotsSumAggregate, {nullable:true})
-    _sum?: EncounterSlotsSumAggregate;
+    _sum?: Identity<EncounterSlotsSumAggregate>;
 
     @Field(() => EncounterSlotsMinAggregate, {nullable:true})
-    _min?: EncounterSlotsMinAggregate;
+    _min?: Identity<EncounterSlotsMinAggregate>;
 
     @Field(() => EncounterSlotsMaxAggregate, {nullable:true})
-    _max?: EncounterSlotsMaxAggregate;
+    _max?: Identity<EncounterSlotsMaxAggregate>;
 }

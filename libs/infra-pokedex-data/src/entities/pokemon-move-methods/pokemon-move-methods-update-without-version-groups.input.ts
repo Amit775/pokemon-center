@@ -1,18 +1,18 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonMovesUpdateManyWithoutMoveMethodNestedInput } from '../pokemon-moves/pokemon-moves-update-many-without-move-method-nested.input';
 
 @InputType()
 export class PokemonMoveMethodsUpdateWithoutVersionGroupsInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
     @Field(() => PokemonMovesUpdateManyWithoutMoveMethodNestedInput, {nullable:true})
-    pokemonMoves?: PokemonMovesUpdateManyWithoutMoveMethodNestedInput;
+    pokemonMoves?: Identity<PokemonMovesUpdateManyWithoutMoveMethodNestedInput>;
 }

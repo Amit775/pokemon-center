@@ -29,10 +29,10 @@ export { MoveMetaAilmentsMaxOrderByAggregateInput } from './move-meta-ailments-m
 export { MoveMetaAilmentsMinAggregateInput } from './move-meta-ailments-min-aggregate.input';
 export { MoveMetaAilmentsMinAggregate } from './move-meta-ailments-min-aggregate.output';
 export { MoveMetaAilmentsMinOrderByAggregateInput } from './move-meta-ailments-min-order-by-aggregate.input';
-export { MoveMetaAilmentsNullableScalarRelationFilter } from './move-meta-ailments-nullable-scalar-relation-filter.input';
 export { MoveMetaAilmentsOrderByWithAggregationInput } from './move-meta-ailments-order-by-with-aggregation.input';
 export { MoveMetaAilmentsOrderByWithRelationInput } from './move-meta-ailments-order-by-with-relation.input';
 export { MoveMetaAilmentsScalarFieldEnum } from './move-meta-ailments-scalar-field.enum';
+export { MoveMetaAilmentsScalarRelationFilter } from './move-meta-ailments-scalar-relation-filter.input';
 export { MoveMetaAilmentsScalarWhereWithAggregatesInput } from './move-meta-ailments-scalar-where-with-aggregates.input';
 export { MoveMetaAilmentsSumAggregateInput } from './move-meta-ailments-sum-aggregate.input';
 export { MoveMetaAilmentsSumAggregate } from './move-meta-ailments-sum-aggregate.output';

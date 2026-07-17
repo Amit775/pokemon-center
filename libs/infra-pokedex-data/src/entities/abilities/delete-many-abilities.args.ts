@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { AbilitiesWhereInput } from './abilities-where.input';
 import { Type } from 'class-transformer';
 import { Int } from '@nestjs/graphql';
@@ -9,7 +10,7 @@ export class DeleteManyAbilitiesArgs {
 
     @Field(() => AbilitiesWhereInput, {nullable:true})
     @Type(() => AbilitiesWhereInput)
-    where?: AbilitiesWhereInput;
+    where?: Identity<AbilitiesWhereInput>;
 
     @Field(() => Int, {nullable:true})
     limit?: number;

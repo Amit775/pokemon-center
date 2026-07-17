@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { PokemonEggGroupsCreateWithoutEggGroupInput } from './pokemon-egg-groups-create-without-egg-group.input';
 import { Type } from 'class-transformer';
 import { PokemonEggGroupsCreateOrConnectWithoutEggGroupInput } from './pokemon-egg-groups-create-or-connect-without-egg-group.input';
+import type { Identity } from 'identity-type';
 import { PokemonEggGroupsCreateManyEggGroupInputEnvelope } from './pokemon-egg-groups-create-many-egg-group-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEggGroupsWhereUniqueInput } from './pokemon-egg-groups-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class PokemonEggGroupsCreateNestedManyWithoutEggGroupInput {
 
     @Field(() => PokemonEggGroupsCreateManyEggGroupInputEnvelope, {nullable:true})
     @Type(() => PokemonEggGroupsCreateManyEggGroupInputEnvelope)
-    createMany?: PokemonEggGroupsCreateManyEggGroupInputEnvelope;
+    createMany?: Identity<PokemonEggGroupsCreateManyEggGroupInputEnvelope>;
 
     @Field(() => [PokemonEggGroupsWhereUniqueInput], {nullable:true})
     @Type(() => PokemonEggGroupsWhereUniqueInput)

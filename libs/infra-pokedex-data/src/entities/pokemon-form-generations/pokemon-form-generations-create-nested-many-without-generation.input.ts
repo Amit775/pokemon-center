@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { PokemonFormGenerationsCreateWithoutGenerationInput } from './pokemon-form-generations-create-without-generation.input';
 import { Type } from 'class-transformer';
 import { PokemonFormGenerationsCreateOrConnectWithoutGenerationInput } from './pokemon-form-generations-create-or-connect-without-generation.input';
+import type { Identity } from 'identity-type';
 import { PokemonFormGenerationsCreateManyGenerationInputEnvelope } from './pokemon-form-generations-create-many-generation-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonFormGenerationsWhereUniqueInput } from './pokemon-form-generations-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class PokemonFormGenerationsCreateNestedManyWithoutGenerationInput {
 
     @Field(() => PokemonFormGenerationsCreateManyGenerationInputEnvelope, {nullable:true})
     @Type(() => PokemonFormGenerationsCreateManyGenerationInputEnvelope)
-    createMany?: PokemonFormGenerationsCreateManyGenerationInputEnvelope;
+    createMany?: Identity<PokemonFormGenerationsCreateManyGenerationInputEnvelope>;
 
     @Field(() => [PokemonFormGenerationsWhereUniqueInput], {nullable:true})
     @Type(() => PokemonFormGenerationsWhereUniqueInput)

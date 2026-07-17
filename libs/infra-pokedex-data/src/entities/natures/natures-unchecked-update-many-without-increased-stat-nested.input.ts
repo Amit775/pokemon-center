@@ -4,8 +4,9 @@ import { NaturesCreateWithoutIncreasedStatInput } from './natures-create-without
 import { Type } from 'class-transformer';
 import { NaturesCreateOrConnectWithoutIncreasedStatInput } from './natures-create-or-connect-without-increased-stat.input';
 import { NaturesUpsertWithWhereUniqueWithoutIncreasedStatInput } from './natures-upsert-with-where-unique-without-increased-stat.input';
+import type { Identity } from 'identity-type';
 import { NaturesCreateManyIncreasedStatInputEnvelope } from './natures-create-many-increased-stat-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { NaturesWhereUniqueInput } from './natures-where-unique.input';
 import { NaturesUpdateWithWhereUniqueWithoutIncreasedStatInput } from './natures-update-with-where-unique-without-increased-stat.input';
 import { NaturesUpdateManyWithWhereWithoutIncreasedStatInput } from './natures-update-many-with-where-without-increased-stat.input';
@@ -28,7 +29,7 @@ export class NaturesUncheckedUpdateManyWithoutIncreasedStatNestedInput {
 
     @Field(() => NaturesCreateManyIncreasedStatInputEnvelope, {nullable:true})
     @Type(() => NaturesCreateManyIncreasedStatInputEnvelope)
-    createMany?: NaturesCreateManyIncreasedStatInputEnvelope;
+    createMany?: Identity<NaturesCreateManyIncreasedStatInputEnvelope>;
 
     @Field(() => [NaturesWhereUniqueInput], {nullable:true})
     @Type(() => NaturesWhereUniqueInput)

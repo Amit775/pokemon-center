@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { EncounterConditionsCountOrderByAggregateInput } from './encounter-conditions-count-order-by-aggregate.input';
 import { EncounterConditionsAvgOrderByAggregateInput } from './encounter-conditions-avg-order-by-aggregate.input';
 import { EncounterConditionsMaxOrderByAggregateInput } from './encounter-conditions-max-order-by-aggregate.input';
@@ -17,17 +18,17 @@ export class EncounterConditionsOrderByWithAggregationInput {
     identifier?: `${SortOrder}`;
 
     @Field(() => EncounterConditionsCountOrderByAggregateInput, {nullable:true})
-    _count?: EncounterConditionsCountOrderByAggregateInput;
+    _count?: Identity<EncounterConditionsCountOrderByAggregateInput>;
 
     @Field(() => EncounterConditionsAvgOrderByAggregateInput, {nullable:true})
-    _avg?: EncounterConditionsAvgOrderByAggregateInput;
+    _avg?: Identity<EncounterConditionsAvgOrderByAggregateInput>;
 
     @Field(() => EncounterConditionsMaxOrderByAggregateInput, {nullable:true})
-    _max?: EncounterConditionsMaxOrderByAggregateInput;
+    _max?: Identity<EncounterConditionsMaxOrderByAggregateInput>;
 
     @Field(() => EncounterConditionsMinOrderByAggregateInput, {nullable:true})
-    _min?: EncounterConditionsMinOrderByAggregateInput;
+    _min?: Identity<EncounterConditionsMinOrderByAggregateInput>;
 
     @Field(() => EncounterConditionsSumOrderByAggregateInput, {nullable:true})
-    _sum?: EncounterConditionsSumOrderByAggregateInput;
+    _sum?: Identity<EncounterConditionsSumOrderByAggregateInput>;
 }

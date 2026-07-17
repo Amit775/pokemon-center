@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { BerryFlavorsWhereUniqueInput } from './berry-flavors-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { BerryFlavorsUpdateWithoutTypeInput } from './berry-flavors-update-without-type.input';
 import { BerryFlavorsCreateWithoutTypeInput } from './berry-flavors-create-without-type.input';
 
@@ -15,9 +16,9 @@ export class BerryFlavorsUpsertWithWhereUniqueWithoutTypeInput {
 
     @Field(() => BerryFlavorsUpdateWithoutTypeInput, {nullable:false})
     @Type(() => BerryFlavorsUpdateWithoutTypeInput)
-    update!: BerryFlavorsUpdateWithoutTypeInput;
+    update!: Identity<BerryFlavorsUpdateWithoutTypeInput>;
 
     @Field(() => BerryFlavorsCreateWithoutTypeInput, {nullable:false})
     @Type(() => BerryFlavorsCreateWithoutTypeInput)
-    create!: BerryFlavorsCreateWithoutTypeInput;
+    create!: Identity<BerryFlavorsCreateWithoutTypeInput>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NatureBattleStylePreferencesCountAggregate } from './nature-battle-style-preferences-count-aggregate.output';
 import { NatureBattleStylePreferencesAvgAggregate } from './nature-battle-style-preferences-avg-aggregate.output';
 import { NatureBattleStylePreferencesSumAggregate } from './nature-battle-style-preferences-sum-aggregate.output';
@@ -10,17 +11,17 @@ import { NatureBattleStylePreferencesMaxAggregate } from './nature-battle-style-
 export class AggregateNatureBattleStylePreferences {
 
     @Field(() => NatureBattleStylePreferencesCountAggregate, {nullable:true})
-    _count?: NatureBattleStylePreferencesCountAggregate;
+    _count?: Identity<NatureBattleStylePreferencesCountAggregate>;
 
     @Field(() => NatureBattleStylePreferencesAvgAggregate, {nullable:true})
-    _avg?: NatureBattleStylePreferencesAvgAggregate;
+    _avg?: Identity<NatureBattleStylePreferencesAvgAggregate>;
 
     @Field(() => NatureBattleStylePreferencesSumAggregate, {nullable:true})
-    _sum?: NatureBattleStylePreferencesSumAggregate;
+    _sum?: Identity<NatureBattleStylePreferencesSumAggregate>;
 
     @Field(() => NatureBattleStylePreferencesMinAggregate, {nullable:true})
-    _min?: NatureBattleStylePreferencesMinAggregate;
+    _min?: Identity<NatureBattleStylePreferencesMinAggregate>;
 
     @Field(() => NatureBattleStylePreferencesMaxAggregate, {nullable:true})
-    _max?: NatureBattleStylePreferencesMaxAggregate;
+    _max?: Identity<NatureBattleStylePreferencesMaxAggregate>;
 }

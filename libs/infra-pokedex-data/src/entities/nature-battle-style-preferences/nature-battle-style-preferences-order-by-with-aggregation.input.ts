@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { NatureBattleStylePreferencesCountOrderByAggregateInput } from './nature-battle-style-preferences-count-order-by-aggregate.input';
 import { NatureBattleStylePreferencesAvgOrderByAggregateInput } from './nature-battle-style-preferences-avg-order-by-aggregate.input';
 import { NatureBattleStylePreferencesMaxOrderByAggregateInput } from './nature-battle-style-preferences-max-order-by-aggregate.input';
@@ -23,17 +24,17 @@ export class NatureBattleStylePreferencesOrderByWithAggregationInput {
     high_hp_preference?: `${SortOrder}`;
 
     @Field(() => NatureBattleStylePreferencesCountOrderByAggregateInput, {nullable:true})
-    _count?: NatureBattleStylePreferencesCountOrderByAggregateInput;
+    _count?: Identity<NatureBattleStylePreferencesCountOrderByAggregateInput>;
 
     @Field(() => NatureBattleStylePreferencesAvgOrderByAggregateInput, {nullable:true})
-    _avg?: NatureBattleStylePreferencesAvgOrderByAggregateInput;
+    _avg?: Identity<NatureBattleStylePreferencesAvgOrderByAggregateInput>;
 
     @Field(() => NatureBattleStylePreferencesMaxOrderByAggregateInput, {nullable:true})
-    _max?: NatureBattleStylePreferencesMaxOrderByAggregateInput;
+    _max?: Identity<NatureBattleStylePreferencesMaxOrderByAggregateInput>;
 
     @Field(() => NatureBattleStylePreferencesMinOrderByAggregateInput, {nullable:true})
-    _min?: NatureBattleStylePreferencesMinOrderByAggregateInput;
+    _min?: Identity<NatureBattleStylePreferencesMinOrderByAggregateInput>;
 
     @Field(() => NatureBattleStylePreferencesSumOrderByAggregateInput, {nullable:true})
-    _sum?: NatureBattleStylePreferencesSumOrderByAggregateInput;
+    _sum?: Identity<NatureBattleStylePreferencesSumOrderByAggregateInput>;
 }

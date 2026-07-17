@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { MovesListRelationFilter } from '../moves/moves-list-relation-filter.input';
 
@@ -16,11 +17,11 @@ export class SuperContestEffectsWhereInput {
     NOT?: Array<SuperContestEffectsWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    appeal?: IntFilter;
+    appeal?: Identity<IntFilter>;
 
     @Field(() => MovesListRelationFilter, {nullable:true})
-    moves?: MovesListRelationFilter;
+    moves?: Identity<MovesListRelationFilter>;
 }

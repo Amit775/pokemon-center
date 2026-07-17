@@ -1,25 +1,25 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesUpdateManyWithoutGrowthRateNestedInput } from '../pokemon-species/pokemon-species-update-many-without-growth-rate-nested.input';
 import { ExperienceUpdateManyWithoutGrowthRateNestedInput } from '../experience/experience-update-many-without-growth-rate-nested.input';
 
 @InputType()
 export class GrowthRatesUpdateInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    formula?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    formula?: string;
 
     @Field(() => PokemonSpeciesUpdateManyWithoutGrowthRateNestedInput, {nullable:true})
-    species?: PokemonSpeciesUpdateManyWithoutGrowthRateNestedInput;
+    species?: Identity<PokemonSpeciesUpdateManyWithoutGrowthRateNestedInput>;
 
     @Field(() => ExperienceUpdateManyWithoutGrowthRateNestedInput, {nullable:true})
-    experience?: ExperienceUpdateManyWithoutGrowthRateNestedInput;
+    experience?: Identity<ExperienceUpdateManyWithoutGrowthRateNestedInput>;
 }

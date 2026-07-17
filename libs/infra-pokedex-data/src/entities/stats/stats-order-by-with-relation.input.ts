@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { PokemonStatsOrderByRelationAggregateInput } from '../pokemon-stats/pokemon-stats-order-by-relation-aggregate.input';
 import { MoveMetaStatChangesOrderByRelationAggregateInput } from '../move-meta-stat-changes/move-meta-stat-changes-order-by-relation-aggregate.input';
@@ -14,7 +15,7 @@ export class StatsOrderByWithRelationInput {
     id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    damage_class_id?: SortOrderInput;
+    damage_class_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrder, {nullable:true})
     identifier?: `${SortOrder}`;
@@ -23,20 +24,20 @@ export class StatsOrderByWithRelationInput {
     is_battle_only?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    game_index?: SortOrderInput;
+    game_index?: Identity<SortOrderInput>;
 
     @Field(() => PokemonStatsOrderByRelationAggregateInput, {nullable:true})
-    pokemonStats?: PokemonStatsOrderByRelationAggregateInput;
+    pokemonStats?: Identity<PokemonStatsOrderByRelationAggregateInput>;
 
     @Field(() => MoveMetaStatChangesOrderByRelationAggregateInput, {nullable:true})
-    moveMetaStatChanges?: MoveMetaStatChangesOrderByRelationAggregateInput;
+    moveMetaStatChanges?: Identity<MoveMetaStatChangesOrderByRelationAggregateInput>;
 
     @Field(() => CharacteristicsOrderByRelationAggregateInput, {nullable:true})
-    characteristics?: CharacteristicsOrderByRelationAggregateInput;
+    characteristics?: Identity<CharacteristicsOrderByRelationAggregateInput>;
 
     @Field(() => NaturesOrderByRelationAggregateInput, {nullable:true})
-    naturesDecreased?: NaturesOrderByRelationAggregateInput;
+    naturesDecreased?: Identity<NaturesOrderByRelationAggregateInput>;
 
     @Field(() => NaturesOrderByRelationAggregateInput, {nullable:true})
-    naturesIncreased?: NaturesOrderByRelationAggregateInput;
+    naturesIncreased?: Identity<NaturesOrderByRelationAggregateInput>;
 }

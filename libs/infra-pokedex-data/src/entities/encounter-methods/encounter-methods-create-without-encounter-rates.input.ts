@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterSlotsCreateNestedManyWithoutEncounterMethodInput } from '../encounter-slots/encounter-slots-create-nested-many-without-encounter-method.input';
 
 @InputType()
@@ -16,5 +17,5 @@ export class EncounterMethodsCreateWithoutEncounterRatesInput {
     order!: number;
 
     @Field(() => EncounterSlotsCreateNestedManyWithoutEncounterMethodInput, {nullable:true})
-    slots?: EncounterSlotsCreateNestedManyWithoutEncounterMethodInput;
+    slots?: Identity<EncounterSlotsCreateNestedManyWithoutEncounterMethodInput>;
 }

@@ -1,13 +1,14 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesWhereInput } from './moves-where.input';
 
 @InputType()
 export class MovesScalarRelationFilter {
 
     @Field(() => MovesWhereInput, {nullable:true})
-    is?: MovesWhereInput;
+    is?: Identity<MovesWhereInput>;
 
     @Field(() => MovesWhereInput, {nullable:true})
-    isNot?: MovesWhereInput;
+    isNot?: Identity<MovesWhereInput>;
 }

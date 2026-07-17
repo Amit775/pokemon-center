@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MachinesWhereUniqueInput } from './machines-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { MachinesCreateWithoutItemInput } from './machines-create-without-item.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class MachinesCreateOrConnectWithoutItemInput {
 
     @Field(() => MachinesCreateWithoutItemInput, {nullable:false})
     @Type(() => MachinesCreateWithoutItemInput)
-    create!: MachinesCreateWithoutItemInput;
+    create!: Identity<MachinesCreateWithoutItemInput>;
 }

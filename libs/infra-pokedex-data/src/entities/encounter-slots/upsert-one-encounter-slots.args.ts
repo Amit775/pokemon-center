@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncounterSlotsWhereUniqueInput } from './encounter-slots-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { EncounterSlotsCreateInput } from './encounter-slots-create.input';
 import { EncounterSlotsUpdateInput } from './encounter-slots-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneEncounterSlotsArgs {
 
     @Field(() => EncounterSlotsCreateInput, {nullable:false})
     @Type(() => EncounterSlotsCreateInput)
-    create!: EncounterSlotsCreateInput;
+    create!: Identity<EncounterSlotsCreateInput>;
 
     @Field(() => EncounterSlotsUpdateInput, {nullable:false})
     @Type(() => EncounterSlotsUpdateInput)
-    update!: EncounterSlotsUpdateInput;
+    update!: Identity<EncounterSlotsUpdateInput>;
 }

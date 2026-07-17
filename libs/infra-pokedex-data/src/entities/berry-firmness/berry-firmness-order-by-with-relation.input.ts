@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { BerriesOrderByRelationAggregateInput } from '../berries/berries-order-by-relation-aggregate.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class BerryFirmnessOrderByWithRelationInput {
     identifier?: `${SortOrder}`;
 
     @Field(() => BerriesOrderByRelationAggregateInput, {nullable:true})
-    berries?: BerriesOrderByRelationAggregateInput;
+    berries?: Identity<BerriesOrderByRelationAggregateInput>;
 }

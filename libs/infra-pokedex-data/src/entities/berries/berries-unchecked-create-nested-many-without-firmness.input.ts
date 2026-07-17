@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { BerriesCreateWithoutFirmnessInput } from './berries-create-without-firmness.input';
 import { Type } from 'class-transformer';
 import { BerriesCreateOrConnectWithoutFirmnessInput } from './berries-create-or-connect-without-firmness.input';
+import type { Identity } from 'identity-type';
 import { BerriesCreateManyFirmnessInputEnvelope } from './berries-create-many-firmness-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { BerriesWhereUniqueInput } from './berries-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class BerriesUncheckedCreateNestedManyWithoutFirmnessInput {
 
     @Field(() => BerriesCreateManyFirmnessInputEnvelope, {nullable:true})
     @Type(() => BerriesCreateManyFirmnessInputEnvelope)
-    createMany?: BerriesCreateManyFirmnessInputEnvelope;
+    createMany?: Identity<BerriesCreateManyFirmnessInputEnvelope>;
 
     @Field(() => [BerriesWhereUniqueInput], {nullable:true})
     @Type(() => BerriesWhereUniqueInput)

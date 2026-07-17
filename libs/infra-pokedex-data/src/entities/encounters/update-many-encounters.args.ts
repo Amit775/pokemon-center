@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncountersUpdateManyMutationInput } from './encounters-update-many-mutation.input';
 import { Type } from 'class-transformer';
 import { EncountersWhereInput } from './encounters-where.input';
@@ -10,11 +11,11 @@ export class UpdateManyEncountersArgs {
 
     @Field(() => EncountersUpdateManyMutationInput, {nullable:false})
     @Type(() => EncountersUpdateManyMutationInput)
-    data!: EncountersUpdateManyMutationInput;
+    data!: Identity<EncountersUpdateManyMutationInput>;
 
     @Field(() => EncountersWhereInput, {nullable:true})
     @Type(() => EncountersWhereInput)
-    where?: EncountersWhereInput;
+    where?: Identity<EncountersWhereInput>;
 
     @Field(() => Int, {nullable:true})
     limit?: number;

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterConditionsCreateNestedOneWithoutValuesInput } from '../encounter-conditions/encounter-conditions-create-nested-one-without-values.input';
 
 @InputType()
@@ -16,5 +17,5 @@ export class EncounterConditionValuesCreateWithoutConditionValueMapInput {
     is_default!: number;
 
     @Field(() => EncounterConditionsCreateNestedOneWithoutValuesInput, {nullable:false})
-    condition!: EncounterConditionsCreateNestedOneWithoutValuesInput;
+    condition!: Identity<EncounterConditionsCreateNestedOneWithoutValuesInput>;
 }

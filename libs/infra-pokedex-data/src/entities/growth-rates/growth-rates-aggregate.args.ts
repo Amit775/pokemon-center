@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GrowthRatesWhereInput } from './growth-rates-where.input';
 import { Type } from 'class-transformer';
 import { GrowthRatesOrderByWithRelationInput } from './growth-rates-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { GrowthRatesWhereUniqueInput } from './growth-rates-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { GrowthRatesCountAggregateInput } from './growth-rates-count-aggregate.input';
@@ -17,7 +18,7 @@ export class GrowthRatesAggregateArgs {
 
     @Field(() => GrowthRatesWhereInput, {nullable:true})
     @Type(() => GrowthRatesWhereInput)
-    where?: GrowthRatesWhereInput;
+    where?: Identity<GrowthRatesWhereInput>;
 
     @Field(() => [GrowthRatesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<GrowthRatesOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class GrowthRatesAggregateArgs {
     skip?: number;
 
     @Field(() => GrowthRatesCountAggregateInput, {nullable:true})
-    _count?: GrowthRatesCountAggregateInput;
+    _count?: Identity<GrowthRatesCountAggregateInput>;
 
     @Field(() => GrowthRatesAvgAggregateInput, {nullable:true})
-    _avg?: GrowthRatesAvgAggregateInput;
+    _avg?: Identity<GrowthRatesAvgAggregateInput>;
 
     @Field(() => GrowthRatesSumAggregateInput, {nullable:true})
-    _sum?: GrowthRatesSumAggregateInput;
+    _sum?: Identity<GrowthRatesSumAggregateInput>;
 
     @Field(() => GrowthRatesMinAggregateInput, {nullable:true})
-    _min?: GrowthRatesMinAggregateInput;
+    _min?: Identity<GrowthRatesMinAggregateInput>;
 
     @Field(() => GrowthRatesMaxAggregateInput, {nullable:true})
-    _max?: GrowthRatesMaxAggregateInput;
+    _max?: Identity<GrowthRatesMaxAggregateInput>;
 }

@@ -4,8 +4,9 @@ import { EncounterSlotsCreateWithoutVersionGroupInput } from './encounter-slots-
 import { Type } from 'class-transformer';
 import { EncounterSlotsCreateOrConnectWithoutVersionGroupInput } from './encounter-slots-create-or-connect-without-version-group.input';
 import { EncounterSlotsUpsertWithWhereUniqueWithoutVersionGroupInput } from './encounter-slots-upsert-with-where-unique-without-version-group.input';
+import type { Identity } from 'identity-type';
 import { EncounterSlotsCreateManyVersionGroupInputEnvelope } from './encounter-slots-create-many-version-group-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncounterSlotsWhereUniqueInput } from './encounter-slots-where-unique.input';
 import { EncounterSlotsUpdateWithWhereUniqueWithoutVersionGroupInput } from './encounter-slots-update-with-where-unique-without-version-group.input';
 import { EncounterSlotsUpdateManyWithWhereWithoutVersionGroupInput } from './encounter-slots-update-many-with-where-without-version-group.input';
@@ -28,7 +29,7 @@ export class EncounterSlotsUncheckedUpdateManyWithoutVersionGroupNestedInput {
 
     @Field(() => EncounterSlotsCreateManyVersionGroupInputEnvelope, {nullable:true})
     @Type(() => EncounterSlotsCreateManyVersionGroupInputEnvelope)
-    createMany?: EncounterSlotsCreateManyVersionGroupInputEnvelope;
+    createMany?: Identity<EncounterSlotsCreateManyVersionGroupInputEnvelope>;
 
     @Field(() => [EncounterSlotsWhereUniqueInput], {nullable:true})
     @Type(() => EncounterSlotsWhereUniqueInput)

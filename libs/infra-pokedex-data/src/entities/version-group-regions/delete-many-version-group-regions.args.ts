@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupRegionsWhereInput } from './version-group-regions-where.input';
 import { Type } from 'class-transformer';
 import { Int } from '@nestjs/graphql';
@@ -9,7 +10,7 @@ export class DeleteManyVersionGroupRegionsArgs {
 
     @Field(() => VersionGroupRegionsWhereInput, {nullable:true})
     @Type(() => VersionGroupRegionsWhereInput)
-    where?: VersionGroupRegionsWhereInput;
+    where?: Identity<VersionGroupRegionsWhereInput>;
 
     @Field(() => Int, {nullable:true})
     limit?: number;

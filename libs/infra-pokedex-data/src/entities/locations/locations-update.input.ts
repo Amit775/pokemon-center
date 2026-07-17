@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { RegionsUpdateOneWithoutLocationsNestedInput } from '../regions/regions-update-one-without-locations-nested.input';
 import { LocationAreasUpdateManyWithoutLocationNestedInput } from '../location-areas/location-areas-update-many-without-location-nested.input';
 import { LocationGameIndicesUpdateManyWithoutLocationNestedInput } from '../location-game-indices/location-game-indices-update-many-without-location-nested.input';
@@ -10,21 +10,21 @@ import { PokemonEvolutionUpdateManyWithoutLocationNestedInput } from '../pokemon
 @InputType()
 export class LocationsUpdateInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
     @Field(() => RegionsUpdateOneWithoutLocationsNestedInput, {nullable:true})
-    region?: RegionsUpdateOneWithoutLocationsNestedInput;
+    region?: Identity<RegionsUpdateOneWithoutLocationsNestedInput>;
 
     @Field(() => LocationAreasUpdateManyWithoutLocationNestedInput, {nullable:true})
-    areas?: LocationAreasUpdateManyWithoutLocationNestedInput;
+    areas?: Identity<LocationAreasUpdateManyWithoutLocationNestedInput>;
 
     @Field(() => LocationGameIndicesUpdateManyWithoutLocationNestedInput, {nullable:true})
-    gameIndices?: LocationGameIndicesUpdateManyWithoutLocationNestedInput;
+    gameIndices?: Identity<LocationGameIndicesUpdateManyWithoutLocationNestedInput>;
 
     @Field(() => PokemonEvolutionUpdateManyWithoutLocationNestedInput, {nullable:true})
-    evolution?: PokemonEvolutionUpdateManyWithoutLocationNestedInput;
+    evolution?: Identity<PokemonEvolutionUpdateManyWithoutLocationNestedInput>;
 }

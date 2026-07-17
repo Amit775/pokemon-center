@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { BerryFirmnessWhereInput } from './berry-firmness-where.input';
 import { Type } from 'class-transformer';
 import { BerryFirmnessOrderByWithAggregationInput } from './berry-firmness-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class BerryFirmnessGroupByArgs {
 
     @Field(() => BerryFirmnessWhereInput, {nullable:true})
     @Type(() => BerryFirmnessWhereInput)
-    where?: BerryFirmnessWhereInput;
+    where?: Identity<BerryFirmnessWhereInput>;
 
     @Field(() => [BerryFirmnessOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<BerryFirmnessOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class BerryFirmnessGroupByArgs {
     by!: Array<`${BerryFirmnessScalarFieldEnum}`>;
 
     @Field(() => BerryFirmnessScalarWhereWithAggregatesInput, {nullable:true})
-    having?: BerryFirmnessScalarWhereWithAggregatesInput;
+    having?: Identity<BerryFirmnessScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class BerryFirmnessGroupByArgs {
     skip?: number;
 
     @Field(() => BerryFirmnessCountAggregateInput, {nullable:true})
-    _count?: BerryFirmnessCountAggregateInput;
+    _count?: Identity<BerryFirmnessCountAggregateInput>;
 
     @Field(() => BerryFirmnessAvgAggregateInput, {nullable:true})
-    _avg?: BerryFirmnessAvgAggregateInput;
+    _avg?: Identity<BerryFirmnessAvgAggregateInput>;
 
     @Field(() => BerryFirmnessSumAggregateInput, {nullable:true})
-    _sum?: BerryFirmnessSumAggregateInput;
+    _sum?: Identity<BerryFirmnessSumAggregateInput>;
 
     @Field(() => BerryFirmnessMinAggregateInput, {nullable:true})
-    _min?: BerryFirmnessMinAggregateInput;
+    _min?: Identity<BerryFirmnessMinAggregateInput>;
 
     @Field(() => BerryFirmnessMaxAggregateInput, {nullable:true})
-    _max?: BerryFirmnessMaxAggregateInput;
+    _max?: Identity<BerryFirmnessMaxAggregateInput>;
 }

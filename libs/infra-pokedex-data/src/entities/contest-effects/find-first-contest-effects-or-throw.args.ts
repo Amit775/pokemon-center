@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ContestEffectsWhereInput } from './contest-effects-where.input';
 import { Type } from 'class-transformer';
 import { ContestEffectsOrderByWithRelationInput } from './contest-effects-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ContestEffectsWhereUniqueInput } from './contest-effects-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { ContestEffectsScalarFieldEnum } from './contest-effects-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstContestEffectsOrThrowArgs {
 
     @Field(() => ContestEffectsWhereInput, {nullable:true})
     @Type(() => ContestEffectsWhereInput)
-    where?: ContestEffectsWhereInput;
+    where?: Identity<ContestEffectsWhereInput>;
 
     @Field(() => [ContestEffectsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<ContestEffectsOrderByWithRelationInput>;

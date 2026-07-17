@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaWhereInput } from './move-meta-where.input';
 import { Type } from 'class-transformer';
 import { MoveMetaOrderByWithAggregationInput } from './move-meta-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class MoveMetaGroupByArgs {
 
     @Field(() => MoveMetaWhereInput, {nullable:true})
     @Type(() => MoveMetaWhereInput)
-    where?: MoveMetaWhereInput;
+    where?: Identity<MoveMetaWhereInput>;
 
     @Field(() => [MoveMetaOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<MoveMetaOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class MoveMetaGroupByArgs {
     by!: Array<`${MoveMetaScalarFieldEnum}`>;
 
     @Field(() => MoveMetaScalarWhereWithAggregatesInput, {nullable:true})
-    having?: MoveMetaScalarWhereWithAggregatesInput;
+    having?: Identity<MoveMetaScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class MoveMetaGroupByArgs {
     skip?: number;
 
     @Field(() => MoveMetaCountAggregateInput, {nullable:true})
-    _count?: MoveMetaCountAggregateInput;
+    _count?: Identity<MoveMetaCountAggregateInput>;
 
     @Field(() => MoveMetaAvgAggregateInput, {nullable:true})
-    _avg?: MoveMetaAvgAggregateInput;
+    _avg?: Identity<MoveMetaAvgAggregateInput>;
 
     @Field(() => MoveMetaSumAggregateInput, {nullable:true})
-    _sum?: MoveMetaSumAggregateInput;
+    _sum?: Identity<MoveMetaSumAggregateInput>;
 
     @Field(() => MoveMetaMinAggregateInput, {nullable:true})
-    _min?: MoveMetaMinAggregateInput;
+    _min?: Identity<MoveMetaMinAggregateInput>;
 
     @Field(() => MoveMetaMaxAggregateInput, {nullable:true})
-    _max?: MoveMetaMaxAggregateInput;
+    _max?: Identity<MoveMetaMaxAggregateInput>;
 }

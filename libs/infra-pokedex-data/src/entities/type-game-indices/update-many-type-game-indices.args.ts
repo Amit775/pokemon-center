@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TypeGameIndicesUpdateManyMutationInput } from './type-game-indices-update-many-mutation.input';
 import { Type } from 'class-transformer';
 import { TypeGameIndicesWhereInput } from './type-game-indices-where.input';
@@ -10,11 +11,11 @@ export class UpdateManyTypeGameIndicesArgs {
 
     @Field(() => TypeGameIndicesUpdateManyMutationInput, {nullable:false})
     @Type(() => TypeGameIndicesUpdateManyMutationInput)
-    data!: TypeGameIndicesUpdateManyMutationInput;
+    data!: Identity<TypeGameIndicesUpdateManyMutationInput>;
 
     @Field(() => TypeGameIndicesWhereInput, {nullable:true})
     @Type(() => TypeGameIndicesWhereInput)
-    where?: TypeGameIndicesWhereInput;
+    where?: Identity<TypeGameIndicesWhereInput>;
 
     @Field(() => Int, {nullable:true})
     limit?: number;

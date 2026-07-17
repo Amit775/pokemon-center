@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { NaturesOrderByWithRelationInput } from '../natures/natures-order-by-with-relation.input';
 import { MoveBattleStylesOrderByWithRelationInput } from '../move-battle-styles/move-battle-styles-order-by-with-relation.input';
 
@@ -20,8 +21,8 @@ export class NatureBattleStylePreferencesOrderByWithRelationInput {
     high_hp_preference?: `${SortOrder}`;
 
     @Field(() => NaturesOrderByWithRelationInput, {nullable:true})
-    nature?: NaturesOrderByWithRelationInput;
+    nature?: Identity<NaturesOrderByWithRelationInput>;
 
     @Field(() => MoveBattleStylesOrderByWithRelationInput, {nullable:true})
-    battleStyle?: MoveBattleStylesOrderByWithRelationInput;
+    battleStyle?: Identity<MoveBattleStylesOrderByWithRelationInput>;
 }

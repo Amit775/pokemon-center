@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { RegionsNullableScalarRelationFilter } from '../regions/regions-nullable-scalar-relation-filter.input';
+import { RegionsScalarRelationFilter } from '../regions/regions-scalar-relation-filter.input';
 import { LocationAreasListRelationFilter } from '../location-areas/location-areas-list-relation-filter.input';
 import { LocationGameIndicesListRelationFilter } from '../location-game-indices/location-game-indices-list-relation-filter.input';
 import { PokemonEvolutionListRelationFilter } from '../pokemon-evolution/pokemon-evolution-list-relation-filter.input';
@@ -21,23 +21,23 @@ export class LocationsWhereInput {
     NOT?: Array<LocationsWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    region_id?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    region_id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
-    @Field(() => RegionsNullableScalarRelationFilter, {nullable:true})
-    region?: RegionsNullableScalarRelationFilter;
+    @Field(() => RegionsScalarRelationFilter, {nullable:true})
+    region?: Identity<RegionsScalarRelationFilter>;
 
     @Field(() => LocationAreasListRelationFilter, {nullable:true})
-    areas?: LocationAreasListRelationFilter;
+    areas?: Identity<LocationAreasListRelationFilter>;
 
     @Field(() => LocationGameIndicesListRelationFilter, {nullable:true})
-    gameIndices?: LocationGameIndicesListRelationFilter;
+    gameIndices?: Identity<LocationGameIndicesListRelationFilter>;
 
     @Field(() => PokemonEvolutionListRelationFilter, {nullable:true})
-    evolution?: PokemonEvolutionListRelationFilter;
+    evolution?: Identity<PokemonEvolutionListRelationFilter>;
 }

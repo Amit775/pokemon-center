@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { BerriesScalarRelationFilter } from '../berries/berries-scalar-relation-filter.input';
 import { ContestTypesScalarRelationFilter } from '../contest-types/contest-types-scalar-relation-filter.input';
@@ -18,20 +19,20 @@ export class BerryFlavorsWhereInput {
     NOT?: Array<BerryFlavorsWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    berry_id?: IntFilter;
+    berry_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    contest_type_id?: IntFilter;
+    contest_type_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    flavor?: IntFilter;
+    flavor?: Identity<IntFilter>;
 
     @Field(() => BerriesScalarRelationFilter, {nullable:true})
-    berry?: BerriesScalarRelationFilter;
+    berry?: Identity<BerriesScalarRelationFilter>;
 
     @Field(() => ContestTypesScalarRelationFilter, {nullable:true})
-    contestType?: ContestTypesScalarRelationFilter;
+    contestType?: Identity<ContestTypesScalarRelationFilter>;
 
     @Field(() => TypesScalarRelationFilter, {nullable:true})
-    type?: TypesScalarRelationFilter;
+    type?: Identity<TypesScalarRelationFilter>;
 }

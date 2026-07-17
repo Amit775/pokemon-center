@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionsUpdateInput } from './versions-update.input';
 import { Type } from 'class-transformer';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionsWhereUniqueInput } from './versions-where-unique.input';
 
 @ArgsType()
@@ -10,7 +11,7 @@ export class UpdateOneVersionsArgs {
 
     @Field(() => VersionsUpdateInput, {nullable:false})
     @Type(() => VersionsUpdateInput)
-    data!: VersionsUpdateInput;
+    data!: Identity<VersionsUpdateInput>;
 
     @Field(() => VersionsWhereUniqueInput, {nullable:false})
     @Type(() => VersionsWhereUniqueInput)

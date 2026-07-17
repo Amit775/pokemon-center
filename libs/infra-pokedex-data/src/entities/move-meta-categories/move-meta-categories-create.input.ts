@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaCreateNestedManyWithoutMetaCategoryInput } from '../move-meta/move-meta-create-nested-many-without-meta-category.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class MoveMetaCategoriesCreateInput {
     identifier!: string;
 
     @Field(() => MoveMetaCreateNestedManyWithoutMetaCategoryInput, {nullable:true})
-    meta?: MoveMetaCreateNestedManyWithoutMetaCategoryInput;
+    meta?: Identity<MoveMetaCreateNestedManyWithoutMetaCategoryInput>;
 }

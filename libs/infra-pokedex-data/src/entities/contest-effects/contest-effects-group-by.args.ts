@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ContestEffectsWhereInput } from './contest-effects-where.input';
 import { Type } from 'class-transformer';
 import { ContestEffectsOrderByWithAggregationInput } from './contest-effects-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class ContestEffectsGroupByArgs {
 
     @Field(() => ContestEffectsWhereInput, {nullable:true})
     @Type(() => ContestEffectsWhereInput)
-    where?: ContestEffectsWhereInput;
+    where?: Identity<ContestEffectsWhereInput>;
 
     @Field(() => [ContestEffectsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<ContestEffectsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class ContestEffectsGroupByArgs {
     by!: Array<`${ContestEffectsScalarFieldEnum}`>;
 
     @Field(() => ContestEffectsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: ContestEffectsScalarWhereWithAggregatesInput;
+    having?: Identity<ContestEffectsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class ContestEffectsGroupByArgs {
     skip?: number;
 
     @Field(() => ContestEffectsCountAggregateInput, {nullable:true})
-    _count?: ContestEffectsCountAggregateInput;
+    _count?: Identity<ContestEffectsCountAggregateInput>;
 
     @Field(() => ContestEffectsAvgAggregateInput, {nullable:true})
-    _avg?: ContestEffectsAvgAggregateInput;
+    _avg?: Identity<ContestEffectsAvgAggregateInput>;
 
     @Field(() => ContestEffectsSumAggregateInput, {nullable:true})
-    _sum?: ContestEffectsSumAggregateInput;
+    _sum?: Identity<ContestEffectsSumAggregateInput>;
 
     @Field(() => ContestEffectsMinAggregateInput, {nullable:true})
-    _min?: ContestEffectsMinAggregateInput;
+    _min?: Identity<ContestEffectsMinAggregateInput>;
 
     @Field(() => ContestEffectsMaxAggregateInput, {nullable:true})
-    _max?: ContestEffectsMaxAggregateInput;
+    _max?: Identity<ContestEffectsMaxAggregateInput>;
 }

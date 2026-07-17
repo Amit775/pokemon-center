@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokedexVersionGroupsWhereInput } from './pokedex-version-groups-where.input';
 import { Type } from 'class-transformer';
 import { PokedexVersionGroupsOrderByWithAggregationInput } from './pokedex-version-groups-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class PokedexVersionGroupsGroupByArgs {
 
     @Field(() => PokedexVersionGroupsWhereInput, {nullable:true})
     @Type(() => PokedexVersionGroupsWhereInput)
-    where?: PokedexVersionGroupsWhereInput;
+    where?: Identity<PokedexVersionGroupsWhereInput>;
 
     @Field(() => [PokedexVersionGroupsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<PokedexVersionGroupsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class PokedexVersionGroupsGroupByArgs {
     by!: Array<`${PokedexVersionGroupsScalarFieldEnum}`>;
 
     @Field(() => PokedexVersionGroupsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: PokedexVersionGroupsScalarWhereWithAggregatesInput;
+    having?: Identity<PokedexVersionGroupsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class PokedexVersionGroupsGroupByArgs {
     skip?: number;
 
     @Field(() => PokedexVersionGroupsCountAggregateInput, {nullable:true})
-    _count?: PokedexVersionGroupsCountAggregateInput;
+    _count?: Identity<PokedexVersionGroupsCountAggregateInput>;
 
     @Field(() => PokedexVersionGroupsAvgAggregateInput, {nullable:true})
-    _avg?: PokedexVersionGroupsAvgAggregateInput;
+    _avg?: Identity<PokedexVersionGroupsAvgAggregateInput>;
 
     @Field(() => PokedexVersionGroupsSumAggregateInput, {nullable:true})
-    _sum?: PokedexVersionGroupsSumAggregateInput;
+    _sum?: Identity<PokedexVersionGroupsSumAggregateInput>;
 
     @Field(() => PokedexVersionGroupsMinAggregateInput, {nullable:true})
-    _min?: PokedexVersionGroupsMinAggregateInput;
+    _min?: Identity<PokedexVersionGroupsMinAggregateInput>;
 
     @Field(() => PokedexVersionGroupsMaxAggregateInput, {nullable:true})
-    _max?: PokedexVersionGroupsMaxAggregateInput;
+    _max?: Identity<PokedexVersionGroupsMaxAggregateInput>;
 }

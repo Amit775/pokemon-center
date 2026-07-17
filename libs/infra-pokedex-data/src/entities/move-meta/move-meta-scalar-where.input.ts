@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 
 @InputType()
 export class MoveMetaScalarWhereInput {
@@ -16,41 +16,41 @@ export class MoveMetaScalarWhereInput {
     NOT?: Array<MoveMetaScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    move_id?: IntFilter;
+    move_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    meta_category_id?: IntFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    meta_ailment_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    min_hits?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    max_hits?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    min_turns?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    max_turns?: IntNullableFilter;
+    meta_category_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    drain?: IntFilter;
+    meta_ailment_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    healing?: IntFilter;
+    min_hits?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    crit_rate?: IntFilter;
+    max_hits?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    ailment_chance?: IntFilter;
+    min_turns?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    flinch_chance?: IntFilter;
+    max_turns?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    stat_chance?: IntFilter;
+    drain?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    healing?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    crit_rate?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    ailment_chance?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    flinch_chance?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    stat_chance?: Identity<IntFilter>;
 }

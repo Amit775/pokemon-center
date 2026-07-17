@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationsWhereInput } from './locations-where.input';
 import { Type } from 'class-transformer';
 import { LocationsOrderByWithAggregationInput } from './locations-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class LocationsGroupByArgs {
 
     @Field(() => LocationsWhereInput, {nullable:true})
     @Type(() => LocationsWhereInput)
-    where?: LocationsWhereInput;
+    where?: Identity<LocationsWhereInput>;
 
     @Field(() => [LocationsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<LocationsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class LocationsGroupByArgs {
     by!: Array<`${LocationsScalarFieldEnum}`>;
 
     @Field(() => LocationsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: LocationsScalarWhereWithAggregatesInput;
+    having?: Identity<LocationsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class LocationsGroupByArgs {
     skip?: number;
 
     @Field(() => LocationsCountAggregateInput, {nullable:true})
-    _count?: LocationsCountAggregateInput;
+    _count?: Identity<LocationsCountAggregateInput>;
 
     @Field(() => LocationsAvgAggregateInput, {nullable:true})
-    _avg?: LocationsAvgAggregateInput;
+    _avg?: Identity<LocationsAvgAggregateInput>;
 
     @Field(() => LocationsSumAggregateInput, {nullable:true})
-    _sum?: LocationsSumAggregateInput;
+    _sum?: Identity<LocationsSumAggregateInput>;
 
     @Field(() => LocationsMinAggregateInput, {nullable:true})
-    _min?: LocationsMinAggregateInput;
+    _min?: Identity<LocationsMinAggregateInput>;
 
     @Field(() => LocationsMaxAggregateInput, {nullable:true})
-    _max?: LocationsMaxAggregateInput;
+    _max?: Identity<LocationsMaxAggregateInput>;
 }

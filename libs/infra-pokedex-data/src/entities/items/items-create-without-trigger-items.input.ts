@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemCategoriesCreateNestedOneWithoutItemsInput } from '../item-categories/item-categories-create-nested-one-without-items.input';
 import { ItemFlingEffectsCreateNestedOneWithoutItemsInput } from '../item-fling-effects/item-fling-effects-create-nested-one-without-items.input';
 import { PokemonItemsCreateNestedManyWithoutItemInput } from '../pokemon-items/pokemon-items-create-nested-many-without-item.input';
@@ -27,29 +28,29 @@ export class ItemsCreateWithoutTriggerItemsInput {
     fling_power?: number;
 
     @Field(() => ItemCategoriesCreateNestedOneWithoutItemsInput, {nullable:false})
-    category!: ItemCategoriesCreateNestedOneWithoutItemsInput;
+    category!: Identity<ItemCategoriesCreateNestedOneWithoutItemsInput>;
 
     @Field(() => ItemFlingEffectsCreateNestedOneWithoutItemsInput, {nullable:true})
-    flingEffect?: ItemFlingEffectsCreateNestedOneWithoutItemsInput;
+    flingEffect?: Identity<ItemFlingEffectsCreateNestedOneWithoutItemsInput>;
 
     @Field(() => PokemonItemsCreateNestedManyWithoutItemInput, {nullable:true})
-    pokemonItems?: PokemonItemsCreateNestedManyWithoutItemInput;
+    pokemonItems?: Identity<PokemonItemsCreateNestedManyWithoutItemInput>;
 
     @Field(() => MachinesCreateNestedManyWithoutItemInput, {nullable:true})
-    machines?: MachinesCreateNestedManyWithoutItemInput;
+    machines?: Identity<MachinesCreateNestedManyWithoutItemInput>;
 
     @Field(() => BerriesCreateNestedManyWithoutItemInput, {nullable:true})
-    berries?: BerriesCreateNestedManyWithoutItemInput;
+    berries?: Identity<BerriesCreateNestedManyWithoutItemInput>;
 
     @Field(() => ItemGameIndicesCreateNestedManyWithoutItemInput, {nullable:true})
-    gameIndices?: ItemGameIndicesCreateNestedManyWithoutItemInput;
+    gameIndices?: Identity<ItemGameIndicesCreateNestedManyWithoutItemInput>;
 
     @Field(() => ItemFlagMapCreateNestedManyWithoutItemInput, {nullable:true})
-    flagMap?: ItemFlagMapCreateNestedManyWithoutItemInput;
+    flagMap?: Identity<ItemFlagMapCreateNestedManyWithoutItemInput>;
 
     @Field(() => EvolutionChainsCreateNestedManyWithoutBabyTriggerItemInput, {nullable:true})
-    babyTriggerItems?: EvolutionChainsCreateNestedManyWithoutBabyTriggerItemInput;
+    babyTriggerItems?: Identity<EvolutionChainsCreateNestedManyWithoutBabyTriggerItemInput>;
 
     @Field(() => PokemonEvolutionCreateNestedManyWithoutHeldItemInput, {nullable:true})
-    heldItems?: PokemonEvolutionCreateNestedManyWithoutHeldItemInput;
+    heldItems?: Identity<PokemonEvolutionCreateNestedManyWithoutHeldItemInput>;
 }

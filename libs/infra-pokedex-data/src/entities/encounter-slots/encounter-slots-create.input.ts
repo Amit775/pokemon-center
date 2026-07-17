@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupsCreateNestedOneWithoutEncounterSlotsInput } from '../version-groups/version-groups-create-nested-one-without-encounter-slots.input';
 import { EncounterMethodsCreateNestedOneWithoutSlotsInput } from '../encounter-methods/encounter-methods-create-nested-one-without-slots.input';
 import { EncountersCreateNestedManyWithoutEncounterSlotInput } from '../encounters/encounters-create-nested-many-without-encounter-slot.input';
@@ -18,11 +19,11 @@ export class EncounterSlotsCreateInput {
     rarity!: number;
 
     @Field(() => VersionGroupsCreateNestedOneWithoutEncounterSlotsInput, {nullable:false})
-    versionGroup!: VersionGroupsCreateNestedOneWithoutEncounterSlotsInput;
+    versionGroup!: Identity<VersionGroupsCreateNestedOneWithoutEncounterSlotsInput>;
 
     @Field(() => EncounterMethodsCreateNestedOneWithoutSlotsInput, {nullable:false})
-    encounterMethod!: EncounterMethodsCreateNestedOneWithoutSlotsInput;
+    encounterMethod!: Identity<EncounterMethodsCreateNestedOneWithoutSlotsInput>;
 
     @Field(() => EncountersCreateNestedManyWithoutEncounterSlotInput, {nullable:true})
-    encounters?: EncountersCreateNestedManyWithoutEncounterSlotInput;
+    encounters?: Identity<EncountersCreateNestedManyWithoutEncounterSlotInput>;
 }

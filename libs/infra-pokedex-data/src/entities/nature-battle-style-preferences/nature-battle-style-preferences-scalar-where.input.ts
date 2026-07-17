@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 
 @InputType()
@@ -15,14 +16,14 @@ export class NatureBattleStylePreferencesScalarWhereInput {
     NOT?: Array<NatureBattleStylePreferencesScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    nature_id?: IntFilter;
+    nature_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    move_battle_style_id?: IntFilter;
+    move_battle_style_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    low_hp_preference?: IntFilter;
+    low_hp_preference?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    high_hp_preference?: IntFilter;
+    high_hp_preference?: Identity<IntFilter>;
 }

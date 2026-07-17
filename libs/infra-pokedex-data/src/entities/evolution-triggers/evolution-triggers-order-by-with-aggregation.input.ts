@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { EvolutionTriggersCountOrderByAggregateInput } from './evolution-triggers-count-order-by-aggregate.input';
 import { EvolutionTriggersAvgOrderByAggregateInput } from './evolution-triggers-avg-order-by-aggregate.input';
 import { EvolutionTriggersMaxOrderByAggregateInput } from './evolution-triggers-max-order-by-aggregate.input';
@@ -17,17 +18,17 @@ export class EvolutionTriggersOrderByWithAggregationInput {
     identifier?: `${SortOrder}`;
 
     @Field(() => EvolutionTriggersCountOrderByAggregateInput, {nullable:true})
-    _count?: EvolutionTriggersCountOrderByAggregateInput;
+    _count?: Identity<EvolutionTriggersCountOrderByAggregateInput>;
 
     @Field(() => EvolutionTriggersAvgOrderByAggregateInput, {nullable:true})
-    _avg?: EvolutionTriggersAvgOrderByAggregateInput;
+    _avg?: Identity<EvolutionTriggersAvgOrderByAggregateInput>;
 
     @Field(() => EvolutionTriggersMaxOrderByAggregateInput, {nullable:true})
-    _max?: EvolutionTriggersMaxOrderByAggregateInput;
+    _max?: Identity<EvolutionTriggersMaxOrderByAggregateInput>;
 
     @Field(() => EvolutionTriggersMinOrderByAggregateInput, {nullable:true})
-    _min?: EvolutionTriggersMinOrderByAggregateInput;
+    _min?: Identity<EvolutionTriggersMinOrderByAggregateInput>;
 
     @Field(() => EvolutionTriggersSumOrderByAggregateInput, {nullable:true})
-    _sum?: EvolutionTriggersSumOrderByAggregateInput;
+    _sum?: Identity<EvolutionTriggersSumOrderByAggregateInput>;
 }

@@ -1,8 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput } from '../pokemon-moves/pokemon-moves-unchecked-update-many-without-move-nested.input';
 import { MachinesUncheckedUpdateManyWithoutMoveNestedInput } from '../machines/machines-unchecked-update-many-without-move-nested.input';
 import { MoveMetaUncheckedUpdateManyWithoutMoveNestedInput } from '../move-meta/move-meta-unchecked-update-many-without-move-nested.input';
@@ -16,72 +15,72 @@ import { PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput } from '
 @InputType()
 export class MovesUncheckedUpdateWithoutDamageClassInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    generation_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    generation_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    type_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    type_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    power?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    power?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    pp?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    pp?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    accuracy?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    accuracy?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    priority?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    priority?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    target_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    target_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    effect_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    effect_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    effect_chance?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    effect_chance?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    contest_type_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    contest_type_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    contest_effect_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    contest_effect_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    super_contest_effect_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    super_contest_effect_id?: number;
 
     @Field(() => PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput, {nullable:true})
-    pokemonMoves?: PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput;
+    pokemonMoves?: Identity<PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput>;
 
     @Field(() => MachinesUncheckedUpdateManyWithoutMoveNestedInput, {nullable:true})
-    machines?: MachinesUncheckedUpdateManyWithoutMoveNestedInput;
+    machines?: Identity<MachinesUncheckedUpdateManyWithoutMoveNestedInput>;
 
     @Field(() => MoveMetaUncheckedUpdateManyWithoutMoveNestedInput, {nullable:true})
-    meta?: MoveMetaUncheckedUpdateManyWithoutMoveNestedInput;
+    meta?: Identity<MoveMetaUncheckedUpdateManyWithoutMoveNestedInput>;
 
     @Field(() => MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput, {nullable:true})
-    flagMap?: MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput;
+    flagMap?: Identity<MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput>;
 
     @Field(() => ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput, {nullable:true})
-    contestCombos?: ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    contestCombos?: Identity<ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput>;
 
     @Field(() => ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput, {nullable:true})
-    contestCombosSecond?: ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    contestCombosSecond?: Identity<ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput>;
 
     @Field(() => SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput, {nullable:true})
-    superContestCombos?: SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombos?: Identity<SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput>;
 
     @Field(() => SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput, {nullable:true})
-    superContestCombosSecond?: SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombosSecond?: Identity<SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput>;
 
     @Field(() => PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput, {nullable:true})
-    knownMoves?: PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput;
+    knownMoves?: Identity<PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput>;
 }

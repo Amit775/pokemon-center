@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { MovesScalarRelationFilter } from '../moves/moves-scalar-relation-filter.input';
 import { MoveFlagsScalarRelationFilter } from '../move-flags/move-flags-scalar-relation-filter.input';
@@ -17,14 +18,14 @@ export class MoveFlagMapWhereInput {
     NOT?: Array<MoveFlagMapWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    move_id?: IntFilter;
+    move_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    move_flag_id?: IntFilter;
+    move_flag_id?: Identity<IntFilter>;
 
     @Field(() => MovesScalarRelationFilter, {nullable:true})
-    move?: MovesScalarRelationFilter;
+    move?: Identity<MovesScalarRelationFilter>;
 
     @Field(() => MoveFlagsScalarRelationFilter, {nullable:true})
-    flag?: MoveFlagsScalarRelationFilter;
+    flag?: Identity<MoveFlagsScalarRelationFilter>;
 }

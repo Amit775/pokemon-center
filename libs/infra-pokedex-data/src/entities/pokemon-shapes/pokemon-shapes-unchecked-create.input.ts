@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesUncheckedCreateNestedManyWithoutShapeInput } from '../pokemon-species/pokemon-species-unchecked-create-nested-many-without-shape.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class PokemonShapesUncheckedCreateInput {
     identifier!: string;
 
     @Field(() => PokemonSpeciesUncheckedCreateNestedManyWithoutShapeInput, {nullable:true})
-    species?: PokemonSpeciesUncheckedCreateNestedManyWithoutShapeInput;
+    species?: Identity<PokemonSpeciesUncheckedCreateNestedManyWithoutShapeInput>;
 }

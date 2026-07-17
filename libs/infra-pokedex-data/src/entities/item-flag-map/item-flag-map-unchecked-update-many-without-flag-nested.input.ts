@@ -4,8 +4,9 @@ import { ItemFlagMapCreateWithoutFlagInput } from './item-flag-map-create-withou
 import { Type } from 'class-transformer';
 import { ItemFlagMapCreateOrConnectWithoutFlagInput } from './item-flag-map-create-or-connect-without-flag.input';
 import { ItemFlagMapUpsertWithWhereUniqueWithoutFlagInput } from './item-flag-map-upsert-with-where-unique-without-flag.input';
+import type { Identity } from 'identity-type';
 import { ItemFlagMapCreateManyFlagInputEnvelope } from './item-flag-map-create-many-flag-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemFlagMapWhereUniqueInput } from './item-flag-map-where-unique.input';
 import { ItemFlagMapUpdateWithWhereUniqueWithoutFlagInput } from './item-flag-map-update-with-where-unique-without-flag.input';
 import { ItemFlagMapUpdateManyWithWhereWithoutFlagInput } from './item-flag-map-update-many-with-where-without-flag.input';
@@ -28,7 +29,7 @@ export class ItemFlagMapUncheckedUpdateManyWithoutFlagNestedInput {
 
     @Field(() => ItemFlagMapCreateManyFlagInputEnvelope, {nullable:true})
     @Type(() => ItemFlagMapCreateManyFlagInputEnvelope)
-    createMany?: ItemFlagMapCreateManyFlagInputEnvelope;
+    createMany?: Identity<ItemFlagMapCreateManyFlagInputEnvelope>;
 
     @Field(() => [ItemFlagMapWhereUniqueInput], {nullable:true})
     @Type(() => ItemFlagMapWhereUniqueInput)

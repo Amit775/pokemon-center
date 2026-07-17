@@ -1,30 +1,30 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NatureBattleStylePreferencesUncheckedUpdateManyWithoutNatureNestedInput } from '../nature-battle-style-preferences/nature-battle-style-preferences-unchecked-update-many-without-nature-nested.input';
 
 @InputType()
 export class NaturesUncheckedUpdateWithoutDecreasedStatInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    increased_stat_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    increased_stat_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    hates_flavor_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    hates_flavor_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    likes_flavor_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    likes_flavor_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    game_index?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    game_index?: number;
 
     @Field(() => NatureBattleStylePreferencesUncheckedUpdateManyWithoutNatureNestedInput, {nullable:true})
-    battleStylePreferences?: NatureBattleStylePreferencesUncheckedUpdateManyWithoutNatureNestedInput;
+    battleStylePreferences?: Identity<NatureBattleStylePreferencesUncheckedUpdateManyWithoutNatureNestedInput>;
 }

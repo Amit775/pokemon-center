@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemFlingEffectsWhereUniqueInput } from './item-fling-effects-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { ItemFlingEffectsCreateWithoutItemsInput } from './item-fling-effects-create-without-items.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class ItemFlingEffectsCreateOrConnectWithoutItemsInput {
 
     @Field(() => ItemFlingEffectsCreateWithoutItemsInput, {nullable:false})
     @Type(() => ItemFlingEffectsCreateWithoutItemsInput)
-    create!: ItemFlingEffectsCreateWithoutItemsInput;
+    create!: Identity<ItemFlingEffectsCreateWithoutItemsInput>;
 }

@@ -4,8 +4,9 @@ import { PokemonEvolutionCreateWithoutPartyTypeInput } from './pokemon-evolution
 import { Type } from 'class-transformer';
 import { PokemonEvolutionCreateOrConnectWithoutPartyTypeInput } from './pokemon-evolution-create-or-connect-without-party-type.input';
 import { PokemonEvolutionUpsertWithWhereUniqueWithoutPartyTypeInput } from './pokemon-evolution-upsert-with-where-unique-without-party-type.input';
+import type { Identity } from 'identity-type';
 import { PokemonEvolutionCreateManyPartyTypeInputEnvelope } from './pokemon-evolution-create-many-party-type-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEvolutionWhereUniqueInput } from './pokemon-evolution-where-unique.input';
 import { PokemonEvolutionUpdateWithWhereUniqueWithoutPartyTypeInput } from './pokemon-evolution-update-with-where-unique-without-party-type.input';
 import { PokemonEvolutionUpdateManyWithWhereWithoutPartyTypeInput } from './pokemon-evolution-update-many-with-where-without-party-type.input';
@@ -28,7 +29,7 @@ export class PokemonEvolutionUncheckedUpdateManyWithoutPartyTypeNestedInput {
 
     @Field(() => PokemonEvolutionCreateManyPartyTypeInputEnvelope, {nullable:true})
     @Type(() => PokemonEvolutionCreateManyPartyTypeInputEnvelope)
-    createMany?: PokemonEvolutionCreateManyPartyTypeInputEnvelope;
+    createMany?: Identity<PokemonEvolutionCreateManyPartyTypeInputEnvelope>;
 
     @Field(() => [PokemonEvolutionWhereUniqueInput], {nullable:true})
     @Type(() => PokemonEvolutionWhereUniqueInput)

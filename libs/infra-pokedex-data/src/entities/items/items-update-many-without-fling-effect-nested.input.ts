@@ -4,8 +4,9 @@ import { ItemsCreateWithoutFlingEffectInput } from './items-create-without-fling
 import { Type } from 'class-transformer';
 import { ItemsCreateOrConnectWithoutFlingEffectInput } from './items-create-or-connect-without-fling-effect.input';
 import { ItemsUpsertWithWhereUniqueWithoutFlingEffectInput } from './items-upsert-with-where-unique-without-fling-effect.input';
+import type { Identity } from 'identity-type';
 import { ItemsCreateManyFlingEffectInputEnvelope } from './items-create-many-fling-effect-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemsWhereUniqueInput } from './items-where-unique.input';
 import { ItemsUpdateWithWhereUniqueWithoutFlingEffectInput } from './items-update-with-where-unique-without-fling-effect.input';
 import { ItemsUpdateManyWithWhereWithoutFlingEffectInput } from './items-update-many-with-where-without-fling-effect.input';
@@ -28,7 +29,7 @@ export class ItemsUpdateManyWithoutFlingEffectNestedInput {
 
     @Field(() => ItemsCreateManyFlingEffectInputEnvelope, {nullable:true})
     @Type(() => ItemsCreateManyFlingEffectInputEnvelope)
-    createMany?: ItemsCreateManyFlingEffectInputEnvelope;
+    createMany?: Identity<ItemsCreateManyFlingEffectInputEnvelope>;
 
     @Field(() => [ItemsWhereUniqueInput], {nullable:true})
     @Type(() => ItemsWhereUniqueInput)

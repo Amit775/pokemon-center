@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupRegionsWhereInput } from './version-group-regions-where.input';
 import { Type } from 'class-transformer';
 import { VersionGroupRegionsOrderByWithRelationInput } from './version-group-regions-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupRegionsWhereUniqueInput } from './version-group-regions-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { VersionGroupRegionsCountAggregateInput } from './version-group-regions-count-aggregate.input';
@@ -17,7 +18,7 @@ export class VersionGroupRegionsAggregateArgs {
 
     @Field(() => VersionGroupRegionsWhereInput, {nullable:true})
     @Type(() => VersionGroupRegionsWhereInput)
-    where?: VersionGroupRegionsWhereInput;
+    where?: Identity<VersionGroupRegionsWhereInput>;
 
     @Field(() => [VersionGroupRegionsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<VersionGroupRegionsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class VersionGroupRegionsAggregateArgs {
     skip?: number;
 
     @Field(() => VersionGroupRegionsCountAggregateInput, {nullable:true})
-    _count?: VersionGroupRegionsCountAggregateInput;
+    _count?: Identity<VersionGroupRegionsCountAggregateInput>;
 
     @Field(() => VersionGroupRegionsAvgAggregateInput, {nullable:true})
-    _avg?: VersionGroupRegionsAvgAggregateInput;
+    _avg?: Identity<VersionGroupRegionsAvgAggregateInput>;
 
     @Field(() => VersionGroupRegionsSumAggregateInput, {nullable:true})
-    _sum?: VersionGroupRegionsSumAggregateInput;
+    _sum?: Identity<VersionGroupRegionsSumAggregateInput>;
 
     @Field(() => VersionGroupRegionsMinAggregateInput, {nullable:true})
-    _min?: VersionGroupRegionsMinAggregateInput;
+    _min?: Identity<VersionGroupRegionsMinAggregateInput>;
 
     @Field(() => VersionGroupRegionsMaxAggregateInput, {nullable:true})
-    _max?: VersionGroupRegionsMaxAggregateInput;
+    _max?: Identity<VersionGroupRegionsMaxAggregateInput>;
 }

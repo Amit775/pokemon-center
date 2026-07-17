@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Pokemon } from '../pokemon/pokemon.model';
+import type { Identity } from 'identity-type';
 import { VersionGroups } from '../version-groups/version-groups.model';
 import { Moves } from '../moves/moves.model';
 import { PokemonMoveMethods } from '../pokemon-move-methods/pokemon-move-methods.model';
@@ -34,14 +35,14 @@ export class PokemonMoves {
     mastery!: number | null;
 
     @Field(() => Pokemon, {nullable:false})
-    pokemon?: Pokemon;
+    pokemon?: Identity<Pokemon>;
 
     @Field(() => VersionGroups, {nullable:false})
-    versionGroup?: VersionGroups;
+    versionGroup?: Identity<VersionGroups>;
 
     @Field(() => Moves, {nullable:false})
-    move?: Moves;
+    move?: Identity<Moves>;
 
     @Field(() => PokemonMoveMethods, {nullable:false})
-    moveMethod?: PokemonMoveMethods;
+    moveMethod?: Identity<PokemonMoveMethods>;
 }

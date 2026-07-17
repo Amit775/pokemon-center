@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MovesWhereUniqueInput } from './moves-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { MovesCreateWithoutKnownMovesInput } from './moves-create-without-known-moves.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class MovesCreateOrConnectWithoutKnownMovesInput {
 
     @Field(() => MovesCreateWithoutKnownMovesInput, {nullable:false})
     @Type(() => MovesCreateWithoutKnownMovesInput)
-    create!: MovesCreateWithoutKnownMovesInput;
+    create!: Identity<MovesCreateWithoutKnownMovesInput>;
 }

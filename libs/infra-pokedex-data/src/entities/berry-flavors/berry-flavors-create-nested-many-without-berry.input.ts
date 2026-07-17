@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { BerryFlavorsCreateWithoutBerryInput } from './berry-flavors-create-without-berry.input';
 import { Type } from 'class-transformer';
 import { BerryFlavorsCreateOrConnectWithoutBerryInput } from './berry-flavors-create-or-connect-without-berry.input';
+import type { Identity } from 'identity-type';
 import { BerryFlavorsCreateManyBerryInputEnvelope } from './berry-flavors-create-many-berry-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { BerryFlavorsWhereUniqueInput } from './berry-flavors-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class BerryFlavorsCreateNestedManyWithoutBerryInput {
 
     @Field(() => BerryFlavorsCreateManyBerryInputEnvelope, {nullable:true})
     @Type(() => BerryFlavorsCreateManyBerryInputEnvelope)
-    createMany?: BerryFlavorsCreateManyBerryInputEnvelope;
+    createMany?: Identity<BerryFlavorsCreateManyBerryInputEnvelope>;
 
     @Field(() => [BerryFlavorsWhereUniqueInput], {nullable:true})
     @Type(() => BerryFlavorsWhereUniqueInput)

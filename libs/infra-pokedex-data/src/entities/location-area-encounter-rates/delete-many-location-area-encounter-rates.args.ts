@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationAreaEncounterRatesWhereInput } from './location-area-encounter-rates-where.input';
 import { Type } from 'class-transformer';
 import { Int } from '@nestjs/graphql';
@@ -9,7 +10,7 @@ export class DeleteManyLocationAreaEncounterRatesArgs {
 
     @Field(() => LocationAreaEncounterRatesWhereInput, {nullable:true})
     @Type(() => LocationAreaEncounterRatesWhereInput)
-    where?: LocationAreaEncounterRatesWhereInput;
+    where?: Identity<LocationAreaEncounterRatesWhereInput>;
 
     @Field(() => Int, {nullable:true})
     limit?: number;

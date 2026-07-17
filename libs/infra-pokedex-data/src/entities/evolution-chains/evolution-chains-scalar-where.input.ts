@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 
 @InputType()
 export class EvolutionChainsScalarWhereInput {
@@ -16,8 +16,8 @@ export class EvolutionChainsScalarWhereInput {
     NOT?: Array<EvolutionChainsScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    baby_trigger_item_id?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    baby_trigger_item_id?: Identity<IntFilter>;
 }

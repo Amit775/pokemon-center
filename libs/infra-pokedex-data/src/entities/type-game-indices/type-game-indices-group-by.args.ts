@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TypeGameIndicesWhereInput } from './type-game-indices-where.input';
 import { Type } from 'class-transformer';
 import { TypeGameIndicesOrderByWithAggregationInput } from './type-game-indices-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class TypeGameIndicesGroupByArgs {
 
     @Field(() => TypeGameIndicesWhereInput, {nullable:true})
     @Type(() => TypeGameIndicesWhereInput)
-    where?: TypeGameIndicesWhereInput;
+    where?: Identity<TypeGameIndicesWhereInput>;
 
     @Field(() => [TypeGameIndicesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<TypeGameIndicesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class TypeGameIndicesGroupByArgs {
     by!: Array<`${TypeGameIndicesScalarFieldEnum}`>;
 
     @Field(() => TypeGameIndicesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: TypeGameIndicesScalarWhereWithAggregatesInput;
+    having?: Identity<TypeGameIndicesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class TypeGameIndicesGroupByArgs {
     skip?: number;
 
     @Field(() => TypeGameIndicesCountAggregateInput, {nullable:true})
-    _count?: TypeGameIndicesCountAggregateInput;
+    _count?: Identity<TypeGameIndicesCountAggregateInput>;
 
     @Field(() => TypeGameIndicesAvgAggregateInput, {nullable:true})
-    _avg?: TypeGameIndicesAvgAggregateInput;
+    _avg?: Identity<TypeGameIndicesAvgAggregateInput>;
 
     @Field(() => TypeGameIndicesSumAggregateInput, {nullable:true})
-    _sum?: TypeGameIndicesSumAggregateInput;
+    _sum?: Identity<TypeGameIndicesSumAggregateInput>;
 
     @Field(() => TypeGameIndicesMinAggregateInput, {nullable:true})
-    _min?: TypeGameIndicesMinAggregateInput;
+    _min?: Identity<TypeGameIndicesMinAggregateInput>;
 
     @Field(() => TypeGameIndicesMaxAggregateInput, {nullable:true})
-    _max?: TypeGameIndicesMaxAggregateInput;
+    _max?: Identity<TypeGameIndicesMaxAggregateInput>;
 }

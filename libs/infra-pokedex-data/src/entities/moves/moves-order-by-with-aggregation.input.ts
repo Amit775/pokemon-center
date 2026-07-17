@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { MovesCountOrderByAggregateInput } from './moves-count-order-by-aggregate.input';
 import { MovesAvgOrderByAggregateInput } from './moves-avg-order-by-aggregate.input';
@@ -24,13 +25,13 @@ export class MovesOrderByWithAggregationInput {
     type_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    power?: SortOrderInput;
+    power?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    pp?: SortOrderInput;
+    pp?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    accuracy?: SortOrderInput;
+    accuracy?: Identity<SortOrderInput>;
 
     @Field(() => SortOrder, {nullable:true})
     priority?: `${SortOrder}`;
@@ -42,32 +43,32 @@ export class MovesOrderByWithAggregationInput {
     damage_class_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    effect_id?: SortOrderInput;
+    effect_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    effect_chance?: SortOrderInput;
+    effect_chance?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    contest_type_id?: SortOrderInput;
+    contest_type_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    contest_effect_id?: SortOrderInput;
+    contest_effect_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    super_contest_effect_id?: SortOrderInput;
+    super_contest_effect_id?: Identity<SortOrderInput>;
 
     @Field(() => MovesCountOrderByAggregateInput, {nullable:true})
-    _count?: MovesCountOrderByAggregateInput;
+    _count?: Identity<MovesCountOrderByAggregateInput>;
 
     @Field(() => MovesAvgOrderByAggregateInput, {nullable:true})
-    _avg?: MovesAvgOrderByAggregateInput;
+    _avg?: Identity<MovesAvgOrderByAggregateInput>;
 
     @Field(() => MovesMaxOrderByAggregateInput, {nullable:true})
-    _max?: MovesMaxOrderByAggregateInput;
+    _max?: Identity<MovesMaxOrderByAggregateInput>;
 
     @Field(() => MovesMinOrderByAggregateInput, {nullable:true})
-    _min?: MovesMinOrderByAggregateInput;
+    _min?: Identity<MovesMinOrderByAggregateInput>;
 
     @Field(() => MovesSumOrderByAggregateInput, {nullable:true})
-    _sum?: MovesSumOrderByAggregateInput;
+    _sum?: Identity<MovesSumOrderByAggregateInput>;
 }

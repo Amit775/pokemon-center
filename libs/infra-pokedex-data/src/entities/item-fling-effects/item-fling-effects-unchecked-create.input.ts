@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemsUncheckedCreateNestedManyWithoutFlingEffectInput } from '../items/items-unchecked-create-nested-many-without-fling-effect.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class ItemFlingEffectsUncheckedCreateInput {
     identifier!: string;
 
     @Field(() => ItemsUncheckedCreateNestedManyWithoutFlingEffectInput, {nullable:true})
-    items?: ItemsUncheckedCreateNestedManyWithoutFlingEffectInput;
+    items?: Identity<ItemsUncheckedCreateNestedManyWithoutFlingEffectInput>;
 }

@@ -1,17 +1,18 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesUpdateManyWithoutSuperContestEffectNestedInput } from '../moves/moves-update-many-without-super-contest-effect-nested.input';
 
 @InputType()
 export class SuperContestEffectsUpdateInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    appeal?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    appeal?: number;
 
     @Field(() => MovesUpdateManyWithoutSuperContestEffectNestedInput, {nullable:true})
-    moves?: MovesUpdateManyWithoutSuperContestEffectNestedInput;
+    moves?: Identity<MovesUpdateManyWithoutSuperContestEffectNestedInput>;
 }

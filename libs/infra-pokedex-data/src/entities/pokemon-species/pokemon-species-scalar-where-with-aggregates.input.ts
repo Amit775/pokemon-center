@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
-import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class PokemonSpeciesScalarWhereWithAggregatesInput {
@@ -17,62 +17,62 @@ export class PokemonSpeciesScalarWhereWithAggregatesInput {
     NOT?: Array<PokemonSpeciesScalarWhereWithAggregatesInput>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: IntWithAggregatesFilter;
+    id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
-    identifier?: StringWithAggregatesFilter;
+    identifier?: Identity<StringWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    generation_id?: IntWithAggregatesFilter;
-
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    evolves_from_species_id?: IntNullableWithAggregatesFilter;
+    generation_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    evolution_chain_id?: IntWithAggregatesFilter;
+    evolves_from_species_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    color_id?: IntWithAggregatesFilter;
+    evolution_chain_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    shape_id?: IntWithAggregatesFilter;
-
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    habitat_id?: IntNullableWithAggregatesFilter;
+    color_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    gender_rate?: IntWithAggregatesFilter;
+    shape_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    capture_rate?: IntWithAggregatesFilter;
+    habitat_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    base_happiness?: IntWithAggregatesFilter;
+    gender_rate?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    is_baby?: IntWithAggregatesFilter;
+    capture_rate?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    hatch_counter?: IntWithAggregatesFilter;
+    base_happiness?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    has_gender_differences?: IntWithAggregatesFilter;
+    is_baby?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    growth_rate_id?: IntWithAggregatesFilter;
+    hatch_counter?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    forms_switchable?: IntWithAggregatesFilter;
+    has_gender_differences?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    is_legendary?: IntWithAggregatesFilter;
+    growth_rate_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    is_mythical?: IntWithAggregatesFilter;
+    forms_switchable?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    order?: IntWithAggregatesFilter;
+    is_legendary?: Identity<IntWithAggregatesFilter>;
 
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    conquest_order?: IntNullableWithAggregatesFilter;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    is_mythical?: Identity<IntWithAggregatesFilter>;
+
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    order?: Identity<IntWithAggregatesFilter>;
+
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    conquest_order?: Identity<IntWithAggregatesFilter>;
 }

@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { VersionGroups } from '../version-groups/version-groups.model';
+import type { Identity } from 'identity-type';
 import { PokemonMoveMethods } from '../pokemon-move-methods/pokemon-move-methods.model';
 
 /**
@@ -18,8 +19,8 @@ export class VersionGroupPokemonMoveMethods {
     pokemon_move_method_id!: number;
 
     @Field(() => VersionGroups, {nullable:false})
-    versionGroup?: VersionGroups;
+    versionGroup?: Identity<VersionGroups>;
 
     @Field(() => PokemonMoveMethods, {nullable:false})
-    moveMethod?: PokemonMoveMethods;
+    moveMethod?: Identity<PokemonMoveMethods>;
 }

@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationGameIndicesWhereInput } from './location-game-indices-where.input';
 import { Type } from 'class-transformer';
 import { LocationGameIndicesOrderByWithRelationInput } from './location-game-indices-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationGameIndicesWhereUniqueInput } from './location-game-indices-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { LocationGameIndicesScalarFieldEnum } from './location-game-indices-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstLocationGameIndicesArgs {
 
     @Field(() => LocationGameIndicesWhereInput, {nullable:true})
     @Type(() => LocationGameIndicesWhereInput)
-    where?: LocationGameIndicesWhereInput;
+    where?: Identity<LocationGameIndicesWhereInput>;
 
     @Field(() => [LocationGameIndicesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<LocationGameIndicesOrderByWithRelationInput>;

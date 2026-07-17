@@ -4,8 +4,9 @@ import { PokemonEggGroupsCreateWithoutSpeciesInput } from './pokemon-egg-groups-
 import { Type } from 'class-transformer';
 import { PokemonEggGroupsCreateOrConnectWithoutSpeciesInput } from './pokemon-egg-groups-create-or-connect-without-species.input';
 import { PokemonEggGroupsUpsertWithWhereUniqueWithoutSpeciesInput } from './pokemon-egg-groups-upsert-with-where-unique-without-species.input';
+import type { Identity } from 'identity-type';
 import { PokemonEggGroupsCreateManySpeciesInputEnvelope } from './pokemon-egg-groups-create-many-species-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEggGroupsWhereUniqueInput } from './pokemon-egg-groups-where-unique.input';
 import { PokemonEggGroupsUpdateWithWhereUniqueWithoutSpeciesInput } from './pokemon-egg-groups-update-with-where-unique-without-species.input';
 import { PokemonEggGroupsUpdateManyWithWhereWithoutSpeciesInput } from './pokemon-egg-groups-update-many-with-where-without-species.input';
@@ -28,7 +29,7 @@ export class PokemonEggGroupsUncheckedUpdateManyWithoutSpeciesNestedInput {
 
     @Field(() => PokemonEggGroupsCreateManySpeciesInputEnvelope, {nullable:true})
     @Type(() => PokemonEggGroupsCreateManySpeciesInputEnvelope)
-    createMany?: PokemonEggGroupsCreateManySpeciesInputEnvelope;
+    createMany?: Identity<PokemonEggGroupsCreateManySpeciesInputEnvelope>;
 
     @Field(() => [PokemonEggGroupsWhereUniqueInput], {nullable:true})
     @Type(() => PokemonEggGroupsWhereUniqueInput)

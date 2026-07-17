@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { BerryFirmnessWhereInput } from './berry-firmness-where.input';
+import type { Identity } from 'identity-type';
 import { StringFilter } from '../prisma/string-filter.input';
 import { BerriesListRelationFilter } from '../berries/berries-list-relation-filter.input';
 
@@ -21,8 +22,8 @@ export class BerryFirmnessWhereUniqueInput {
     NOT?: Array<BerryFirmnessWhereInput>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => BerriesListRelationFilter, {nullable:true})
-    berries?: BerriesListRelationFilter;
+    berries?: Identity<BerriesListRelationFilter>;
 }

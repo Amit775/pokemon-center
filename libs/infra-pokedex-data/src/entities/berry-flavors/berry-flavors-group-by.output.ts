@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { BerryFlavorsCountAggregate } from './berry-flavors-count-aggregate.output';
 import { BerryFlavorsAvgAggregate } from './berry-flavors-avg-aggregate.output';
 import { BerryFlavorsSumAggregate } from './berry-flavors-sum-aggregate.output';
@@ -20,17 +21,17 @@ export class BerryFlavorsGroupBy {
     flavor!: number;
 
     @Field(() => BerryFlavorsCountAggregate, {nullable:true})
-    _count?: BerryFlavorsCountAggregate;
+    _count?: Identity<BerryFlavorsCountAggregate>;
 
     @Field(() => BerryFlavorsAvgAggregate, {nullable:true})
-    _avg?: BerryFlavorsAvgAggregate;
+    _avg?: Identity<BerryFlavorsAvgAggregate>;
 
     @Field(() => BerryFlavorsSumAggregate, {nullable:true})
-    _sum?: BerryFlavorsSumAggregate;
+    _sum?: Identity<BerryFlavorsSumAggregate>;
 
     @Field(() => BerryFlavorsMinAggregate, {nullable:true})
-    _min?: BerryFlavorsMinAggregate;
+    _min?: Identity<BerryFlavorsMinAggregate>;
 
     @Field(() => BerryFlavorsMaxAggregate, {nullable:true})
-    _max?: BerryFlavorsMaxAggregate;
+    _max?: Identity<BerryFlavorsMaxAggregate>;
 }

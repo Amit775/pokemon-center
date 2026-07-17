@@ -4,8 +4,9 @@ import { ContestCombosCreateWithoutFirstMoveInput } from './contest-combos-creat
 import { Type } from 'class-transformer';
 import { ContestCombosCreateOrConnectWithoutFirstMoveInput } from './contest-combos-create-or-connect-without-first-move.input';
 import { ContestCombosUpsertWithWhereUniqueWithoutFirstMoveInput } from './contest-combos-upsert-with-where-unique-without-first-move.input';
+import type { Identity } from 'identity-type';
 import { ContestCombosCreateManyFirstMoveInputEnvelope } from './contest-combos-create-many-first-move-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ContestCombosWhereUniqueInput } from './contest-combos-where-unique.input';
 import { ContestCombosUpdateWithWhereUniqueWithoutFirstMoveInput } from './contest-combos-update-with-where-unique-without-first-move.input';
 import { ContestCombosUpdateManyWithWhereWithoutFirstMoveInput } from './contest-combos-update-many-with-where-without-first-move.input';
@@ -28,7 +29,7 @@ export class ContestCombosUpdateManyWithoutFirstMoveNestedInput {
 
     @Field(() => ContestCombosCreateManyFirstMoveInputEnvelope, {nullable:true})
     @Type(() => ContestCombosCreateManyFirstMoveInputEnvelope)
-    createMany?: ContestCombosCreateManyFirstMoveInputEnvelope;
+    createMany?: Identity<ContestCombosCreateManyFirstMoveInputEnvelope>;
 
     @Field(() => [ContestCombosWhereUniqueInput], {nullable:true})
     @Type(() => ContestCombosWhereUniqueInput)

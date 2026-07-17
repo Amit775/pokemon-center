@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveDamageClassesCountAggregate } from './move-damage-classes-count-aggregate.output';
 import { MoveDamageClassesAvgAggregate } from './move-damage-classes-avg-aggregate.output';
 import { MoveDamageClassesSumAggregate } from './move-damage-classes-sum-aggregate.output';
@@ -10,17 +11,17 @@ import { MoveDamageClassesMaxAggregate } from './move-damage-classes-max-aggrega
 export class AggregateMoveDamageClasses {
 
     @Field(() => MoveDamageClassesCountAggregate, {nullable:true})
-    _count?: MoveDamageClassesCountAggregate;
+    _count?: Identity<MoveDamageClassesCountAggregate>;
 
     @Field(() => MoveDamageClassesAvgAggregate, {nullable:true})
-    _avg?: MoveDamageClassesAvgAggregate;
+    _avg?: Identity<MoveDamageClassesAvgAggregate>;
 
     @Field(() => MoveDamageClassesSumAggregate, {nullable:true})
-    _sum?: MoveDamageClassesSumAggregate;
+    _sum?: Identity<MoveDamageClassesSumAggregate>;
 
     @Field(() => MoveDamageClassesMinAggregate, {nullable:true})
-    _min?: MoveDamageClassesMinAggregate;
+    _min?: Identity<MoveDamageClassesMinAggregate>;
 
     @Field(() => MoveDamageClassesMaxAggregate, {nullable:true})
-    _max?: MoveDamageClassesMaxAggregate;
+    _max?: Identity<MoveDamageClassesMaxAggregate>;
 }

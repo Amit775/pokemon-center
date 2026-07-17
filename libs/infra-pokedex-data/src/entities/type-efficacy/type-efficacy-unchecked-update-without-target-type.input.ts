@@ -1,13 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class TypeEfficacyUncheckedUpdateWithoutTargetTypeInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    damage_type_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    damage_type_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    damage_factor?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    damage_factor?: number;
 }

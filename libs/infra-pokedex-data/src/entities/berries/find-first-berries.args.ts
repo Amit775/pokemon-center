@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { BerriesWhereInput } from './berries-where.input';
 import { Type } from 'class-transformer';
 import { BerriesOrderByWithRelationInput } from './berries-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { BerriesWhereUniqueInput } from './berries-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { BerriesScalarFieldEnum } from './berries-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstBerriesArgs {
 
     @Field(() => BerriesWhereInput, {nullable:true})
     @Type(() => BerriesWhereInput)
-    where?: BerriesWhereInput;
+    where?: Identity<BerriesWhereInput>;
 
     @Field(() => [BerriesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<BerriesOrderByWithRelationInput>;

@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { GrowthRatesWhereUniqueInput } from './growth-rates-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { GrowthRatesCreateInput } from './growth-rates-create.input';
 import { GrowthRatesUpdateInput } from './growth-rates-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneGrowthRatesArgs {
 
     @Field(() => GrowthRatesCreateInput, {nullable:false})
     @Type(() => GrowthRatesCreateInput)
-    create!: GrowthRatesCreateInput;
+    create!: Identity<GrowthRatesCreateInput>;
 
     @Field(() => GrowthRatesUpdateInput, {nullable:false})
     @Type(() => GrowthRatesUpdateInput)
-    update!: GrowthRatesUpdateInput;
+    update!: Identity<GrowthRatesUpdateInput>;
 }

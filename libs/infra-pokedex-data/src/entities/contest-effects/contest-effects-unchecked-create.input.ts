@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesUncheckedCreateNestedManyWithoutContestEffectInput } from '../moves/moves-unchecked-create-nested-many-without-contest-effect.input';
 
 @InputType()
@@ -16,5 +17,5 @@ export class ContestEffectsUncheckedCreateInput {
     jam!: number;
 
     @Field(() => MovesUncheckedCreateNestedManyWithoutContestEffectInput, {nullable:true})
-    moves?: MovesUncheckedCreateNestedManyWithoutContestEffectInput;
+    moves?: Identity<MovesUncheckedCreateNestedManyWithoutContestEffectInput>;
 }

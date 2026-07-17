@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupPokemonMoveMethodsWhereInput } from './version-group-pokemon-move-methods-where.input';
 import { Type } from 'class-transformer';
 import { VersionGroupPokemonMoveMethodsOrderByWithRelationInput } from './version-group-pokemon-move-methods-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupPokemonMoveMethodsWhereUniqueInput } from './version-group-pokemon-move-methods-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { VersionGroupPokemonMoveMethodsScalarFieldEnum } from './version-group-pokemon-move-methods-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstVersionGroupPokemonMoveMethodsOrThrowArgs {
 
     @Field(() => VersionGroupPokemonMoveMethodsWhereInput, {nullable:true})
     @Type(() => VersionGroupPokemonMoveMethodsWhereInput)
-    where?: VersionGroupPokemonMoveMethodsWhereInput;
+    where?: Identity<VersionGroupPokemonMoveMethodsWhereInput>;
 
     @Field(() => [VersionGroupPokemonMoveMethodsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<VersionGroupPokemonMoveMethodsOrderByWithRelationInput>;

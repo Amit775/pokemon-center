@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonEggGroupsSpecies_idEgg_group_idCompoundUniqueInput } from './pokemon-egg-groups-species-id-egg-group-id-compound-unique.input';
 import { PokemonEggGroupsWhereInput } from './pokemon-egg-groups-where.input';
 import { IntFilter } from '../prisma/int-filter.input';
@@ -10,7 +11,7 @@ import { EggGroupsScalarRelationFilter } from '../egg-groups/egg-groups-scalar-r
 export class PokemonEggGroupsWhereUniqueInput {
 
     @Field(() => PokemonEggGroupsSpecies_idEgg_group_idCompoundUniqueInput, {nullable:true})
-    species_id_egg_group_id?: PokemonEggGroupsSpecies_idEgg_group_idCompoundUniqueInput;
+    species_id_egg_group_id?: Identity<PokemonEggGroupsSpecies_idEgg_group_idCompoundUniqueInput>;
 
     @Field(() => [PokemonEggGroupsWhereInput], {nullable:true})
     AND?: Array<PokemonEggGroupsWhereInput>;
@@ -22,14 +23,14 @@ export class PokemonEggGroupsWhereUniqueInput {
     NOT?: Array<PokemonEggGroupsWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    species_id?: IntFilter;
+    species_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    egg_group_id?: IntFilter;
+    egg_group_id?: Identity<IntFilter>;
 
     @Field(() => PokemonSpeciesScalarRelationFilter, {nullable:true})
-    species?: PokemonSpeciesScalarRelationFilter;
+    species?: Identity<PokemonSpeciesScalarRelationFilter>;
 
     @Field(() => EggGroupsScalarRelationFilter, {nullable:true})
-    eggGroup?: EggGroupsScalarRelationFilter;
+    eggGroup?: Identity<EggGroupsScalarRelationFilter>;
 }

@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemsCreateWithoutPokemonItemsInput } from './items-create-without-pokemon-items.input';
 import { Type } from 'class-transformer';
 import { ItemsCreateOrConnectWithoutPokemonItemsInput } from './items-create-or-connect-without-pokemon-items.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemsWhereUniqueInput } from './items-where-unique.input';
 
 @InputType()
@@ -11,11 +12,11 @@ export class ItemsCreateNestedOneWithoutPokemonItemsInput {
 
     @Field(() => ItemsCreateWithoutPokemonItemsInput, {nullable:true})
     @Type(() => ItemsCreateWithoutPokemonItemsInput)
-    create?: ItemsCreateWithoutPokemonItemsInput;
+    create?: Identity<ItemsCreateWithoutPokemonItemsInput>;
 
     @Field(() => ItemsCreateOrConnectWithoutPokemonItemsInput, {nullable:true})
     @Type(() => ItemsCreateOrConnectWithoutPokemonItemsInput)
-    connectOrCreate?: ItemsCreateOrConnectWithoutPokemonItemsInput;
+    connectOrCreate?: Identity<ItemsCreateOrConnectWithoutPokemonItemsInput>;
 
     @Field(() => ItemsWhereUniqueInput, {nullable:true})
     @Type(() => ItemsWhereUniqueInput)

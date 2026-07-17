@@ -1,22 +1,22 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonMovesUncheckedUpdateManyWithoutMoveMethodNestedInput } from '../pokemon-moves/pokemon-moves-unchecked-update-many-without-move-method-nested.input';
 import { VersionGroupPokemonMoveMethodsUncheckedUpdateManyWithoutMoveMethodNestedInput } from '../version-group-pokemon-move-methods/version-group-pokemon-move-methods-unchecked-update-many-without-move-method-nested.input';
 
 @InputType()
 export class PokemonMoveMethodsUncheckedUpdateInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
     @Field(() => PokemonMovesUncheckedUpdateManyWithoutMoveMethodNestedInput, {nullable:true})
-    pokemonMoves?: PokemonMovesUncheckedUpdateManyWithoutMoveMethodNestedInput;
+    pokemonMoves?: Identity<PokemonMovesUncheckedUpdateManyWithoutMoveMethodNestedInput>;
 
     @Field(() => VersionGroupPokemonMoveMethodsUncheckedUpdateManyWithoutMoveMethodNestedInput, {nullable:true})
-    versionGroups?: VersionGroupPokemonMoveMethodsUncheckedUpdateManyWithoutMoveMethodNestedInput;
+    versionGroups?: Identity<VersionGroupPokemonMoveMethodsUncheckedUpdateManyWithoutMoveMethodNestedInput>;
 }

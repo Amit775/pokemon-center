@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Types } from '../types/types.model';
+import type { Identity } from 'identity-type';
 import { Generations } from '../generations/generations.model';
 
 /**
@@ -20,8 +21,8 @@ export class TypeGameIndices {
     game_index!: number;
 
     @Field(() => Types, {nullable:false})
-    type?: Types;
+    type?: Identity<Types>;
 
     @Field(() => Generations, {nullable:false})
-    generation?: Generations;
+    generation?: Identity<Generations>;
 }

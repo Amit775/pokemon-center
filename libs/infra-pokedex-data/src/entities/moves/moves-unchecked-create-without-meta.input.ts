@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonMovesUncheckedCreateNestedManyWithoutMoveInput } from '../pokemon-moves/pokemon-moves-unchecked-create-nested-many-without-move.input';
 import { MachinesUncheckedCreateNestedManyWithoutMoveInput } from '../machines/machines-unchecked-create-nested-many-without-move.input';
 import { MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput } from '../move-flag-map/move-flag-map-unchecked-create-nested-many-without-move.input';
@@ -59,26 +60,26 @@ export class MovesUncheckedCreateWithoutMetaInput {
     super_contest_effect_id?: number;
 
     @Field(() => PokemonMovesUncheckedCreateNestedManyWithoutMoveInput, {nullable:true})
-    pokemonMoves?: PokemonMovesUncheckedCreateNestedManyWithoutMoveInput;
+    pokemonMoves?: Identity<PokemonMovesUncheckedCreateNestedManyWithoutMoveInput>;
 
     @Field(() => MachinesUncheckedCreateNestedManyWithoutMoveInput, {nullable:true})
-    machines?: MachinesUncheckedCreateNestedManyWithoutMoveInput;
+    machines?: Identity<MachinesUncheckedCreateNestedManyWithoutMoveInput>;
 
     @Field(() => MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput, {nullable:true})
-    flagMap?: MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput;
+    flagMap?: Identity<MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput>;
 
     @Field(() => ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput, {nullable:true})
-    contestCombos?: ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    contestCombos?: Identity<ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput>;
 
     @Field(() => ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput, {nullable:true})
-    contestCombosSecond?: ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    contestCombosSecond?: Identity<ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput>;
 
     @Field(() => SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput, {nullable:true})
-    superContestCombos?: SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput;
+    superContestCombos?: Identity<SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput>;
 
     @Field(() => SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput, {nullable:true})
-    superContestCombosSecond?: SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput;
+    superContestCombosSecond?: Identity<SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput>;
 
     @Field(() => PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput, {nullable:true})
-    knownMoves?: PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput;
+    knownMoves?: Identity<PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput>;
 }

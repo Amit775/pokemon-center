@@ -4,8 +4,9 @@ import { MoveFlagMapCreateWithoutMoveInput } from './move-flag-map-create-withou
 import { Type } from 'class-transformer';
 import { MoveFlagMapCreateOrConnectWithoutMoveInput } from './move-flag-map-create-or-connect-without-move.input';
 import { MoveFlagMapUpsertWithWhereUniqueWithoutMoveInput } from './move-flag-map-upsert-with-where-unique-without-move.input';
+import type { Identity } from 'identity-type';
 import { MoveFlagMapCreateManyMoveInputEnvelope } from './move-flag-map-create-many-move-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveFlagMapWhereUniqueInput } from './move-flag-map-where-unique.input';
 import { MoveFlagMapUpdateWithWhereUniqueWithoutMoveInput } from './move-flag-map-update-with-where-unique-without-move.input';
 import { MoveFlagMapUpdateManyWithWhereWithoutMoveInput } from './move-flag-map-update-many-with-where-without-move.input';
@@ -28,7 +29,7 @@ export class MoveFlagMapUpdateManyWithoutMoveNestedInput {
 
     @Field(() => MoveFlagMapCreateManyMoveInputEnvelope, {nullable:true})
     @Type(() => MoveFlagMapCreateManyMoveInputEnvelope)
-    createMany?: MoveFlagMapCreateManyMoveInputEnvelope;
+    createMany?: Identity<MoveFlagMapCreateManyMoveInputEnvelope>;
 
     @Field(() => [MoveFlagMapWhereUniqueInput], {nullable:true})
     @Type(() => MoveFlagMapWhereUniqueInput)

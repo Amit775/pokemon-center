@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Types } from '../types/types.model';
+import type { Identity } from 'identity-type';
 
 /**
  * @@TypeGraphQL.type(name: "TypeEfficacy")
@@ -19,8 +20,8 @@ export class TypeEfficacy {
     damage_factor!: number;
 
     @Field(() => Types, {nullable:false})
-    damageType?: Types;
+    damageType?: Identity<Types>;
 
     @Field(() => Types, {nullable:false})
-    targetType?: Types;
+    targetType?: Identity<Types>;
 }

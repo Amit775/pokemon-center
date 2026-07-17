@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EvolutionChainsUpdateWithoutSpeciesInput } from './evolution-chains-update-without-species.input';
 import { Type } from 'class-transformer';
 import { EvolutionChainsCreateWithoutSpeciesInput } from './evolution-chains-create-without-species.input';
@@ -10,13 +11,13 @@ export class EvolutionChainsUpsertWithoutSpeciesInput {
 
     @Field(() => EvolutionChainsUpdateWithoutSpeciesInput, {nullable:false})
     @Type(() => EvolutionChainsUpdateWithoutSpeciesInput)
-    update!: EvolutionChainsUpdateWithoutSpeciesInput;
+    update!: Identity<EvolutionChainsUpdateWithoutSpeciesInput>;
 
     @Field(() => EvolutionChainsCreateWithoutSpeciesInput, {nullable:false})
     @Type(() => EvolutionChainsCreateWithoutSpeciesInput)
-    create!: EvolutionChainsCreateWithoutSpeciesInput;
+    create!: Identity<EvolutionChainsCreateWithoutSpeciesInput>;
 
     @Field(() => EvolutionChainsWhereInput, {nullable:true})
     @Type(() => EvolutionChainsWhereInput)
-    where?: EvolutionChainsWhereInput;
+    where?: Identity<EvolutionChainsWhereInput>;
 }

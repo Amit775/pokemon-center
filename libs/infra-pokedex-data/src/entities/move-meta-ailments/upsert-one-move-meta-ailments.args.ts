@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveMetaAilmentsWhereUniqueInput } from './move-meta-ailments-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { MoveMetaAilmentsCreateInput } from './move-meta-ailments-create.input';
 import { MoveMetaAilmentsUpdateInput } from './move-meta-ailments-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneMoveMetaAilmentsArgs {
 
     @Field(() => MoveMetaAilmentsCreateInput, {nullable:false})
     @Type(() => MoveMetaAilmentsCreateInput)
-    create!: MoveMetaAilmentsCreateInput;
+    create!: Identity<MoveMetaAilmentsCreateInput>;
 
     @Field(() => MoveMetaAilmentsUpdateInput, {nullable:false})
     @Type(() => MoveMetaAilmentsUpdateInput)
-    update!: MoveMetaAilmentsUpdateInput;
+    update!: Identity<MoveMetaAilmentsUpdateInput>;
 }

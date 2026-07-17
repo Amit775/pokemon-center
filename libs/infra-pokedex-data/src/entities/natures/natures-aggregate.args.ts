@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NaturesWhereInput } from './natures-where.input';
 import { Type } from 'class-transformer';
 import { NaturesOrderByWithRelationInput } from './natures-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { NaturesWhereUniqueInput } from './natures-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { NaturesCountAggregateInput } from './natures-count-aggregate.input';
@@ -17,7 +18,7 @@ export class NaturesAggregateArgs {
 
     @Field(() => NaturesWhereInput, {nullable:true})
     @Type(() => NaturesWhereInput)
-    where?: NaturesWhereInput;
+    where?: Identity<NaturesWhereInput>;
 
     @Field(() => [NaturesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<NaturesOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class NaturesAggregateArgs {
     skip?: number;
 
     @Field(() => NaturesCountAggregateInput, {nullable:true})
-    _count?: NaturesCountAggregateInput;
+    _count?: Identity<NaturesCountAggregateInput>;
 
     @Field(() => NaturesAvgAggregateInput, {nullable:true})
-    _avg?: NaturesAvgAggregateInput;
+    _avg?: Identity<NaturesAvgAggregateInput>;
 
     @Field(() => NaturesSumAggregateInput, {nullable:true})
-    _sum?: NaturesSumAggregateInput;
+    _sum?: Identity<NaturesSumAggregateInput>;
 
     @Field(() => NaturesMinAggregateInput, {nullable:true})
-    _min?: NaturesMinAggregateInput;
+    _min?: Identity<NaturesMinAggregateInput>;
 
     @Field(() => NaturesMaxAggregateInput, {nullable:true})
-    _max?: NaturesMaxAggregateInput;
+    _max?: Identity<NaturesMaxAggregateInput>;
 }

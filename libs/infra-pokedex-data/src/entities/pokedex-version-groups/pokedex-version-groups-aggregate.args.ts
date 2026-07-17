@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokedexVersionGroupsWhereInput } from './pokedex-version-groups-where.input';
 import { Type } from 'class-transformer';
 import { PokedexVersionGroupsOrderByWithRelationInput } from './pokedex-version-groups-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokedexVersionGroupsWhereUniqueInput } from './pokedex-version-groups-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokedexVersionGroupsCountAggregateInput } from './pokedex-version-groups-count-aggregate.input';
@@ -17,7 +18,7 @@ export class PokedexVersionGroupsAggregateArgs {
 
     @Field(() => PokedexVersionGroupsWhereInput, {nullable:true})
     @Type(() => PokedexVersionGroupsWhereInput)
-    where?: PokedexVersionGroupsWhereInput;
+    where?: Identity<PokedexVersionGroupsWhereInput>;
 
     @Field(() => [PokedexVersionGroupsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokedexVersionGroupsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class PokedexVersionGroupsAggregateArgs {
     skip?: number;
 
     @Field(() => PokedexVersionGroupsCountAggregateInput, {nullable:true})
-    _count?: PokedexVersionGroupsCountAggregateInput;
+    _count?: Identity<PokedexVersionGroupsCountAggregateInput>;
 
     @Field(() => PokedexVersionGroupsAvgAggregateInput, {nullable:true})
-    _avg?: PokedexVersionGroupsAvgAggregateInput;
+    _avg?: Identity<PokedexVersionGroupsAvgAggregateInput>;
 
     @Field(() => PokedexVersionGroupsSumAggregateInput, {nullable:true})
-    _sum?: PokedexVersionGroupsSumAggregateInput;
+    _sum?: Identity<PokedexVersionGroupsSumAggregateInput>;
 
     @Field(() => PokedexVersionGroupsMinAggregateInput, {nullable:true})
-    _min?: PokedexVersionGroupsMinAggregateInput;
+    _min?: Identity<PokedexVersionGroupsMinAggregateInput>;
 
     @Field(() => PokedexVersionGroupsMaxAggregateInput, {nullable:true})
-    _max?: PokedexVersionGroupsMaxAggregateInput;
+    _max?: Identity<PokedexVersionGroupsMaxAggregateInput>;
 }

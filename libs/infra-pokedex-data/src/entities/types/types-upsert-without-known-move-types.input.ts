@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TypesUpdateWithoutKnownMoveTypesInput } from './types-update-without-known-move-types.input';
 import { Type } from 'class-transformer';
 import { TypesCreateWithoutKnownMoveTypesInput } from './types-create-without-known-move-types.input';
@@ -10,13 +11,13 @@ export class TypesUpsertWithoutKnownMoveTypesInput {
 
     @Field(() => TypesUpdateWithoutKnownMoveTypesInput, {nullable:false})
     @Type(() => TypesUpdateWithoutKnownMoveTypesInput)
-    update!: TypesUpdateWithoutKnownMoveTypesInput;
+    update!: Identity<TypesUpdateWithoutKnownMoveTypesInput>;
 
     @Field(() => TypesCreateWithoutKnownMoveTypesInput, {nullable:false})
     @Type(() => TypesCreateWithoutKnownMoveTypesInput)
-    create!: TypesCreateWithoutKnownMoveTypesInput;
+    create!: Identity<TypesCreateWithoutKnownMoveTypesInput>;
 
     @Field(() => TypesWhereInput, {nullable:true})
     @Type(() => TypesWhereInput)
-    where?: TypesWhereInput;
+    where?: Identity<TypesWhereInput>;
 }

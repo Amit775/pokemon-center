@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaCategoriesWhereInput } from './move-meta-categories-where.input';
 import { Type } from 'class-transformer';
 import { MoveMetaCategoriesOrderByWithRelationInput } from './move-meta-categories-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveMetaCategoriesWhereUniqueInput } from './move-meta-categories-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { MoveMetaCategoriesScalarFieldEnum } from './move-meta-categories-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManyMoveMetaCategoriesArgs {
 
     @Field(() => MoveMetaCategoriesWhereInput, {nullable:true})
     @Type(() => MoveMetaCategoriesWhereInput)
-    where?: MoveMetaCategoriesWhereInput;
+    where?: Identity<MoveMetaCategoriesWhereInput>;
 
     @Field(() => [MoveMetaCategoriesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<MoveMetaCategoriesOrderByWithRelationInput>;

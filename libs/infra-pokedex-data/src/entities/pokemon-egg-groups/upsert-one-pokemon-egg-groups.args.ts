@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEggGroupsWhereUniqueInput } from './pokemon-egg-groups-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonEggGroupsCreateInput } from './pokemon-egg-groups-create.input';
 import { PokemonEggGroupsUpdateInput } from './pokemon-egg-groups-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOnePokemonEggGroupsArgs {
 
     @Field(() => PokemonEggGroupsCreateInput, {nullable:false})
     @Type(() => PokemonEggGroupsCreateInput)
-    create!: PokemonEggGroupsCreateInput;
+    create!: Identity<PokemonEggGroupsCreateInput>;
 
     @Field(() => PokemonEggGroupsUpdateInput, {nullable:false})
     @Type(() => PokemonEggGroupsUpdateInput)
-    update!: PokemonEggGroupsUpdateInput;
+    update!: Identity<PokemonEggGroupsUpdateInput>;
 }

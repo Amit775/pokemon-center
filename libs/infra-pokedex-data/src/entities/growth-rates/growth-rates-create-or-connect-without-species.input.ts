@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { GrowthRatesWhereUniqueInput } from './growth-rates-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { GrowthRatesCreateWithoutSpeciesInput } from './growth-rates-create-without-species.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class GrowthRatesCreateOrConnectWithoutSpeciesInput {
 
     @Field(() => GrowthRatesCreateWithoutSpeciesInput, {nullable:false})
     @Type(() => GrowthRatesCreateWithoutSpeciesInput)
-    create!: GrowthRatesCreateWithoutSpeciesInput;
+    create!: Identity<GrowthRatesCreateWithoutSpeciesInput>;
 }

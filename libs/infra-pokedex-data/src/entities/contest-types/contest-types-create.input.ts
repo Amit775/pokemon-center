@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesCreateNestedManyWithoutContestTypeInput } from '../moves/moves-create-nested-many-without-contest-type.input';
 import { BerryFlavorsCreateNestedManyWithoutContestTypeInput } from '../berry-flavors/berry-flavors-create-nested-many-without-contest-type.input';
 
@@ -14,8 +15,8 @@ export class ContestTypesCreateInput {
     identifier!: string;
 
     @Field(() => MovesCreateNestedManyWithoutContestTypeInput, {nullable:true})
-    moves?: MovesCreateNestedManyWithoutContestTypeInput;
+    moves?: Identity<MovesCreateNestedManyWithoutContestTypeInput>;
 
     @Field(() => BerryFlavorsCreateNestedManyWithoutContestTypeInput, {nullable:true})
-    berryFlavors?: BerryFlavorsCreateNestedManyWithoutContestTypeInput;
+    berryFlavors?: Identity<BerryFlavorsCreateNestedManyWithoutContestTypeInput>;
 }

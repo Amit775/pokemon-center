@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { TypeEfficacyCreateWithoutDamageTypeInput } from './type-efficacy-create-without-damage-type.input';
 import { Type } from 'class-transformer';
 import { TypeEfficacyCreateOrConnectWithoutDamageTypeInput } from './type-efficacy-create-or-connect-without-damage-type.input';
+import type { Identity } from 'identity-type';
 import { TypeEfficacyCreateManyDamageTypeInputEnvelope } from './type-efficacy-create-many-damage-type-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { TypeEfficacyWhereUniqueInput } from './type-efficacy-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class TypeEfficacyUncheckedCreateNestedManyWithoutDamageTypeInput {
 
     @Field(() => TypeEfficacyCreateManyDamageTypeInputEnvelope, {nullable:true})
     @Type(() => TypeEfficacyCreateManyDamageTypeInputEnvelope)
-    createMany?: TypeEfficacyCreateManyDamageTypeInputEnvelope;
+    createMany?: Identity<TypeEfficacyCreateManyDamageTypeInputEnvelope>;
 
     @Field(() => [TypeEfficacyWhereUniqueInput], {nullable:true})
     @Type(() => TypeEfficacyWhereUniqueInput)

@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ContestEffectsWhereInput } from './contest-effects-where.input';
 import { Type } from 'class-transformer';
 import { ContestEffectsOrderByWithRelationInput } from './contest-effects-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ContestEffectsWhereUniqueInput } from './contest-effects-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { ContestEffectsCountAggregateInput } from './contest-effects-count-aggregate.input';
@@ -17,7 +18,7 @@ export class ContestEffectsAggregateArgs {
 
     @Field(() => ContestEffectsWhereInput, {nullable:true})
     @Type(() => ContestEffectsWhereInput)
-    where?: ContestEffectsWhereInput;
+    where?: Identity<ContestEffectsWhereInput>;
 
     @Field(() => [ContestEffectsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<ContestEffectsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class ContestEffectsAggregateArgs {
     skip?: number;
 
     @Field(() => ContestEffectsCountAggregateInput, {nullable:true})
-    _count?: ContestEffectsCountAggregateInput;
+    _count?: Identity<ContestEffectsCountAggregateInput>;
 
     @Field(() => ContestEffectsAvgAggregateInput, {nullable:true})
-    _avg?: ContestEffectsAvgAggregateInput;
+    _avg?: Identity<ContestEffectsAvgAggregateInput>;
 
     @Field(() => ContestEffectsSumAggregateInput, {nullable:true})
-    _sum?: ContestEffectsSumAggregateInput;
+    _sum?: Identity<ContestEffectsSumAggregateInput>;
 
     @Field(() => ContestEffectsMinAggregateInput, {nullable:true})
-    _min?: ContestEffectsMinAggregateInput;
+    _min?: Identity<ContestEffectsMinAggregateInput>;
 
     @Field(() => ContestEffectsMaxAggregateInput, {nullable:true})
-    _max?: ContestEffectsMaxAggregateInput;
+    _max?: Identity<ContestEffectsMaxAggregateInput>;
 }

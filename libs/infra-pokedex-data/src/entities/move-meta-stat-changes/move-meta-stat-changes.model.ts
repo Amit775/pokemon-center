@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Stats } from '../stats/stats.model';
+import type { Identity } from 'identity-type';
 import { MoveMeta } from '../move-meta/move-meta.model';
 
 /**
@@ -20,8 +21,8 @@ export class MoveMetaStatChanges {
     change!: number;
 
     @Field(() => Stats, {nullable:false})
-    stat?: Stats;
+    stat?: Identity<Stats>;
 
     @Field(() => MoveMeta, {nullable:false})
-    meta?: MoveMeta;
+    meta?: Identity<MoveMeta>;
 }

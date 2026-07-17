@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupsWhereUniqueInput } from './version-groups-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { VersionGroupsCreateWithoutVersionGroupPokemonMoveMethodsInput } from './version-groups-create-without-version-group-pokemon-move-methods.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class VersionGroupsCreateOrConnectWithoutVersionGroupPokemonMoveMethodsIn
 
     @Field(() => VersionGroupsCreateWithoutVersionGroupPokemonMoveMethodsInput, {nullable:false})
     @Type(() => VersionGroupsCreateWithoutVersionGroupPokemonMoveMethodsInput)
-    create!: VersionGroupsCreateWithoutVersionGroupPokemonMoveMethodsInput;
+    create!: Identity<VersionGroupsCreateWithoutVersionGroupPokemonMoveMethodsInput>;
 }

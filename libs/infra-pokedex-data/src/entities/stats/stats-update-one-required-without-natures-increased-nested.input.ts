@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StatsCreateWithoutNaturesIncreasedInput } from './stats-create-without-natures-increased.input';
 import { Type } from 'class-transformer';
 import { StatsCreateOrConnectWithoutNaturesIncreasedInput } from './stats-create-or-connect-without-natures-increased.input';
 import { StatsUpsertWithoutNaturesIncreasedInput } from './stats-upsert-without-natures-increased.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { StatsWhereUniqueInput } from './stats-where-unique.input';
 import { StatsUpdateToOneWithWhereWithoutNaturesIncreasedInput } from './stats-update-to-one-with-where-without-natures-increased.input';
 
@@ -13,15 +14,15 @@ export class StatsUpdateOneRequiredWithoutNaturesIncreasedNestedInput {
 
     @Field(() => StatsCreateWithoutNaturesIncreasedInput, {nullable:true})
     @Type(() => StatsCreateWithoutNaturesIncreasedInput)
-    create?: StatsCreateWithoutNaturesIncreasedInput;
+    create?: Identity<StatsCreateWithoutNaturesIncreasedInput>;
 
     @Field(() => StatsCreateOrConnectWithoutNaturesIncreasedInput, {nullable:true})
     @Type(() => StatsCreateOrConnectWithoutNaturesIncreasedInput)
-    connectOrCreate?: StatsCreateOrConnectWithoutNaturesIncreasedInput;
+    connectOrCreate?: Identity<StatsCreateOrConnectWithoutNaturesIncreasedInput>;
 
     @Field(() => StatsUpsertWithoutNaturesIncreasedInput, {nullable:true})
     @Type(() => StatsUpsertWithoutNaturesIncreasedInput)
-    upsert?: StatsUpsertWithoutNaturesIncreasedInput;
+    upsert?: Identity<StatsUpsertWithoutNaturesIncreasedInput>;
 
     @Field(() => StatsWhereUniqueInput, {nullable:true})
     @Type(() => StatsWhereUniqueInput)
@@ -29,5 +30,5 @@ export class StatsUpdateOneRequiredWithoutNaturesIncreasedNestedInput {
 
     @Field(() => StatsUpdateToOneWithWhereWithoutNaturesIncreasedInput, {nullable:true})
     @Type(() => StatsUpdateToOneWithWhereWithoutNaturesIncreasedInput)
-    update?: StatsUpdateToOneWithWhereWithoutNaturesIncreasedInput;
+    update?: Identity<StatsUpdateToOneWithWhereWithoutNaturesIncreasedInput>;
 }

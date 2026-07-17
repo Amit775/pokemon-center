@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaAilmentsWhereInput } from './move-meta-ailments-where.input';
 import { Type } from 'class-transformer';
 import { MoveMetaAilmentsOrderByWithRelationInput } from './move-meta-ailments-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveMetaAilmentsWhereUniqueInput } from './move-meta-ailments-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { MoveMetaAilmentsCountAggregateInput } from './move-meta-ailments-count-aggregate.input';
@@ -17,7 +18,7 @@ export class MoveMetaAilmentsAggregateArgs {
 
     @Field(() => MoveMetaAilmentsWhereInput, {nullable:true})
     @Type(() => MoveMetaAilmentsWhereInput)
-    where?: MoveMetaAilmentsWhereInput;
+    where?: Identity<MoveMetaAilmentsWhereInput>;
 
     @Field(() => [MoveMetaAilmentsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<MoveMetaAilmentsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class MoveMetaAilmentsAggregateArgs {
     skip?: number;
 
     @Field(() => MoveMetaAilmentsCountAggregateInput, {nullable:true})
-    _count?: MoveMetaAilmentsCountAggregateInput;
+    _count?: Identity<MoveMetaAilmentsCountAggregateInput>;
 
     @Field(() => MoveMetaAilmentsAvgAggregateInput, {nullable:true})
-    _avg?: MoveMetaAilmentsAvgAggregateInput;
+    _avg?: Identity<MoveMetaAilmentsAvgAggregateInput>;
 
     @Field(() => MoveMetaAilmentsSumAggregateInput, {nullable:true})
-    _sum?: MoveMetaAilmentsSumAggregateInput;
+    _sum?: Identity<MoveMetaAilmentsSumAggregateInput>;
 
     @Field(() => MoveMetaAilmentsMinAggregateInput, {nullable:true})
-    _min?: MoveMetaAilmentsMinAggregateInput;
+    _min?: Identity<MoveMetaAilmentsMinAggregateInput>;
 
     @Field(() => MoveMetaAilmentsMaxAggregateInput, {nullable:true})
-    _max?: MoveMetaAilmentsMaxAggregateInput;
+    _max?: Identity<MoveMetaAilmentsMaxAggregateInput>;
 }

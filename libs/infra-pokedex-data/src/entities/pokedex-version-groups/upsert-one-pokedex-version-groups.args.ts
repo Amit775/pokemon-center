@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokedexVersionGroupsWhereUniqueInput } from './pokedex-version-groups-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokedexVersionGroupsCreateInput } from './pokedex-version-groups-create.input';
 import { PokedexVersionGroupsUpdateInput } from './pokedex-version-groups-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOnePokedexVersionGroupsArgs {
 
     @Field(() => PokedexVersionGroupsCreateInput, {nullable:false})
     @Type(() => PokedexVersionGroupsCreateInput)
-    create!: PokedexVersionGroupsCreateInput;
+    create!: Identity<PokedexVersionGroupsCreateInput>;
 
     @Field(() => PokedexVersionGroupsUpdateInput, {nullable:false})
     @Type(() => PokedexVersionGroupsUpdateInput)
-    update!: PokedexVersionGroupsUpdateInput;
+    update!: Identity<PokedexVersionGroupsUpdateInput>;
 }

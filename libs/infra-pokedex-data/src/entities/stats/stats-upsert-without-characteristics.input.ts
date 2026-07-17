@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { StatsUpdateWithoutCharacteristicsInput } from './stats-update-without-characteristics.input';
 import { Type } from 'class-transformer';
 import { StatsCreateWithoutCharacteristicsInput } from './stats-create-without-characteristics.input';
@@ -10,13 +11,13 @@ export class StatsUpsertWithoutCharacteristicsInput {
 
     @Field(() => StatsUpdateWithoutCharacteristicsInput, {nullable:false})
     @Type(() => StatsUpdateWithoutCharacteristicsInput)
-    update!: StatsUpdateWithoutCharacteristicsInput;
+    update!: Identity<StatsUpdateWithoutCharacteristicsInput>;
 
     @Field(() => StatsCreateWithoutCharacteristicsInput, {nullable:false})
     @Type(() => StatsCreateWithoutCharacteristicsInput)
-    create!: StatsCreateWithoutCharacteristicsInput;
+    create!: Identity<StatsCreateWithoutCharacteristicsInput>;
 
     @Field(() => StatsWhereInput, {nullable:true})
     @Type(() => StatsWhereInput)
-    where?: StatsWhereInput;
+    where?: Identity<StatsWhereInput>;
 }

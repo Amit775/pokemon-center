@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TypeEfficacyWhereInput } from './type-efficacy-where.input';
 import { Type } from 'class-transformer';
 import { TypeEfficacyOrderByWithRelationInput } from './type-efficacy-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { TypeEfficacyWhereUniqueInput } from './type-efficacy-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { TypeEfficacyScalarFieldEnum } from './type-efficacy-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstTypeEfficacyArgs {
 
     @Field(() => TypeEfficacyWhereInput, {nullable:true})
     @Type(() => TypeEfficacyWhereInput)
-    where?: TypeEfficacyWhereInput;
+    where?: Identity<TypeEfficacyWhereInput>;
 
     @Field(() => [TypeEfficacyOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<TypeEfficacyOrderByWithRelationInput>;

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterConditionValueMapWhereInput } from './encounter-condition-value-map-where.input';
 import { Type } from 'class-transformer';
 import { EncounterConditionValueMapOrderByWithAggregationInput } from './encounter-condition-value-map-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class EncounterConditionValueMapGroupByArgs {
 
     @Field(() => EncounterConditionValueMapWhereInput, {nullable:true})
     @Type(() => EncounterConditionValueMapWhereInput)
-    where?: EncounterConditionValueMapWhereInput;
+    where?: Identity<EncounterConditionValueMapWhereInput>;
 
     @Field(() => [EncounterConditionValueMapOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<EncounterConditionValueMapOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class EncounterConditionValueMapGroupByArgs {
     by!: Array<`${EncounterConditionValueMapScalarFieldEnum}`>;
 
     @Field(() => EncounterConditionValueMapScalarWhereWithAggregatesInput, {nullable:true})
-    having?: EncounterConditionValueMapScalarWhereWithAggregatesInput;
+    having?: Identity<EncounterConditionValueMapScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class EncounterConditionValueMapGroupByArgs {
     skip?: number;
 
     @Field(() => EncounterConditionValueMapCountAggregateInput, {nullable:true})
-    _count?: EncounterConditionValueMapCountAggregateInput;
+    _count?: Identity<EncounterConditionValueMapCountAggregateInput>;
 
     @Field(() => EncounterConditionValueMapAvgAggregateInput, {nullable:true})
-    _avg?: EncounterConditionValueMapAvgAggregateInput;
+    _avg?: Identity<EncounterConditionValueMapAvgAggregateInput>;
 
     @Field(() => EncounterConditionValueMapSumAggregateInput, {nullable:true})
-    _sum?: EncounterConditionValueMapSumAggregateInput;
+    _sum?: Identity<EncounterConditionValueMapSumAggregateInput>;
 
     @Field(() => EncounterConditionValueMapMinAggregateInput, {nullable:true})
-    _min?: EncounterConditionValueMapMinAggregateInput;
+    _min?: Identity<EncounterConditionValueMapMinAggregateInput>;
 
     @Field(() => EncounterConditionValueMapMaxAggregateInput, {nullable:true})
-    _max?: EncounterConditionValueMapMaxAggregateInput;
+    _max?: Identity<EncounterConditionValueMapMaxAggregateInput>;
 }

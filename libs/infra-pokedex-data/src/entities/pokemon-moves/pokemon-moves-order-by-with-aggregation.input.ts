@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { PokemonMovesCountOrderByAggregateInput } from './pokemon-moves-count-order-by-aggregate.input';
 import { PokemonMovesAvgOrderByAggregateInput } from './pokemon-moves-avg-order-by-aggregate.input';
@@ -24,26 +25,26 @@ export class PokemonMovesOrderByWithAggregationInput {
     pokemon_move_method_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    level?: SortOrderInput;
+    level?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    order?: SortOrderInput;
+    order?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    mastery?: SortOrderInput;
+    mastery?: Identity<SortOrderInput>;
 
     @Field(() => PokemonMovesCountOrderByAggregateInput, {nullable:true})
-    _count?: PokemonMovesCountOrderByAggregateInput;
+    _count?: Identity<PokemonMovesCountOrderByAggregateInput>;
 
     @Field(() => PokemonMovesAvgOrderByAggregateInput, {nullable:true})
-    _avg?: PokemonMovesAvgOrderByAggregateInput;
+    _avg?: Identity<PokemonMovesAvgOrderByAggregateInput>;
 
     @Field(() => PokemonMovesMaxOrderByAggregateInput, {nullable:true})
-    _max?: PokemonMovesMaxOrderByAggregateInput;
+    _max?: Identity<PokemonMovesMaxOrderByAggregateInput>;
 
     @Field(() => PokemonMovesMinOrderByAggregateInput, {nullable:true})
-    _min?: PokemonMovesMinOrderByAggregateInput;
+    _min?: Identity<PokemonMovesMinOrderByAggregateInput>;
 
     @Field(() => PokemonMovesSumOrderByAggregateInput, {nullable:true})
-    _sum?: PokemonMovesSumOrderByAggregateInput;
+    _sum?: Identity<PokemonMovesSumOrderByAggregateInput>;
 }

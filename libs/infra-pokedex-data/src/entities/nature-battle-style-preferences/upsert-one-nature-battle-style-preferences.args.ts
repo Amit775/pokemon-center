@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { NatureBattleStylePreferencesWhereUniqueInput } from './nature-battle-style-preferences-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { NatureBattleStylePreferencesCreateInput } from './nature-battle-style-preferences-create.input';
 import { NatureBattleStylePreferencesUpdateInput } from './nature-battle-style-preferences-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneNatureBattleStylePreferencesArgs {
 
     @Field(() => NatureBattleStylePreferencesCreateInput, {nullable:false})
     @Type(() => NatureBattleStylePreferencesCreateInput)
-    create!: NatureBattleStylePreferencesCreateInput;
+    create!: Identity<NatureBattleStylePreferencesCreateInput>;
 
     @Field(() => NatureBattleStylePreferencesUpdateInput, {nullable:false})
     @Type(() => NatureBattleStylePreferencesUpdateInput)
-    update!: NatureBattleStylePreferencesUpdateInput;
+    update!: Identity<NatureBattleStylePreferencesUpdateInput>;
 }

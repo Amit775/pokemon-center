@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { VersionGroupsOrderByWithRelationInput } from '../version-groups/version-groups-order-by-with-relation.input';
 import { EncounterMethodsOrderByWithRelationInput } from '../encounter-methods/encounter-methods-order-by-with-relation.input';
@@ -19,17 +20,17 @@ export class EncounterSlotsOrderByWithRelationInput {
     encounter_method_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    slot?: SortOrderInput;
+    slot?: Identity<SortOrderInput>;
 
     @Field(() => SortOrder, {nullable:true})
     rarity?: `${SortOrder}`;
 
     @Field(() => VersionGroupsOrderByWithRelationInput, {nullable:true})
-    versionGroup?: VersionGroupsOrderByWithRelationInput;
+    versionGroup?: Identity<VersionGroupsOrderByWithRelationInput>;
 
     @Field(() => EncounterMethodsOrderByWithRelationInput, {nullable:true})
-    encounterMethod?: EncounterMethodsOrderByWithRelationInput;
+    encounterMethod?: Identity<EncounterMethodsOrderByWithRelationInput>;
 
     @Field(() => EncountersOrderByRelationAggregateInput, {nullable:true})
-    encounters?: EncountersOrderByRelationAggregateInput;
+    encounters?: Identity<EncountersOrderByRelationAggregateInput>;
 }

@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationAreasWhereInput } from './location-areas-where.input';
 import { Type } from 'class-transformer';
 import { LocationAreasOrderByWithRelationInput } from './location-areas-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationAreasWhereUniqueInput } from './location-areas-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { LocationAreasCountAggregateInput } from './location-areas-count-aggregate.input';
@@ -17,7 +18,7 @@ export class LocationAreasAggregateArgs {
 
     @Field(() => LocationAreasWhereInput, {nullable:true})
     @Type(() => LocationAreasWhereInput)
-    where?: LocationAreasWhereInput;
+    where?: Identity<LocationAreasWhereInput>;
 
     @Field(() => [LocationAreasOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<LocationAreasOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class LocationAreasAggregateArgs {
     skip?: number;
 
     @Field(() => LocationAreasCountAggregateInput, {nullable:true})
-    _count?: LocationAreasCountAggregateInput;
+    _count?: Identity<LocationAreasCountAggregateInput>;
 
     @Field(() => LocationAreasAvgAggregateInput, {nullable:true})
-    _avg?: LocationAreasAvgAggregateInput;
+    _avg?: Identity<LocationAreasAvgAggregateInput>;
 
     @Field(() => LocationAreasSumAggregateInput, {nullable:true})
-    _sum?: LocationAreasSumAggregateInput;
+    _sum?: Identity<LocationAreasSumAggregateInput>;
 
     @Field(() => LocationAreasMinAggregateInput, {nullable:true})
-    _min?: LocationAreasMinAggregateInput;
+    _min?: Identity<LocationAreasMinAggregateInput>;
 
     @Field(() => LocationAreasMaxAggregateInput, {nullable:true})
-    _max?: LocationAreasMaxAggregateInput;
+    _max?: Identity<LocationAreasMaxAggregateInput>;
 }

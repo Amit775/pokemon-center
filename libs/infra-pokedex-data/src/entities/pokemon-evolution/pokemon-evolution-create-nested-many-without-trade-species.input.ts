@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { PokemonEvolutionCreateWithoutTradeSpeciesInput } from './pokemon-evolution-create-without-trade-species.input';
 import { Type } from 'class-transformer';
 import { PokemonEvolutionCreateOrConnectWithoutTradeSpeciesInput } from './pokemon-evolution-create-or-connect-without-trade-species.input';
+import type { Identity } from 'identity-type';
 import { PokemonEvolutionCreateManyTradeSpeciesInputEnvelope } from './pokemon-evolution-create-many-trade-species-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEvolutionWhereUniqueInput } from './pokemon-evolution-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class PokemonEvolutionCreateNestedManyWithoutTradeSpeciesInput {
 
     @Field(() => PokemonEvolutionCreateManyTradeSpeciesInputEnvelope, {nullable:true})
     @Type(() => PokemonEvolutionCreateManyTradeSpeciesInputEnvelope)
-    createMany?: PokemonEvolutionCreateManyTradeSpeciesInputEnvelope;
+    createMany?: Identity<PokemonEvolutionCreateManyTradeSpeciesInputEnvelope>;
 
     @Field(() => [PokemonEvolutionWhereUniqueInput], {nullable:true})
     @Type(() => PokemonEvolutionWhereUniqueInput)

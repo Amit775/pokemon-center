@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { PokemonHabitatsWhereInput } from './pokemon-habitats-where.input';
+import type { Identity } from 'identity-type';
 import { StringFilter } from '../prisma/string-filter.input';
 import { PokemonSpeciesListRelationFilter } from '../pokemon-species/pokemon-species-list-relation-filter.input';
 
@@ -21,8 +22,8 @@ export class PokemonHabitatsWhereUniqueInput {
     NOT?: Array<PokemonHabitatsWhereInput>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => PokemonSpeciesListRelationFilter, {nullable:true})
-    species?: PokemonSpeciesListRelationFilter;
+    species?: Identity<PokemonSpeciesListRelationFilter>;
 }

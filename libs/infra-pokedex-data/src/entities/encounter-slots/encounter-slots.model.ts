@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { VersionGroups } from '../version-groups/version-groups.model';
+import type { Identity } from 'identity-type';
 import { EncounterMethods } from '../encounter-methods/encounter-methods.model';
 import { Encounters } from '../encounters/encounters.model';
 import { EncounterSlotsCount } from './encounter-slots-count.output';
@@ -29,14 +30,14 @@ export class EncounterSlots {
     rarity!: number;
 
     @Field(() => VersionGroups, {nullable:false})
-    versionGroup?: VersionGroups;
+    versionGroup?: Identity<VersionGroups>;
 
     @Field(() => EncounterMethods, {nullable:false})
-    encounterMethod?: EncounterMethods;
+    encounterMethod?: Identity<EncounterMethods>;
 
-    @Field(() => [Encounters], {nullable:true})
+    @Field(() => [Encounters], {nullable:false})
     encounters?: Array<Encounters>;
 
     @Field(() => EncounterSlotsCount, {nullable:false})
-    _count?: EncounterSlotsCount;
+    _count?: Identity<EncounterSlotsCount>;
 }

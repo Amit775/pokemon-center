@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { PokemonAbilitiesCreateWithoutAbilityInput } from './pokemon-abilities-create-without-ability.input';
 import { Type } from 'class-transformer';
 import { PokemonAbilitiesCreateOrConnectWithoutAbilityInput } from './pokemon-abilities-create-or-connect-without-ability.input';
+import type { Identity } from 'identity-type';
 import { PokemonAbilitiesCreateManyAbilityInputEnvelope } from './pokemon-abilities-create-many-ability-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonAbilitiesWhereUniqueInput } from './pokemon-abilities-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class PokemonAbilitiesUncheckedCreateNestedManyWithoutAbilityInput {
 
     @Field(() => PokemonAbilitiesCreateManyAbilityInputEnvelope, {nullable:true})
     @Type(() => PokemonAbilitiesCreateManyAbilityInputEnvelope)
-    createMany?: PokemonAbilitiesCreateManyAbilityInputEnvelope;
+    createMany?: Identity<PokemonAbilitiesCreateManyAbilityInputEnvelope>;
 
     @Field(() => [PokemonAbilitiesWhereUniqueInput], {nullable:true})
     @Type(() => PokemonAbilitiesWhereUniqueInput)

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ContestCombosWhereInput } from './contest-combos-where.input';
 import { Type } from 'class-transformer';
 import { ContestCombosOrderByWithAggregationInput } from './contest-combos-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class ContestCombosGroupByArgs {
 
     @Field(() => ContestCombosWhereInput, {nullable:true})
     @Type(() => ContestCombosWhereInput)
-    where?: ContestCombosWhereInput;
+    where?: Identity<ContestCombosWhereInput>;
 
     @Field(() => [ContestCombosOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<ContestCombosOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class ContestCombosGroupByArgs {
     by!: Array<`${ContestCombosScalarFieldEnum}`>;
 
     @Field(() => ContestCombosScalarWhereWithAggregatesInput, {nullable:true})
-    having?: ContestCombosScalarWhereWithAggregatesInput;
+    having?: Identity<ContestCombosScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class ContestCombosGroupByArgs {
     skip?: number;
 
     @Field(() => ContestCombosCountAggregateInput, {nullable:true})
-    _count?: ContestCombosCountAggregateInput;
+    _count?: Identity<ContestCombosCountAggregateInput>;
 
     @Field(() => ContestCombosAvgAggregateInput, {nullable:true})
-    _avg?: ContestCombosAvgAggregateInput;
+    _avg?: Identity<ContestCombosAvgAggregateInput>;
 
     @Field(() => ContestCombosSumAggregateInput, {nullable:true})
-    _sum?: ContestCombosSumAggregateInput;
+    _sum?: Identity<ContestCombosSumAggregateInput>;
 
     @Field(() => ContestCombosMinAggregateInput, {nullable:true})
-    _min?: ContestCombosMinAggregateInput;
+    _min?: Identity<ContestCombosMinAggregateInput>;
 
     @Field(() => ContestCombosMaxAggregateInput, {nullable:true})
-    _max?: ContestCombosMaxAggregateInput;
+    _max?: Identity<ContestCombosMaxAggregateInput>;
 }

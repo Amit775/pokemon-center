@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationGameIndicesWhereUniqueInput } from './location-game-indices-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { LocationGameIndicesUpdateWithoutLocationInput } from './location-game-indices-update-without-location.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class LocationGameIndicesUpdateWithWhereUniqueWithoutLocationInput {
 
     @Field(() => LocationGameIndicesUpdateWithoutLocationInput, {nullable:false})
     @Type(() => LocationGameIndicesUpdateWithoutLocationInput)
-    data!: LocationGameIndicesUpdateWithoutLocationInput;
+    data!: Identity<LocationGameIndicesUpdateWithoutLocationInput>;
 }

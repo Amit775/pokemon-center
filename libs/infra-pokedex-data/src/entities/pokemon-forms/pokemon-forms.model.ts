@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Pokemon } from '../pokemon/pokemon.model';
+import type { Identity } from 'identity-type';
 import { VersionGroups } from '../version-groups/version-groups.model';
 import { PokemonFormGenerations } from '../pokemon-form-generations/pokemon-form-generations.model';
 import { PokemonFormTypes } from '../pokemon-form-types/pokemon-form-types.model';
@@ -45,17 +46,17 @@ export class PokemonForms {
     order!: number;
 
     @Field(() => Pokemon, {nullable:false})
-    pokemon?: Pokemon;
+    pokemon?: Identity<Pokemon>;
 
     @Field(() => VersionGroups, {nullable:false})
-    versionGroup?: VersionGroups;
+    versionGroup?: Identity<VersionGroups>;
 
-    @Field(() => [PokemonFormGenerations], {nullable:true})
+    @Field(() => [PokemonFormGenerations], {nullable:false})
     generations?: Array<PokemonFormGenerations>;
 
-    @Field(() => [PokemonFormTypes], {nullable:true})
+    @Field(() => [PokemonFormTypes], {nullable:false})
     types?: Array<PokemonFormTypes>;
 
     @Field(() => PokemonFormsCount, {nullable:false})
-    _count?: PokemonFormsCount;
+    _count?: Identity<PokemonFormsCount>;
 }

@@ -4,8 +4,9 @@ import { MachinesCreateWithoutVersionGroupInput } from './machines-create-withou
 import { Type } from 'class-transformer';
 import { MachinesCreateOrConnectWithoutVersionGroupInput } from './machines-create-or-connect-without-version-group.input';
 import { MachinesUpsertWithWhereUniqueWithoutVersionGroupInput } from './machines-upsert-with-where-unique-without-version-group.input';
+import type { Identity } from 'identity-type';
 import { MachinesCreateManyVersionGroupInputEnvelope } from './machines-create-many-version-group-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MachinesWhereUniqueInput } from './machines-where-unique.input';
 import { MachinesUpdateWithWhereUniqueWithoutVersionGroupInput } from './machines-update-with-where-unique-without-version-group.input';
 import { MachinesUpdateManyWithWhereWithoutVersionGroupInput } from './machines-update-many-with-where-without-version-group.input';
@@ -28,7 +29,7 @@ export class MachinesUpdateManyWithoutVersionGroupNestedInput {
 
     @Field(() => MachinesCreateManyVersionGroupInputEnvelope, {nullable:true})
     @Type(() => MachinesCreateManyVersionGroupInputEnvelope)
-    createMany?: MachinesCreateManyVersionGroupInputEnvelope;
+    createMany?: Identity<MachinesCreateManyVersionGroupInputEnvelope>;
 
     @Field(() => [MachinesWhereUniqueInput], {nullable:true})
     @Type(() => MachinesWhereUniqueInput)

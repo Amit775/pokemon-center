@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GenerationsCreateNestedOneWithoutAbilitiesInput } from '../generations/generations-create-nested-one-without-abilities.input';
 
 @InputType()
@@ -16,5 +17,5 @@ export class AbilitiesCreateWithoutPokemonAbilitiesInput {
     is_main_series!: number;
 
     @Field(() => GenerationsCreateNestedOneWithoutAbilitiesInput, {nullable:false})
-    generation!: GenerationsCreateNestedOneWithoutAbilitiesInput;
+    generation!: Identity<GenerationsCreateNestedOneWithoutAbilitiesInput>;
 }

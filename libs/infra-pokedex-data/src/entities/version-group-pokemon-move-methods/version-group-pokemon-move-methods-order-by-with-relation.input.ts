@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { VersionGroupsOrderByWithRelationInput } from '../version-groups/version-groups-order-by-with-relation.input';
 import { PokemonMoveMethodsOrderByWithRelationInput } from '../pokemon-move-methods/pokemon-move-methods-order-by-with-relation.input';
 
@@ -14,8 +15,8 @@ export class VersionGroupPokemonMoveMethodsOrderByWithRelationInput {
     pokemon_move_method_id?: `${SortOrder}`;
 
     @Field(() => VersionGroupsOrderByWithRelationInput, {nullable:true})
-    versionGroup?: VersionGroupsOrderByWithRelationInput;
+    versionGroup?: Identity<VersionGroupsOrderByWithRelationInput>;
 
     @Field(() => PokemonMoveMethodsOrderByWithRelationInput, {nullable:true})
-    moveMethod?: PokemonMoveMethodsOrderByWithRelationInput;
+    moveMethod?: Identity<PokemonMoveMethodsOrderByWithRelationInput>;
 }

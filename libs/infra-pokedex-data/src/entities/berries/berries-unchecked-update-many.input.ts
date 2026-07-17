@@ -1,38 +1,37 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class BerriesUncheckedUpdateManyInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    item_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    item_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    firmness_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    firmness_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    natural_gift_power?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    natural_gift_power?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    natural_gift_type_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    natural_gift_type_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    size?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    size?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    max_harvest?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    max_harvest?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    growth_time?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    growth_time?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    soil_dryness?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    soil_dryness?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    smoothness?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    smoothness?: number;
 }

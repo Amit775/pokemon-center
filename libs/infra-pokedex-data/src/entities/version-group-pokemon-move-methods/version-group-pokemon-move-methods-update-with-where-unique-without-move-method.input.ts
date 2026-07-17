@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupPokemonMoveMethodsWhereUniqueInput } from './version-group-pokemon-move-methods-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { VersionGroupPokemonMoveMethodsUpdateWithoutMoveMethodInput } from './version-group-pokemon-move-methods-update-without-move-method.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class VersionGroupPokemonMoveMethodsUpdateWithWhereUniqueWithoutMoveMetho
 
     @Field(() => VersionGroupPokemonMoveMethodsUpdateWithoutMoveMethodInput, {nullable:false})
     @Type(() => VersionGroupPokemonMoveMethodsUpdateWithoutMoveMethodInput)
-    data!: VersionGroupPokemonMoveMethodsUpdateWithoutMoveMethodInput;
+    data!: Identity<VersionGroupPokemonMoveMethodsUpdateWithoutMoveMethodInput>;
 }

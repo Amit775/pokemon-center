@@ -29,10 +29,10 @@ export { GendersMaxOrderByAggregateInput } from './genders-max-order-by-aggregat
 export { GendersMinAggregateInput } from './genders-min-aggregate.input';
 export { GendersMinAggregate } from './genders-min-aggregate.output';
 export { GendersMinOrderByAggregateInput } from './genders-min-order-by-aggregate.input';
-export { GendersNullableScalarRelationFilter } from './genders-nullable-scalar-relation-filter.input';
 export { GendersOrderByWithAggregationInput } from './genders-order-by-with-aggregation.input';
 export { GendersOrderByWithRelationInput } from './genders-order-by-with-relation.input';
 export { GendersScalarFieldEnum } from './genders-scalar-field.enum';
+export { GendersScalarRelationFilter } from './genders-scalar-relation-filter.input';
 export { GendersScalarWhereWithAggregatesInput } from './genders-scalar-where-with-aggregates.input';
 export { GendersSumAggregateInput } from './genders-sum-aggregate.input';
 export { GendersSumAggregate } from './genders-sum-aggregate.output';

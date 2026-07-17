@@ -2,9 +2,9 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { PokemonWhereInput } from './pokemon-where.input';
+import type { Identity } from 'identity-type';
 import { StringFilter } from '../prisma/string-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { PokemonSpeciesScalarRelationFilter } from '../pokemon-species/pokemon-species-scalar-relation-filter.input';
 import { PokemonFormsListRelationFilter } from '../pokemon-forms/pokemon-forms-list-relation-filter.input';
 import { PokemonAbilitiesListRelationFilter } from '../pokemon-abilities/pokemon-abilities-list-relation-filter.input';
@@ -31,50 +31,50 @@ export class PokemonWhereUniqueInput {
     NOT?: Array<PokemonWhereInput>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    species_id?: IntFilter;
+    species_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    height?: IntFilter;
+    height?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    weight?: IntFilter;
+    weight?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    base_experience?: IntFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    order?: IntNullableFilter;
+    base_experience?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    is_default?: IntFilter;
+    order?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    is_default?: Identity<IntFilter>;
 
     @Field(() => PokemonSpeciesScalarRelationFilter, {nullable:true})
-    species?: PokemonSpeciesScalarRelationFilter;
+    species?: Identity<PokemonSpeciesScalarRelationFilter>;
 
     @Field(() => PokemonFormsListRelationFilter, {nullable:true})
-    forms?: PokemonFormsListRelationFilter;
+    forms?: Identity<PokemonFormsListRelationFilter>;
 
     @Field(() => PokemonAbilitiesListRelationFilter, {nullable:true})
-    abilities?: PokemonAbilitiesListRelationFilter;
+    abilities?: Identity<PokemonAbilitiesListRelationFilter>;
 
     @Field(() => PokemonMovesListRelationFilter, {nullable:true})
-    moves?: PokemonMovesListRelationFilter;
+    moves?: Identity<PokemonMovesListRelationFilter>;
 
     @Field(() => PokemonStatsListRelationFilter, {nullable:true})
-    stats?: PokemonStatsListRelationFilter;
+    stats?: Identity<PokemonStatsListRelationFilter>;
 
     @Field(() => PokemonTypesListRelationFilter, {nullable:true})
-    types?: PokemonTypesListRelationFilter;
+    types?: Identity<PokemonTypesListRelationFilter>;
 
     @Field(() => PokemonItemsListRelationFilter, {nullable:true})
-    items?: PokemonItemsListRelationFilter;
+    items?: Identity<PokemonItemsListRelationFilter>;
 
     @Field(() => PokemonGameIndicesListRelationFilter, {nullable:true})
-    gameIndices?: PokemonGameIndicesListRelationFilter;
+    gameIndices?: Identity<PokemonGameIndicesListRelationFilter>;
 
     @Field(() => EncountersListRelationFilter, {nullable:true})
-    encounters?: EncountersListRelationFilter;
+    encounters?: Identity<EncountersListRelationFilter>;
 }

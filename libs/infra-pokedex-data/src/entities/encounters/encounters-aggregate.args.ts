@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncountersWhereInput } from './encounters-where.input';
 import { Type } from 'class-transformer';
 import { EncountersOrderByWithRelationInput } from './encounters-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncountersWhereUniqueInput } from './encounters-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { EncountersCountAggregateInput } from './encounters-count-aggregate.input';
@@ -17,7 +18,7 @@ export class EncountersAggregateArgs {
 
     @Field(() => EncountersWhereInput, {nullable:true})
     @Type(() => EncountersWhereInput)
-    where?: EncountersWhereInput;
+    where?: Identity<EncountersWhereInput>;
 
     @Field(() => [EncountersOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<EncountersOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class EncountersAggregateArgs {
     skip?: number;
 
     @Field(() => EncountersCountAggregateInput, {nullable:true})
-    _count?: EncountersCountAggregateInput;
+    _count?: Identity<EncountersCountAggregateInput>;
 
     @Field(() => EncountersAvgAggregateInput, {nullable:true})
-    _avg?: EncountersAvgAggregateInput;
+    _avg?: Identity<EncountersAvgAggregateInput>;
 
     @Field(() => EncountersSumAggregateInput, {nullable:true})
-    _sum?: EncountersSumAggregateInput;
+    _sum?: Identity<EncountersSumAggregateInput>;
 
     @Field(() => EncountersMinAggregateInput, {nullable:true})
-    _min?: EncountersMinAggregateInput;
+    _min?: Identity<EncountersMinAggregateInput>;
 
     @Field(() => EncountersMaxAggregateInput, {nullable:true})
-    _max?: EncountersMaxAggregateInput;
+    _max?: Identity<EncountersMaxAggregateInput>;
 }

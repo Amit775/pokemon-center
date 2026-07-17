@@ -1,11 +1,12 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TypesCreateWithoutNaturalGiftTypesInput } from './types-create-without-natural-gift-types.input';
 import { Type } from 'class-transformer';
 import { TypesCreateOrConnectWithoutNaturalGiftTypesInput } from './types-create-or-connect-without-natural-gift-types.input';
 import { TypesUpsertWithoutNaturalGiftTypesInput } from './types-upsert-without-natural-gift-types.input';
 import { TypesWhereInput } from './types-where.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { TypesWhereUniqueInput } from './types-where-unique.input';
 import { TypesUpdateToOneWithWhereWithoutNaturalGiftTypesInput } from './types-update-to-one-with-where-without-natural-gift-types.input';
 
@@ -14,23 +15,23 @@ export class TypesUpdateOneWithoutNaturalGiftTypesNestedInput {
 
     @Field(() => TypesCreateWithoutNaturalGiftTypesInput, {nullable:true})
     @Type(() => TypesCreateWithoutNaturalGiftTypesInput)
-    create?: TypesCreateWithoutNaturalGiftTypesInput;
+    create?: Identity<TypesCreateWithoutNaturalGiftTypesInput>;
 
     @Field(() => TypesCreateOrConnectWithoutNaturalGiftTypesInput, {nullable:true})
     @Type(() => TypesCreateOrConnectWithoutNaturalGiftTypesInput)
-    connectOrCreate?: TypesCreateOrConnectWithoutNaturalGiftTypesInput;
+    connectOrCreate?: Identity<TypesCreateOrConnectWithoutNaturalGiftTypesInput>;
 
     @Field(() => TypesUpsertWithoutNaturalGiftTypesInput, {nullable:true})
     @Type(() => TypesUpsertWithoutNaturalGiftTypesInput)
-    upsert?: TypesUpsertWithoutNaturalGiftTypesInput;
+    upsert?: Identity<TypesUpsertWithoutNaturalGiftTypesInput>;
 
     @Field(() => TypesWhereInput, {nullable:true})
     @Type(() => TypesWhereInput)
-    disconnect?: TypesWhereInput;
+    disconnect?: Identity<TypesWhereInput>;
 
     @Field(() => TypesWhereInput, {nullable:true})
     @Type(() => TypesWhereInput)
-    delete?: TypesWhereInput;
+    delete?: Identity<TypesWhereInput>;
 
     @Field(() => TypesWhereUniqueInput, {nullable:true})
     @Type(() => TypesWhereUniqueInput)
@@ -38,5 +39,5 @@ export class TypesUpdateOneWithoutNaturalGiftTypesNestedInput {
 
     @Field(() => TypesUpdateToOneWithWhereWithoutNaturalGiftTypesInput, {nullable:true})
     @Type(() => TypesUpdateToOneWithWhereWithoutNaturalGiftTypesInput)
-    update?: TypesUpdateToOneWithWhereWithoutNaturalGiftTypesInput;
+    update?: Identity<TypesUpdateToOneWithWhereWithoutNaturalGiftTypesInput>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemPocketsWhereInput } from './item-pockets-where.input';
 import { Type } from 'class-transformer';
 import { ItemPocketsOrderByWithAggregationInput } from './item-pockets-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class ItemPocketsGroupByArgs {
 
     @Field(() => ItemPocketsWhereInput, {nullable:true})
     @Type(() => ItemPocketsWhereInput)
-    where?: ItemPocketsWhereInput;
+    where?: Identity<ItemPocketsWhereInput>;
 
     @Field(() => [ItemPocketsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<ItemPocketsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class ItemPocketsGroupByArgs {
     by!: Array<`${ItemPocketsScalarFieldEnum}`>;
 
     @Field(() => ItemPocketsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: ItemPocketsScalarWhereWithAggregatesInput;
+    having?: Identity<ItemPocketsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class ItemPocketsGroupByArgs {
     skip?: number;
 
     @Field(() => ItemPocketsCountAggregateInput, {nullable:true})
-    _count?: ItemPocketsCountAggregateInput;
+    _count?: Identity<ItemPocketsCountAggregateInput>;
 
     @Field(() => ItemPocketsAvgAggregateInput, {nullable:true})
-    _avg?: ItemPocketsAvgAggregateInput;
+    _avg?: Identity<ItemPocketsAvgAggregateInput>;
 
     @Field(() => ItemPocketsSumAggregateInput, {nullable:true})
-    _sum?: ItemPocketsSumAggregateInput;
+    _sum?: Identity<ItemPocketsSumAggregateInput>;
 
     @Field(() => ItemPocketsMinAggregateInput, {nullable:true})
-    _min?: ItemPocketsMinAggregateInput;
+    _min?: Identity<ItemPocketsMinAggregateInput>;
 
     @Field(() => ItemPocketsMaxAggregateInput, {nullable:true})
-    _max?: ItemPocketsMaxAggregateInput;
+    _max?: Identity<ItemPocketsMaxAggregateInput>;
 }

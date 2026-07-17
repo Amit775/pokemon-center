@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemPocketsCreateNestedOneWithoutCategoriesInput } from '../item-pockets/item-pockets-create-nested-one-without-categories.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class ItemCategoriesCreateWithoutItemsInput {
     identifier!: string;
 
     @Field(() => ItemPocketsCreateNestedOneWithoutCategoriesInput, {nullable:false})
-    pocket!: ItemPocketsCreateNestedOneWithoutCategoriesInput;
+    pocket!: Identity<ItemPocketsCreateNestedOneWithoutCategoriesInput>;
 }

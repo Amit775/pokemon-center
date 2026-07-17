@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { GenerationsOrderByWithRelationInput } from '../generations/generations-order-by-with-relation.input';
 import { PokemonSpeciesOrderByRelationAggregateInput } from './pokemon-species-order-by-relation-aggregate.input';
@@ -27,7 +28,7 @@ export class PokemonSpeciesOrderByWithRelationInput {
     generation_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    evolves_from_species_id?: SortOrderInput;
+    evolves_from_species_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrder, {nullable:true})
     evolution_chain_id?: `${SortOrder}`;
@@ -39,7 +40,7 @@ export class PokemonSpeciesOrderByWithRelationInput {
     shape_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    habitat_id?: SortOrderInput;
+    habitat_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrder, {nullable:true})
     gender_rate?: `${SortOrder}`;
@@ -75,47 +76,47 @@ export class PokemonSpeciesOrderByWithRelationInput {
     order?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    conquest_order?: SortOrderInput;
+    conquest_order?: Identity<SortOrderInput>;
 
     @Field(() => GenerationsOrderByWithRelationInput, {nullable:true})
-    generation?: GenerationsOrderByWithRelationInput;
+    generation?: Identity<GenerationsOrderByWithRelationInput>;
 
     @Field(() => PokemonSpeciesOrderByWithRelationInput, {nullable:true})
-    evolvesFrom?: PokemonSpeciesOrderByWithRelationInput;
+    evolvesFrom?: Identity<PokemonSpeciesOrderByWithRelationInput>;
 
     @Field(() => PokemonSpeciesOrderByRelationAggregateInput, {nullable:true})
-    evolvesTo?: PokemonSpeciesOrderByRelationAggregateInput;
+    evolvesTo?: Identity<PokemonSpeciesOrderByRelationAggregateInput>;
 
     @Field(() => EvolutionChainsOrderByWithRelationInput, {nullable:true})
-    evolutionChain?: EvolutionChainsOrderByWithRelationInput;
+    evolutionChain?: Identity<EvolutionChainsOrderByWithRelationInput>;
 
     @Field(() => PokemonColorsOrderByWithRelationInput, {nullable:true})
-    color?: PokemonColorsOrderByWithRelationInput;
+    color?: Identity<PokemonColorsOrderByWithRelationInput>;
 
     @Field(() => PokemonShapesOrderByWithRelationInput, {nullable:true})
-    shape?: PokemonShapesOrderByWithRelationInput;
+    shape?: Identity<PokemonShapesOrderByWithRelationInput>;
 
     @Field(() => PokemonHabitatsOrderByWithRelationInput, {nullable:true})
-    habitat?: PokemonHabitatsOrderByWithRelationInput;
+    habitat?: Identity<PokemonHabitatsOrderByWithRelationInput>;
 
     @Field(() => GrowthRatesOrderByWithRelationInput, {nullable:true})
-    growthRate?: GrowthRatesOrderByWithRelationInput;
+    growthRate?: Identity<GrowthRatesOrderByWithRelationInput>;
 
     @Field(() => PokemonOrderByRelationAggregateInput, {nullable:true})
-    pokemon?: PokemonOrderByRelationAggregateInput;
+    pokemon?: Identity<PokemonOrderByRelationAggregateInput>;
 
     @Field(() => PokemonEggGroupsOrderByRelationAggregateInput, {nullable:true})
-    eggGroups?: PokemonEggGroupsOrderByRelationAggregateInput;
+    eggGroups?: Identity<PokemonEggGroupsOrderByRelationAggregateInput>;
 
     @Field(() => PokemonDexNumbersOrderByRelationAggregateInput, {nullable:true})
-    dexNumbers?: PokemonDexNumbersOrderByRelationAggregateInput;
+    dexNumbers?: Identity<PokemonDexNumbersOrderByRelationAggregateInput>;
 
     @Field(() => PokemonEvolutionOrderByRelationAggregateInput, {nullable:true})
-    evolution?: PokemonEvolutionOrderByRelationAggregateInput;
+    evolution?: Identity<PokemonEvolutionOrderByRelationAggregateInput>;
 
     @Field(() => PokemonEvolutionOrderByRelationAggregateInput, {nullable:true})
-    partySpecies?: PokemonEvolutionOrderByRelationAggregateInput;
+    partySpecies?: Identity<PokemonEvolutionOrderByRelationAggregateInput>;
 
     @Field(() => PokemonEvolutionOrderByRelationAggregateInput, {nullable:true})
-    tradeSpecies?: PokemonEvolutionOrderByRelationAggregateInput;
+    tradeSpecies?: Identity<PokemonEvolutionOrderByRelationAggregateInput>;
 }

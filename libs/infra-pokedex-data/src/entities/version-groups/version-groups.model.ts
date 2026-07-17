@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Generations } from '../generations/generations.model';
+import type { Identity } from 'identity-type';
 import { Versions } from '../versions/versions.model';
 import { EncounterSlots } from '../encounter-slots/encounter-slots.model';
 import { Machines } from '../machines/machines.model';
@@ -32,32 +33,32 @@ export class VersionGroups {
     order!: number;
 
     @Field(() => Generations, {nullable:false})
-    generation?: Generations;
+    generation?: Identity<Generations>;
 
-    @Field(() => [Versions], {nullable:true})
+    @Field(() => [Versions], {nullable:false})
     versions?: Array<Versions>;
 
-    @Field(() => [EncounterSlots], {nullable:true})
+    @Field(() => [EncounterSlots], {nullable:false})
     encounterSlots?: Array<EncounterSlots>;
 
-    @Field(() => [Machines], {nullable:true})
+    @Field(() => [Machines], {nullable:false})
     machines?: Array<Machines>;
 
-    @Field(() => [VersionGroupPokemonMoveMethods], {nullable:true})
+    @Field(() => [VersionGroupPokemonMoveMethods], {nullable:false})
     versionGroupPokemonMoveMethods?: Array<VersionGroupPokemonMoveMethods>;
 
-    @Field(() => [VersionGroupRegions], {nullable:true})
+    @Field(() => [VersionGroupRegions], {nullable:false})
     versionGroupRegions?: Array<VersionGroupRegions>;
 
-    @Field(() => [PokedexVersionGroups], {nullable:true})
+    @Field(() => [PokedexVersionGroups], {nullable:false})
     pokedexVersionGroups?: Array<PokedexVersionGroups>;
 
-    @Field(() => [PokemonMoves], {nullable:true})
+    @Field(() => [PokemonMoves], {nullable:false})
     pokemonMoves?: Array<PokemonMoves>;
 
-    @Field(() => [PokemonForms], {nullable:true})
+    @Field(() => [PokemonForms], {nullable:false})
     pokemonForms?: Array<PokemonForms>;
 
     @Field(() => VersionGroupsCount, {nullable:false})
-    _count?: VersionGroupsCount;
+    _count?: Identity<VersionGroupsCount>;
 }

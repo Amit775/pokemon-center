@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EvolutionTriggersWhereInput } from './evolution-triggers-where.input';
 import { Type } from 'class-transformer';
 import { Int } from '@nestjs/graphql';
@@ -9,7 +10,7 @@ export class DeleteManyEvolutionTriggersArgs {
 
     @Field(() => EvolutionTriggersWhereInput, {nullable:true})
     @Type(() => EvolutionTriggersWhereInput)
-    where?: EvolutionTriggersWhereInput;
+    where?: Identity<EvolutionTriggersWhereInput>;
 
     @Field(() => Int, {nullable:true})
     limit?: number;

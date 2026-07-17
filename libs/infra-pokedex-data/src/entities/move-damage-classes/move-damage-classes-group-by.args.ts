@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveDamageClassesWhereInput } from './move-damage-classes-where.input';
 import { Type } from 'class-transformer';
 import { MoveDamageClassesOrderByWithAggregationInput } from './move-damage-classes-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class MoveDamageClassesGroupByArgs {
 
     @Field(() => MoveDamageClassesWhereInput, {nullable:true})
     @Type(() => MoveDamageClassesWhereInput)
-    where?: MoveDamageClassesWhereInput;
+    where?: Identity<MoveDamageClassesWhereInput>;
 
     @Field(() => [MoveDamageClassesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<MoveDamageClassesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class MoveDamageClassesGroupByArgs {
     by!: Array<`${MoveDamageClassesScalarFieldEnum}`>;
 
     @Field(() => MoveDamageClassesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: MoveDamageClassesScalarWhereWithAggregatesInput;
+    having?: Identity<MoveDamageClassesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class MoveDamageClassesGroupByArgs {
     skip?: number;
 
     @Field(() => MoveDamageClassesCountAggregateInput, {nullable:true})
-    _count?: MoveDamageClassesCountAggregateInput;
+    _count?: Identity<MoveDamageClassesCountAggregateInput>;
 
     @Field(() => MoveDamageClassesAvgAggregateInput, {nullable:true})
-    _avg?: MoveDamageClassesAvgAggregateInput;
+    _avg?: Identity<MoveDamageClassesAvgAggregateInput>;
 
     @Field(() => MoveDamageClassesSumAggregateInput, {nullable:true})
-    _sum?: MoveDamageClassesSumAggregateInput;
+    _sum?: Identity<MoveDamageClassesSumAggregateInput>;
 
     @Field(() => MoveDamageClassesMinAggregateInput, {nullable:true})
-    _min?: MoveDamageClassesMinAggregateInput;
+    _min?: Identity<MoveDamageClassesMinAggregateInput>;
 
     @Field(() => MoveDamageClassesMaxAggregateInput, {nullable:true})
-    _max?: MoveDamageClassesMaxAggregateInput;
+    _max?: Identity<MoveDamageClassesMaxAggregateInput>;
 }

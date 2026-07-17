@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ItemFlingEffectsWhereInput } from './item-fling-effects-where.input';
 import { Type } from 'class-transformer';
 import { ItemFlingEffectsOrderByWithRelationInput } from './item-fling-effects-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ItemFlingEffectsWhereUniqueInput } from './item-fling-effects-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { ItemFlingEffectsScalarFieldEnum } from './item-fling-effects-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManyItemFlingEffectsArgs {
 
     @Field(() => ItemFlingEffectsWhereInput, {nullable:true})
     @Type(() => ItemFlingEffectsWhereInput)
-    where?: ItemFlingEffectsWhereInput;
+    where?: Identity<ItemFlingEffectsWhereInput>;
 
     @Field(() => [ItemFlingEffectsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<ItemFlingEffectsOrderByWithRelationInput>;

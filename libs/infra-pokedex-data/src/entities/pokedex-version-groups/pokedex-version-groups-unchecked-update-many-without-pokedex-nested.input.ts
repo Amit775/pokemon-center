@@ -4,8 +4,9 @@ import { PokedexVersionGroupsCreateWithoutPokedexInput } from './pokedex-version
 import { Type } from 'class-transformer';
 import { PokedexVersionGroupsCreateOrConnectWithoutPokedexInput } from './pokedex-version-groups-create-or-connect-without-pokedex.input';
 import { PokedexVersionGroupsUpsertWithWhereUniqueWithoutPokedexInput } from './pokedex-version-groups-upsert-with-where-unique-without-pokedex.input';
+import type { Identity } from 'identity-type';
 import { PokedexVersionGroupsCreateManyPokedexInputEnvelope } from './pokedex-version-groups-create-many-pokedex-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokedexVersionGroupsWhereUniqueInput } from './pokedex-version-groups-where-unique.input';
 import { PokedexVersionGroupsUpdateWithWhereUniqueWithoutPokedexInput } from './pokedex-version-groups-update-with-where-unique-without-pokedex.input';
 import { PokedexVersionGroupsUpdateManyWithWhereWithoutPokedexInput } from './pokedex-version-groups-update-many-with-where-without-pokedex.input';
@@ -28,7 +29,7 @@ export class PokedexVersionGroupsUncheckedUpdateManyWithoutPokedexNestedInput {
 
     @Field(() => PokedexVersionGroupsCreateManyPokedexInputEnvelope, {nullable:true})
     @Type(() => PokedexVersionGroupsCreateManyPokedexInputEnvelope)
-    createMany?: PokedexVersionGroupsCreateManyPokedexInputEnvelope;
+    createMany?: Identity<PokedexVersionGroupsCreateManyPokedexInputEnvelope>;
 
     @Field(() => [PokedexVersionGroupsWhereUniqueInput], {nullable:true})
     @Type(() => PokedexVersionGroupsWhereUniqueInput)

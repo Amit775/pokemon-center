@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionsCountAggregate } from './versions-count-aggregate.output';
 import { VersionsAvgAggregate } from './versions-avg-aggregate.output';
 import { VersionsSumAggregate } from './versions-sum-aggregate.output';
@@ -20,17 +21,17 @@ export class VersionsGroupBy {
     identifier!: string;
 
     @Field(() => VersionsCountAggregate, {nullable:true})
-    _count?: VersionsCountAggregate;
+    _count?: Identity<VersionsCountAggregate>;
 
     @Field(() => VersionsAvgAggregate, {nullable:true})
-    _avg?: VersionsAvgAggregate;
+    _avg?: Identity<VersionsAvgAggregate>;
 
     @Field(() => VersionsSumAggregate, {nullable:true})
-    _sum?: VersionsSumAggregate;
+    _sum?: Identity<VersionsSumAggregate>;
 
     @Field(() => VersionsMinAggregate, {nullable:true})
-    _min?: VersionsMinAggregate;
+    _min?: Identity<VersionsMinAggregate>;
 
     @Field(() => VersionsMaxAggregate, {nullable:true})
-    _max?: VersionsMaxAggregate;
+    _max?: Identity<VersionsMaxAggregate>;
 }

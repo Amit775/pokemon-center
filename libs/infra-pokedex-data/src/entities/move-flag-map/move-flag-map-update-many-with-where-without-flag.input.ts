@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveFlagMapScalarWhereInput } from './move-flag-map-scalar-where.input';
 import { Type } from 'class-transformer';
 import { MoveFlagMapUncheckedUpdateManyWithoutFlagInput } from './move-flag-map-unchecked-update-many-without-flag.input';
@@ -9,9 +10,9 @@ export class MoveFlagMapUpdateManyWithWhereWithoutFlagInput {
 
     @Field(() => MoveFlagMapScalarWhereInput, {nullable:false})
     @Type(() => MoveFlagMapScalarWhereInput)
-    where!: MoveFlagMapScalarWhereInput;
+    where!: Identity<MoveFlagMapScalarWhereInput>;
 
     @Field(() => MoveFlagMapUncheckedUpdateManyWithoutFlagInput, {nullable:false})
     @Type(() => MoveFlagMapUncheckedUpdateManyWithoutFlagInput)
-    data!: MoveFlagMapUncheckedUpdateManyWithoutFlagInput;
+    data!: Identity<MoveFlagMapUncheckedUpdateManyWithoutFlagInput>;
 }

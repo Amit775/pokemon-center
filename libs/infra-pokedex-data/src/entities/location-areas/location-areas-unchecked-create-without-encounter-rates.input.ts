@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncountersUncheckedCreateNestedManyWithoutLocationAreaInput } from '../encounters/encounters-unchecked-create-nested-many-without-location-area.input';
 
 @InputType()
@@ -19,5 +20,5 @@ export class LocationAreasUncheckedCreateWithoutEncounterRatesInput {
     identifier?: string;
 
     @Field(() => EncountersUncheckedCreateNestedManyWithoutLocationAreaInput, {nullable:true})
-    encounters?: EncountersUncheckedCreateNestedManyWithoutLocationAreaInput;
+    encounters?: Identity<EncountersUncheckedCreateNestedManyWithoutLocationAreaInput>;
 }

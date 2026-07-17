@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { GenerationsWhereInput } from './generations-where.input';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { RegionsScalarRelationFilter } from '../regions/regions-scalar-relation-filter.input';
@@ -31,38 +32,38 @@ export class GenerationsWhereUniqueInput {
     NOT?: Array<GenerationsWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    main_region_id?: IntFilter;
+    main_region_id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => RegionsScalarRelationFilter, {nullable:true})
-    region?: RegionsScalarRelationFilter;
+    region?: Identity<RegionsScalarRelationFilter>;
 
     @Field(() => PokemonSpeciesListRelationFilter, {nullable:true})
-    pokemonSpecies?: PokemonSpeciesListRelationFilter;
+    pokemonSpecies?: Identity<PokemonSpeciesListRelationFilter>;
 
     @Field(() => MovesListRelationFilter, {nullable:true})
-    moves?: MovesListRelationFilter;
+    moves?: Identity<MovesListRelationFilter>;
 
     @Field(() => TypesListRelationFilter, {nullable:true})
-    types?: TypesListRelationFilter;
+    types?: Identity<TypesListRelationFilter>;
 
     @Field(() => AbilitiesListRelationFilter, {nullable:true})
-    abilities?: AbilitiesListRelationFilter;
+    abilities?: Identity<AbilitiesListRelationFilter>;
 
     @Field(() => PokemonFormGenerationsListRelationFilter, {nullable:true})
-    pokemonFormGenerations?: PokemonFormGenerationsListRelationFilter;
+    pokemonFormGenerations?: Identity<PokemonFormGenerationsListRelationFilter>;
 
     @Field(() => ItemGameIndicesListRelationFilter, {nullable:true})
-    itemGameIndices?: ItemGameIndicesListRelationFilter;
+    itemGameIndices?: Identity<ItemGameIndicesListRelationFilter>;
 
     @Field(() => TypeGameIndicesListRelationFilter, {nullable:true})
-    typeGameIndices?: TypeGameIndicesListRelationFilter;
+    typeGameIndices?: Identity<TypeGameIndicesListRelationFilter>;
 
     @Field(() => LocationGameIndicesListRelationFilter, {nullable:true})
-    locationGameIndices?: LocationGameIndicesListRelationFilter;
+    locationGameIndices?: Identity<LocationGameIndicesListRelationFilter>;
 
     @Field(() => VersionGroupsListRelationFilter, {nullable:true})
-    versionGroups?: VersionGroupsListRelationFilter;
+    versionGroups?: Identity<VersionGroupsListRelationFilter>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormsWhereInput } from './pokemon-forms-where.input';
 import { Type } from 'class-transformer';
 import { Int } from '@nestjs/graphql';
@@ -9,7 +10,7 @@ export class DeleteManyPokemonFormsArgs {
 
     @Field(() => PokemonFormsWhereInput, {nullable:true})
     @Type(() => PokemonFormsWhereInput)
-    where?: PokemonFormsWhereInput;
+    where?: Identity<PokemonFormsWhereInput>;
 
     @Field(() => Int, {nullable:true})
     limit?: number;

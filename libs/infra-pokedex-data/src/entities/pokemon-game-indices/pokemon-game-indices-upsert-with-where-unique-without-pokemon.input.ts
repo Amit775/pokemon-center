@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonGameIndicesWhereUniqueInput } from './pokemon-game-indices-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonGameIndicesUpdateWithoutPokemonInput } from './pokemon-game-indices-update-without-pokemon.input';
 import { PokemonGameIndicesCreateWithoutPokemonInput } from './pokemon-game-indices-create-without-pokemon.input';
 
@@ -15,9 +16,9 @@ export class PokemonGameIndicesUpsertWithWhereUniqueWithoutPokemonInput {
 
     @Field(() => PokemonGameIndicesUpdateWithoutPokemonInput, {nullable:false})
     @Type(() => PokemonGameIndicesUpdateWithoutPokemonInput)
-    update!: PokemonGameIndicesUpdateWithoutPokemonInput;
+    update!: Identity<PokemonGameIndicesUpdateWithoutPokemonInput>;
 
     @Field(() => PokemonGameIndicesCreateWithoutPokemonInput, {nullable:false})
     @Type(() => PokemonGameIndicesCreateWithoutPokemonInput)
-    create!: PokemonGameIndicesCreateWithoutPokemonInput;
+    create!: Identity<PokemonGameIndicesCreateWithoutPokemonInput>;
 }

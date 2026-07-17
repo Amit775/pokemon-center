@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
 
 @InputType()
@@ -15,11 +16,11 @@ export class PokemonDexNumbersScalarWhereWithAggregatesInput {
     NOT?: Array<PokemonDexNumbersScalarWhereWithAggregatesInput>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    species_id?: IntWithAggregatesFilter;
+    species_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    pokedex_id?: IntWithAggregatesFilter;
+    pokedex_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    pokedex_number?: IntWithAggregatesFilter;
+    pokedex_number?: Identity<IntWithAggregatesFilter>;
 }

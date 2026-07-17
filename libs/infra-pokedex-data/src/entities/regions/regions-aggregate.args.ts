@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { RegionsWhereInput } from './regions-where.input';
 import { Type } from 'class-transformer';
 import { RegionsOrderByWithRelationInput } from './regions-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { RegionsWhereUniqueInput } from './regions-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { RegionsCountAggregateInput } from './regions-count-aggregate.input';
@@ -17,7 +18,7 @@ export class RegionsAggregateArgs {
 
     @Field(() => RegionsWhereInput, {nullable:true})
     @Type(() => RegionsWhereInput)
-    where?: RegionsWhereInput;
+    where?: Identity<RegionsWhereInput>;
 
     @Field(() => [RegionsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<RegionsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class RegionsAggregateArgs {
     skip?: number;
 
     @Field(() => RegionsCountAggregateInput, {nullable:true})
-    _count?: RegionsCountAggregateInput;
+    _count?: Identity<RegionsCountAggregateInput>;
 
     @Field(() => RegionsAvgAggregateInput, {nullable:true})
-    _avg?: RegionsAvgAggregateInput;
+    _avg?: Identity<RegionsAvgAggregateInput>;
 
     @Field(() => RegionsSumAggregateInput, {nullable:true})
-    _sum?: RegionsSumAggregateInput;
+    _sum?: Identity<RegionsSumAggregateInput>;
 
     @Field(() => RegionsMinAggregateInput, {nullable:true})
-    _min?: RegionsMinAggregateInput;
+    _min?: Identity<RegionsMinAggregateInput>;
 
     @Field(() => RegionsMaxAggregateInput, {nullable:true})
-    _max?: RegionsMaxAggregateInput;
+    _max?: Identity<RegionsMaxAggregateInput>;
 }

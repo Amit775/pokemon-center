@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EvolutionChainsWhereUniqueInput } from './evolution-chains-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { EvolutionChainsUpdateWithoutBabyTriggerItemInput } from './evolution-chains-update-without-baby-trigger-item.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class EvolutionChainsUpdateWithWhereUniqueWithoutBabyTriggerItemInput {
 
     @Field(() => EvolutionChainsUpdateWithoutBabyTriggerItemInput, {nullable:false})
     @Type(() => EvolutionChainsUpdateWithoutBabyTriggerItemInput)
-    data!: EvolutionChainsUpdateWithoutBabyTriggerItemInput;
+    data!: Identity<EvolutionChainsUpdateWithoutBabyTriggerItemInput>;
 }

@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationAreaEncounterRatesWhereInput } from './location-area-encounter-rates-where.input';
 import { Type } from 'class-transformer';
 import { LocationAreaEncounterRatesOrderByWithRelationInput } from './location-area-encounter-rates-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationAreaEncounterRatesWhereUniqueInput } from './location-area-encounter-rates-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { LocationAreaEncounterRatesScalarFieldEnum } from './location-area-encounter-rates-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindManyLocationAreaEncounterRatesArgs {
 
     @Field(() => LocationAreaEncounterRatesWhereInput, {nullable:true})
     @Type(() => LocationAreaEncounterRatesWhereInput)
-    where?: LocationAreaEncounterRatesWhereInput;
+    where?: Identity<LocationAreaEncounterRatesWhereInput>;
 
     @Field(() => [LocationAreaEncounterRatesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<LocationAreaEncounterRatesOrderByWithRelationInput>;

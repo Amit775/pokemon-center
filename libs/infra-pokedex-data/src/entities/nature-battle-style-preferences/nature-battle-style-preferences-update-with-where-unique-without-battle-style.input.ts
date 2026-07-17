@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { NatureBattleStylePreferencesWhereUniqueInput } from './nature-battle-style-preferences-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { NatureBattleStylePreferencesUpdateWithoutBattleStyleInput } from './nature-battle-style-preferences-update-without-battle-style.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class NatureBattleStylePreferencesUpdateWithWhereUniqueWithoutBattleStyle
 
     @Field(() => NatureBattleStylePreferencesUpdateWithoutBattleStyleInput, {nullable:false})
     @Type(() => NatureBattleStylePreferencesUpdateWithoutBattleStyleInput)
-    data!: NatureBattleStylePreferencesUpdateWithoutBattleStyleInput;
+    data!: Identity<NatureBattleStylePreferencesUpdateWithoutBattleStyleInput>;
 }

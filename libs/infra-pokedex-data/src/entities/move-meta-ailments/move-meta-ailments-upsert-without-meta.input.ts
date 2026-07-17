@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaAilmentsUpdateWithoutMetaInput } from './move-meta-ailments-update-without-meta.input';
 import { Type } from 'class-transformer';
 import { MoveMetaAilmentsCreateWithoutMetaInput } from './move-meta-ailments-create-without-meta.input';
@@ -10,13 +11,13 @@ export class MoveMetaAilmentsUpsertWithoutMetaInput {
 
     @Field(() => MoveMetaAilmentsUpdateWithoutMetaInput, {nullable:false})
     @Type(() => MoveMetaAilmentsUpdateWithoutMetaInput)
-    update!: MoveMetaAilmentsUpdateWithoutMetaInput;
+    update!: Identity<MoveMetaAilmentsUpdateWithoutMetaInput>;
 
     @Field(() => MoveMetaAilmentsCreateWithoutMetaInput, {nullable:false})
     @Type(() => MoveMetaAilmentsCreateWithoutMetaInput)
-    create!: MoveMetaAilmentsCreateWithoutMetaInput;
+    create!: Identity<MoveMetaAilmentsCreateWithoutMetaInput>;
 
     @Field(() => MoveMetaAilmentsWhereInput, {nullable:true})
     @Type(() => MoveMetaAilmentsWhereInput)
-    where?: MoveMetaAilmentsWhereInput;
+    where?: Identity<MoveMetaAilmentsWhereInput>;
 }

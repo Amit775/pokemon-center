@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveFlagsWhereUniqueInput } from './move-flags-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { MoveFlagsCreateWithoutFlagMapInput } from './move-flags-create-without-flag-map.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class MoveFlagsCreateOrConnectWithoutFlagMapInput {
 
     @Field(() => MoveFlagsCreateWithoutFlagMapInput, {nullable:false})
     @Type(() => MoveFlagsCreateWithoutFlagMapInput)
-    create!: MoveFlagsCreateWithoutFlagMapInput;
+    create!: Identity<MoveFlagsCreateWithoutFlagMapInput>;
 }

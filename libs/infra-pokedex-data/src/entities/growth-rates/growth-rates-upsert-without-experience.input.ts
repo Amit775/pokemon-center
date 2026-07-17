@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GrowthRatesUpdateWithoutExperienceInput } from './growth-rates-update-without-experience.input';
 import { Type } from 'class-transformer';
 import { GrowthRatesCreateWithoutExperienceInput } from './growth-rates-create-without-experience.input';
@@ -10,13 +11,13 @@ export class GrowthRatesUpsertWithoutExperienceInput {
 
     @Field(() => GrowthRatesUpdateWithoutExperienceInput, {nullable:false})
     @Type(() => GrowthRatesUpdateWithoutExperienceInput)
-    update!: GrowthRatesUpdateWithoutExperienceInput;
+    update!: Identity<GrowthRatesUpdateWithoutExperienceInput>;
 
     @Field(() => GrowthRatesCreateWithoutExperienceInput, {nullable:false})
     @Type(() => GrowthRatesCreateWithoutExperienceInput)
-    create!: GrowthRatesCreateWithoutExperienceInput;
+    create!: Identity<GrowthRatesCreateWithoutExperienceInput>;
 
     @Field(() => GrowthRatesWhereInput, {nullable:true})
     @Type(() => GrowthRatesWhereInput)
-    where?: GrowthRatesWhereInput;
+    where?: Identity<GrowthRatesWhereInput>;
 }

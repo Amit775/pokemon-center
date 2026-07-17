@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { AbilitiesWhereInput } from './abilities-where.input';
 import { Type } from 'class-transformer';
 import { AbilitiesOrderByWithRelationInput } from './abilities-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { AbilitiesWhereUniqueInput } from './abilities-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { AbilitiesCountAggregateInput } from './abilities-count-aggregate.input';
@@ -17,7 +18,7 @@ export class AbilitiesAggregateArgs {
 
     @Field(() => AbilitiesWhereInput, {nullable:true})
     @Type(() => AbilitiesWhereInput)
-    where?: AbilitiesWhereInput;
+    where?: Identity<AbilitiesWhereInput>;
 
     @Field(() => [AbilitiesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<AbilitiesOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class AbilitiesAggregateArgs {
     skip?: number;
 
     @Field(() => AbilitiesCountAggregateInput, {nullable:true})
-    _count?: AbilitiesCountAggregateInput;
+    _count?: Identity<AbilitiesCountAggregateInput>;
 
     @Field(() => AbilitiesAvgAggregateInput, {nullable:true})
-    _avg?: AbilitiesAvgAggregateInput;
+    _avg?: Identity<AbilitiesAvgAggregateInput>;
 
     @Field(() => AbilitiesSumAggregateInput, {nullable:true})
-    _sum?: AbilitiesSumAggregateInput;
+    _sum?: Identity<AbilitiesSumAggregateInput>;
 
     @Field(() => AbilitiesMinAggregateInput, {nullable:true})
-    _min?: AbilitiesMinAggregateInput;
+    _min?: Identity<AbilitiesMinAggregateInput>;
 
     @Field(() => AbilitiesMaxAggregateInput, {nullable:true})
-    _max?: AbilitiesMaxAggregateInput;
+    _max?: Identity<AbilitiesMaxAggregateInput>;
 }

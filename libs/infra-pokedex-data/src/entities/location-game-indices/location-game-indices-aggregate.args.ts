@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationGameIndicesWhereInput } from './location-game-indices-where.input';
 import { Type } from 'class-transformer';
 import { LocationGameIndicesOrderByWithRelationInput } from './location-game-indices-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationGameIndicesWhereUniqueInput } from './location-game-indices-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { LocationGameIndicesCountAggregateInput } from './location-game-indices-count-aggregate.input';
@@ -17,7 +18,7 @@ export class LocationGameIndicesAggregateArgs {
 
     @Field(() => LocationGameIndicesWhereInput, {nullable:true})
     @Type(() => LocationGameIndicesWhereInput)
-    where?: LocationGameIndicesWhereInput;
+    where?: Identity<LocationGameIndicesWhereInput>;
 
     @Field(() => [LocationGameIndicesOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<LocationGameIndicesOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class LocationGameIndicesAggregateArgs {
     skip?: number;
 
     @Field(() => LocationGameIndicesCountAggregateInput, {nullable:true})
-    _count?: LocationGameIndicesCountAggregateInput;
+    _count?: Identity<LocationGameIndicesCountAggregateInput>;
 
     @Field(() => LocationGameIndicesAvgAggregateInput, {nullable:true})
-    _avg?: LocationGameIndicesAvgAggregateInput;
+    _avg?: Identity<LocationGameIndicesAvgAggregateInput>;
 
     @Field(() => LocationGameIndicesSumAggregateInput, {nullable:true})
-    _sum?: LocationGameIndicesSumAggregateInput;
+    _sum?: Identity<LocationGameIndicesSumAggregateInput>;
 
     @Field(() => LocationGameIndicesMinAggregateInput, {nullable:true})
-    _min?: LocationGameIndicesMinAggregateInput;
+    _min?: Identity<LocationGameIndicesMinAggregateInput>;
 
     @Field(() => LocationGameIndicesMaxAggregateInput, {nullable:true})
-    _max?: LocationGameIndicesMaxAggregateInput;
+    _max?: Identity<LocationGameIndicesMaxAggregateInput>;
 }

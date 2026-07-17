@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { BerriesWhereInput } from './berries-where.input';
 import { Type } from 'class-transformer';
 import { BerriesOrderByWithAggregationInput } from './berries-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class BerriesGroupByArgs {
 
     @Field(() => BerriesWhereInput, {nullable:true})
     @Type(() => BerriesWhereInput)
-    where?: BerriesWhereInput;
+    where?: Identity<BerriesWhereInput>;
 
     @Field(() => [BerriesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<BerriesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class BerriesGroupByArgs {
     by!: Array<`${BerriesScalarFieldEnum}`>;
 
     @Field(() => BerriesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: BerriesScalarWhereWithAggregatesInput;
+    having?: Identity<BerriesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class BerriesGroupByArgs {
     skip?: number;
 
     @Field(() => BerriesCountAggregateInput, {nullable:true})
-    _count?: BerriesCountAggregateInput;
+    _count?: Identity<BerriesCountAggregateInput>;
 
     @Field(() => BerriesAvgAggregateInput, {nullable:true})
-    _avg?: BerriesAvgAggregateInput;
+    _avg?: Identity<BerriesAvgAggregateInput>;
 
     @Field(() => BerriesSumAggregateInput, {nullable:true})
-    _sum?: BerriesSumAggregateInput;
+    _sum?: Identity<BerriesSumAggregateInput>;
 
     @Field(() => BerriesMinAggregateInput, {nullable:true})
-    _min?: BerriesMinAggregateInput;
+    _min?: Identity<BerriesMinAggregateInput>;
 
     @Field(() => BerriesMaxAggregateInput, {nullable:true})
-    _max?: BerriesMaxAggregateInput;
+    _max?: Identity<BerriesMaxAggregateInput>;
 }

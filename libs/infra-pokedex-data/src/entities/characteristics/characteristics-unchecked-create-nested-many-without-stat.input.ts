@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { CharacteristicsCreateWithoutStatInput } from './characteristics-create-without-stat.input';
 import { Type } from 'class-transformer';
 import { CharacteristicsCreateOrConnectWithoutStatInput } from './characteristics-create-or-connect-without-stat.input';
+import type { Identity } from 'identity-type';
 import { CharacteristicsCreateManyStatInputEnvelope } from './characteristics-create-many-stat-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { CharacteristicsWhereUniqueInput } from './characteristics-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class CharacteristicsUncheckedCreateNestedManyWithoutStatInput {
 
     @Field(() => CharacteristicsCreateManyStatInputEnvelope, {nullable:true})
     @Type(() => CharacteristicsCreateManyStatInputEnvelope)
-    createMany?: CharacteristicsCreateManyStatInputEnvelope;
+    createMany?: Identity<CharacteristicsCreateManyStatInputEnvelope>;
 
     @Field(() => [CharacteristicsWhereUniqueInput], {nullable:true})
     @Type(() => CharacteristicsWhereUniqueInput)

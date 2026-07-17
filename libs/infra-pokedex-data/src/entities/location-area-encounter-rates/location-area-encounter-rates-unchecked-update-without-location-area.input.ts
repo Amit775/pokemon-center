@@ -1,16 +1,16 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class LocationAreaEncounterRatesUncheckedUpdateWithoutLocationAreaInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    encounter_method_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    encounter_method_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    version_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    version_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    rate?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    rate?: number;
 }

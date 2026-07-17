@@ -4,8 +4,9 @@ import { MoveMetaCreateWithoutMetaAilmentInput } from './move-meta-create-withou
 import { Type } from 'class-transformer';
 import { MoveMetaCreateOrConnectWithoutMetaAilmentInput } from './move-meta-create-or-connect-without-meta-ailment.input';
 import { MoveMetaUpsertWithWhereUniqueWithoutMetaAilmentInput } from './move-meta-upsert-with-where-unique-without-meta-ailment.input';
+import type { Identity } from 'identity-type';
 import { MoveMetaCreateManyMetaAilmentInputEnvelope } from './move-meta-create-many-meta-ailment-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveMetaWhereUniqueInput } from './move-meta-where-unique.input';
 import { MoveMetaUpdateWithWhereUniqueWithoutMetaAilmentInput } from './move-meta-update-with-where-unique-without-meta-ailment.input';
 import { MoveMetaUpdateManyWithWhereWithoutMetaAilmentInput } from './move-meta-update-many-with-where-without-meta-ailment.input';
@@ -28,7 +29,7 @@ export class MoveMetaUncheckedUpdateManyWithoutMetaAilmentNestedInput {
 
     @Field(() => MoveMetaCreateManyMetaAilmentInputEnvelope, {nullable:true})
     @Type(() => MoveMetaCreateManyMetaAilmentInputEnvelope)
-    createMany?: MoveMetaCreateManyMetaAilmentInputEnvelope;
+    createMany?: Identity<MoveMetaCreateManyMetaAilmentInputEnvelope>;
 
     @Field(() => [MoveMetaWhereUniqueInput], {nullable:true})
     @Type(() => MoveMetaWhereUniqueInput)

@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { MachinesCreateWithoutVersionGroupInput } from './machines-create-without-version-group.input';
 import { Type } from 'class-transformer';
 import { MachinesCreateOrConnectWithoutVersionGroupInput } from './machines-create-or-connect-without-version-group.input';
+import type { Identity } from 'identity-type';
 import { MachinesCreateManyVersionGroupInputEnvelope } from './machines-create-many-version-group-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MachinesWhereUniqueInput } from './machines-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class MachinesCreateNestedManyWithoutVersionGroupInput {
 
     @Field(() => MachinesCreateManyVersionGroupInputEnvelope, {nullable:true})
     @Type(() => MachinesCreateManyVersionGroupInputEnvelope)
-    createMany?: MachinesCreateManyVersionGroupInputEnvelope;
+    createMany?: Identity<MachinesCreateManyVersionGroupInputEnvelope>;
 
     @Field(() => [MachinesWhereUniqueInput], {nullable:true})
     @Type(() => MachinesWhereUniqueInput)

@@ -1,7 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { StringFilter } from '../prisma/string-filter.input';
 import { LocationsScalarRelationFilter } from '../locations/locations-scalar-relation-filter.input';
 import { EncountersListRelationFilter } from '../encounters/encounters-list-relation-filter.input';
 import { LocationAreaEncounterRatesListRelationFilter } from '../location-area-encounter-rates/location-area-encounter-rates-list-relation-filter.input';
@@ -19,23 +20,23 @@ export class LocationAreasWhereInput {
     NOT?: Array<LocationAreasWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    location_id?: IntFilter;
+    location_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    game_index?: IntFilter;
+    game_index?: Identity<IntFilter>;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    identifier?: StringNullableFilter;
+    @Field(() => StringFilter, {nullable:true})
+    identifier?: Identity<StringFilter>;
 
     @Field(() => LocationsScalarRelationFilter, {nullable:true})
-    location?: LocationsScalarRelationFilter;
+    location?: Identity<LocationsScalarRelationFilter>;
 
     @Field(() => EncountersListRelationFilter, {nullable:true})
-    encounters?: EncountersListRelationFilter;
+    encounters?: Identity<EncountersListRelationFilter>;
 
     @Field(() => LocationAreaEncounterRatesListRelationFilter, {nullable:true})
-    encounterRates?: LocationAreaEncounterRatesListRelationFilter;
+    encounterRates?: Identity<LocationAreaEncounterRatesListRelationFilter>;
 }

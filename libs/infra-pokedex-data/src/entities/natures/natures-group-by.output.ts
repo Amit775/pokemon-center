@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { NaturesCountAggregate } from './natures-count-aggregate.output';
 import { NaturesAvgAggregate } from './natures-avg-aggregate.output';
 import { NaturesSumAggregate } from './natures-sum-aggregate.output';
@@ -32,17 +33,17 @@ export class NaturesGroupBy {
     game_index!: number;
 
     @Field(() => NaturesCountAggregate, {nullable:true})
-    _count?: NaturesCountAggregate;
+    _count?: Identity<NaturesCountAggregate>;
 
     @Field(() => NaturesAvgAggregate, {nullable:true})
-    _avg?: NaturesAvgAggregate;
+    _avg?: Identity<NaturesAvgAggregate>;
 
     @Field(() => NaturesSumAggregate, {nullable:true})
-    _sum?: NaturesSumAggregate;
+    _sum?: Identity<NaturesSumAggregate>;
 
     @Field(() => NaturesMinAggregate, {nullable:true})
-    _min?: NaturesMinAggregate;
+    _min?: Identity<NaturesMinAggregate>;
 
     @Field(() => NaturesMaxAggregate, {nullable:true})
-    _max?: NaturesMaxAggregate;
+    _max?: Identity<NaturesMaxAggregate>;
 }

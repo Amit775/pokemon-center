@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Moves } from '../moves/moves.model';
+import type { Identity } from 'identity-type';
 import { MoveFlags } from '../move-flags/move-flags.model';
 
 /**
@@ -18,8 +19,8 @@ export class MoveFlagMap {
     move_flag_id!: number;
 
     @Field(() => Moves, {nullable:false})
-    move?: Moves;
+    move?: Identity<Moves>;
 
     @Field(() => MoveFlags, {nullable:false})
-    flag?: MoveFlags;
+    flag?: Identity<MoveFlags>;
 }

@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MovesWhereUniqueInput } from './moves-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { MovesUpdateWithoutContestTypeInput } from './moves-update-without-contest-type.input';
 import { MovesCreateWithoutContestTypeInput } from './moves-create-without-contest-type.input';
 
@@ -15,9 +16,9 @@ export class MovesUpsertWithWhereUniqueWithoutContestTypeInput {
 
     @Field(() => MovesUpdateWithoutContestTypeInput, {nullable:false})
     @Type(() => MovesUpdateWithoutContestTypeInput)
-    update!: MovesUpdateWithoutContestTypeInput;
+    update!: Identity<MovesUpdateWithoutContestTypeInput>;
 
     @Field(() => MovesCreateWithoutContestTypeInput, {nullable:false})
     @Type(() => MovesCreateWithoutContestTypeInput)
-    create!: MovesCreateWithoutContestTypeInput;
+    create!: Identity<MovesCreateWithoutContestTypeInput>;
 }

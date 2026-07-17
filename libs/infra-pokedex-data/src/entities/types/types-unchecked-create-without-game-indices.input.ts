@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesUncheckedCreateNestedManyWithoutTypeInput } from '../moves/moves-unchecked-create-nested-many-without-type.input';
 import { PokemonTypesUncheckedCreateNestedManyWithoutTypeInput } from '../pokemon-types/pokemon-types-unchecked-create-nested-many-without-type.input';
 import { PokemonFormTypesUncheckedCreateNestedManyWithoutTypeInput } from '../pokemon-form-types/pokemon-form-types-unchecked-create-nested-many-without-type.input';
@@ -27,29 +28,29 @@ export class TypesUncheckedCreateWithoutGameIndicesInput {
     damage_class_id?: number;
 
     @Field(() => MovesUncheckedCreateNestedManyWithoutTypeInput, {nullable:true})
-    moves?: MovesUncheckedCreateNestedManyWithoutTypeInput;
+    moves?: Identity<MovesUncheckedCreateNestedManyWithoutTypeInput>;
 
     @Field(() => PokemonTypesUncheckedCreateNestedManyWithoutTypeInput, {nullable:true})
-    pokemonTypes?: PokemonTypesUncheckedCreateNestedManyWithoutTypeInput;
+    pokemonTypes?: Identity<PokemonTypesUncheckedCreateNestedManyWithoutTypeInput>;
 
     @Field(() => PokemonFormTypesUncheckedCreateNestedManyWithoutTypeInput, {nullable:true})
-    formTypes?: PokemonFormTypesUncheckedCreateNestedManyWithoutTypeInput;
+    formTypes?: Identity<PokemonFormTypesUncheckedCreateNestedManyWithoutTypeInput>;
 
     @Field(() => TypeEfficacyUncheckedCreateNestedManyWithoutDamageTypeInput, {nullable:true})
-    efficacy?: TypeEfficacyUncheckedCreateNestedManyWithoutDamageTypeInput;
+    efficacy?: Identity<TypeEfficacyUncheckedCreateNestedManyWithoutDamageTypeInput>;
 
     @Field(() => TypeEfficacyUncheckedCreateNestedManyWithoutTargetTypeInput, {nullable:true})
-    efficacyTarget?: TypeEfficacyUncheckedCreateNestedManyWithoutTargetTypeInput;
+    efficacyTarget?: Identity<TypeEfficacyUncheckedCreateNestedManyWithoutTargetTypeInput>;
 
     @Field(() => BerryFlavorsUncheckedCreateNestedManyWithoutTypeInput, {nullable:true})
-    berryFlavors?: BerryFlavorsUncheckedCreateNestedManyWithoutTypeInput;
+    berryFlavors?: Identity<BerryFlavorsUncheckedCreateNestedManyWithoutTypeInput>;
 
     @Field(() => PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveTypeInput, {nullable:true})
-    knownMoveTypes?: PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveTypeInput;
+    knownMoveTypes?: Identity<PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveTypeInput>;
 
     @Field(() => PokemonEvolutionUncheckedCreateNestedManyWithoutPartyTypeInput, {nullable:true})
-    partyTypes?: PokemonEvolutionUncheckedCreateNestedManyWithoutPartyTypeInput;
+    partyTypes?: Identity<PokemonEvolutionUncheckedCreateNestedManyWithoutPartyTypeInput>;
 
     @Field(() => BerriesUncheckedCreateNestedManyWithoutNaturalGiftTypeInput, {nullable:true})
-    naturalGiftTypes?: BerriesUncheckedCreateNestedManyWithoutNaturalGiftTypeInput;
+    naturalGiftTypes?: Identity<BerriesUncheckedCreateNestedManyWithoutNaturalGiftTypeInput>;
 }

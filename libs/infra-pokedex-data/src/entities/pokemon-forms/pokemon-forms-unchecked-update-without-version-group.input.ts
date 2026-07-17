@@ -1,44 +1,43 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonFormGenerationsUncheckedUpdateManyWithoutPokemonFormNestedInput } from '../pokemon-form-generations/pokemon-form-generations-unchecked-update-many-without-pokemon-form-nested.input';
 import { PokemonFormTypesUncheckedUpdateManyWithoutPokemonFormNestedInput } from '../pokemon-form-types/pokemon-form-types-unchecked-update-many-without-pokemon-form-nested.input';
 
 @InputType()
 export class PokemonFormsUncheckedUpdateWithoutVersionGroupInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    form_identifier?: NullableStringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    form_identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    pokemon_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    pokemon_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    is_default?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    is_default?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    is_battle_only?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    is_battle_only?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    is_mega?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    is_mega?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    form_order?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    form_order?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    order?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    order?: number;
 
     @Field(() => PokemonFormGenerationsUncheckedUpdateManyWithoutPokemonFormNestedInput, {nullable:true})
-    generations?: PokemonFormGenerationsUncheckedUpdateManyWithoutPokemonFormNestedInput;
+    generations?: Identity<PokemonFormGenerationsUncheckedUpdateManyWithoutPokemonFormNestedInput>;
 
     @Field(() => PokemonFormTypesUncheckedUpdateManyWithoutPokemonFormNestedInput, {nullable:true})
-    types?: PokemonFormTypesUncheckedUpdateManyWithoutPokemonFormNestedInput;
+    types?: Identity<PokemonFormTypesUncheckedUpdateManyWithoutPokemonFormNestedInput>;
 }

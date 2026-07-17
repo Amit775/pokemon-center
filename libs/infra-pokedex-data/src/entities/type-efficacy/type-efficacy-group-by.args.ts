@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TypeEfficacyWhereInput } from './type-efficacy-where.input';
 import { Type } from 'class-transformer';
 import { TypeEfficacyOrderByWithAggregationInput } from './type-efficacy-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class TypeEfficacyGroupByArgs {
 
     @Field(() => TypeEfficacyWhereInput, {nullable:true})
     @Type(() => TypeEfficacyWhereInput)
-    where?: TypeEfficacyWhereInput;
+    where?: Identity<TypeEfficacyWhereInput>;
 
     @Field(() => [TypeEfficacyOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<TypeEfficacyOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class TypeEfficacyGroupByArgs {
     by!: Array<`${TypeEfficacyScalarFieldEnum}`>;
 
     @Field(() => TypeEfficacyScalarWhereWithAggregatesInput, {nullable:true})
-    having?: TypeEfficacyScalarWhereWithAggregatesInput;
+    having?: Identity<TypeEfficacyScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class TypeEfficacyGroupByArgs {
     skip?: number;
 
     @Field(() => TypeEfficacyCountAggregateInput, {nullable:true})
-    _count?: TypeEfficacyCountAggregateInput;
+    _count?: Identity<TypeEfficacyCountAggregateInput>;
 
     @Field(() => TypeEfficacyAvgAggregateInput, {nullable:true})
-    _avg?: TypeEfficacyAvgAggregateInput;
+    _avg?: Identity<TypeEfficacyAvgAggregateInput>;
 
     @Field(() => TypeEfficacySumAggregateInput, {nullable:true})
-    _sum?: TypeEfficacySumAggregateInput;
+    _sum?: Identity<TypeEfficacySumAggregateInput>;
 
     @Field(() => TypeEfficacyMinAggregateInput, {nullable:true})
-    _min?: TypeEfficacyMinAggregateInput;
+    _min?: Identity<TypeEfficacyMinAggregateInput>;
 
     @Field(() => TypeEfficacyMaxAggregateInput, {nullable:true})
-    _max?: TypeEfficacyMaxAggregateInput;
+    _max?: Identity<TypeEfficacyMaxAggregateInput>;
 }

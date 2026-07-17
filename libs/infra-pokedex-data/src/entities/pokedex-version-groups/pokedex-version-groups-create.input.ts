@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokedexesCreateNestedOneWithoutVersionGroupsInput } from '../pokedexes/pokedexes-create-nested-one-without-version-groups.input';
 import { VersionGroupsCreateNestedOneWithoutPokedexVersionGroupsInput } from '../version-groups/version-groups-create-nested-one-without-pokedex-version-groups.input';
 
@@ -7,8 +8,8 @@ import { VersionGroupsCreateNestedOneWithoutPokedexVersionGroupsInput } from '..
 export class PokedexVersionGroupsCreateInput {
 
     @Field(() => PokedexesCreateNestedOneWithoutVersionGroupsInput, {nullable:false})
-    pokedex!: PokedexesCreateNestedOneWithoutVersionGroupsInput;
+    pokedex!: Identity<PokedexesCreateNestedOneWithoutVersionGroupsInput>;
 
     @Field(() => VersionGroupsCreateNestedOneWithoutPokedexVersionGroupsInput, {nullable:false})
-    versionGroup!: VersionGroupsCreateNestedOneWithoutPokedexVersionGroupsInput;
+    versionGroup!: Identity<VersionGroupsCreateNestedOneWithoutPokedexVersionGroupsInput>;
 }

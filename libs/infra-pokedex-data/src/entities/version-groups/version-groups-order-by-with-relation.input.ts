@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { GenerationsOrderByWithRelationInput } from '../generations/generations-order-by-with-relation.input';
 import { VersionsOrderByRelationAggregateInput } from '../versions/versions-order-by-relation-aggregate.input';
 import { EncounterSlotsOrderByRelationAggregateInput } from '../encounter-slots/encounter-slots-order-by-relation-aggregate.input';
@@ -27,29 +28,29 @@ export class VersionGroupsOrderByWithRelationInput {
     order?: `${SortOrder}`;
 
     @Field(() => GenerationsOrderByWithRelationInput, {nullable:true})
-    generation?: GenerationsOrderByWithRelationInput;
+    generation?: Identity<GenerationsOrderByWithRelationInput>;
 
     @Field(() => VersionsOrderByRelationAggregateInput, {nullable:true})
-    versions?: VersionsOrderByRelationAggregateInput;
+    versions?: Identity<VersionsOrderByRelationAggregateInput>;
 
     @Field(() => EncounterSlotsOrderByRelationAggregateInput, {nullable:true})
-    encounterSlots?: EncounterSlotsOrderByRelationAggregateInput;
+    encounterSlots?: Identity<EncounterSlotsOrderByRelationAggregateInput>;
 
     @Field(() => MachinesOrderByRelationAggregateInput, {nullable:true})
-    machines?: MachinesOrderByRelationAggregateInput;
+    machines?: Identity<MachinesOrderByRelationAggregateInput>;
 
     @Field(() => VersionGroupPokemonMoveMethodsOrderByRelationAggregateInput, {nullable:true})
-    versionGroupPokemonMoveMethods?: VersionGroupPokemonMoveMethodsOrderByRelationAggregateInput;
+    versionGroupPokemonMoveMethods?: Identity<VersionGroupPokemonMoveMethodsOrderByRelationAggregateInput>;
 
     @Field(() => VersionGroupRegionsOrderByRelationAggregateInput, {nullable:true})
-    versionGroupRegions?: VersionGroupRegionsOrderByRelationAggregateInput;
+    versionGroupRegions?: Identity<VersionGroupRegionsOrderByRelationAggregateInput>;
 
     @Field(() => PokedexVersionGroupsOrderByRelationAggregateInput, {nullable:true})
-    pokedexVersionGroups?: PokedexVersionGroupsOrderByRelationAggregateInput;
+    pokedexVersionGroups?: Identity<PokedexVersionGroupsOrderByRelationAggregateInput>;
 
     @Field(() => PokemonMovesOrderByRelationAggregateInput, {nullable:true})
-    pokemonMoves?: PokemonMovesOrderByRelationAggregateInput;
+    pokemonMoves?: Identity<PokemonMovesOrderByRelationAggregateInput>;
 
     @Field(() => PokemonFormsOrderByRelationAggregateInput, {nullable:true})
-    pokemonForms?: PokemonFormsOrderByRelationAggregateInput;
+    pokemonForms?: Identity<PokemonFormsOrderByRelationAggregateInput>;
 }

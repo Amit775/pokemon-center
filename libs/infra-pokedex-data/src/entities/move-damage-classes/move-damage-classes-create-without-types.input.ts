@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MovesCreateNestedManyWithoutDamageClassInput } from '../moves/moves-create-nested-many-without-damage-class.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class MoveDamageClassesCreateWithoutTypesInput {
     identifier!: string;
 
     @Field(() => MovesCreateNestedManyWithoutDamageClassInput, {nullable:true})
-    moves?: MovesCreateNestedManyWithoutDamageClassInput;
+    moves?: Identity<MovesCreateNestedManyWithoutDamageClassInput>;
 }

@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonGameIndicesPokemon_idVersion_idCompoundUniqueInput } from './pokemon-game-indices-pokemon-id-version-id-compound-unique.input';
 import { PokemonGameIndicesWhereInput } from './pokemon-game-indices-where.input';
 import { IntFilter } from '../prisma/int-filter.input';
@@ -10,7 +11,7 @@ import { VersionsScalarRelationFilter } from '../versions/versions-scalar-relati
 export class PokemonGameIndicesWhereUniqueInput {
 
     @Field(() => PokemonGameIndicesPokemon_idVersion_idCompoundUniqueInput, {nullable:true})
-    pokemon_id_version_id?: PokemonGameIndicesPokemon_idVersion_idCompoundUniqueInput;
+    pokemon_id_version_id?: Identity<PokemonGameIndicesPokemon_idVersion_idCompoundUniqueInput>;
 
     @Field(() => [PokemonGameIndicesWhereInput], {nullable:true})
     AND?: Array<PokemonGameIndicesWhereInput>;
@@ -22,17 +23,17 @@ export class PokemonGameIndicesWhereUniqueInput {
     NOT?: Array<PokemonGameIndicesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    pokemon_id?: IntFilter;
+    pokemon_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    version_id?: IntFilter;
+    version_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    game_index?: IntFilter;
+    game_index?: Identity<IntFilter>;
 
     @Field(() => PokemonScalarRelationFilter, {nullable:true})
-    pokemon?: PokemonScalarRelationFilter;
+    pokemon?: Identity<PokemonScalarRelationFilter>;
 
     @Field(() => VersionsScalarRelationFilter, {nullable:true})
-    version?: VersionsScalarRelationFilter;
+    version?: Identity<VersionsScalarRelationFilter>;
 }

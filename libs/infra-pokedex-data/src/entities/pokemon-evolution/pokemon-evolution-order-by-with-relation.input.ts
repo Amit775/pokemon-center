@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { PokemonSpeciesOrderByWithRelationInput } from '../pokemon-species/pokemon-species-order-by-with-relation.input';
 import { EvolutionTriggersOrderByWithRelationInput } from '../evolution-triggers/evolution-triggers-order-by-with-relation.input';
@@ -23,49 +24,49 @@ export class PokemonEvolutionOrderByWithRelationInput {
     evolution_trigger_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    trigger_item_id?: SortOrderInput;
+    trigger_item_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    minimum_level?: SortOrderInput;
+    minimum_level?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    gender_id?: SortOrderInput;
+    gender_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    location_id?: SortOrderInput;
+    location_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    held_item_id?: SortOrderInput;
+    held_item_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    time_of_day?: SortOrderInput;
+    time_of_day?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    known_move_id?: SortOrderInput;
+    known_move_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    known_move_type_id?: SortOrderInput;
+    known_move_type_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    minimum_happiness?: SortOrderInput;
+    minimum_happiness?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    minimum_beauty?: SortOrderInput;
+    minimum_beauty?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    minimum_affection?: SortOrderInput;
+    minimum_affection?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    relative_physical_stats?: SortOrderInput;
+    relative_physical_stats?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    party_species_id?: SortOrderInput;
+    party_species_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    party_type_id?: SortOrderInput;
+    party_type_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    trade_species_id?: SortOrderInput;
+    trade_species_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrder, {nullable:true})
     needs_overworld_rain?: `${SortOrder}`;
@@ -74,35 +75,35 @@ export class PokemonEvolutionOrderByWithRelationInput {
     turn_upside_down?: `${SortOrder}`;
 
     @Field(() => PokemonSpeciesOrderByWithRelationInput, {nullable:true})
-    evolvedSpecies?: PokemonSpeciesOrderByWithRelationInput;
+    evolvedSpecies?: Identity<PokemonSpeciesOrderByWithRelationInput>;
 
     @Field(() => EvolutionTriggersOrderByWithRelationInput, {nullable:true})
-    evolutionTrigger?: EvolutionTriggersOrderByWithRelationInput;
+    evolutionTrigger?: Identity<EvolutionTriggersOrderByWithRelationInput>;
 
     @Field(() => ItemsOrderByWithRelationInput, {nullable:true})
-    triggerItem?: ItemsOrderByWithRelationInput;
+    triggerItem?: Identity<ItemsOrderByWithRelationInput>;
 
     @Field(() => GendersOrderByWithRelationInput, {nullable:true})
-    gender?: GendersOrderByWithRelationInput;
+    gender?: Identity<GendersOrderByWithRelationInput>;
 
     @Field(() => LocationsOrderByWithRelationInput, {nullable:true})
-    location?: LocationsOrderByWithRelationInput;
+    location?: Identity<LocationsOrderByWithRelationInput>;
 
     @Field(() => ItemsOrderByWithRelationInput, {nullable:true})
-    heldItem?: ItemsOrderByWithRelationInput;
+    heldItem?: Identity<ItemsOrderByWithRelationInput>;
 
     @Field(() => MovesOrderByWithRelationInput, {nullable:true})
-    knownMove?: MovesOrderByWithRelationInput;
+    knownMove?: Identity<MovesOrderByWithRelationInput>;
 
     @Field(() => TypesOrderByWithRelationInput, {nullable:true})
-    knownMoveType?: TypesOrderByWithRelationInput;
+    knownMoveType?: Identity<TypesOrderByWithRelationInput>;
 
     @Field(() => PokemonSpeciesOrderByWithRelationInput, {nullable:true})
-    partySpecies?: PokemonSpeciesOrderByWithRelationInput;
+    partySpecies?: Identity<PokemonSpeciesOrderByWithRelationInput>;
 
     @Field(() => TypesOrderByWithRelationInput, {nullable:true})
-    partyType?: TypesOrderByWithRelationInput;
+    partyType?: Identity<TypesOrderByWithRelationInput>;
 
     @Field(() => PokemonSpeciesOrderByWithRelationInput, {nullable:true})
-    tradeSpecies?: PokemonSpeciesOrderByWithRelationInput;
+    tradeSpecies?: Identity<PokemonSpeciesOrderByWithRelationInput>;
 }

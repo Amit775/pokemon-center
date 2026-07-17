@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Stats } from '../stats/stats.model';
+import type { Identity } from 'identity-type';
 import { NatureBattleStylePreferences } from '../nature-battle-style-preferences/nature-battle-style-preferences.model';
 import { NaturesCount } from './natures-count.output';
 
@@ -34,14 +35,14 @@ export class Natures {
     game_index!: number;
 
     @Field(() => Stats, {nullable:false})
-    decreasedStat?: Stats;
+    decreasedStat?: Identity<Stats>;
 
     @Field(() => Stats, {nullable:false})
-    increasedStat?: Stats;
+    increasedStat?: Identity<Stats>;
 
-    @Field(() => [NatureBattleStylePreferences], {nullable:true})
+    @Field(() => [NatureBattleStylePreferences], {nullable:false})
     battleStylePreferences?: Array<NatureBattleStylePreferences>;
 
     @Field(() => NaturesCount, {nullable:false})
-    _count?: NaturesCount;
+    _count?: Identity<NaturesCount>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncountersUncheckedCreateNestedManyWithoutVersionInput } from '../encounters/encounters-unchecked-create-nested-many-without-version.input';
 import { PokemonItemsUncheckedCreateNestedManyWithoutVersionInput } from '../pokemon-items/pokemon-items-unchecked-create-nested-many-without-version.input';
 import { PokemonGameIndicesUncheckedCreateNestedManyWithoutVersionInput } from '../pokemon-game-indices/pokemon-game-indices-unchecked-create-nested-many-without-version.input';
@@ -18,11 +19,11 @@ export class VersionsUncheckedCreateWithoutLocationAreaEncounterRatesInput {
     identifier!: string;
 
     @Field(() => EncountersUncheckedCreateNestedManyWithoutVersionInput, {nullable:true})
-    encounters?: EncountersUncheckedCreateNestedManyWithoutVersionInput;
+    encounters?: Identity<EncountersUncheckedCreateNestedManyWithoutVersionInput>;
 
     @Field(() => PokemonItemsUncheckedCreateNestedManyWithoutVersionInput, {nullable:true})
-    pokemonItems?: PokemonItemsUncheckedCreateNestedManyWithoutVersionInput;
+    pokemonItems?: Identity<PokemonItemsUncheckedCreateNestedManyWithoutVersionInput>;
 
     @Field(() => PokemonGameIndicesUncheckedCreateNestedManyWithoutVersionInput, {nullable:true})
-    pokemonGameIndices?: PokemonGameIndicesUncheckedCreateNestedManyWithoutVersionInput;
+    pokemonGameIndices?: Identity<PokemonGameIndicesUncheckedCreateNestedManyWithoutVersionInput>;
 }

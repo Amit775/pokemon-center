@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TypeGameIndicesCountAggregate } from './type-game-indices-count-aggregate.output';
 import { TypeGameIndicesAvgAggregate } from './type-game-indices-avg-aggregate.output';
 import { TypeGameIndicesSumAggregate } from './type-game-indices-sum-aggregate.output';
@@ -10,17 +11,17 @@ import { TypeGameIndicesMaxAggregate } from './type-game-indices-max-aggregate.o
 export class AggregateTypeGameIndices {
 
     @Field(() => TypeGameIndicesCountAggregate, {nullable:true})
-    _count?: TypeGameIndicesCountAggregate;
+    _count?: Identity<TypeGameIndicesCountAggregate>;
 
     @Field(() => TypeGameIndicesAvgAggregate, {nullable:true})
-    _avg?: TypeGameIndicesAvgAggregate;
+    _avg?: Identity<TypeGameIndicesAvgAggregate>;
 
     @Field(() => TypeGameIndicesSumAggregate, {nullable:true})
-    _sum?: TypeGameIndicesSumAggregate;
+    _sum?: Identity<TypeGameIndicesSumAggregate>;
 
     @Field(() => TypeGameIndicesMinAggregate, {nullable:true})
-    _min?: TypeGameIndicesMinAggregate;
+    _min?: Identity<TypeGameIndicesMinAggregate>;
 
     @Field(() => TypeGameIndicesMaxAggregate, {nullable:true})
-    _max?: TypeGameIndicesMaxAggregate;
+    _max?: Identity<TypeGameIndicesMaxAggregate>;
 }

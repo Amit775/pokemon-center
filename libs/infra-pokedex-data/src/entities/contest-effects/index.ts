@@ -20,10 +20,10 @@ export { ContestEffectsMaxOrderByAggregateInput } from './contest-effects-max-or
 export { ContestEffectsMinAggregateInput } from './contest-effects-min-aggregate.input';
 export { ContestEffectsMinAggregate } from './contest-effects-min-aggregate.output';
 export { ContestEffectsMinOrderByAggregateInput } from './contest-effects-min-order-by-aggregate.input';
-export { ContestEffectsNullableScalarRelationFilter } from './contest-effects-nullable-scalar-relation-filter.input';
 export { ContestEffectsOrderByWithAggregationInput } from './contest-effects-order-by-with-aggregation.input';
 export { ContestEffectsOrderByWithRelationInput } from './contest-effects-order-by-with-relation.input';
 export { ContestEffectsScalarFieldEnum } from './contest-effects-scalar-field.enum';
+export { ContestEffectsScalarRelationFilter } from './contest-effects-scalar-relation-filter.input';
 export { ContestEffectsScalarWhereWithAggregatesInput } from './contest-effects-scalar-where-with-aggregates.input';
 export { ContestEffectsSumAggregateInput } from './contest-effects-sum-aggregate.input';
 export { ContestEffectsSumAggregate } from './contest-effects-sum-aggregate.output';

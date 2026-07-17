@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaStatChangesMove_idStat_idCompoundUniqueInput } from './move-meta-stat-changes-move-id-stat-id-compound-unique.input';
 import { MoveMetaStatChangesWhereInput } from './move-meta-stat-changes-where.input';
 import { IntFilter } from '../prisma/int-filter.input';
@@ -10,7 +11,7 @@ import { MoveMetaScalarRelationFilter } from '../move-meta/move-meta-scalar-rela
 export class MoveMetaStatChangesWhereUniqueInput {
 
     @Field(() => MoveMetaStatChangesMove_idStat_idCompoundUniqueInput, {nullable:true})
-    move_id_stat_id?: MoveMetaStatChangesMove_idStat_idCompoundUniqueInput;
+    move_id_stat_id?: Identity<MoveMetaStatChangesMove_idStat_idCompoundUniqueInput>;
 
     @Field(() => [MoveMetaStatChangesWhereInput], {nullable:true})
     AND?: Array<MoveMetaStatChangesWhereInput>;
@@ -22,17 +23,17 @@ export class MoveMetaStatChangesWhereUniqueInput {
     NOT?: Array<MoveMetaStatChangesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    move_id?: IntFilter;
+    move_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    stat_id?: IntFilter;
+    stat_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    change?: IntFilter;
+    change?: Identity<IntFilter>;
 
     @Field(() => StatsScalarRelationFilter, {nullable:true})
-    stat?: StatsScalarRelationFilter;
+    stat?: Identity<StatsScalarRelationFilter>;
 
     @Field(() => MoveMetaScalarRelationFilter, {nullable:true})
-    meta?: MoveMetaScalarRelationFilter;
+    meta?: Identity<MoveMetaScalarRelationFilter>;
 }

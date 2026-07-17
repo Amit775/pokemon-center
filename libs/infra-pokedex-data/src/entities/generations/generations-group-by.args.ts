@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GenerationsWhereInput } from './generations-where.input';
 import { Type } from 'class-transformer';
 import { GenerationsOrderByWithAggregationInput } from './generations-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class GenerationsGroupByArgs {
 
     @Field(() => GenerationsWhereInput, {nullable:true})
     @Type(() => GenerationsWhereInput)
-    where?: GenerationsWhereInput;
+    where?: Identity<GenerationsWhereInput>;
 
     @Field(() => [GenerationsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<GenerationsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class GenerationsGroupByArgs {
     by!: Array<`${GenerationsScalarFieldEnum}`>;
 
     @Field(() => GenerationsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: GenerationsScalarWhereWithAggregatesInput;
+    having?: Identity<GenerationsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class GenerationsGroupByArgs {
     skip?: number;
 
     @Field(() => GenerationsCountAggregateInput, {nullable:true})
-    _count?: GenerationsCountAggregateInput;
+    _count?: Identity<GenerationsCountAggregateInput>;
 
     @Field(() => GenerationsAvgAggregateInput, {nullable:true})
-    _avg?: GenerationsAvgAggregateInput;
+    _avg?: Identity<GenerationsAvgAggregateInput>;
 
     @Field(() => GenerationsSumAggregateInput, {nullable:true})
-    _sum?: GenerationsSumAggregateInput;
+    _sum?: Identity<GenerationsSumAggregateInput>;
 
     @Field(() => GenerationsMinAggregateInput, {nullable:true})
-    _min?: GenerationsMinAggregateInput;
+    _min?: Identity<GenerationsMinAggregateInput>;
 
     @Field(() => GenerationsMaxAggregateInput, {nullable:true})
-    _max?: GenerationsMaxAggregateInput;
+    _max?: Identity<GenerationsMaxAggregateInput>;
 }

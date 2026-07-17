@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupPokemonMoveMethodsWhereInput } from './version-group-pokemon-move-methods-where.input';
 import { Type } from 'class-transformer';
 import { VersionGroupPokemonMoveMethodsOrderByWithAggregationInput } from './version-group-pokemon-move-methods-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class VersionGroupPokemonMoveMethodsGroupByArgs {
 
     @Field(() => VersionGroupPokemonMoveMethodsWhereInput, {nullable:true})
     @Type(() => VersionGroupPokemonMoveMethodsWhereInput)
-    where?: VersionGroupPokemonMoveMethodsWhereInput;
+    where?: Identity<VersionGroupPokemonMoveMethodsWhereInput>;
 
     @Field(() => [VersionGroupPokemonMoveMethodsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<VersionGroupPokemonMoveMethodsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class VersionGroupPokemonMoveMethodsGroupByArgs {
     by!: Array<`${VersionGroupPokemonMoveMethodsScalarFieldEnum}`>;
 
     @Field(() => VersionGroupPokemonMoveMethodsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: VersionGroupPokemonMoveMethodsScalarWhereWithAggregatesInput;
+    having?: Identity<VersionGroupPokemonMoveMethodsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class VersionGroupPokemonMoveMethodsGroupByArgs {
     skip?: number;
 
     @Field(() => VersionGroupPokemonMoveMethodsCountAggregateInput, {nullable:true})
-    _count?: VersionGroupPokemonMoveMethodsCountAggregateInput;
+    _count?: Identity<VersionGroupPokemonMoveMethodsCountAggregateInput>;
 
     @Field(() => VersionGroupPokemonMoveMethodsAvgAggregateInput, {nullable:true})
-    _avg?: VersionGroupPokemonMoveMethodsAvgAggregateInput;
+    _avg?: Identity<VersionGroupPokemonMoveMethodsAvgAggregateInput>;
 
     @Field(() => VersionGroupPokemonMoveMethodsSumAggregateInput, {nullable:true})
-    _sum?: VersionGroupPokemonMoveMethodsSumAggregateInput;
+    _sum?: Identity<VersionGroupPokemonMoveMethodsSumAggregateInput>;
 
     @Field(() => VersionGroupPokemonMoveMethodsMinAggregateInput, {nullable:true})
-    _min?: VersionGroupPokemonMoveMethodsMinAggregateInput;
+    _min?: Identity<VersionGroupPokemonMoveMethodsMinAggregateInput>;
 
     @Field(() => VersionGroupPokemonMoveMethodsMaxAggregateInput, {nullable:true})
-    _max?: VersionGroupPokemonMoveMethodsMaxAggregateInput;
+    _max?: Identity<VersionGroupPokemonMoveMethodsMaxAggregateInput>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionsCreateNestedOneWithoutEncountersInput } from '../versions/versions-create-nested-one-without-encounters.input';
 import { LocationAreasCreateNestedOneWithoutEncountersInput } from '../location-areas/location-areas-create-nested-one-without-encounters.input';
 import { EncounterSlotsCreateNestedOneWithoutEncountersInput } from '../encounter-slots/encounter-slots-create-nested-one-without-encounters.input';
@@ -19,14 +20,14 @@ export class EncountersCreateWithoutPokemonInput {
     max_level!: number;
 
     @Field(() => VersionsCreateNestedOneWithoutEncountersInput, {nullable:false})
-    version!: VersionsCreateNestedOneWithoutEncountersInput;
+    version!: Identity<VersionsCreateNestedOneWithoutEncountersInput>;
 
     @Field(() => LocationAreasCreateNestedOneWithoutEncountersInput, {nullable:false})
-    locationArea!: LocationAreasCreateNestedOneWithoutEncountersInput;
+    locationArea!: Identity<LocationAreasCreateNestedOneWithoutEncountersInput>;
 
     @Field(() => EncounterSlotsCreateNestedOneWithoutEncountersInput, {nullable:false})
-    encounterSlot!: EncounterSlotsCreateNestedOneWithoutEncountersInput;
+    encounterSlot!: Identity<EncounterSlotsCreateNestedOneWithoutEncountersInput>;
 
     @Field(() => EncounterConditionValueMapCreateNestedManyWithoutEncounterInput, {nullable:true})
-    conditionValueMap?: EncounterConditionValueMapCreateNestedManyWithoutEncounterInput;
+    conditionValueMap?: Identity<EncounterConditionValueMapCreateNestedManyWithoutEncounterInput>;
 }

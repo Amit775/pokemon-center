@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { ItemFlagMapListRelationFilter } from '../item-flag-map/item-flag-map-list-relation-filter.input';
@@ -17,11 +18,11 @@ export class ItemFlagsWhereInput {
     NOT?: Array<ItemFlagsWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => ItemFlagMapListRelationFilter, {nullable:true})
-    flagMap?: ItemFlagMapListRelationFilter;
+    flagMap?: Identity<ItemFlagMapListRelationFilter>;
 }

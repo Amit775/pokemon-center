@@ -4,8 +4,9 @@ import { EvolutionChainsCreateWithoutBabyTriggerItemInput } from './evolution-ch
 import { Type } from 'class-transformer';
 import { EvolutionChainsCreateOrConnectWithoutBabyTriggerItemInput } from './evolution-chains-create-or-connect-without-baby-trigger-item.input';
 import { EvolutionChainsUpsertWithWhereUniqueWithoutBabyTriggerItemInput } from './evolution-chains-upsert-with-where-unique-without-baby-trigger-item.input';
+import type { Identity } from 'identity-type';
 import { EvolutionChainsCreateManyBabyTriggerItemInputEnvelope } from './evolution-chains-create-many-baby-trigger-item-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EvolutionChainsWhereUniqueInput } from './evolution-chains-where-unique.input';
 import { EvolutionChainsUpdateWithWhereUniqueWithoutBabyTriggerItemInput } from './evolution-chains-update-with-where-unique-without-baby-trigger-item.input';
 import { EvolutionChainsUpdateManyWithWhereWithoutBabyTriggerItemInput } from './evolution-chains-update-many-with-where-without-baby-trigger-item.input';
@@ -28,7 +29,7 @@ export class EvolutionChainsUpdateManyWithoutBabyTriggerItemNestedInput {
 
     @Field(() => EvolutionChainsCreateManyBabyTriggerItemInputEnvelope, {nullable:true})
     @Type(() => EvolutionChainsCreateManyBabyTriggerItemInputEnvelope)
-    createMany?: EvolutionChainsCreateManyBabyTriggerItemInputEnvelope;
+    createMany?: Identity<EvolutionChainsCreateManyBabyTriggerItemInputEnvelope>;
 
     @Field(() => [EvolutionChainsWhereUniqueInput], {nullable:true})
     @Type(() => EvolutionChainsWhereUniqueInput)

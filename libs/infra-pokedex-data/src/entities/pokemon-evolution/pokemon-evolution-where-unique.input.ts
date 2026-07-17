@@ -2,17 +2,16 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { PokemonEvolutionWhereInput } from './pokemon-evolution-where.input';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { StringFilter } from '../prisma/string-filter.input';
 import { PokemonSpeciesScalarRelationFilter } from '../pokemon-species/pokemon-species-scalar-relation-filter.input';
 import { EvolutionTriggersScalarRelationFilter } from '../evolution-triggers/evolution-triggers-scalar-relation-filter.input';
-import { ItemsNullableScalarRelationFilter } from '../items/items-nullable-scalar-relation-filter.input';
-import { GendersNullableScalarRelationFilter } from '../genders/genders-nullable-scalar-relation-filter.input';
-import { LocationsNullableScalarRelationFilter } from '../locations/locations-nullable-scalar-relation-filter.input';
-import { MovesNullableScalarRelationFilter } from '../moves/moves-nullable-scalar-relation-filter.input';
-import { TypesNullableScalarRelationFilter } from '../types/types-nullable-scalar-relation-filter.input';
-import { PokemonSpeciesNullableScalarRelationFilter } from '../pokemon-species/pokemon-species-nullable-scalar-relation-filter.input';
+import { ItemsScalarRelationFilter } from '../items/items-scalar-relation-filter.input';
+import { GendersScalarRelationFilter } from '../genders/genders-scalar-relation-filter.input';
+import { LocationsScalarRelationFilter } from '../locations/locations-scalar-relation-filter.input';
+import { MovesScalarRelationFilter } from '../moves/moves-scalar-relation-filter.input';
+import { TypesScalarRelationFilter } from '../types/types-scalar-relation-filter.input';
 
 @InputType()
 export class PokemonEvolutionWhereUniqueInput {
@@ -30,92 +29,92 @@ export class PokemonEvolutionWhereUniqueInput {
     NOT?: Array<PokemonEvolutionWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    evolved_species_id?: IntFilter;
+    evolved_species_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    evolution_trigger_id?: IntFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    trigger_item_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    minimum_level?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    gender_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    location_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    held_item_id?: IntNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    time_of_day?: StringNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    known_move_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    known_move_type_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    minimum_happiness?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    minimum_beauty?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    minimum_affection?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    relative_physical_stats?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    party_species_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    party_type_id?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    trade_species_id?: IntNullableFilter;
+    evolution_trigger_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    needs_overworld_rain?: IntFilter;
+    trigger_item_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    turn_upside_down?: IntFilter;
+    minimum_level?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    gender_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    location_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    held_item_id?: Identity<IntFilter>;
+
+    @Field(() => StringFilter, {nullable:true})
+    time_of_day?: Identity<StringFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    known_move_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    known_move_type_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    minimum_happiness?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    minimum_beauty?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    minimum_affection?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    relative_physical_stats?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    party_species_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    party_type_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    trade_species_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    needs_overworld_rain?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    turn_upside_down?: Identity<IntFilter>;
 
     @Field(() => PokemonSpeciesScalarRelationFilter, {nullable:true})
-    evolvedSpecies?: PokemonSpeciesScalarRelationFilter;
+    evolvedSpecies?: Identity<PokemonSpeciesScalarRelationFilter>;
 
     @Field(() => EvolutionTriggersScalarRelationFilter, {nullable:true})
-    evolutionTrigger?: EvolutionTriggersScalarRelationFilter;
+    evolutionTrigger?: Identity<EvolutionTriggersScalarRelationFilter>;
 
-    @Field(() => ItemsNullableScalarRelationFilter, {nullable:true})
-    triggerItem?: ItemsNullableScalarRelationFilter;
+    @Field(() => ItemsScalarRelationFilter, {nullable:true})
+    triggerItem?: Identity<ItemsScalarRelationFilter>;
 
-    @Field(() => GendersNullableScalarRelationFilter, {nullable:true})
-    gender?: GendersNullableScalarRelationFilter;
+    @Field(() => GendersScalarRelationFilter, {nullable:true})
+    gender?: Identity<GendersScalarRelationFilter>;
 
-    @Field(() => LocationsNullableScalarRelationFilter, {nullable:true})
-    location?: LocationsNullableScalarRelationFilter;
+    @Field(() => LocationsScalarRelationFilter, {nullable:true})
+    location?: Identity<LocationsScalarRelationFilter>;
 
-    @Field(() => ItemsNullableScalarRelationFilter, {nullable:true})
-    heldItem?: ItemsNullableScalarRelationFilter;
+    @Field(() => ItemsScalarRelationFilter, {nullable:true})
+    heldItem?: Identity<ItemsScalarRelationFilter>;
 
-    @Field(() => MovesNullableScalarRelationFilter, {nullable:true})
-    knownMove?: MovesNullableScalarRelationFilter;
+    @Field(() => MovesScalarRelationFilter, {nullable:true})
+    knownMove?: Identity<MovesScalarRelationFilter>;
 
-    @Field(() => TypesNullableScalarRelationFilter, {nullable:true})
-    knownMoveType?: TypesNullableScalarRelationFilter;
+    @Field(() => TypesScalarRelationFilter, {nullable:true})
+    knownMoveType?: Identity<TypesScalarRelationFilter>;
 
-    @Field(() => PokemonSpeciesNullableScalarRelationFilter, {nullable:true})
-    partySpecies?: PokemonSpeciesNullableScalarRelationFilter;
+    @Field(() => PokemonSpeciesScalarRelationFilter, {nullable:true})
+    partySpecies?: Identity<PokemonSpeciesScalarRelationFilter>;
 
-    @Field(() => TypesNullableScalarRelationFilter, {nullable:true})
-    partyType?: TypesNullableScalarRelationFilter;
+    @Field(() => TypesScalarRelationFilter, {nullable:true})
+    partyType?: Identity<TypesScalarRelationFilter>;
 
-    @Field(() => PokemonSpeciesNullableScalarRelationFilter, {nullable:true})
-    tradeSpecies?: PokemonSpeciesNullableScalarRelationFilter;
+    @Field(() => PokemonSpeciesScalarRelationFilter, {nullable:true})
+    tradeSpecies?: Identity<PokemonSpeciesScalarRelationFilter>;
 }

@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonGameIndicesWhereUniqueInput } from './pokemon-game-indices-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonGameIndicesUpdateWithoutVersionInput } from './pokemon-game-indices-update-without-version.input';
 import { PokemonGameIndicesCreateWithoutVersionInput } from './pokemon-game-indices-create-without-version.input';
 
@@ -15,9 +16,9 @@ export class PokemonGameIndicesUpsertWithWhereUniqueWithoutVersionInput {
 
     @Field(() => PokemonGameIndicesUpdateWithoutVersionInput, {nullable:false})
     @Type(() => PokemonGameIndicesUpdateWithoutVersionInput)
-    update!: PokemonGameIndicesUpdateWithoutVersionInput;
+    update!: Identity<PokemonGameIndicesUpdateWithoutVersionInput>;
 
     @Field(() => PokemonGameIndicesCreateWithoutVersionInput, {nullable:false})
     @Type(() => PokemonGameIndicesCreateWithoutVersionInput)
-    create!: PokemonGameIndicesCreateWithoutVersionInput;
+    create!: Identity<PokemonGameIndicesCreateWithoutVersionInput>;
 }

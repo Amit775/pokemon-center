@@ -4,8 +4,9 @@ import { LocationAreaEncounterRatesCreateWithoutEncounterMethodInput } from './l
 import { Type } from 'class-transformer';
 import { LocationAreaEncounterRatesCreateOrConnectWithoutEncounterMethodInput } from './location-area-encounter-rates-create-or-connect-without-encounter-method.input';
 import { LocationAreaEncounterRatesUpsertWithWhereUniqueWithoutEncounterMethodInput } from './location-area-encounter-rates-upsert-with-where-unique-without-encounter-method.input';
+import type { Identity } from 'identity-type';
 import { LocationAreaEncounterRatesCreateManyEncounterMethodInputEnvelope } from './location-area-encounter-rates-create-many-encounter-method-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationAreaEncounterRatesWhereUniqueInput } from './location-area-encounter-rates-where-unique.input';
 import { LocationAreaEncounterRatesUpdateWithWhereUniqueWithoutEncounterMethodInput } from './location-area-encounter-rates-update-with-where-unique-without-encounter-method.input';
 import { LocationAreaEncounterRatesUpdateManyWithWhereWithoutEncounterMethodInput } from './location-area-encounter-rates-update-many-with-where-without-encounter-method.input';
@@ -28,7 +29,7 @@ export class LocationAreaEncounterRatesUncheckedUpdateManyWithoutEncounterMethod
 
     @Field(() => LocationAreaEncounterRatesCreateManyEncounterMethodInputEnvelope, {nullable:true})
     @Type(() => LocationAreaEncounterRatesCreateManyEncounterMethodInputEnvelope)
-    createMany?: LocationAreaEncounterRatesCreateManyEncounterMethodInputEnvelope;
+    createMany?: Identity<LocationAreaEncounterRatesCreateManyEncounterMethodInputEnvelope>;
 
     @Field(() => [LocationAreaEncounterRatesWhereUniqueInput], {nullable:true})
     @Type(() => LocationAreaEncounterRatesWhereUniqueInput)

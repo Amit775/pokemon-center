@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { MovesOrderByRelationAggregateInput } from '../moves/moves-order-by-relation-aggregate.input';
 import { BerryFlavorsOrderByRelationAggregateInput } from '../berry-flavors/berry-flavors-order-by-relation-aggregate.input';
 
@@ -14,8 +15,8 @@ export class ContestTypesOrderByWithRelationInput {
     identifier?: `${SortOrder}`;
 
     @Field(() => MovesOrderByRelationAggregateInput, {nullable:true})
-    moves?: MovesOrderByRelationAggregateInput;
+    moves?: Identity<MovesOrderByRelationAggregateInput>;
 
     @Field(() => BerryFlavorsOrderByRelationAggregateInput, {nullable:true})
-    berryFlavors?: BerryFlavorsOrderByRelationAggregateInput;
+    berryFlavors?: Identity<BerryFlavorsOrderByRelationAggregateInput>;
 }

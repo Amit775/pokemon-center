@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaCategoriesCreateNestedOneWithoutMetaInput } from '../move-meta-categories/move-meta-categories-create-nested-one-without-meta.input';
 import { MoveMetaAilmentsCreateNestedOneWithoutMetaInput } from '../move-meta-ailments/move-meta-ailments-create-nested-one-without-meta.input';
 import { MoveMetaStatChangesCreateNestedManyWithoutMetaInput } from '../move-meta-stat-changes/move-meta-stat-changes-create-nested-many-without-meta.input';
@@ -39,11 +40,11 @@ export class MoveMetaCreateWithoutMoveInput {
     stat_chance!: number;
 
     @Field(() => MoveMetaCategoriesCreateNestedOneWithoutMetaInput, {nullable:false})
-    metaCategory!: MoveMetaCategoriesCreateNestedOneWithoutMetaInput;
+    metaCategory!: Identity<MoveMetaCategoriesCreateNestedOneWithoutMetaInput>;
 
     @Field(() => MoveMetaAilmentsCreateNestedOneWithoutMetaInput, {nullable:true})
-    metaAilment?: MoveMetaAilmentsCreateNestedOneWithoutMetaInput;
+    metaAilment?: Identity<MoveMetaAilmentsCreateNestedOneWithoutMetaInput>;
 
     @Field(() => MoveMetaStatChangesCreateNestedManyWithoutMetaInput, {nullable:true})
-    statChanges?: MoveMetaStatChangesCreateNestedManyWithoutMetaInput;
+    statChanges?: Identity<MoveMetaStatChangesCreateNestedManyWithoutMetaInput>;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { VersionGroupsOrderByWithRelationInput } from '../version-groups/version-groups-order-by-with-relation.input';
 import { ItemsOrderByWithRelationInput } from '../items/items-order-by-with-relation.input';
 import { MovesOrderByWithRelationInput } from '../moves/moves-order-by-with-relation.input';
@@ -21,11 +22,11 @@ export class MachinesOrderByWithRelationInput {
     move_id?: `${SortOrder}`;
 
     @Field(() => VersionGroupsOrderByWithRelationInput, {nullable:true})
-    versionGroup?: VersionGroupsOrderByWithRelationInput;
+    versionGroup?: Identity<VersionGroupsOrderByWithRelationInput>;
 
     @Field(() => ItemsOrderByWithRelationInput, {nullable:true})
-    item?: ItemsOrderByWithRelationInput;
+    item?: Identity<ItemsOrderByWithRelationInput>;
 
     @Field(() => MovesOrderByWithRelationInput, {nullable:true})
-    move?: MovesOrderByWithRelationInput;
+    move?: Identity<MovesOrderByWithRelationInput>;
 }

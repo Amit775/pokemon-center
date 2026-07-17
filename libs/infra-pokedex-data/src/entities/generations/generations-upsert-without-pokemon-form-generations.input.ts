@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GenerationsUpdateWithoutPokemonFormGenerationsInput } from './generations-update-without-pokemon-form-generations.input';
 import { Type } from 'class-transformer';
 import { GenerationsCreateWithoutPokemonFormGenerationsInput } from './generations-create-without-pokemon-form-generations.input';
@@ -10,13 +11,13 @@ export class GenerationsUpsertWithoutPokemonFormGenerationsInput {
 
     @Field(() => GenerationsUpdateWithoutPokemonFormGenerationsInput, {nullable:false})
     @Type(() => GenerationsUpdateWithoutPokemonFormGenerationsInput)
-    update!: GenerationsUpdateWithoutPokemonFormGenerationsInput;
+    update!: Identity<GenerationsUpdateWithoutPokemonFormGenerationsInput>;
 
     @Field(() => GenerationsCreateWithoutPokemonFormGenerationsInput, {nullable:false})
     @Type(() => GenerationsCreateWithoutPokemonFormGenerationsInput)
-    create!: GenerationsCreateWithoutPokemonFormGenerationsInput;
+    create!: Identity<GenerationsCreateWithoutPokemonFormGenerationsInput>;
 
     @Field(() => GenerationsWhereInput, {nullable:true})
     @Type(() => GenerationsWhereInput)
-    where?: GenerationsWhereInput;
+    where?: Identity<GenerationsWhereInput>;
 }

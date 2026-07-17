@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { GenerationsScalarRelationFilter } from '../generations/generations-scalar-relation-filter.input';
@@ -25,41 +26,41 @@ export class VersionGroupsWhereInput {
     NOT?: Array<VersionGroupsWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    generation_id?: IntFilter;
+    generation_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    order?: IntFilter;
+    order?: Identity<IntFilter>;
 
     @Field(() => GenerationsScalarRelationFilter, {nullable:true})
-    generation?: GenerationsScalarRelationFilter;
+    generation?: Identity<GenerationsScalarRelationFilter>;
 
     @Field(() => VersionsListRelationFilter, {nullable:true})
-    versions?: VersionsListRelationFilter;
+    versions?: Identity<VersionsListRelationFilter>;
 
     @Field(() => EncounterSlotsListRelationFilter, {nullable:true})
-    encounterSlots?: EncounterSlotsListRelationFilter;
+    encounterSlots?: Identity<EncounterSlotsListRelationFilter>;
 
     @Field(() => MachinesListRelationFilter, {nullable:true})
-    machines?: MachinesListRelationFilter;
+    machines?: Identity<MachinesListRelationFilter>;
 
     @Field(() => VersionGroupPokemonMoveMethodsListRelationFilter, {nullable:true})
-    versionGroupPokemonMoveMethods?: VersionGroupPokemonMoveMethodsListRelationFilter;
+    versionGroupPokemonMoveMethods?: Identity<VersionGroupPokemonMoveMethodsListRelationFilter>;
 
     @Field(() => VersionGroupRegionsListRelationFilter, {nullable:true})
-    versionGroupRegions?: VersionGroupRegionsListRelationFilter;
+    versionGroupRegions?: Identity<VersionGroupRegionsListRelationFilter>;
 
     @Field(() => PokedexVersionGroupsListRelationFilter, {nullable:true})
-    pokedexVersionGroups?: PokedexVersionGroupsListRelationFilter;
+    pokedexVersionGroups?: Identity<PokedexVersionGroupsListRelationFilter>;
 
     @Field(() => PokemonMovesListRelationFilter, {nullable:true})
-    pokemonMoves?: PokemonMovesListRelationFilter;
+    pokemonMoves?: Identity<PokemonMovesListRelationFilter>;
 
     @Field(() => PokemonFormsListRelationFilter, {nullable:true})
-    pokemonForms?: PokemonFormsListRelationFilter;
+    pokemonForms?: Identity<PokemonFormsListRelationFilter>;
 }

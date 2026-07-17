@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { ContestEffectsWhereUniqueInput } from './contest-effects-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { ContestEffectsCreateInput } from './contest-effects-create.input';
 import { ContestEffectsUpdateInput } from './contest-effects-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOneContestEffectsArgs {
 
     @Field(() => ContestEffectsCreateInput, {nullable:false})
     @Type(() => ContestEffectsCreateInput)
-    create!: ContestEffectsCreateInput;
+    create!: Identity<ContestEffectsCreateInput>;
 
     @Field(() => ContestEffectsUpdateInput, {nullable:false})
     @Type(() => ContestEffectsUpdateInput)
-    update!: ContestEffectsUpdateInput;
+    update!: Identity<ContestEffectsUpdateInput>;
 }

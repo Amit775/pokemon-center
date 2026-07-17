@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 
 @InputType()
 export class MovesScalarWhereInput {
@@ -17,47 +17,47 @@ export class MovesScalarWhereInput {
     NOT?: Array<MovesScalarWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    generation_id?: IntFilter;
+    generation_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    type_id?: IntFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    power?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    pp?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    accuracy?: IntNullableFilter;
+    type_id?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    priority?: IntFilter;
+    power?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    target_id?: IntFilter;
+    pp?: Identity<IntFilter>;
 
     @Field(() => IntFilter, {nullable:true})
-    damage_class_id?: IntFilter;
+    accuracy?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    effect_id?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    priority?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    effect_chance?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    target_id?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    contest_type_id?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    damage_class_id?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    contest_effect_id?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    effect_id?: Identity<IntFilter>;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    super_contest_effect_id?: IntNullableFilter;
+    @Field(() => IntFilter, {nullable:true})
+    effect_chance?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    contest_type_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    contest_effect_id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    super_contest_effect_id?: Identity<IntFilter>;
 }

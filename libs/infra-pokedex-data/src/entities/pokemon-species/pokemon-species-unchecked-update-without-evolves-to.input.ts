@@ -1,8 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonUncheckedUpdateManyWithoutSpeciesNestedInput } from '../pokemon/pokemon-unchecked-update-many-without-species-nested.input';
 import { PokemonEggGroupsUncheckedUpdateManyWithoutSpeciesNestedInput } from '../pokemon-egg-groups/pokemon-egg-groups-unchecked-update-many-without-species-nested.input';
 import { PokemonDexNumbersUncheckedUpdateManyWithoutSpeciesNestedInput } from '../pokemon-dex-numbers/pokemon-dex-numbers-unchecked-update-many-without-species-nested.input';
@@ -13,81 +12,81 @@ import { PokemonEvolutionUncheckedUpdateManyWithoutTradeSpeciesNestedInput } fro
 @InputType()
 export class PokemonSpeciesUncheckedUpdateWithoutEvolvesToInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    generation_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    generation_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    evolves_from_species_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    evolves_from_species_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    evolution_chain_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    evolution_chain_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    color_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    color_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    shape_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    shape_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    habitat_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    habitat_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    gender_rate?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    gender_rate?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    capture_rate?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    capture_rate?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    base_happiness?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    base_happiness?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    is_baby?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    is_baby?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    hatch_counter?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    hatch_counter?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    has_gender_differences?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    has_gender_differences?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    growth_rate_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    growth_rate_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    forms_switchable?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    forms_switchable?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    is_legendary?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    is_legendary?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    is_mythical?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    is_mythical?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    order?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    order?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    conquest_order?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    conquest_order?: number;
 
     @Field(() => PokemonUncheckedUpdateManyWithoutSpeciesNestedInput, {nullable:true})
-    pokemon?: PokemonUncheckedUpdateManyWithoutSpeciesNestedInput;
+    pokemon?: Identity<PokemonUncheckedUpdateManyWithoutSpeciesNestedInput>;
 
     @Field(() => PokemonEggGroupsUncheckedUpdateManyWithoutSpeciesNestedInput, {nullable:true})
-    eggGroups?: PokemonEggGroupsUncheckedUpdateManyWithoutSpeciesNestedInput;
+    eggGroups?: Identity<PokemonEggGroupsUncheckedUpdateManyWithoutSpeciesNestedInput>;
 
     @Field(() => PokemonDexNumbersUncheckedUpdateManyWithoutSpeciesNestedInput, {nullable:true})
-    dexNumbers?: PokemonDexNumbersUncheckedUpdateManyWithoutSpeciesNestedInput;
+    dexNumbers?: Identity<PokemonDexNumbersUncheckedUpdateManyWithoutSpeciesNestedInput>;
 
     @Field(() => PokemonEvolutionUncheckedUpdateManyWithoutEvolvedSpeciesNestedInput, {nullable:true})
-    evolution?: PokemonEvolutionUncheckedUpdateManyWithoutEvolvedSpeciesNestedInput;
+    evolution?: Identity<PokemonEvolutionUncheckedUpdateManyWithoutEvolvedSpeciesNestedInput>;
 
     @Field(() => PokemonEvolutionUncheckedUpdateManyWithoutPartySpeciesNestedInput, {nullable:true})
-    partySpecies?: PokemonEvolutionUncheckedUpdateManyWithoutPartySpeciesNestedInput;
+    partySpecies?: Identity<PokemonEvolutionUncheckedUpdateManyWithoutPartySpeciesNestedInput>;
 
     @Field(() => PokemonEvolutionUncheckedUpdateManyWithoutTradeSpeciesNestedInput, {nullable:true})
-    tradeSpecies?: PokemonEvolutionUncheckedUpdateManyWithoutTradeSpeciesNestedInput;
+    tradeSpecies?: Identity<PokemonEvolutionUncheckedUpdateManyWithoutTradeSpeciesNestedInput>;
 }

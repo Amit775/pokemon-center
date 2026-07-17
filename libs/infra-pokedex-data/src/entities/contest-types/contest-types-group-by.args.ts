@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { ContestTypesWhereInput } from './contest-types-where.input';
 import { Type } from 'class-transformer';
 import { ContestTypesOrderByWithAggregationInput } from './contest-types-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class ContestTypesGroupByArgs {
 
     @Field(() => ContestTypesWhereInput, {nullable:true})
     @Type(() => ContestTypesWhereInput)
-    where?: ContestTypesWhereInput;
+    where?: Identity<ContestTypesWhereInput>;
 
     @Field(() => [ContestTypesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<ContestTypesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class ContestTypesGroupByArgs {
     by!: Array<`${ContestTypesScalarFieldEnum}`>;
 
     @Field(() => ContestTypesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: ContestTypesScalarWhereWithAggregatesInput;
+    having?: Identity<ContestTypesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class ContestTypesGroupByArgs {
     skip?: number;
 
     @Field(() => ContestTypesCountAggregateInput, {nullable:true})
-    _count?: ContestTypesCountAggregateInput;
+    _count?: Identity<ContestTypesCountAggregateInput>;
 
     @Field(() => ContestTypesAvgAggregateInput, {nullable:true})
-    _avg?: ContestTypesAvgAggregateInput;
+    _avg?: Identity<ContestTypesAvgAggregateInput>;
 
     @Field(() => ContestTypesSumAggregateInput, {nullable:true})
-    _sum?: ContestTypesSumAggregateInput;
+    _sum?: Identity<ContestTypesSumAggregateInput>;
 
     @Field(() => ContestTypesMinAggregateInput, {nullable:true})
-    _min?: ContestTypesMinAggregateInput;
+    _min?: Identity<ContestTypesMinAggregateInput>;
 
     @Field(() => ContestTypesMaxAggregateInput, {nullable:true})
-    _max?: ContestTypesMaxAggregateInput;
+    _max?: Identity<ContestTypesMaxAggregateInput>;
 }

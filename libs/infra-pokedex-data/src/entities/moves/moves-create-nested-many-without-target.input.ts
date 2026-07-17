@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { MovesCreateWithoutTargetInput } from './moves-create-without-target.input';
 import { Type } from 'class-transformer';
 import { MovesCreateOrConnectWithoutTargetInput } from './moves-create-or-connect-without-target.input';
+import type { Identity } from 'identity-type';
 import { MovesCreateManyTargetInputEnvelope } from './moves-create-many-target-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MovesWhereUniqueInput } from './moves-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class MovesCreateNestedManyWithoutTargetInput {
 
     @Field(() => MovesCreateManyTargetInputEnvelope, {nullable:true})
     @Type(() => MovesCreateManyTargetInputEnvelope)
-    createMany?: MovesCreateManyTargetInputEnvelope;
+    createMany?: Identity<MovesCreateManyTargetInputEnvelope>;
 
     @Field(() => [MovesWhereUniqueInput], {nullable:true})
     @Type(() => MovesWhereUniqueInput)

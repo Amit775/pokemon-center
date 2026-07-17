@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { BerriesCountOrderByAggregateInput } from './berries-count-order-by-aggregate.input';
 import { BerriesAvgOrderByAggregateInput } from './berries-avg-order-by-aggregate.input';
@@ -21,10 +22,10 @@ export class BerriesOrderByWithAggregationInput {
     firmness_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    natural_gift_power?: SortOrderInput;
+    natural_gift_power?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    natural_gift_type_id?: SortOrderInput;
+    natural_gift_type_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrder, {nullable:true})
     size?: `${SortOrder}`;
@@ -42,17 +43,17 @@ export class BerriesOrderByWithAggregationInput {
     smoothness?: `${SortOrder}`;
 
     @Field(() => BerriesCountOrderByAggregateInput, {nullable:true})
-    _count?: BerriesCountOrderByAggregateInput;
+    _count?: Identity<BerriesCountOrderByAggregateInput>;
 
     @Field(() => BerriesAvgOrderByAggregateInput, {nullable:true})
-    _avg?: BerriesAvgOrderByAggregateInput;
+    _avg?: Identity<BerriesAvgOrderByAggregateInput>;
 
     @Field(() => BerriesMaxOrderByAggregateInput, {nullable:true})
-    _max?: BerriesMaxOrderByAggregateInput;
+    _max?: Identity<BerriesMaxOrderByAggregateInput>;
 
     @Field(() => BerriesMinOrderByAggregateInput, {nullable:true})
-    _min?: BerriesMinOrderByAggregateInput;
+    _min?: Identity<BerriesMinOrderByAggregateInput>;
 
     @Field(() => BerriesSumOrderByAggregateInput, {nullable:true})
-    _sum?: BerriesSumOrderByAggregateInput;
+    _sum?: Identity<BerriesSumOrderByAggregateInput>;
 }

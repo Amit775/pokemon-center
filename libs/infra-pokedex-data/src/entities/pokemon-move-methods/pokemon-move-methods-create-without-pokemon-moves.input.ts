@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { VersionGroupPokemonMoveMethodsCreateNestedManyWithoutMoveMethodInput } from '../version-group-pokemon-move-methods/version-group-pokemon-move-methods-create-nested-many-without-move-method.input';
 
 @InputType()
@@ -13,5 +14,5 @@ export class PokemonMoveMethodsCreateWithoutPokemonMovesInput {
     identifier!: string;
 
     @Field(() => VersionGroupPokemonMoveMethodsCreateNestedManyWithoutMoveMethodInput, {nullable:true})
-    versionGroups?: VersionGroupPokemonMoveMethodsCreateNestedManyWithoutMoveMethodInput;
+    versionGroups?: Identity<VersionGroupPokemonMoveMethodsCreateNestedManyWithoutMoveMethodInput>;
 }

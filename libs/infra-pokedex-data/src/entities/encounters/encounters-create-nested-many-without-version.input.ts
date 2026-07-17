@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { EncountersCreateWithoutVersionInput } from './encounters-create-without-version.input';
 import { Type } from 'class-transformer';
 import { EncountersCreateOrConnectWithoutVersionInput } from './encounters-create-or-connect-without-version.input';
+import type { Identity } from 'identity-type';
 import { EncountersCreateManyVersionInputEnvelope } from './encounters-create-many-version-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncountersWhereUniqueInput } from './encounters-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class EncountersCreateNestedManyWithoutVersionInput {
 
     @Field(() => EncountersCreateManyVersionInputEnvelope, {nullable:true})
     @Type(() => EncountersCreateManyVersionInputEnvelope)
-    createMany?: EncountersCreateManyVersionInputEnvelope;
+    createMany?: Identity<EncountersCreateManyVersionInputEnvelope>;
 
     @Field(() => [EncountersWhereUniqueInput], {nullable:true})
     @Type(() => EncountersWhereUniqueInput)

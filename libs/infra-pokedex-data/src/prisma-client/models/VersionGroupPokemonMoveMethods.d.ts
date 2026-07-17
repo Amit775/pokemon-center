@@ -1,0 +1,1200 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model VersionGroupPokemonMoveMethods
+ * @@TypeGraphQL.type(name: "VersionGroupPokemonMoveMethod")
+ */
+export type VersionGroupPokemonMoveMethodsModel = runtime.Types.Result.DefaultSelection<Prisma.$VersionGroupPokemonMoveMethodsPayload>;
+export type AggregateVersionGroupPokemonMoveMethods = {
+    _count: VersionGroupPokemonMoveMethodsCountAggregateOutputType | null;
+    _avg: VersionGroupPokemonMoveMethodsAvgAggregateOutputType | null;
+    _sum: VersionGroupPokemonMoveMethodsSumAggregateOutputType | null;
+    _min: VersionGroupPokemonMoveMethodsMinAggregateOutputType | null;
+    _max: VersionGroupPokemonMoveMethodsMaxAggregateOutputType | null;
+};
+export type VersionGroupPokemonMoveMethodsAvgAggregateOutputType = {
+    version_group_id: number | null;
+    pokemon_move_method_id: number | null;
+};
+export type VersionGroupPokemonMoveMethodsSumAggregateOutputType = {
+    version_group_id: number | null;
+    pokemon_move_method_id: number | null;
+};
+export type VersionGroupPokemonMoveMethodsMinAggregateOutputType = {
+    version_group_id: number | null;
+    pokemon_move_method_id: number | null;
+};
+export type VersionGroupPokemonMoveMethodsMaxAggregateOutputType = {
+    version_group_id: number | null;
+    pokemon_move_method_id: number | null;
+};
+export type VersionGroupPokemonMoveMethodsCountAggregateOutputType = {
+    version_group_id: number;
+    pokemon_move_method_id: number;
+    _all: number;
+};
+export type VersionGroupPokemonMoveMethodsAvgAggregateInputType = {
+    version_group_id?: true;
+    pokemon_move_method_id?: true;
+};
+export type VersionGroupPokemonMoveMethodsSumAggregateInputType = {
+    version_group_id?: true;
+    pokemon_move_method_id?: true;
+};
+export type VersionGroupPokemonMoveMethodsMinAggregateInputType = {
+    version_group_id?: true;
+    pokemon_move_method_id?: true;
+};
+export type VersionGroupPokemonMoveMethodsMaxAggregateInputType = {
+    version_group_id?: true;
+    pokemon_move_method_id?: true;
+};
+export type VersionGroupPokemonMoveMethodsCountAggregateInputType = {
+    version_group_id?: true;
+    pokemon_move_method_id?: true;
+    _all?: true;
+};
+export type VersionGroupPokemonMoveMethodsAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which VersionGroupPokemonMoveMethods to aggregate.
+     */
+    where?: Prisma.VersionGroupPokemonMoveMethodsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of VersionGroupPokemonMoveMethods to fetch.
+     */
+    orderBy?: Prisma.VersionGroupPokemonMoveMethodsOrderByWithRelationInput | Prisma.VersionGroupPokemonMoveMethodsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` VersionGroupPokemonMoveMethods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` VersionGroupPokemonMoveMethods.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned VersionGroupPokemonMoveMethods
+    **/
+    _count?: true | VersionGroupPokemonMoveMethodsCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+    **/
+    _avg?: VersionGroupPokemonMoveMethodsAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: VersionGroupPokemonMoveMethodsSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: VersionGroupPokemonMoveMethodsMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: VersionGroupPokemonMoveMethodsMaxAggregateInputType;
+};
+export type GetVersionGroupPokemonMoveMethodsAggregateType<T extends VersionGroupPokemonMoveMethodsAggregateArgs> = {
+    [P in keyof T & keyof AggregateVersionGroupPokemonMoveMethods]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateVersionGroupPokemonMoveMethods[P]> : Prisma.GetScalarType<T[P], AggregateVersionGroupPokemonMoveMethods[P]>;
+};
+export type VersionGroupPokemonMoveMethodsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.VersionGroupPokemonMoveMethodsWhereInput;
+    orderBy?: Prisma.VersionGroupPokemonMoveMethodsOrderByWithAggregationInput | Prisma.VersionGroupPokemonMoveMethodsOrderByWithAggregationInput[];
+    by: Prisma.VersionGroupPokemonMoveMethodsScalarFieldEnum[] | Prisma.VersionGroupPokemonMoveMethodsScalarFieldEnum;
+    having?: Prisma.VersionGroupPokemonMoveMethodsScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: VersionGroupPokemonMoveMethodsCountAggregateInputType | true;
+    _avg?: VersionGroupPokemonMoveMethodsAvgAggregateInputType;
+    _sum?: VersionGroupPokemonMoveMethodsSumAggregateInputType;
+    _min?: VersionGroupPokemonMoveMethodsMinAggregateInputType;
+    _max?: VersionGroupPokemonMoveMethodsMaxAggregateInputType;
+};
+export type VersionGroupPokemonMoveMethodsGroupByOutputType = {
+    version_group_id: number;
+    pokemon_move_method_id: number;
+    _count: VersionGroupPokemonMoveMethodsCountAggregateOutputType | null;
+    _avg: VersionGroupPokemonMoveMethodsAvgAggregateOutputType | null;
+    _sum: VersionGroupPokemonMoveMethodsSumAggregateOutputType | null;
+    _min: VersionGroupPokemonMoveMethodsMinAggregateOutputType | null;
+    _max: VersionGroupPokemonMoveMethodsMaxAggregateOutputType | null;
+};
+export type GetVersionGroupPokemonMoveMethodsGroupByPayload<T extends VersionGroupPokemonMoveMethodsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<VersionGroupPokemonMoveMethodsGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof VersionGroupPokemonMoveMethodsGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], VersionGroupPokemonMoveMethodsGroupByOutputType[P]> : Prisma.GetScalarType<T[P], VersionGroupPokemonMoveMethodsGroupByOutputType[P]>;
+}>>;
+export type VersionGroupPokemonMoveMethodsWhereInput = {
+    AND?: Prisma.VersionGroupPokemonMoveMethodsWhereInput | Prisma.VersionGroupPokemonMoveMethodsWhereInput[];
+    OR?: Prisma.VersionGroupPokemonMoveMethodsWhereInput[];
+    NOT?: Prisma.VersionGroupPokemonMoveMethodsWhereInput | Prisma.VersionGroupPokemonMoveMethodsWhereInput[];
+    version_group_id?: Prisma.IntFilter<"VersionGroupPokemonMoveMethods"> | number;
+    pokemon_move_method_id?: Prisma.IntFilter<"VersionGroupPokemonMoveMethods"> | number;
+    versionGroup?: Prisma.XOR<Prisma.VersionGroupsScalarRelationFilter, Prisma.VersionGroupsWhereInput>;
+    moveMethod?: Prisma.XOR<Prisma.PokemonMoveMethodsScalarRelationFilter, Prisma.PokemonMoveMethodsWhereInput>;
+};
+export type VersionGroupPokemonMoveMethodsOrderByWithRelationInput = {
+    version_group_id?: Prisma.SortOrder;
+    pokemon_move_method_id?: Prisma.SortOrder;
+    versionGroup?: Prisma.VersionGroupsOrderByWithRelationInput;
+    moveMethod?: Prisma.PokemonMoveMethodsOrderByWithRelationInput;
+};
+export type VersionGroupPokemonMoveMethodsWhereUniqueInput = Prisma.AtLeast<{
+    version_group_id?: number;
+    AND?: Prisma.VersionGroupPokemonMoveMethodsWhereInput | Prisma.VersionGroupPokemonMoveMethodsWhereInput[];
+    OR?: Prisma.VersionGroupPokemonMoveMethodsWhereInput[];
+    NOT?: Prisma.VersionGroupPokemonMoveMethodsWhereInput | Prisma.VersionGroupPokemonMoveMethodsWhereInput[];
+    pokemon_move_method_id?: Prisma.IntFilter<"VersionGroupPokemonMoveMethods"> | number;
+    versionGroup?: Prisma.XOR<Prisma.VersionGroupsScalarRelationFilter, Prisma.VersionGroupsWhereInput>;
+    moveMethod?: Prisma.XOR<Prisma.PokemonMoveMethodsScalarRelationFilter, Prisma.PokemonMoveMethodsWhereInput>;
+}, "version_group_id">;
+export type VersionGroupPokemonMoveMethodsOrderByWithAggregationInput = {
+    version_group_id?: Prisma.SortOrder;
+    pokemon_move_method_id?: Prisma.SortOrder;
+    _count?: Prisma.VersionGroupPokemonMoveMethodsCountOrderByAggregateInput;
+    _avg?: Prisma.VersionGroupPokemonMoveMethodsAvgOrderByAggregateInput;
+    _max?: Prisma.VersionGroupPokemonMoveMethodsMaxOrderByAggregateInput;
+    _min?: Prisma.VersionGroupPokemonMoveMethodsMinOrderByAggregateInput;
+    _sum?: Prisma.VersionGroupPokemonMoveMethodsSumOrderByAggregateInput;
+};
+export type VersionGroupPokemonMoveMethodsScalarWhereWithAggregatesInput = {
+    AND?: Prisma.VersionGroupPokemonMoveMethodsScalarWhereWithAggregatesInput | Prisma.VersionGroupPokemonMoveMethodsScalarWhereWithAggregatesInput[];
+    OR?: Prisma.VersionGroupPokemonMoveMethodsScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.VersionGroupPokemonMoveMethodsScalarWhereWithAggregatesInput | Prisma.VersionGroupPokemonMoveMethodsScalarWhereWithAggregatesInput[];
+    version_group_id?: Prisma.IntWithAggregatesFilter<"VersionGroupPokemonMoveMethods"> | number;
+    pokemon_move_method_id?: Prisma.IntWithAggregatesFilter<"VersionGroupPokemonMoveMethods"> | number;
+};
+export type VersionGroupPokemonMoveMethodsCreateInput = {
+    versionGroup: Prisma.VersionGroupsCreateNestedOneWithoutVersionGroupPokemonMoveMethodsInput;
+    moveMethod: Prisma.PokemonMoveMethodsCreateNestedOneWithoutVersionGroupsInput;
+};
+export type VersionGroupPokemonMoveMethodsUncheckedCreateInput = {
+    version_group_id: number;
+    pokemon_move_method_id: number;
+};
+export type VersionGroupPokemonMoveMethodsUpdateInput = {
+    versionGroup?: Prisma.VersionGroupsUpdateOneRequiredWithoutVersionGroupPokemonMoveMethodsNestedInput;
+    moveMethod?: Prisma.PokemonMoveMethodsUpdateOneRequiredWithoutVersionGroupsNestedInput;
+};
+export type VersionGroupPokemonMoveMethodsUncheckedUpdateInput = {
+    version_group_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    pokemon_move_method_id?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type VersionGroupPokemonMoveMethodsCreateManyInput = {
+    version_group_id: number;
+    pokemon_move_method_id: number;
+};
+export type VersionGroupPokemonMoveMethodsUpdateManyMutationInput = {};
+export type VersionGroupPokemonMoveMethodsUncheckedUpdateManyInput = {
+    version_group_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    pokemon_move_method_id?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type VersionGroupPokemonMoveMethodsListRelationFilter = {
+    every?: Prisma.VersionGroupPokemonMoveMethodsWhereInput;
+    some?: Prisma.VersionGroupPokemonMoveMethodsWhereInput;
+    none?: Prisma.VersionGroupPokemonMoveMethodsWhereInput;
+};
+export type VersionGroupPokemonMoveMethodsOrderByRelationAggregateInput = {
+    _count?: Prisma.SortOrder;
+};
+export type VersionGroupPokemonMoveMethodsCountOrderByAggregateInput = {
+    version_group_id?: Prisma.SortOrder;
+    pokemon_move_method_id?: Prisma.SortOrder;
+};
+export type VersionGroupPokemonMoveMethodsAvgOrderByAggregateInput = {
+    version_group_id?: Prisma.SortOrder;
+    pokemon_move_method_id?: Prisma.SortOrder;
+};
+export type VersionGroupPokemonMoveMethodsMaxOrderByAggregateInput = {
+    version_group_id?: Prisma.SortOrder;
+    pokemon_move_method_id?: Prisma.SortOrder;
+};
+export type VersionGroupPokemonMoveMethodsMinOrderByAggregateInput = {
+    version_group_id?: Prisma.SortOrder;
+    pokemon_move_method_id?: Prisma.SortOrder;
+};
+export type VersionGroupPokemonMoveMethodsSumOrderByAggregateInput = {
+    version_group_id?: Prisma.SortOrder;
+    pokemon_move_method_id?: Prisma.SortOrder;
+};
+export type VersionGroupPokemonMoveMethodsCreateNestedManyWithoutVersionGroupInput = {
+    create?: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsCreateWithoutVersionGroupInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutVersionGroupInput> | Prisma.VersionGroupPokemonMoveMethodsCreateWithoutVersionGroupInput[] | Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutVersionGroupInput[];
+    connectOrCreate?: Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutVersionGroupInput | Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutVersionGroupInput[];
+    createMany?: Prisma.VersionGroupPokemonMoveMethodsCreateManyVersionGroupInputEnvelope;
+    connect?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+};
+export type VersionGroupPokemonMoveMethodsUncheckedCreateNestedManyWithoutVersionGroupInput = {
+    create?: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsCreateWithoutVersionGroupInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutVersionGroupInput> | Prisma.VersionGroupPokemonMoveMethodsCreateWithoutVersionGroupInput[] | Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutVersionGroupInput[];
+    connectOrCreate?: Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutVersionGroupInput | Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutVersionGroupInput[];
+    createMany?: Prisma.VersionGroupPokemonMoveMethodsCreateManyVersionGroupInputEnvelope;
+    connect?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+};
+export type VersionGroupPokemonMoveMethodsUpdateManyWithoutVersionGroupNestedInput = {
+    create?: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsCreateWithoutVersionGroupInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutVersionGroupInput> | Prisma.VersionGroupPokemonMoveMethodsCreateWithoutVersionGroupInput[] | Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutVersionGroupInput[];
+    connectOrCreate?: Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutVersionGroupInput | Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutVersionGroupInput[];
+    upsert?: Prisma.VersionGroupPokemonMoveMethodsUpsertWithWhereUniqueWithoutVersionGroupInput | Prisma.VersionGroupPokemonMoveMethodsUpsertWithWhereUniqueWithoutVersionGroupInput[];
+    createMany?: Prisma.VersionGroupPokemonMoveMethodsCreateManyVersionGroupInputEnvelope;
+    set?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    disconnect?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    delete?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    connect?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    update?: Prisma.VersionGroupPokemonMoveMethodsUpdateWithWhereUniqueWithoutVersionGroupInput | Prisma.VersionGroupPokemonMoveMethodsUpdateWithWhereUniqueWithoutVersionGroupInput[];
+    updateMany?: Prisma.VersionGroupPokemonMoveMethodsUpdateManyWithWhereWithoutVersionGroupInput | Prisma.VersionGroupPokemonMoveMethodsUpdateManyWithWhereWithoutVersionGroupInput[];
+    deleteMany?: Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput | Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput[];
+};
+export type VersionGroupPokemonMoveMethodsUncheckedUpdateManyWithoutVersionGroupNestedInput = {
+    create?: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsCreateWithoutVersionGroupInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutVersionGroupInput> | Prisma.VersionGroupPokemonMoveMethodsCreateWithoutVersionGroupInput[] | Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutVersionGroupInput[];
+    connectOrCreate?: Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutVersionGroupInput | Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutVersionGroupInput[];
+    upsert?: Prisma.VersionGroupPokemonMoveMethodsUpsertWithWhereUniqueWithoutVersionGroupInput | Prisma.VersionGroupPokemonMoveMethodsUpsertWithWhereUniqueWithoutVersionGroupInput[];
+    createMany?: Prisma.VersionGroupPokemonMoveMethodsCreateManyVersionGroupInputEnvelope;
+    set?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    disconnect?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    delete?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    connect?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    update?: Prisma.VersionGroupPokemonMoveMethodsUpdateWithWhereUniqueWithoutVersionGroupInput | Prisma.VersionGroupPokemonMoveMethodsUpdateWithWhereUniqueWithoutVersionGroupInput[];
+    updateMany?: Prisma.VersionGroupPokemonMoveMethodsUpdateManyWithWhereWithoutVersionGroupInput | Prisma.VersionGroupPokemonMoveMethodsUpdateManyWithWhereWithoutVersionGroupInput[];
+    deleteMany?: Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput | Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput[];
+};
+export type VersionGroupPokemonMoveMethodsCreateNestedManyWithoutMoveMethodInput = {
+    create?: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsCreateWithoutMoveMethodInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutMoveMethodInput> | Prisma.VersionGroupPokemonMoveMethodsCreateWithoutMoveMethodInput[] | Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutMoveMethodInput[];
+    connectOrCreate?: Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutMoveMethodInput | Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutMoveMethodInput[];
+    createMany?: Prisma.VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope;
+    connect?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+};
+export type VersionGroupPokemonMoveMethodsUncheckedCreateNestedManyWithoutMoveMethodInput = {
+    create?: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsCreateWithoutMoveMethodInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutMoveMethodInput> | Prisma.VersionGroupPokemonMoveMethodsCreateWithoutMoveMethodInput[] | Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutMoveMethodInput[];
+    connectOrCreate?: Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutMoveMethodInput | Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutMoveMethodInput[];
+    createMany?: Prisma.VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope;
+    connect?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+};
+export type VersionGroupPokemonMoveMethodsUpdateManyWithoutMoveMethodNestedInput = {
+    create?: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsCreateWithoutMoveMethodInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutMoveMethodInput> | Prisma.VersionGroupPokemonMoveMethodsCreateWithoutMoveMethodInput[] | Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutMoveMethodInput[];
+    connectOrCreate?: Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutMoveMethodInput | Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutMoveMethodInput[];
+    upsert?: Prisma.VersionGroupPokemonMoveMethodsUpsertWithWhereUniqueWithoutMoveMethodInput | Prisma.VersionGroupPokemonMoveMethodsUpsertWithWhereUniqueWithoutMoveMethodInput[];
+    createMany?: Prisma.VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope;
+    set?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    disconnect?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    delete?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    connect?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    update?: Prisma.VersionGroupPokemonMoveMethodsUpdateWithWhereUniqueWithoutMoveMethodInput | Prisma.VersionGroupPokemonMoveMethodsUpdateWithWhereUniqueWithoutMoveMethodInput[];
+    updateMany?: Prisma.VersionGroupPokemonMoveMethodsUpdateManyWithWhereWithoutMoveMethodInput | Prisma.VersionGroupPokemonMoveMethodsUpdateManyWithWhereWithoutMoveMethodInput[];
+    deleteMany?: Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput | Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput[];
+};
+export type VersionGroupPokemonMoveMethodsUncheckedUpdateManyWithoutMoveMethodNestedInput = {
+    create?: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsCreateWithoutMoveMethodInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutMoveMethodInput> | Prisma.VersionGroupPokemonMoveMethodsCreateWithoutMoveMethodInput[] | Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutMoveMethodInput[];
+    connectOrCreate?: Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutMoveMethodInput | Prisma.VersionGroupPokemonMoveMethodsCreateOrConnectWithoutMoveMethodInput[];
+    upsert?: Prisma.VersionGroupPokemonMoveMethodsUpsertWithWhereUniqueWithoutMoveMethodInput | Prisma.VersionGroupPokemonMoveMethodsUpsertWithWhereUniqueWithoutMoveMethodInput[];
+    createMany?: Prisma.VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope;
+    set?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    disconnect?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    delete?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    connect?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput | Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput[];
+    update?: Prisma.VersionGroupPokemonMoveMethodsUpdateWithWhereUniqueWithoutMoveMethodInput | Prisma.VersionGroupPokemonMoveMethodsUpdateWithWhereUniqueWithoutMoveMethodInput[];
+    updateMany?: Prisma.VersionGroupPokemonMoveMethodsUpdateManyWithWhereWithoutMoveMethodInput | Prisma.VersionGroupPokemonMoveMethodsUpdateManyWithWhereWithoutMoveMethodInput[];
+    deleteMany?: Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput | Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput[];
+};
+export type VersionGroupPokemonMoveMethodsCreateWithoutVersionGroupInput = {
+    moveMethod: Prisma.PokemonMoveMethodsCreateNestedOneWithoutVersionGroupsInput;
+};
+export type VersionGroupPokemonMoveMethodsUncheckedCreateWithoutVersionGroupInput = {
+    pokemon_move_method_id: number;
+};
+export type VersionGroupPokemonMoveMethodsCreateOrConnectWithoutVersionGroupInput = {
+    where: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+    create: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsCreateWithoutVersionGroupInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutVersionGroupInput>;
+};
+export type VersionGroupPokemonMoveMethodsCreateManyVersionGroupInputEnvelope = {
+    data: Prisma.VersionGroupPokemonMoveMethodsCreateManyVersionGroupInput | Prisma.VersionGroupPokemonMoveMethodsCreateManyVersionGroupInput[];
+    skipDuplicates?: boolean;
+};
+export type VersionGroupPokemonMoveMethodsUpsertWithWhereUniqueWithoutVersionGroupInput = {
+    where: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+    update: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsUpdateWithoutVersionGroupInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedUpdateWithoutVersionGroupInput>;
+    create: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsCreateWithoutVersionGroupInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutVersionGroupInput>;
+};
+export type VersionGroupPokemonMoveMethodsUpdateWithWhereUniqueWithoutVersionGroupInput = {
+    where: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+    data: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsUpdateWithoutVersionGroupInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedUpdateWithoutVersionGroupInput>;
+};
+export type VersionGroupPokemonMoveMethodsUpdateManyWithWhereWithoutVersionGroupInput = {
+    where: Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput;
+    data: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsUpdateManyMutationInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedUpdateManyWithoutVersionGroupInput>;
+};
+export type VersionGroupPokemonMoveMethodsScalarWhereInput = {
+    AND?: Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput | Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput[];
+    OR?: Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput[];
+    NOT?: Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput | Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput[];
+    version_group_id?: Prisma.IntFilter<"VersionGroupPokemonMoveMethods"> | number;
+    pokemon_move_method_id?: Prisma.IntFilter<"VersionGroupPokemonMoveMethods"> | number;
+};
+export type VersionGroupPokemonMoveMethodsCreateWithoutMoveMethodInput = {
+    versionGroup: Prisma.VersionGroupsCreateNestedOneWithoutVersionGroupPokemonMoveMethodsInput;
+};
+export type VersionGroupPokemonMoveMethodsUncheckedCreateWithoutMoveMethodInput = {
+    version_group_id: number;
+};
+export type VersionGroupPokemonMoveMethodsCreateOrConnectWithoutMoveMethodInput = {
+    where: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+    create: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsCreateWithoutMoveMethodInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutMoveMethodInput>;
+};
+export type VersionGroupPokemonMoveMethodsCreateManyMoveMethodInputEnvelope = {
+    data: Prisma.VersionGroupPokemonMoveMethodsCreateManyMoveMethodInput | Prisma.VersionGroupPokemonMoveMethodsCreateManyMoveMethodInput[];
+    skipDuplicates?: boolean;
+};
+export type VersionGroupPokemonMoveMethodsUpsertWithWhereUniqueWithoutMoveMethodInput = {
+    where: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+    update: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsUpdateWithoutMoveMethodInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedUpdateWithoutMoveMethodInput>;
+    create: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsCreateWithoutMoveMethodInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateWithoutMoveMethodInput>;
+};
+export type VersionGroupPokemonMoveMethodsUpdateWithWhereUniqueWithoutMoveMethodInput = {
+    where: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+    data: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsUpdateWithoutMoveMethodInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedUpdateWithoutMoveMethodInput>;
+};
+export type VersionGroupPokemonMoveMethodsUpdateManyWithWhereWithoutMoveMethodInput = {
+    where: Prisma.VersionGroupPokemonMoveMethodsScalarWhereInput;
+    data: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsUpdateManyMutationInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedUpdateManyWithoutMoveMethodInput>;
+};
+export type VersionGroupPokemonMoveMethodsCreateManyVersionGroupInput = {
+    pokemon_move_method_id: number;
+};
+export type VersionGroupPokemonMoveMethodsUpdateWithoutVersionGroupInput = {
+    moveMethod?: Prisma.PokemonMoveMethodsUpdateOneRequiredWithoutVersionGroupsNestedInput;
+};
+export type VersionGroupPokemonMoveMethodsUncheckedUpdateWithoutVersionGroupInput = {
+    pokemon_move_method_id?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type VersionGroupPokemonMoveMethodsUncheckedUpdateManyWithoutVersionGroupInput = {
+    pokemon_move_method_id?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type VersionGroupPokemonMoveMethodsCreateManyMoveMethodInput = {
+    version_group_id: number;
+};
+export type VersionGroupPokemonMoveMethodsUpdateWithoutMoveMethodInput = {
+    versionGroup?: Prisma.VersionGroupsUpdateOneRequiredWithoutVersionGroupPokemonMoveMethodsNestedInput;
+};
+export type VersionGroupPokemonMoveMethodsUncheckedUpdateWithoutMoveMethodInput = {
+    version_group_id?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type VersionGroupPokemonMoveMethodsUncheckedUpdateManyWithoutMoveMethodInput = {
+    version_group_id?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type VersionGroupPokemonMoveMethodsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    version_group_id?: boolean;
+    pokemon_move_method_id?: boolean;
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+    moveMethod?: boolean | Prisma.PokemonMoveMethodsDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["versionGroupPokemonMoveMethods"]>;
+export type VersionGroupPokemonMoveMethodsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    version_group_id?: boolean;
+    pokemon_move_method_id?: boolean;
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+    moveMethod?: boolean | Prisma.PokemonMoveMethodsDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["versionGroupPokemonMoveMethods"]>;
+export type VersionGroupPokemonMoveMethodsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    version_group_id?: boolean;
+    pokemon_move_method_id?: boolean;
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+    moveMethod?: boolean | Prisma.PokemonMoveMethodsDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["versionGroupPokemonMoveMethods"]>;
+export type VersionGroupPokemonMoveMethodsSelectScalar = {
+    version_group_id?: boolean;
+    pokemon_move_method_id?: boolean;
+};
+export type VersionGroupPokemonMoveMethodsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"version_group_id" | "pokemon_move_method_id", ExtArgs["result"]["versionGroupPokemonMoveMethods"]>;
+export type VersionGroupPokemonMoveMethodsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+    moveMethod?: boolean | Prisma.PokemonMoveMethodsDefaultArgs<ExtArgs>;
+};
+export type VersionGroupPokemonMoveMethodsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+    moveMethod?: boolean | Prisma.PokemonMoveMethodsDefaultArgs<ExtArgs>;
+};
+export type VersionGroupPokemonMoveMethodsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+    moveMethod?: boolean | Prisma.PokemonMoveMethodsDefaultArgs<ExtArgs>;
+};
+export type $VersionGroupPokemonMoveMethodsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "VersionGroupPokemonMoveMethods";
+    objects: {
+        versionGroup: Prisma.$VersionGroupsPayload<ExtArgs>;
+        moveMethod: Prisma.$PokemonMoveMethodsPayload<ExtArgs>;
+    };
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        version_group_id: number;
+        pokemon_move_method_id: number;
+    }, ExtArgs["result"]["versionGroupPokemonMoveMethods"]>;
+    composites: {};
+};
+export type VersionGroupPokemonMoveMethodsGetPayload<S extends boolean | null | undefined | VersionGroupPokemonMoveMethodsDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$VersionGroupPokemonMoveMethodsPayload, S>;
+export type VersionGroupPokemonMoveMethodsCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<VersionGroupPokemonMoveMethodsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: VersionGroupPokemonMoveMethodsCountAggregateInputType | true;
+};
+export interface VersionGroupPokemonMoveMethodsDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['VersionGroupPokemonMoveMethods'];
+        meta: {
+            name: 'VersionGroupPokemonMoveMethods';
+        };
+    };
+    /**
+     * Find zero or one VersionGroupPokemonMoveMethods that matches the filter.
+     * @param {VersionGroupPokemonMoveMethodsFindUniqueArgs} args - Arguments to find a VersionGroupPokemonMoveMethods
+     * @example
+     * // Get one VersionGroupPokemonMoveMethods
+     * const versionGroupPokemonMoveMethods = await prisma.versionGroupPokemonMoveMethods.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VersionGroupPokemonMoveMethodsFindUniqueArgs>(args: Prisma.SelectSubset<T, VersionGroupPokemonMoveMethodsFindUniqueArgs<ExtArgs>>): Prisma.Prisma__VersionGroupPokemonMoveMethodsClient<runtime.Types.Result.GetResult<Prisma.$VersionGroupPokemonMoveMethodsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one VersionGroupPokemonMoveMethods that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VersionGroupPokemonMoveMethodsFindUniqueOrThrowArgs} args - Arguments to find a VersionGroupPokemonMoveMethods
+     * @example
+     * // Get one VersionGroupPokemonMoveMethods
+     * const versionGroupPokemonMoveMethods = await prisma.versionGroupPokemonMoveMethods.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VersionGroupPokemonMoveMethodsFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, VersionGroupPokemonMoveMethodsFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__VersionGroupPokemonMoveMethodsClient<runtime.Types.Result.GetResult<Prisma.$VersionGroupPokemonMoveMethodsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first VersionGroupPokemonMoveMethods that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionGroupPokemonMoveMethodsFindFirstArgs} args - Arguments to find a VersionGroupPokemonMoveMethods
+     * @example
+     * // Get one VersionGroupPokemonMoveMethods
+     * const versionGroupPokemonMoveMethods = await prisma.versionGroupPokemonMoveMethods.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VersionGroupPokemonMoveMethodsFindFirstArgs>(args?: Prisma.SelectSubset<T, VersionGroupPokemonMoveMethodsFindFirstArgs<ExtArgs>>): Prisma.Prisma__VersionGroupPokemonMoveMethodsClient<runtime.Types.Result.GetResult<Prisma.$VersionGroupPokemonMoveMethodsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first VersionGroupPokemonMoveMethods that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionGroupPokemonMoveMethodsFindFirstOrThrowArgs} args - Arguments to find a VersionGroupPokemonMoveMethods
+     * @example
+     * // Get one VersionGroupPokemonMoveMethods
+     * const versionGroupPokemonMoveMethods = await prisma.versionGroupPokemonMoveMethods.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VersionGroupPokemonMoveMethodsFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, VersionGroupPokemonMoveMethodsFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__VersionGroupPokemonMoveMethodsClient<runtime.Types.Result.GetResult<Prisma.$VersionGroupPokemonMoveMethodsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more VersionGroupPokemonMoveMethods that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionGroupPokemonMoveMethodsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VersionGroupPokemonMoveMethods
+     * const versionGroupPokemonMoveMethods = await prisma.versionGroupPokemonMoveMethods.findMany()
+     *
+     * // Get first 10 VersionGroupPokemonMoveMethods
+     * const versionGroupPokemonMoveMethods = await prisma.versionGroupPokemonMoveMethods.findMany({ take: 10 })
+     *
+     * // Only select the `version_group_id`
+     * const versionGroupPokemonMoveMethodsWithVersion_group_idOnly = await prisma.versionGroupPokemonMoveMethods.findMany({ select: { version_group_id: true } })
+     *
+     */
+    findMany<T extends VersionGroupPokemonMoveMethodsFindManyArgs>(args?: Prisma.SelectSubset<T, VersionGroupPokemonMoveMethodsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VersionGroupPokemonMoveMethodsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a VersionGroupPokemonMoveMethods.
+     * @param {VersionGroupPokemonMoveMethodsCreateArgs} args - Arguments to create a VersionGroupPokemonMoveMethods.
+     * @example
+     * // Create one VersionGroupPokemonMoveMethods
+     * const VersionGroupPokemonMoveMethods = await prisma.versionGroupPokemonMoveMethods.create({
+     *   data: {
+     *     // ... data to create a VersionGroupPokemonMoveMethods
+     *   }
+     * })
+     *
+     */
+    create<T extends VersionGroupPokemonMoveMethodsCreateArgs>(args: Prisma.SelectSubset<T, VersionGroupPokemonMoveMethodsCreateArgs<ExtArgs>>): Prisma.Prisma__VersionGroupPokemonMoveMethodsClient<runtime.Types.Result.GetResult<Prisma.$VersionGroupPokemonMoveMethodsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many VersionGroupPokemonMoveMethods.
+     * @param {VersionGroupPokemonMoveMethodsCreateManyArgs} args - Arguments to create many VersionGroupPokemonMoveMethods.
+     * @example
+     * // Create many VersionGroupPokemonMoveMethods
+     * const versionGroupPokemonMoveMethods = await prisma.versionGroupPokemonMoveMethods.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends VersionGroupPokemonMoveMethodsCreateManyArgs>(args?: Prisma.SelectSubset<T, VersionGroupPokemonMoveMethodsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many VersionGroupPokemonMoveMethods and returns the data saved in the database.
+     * @param {VersionGroupPokemonMoveMethodsCreateManyAndReturnArgs} args - Arguments to create many VersionGroupPokemonMoveMethods.
+     * @example
+     * // Create many VersionGroupPokemonMoveMethods
+     * const versionGroupPokemonMoveMethods = await prisma.versionGroupPokemonMoveMethods.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many VersionGroupPokemonMoveMethods and only return the `version_group_id`
+     * const versionGroupPokemonMoveMethodsWithVersion_group_idOnly = await prisma.versionGroupPokemonMoveMethods.createManyAndReturn({
+     *   select: { version_group_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends VersionGroupPokemonMoveMethodsCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, VersionGroupPokemonMoveMethodsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VersionGroupPokemonMoveMethodsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a VersionGroupPokemonMoveMethods.
+     * @param {VersionGroupPokemonMoveMethodsDeleteArgs} args - Arguments to delete one VersionGroupPokemonMoveMethods.
+     * @example
+     * // Delete one VersionGroupPokemonMoveMethods
+     * const VersionGroupPokemonMoveMethods = await prisma.versionGroupPokemonMoveMethods.delete({
+     *   where: {
+     *     // ... filter to delete one VersionGroupPokemonMoveMethods
+     *   }
+     * })
+     *
+     */
+    delete<T extends VersionGroupPokemonMoveMethodsDeleteArgs>(args: Prisma.SelectSubset<T, VersionGroupPokemonMoveMethodsDeleteArgs<ExtArgs>>): Prisma.Prisma__VersionGroupPokemonMoveMethodsClient<runtime.Types.Result.GetResult<Prisma.$VersionGroupPokemonMoveMethodsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one VersionGroupPokemonMoveMethods.
+     * @param {VersionGroupPokemonMoveMethodsUpdateArgs} args - Arguments to update one VersionGroupPokemonMoveMethods.
+     * @example
+     * // Update one VersionGroupPokemonMoveMethods
+     * const versionGroupPokemonMoveMethods = await prisma.versionGroupPokemonMoveMethods.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends VersionGroupPokemonMoveMethodsUpdateArgs>(args: Prisma.SelectSubset<T, VersionGroupPokemonMoveMethodsUpdateArgs<ExtArgs>>): Prisma.Prisma__VersionGroupPokemonMoveMethodsClient<runtime.Types.Result.GetResult<Prisma.$VersionGroupPokemonMoveMethodsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more VersionGroupPokemonMoveMethods.
+     * @param {VersionGroupPokemonMoveMethodsDeleteManyArgs} args - Arguments to filter VersionGroupPokemonMoveMethods to delete.
+     * @example
+     * // Delete a few VersionGroupPokemonMoveMethods
+     * const { count } = await prisma.versionGroupPokemonMoveMethods.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends VersionGroupPokemonMoveMethodsDeleteManyArgs>(args?: Prisma.SelectSubset<T, VersionGroupPokemonMoveMethodsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more VersionGroupPokemonMoveMethods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionGroupPokemonMoveMethodsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VersionGroupPokemonMoveMethods
+     * const versionGroupPokemonMoveMethods = await prisma.versionGroupPokemonMoveMethods.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends VersionGroupPokemonMoveMethodsUpdateManyArgs>(args: Prisma.SelectSubset<T, VersionGroupPokemonMoveMethodsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more VersionGroupPokemonMoveMethods and returns the data updated in the database.
+     * @param {VersionGroupPokemonMoveMethodsUpdateManyAndReturnArgs} args - Arguments to update many VersionGroupPokemonMoveMethods.
+     * @example
+     * // Update many VersionGroupPokemonMoveMethods
+     * const versionGroupPokemonMoveMethods = await prisma.versionGroupPokemonMoveMethods.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more VersionGroupPokemonMoveMethods and only return the `version_group_id`
+     * const versionGroupPokemonMoveMethodsWithVersion_group_idOnly = await prisma.versionGroupPokemonMoveMethods.updateManyAndReturn({
+     *   select: { version_group_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends VersionGroupPokemonMoveMethodsUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, VersionGroupPokemonMoveMethodsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VersionGroupPokemonMoveMethodsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one VersionGroupPokemonMoveMethods.
+     * @param {VersionGroupPokemonMoveMethodsUpsertArgs} args - Arguments to update or create a VersionGroupPokemonMoveMethods.
+     * @example
+     * // Update or create a VersionGroupPokemonMoveMethods
+     * const versionGroupPokemonMoveMethods = await prisma.versionGroupPokemonMoveMethods.upsert({
+     *   create: {
+     *     // ... data to create a VersionGroupPokemonMoveMethods
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VersionGroupPokemonMoveMethods we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VersionGroupPokemonMoveMethodsUpsertArgs>(args: Prisma.SelectSubset<T, VersionGroupPokemonMoveMethodsUpsertArgs<ExtArgs>>): Prisma.Prisma__VersionGroupPokemonMoveMethodsClient<runtime.Types.Result.GetResult<Prisma.$VersionGroupPokemonMoveMethodsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of VersionGroupPokemonMoveMethods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionGroupPokemonMoveMethodsCountArgs} args - Arguments to filter VersionGroupPokemonMoveMethods to count.
+     * @example
+     * // Count the number of VersionGroupPokemonMoveMethods
+     * const count = await prisma.versionGroupPokemonMoveMethods.count({
+     *   where: {
+     *     // ... the filter for the VersionGroupPokemonMoveMethods we want to count
+     *   }
+     * })
+    **/
+    count<T extends VersionGroupPokemonMoveMethodsCountArgs>(args?: Prisma.Subset<T, VersionGroupPokemonMoveMethodsCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], VersionGroupPokemonMoveMethodsCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a VersionGroupPokemonMoveMethods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionGroupPokemonMoveMethodsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VersionGroupPokemonMoveMethodsAggregateArgs>(args: Prisma.Subset<T, VersionGroupPokemonMoveMethodsAggregateArgs>): Prisma.PrismaPromise<GetVersionGroupPokemonMoveMethodsAggregateType<T>>;
+    /**
+     * Group by VersionGroupPokemonMoveMethods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionGroupPokemonMoveMethodsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends VersionGroupPokemonMoveMethodsGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: VersionGroupPokemonMoveMethodsGroupByArgs['orderBy'];
+    } : {
+        orderBy?: VersionGroupPokemonMoveMethodsGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, VersionGroupPokemonMoveMethodsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVersionGroupPokemonMoveMethodsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the VersionGroupPokemonMoveMethods model
+     */
+    readonly fields: VersionGroupPokemonMoveMethodsFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for VersionGroupPokemonMoveMethods.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__VersionGroupPokemonMoveMethodsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    versionGroup<T extends Prisma.VersionGroupsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VersionGroupsDefaultArgs<ExtArgs>>): Prisma.Prisma__VersionGroupsClient<runtime.Types.Result.GetResult<Prisma.$VersionGroupsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    moveMethod<T extends Prisma.PokemonMoveMethodsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PokemonMoveMethodsDefaultArgs<ExtArgs>>): Prisma.Prisma__PokemonMoveMethodsClient<runtime.Types.Result.GetResult<Prisma.$PokemonMoveMethodsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the VersionGroupPokemonMoveMethods model
+ */
+export interface VersionGroupPokemonMoveMethodsFieldRefs {
+    readonly version_group_id: Prisma.FieldRef<"VersionGroupPokemonMoveMethods", 'Int'>;
+    readonly pokemon_move_method_id: Prisma.FieldRef<"VersionGroupPokemonMoveMethods", 'Int'>;
+}
+/**
+ * VersionGroupPokemonMoveMethods findUnique
+ */
+export type VersionGroupPokemonMoveMethodsFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionGroupPokemonMoveMethods
+     */
+    select?: Prisma.VersionGroupPokemonMoveMethodsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the VersionGroupPokemonMoveMethods
+     */
+    omit?: Prisma.VersionGroupPokemonMoveMethodsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionGroupPokemonMoveMethodsInclude<ExtArgs> | null;
+    /**
+     * Filter, which VersionGroupPokemonMoveMethods to fetch.
+     */
+    where: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+};
+/**
+ * VersionGroupPokemonMoveMethods findUniqueOrThrow
+ */
+export type VersionGroupPokemonMoveMethodsFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionGroupPokemonMoveMethods
+     */
+    select?: Prisma.VersionGroupPokemonMoveMethodsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the VersionGroupPokemonMoveMethods
+     */
+    omit?: Prisma.VersionGroupPokemonMoveMethodsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionGroupPokemonMoveMethodsInclude<ExtArgs> | null;
+    /**
+     * Filter, which VersionGroupPokemonMoveMethods to fetch.
+     */
+    where: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+};
+/**
+ * VersionGroupPokemonMoveMethods findFirst
+ */
+export type VersionGroupPokemonMoveMethodsFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionGroupPokemonMoveMethods
+     */
+    select?: Prisma.VersionGroupPokemonMoveMethodsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the VersionGroupPokemonMoveMethods
+     */
+    omit?: Prisma.VersionGroupPokemonMoveMethodsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionGroupPokemonMoveMethodsInclude<ExtArgs> | null;
+    /**
+     * Filter, which VersionGroupPokemonMoveMethods to fetch.
+     */
+    where?: Prisma.VersionGroupPokemonMoveMethodsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of VersionGroupPokemonMoveMethods to fetch.
+     */
+    orderBy?: Prisma.VersionGroupPokemonMoveMethodsOrderByWithRelationInput | Prisma.VersionGroupPokemonMoveMethodsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for VersionGroupPokemonMoveMethods.
+     */
+    cursor?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` VersionGroupPokemonMoveMethods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` VersionGroupPokemonMoveMethods.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of VersionGroupPokemonMoveMethods.
+     */
+    distinct?: Prisma.VersionGroupPokemonMoveMethodsScalarFieldEnum | Prisma.VersionGroupPokemonMoveMethodsScalarFieldEnum[];
+};
+/**
+ * VersionGroupPokemonMoveMethods findFirstOrThrow
+ */
+export type VersionGroupPokemonMoveMethodsFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionGroupPokemonMoveMethods
+     */
+    select?: Prisma.VersionGroupPokemonMoveMethodsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the VersionGroupPokemonMoveMethods
+     */
+    omit?: Prisma.VersionGroupPokemonMoveMethodsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionGroupPokemonMoveMethodsInclude<ExtArgs> | null;
+    /**
+     * Filter, which VersionGroupPokemonMoveMethods to fetch.
+     */
+    where?: Prisma.VersionGroupPokemonMoveMethodsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of VersionGroupPokemonMoveMethods to fetch.
+     */
+    orderBy?: Prisma.VersionGroupPokemonMoveMethodsOrderByWithRelationInput | Prisma.VersionGroupPokemonMoveMethodsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for VersionGroupPokemonMoveMethods.
+     */
+    cursor?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` VersionGroupPokemonMoveMethods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` VersionGroupPokemonMoveMethods.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of VersionGroupPokemonMoveMethods.
+     */
+    distinct?: Prisma.VersionGroupPokemonMoveMethodsScalarFieldEnum | Prisma.VersionGroupPokemonMoveMethodsScalarFieldEnum[];
+};
+/**
+ * VersionGroupPokemonMoveMethods findMany
+ */
+export type VersionGroupPokemonMoveMethodsFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionGroupPokemonMoveMethods
+     */
+    select?: Prisma.VersionGroupPokemonMoveMethodsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the VersionGroupPokemonMoveMethods
+     */
+    omit?: Prisma.VersionGroupPokemonMoveMethodsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionGroupPokemonMoveMethodsInclude<ExtArgs> | null;
+    /**
+     * Filter, which VersionGroupPokemonMoveMethods to fetch.
+     */
+    where?: Prisma.VersionGroupPokemonMoveMethodsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of VersionGroupPokemonMoveMethods to fetch.
+     */
+    orderBy?: Prisma.VersionGroupPokemonMoveMethodsOrderByWithRelationInput | Prisma.VersionGroupPokemonMoveMethodsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing VersionGroupPokemonMoveMethods.
+     */
+    cursor?: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` VersionGroupPokemonMoveMethods from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` VersionGroupPokemonMoveMethods.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of VersionGroupPokemonMoveMethods.
+     */
+    distinct?: Prisma.VersionGroupPokemonMoveMethodsScalarFieldEnum | Prisma.VersionGroupPokemonMoveMethodsScalarFieldEnum[];
+};
+/**
+ * VersionGroupPokemonMoveMethods create
+ */
+export type VersionGroupPokemonMoveMethodsCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionGroupPokemonMoveMethods
+     */
+    select?: Prisma.VersionGroupPokemonMoveMethodsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the VersionGroupPokemonMoveMethods
+     */
+    omit?: Prisma.VersionGroupPokemonMoveMethodsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionGroupPokemonMoveMethodsInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a VersionGroupPokemonMoveMethods.
+     */
+    data: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsCreateInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateInput>;
+};
+/**
+ * VersionGroupPokemonMoveMethods createMany
+ */
+export type VersionGroupPokemonMoveMethodsCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VersionGroupPokemonMoveMethods.
+     */
+    data: Prisma.VersionGroupPokemonMoveMethodsCreateManyInput | Prisma.VersionGroupPokemonMoveMethodsCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * VersionGroupPokemonMoveMethods createManyAndReturn
+ */
+export type VersionGroupPokemonMoveMethodsCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionGroupPokemonMoveMethods
+     */
+    select?: Prisma.VersionGroupPokemonMoveMethodsSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the VersionGroupPokemonMoveMethods
+     */
+    omit?: Prisma.VersionGroupPokemonMoveMethodsOmit<ExtArgs> | null;
+    /**
+     * The data used to create many VersionGroupPokemonMoveMethods.
+     */
+    data: Prisma.VersionGroupPokemonMoveMethodsCreateManyInput | Prisma.VersionGroupPokemonMoveMethodsCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionGroupPokemonMoveMethodsIncludeCreateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * VersionGroupPokemonMoveMethods update
+ */
+export type VersionGroupPokemonMoveMethodsUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionGroupPokemonMoveMethods
+     */
+    select?: Prisma.VersionGroupPokemonMoveMethodsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the VersionGroupPokemonMoveMethods
+     */
+    omit?: Prisma.VersionGroupPokemonMoveMethodsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionGroupPokemonMoveMethodsInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a VersionGroupPokemonMoveMethods.
+     */
+    data: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsUpdateInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedUpdateInput>;
+    /**
+     * Choose, which VersionGroupPokemonMoveMethods to update.
+     */
+    where: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+};
+/**
+ * VersionGroupPokemonMoveMethods updateMany
+ */
+export type VersionGroupPokemonMoveMethodsUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VersionGroupPokemonMoveMethods.
+     */
+    data: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsUpdateManyMutationInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedUpdateManyInput>;
+    /**
+     * Filter which VersionGroupPokemonMoveMethods to update
+     */
+    where?: Prisma.VersionGroupPokemonMoveMethodsWhereInput;
+    /**
+     * Limit how many VersionGroupPokemonMoveMethods to update.
+     */
+    limit?: number;
+};
+/**
+ * VersionGroupPokemonMoveMethods updateManyAndReturn
+ */
+export type VersionGroupPokemonMoveMethodsUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionGroupPokemonMoveMethods
+     */
+    select?: Prisma.VersionGroupPokemonMoveMethodsSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the VersionGroupPokemonMoveMethods
+     */
+    omit?: Prisma.VersionGroupPokemonMoveMethodsOmit<ExtArgs> | null;
+    /**
+     * The data used to update VersionGroupPokemonMoveMethods.
+     */
+    data: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsUpdateManyMutationInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedUpdateManyInput>;
+    /**
+     * Filter which VersionGroupPokemonMoveMethods to update
+     */
+    where?: Prisma.VersionGroupPokemonMoveMethodsWhereInput;
+    /**
+     * Limit how many VersionGroupPokemonMoveMethods to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionGroupPokemonMoveMethodsIncludeUpdateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * VersionGroupPokemonMoveMethods upsert
+ */
+export type VersionGroupPokemonMoveMethodsUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionGroupPokemonMoveMethods
+     */
+    select?: Prisma.VersionGroupPokemonMoveMethodsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the VersionGroupPokemonMoveMethods
+     */
+    omit?: Prisma.VersionGroupPokemonMoveMethodsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionGroupPokemonMoveMethodsInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the VersionGroupPokemonMoveMethods to update in case it exists.
+     */
+    where: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+    /**
+     * In case the VersionGroupPokemonMoveMethods found by the `where` argument doesn't exist, create a new VersionGroupPokemonMoveMethods with this data.
+     */
+    create: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsCreateInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedCreateInput>;
+    /**
+     * In case the VersionGroupPokemonMoveMethods was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.VersionGroupPokemonMoveMethodsUpdateInput, Prisma.VersionGroupPokemonMoveMethodsUncheckedUpdateInput>;
+};
+/**
+ * VersionGroupPokemonMoveMethods delete
+ */
+export type VersionGroupPokemonMoveMethodsDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionGroupPokemonMoveMethods
+     */
+    select?: Prisma.VersionGroupPokemonMoveMethodsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the VersionGroupPokemonMoveMethods
+     */
+    omit?: Prisma.VersionGroupPokemonMoveMethodsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionGroupPokemonMoveMethodsInclude<ExtArgs> | null;
+    /**
+     * Filter which VersionGroupPokemonMoveMethods to delete.
+     */
+    where: Prisma.VersionGroupPokemonMoveMethodsWhereUniqueInput;
+};
+/**
+ * VersionGroupPokemonMoveMethods deleteMany
+ */
+export type VersionGroupPokemonMoveMethodsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which VersionGroupPokemonMoveMethods to delete
+     */
+    where?: Prisma.VersionGroupPokemonMoveMethodsWhereInput;
+    /**
+     * Limit how many VersionGroupPokemonMoveMethods to delete.
+     */
+    limit?: number;
+};
+/**
+ * VersionGroupPokemonMoveMethods without action
+ */
+export type VersionGroupPokemonMoveMethodsDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionGroupPokemonMoveMethods
+     */
+    select?: Prisma.VersionGroupPokemonMoveMethodsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the VersionGroupPokemonMoveMethods
+     */
+    omit?: Prisma.VersionGroupPokemonMoveMethodsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionGroupPokemonMoveMethodsInclude<ExtArgs> | null;
+};

@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { MoveMetaCategoriesCreateWithoutMetaInput } from './move-meta-categories-create-without-meta.input';
 import { Type } from 'class-transformer';
 import { MoveMetaCategoriesCreateOrConnectWithoutMetaInput } from './move-meta-categories-create-or-connect-without-meta.input';
 import { MoveMetaCategoriesUpsertWithoutMetaInput } from './move-meta-categories-upsert-without-meta.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { MoveMetaCategoriesWhereUniqueInput } from './move-meta-categories-where-unique.input';
 import { MoveMetaCategoriesUpdateToOneWithWhereWithoutMetaInput } from './move-meta-categories-update-to-one-with-where-without-meta.input';
 
@@ -13,15 +14,15 @@ export class MoveMetaCategoriesUpdateOneRequiredWithoutMetaNestedInput {
 
     @Field(() => MoveMetaCategoriesCreateWithoutMetaInput, {nullable:true})
     @Type(() => MoveMetaCategoriesCreateWithoutMetaInput)
-    create?: MoveMetaCategoriesCreateWithoutMetaInput;
+    create?: Identity<MoveMetaCategoriesCreateWithoutMetaInput>;
 
     @Field(() => MoveMetaCategoriesCreateOrConnectWithoutMetaInput, {nullable:true})
     @Type(() => MoveMetaCategoriesCreateOrConnectWithoutMetaInput)
-    connectOrCreate?: MoveMetaCategoriesCreateOrConnectWithoutMetaInput;
+    connectOrCreate?: Identity<MoveMetaCategoriesCreateOrConnectWithoutMetaInput>;
 
     @Field(() => MoveMetaCategoriesUpsertWithoutMetaInput, {nullable:true})
     @Type(() => MoveMetaCategoriesUpsertWithoutMetaInput)
-    upsert?: MoveMetaCategoriesUpsertWithoutMetaInput;
+    upsert?: Identity<MoveMetaCategoriesUpsertWithoutMetaInput>;
 
     @Field(() => MoveMetaCategoriesWhereUniqueInput, {nullable:true})
     @Type(() => MoveMetaCategoriesWhereUniqueInput)
@@ -29,5 +30,5 @@ export class MoveMetaCategoriesUpdateOneRequiredWithoutMetaNestedInput {
 
     @Field(() => MoveMetaCategoriesUpdateToOneWithWhereWithoutMetaInput, {nullable:true})
     @Type(() => MoveMetaCategoriesUpdateToOneWithWhereWithoutMetaInput)
-    update?: MoveMetaCategoriesUpdateToOneWithWhereWithoutMetaInput;
+    update?: Identity<MoveMetaCategoriesUpdateToOneWithWhereWithoutMetaInput>;
 }

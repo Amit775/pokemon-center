@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { MoveDamageClassesCountOrderByAggregateInput } from './move-damage-classes-count-order-by-aggregate.input';
 import { MoveDamageClassesAvgOrderByAggregateInput } from './move-damage-classes-avg-order-by-aggregate.input';
 import { MoveDamageClassesMaxOrderByAggregateInput } from './move-damage-classes-max-order-by-aggregate.input';
@@ -17,17 +18,17 @@ export class MoveDamageClassesOrderByWithAggregationInput {
     identifier?: `${SortOrder}`;
 
     @Field(() => MoveDamageClassesCountOrderByAggregateInput, {nullable:true})
-    _count?: MoveDamageClassesCountOrderByAggregateInput;
+    _count?: Identity<MoveDamageClassesCountOrderByAggregateInput>;
 
     @Field(() => MoveDamageClassesAvgOrderByAggregateInput, {nullable:true})
-    _avg?: MoveDamageClassesAvgOrderByAggregateInput;
+    _avg?: Identity<MoveDamageClassesAvgOrderByAggregateInput>;
 
     @Field(() => MoveDamageClassesMaxOrderByAggregateInput, {nullable:true})
-    _max?: MoveDamageClassesMaxOrderByAggregateInput;
+    _max?: Identity<MoveDamageClassesMaxOrderByAggregateInput>;
 
     @Field(() => MoveDamageClassesMinOrderByAggregateInput, {nullable:true})
-    _min?: MoveDamageClassesMinOrderByAggregateInput;
+    _min?: Identity<MoveDamageClassesMinOrderByAggregateInput>;
 
     @Field(() => MoveDamageClassesSumOrderByAggregateInput, {nullable:true})
-    _sum?: MoveDamageClassesSumOrderByAggregateInput;
+    _sum?: Identity<MoveDamageClassesSumOrderByAggregateInput>;
 }

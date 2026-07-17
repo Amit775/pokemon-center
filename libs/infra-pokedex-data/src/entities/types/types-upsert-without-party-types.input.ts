@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { TypesUpdateWithoutPartyTypesInput } from './types-update-without-party-types.input';
 import { Type } from 'class-transformer';
 import { TypesCreateWithoutPartyTypesInput } from './types-create-without-party-types.input';
@@ -10,13 +11,13 @@ export class TypesUpsertWithoutPartyTypesInput {
 
     @Field(() => TypesUpdateWithoutPartyTypesInput, {nullable:false})
     @Type(() => TypesUpdateWithoutPartyTypesInput)
-    update!: TypesUpdateWithoutPartyTypesInput;
+    update!: Identity<TypesUpdateWithoutPartyTypesInput>;
 
     @Field(() => TypesCreateWithoutPartyTypesInput, {nullable:false})
     @Type(() => TypesCreateWithoutPartyTypesInput)
-    create!: TypesCreateWithoutPartyTypesInput;
+    create!: Identity<TypesCreateWithoutPartyTypesInput>;
 
     @Field(() => TypesWhereInput, {nullable:true})
     @Type(() => TypesWhereInput)
-    where?: TypesWhereInput;
+    where?: Identity<TypesWhereInput>;
 }

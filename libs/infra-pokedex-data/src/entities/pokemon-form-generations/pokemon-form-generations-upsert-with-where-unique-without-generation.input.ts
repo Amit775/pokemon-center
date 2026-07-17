@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonFormGenerationsWhereUniqueInput } from './pokemon-form-generations-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonFormGenerationsUpdateWithoutGenerationInput } from './pokemon-form-generations-update-without-generation.input';
 import { PokemonFormGenerationsCreateWithoutGenerationInput } from './pokemon-form-generations-create-without-generation.input';
 
@@ -15,9 +16,9 @@ export class PokemonFormGenerationsUpsertWithWhereUniqueWithoutGenerationInput {
 
     @Field(() => PokemonFormGenerationsUpdateWithoutGenerationInput, {nullable:false})
     @Type(() => PokemonFormGenerationsUpdateWithoutGenerationInput)
-    update!: PokemonFormGenerationsUpdateWithoutGenerationInput;
+    update!: Identity<PokemonFormGenerationsUpdateWithoutGenerationInput>;
 
     @Field(() => PokemonFormGenerationsCreateWithoutGenerationInput, {nullable:false})
     @Type(() => PokemonFormGenerationsCreateWithoutGenerationInput)
-    create!: PokemonFormGenerationsCreateWithoutGenerationInput;
+    create!: Identity<PokemonFormGenerationsCreateWithoutGenerationInput>;
 }

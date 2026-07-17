@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GenerationsCreateNestedOneWithoutAbilitiesInput } from '../generations/generations-create-nested-one-without-abilities.input';
 import { PokemonAbilitiesCreateNestedManyWithoutAbilityInput } from '../pokemon-abilities/pokemon-abilities-create-nested-many-without-ability.input';
 
@@ -17,8 +18,8 @@ export class AbilitiesCreateInput {
     is_main_series!: number;
 
     @Field(() => GenerationsCreateNestedOneWithoutAbilitiesInput, {nullable:false})
-    generation!: GenerationsCreateNestedOneWithoutAbilitiesInput;
+    generation!: Identity<GenerationsCreateNestedOneWithoutAbilitiesInput>;
 
     @Field(() => PokemonAbilitiesCreateNestedManyWithoutAbilityInput, {nullable:true})
-    pokemonAbilities?: PokemonAbilitiesCreateNestedManyWithoutAbilityInput;
+    pokemonAbilities?: Identity<PokemonAbilitiesCreateNestedManyWithoutAbilityInput>;
 }

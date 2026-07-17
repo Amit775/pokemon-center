@@ -4,8 +4,9 @@ import { PokemonFormGenerationsCreateWithoutPokemonFormInput } from './pokemon-f
 import { Type } from 'class-transformer';
 import { PokemonFormGenerationsCreateOrConnectWithoutPokemonFormInput } from './pokemon-form-generations-create-or-connect-without-pokemon-form.input';
 import { PokemonFormGenerationsUpsertWithWhereUniqueWithoutPokemonFormInput } from './pokemon-form-generations-upsert-with-where-unique-without-pokemon-form.input';
+import type { Identity } from 'identity-type';
 import { PokemonFormGenerationsCreateManyPokemonFormInputEnvelope } from './pokemon-form-generations-create-many-pokemon-form-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonFormGenerationsWhereUniqueInput } from './pokemon-form-generations-where-unique.input';
 import { PokemonFormGenerationsUpdateWithWhereUniqueWithoutPokemonFormInput } from './pokemon-form-generations-update-with-where-unique-without-pokemon-form.input';
 import { PokemonFormGenerationsUpdateManyWithWhereWithoutPokemonFormInput } from './pokemon-form-generations-update-many-with-where-without-pokemon-form.input';
@@ -28,7 +29,7 @@ export class PokemonFormGenerationsUpdateManyWithoutPokemonFormNestedInput {
 
     @Field(() => PokemonFormGenerationsCreateManyPokemonFormInputEnvelope, {nullable:true})
     @Type(() => PokemonFormGenerationsCreateManyPokemonFormInputEnvelope)
-    createMany?: PokemonFormGenerationsCreateManyPokemonFormInputEnvelope;
+    createMany?: Identity<PokemonFormGenerationsCreateManyPokemonFormInputEnvelope>;
 
     @Field(() => [PokemonFormGenerationsWhereUniqueInput], {nullable:true})
     @Type(() => PokemonFormGenerationsWhereUniqueInput)

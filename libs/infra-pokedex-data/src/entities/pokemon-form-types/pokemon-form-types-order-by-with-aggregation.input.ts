@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { PokemonFormTypesCountOrderByAggregateInput } from './pokemon-form-types-count-order-by-aggregate.input';
 import { PokemonFormTypesAvgOrderByAggregateInput } from './pokemon-form-types-avg-order-by-aggregate.input';
 import { PokemonFormTypesMaxOrderByAggregateInput } from './pokemon-form-types-max-order-by-aggregate.input';
@@ -20,17 +21,17 @@ export class PokemonFormTypesOrderByWithAggregationInput {
     slot?: `${SortOrder}`;
 
     @Field(() => PokemonFormTypesCountOrderByAggregateInput, {nullable:true})
-    _count?: PokemonFormTypesCountOrderByAggregateInput;
+    _count?: Identity<PokemonFormTypesCountOrderByAggregateInput>;
 
     @Field(() => PokemonFormTypesAvgOrderByAggregateInput, {nullable:true})
-    _avg?: PokemonFormTypesAvgOrderByAggregateInput;
+    _avg?: Identity<PokemonFormTypesAvgOrderByAggregateInput>;
 
     @Field(() => PokemonFormTypesMaxOrderByAggregateInput, {nullable:true})
-    _max?: PokemonFormTypesMaxOrderByAggregateInput;
+    _max?: Identity<PokemonFormTypesMaxOrderByAggregateInput>;
 
     @Field(() => PokemonFormTypesMinOrderByAggregateInput, {nullable:true})
-    _min?: PokemonFormTypesMinOrderByAggregateInput;
+    _min?: Identity<PokemonFormTypesMinOrderByAggregateInput>;
 
     @Field(() => PokemonFormTypesSumOrderByAggregateInput, {nullable:true})
-    _sum?: PokemonFormTypesSumOrderByAggregateInput;
+    _sum?: Identity<PokemonFormTypesSumOrderByAggregateInput>;
 }

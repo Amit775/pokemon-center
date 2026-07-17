@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GendersWhereInput } from './genders-where.input';
 import { Type } from 'class-transformer';
 import { GendersOrderByWithRelationInput } from './genders-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { GendersWhereUniqueInput } from './genders-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { GendersScalarFieldEnum } from './genders-scalar-field.enum';
@@ -13,7 +14,7 @@ export class FindFirstGendersArgs {
 
     @Field(() => GendersWhereInput, {nullable:true})
     @Type(() => GendersWhereInput)
-    where?: GendersWhereInput;
+    where?: Identity<GendersWhereInput>;
 
     @Field(() => [GendersOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<GendersOrderByWithRelationInput>;

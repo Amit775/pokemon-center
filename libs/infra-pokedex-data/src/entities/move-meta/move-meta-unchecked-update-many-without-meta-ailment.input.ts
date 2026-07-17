@@ -1,44 +1,43 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class MoveMetaUncheckedUpdateManyWithoutMetaAilmentInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    move_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    move_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    meta_category_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    meta_category_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    min_hits?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    min_hits?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    max_hits?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    max_hits?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    min_turns?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    min_turns?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    max_turns?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    max_turns?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    drain?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    drain?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    healing?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    healing?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    crit_rate?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    crit_rate?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    ailment_chance?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    ailment_chance?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    flinch_chance?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    flinch_chance?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    stat_chance?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    stat_chance?: number;
 }

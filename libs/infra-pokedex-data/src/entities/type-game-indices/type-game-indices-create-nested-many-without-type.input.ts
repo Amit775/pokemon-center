@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { TypeGameIndicesCreateWithoutTypeInput } from './type-game-indices-create-without-type.input';
 import { Type } from 'class-transformer';
 import { TypeGameIndicesCreateOrConnectWithoutTypeInput } from './type-game-indices-create-or-connect-without-type.input';
+import type { Identity } from 'identity-type';
 import { TypeGameIndicesCreateManyTypeInputEnvelope } from './type-game-indices-create-many-type-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { TypeGameIndicesWhereUniqueInput } from './type-game-indices-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class TypeGameIndicesCreateNestedManyWithoutTypeInput {
 
     @Field(() => TypeGameIndicesCreateManyTypeInputEnvelope, {nullable:true})
     @Type(() => TypeGameIndicesCreateManyTypeInputEnvelope)
-    createMany?: TypeGameIndicesCreateManyTypeInputEnvelope;
+    createMany?: Identity<TypeGameIndicesCreateManyTypeInputEnvelope>;
 
     @Field(() => [TypeGameIndicesWhereUniqueInput], {nullable:true})
     @Type(() => TypeGameIndicesWhereUniqueInput)

@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterMethodsWhereInput } from './encounter-methods-where.input';
 import { Type } from 'class-transformer';
 import { EncounterMethodsOrderByWithRelationInput } from './encounter-methods-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncounterMethodsWhereUniqueInput } from './encounter-methods-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { EncounterMethodsCountAggregateInput } from './encounter-methods-count-aggregate.input';
@@ -17,7 +18,7 @@ export class EncounterMethodsAggregateArgs {
 
     @Field(() => EncounterMethodsWhereInput, {nullable:true})
     @Type(() => EncounterMethodsWhereInput)
-    where?: EncounterMethodsWhereInput;
+    where?: Identity<EncounterMethodsWhereInput>;
 
     @Field(() => [EncounterMethodsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<EncounterMethodsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class EncounterMethodsAggregateArgs {
     skip?: number;
 
     @Field(() => EncounterMethodsCountAggregateInput, {nullable:true})
-    _count?: EncounterMethodsCountAggregateInput;
+    _count?: Identity<EncounterMethodsCountAggregateInput>;
 
     @Field(() => EncounterMethodsAvgAggregateInput, {nullable:true})
-    _avg?: EncounterMethodsAvgAggregateInput;
+    _avg?: Identity<EncounterMethodsAvgAggregateInput>;
 
     @Field(() => EncounterMethodsSumAggregateInput, {nullable:true})
-    _sum?: EncounterMethodsSumAggregateInput;
+    _sum?: Identity<EncounterMethodsSumAggregateInput>;
 
     @Field(() => EncounterMethodsMinAggregateInput, {nullable:true})
-    _min?: EncounterMethodsMinAggregateInput;
+    _min?: Identity<EncounterMethodsMinAggregateInput>;
 
     @Field(() => EncounterMethodsMaxAggregateInput, {nullable:true})
-    _max?: EncounterMethodsMaxAggregateInput;
+    _max?: Identity<EncounterMethodsMaxAggregateInput>;
 }

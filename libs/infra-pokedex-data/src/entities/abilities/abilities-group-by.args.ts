@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { AbilitiesWhereInput } from './abilities-where.input';
 import { Type } from 'class-transformer';
 import { AbilitiesOrderByWithAggregationInput } from './abilities-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class AbilitiesGroupByArgs {
 
     @Field(() => AbilitiesWhereInput, {nullable:true})
     @Type(() => AbilitiesWhereInput)
-    where?: AbilitiesWhereInput;
+    where?: Identity<AbilitiesWhereInput>;
 
     @Field(() => [AbilitiesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<AbilitiesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class AbilitiesGroupByArgs {
     by!: Array<`${AbilitiesScalarFieldEnum}`>;
 
     @Field(() => AbilitiesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: AbilitiesScalarWhereWithAggregatesInput;
+    having?: Identity<AbilitiesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class AbilitiesGroupByArgs {
     skip?: number;
 
     @Field(() => AbilitiesCountAggregateInput, {nullable:true})
-    _count?: AbilitiesCountAggregateInput;
+    _count?: Identity<AbilitiesCountAggregateInput>;
 
     @Field(() => AbilitiesAvgAggregateInput, {nullable:true})
-    _avg?: AbilitiesAvgAggregateInput;
+    _avg?: Identity<AbilitiesAvgAggregateInput>;
 
     @Field(() => AbilitiesSumAggregateInput, {nullable:true})
-    _sum?: AbilitiesSumAggregateInput;
+    _sum?: Identity<AbilitiesSumAggregateInput>;
 
     @Field(() => AbilitiesMinAggregateInput, {nullable:true})
-    _min?: AbilitiesMinAggregateInput;
+    _min?: Identity<AbilitiesMinAggregateInput>;
 
     @Field(() => AbilitiesMaxAggregateInput, {nullable:true})
-    _max?: AbilitiesMaxAggregateInput;
+    _max?: Identity<AbilitiesMaxAggregateInput>;
 }

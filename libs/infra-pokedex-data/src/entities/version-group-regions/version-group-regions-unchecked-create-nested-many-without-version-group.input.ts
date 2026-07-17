@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { VersionGroupRegionsCreateWithoutVersionGroupInput } from './version-group-regions-create-without-version-group.input';
 import { Type } from 'class-transformer';
 import { VersionGroupRegionsCreateOrConnectWithoutVersionGroupInput } from './version-group-regions-create-or-connect-without-version-group.input';
+import type { Identity } from 'identity-type';
 import { VersionGroupRegionsCreateManyVersionGroupInputEnvelope } from './version-group-regions-create-many-version-group-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { VersionGroupRegionsWhereUniqueInput } from './version-group-regions-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class VersionGroupRegionsUncheckedCreateNestedManyWithoutVersionGroupInpu
 
     @Field(() => VersionGroupRegionsCreateManyVersionGroupInputEnvelope, {nullable:true})
     @Type(() => VersionGroupRegionsCreateManyVersionGroupInputEnvelope)
-    createMany?: VersionGroupRegionsCreateManyVersionGroupInputEnvelope;
+    createMany?: Identity<VersionGroupRegionsCreateManyVersionGroupInputEnvelope>;
 
     @Field(() => [VersionGroupRegionsWhereUniqueInput], {nullable:true})
     @Type(() => VersionGroupRegionsWhereUniqueInput)

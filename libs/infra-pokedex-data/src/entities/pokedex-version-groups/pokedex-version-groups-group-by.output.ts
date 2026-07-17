@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokedexVersionGroupsCountAggregate } from './pokedex-version-groups-count-aggregate.output';
 import { PokedexVersionGroupsAvgAggregate } from './pokedex-version-groups-avg-aggregate.output';
 import { PokedexVersionGroupsSumAggregate } from './pokedex-version-groups-sum-aggregate.output';
@@ -17,17 +18,17 @@ export class PokedexVersionGroupsGroupBy {
     version_group_id!: number;
 
     @Field(() => PokedexVersionGroupsCountAggregate, {nullable:true})
-    _count?: PokedexVersionGroupsCountAggregate;
+    _count?: Identity<PokedexVersionGroupsCountAggregate>;
 
     @Field(() => PokedexVersionGroupsAvgAggregate, {nullable:true})
-    _avg?: PokedexVersionGroupsAvgAggregate;
+    _avg?: Identity<PokedexVersionGroupsAvgAggregate>;
 
     @Field(() => PokedexVersionGroupsSumAggregate, {nullable:true})
-    _sum?: PokedexVersionGroupsSumAggregate;
+    _sum?: Identity<PokedexVersionGroupsSumAggregate>;
 
     @Field(() => PokedexVersionGroupsMinAggregate, {nullable:true})
-    _min?: PokedexVersionGroupsMinAggregate;
+    _min?: Identity<PokedexVersionGroupsMinAggregate>;
 
     @Field(() => PokedexVersionGroupsMaxAggregate, {nullable:true})
-    _max?: PokedexVersionGroupsMaxAggregate;
+    _max?: Identity<PokedexVersionGroupsMaxAggregate>;
 }

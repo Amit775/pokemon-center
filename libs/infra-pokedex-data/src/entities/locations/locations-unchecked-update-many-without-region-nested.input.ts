@@ -4,8 +4,9 @@ import { LocationsCreateWithoutRegionInput } from './locations-create-without-re
 import { Type } from 'class-transformer';
 import { LocationsCreateOrConnectWithoutRegionInput } from './locations-create-or-connect-without-region.input';
 import { LocationsUpsertWithWhereUniqueWithoutRegionInput } from './locations-upsert-with-where-unique-without-region.input';
+import type { Identity } from 'identity-type';
 import { LocationsCreateManyRegionInputEnvelope } from './locations-create-many-region-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { LocationsWhereUniqueInput } from './locations-where-unique.input';
 import { LocationsUpdateWithWhereUniqueWithoutRegionInput } from './locations-update-with-where-unique-without-region.input';
 import { LocationsUpdateManyWithWhereWithoutRegionInput } from './locations-update-many-with-where-without-region.input';
@@ -28,7 +29,7 @@ export class LocationsUncheckedUpdateManyWithoutRegionNestedInput {
 
     @Field(() => LocationsCreateManyRegionInputEnvelope, {nullable:true})
     @Type(() => LocationsCreateManyRegionInputEnvelope)
-    createMany?: LocationsCreateManyRegionInputEnvelope;
+    createMany?: Identity<LocationsCreateManyRegionInputEnvelope>;
 
     @Field(() => [LocationsWhereUniqueInput], {nullable:true})
     @Type(() => LocationsWhereUniqueInput)

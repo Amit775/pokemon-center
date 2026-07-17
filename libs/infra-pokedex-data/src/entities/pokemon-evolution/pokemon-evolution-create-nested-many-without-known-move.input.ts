@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { PokemonEvolutionCreateWithoutKnownMoveInput } from './pokemon-evolution-create-without-known-move.input';
 import { Type } from 'class-transformer';
 import { PokemonEvolutionCreateOrConnectWithoutKnownMoveInput } from './pokemon-evolution-create-or-connect-without-known-move.input';
+import type { Identity } from 'identity-type';
 import { PokemonEvolutionCreateManyKnownMoveInputEnvelope } from './pokemon-evolution-create-many-known-move-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonEvolutionWhereUniqueInput } from './pokemon-evolution-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class PokemonEvolutionCreateNestedManyWithoutKnownMoveInput {
 
     @Field(() => PokemonEvolutionCreateManyKnownMoveInputEnvelope, {nullable:true})
     @Type(() => PokemonEvolutionCreateManyKnownMoveInputEnvelope)
-    createMany?: PokemonEvolutionCreateManyKnownMoveInputEnvelope;
+    createMany?: Identity<PokemonEvolutionCreateManyKnownMoveInputEnvelope>;
 
     @Field(() => [PokemonEvolutionWhereUniqueInput], {nullable:true})
     @Type(() => PokemonEvolutionWhereUniqueInput)

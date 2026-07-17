@@ -4,6 +4,7 @@ import { ID } from '@nestjs/graphql';
 import { PokemonSpecies } from '../pokemon-species/pokemon-species.model';
 import { Experience } from '../experience/experience.model';
 import { GrowthRatesCount } from './growth-rates-count.output';
+import type { Identity } from 'identity-type';
 
 @ObjectType()
 export class GrowthRates {
@@ -17,12 +18,12 @@ export class GrowthRates {
     @Field(() => String, {nullable:false})
     formula!: string;
 
-    @Field(() => [PokemonSpecies], {nullable:true})
+    @Field(() => [PokemonSpecies], {nullable:false})
     species?: Array<PokemonSpecies>;
 
-    @Field(() => [Experience], {nullable:true})
+    @Field(() => [Experience], {nullable:false})
     experience?: Array<Experience>;
 
     @Field(() => GrowthRatesCount, {nullable:false})
-    _count?: GrowthRatesCount;
+    _count?: Identity<GrowthRatesCount>;
 }

@@ -3,8 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { NatureBattleStylePreferencesCreateWithoutNatureInput } from './nature-battle-style-preferences-create-without-nature.input';
 import { Type } from 'class-transformer';
 import { NatureBattleStylePreferencesCreateOrConnectWithoutNatureInput } from './nature-battle-style-preferences-create-or-connect-without-nature.input';
+import type { Identity } from 'identity-type';
 import { NatureBattleStylePreferencesCreateManyNatureInputEnvelope } from './nature-battle-style-preferences-create-many-nature-input-envelope.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { NatureBattleStylePreferencesWhereUniqueInput } from './nature-battle-style-preferences-where-unique.input';
 
 @InputType()
@@ -20,7 +21,7 @@ export class NatureBattleStylePreferencesUncheckedCreateNestedManyWithoutNatureI
 
     @Field(() => NatureBattleStylePreferencesCreateManyNatureInputEnvelope, {nullable:true})
     @Type(() => NatureBattleStylePreferencesCreateManyNatureInputEnvelope)
-    createMany?: NatureBattleStylePreferencesCreateManyNatureInputEnvelope;
+    createMany?: Identity<NatureBattleStylePreferencesCreateManyNatureInputEnvelope>;
 
     @Field(() => [NatureBattleStylePreferencesWhereUniqueInput], {nullable:true})
     @Type(() => NatureBattleStylePreferencesWhereUniqueInput)

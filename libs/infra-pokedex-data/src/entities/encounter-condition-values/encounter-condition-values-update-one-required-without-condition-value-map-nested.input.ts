@@ -1,10 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { EncounterConditionValuesCreateWithoutConditionValueMapInput } from './encounter-condition-values-create-without-condition-value-map.input';
 import { Type } from 'class-transformer';
 import { EncounterConditionValuesCreateOrConnectWithoutConditionValueMapInput } from './encounter-condition-values-create-or-connect-without-condition-value-map.input';
 import { EncounterConditionValuesUpsertWithoutConditionValueMapInput } from './encounter-condition-values-upsert-without-condition-value-map.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EncounterConditionValuesWhereUniqueInput } from './encounter-condition-values-where-unique.input';
 import { EncounterConditionValuesUpdateToOneWithWhereWithoutConditionValueMapInput } from './encounter-condition-values-update-to-one-with-where-without-condition-value-map.input';
 
@@ -13,15 +14,15 @@ export class EncounterConditionValuesUpdateOneRequiredWithoutConditionValueMapNe
 
     @Field(() => EncounterConditionValuesCreateWithoutConditionValueMapInput, {nullable:true})
     @Type(() => EncounterConditionValuesCreateWithoutConditionValueMapInput)
-    create?: EncounterConditionValuesCreateWithoutConditionValueMapInput;
+    create?: Identity<EncounterConditionValuesCreateWithoutConditionValueMapInput>;
 
     @Field(() => EncounterConditionValuesCreateOrConnectWithoutConditionValueMapInput, {nullable:true})
     @Type(() => EncounterConditionValuesCreateOrConnectWithoutConditionValueMapInput)
-    connectOrCreate?: EncounterConditionValuesCreateOrConnectWithoutConditionValueMapInput;
+    connectOrCreate?: Identity<EncounterConditionValuesCreateOrConnectWithoutConditionValueMapInput>;
 
     @Field(() => EncounterConditionValuesUpsertWithoutConditionValueMapInput, {nullable:true})
     @Type(() => EncounterConditionValuesUpsertWithoutConditionValueMapInput)
-    upsert?: EncounterConditionValuesUpsertWithoutConditionValueMapInput;
+    upsert?: Identity<EncounterConditionValuesUpsertWithoutConditionValueMapInput>;
 
     @Field(() => EncounterConditionValuesWhereUniqueInput, {nullable:true})
     @Type(() => EncounterConditionValuesWhereUniqueInput)
@@ -29,5 +30,5 @@ export class EncounterConditionValuesUpdateOneRequiredWithoutConditionValueMapNe
 
     @Field(() => EncounterConditionValuesUpdateToOneWithWhereWithoutConditionValueMapInput, {nullable:true})
     @Type(() => EncounterConditionValuesUpdateToOneWithWhereWithoutConditionValueMapInput)
-    update?: EncounterConditionValuesUpdateToOneWithWhereWithoutConditionValueMapInput;
+    update?: Identity<EncounterConditionValuesUpdateToOneWithWhereWithoutConditionValueMapInput>;
 }

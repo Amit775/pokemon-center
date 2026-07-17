@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonAbilitiesWhereUniqueInput } from './pokemon-abilities-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { PokemonAbilitiesCreateInput } from './pokemon-abilities-create.input';
 import { PokemonAbilitiesUpdateInput } from './pokemon-abilities-update.input';
 
@@ -15,9 +16,9 @@ export class UpsertOnePokemonAbilitiesArgs {
 
     @Field(() => PokemonAbilitiesCreateInput, {nullable:false})
     @Type(() => PokemonAbilitiesCreateInput)
-    create!: PokemonAbilitiesCreateInput;
+    create!: Identity<PokemonAbilitiesCreateInput>;
 
     @Field(() => PokemonAbilitiesUpdateInput, {nullable:false})
     @Type(() => PokemonAbilitiesUpdateInput)
-    update!: PokemonAbilitiesUpdateInput;
+    update!: Identity<PokemonAbilitiesUpdateInput>;
 }

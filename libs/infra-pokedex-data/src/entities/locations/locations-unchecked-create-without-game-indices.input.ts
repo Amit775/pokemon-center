@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationAreasUncheckedCreateNestedManyWithoutLocationInput } from '../location-areas/location-areas-unchecked-create-nested-many-without-location.input';
 import { PokemonEvolutionUncheckedCreateNestedManyWithoutLocationInput } from '../pokemon-evolution/pokemon-evolution-unchecked-create-nested-many-without-location.input';
 
@@ -17,8 +18,8 @@ export class LocationsUncheckedCreateWithoutGameIndicesInput {
     identifier!: string;
 
     @Field(() => LocationAreasUncheckedCreateNestedManyWithoutLocationInput, {nullable:true})
-    areas?: LocationAreasUncheckedCreateNestedManyWithoutLocationInput;
+    areas?: Identity<LocationAreasUncheckedCreateNestedManyWithoutLocationInput>;
 
     @Field(() => PokemonEvolutionUncheckedCreateNestedManyWithoutLocationInput, {nullable:true})
-    evolution?: PokemonEvolutionUncheckedCreateNestedManyWithoutLocationInput;
+    evolution?: Identity<PokemonEvolutionUncheckedCreateNestedManyWithoutLocationInput>;
 }

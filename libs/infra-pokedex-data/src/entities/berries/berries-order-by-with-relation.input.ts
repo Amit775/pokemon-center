@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { SortOrderInput } from '../prisma/sort-order.input';
 import { ItemsOrderByWithRelationInput } from '../items/items-order-by-with-relation.input';
 import { BerryFirmnessOrderByWithRelationInput } from '../berry-firmness/berry-firmness-order-by-with-relation.input';
@@ -20,10 +21,10 @@ export class BerriesOrderByWithRelationInput {
     firmness_id?: `${SortOrder}`;
 
     @Field(() => SortOrderInput, {nullable:true})
-    natural_gift_power?: SortOrderInput;
+    natural_gift_power?: Identity<SortOrderInput>;
 
     @Field(() => SortOrderInput, {nullable:true})
-    natural_gift_type_id?: SortOrderInput;
+    natural_gift_type_id?: Identity<SortOrderInput>;
 
     @Field(() => SortOrder, {nullable:true})
     size?: `${SortOrder}`;
@@ -41,14 +42,14 @@ export class BerriesOrderByWithRelationInput {
     smoothness?: `${SortOrder}`;
 
     @Field(() => ItemsOrderByWithRelationInput, {nullable:true})
-    item?: ItemsOrderByWithRelationInput;
+    item?: Identity<ItemsOrderByWithRelationInput>;
 
     @Field(() => BerryFirmnessOrderByWithRelationInput, {nullable:true})
-    firmness?: BerryFirmnessOrderByWithRelationInput;
+    firmness?: Identity<BerryFirmnessOrderByWithRelationInput>;
 
     @Field(() => TypesOrderByWithRelationInput, {nullable:true})
-    naturalGiftType?: TypesOrderByWithRelationInput;
+    naturalGiftType?: Identity<TypesOrderByWithRelationInput>;
 
     @Field(() => BerryFlavorsOrderByRelationAggregateInput, {nullable:true})
-    flavors?: BerryFlavorsOrderByRelationAggregateInput;
+    flavors?: Identity<BerryFlavorsOrderByRelationAggregateInput>;
 }

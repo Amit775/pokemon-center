@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
 
 @InputType()
@@ -15,14 +16,14 @@ export class MachinesScalarWhereWithAggregatesInput {
     NOT?: Array<MachinesScalarWhereWithAggregatesInput>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    machine_number?: IntWithAggregatesFilter;
+    machine_number?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    version_group_id?: IntWithAggregatesFilter;
+    version_group_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    item_id?: IntWithAggregatesFilter;
+    item_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    move_id?: IntWithAggregatesFilter;
+    move_id?: Identity<IntWithAggregatesFilter>;
 }

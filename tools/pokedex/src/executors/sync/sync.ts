@@ -1,7 +1,8 @@
 import { Client } from '@elastic/elasticsearch';
 import { PromiseExecutor, logger } from '@nx/devkit';
 import { PokedexIndex, PokemonDocument } from '@pokemon-center/infra-pokedex-index';
-import { Prisma, PrismaClient } from '@prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Prisma, PrismaClient } from '@pokemon-center/infra-pokedex-data';
 import { PokedexSyncExecutorSchema } from './schema';
 
 type PokemonWithRelations = Prisma.PokemonGetPayload<{
@@ -51,7 +52,9 @@ const runExecutor: PromiseExecutor<PokedexSyncExecutorSchema> = async (options) 
 export default runExecutor;
 
 class PokedexSynchronizerService {
-	private readonly prisma = new PrismaClient();
+	private readonly prisma = new PrismaClient({
+		adapter: new PrismaPg({ connectionString: process.env['DATABASE_URL'] }),
+	});
 
 	constructor(
 		private readonly transform: (pokemon: PokemonWithRelations) => PokemonDocument,

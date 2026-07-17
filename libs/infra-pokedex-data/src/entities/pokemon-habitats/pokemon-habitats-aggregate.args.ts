@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonHabitatsWhereInput } from './pokemon-habitats-where.input';
 import { Type } from 'class-transformer';
 import { PokemonHabitatsOrderByWithRelationInput } from './pokemon-habitats-order-by-with-relation.input';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { PokemonHabitatsWhereUniqueInput } from './pokemon-habitats-where-unique.input';
 import { Int } from '@nestjs/graphql';
 import { PokemonHabitatsCountAggregateInput } from './pokemon-habitats-count-aggregate.input';
@@ -17,7 +18,7 @@ export class PokemonHabitatsAggregateArgs {
 
     @Field(() => PokemonHabitatsWhereInput, {nullable:true})
     @Type(() => PokemonHabitatsWhereInput)
-    where?: PokemonHabitatsWhereInput;
+    where?: Identity<PokemonHabitatsWhereInput>;
 
     @Field(() => [PokemonHabitatsOrderByWithRelationInput], {nullable:true})
     orderBy?: Array<PokemonHabitatsOrderByWithRelationInput>;
@@ -32,17 +33,17 @@ export class PokemonHabitatsAggregateArgs {
     skip?: number;
 
     @Field(() => PokemonHabitatsCountAggregateInput, {nullable:true})
-    _count?: PokemonHabitatsCountAggregateInput;
+    _count?: Identity<PokemonHabitatsCountAggregateInput>;
 
     @Field(() => PokemonHabitatsAvgAggregateInput, {nullable:true})
-    _avg?: PokemonHabitatsAvgAggregateInput;
+    _avg?: Identity<PokemonHabitatsAvgAggregateInput>;
 
     @Field(() => PokemonHabitatsSumAggregateInput, {nullable:true})
-    _sum?: PokemonHabitatsSumAggregateInput;
+    _sum?: Identity<PokemonHabitatsSumAggregateInput>;
 
     @Field(() => PokemonHabitatsMinAggregateInput, {nullable:true})
-    _min?: PokemonHabitatsMinAggregateInput;
+    _min?: Identity<PokemonHabitatsMinAggregateInput>;
 
     @Field(() => PokemonHabitatsMaxAggregateInput, {nullable:true})
-    _max?: PokemonHabitatsMaxAggregateInput;
+    _max?: Identity<PokemonHabitatsMaxAggregateInput>;
 }

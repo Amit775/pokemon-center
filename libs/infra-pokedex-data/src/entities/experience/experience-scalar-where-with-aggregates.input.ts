@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
 
 @InputType()
@@ -15,11 +16,11 @@ export class ExperienceScalarWhereWithAggregatesInput {
     NOT?: Array<ExperienceScalarWhereWithAggregatesInput>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    growth_rate_id?: IntWithAggregatesFilter;
+    growth_rate_id?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    level?: IntWithAggregatesFilter;
+    level?: Identity<IntWithAggregatesFilter>;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
-    experience?: IntWithAggregatesFilter;
+    experience?: Identity<IntWithAggregatesFilter>;
 }

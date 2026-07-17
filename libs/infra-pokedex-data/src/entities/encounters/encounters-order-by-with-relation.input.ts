@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
+import type { Identity } from 'identity-type';
 import { VersionsOrderByWithRelationInput } from '../versions/versions-order-by-with-relation.input';
 import { LocationAreasOrderByWithRelationInput } from '../location-areas/location-areas-order-by-with-relation.input';
 import { EncounterSlotsOrderByWithRelationInput } from '../encounter-slots/encounter-slots-order-by-with-relation.input';
@@ -32,17 +33,17 @@ export class EncountersOrderByWithRelationInput {
     max_level?: `${SortOrder}`;
 
     @Field(() => VersionsOrderByWithRelationInput, {nullable:true})
-    version?: VersionsOrderByWithRelationInput;
+    version?: Identity<VersionsOrderByWithRelationInput>;
 
     @Field(() => LocationAreasOrderByWithRelationInput, {nullable:true})
-    locationArea?: LocationAreasOrderByWithRelationInput;
+    locationArea?: Identity<LocationAreasOrderByWithRelationInput>;
 
     @Field(() => EncounterSlotsOrderByWithRelationInput, {nullable:true})
-    encounterSlot?: EncounterSlotsOrderByWithRelationInput;
+    encounterSlot?: Identity<EncounterSlotsOrderByWithRelationInput>;
 
     @Field(() => PokemonOrderByWithRelationInput, {nullable:true})
-    pokemon?: PokemonOrderByWithRelationInput;
+    pokemon?: Identity<PokemonOrderByWithRelationInput>;
 
     @Field(() => EncounterConditionValueMapOrderByRelationAggregateInput, {nullable:true})
-    conditionValueMap?: EncounterConditionValueMapOrderByRelationAggregateInput;
+    conditionValueMap?: Identity<EncounterConditionValueMapOrderByRelationAggregateInput>;
 }

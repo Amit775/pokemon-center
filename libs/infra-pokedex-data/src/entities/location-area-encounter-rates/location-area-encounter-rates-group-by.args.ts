@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { LocationAreaEncounterRatesWhereInput } from './location-area-encounter-rates-where.input';
 import { Type } from 'class-transformer';
 import { LocationAreaEncounterRatesOrderByWithAggregationInput } from './location-area-encounter-rates-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class LocationAreaEncounterRatesGroupByArgs {
 
     @Field(() => LocationAreaEncounterRatesWhereInput, {nullable:true})
     @Type(() => LocationAreaEncounterRatesWhereInput)
-    where?: LocationAreaEncounterRatesWhereInput;
+    where?: Identity<LocationAreaEncounterRatesWhereInput>;
 
     @Field(() => [LocationAreaEncounterRatesOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<LocationAreaEncounterRatesOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class LocationAreaEncounterRatesGroupByArgs {
     by!: Array<`${LocationAreaEncounterRatesScalarFieldEnum}`>;
 
     @Field(() => LocationAreaEncounterRatesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: LocationAreaEncounterRatesScalarWhereWithAggregatesInput;
+    having?: Identity<LocationAreaEncounterRatesScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class LocationAreaEncounterRatesGroupByArgs {
     skip?: number;
 
     @Field(() => LocationAreaEncounterRatesCountAggregateInput, {nullable:true})
-    _count?: LocationAreaEncounterRatesCountAggregateInput;
+    _count?: Identity<LocationAreaEncounterRatesCountAggregateInput>;
 
     @Field(() => LocationAreaEncounterRatesAvgAggregateInput, {nullable:true})
-    _avg?: LocationAreaEncounterRatesAvgAggregateInput;
+    _avg?: Identity<LocationAreaEncounterRatesAvgAggregateInput>;
 
     @Field(() => LocationAreaEncounterRatesSumAggregateInput, {nullable:true})
-    _sum?: LocationAreaEncounterRatesSumAggregateInput;
+    _sum?: Identity<LocationAreaEncounterRatesSumAggregateInput>;
 
     @Field(() => LocationAreaEncounterRatesMinAggregateInput, {nullable:true})
-    _min?: LocationAreaEncounterRatesMinAggregateInput;
+    _min?: Identity<LocationAreaEncounterRatesMinAggregateInput>;
 
     @Field(() => LocationAreaEncounterRatesMaxAggregateInput, {nullable:true})
-    _max?: LocationAreaEncounterRatesMaxAggregateInput;
+    _max?: Identity<LocationAreaEncounterRatesMaxAggregateInput>;
 }

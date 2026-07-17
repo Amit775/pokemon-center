@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { PokemonSpeciesCreateNestedManyWithoutGrowthRateInput } from '../pokemon-species/pokemon-species-create-nested-many-without-growth-rate.input';
 
 @InputType()
@@ -16,5 +17,5 @@ export class GrowthRatesCreateWithoutExperienceInput {
     formula!: string;
 
     @Field(() => PokemonSpeciesCreateNestedManyWithoutGrowthRateInput, {nullable:true})
-    species?: PokemonSpeciesCreateNestedManyWithoutGrowthRateInput;
+    species?: Identity<PokemonSpeciesCreateNestedManyWithoutGrowthRateInput>;
 }

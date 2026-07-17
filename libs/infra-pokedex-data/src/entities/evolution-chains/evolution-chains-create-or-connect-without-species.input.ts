@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@pokemon-center/prisma';
 import { EvolutionChainsWhereUniqueInput } from './evolution-chains-where-unique.input';
 import { Type } from 'class-transformer';
+import type { Identity } from 'identity-type';
 import { EvolutionChainsCreateWithoutSpeciesInput } from './evolution-chains-create-without-species.input';
 
 @InputType()
@@ -14,5 +15,5 @@ export class EvolutionChainsCreateOrConnectWithoutSpeciesInput {
 
     @Field(() => EvolutionChainsCreateWithoutSpeciesInput, {nullable:false})
     @Type(() => EvolutionChainsCreateWithoutSpeciesInput)
-    create!: EvolutionChainsCreateWithoutSpeciesInput;
+    create!: Identity<EvolutionChainsCreateWithoutSpeciesInput>;
 }

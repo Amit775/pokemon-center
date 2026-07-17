@@ -1,10 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class EncounterConditionValueMapUncheckedUpdateWithoutEncounterInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    encounter_condition_value_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    encounter_condition_value_id?: number;
 }

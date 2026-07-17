@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { PokemonSpeciesListRelationFilter } from '../pokemon-species/pokemon-species-list-relation-filter.input';
@@ -18,17 +19,17 @@ export class GrowthRatesWhereInput {
     NOT?: Array<GrowthRatesWhereInput>;
 
     @Field(() => IntFilter, {nullable:true})
-    id?: IntFilter;
+    id?: Identity<IntFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    identifier?: StringFilter;
+    identifier?: Identity<StringFilter>;
 
     @Field(() => StringFilter, {nullable:true})
-    formula?: StringFilter;
+    formula?: Identity<StringFilter>;
 
     @Field(() => PokemonSpeciesListRelationFilter, {nullable:true})
-    species?: PokemonSpeciesListRelationFilter;
+    species?: Identity<PokemonSpeciesListRelationFilter>;
 
     @Field(() => ExperienceListRelationFilter, {nullable:true})
-    experience?: ExperienceListRelationFilter;
+    experience?: Identity<ExperienceListRelationFilter>;
 }

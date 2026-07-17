@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { CharacteristicsWhereInput } from './characteristics-where.input';
 import { Type } from 'class-transformer';
 import { CharacteristicsOrderByWithAggregationInput } from './characteristics-order-by-with-aggregation.input';
@@ -17,7 +18,7 @@ export class CharacteristicsGroupByArgs {
 
     @Field(() => CharacteristicsWhereInput, {nullable:true})
     @Type(() => CharacteristicsWhereInput)
-    where?: CharacteristicsWhereInput;
+    where?: Identity<CharacteristicsWhereInput>;
 
     @Field(() => [CharacteristicsOrderByWithAggregationInput], {nullable:true})
     orderBy?: Array<CharacteristicsOrderByWithAggregationInput>;
@@ -26,7 +27,7 @@ export class CharacteristicsGroupByArgs {
     by!: Array<`${CharacteristicsScalarFieldEnum}`>;
 
     @Field(() => CharacteristicsScalarWhereWithAggregatesInput, {nullable:true})
-    having?: CharacteristicsScalarWhereWithAggregatesInput;
+    having?: Identity<CharacteristicsScalarWhereWithAggregatesInput>;
 
     @Field(() => Int, {nullable:true})
     take?: number;
@@ -35,17 +36,17 @@ export class CharacteristicsGroupByArgs {
     skip?: number;
 
     @Field(() => CharacteristicsCountAggregateInput, {nullable:true})
-    _count?: CharacteristicsCountAggregateInput;
+    _count?: Identity<CharacteristicsCountAggregateInput>;
 
     @Field(() => CharacteristicsAvgAggregateInput, {nullable:true})
-    _avg?: CharacteristicsAvgAggregateInput;
+    _avg?: Identity<CharacteristicsAvgAggregateInput>;
 
     @Field(() => CharacteristicsSumAggregateInput, {nullable:true})
-    _sum?: CharacteristicsSumAggregateInput;
+    _sum?: Identity<CharacteristicsSumAggregateInput>;
 
     @Field(() => CharacteristicsMinAggregateInput, {nullable:true})
-    _min?: CharacteristicsMinAggregateInput;
+    _min?: Identity<CharacteristicsMinAggregateInput>;
 
     @Field(() => CharacteristicsMaxAggregateInput, {nullable:true})
-    _max?: CharacteristicsMaxAggregateInput;
+    _max?: Identity<CharacteristicsMaxAggregateInput>;
 }

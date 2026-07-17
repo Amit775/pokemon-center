@@ -1,13 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
 
 @InputType()
 export class ContestCombosUncheckedUpdateManyInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    first_move_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    first_move_id?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    second_move_id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    second_move_id?: number;
 }

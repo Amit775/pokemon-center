@@ -3,6 +3,7 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { ItemPockets } from '../item-pockets/item-pockets.model';
+import type { Identity } from 'identity-type';
 import { Items } from '../items/items.model';
 import { ItemCategoriesCount } from './item-categories-count.output';
 
@@ -22,11 +23,11 @@ export class ItemCategories {
     identifier!: string;
 
     @Field(() => ItemPockets, {nullable:false})
-    pocket?: ItemPockets;
+    pocket?: Identity<ItemPockets>;
 
-    @Field(() => [Items], {nullable:true})
+    @Field(() => [Items], {nullable:false})
     items?: Array<Items>;
 
     @Field(() => ItemCategoriesCount, {nullable:false})
-    _count?: ItemCategoriesCount;
+    _count?: Identity<ItemCategoriesCount>;
 }

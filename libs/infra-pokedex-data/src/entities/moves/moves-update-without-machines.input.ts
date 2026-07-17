@@ -1,8 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
 import { GenerationsUpdateOneRequiredWithoutMovesNestedInput } from '../generations/generations-update-one-required-without-moves-nested.input';
 import { TypesUpdateOneRequiredWithoutMovesNestedInput } from '../types/types-update-one-required-without-moves-nested.input';
 import { MoveTargetsUpdateOneRequiredWithoutMovesNestedInput } from '../move-targets/move-targets-update-one-required-without-moves-nested.input';
@@ -22,72 +21,72 @@ import { PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput } from '../pokemo
 @InputType()
 export class MovesUpdateWithoutMachinesInput {
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    id?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    id?: number;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    identifier?: StringFieldUpdateOperationsInput;
+    @Field(() => String, {nullable:true})
+    identifier?: string;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    power?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    power?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    pp?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    pp?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    accuracy?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    accuracy?: number;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    priority?: IntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    priority?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    effect_id?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    effect_id?: number;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    effect_chance?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => Int, {nullable:true})
+    effect_chance?: number;
 
     @Field(() => GenerationsUpdateOneRequiredWithoutMovesNestedInput, {nullable:true})
-    generation?: GenerationsUpdateOneRequiredWithoutMovesNestedInput;
+    generation?: Identity<GenerationsUpdateOneRequiredWithoutMovesNestedInput>;
 
     @Field(() => TypesUpdateOneRequiredWithoutMovesNestedInput, {nullable:true})
-    type?: TypesUpdateOneRequiredWithoutMovesNestedInput;
+    type?: Identity<TypesUpdateOneRequiredWithoutMovesNestedInput>;
 
     @Field(() => MoveTargetsUpdateOneRequiredWithoutMovesNestedInput, {nullable:true})
-    target?: MoveTargetsUpdateOneRequiredWithoutMovesNestedInput;
+    target?: Identity<MoveTargetsUpdateOneRequiredWithoutMovesNestedInput>;
 
     @Field(() => MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput, {nullable:true})
-    damageClass?: MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput;
+    damageClass?: Identity<MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput>;
 
     @Field(() => ContestTypesUpdateOneWithoutMovesNestedInput, {nullable:true})
-    contestType?: ContestTypesUpdateOneWithoutMovesNestedInput;
+    contestType?: Identity<ContestTypesUpdateOneWithoutMovesNestedInput>;
 
     @Field(() => ContestEffectsUpdateOneWithoutMovesNestedInput, {nullable:true})
-    contestEffect?: ContestEffectsUpdateOneWithoutMovesNestedInput;
+    contestEffect?: Identity<ContestEffectsUpdateOneWithoutMovesNestedInput>;
 
     @Field(() => SuperContestEffectsUpdateOneWithoutMovesNestedInput, {nullable:true})
-    superContestEffect?: SuperContestEffectsUpdateOneWithoutMovesNestedInput;
+    superContestEffect?: Identity<SuperContestEffectsUpdateOneWithoutMovesNestedInput>;
 
     @Field(() => PokemonMovesUpdateManyWithoutMoveNestedInput, {nullable:true})
-    pokemonMoves?: PokemonMovesUpdateManyWithoutMoveNestedInput;
+    pokemonMoves?: Identity<PokemonMovesUpdateManyWithoutMoveNestedInput>;
 
     @Field(() => MoveMetaUpdateManyWithoutMoveNestedInput, {nullable:true})
-    meta?: MoveMetaUpdateManyWithoutMoveNestedInput;
+    meta?: Identity<MoveMetaUpdateManyWithoutMoveNestedInput>;
 
     @Field(() => MoveFlagMapUpdateManyWithoutMoveNestedInput, {nullable:true})
-    flagMap?: MoveFlagMapUpdateManyWithoutMoveNestedInput;
+    flagMap?: Identity<MoveFlagMapUpdateManyWithoutMoveNestedInput>;
 
     @Field(() => ContestCombosUpdateManyWithoutFirstMoveNestedInput, {nullable:true})
-    contestCombos?: ContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    contestCombos?: Identity<ContestCombosUpdateManyWithoutFirstMoveNestedInput>;
 
     @Field(() => ContestCombosUpdateManyWithoutSecondMoveNestedInput, {nullable:true})
-    contestCombosSecond?: ContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    contestCombosSecond?: Identity<ContestCombosUpdateManyWithoutSecondMoveNestedInput>;
 
     @Field(() => SuperContestCombosUpdateManyWithoutFirstMoveNestedInput, {nullable:true})
-    superContestCombos?: SuperContestCombosUpdateManyWithoutFirstMoveNestedInput;
+    superContestCombos?: Identity<SuperContestCombosUpdateManyWithoutFirstMoveNestedInput>;
 
     @Field(() => SuperContestCombosUpdateManyWithoutSecondMoveNestedInput, {nullable:true})
-    superContestCombosSecond?: SuperContestCombosUpdateManyWithoutSecondMoveNestedInput;
+    superContestCombosSecond?: Identity<SuperContestCombosUpdateManyWithoutSecondMoveNestedInput>;
 
     @Field(() => PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput, {nullable:true})
-    knownMoves?: PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput;
+    knownMoves?: Identity<PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput>;
 }
