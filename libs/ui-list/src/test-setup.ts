@@ -5,6 +5,9 @@ globalThis.ngJest = {
 		errorOnUnknownProperties: true,
 	},
 };
-import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
+import { setupZonelessTestEnv } from 'jest-preset-angular/setup-env/zoneless';
 
-setupZoneTestEnv();
+setupZonelessTestEnv();
+
+// jsdom does not implement scrollTo; the CDK virtual scroll viewport relies on it
+Element.prototype.scrollTo = Element.prototype.scrollTo ?? ((): void => undefined);

@@ -50,6 +50,7 @@
 		"@angular/cli": "22.0.7",
 		"@angular/compiler-cli": "22.0.7",
 		"@angular/language-service": "22.0.7",
+		"@angular/platform-browser-dynamic": "22.0.7",
 		"@eslint/eslintrc": "^3.3.1",
 		"@eslint/js": "^10.0.1",
 		"@nestjs/schematics": "11.0.0",

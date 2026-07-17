@@ -6,7 +6,7 @@ const random = (min: number, max: number) => Math.floor(Math.random() * (max - m
 @Component({
 	selector: 'school-guess-pallete',
 	templateUrl: './guess-pallete.component.html',
-	changeDetection: ChangeDetectionStrategy.Eager,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [NgOptimizedImage],
 })
 export class GuessPalleteComponent {

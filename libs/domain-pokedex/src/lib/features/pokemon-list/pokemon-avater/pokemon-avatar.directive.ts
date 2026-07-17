@@ -14,7 +14,7 @@ export class PokemonAvatarDirective {
   public index = input.required<number>();
   public loaded = output<string>();
 
-  #loadImage = effect((cleanup) => {
+  private readonly loadImage = effect((cleanup) => {
     const index = this.index();
 
     untracked(() => {

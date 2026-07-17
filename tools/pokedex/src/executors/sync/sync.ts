@@ -59,7 +59,7 @@ class PokedexSynchronizerService {
 	constructor(
 		private readonly transform: (pokemon: PokemonWithRelations) => PokemonDocument,
 		private readonly index: PokedexIndex,
-		private readonly batchSize: number = 100,
+		private readonly batchSize = 100,
 	) {}
 
 	async synchronize(): Promise<void> {
