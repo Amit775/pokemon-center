@@ -1,0 +1,17 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { EncountersScalarWhereInput } from './encounters-scalar-where.input';
+import { Type } from 'class-transformer';
+import { EncountersUpdateManyMutationInput } from './encounters-update-many-mutation.input';
+
+@InputType()
+export class EncountersUpdateManyWithWhereWithoutLocationAreaInput {
+
+    @Field(() => EncountersScalarWhereInput, {nullable:false})
+    @Type(() => EncountersScalarWhereInput)
+    where!: EncountersScalarWhereInput;
+
+    @Field(() => EncountersUpdateManyMutationInput, {nullable:false})
+    @Type(() => EncountersUpdateManyMutationInput)
+    data!: EncountersUpdateManyMutationInput;
+}

@@ -1,0 +1,28 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { BerriesCreateWithoutItemInput } from './berries-create-without-item.input';
+import { Type } from 'class-transformer';
+import { BerriesCreateOrConnectWithoutItemInput } from './berries-create-or-connect-without-item.input';
+import { BerriesCreateManyItemInputEnvelope } from './berries-create-many-item-input-envelope.input';
+import { Prisma } from '@prisma/client';
+import { BerriesWhereUniqueInput } from './berries-where-unique.input';
+
+@InputType()
+export class BerriesUncheckedCreateNestedManyWithoutItemInput {
+
+    @Field(() => [BerriesCreateWithoutItemInput], {nullable:true})
+    @Type(() => BerriesCreateWithoutItemInput)
+    create?: Array<BerriesCreateWithoutItemInput>;
+
+    @Field(() => [BerriesCreateOrConnectWithoutItemInput], {nullable:true})
+    @Type(() => BerriesCreateOrConnectWithoutItemInput)
+    connectOrCreate?: Array<BerriesCreateOrConnectWithoutItemInput>;
+
+    @Field(() => BerriesCreateManyItemInputEnvelope, {nullable:true})
+    @Type(() => BerriesCreateManyItemInputEnvelope)
+    createMany?: BerriesCreateManyItemInputEnvelope;
+
+    @Field(() => [BerriesWhereUniqueInput], {nullable:true})
+    @Type(() => BerriesWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<BerriesWhereUniqueInput, 'id'>>;
+}

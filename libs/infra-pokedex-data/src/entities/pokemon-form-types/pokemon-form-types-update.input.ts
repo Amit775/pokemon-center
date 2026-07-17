@@ -1,0 +1,18 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
+import { PokemonFormsUpdateOneRequiredWithoutTypesNestedInput } from '../pokemon-forms/pokemon-forms-update-one-required-without-types-nested.input';
+import { TypesUpdateOneRequiredWithoutFormTypesNestedInput } from '../types/types-update-one-required-without-form-types-nested.input';
+
+@InputType()
+export class PokemonFormTypesUpdateInput {
+
+    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
+    slot?: IntFieldUpdateOperationsInput;
+
+    @Field(() => PokemonFormsUpdateOneRequiredWithoutTypesNestedInput, {nullable:true})
+    pokemonForm?: PokemonFormsUpdateOneRequiredWithoutTypesNestedInput;
+
+    @Field(() => TypesUpdateOneRequiredWithoutFormTypesNestedInput, {nullable:true})
+    type?: TypesUpdateOneRequiredWithoutFormTypesNestedInput;
+}

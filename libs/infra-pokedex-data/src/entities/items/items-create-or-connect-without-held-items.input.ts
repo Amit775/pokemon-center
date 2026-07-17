@@ -1,0 +1,18 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { Prisma } from '@prisma/client';
+import { ItemsWhereUniqueInput } from './items-where-unique.input';
+import { Type } from 'class-transformer';
+import { ItemsCreateWithoutHeldItemsInput } from './items-create-without-held-items.input';
+
+@InputType()
+export class ItemsCreateOrConnectWithoutHeldItemsInput {
+
+    @Field(() => ItemsWhereUniqueInput, {nullable:false})
+    @Type(() => ItemsWhereUniqueInput)
+    where!: Prisma.AtLeast<ItemsWhereUniqueInput, 'id'>;
+
+    @Field(() => ItemsCreateWithoutHeldItemsInput, {nullable:false})
+    @Type(() => ItemsCreateWithoutHeldItemsInput)
+    create!: ItemsCreateWithoutHeldItemsInput;
+}

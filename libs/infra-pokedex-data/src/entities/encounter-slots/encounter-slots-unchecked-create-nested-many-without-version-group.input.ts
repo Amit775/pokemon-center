@@ -1,0 +1,28 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { EncounterSlotsCreateWithoutVersionGroupInput } from './encounter-slots-create-without-version-group.input';
+import { Type } from 'class-transformer';
+import { EncounterSlotsCreateOrConnectWithoutVersionGroupInput } from './encounter-slots-create-or-connect-without-version-group.input';
+import { EncounterSlotsCreateManyVersionGroupInputEnvelope } from './encounter-slots-create-many-version-group-input-envelope.input';
+import { Prisma } from '@prisma/client';
+import { EncounterSlotsWhereUniqueInput } from './encounter-slots-where-unique.input';
+
+@InputType()
+export class EncounterSlotsUncheckedCreateNestedManyWithoutVersionGroupInput {
+
+    @Field(() => [EncounterSlotsCreateWithoutVersionGroupInput], {nullable:true})
+    @Type(() => EncounterSlotsCreateWithoutVersionGroupInput)
+    create?: Array<EncounterSlotsCreateWithoutVersionGroupInput>;
+
+    @Field(() => [EncounterSlotsCreateOrConnectWithoutVersionGroupInput], {nullable:true})
+    @Type(() => EncounterSlotsCreateOrConnectWithoutVersionGroupInput)
+    connectOrCreate?: Array<EncounterSlotsCreateOrConnectWithoutVersionGroupInput>;
+
+    @Field(() => EncounterSlotsCreateManyVersionGroupInputEnvelope, {nullable:true})
+    @Type(() => EncounterSlotsCreateManyVersionGroupInputEnvelope)
+    createMany?: EncounterSlotsCreateManyVersionGroupInputEnvelope;
+
+    @Field(() => [EncounterSlotsWhereUniqueInput], {nullable:true})
+    @Type(() => EncounterSlotsWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<EncounterSlotsWhereUniqueInput, 'id'>>;
+}

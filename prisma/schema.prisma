@@ -8,6 +8,7 @@ generator client {
 generator nestgraphql {
     provider = "prisma-nestjs-graphql"
     output = "../libs/infra-pokedex-data/src/entities"
+    reExport = All
 }
 
 datasource db {

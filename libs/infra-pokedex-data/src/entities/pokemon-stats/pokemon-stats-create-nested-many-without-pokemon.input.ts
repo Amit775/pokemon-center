@@ -1,0 +1,28 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { PokemonStatsCreateWithoutPokemonInput } from './pokemon-stats-create-without-pokemon.input';
+import { Type } from 'class-transformer';
+import { PokemonStatsCreateOrConnectWithoutPokemonInput } from './pokemon-stats-create-or-connect-without-pokemon.input';
+import { PokemonStatsCreateManyPokemonInputEnvelope } from './pokemon-stats-create-many-pokemon-input-envelope.input';
+import { Prisma } from '@prisma/client';
+import { PokemonStatsWhereUniqueInput } from './pokemon-stats-where-unique.input';
+
+@InputType()
+export class PokemonStatsCreateNestedManyWithoutPokemonInput {
+
+    @Field(() => [PokemonStatsCreateWithoutPokemonInput], {nullable:true})
+    @Type(() => PokemonStatsCreateWithoutPokemonInput)
+    create?: Array<PokemonStatsCreateWithoutPokemonInput>;
+
+    @Field(() => [PokemonStatsCreateOrConnectWithoutPokemonInput], {nullable:true})
+    @Type(() => PokemonStatsCreateOrConnectWithoutPokemonInput)
+    connectOrCreate?: Array<PokemonStatsCreateOrConnectWithoutPokemonInput>;
+
+    @Field(() => PokemonStatsCreateManyPokemonInputEnvelope, {nullable:true})
+    @Type(() => PokemonStatsCreateManyPokemonInputEnvelope)
+    createMany?: PokemonStatsCreateManyPokemonInputEnvelope;
+
+    @Field(() => [PokemonStatsWhereUniqueInput], {nullable:true})
+    @Type(() => PokemonStatsWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<PokemonStatsWhereUniqueInput, 'pokemon_id_stat_id'>>;
+}

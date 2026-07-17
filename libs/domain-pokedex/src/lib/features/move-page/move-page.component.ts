@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { Move } from '@pokemon-center/infra-pokedex-data';
+import { Moves as Move } from '@pokemon-center/infra-pokedex-data';
 
 @Component({
 	standalone: true,

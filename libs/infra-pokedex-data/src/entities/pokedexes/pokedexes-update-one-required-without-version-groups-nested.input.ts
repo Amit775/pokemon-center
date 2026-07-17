@@ -1,0 +1,33 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { PokedexesCreateWithoutVersionGroupsInput } from './pokedexes-create-without-version-groups.input';
+import { Type } from 'class-transformer';
+import { PokedexesCreateOrConnectWithoutVersionGroupsInput } from './pokedexes-create-or-connect-without-version-groups.input';
+import { PokedexesUpsertWithoutVersionGroupsInput } from './pokedexes-upsert-without-version-groups.input';
+import { Prisma } from '@prisma/client';
+import { PokedexesWhereUniqueInput } from './pokedexes-where-unique.input';
+import { PokedexesUpdateToOneWithWhereWithoutVersionGroupsInput } from './pokedexes-update-to-one-with-where-without-version-groups.input';
+
+@InputType()
+export class PokedexesUpdateOneRequiredWithoutVersionGroupsNestedInput {
+
+    @Field(() => PokedexesCreateWithoutVersionGroupsInput, {nullable:true})
+    @Type(() => PokedexesCreateWithoutVersionGroupsInput)
+    create?: PokedexesCreateWithoutVersionGroupsInput;
+
+    @Field(() => PokedexesCreateOrConnectWithoutVersionGroupsInput, {nullable:true})
+    @Type(() => PokedexesCreateOrConnectWithoutVersionGroupsInput)
+    connectOrCreate?: PokedexesCreateOrConnectWithoutVersionGroupsInput;
+
+    @Field(() => PokedexesUpsertWithoutVersionGroupsInput, {nullable:true})
+    @Type(() => PokedexesUpsertWithoutVersionGroupsInput)
+    upsert?: PokedexesUpsertWithoutVersionGroupsInput;
+
+    @Field(() => PokedexesWhereUniqueInput, {nullable:true})
+    @Type(() => PokedexesWhereUniqueInput)
+    connect?: Prisma.AtLeast<PokedexesWhereUniqueInput, 'id'>;
+
+    @Field(() => PokedexesUpdateToOneWithWhereWithoutVersionGroupsInput, {nullable:true})
+    @Type(() => PokedexesUpdateToOneWithWhereWithoutVersionGroupsInput)
+    update?: PokedexesUpdateToOneWithWhereWithoutVersionGroupsInput;
+}
