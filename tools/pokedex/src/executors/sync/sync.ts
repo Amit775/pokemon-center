@@ -91,7 +91,7 @@ class PokedexSynchronizerService {
 			const stats = await this.index.getIndexStats();
 			logger.log(`Synchronization completed successfully. Index stats:`, stats);
 		} catch (error) {
-			logger.error(`Synchronization failed: ${error.message}`);
+			logger.error(`Synchronization failed: ${error instanceof Error ? error.message : error}`);
 			throw error;
 		} finally {
 			await this.prisma.$disconnect();
@@ -145,7 +145,7 @@ class PokedexSynchronizerService {
 		} catch (error) {
 			return {
 				status: 'error',
-				message: `Failed to get sync status: ${error.message}`,
+				message: `Failed to get sync status: ${error instanceof Error ? error.message : error}`,
 			};
 		}
 	}
