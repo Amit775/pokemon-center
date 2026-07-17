@@ -77,6 +77,19 @@ Recommendation to **drop Elasticsearch from the MVP**. Reasons:
   millions of docs), re-activating them is a contained change behind the same
   GraphQL search resolver.
 
+**The complex-query test.** The acid test discussed for this decision: *"in version
+LeafGreen, against a defender with types [Electric, Fighting], rank the top X pokemon
+by their most effective move"* — joins across `type_efficacy` (18×18 = 324 rows),
+`pokemon_moves` filtered by version group, `moves`, `pokemon_types` (STAB), and stats.
+This is precisely the query class where the relational model is *strongest* and
+Elasticsearch is *weakest*: ES has no joins, so answering it requires either app-side
+join loops or precomputing matchup documents for every (type-combo × version-group)
+at index time. In Postgres it is one CTE query over a few-hundred-row efficacy table
+hash-joined against an indexed slice of `pokemon_moves` — milliseconds at this data
+scale. If a hot path ever demands sub-millisecond ranking, the answer is a Postgres
+materialized view, still not a search engine. Phase 1 includes this query as an
+EXPLAIN ANALYZE acceptance test after seeding.
+
 ### 3.4 GraphQL server: @nestjs/apollo — KEEP (Yoga as noted alternative)
 
 Apollo Server 5 via `@nestjs/apollo` is already wired and patched (5.5.1).
@@ -101,11 +114,13 @@ For Angular 22, prefer the platform primitives over a heavy client:
 - **Apollo Angular** reconsidered only if we later need normalized caching or
   subscriptions in the frontend (Arena spectator mode, perhaps).
 
-### 3.6 State management: Angular signals; @ngrx/signals only where stores emerge
+### 3.6 State management: @ngrx/signals — CORE DEPENDENCY (owner's decree)
 
-Components use `signal`/`computed`/`linkedSignal` directly. `@ngrx/signals` (already
-installed, currently unused) earns its place when a real cross-component store appears
-(e.g. School progress, Arena battle state). If none appears by Arena MVP, drop it.
+`@ngrx/signals` is a demanded dependency alongside Angular/Nx/NestJS — feature stores
+(`signalStore`) are the standard pattern for any cross-component state: Pokedex list
+filters/pagination, School progress, Arena battle state. Local component state still
+uses bare `signal`/`computed`/`linkedSignal`; the store enters the moment state is
+shared or has lifecycle.
 
 ### 3.7 Arena realtime: NestJS WebSockets gateway (Socket.IO) — per ruleset, unchanged
 
