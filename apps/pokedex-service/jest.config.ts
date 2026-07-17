@@ -1,4 +1,4 @@
-export default {
+module.exports = {
 	displayName: 'pokedex-service',
 	preset: '../../jest.preset.js',
 	testEnvironment: 'node',
