@@ -1,0 +1,25 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
+
+@InputType()
+export class EncountersUncheckedUpdateManyWithoutPokemonInput {
+
+    @Field(() => Int, {nullable:true})
+    id?: number;
+
+    @Field(() => Int, {nullable:true})
+    version_id?: number;
+
+    @Field(() => Int, {nullable:true})
+    location_area_id?: number;
+
+    @Field(() => Int, {nullable:true})
+    encounter_slot_id?: number;
+
+    @Field(() => Int, {nullable:true})
+    min_level?: number;
+
+    @Field(() => Int, {nullable:true})
+    max_level?: number;
+}

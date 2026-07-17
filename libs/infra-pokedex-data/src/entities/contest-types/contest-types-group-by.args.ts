@@ -1,0 +1,52 @@
+import { Field } from '@nestjs/graphql';
+import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
+import { ContestTypesWhereInput } from './contest-types-where.input';
+import { Type } from 'class-transformer';
+import { ContestTypesOrderByWithAggregationInput } from './contest-types-order-by-with-aggregation.input';
+import { ContestTypesScalarFieldEnum } from './contest-types-scalar-field.enum';
+import { ContestTypesScalarWhereWithAggregatesInput } from './contest-types-scalar-where-with-aggregates.input';
+import { Int } from '@nestjs/graphql';
+import { ContestTypesCountAggregateInput } from './contest-types-count-aggregate.input';
+import { ContestTypesAvgAggregateInput } from './contest-types-avg-aggregate.input';
+import { ContestTypesSumAggregateInput } from './contest-types-sum-aggregate.input';
+import { ContestTypesMinAggregateInput } from './contest-types-min-aggregate.input';
+import { ContestTypesMaxAggregateInput } from './contest-types-max-aggregate.input';
+
+@ArgsType()
+export class ContestTypesGroupByArgs {
+
+    @Field(() => ContestTypesWhereInput, {nullable:true})
+    @Type(() => ContestTypesWhereInput)
+    where?: Identity<ContestTypesWhereInput>;
+
+    @Field(() => [ContestTypesOrderByWithAggregationInput], {nullable:true})
+    orderBy?: Array<ContestTypesOrderByWithAggregationInput>;
+
+    @Field(() => [ContestTypesScalarFieldEnum], {nullable:false})
+    by!: Array<`${ContestTypesScalarFieldEnum}`>;
+
+    @Field(() => ContestTypesScalarWhereWithAggregatesInput, {nullable:true})
+    having?: Identity<ContestTypesScalarWhereWithAggregatesInput>;
+
+    @Field(() => Int, {nullable:true})
+    take?: number;
+
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+
+    @Field(() => ContestTypesCountAggregateInput, {nullable:true})
+    _count?: Identity<ContestTypesCountAggregateInput>;
+
+    @Field(() => ContestTypesAvgAggregateInput, {nullable:true})
+    _avg?: Identity<ContestTypesAvgAggregateInput>;
+
+    @Field(() => ContestTypesSumAggregateInput, {nullable:true})
+    _sum?: Identity<ContestTypesSumAggregateInput>;
+
+    @Field(() => ContestTypesMinAggregateInput, {nullable:true})
+    _min?: Identity<ContestTypesMinAggregateInput>;
+
+    @Field(() => ContestTypesMaxAggregateInput, {nullable:true})
+    _max?: Identity<ContestTypesMaxAggregateInput>;
+}

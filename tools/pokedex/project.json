@@ -43,10 +43,24 @@
 				"outputPath": "dist/tools/pokedex"
 			}
 		},
+		"initialize": {
+			"executor": "@pokemon-center/pokedex:initialize",
+			"options": {
+				"outputPath": "dist/tools/pokedex"
+			}
+		},
 		"sync": {
 			"executor": "@pokemon-center/pokedex:sync",
 			"options": {
 				"elasticsearchUrl": "http://localhost:9200",
+				"outputPath": "dist/tools/pokedex"
+			}
+		},
+		"cleanup": {
+			"executor": "@pokemon-center/pokedex:cleanup",
+			"options": {
+				"entitiesPath": "libs/infra-pokedex-data/src/entities",
+				"dryRun": false,
 				"outputPath": "dist/tools/pokedex"
 			}
 		}

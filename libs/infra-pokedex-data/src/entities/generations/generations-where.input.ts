@@ -1,0 +1,67 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
+import { IntFilter } from '../prisma/int-filter.input';
+import { StringFilter } from '../prisma/string-filter.input';
+import { RegionsScalarRelationFilter } from '../regions/regions-scalar-relation-filter.input';
+import { PokemonSpeciesListRelationFilter } from '../pokemon-species/pokemon-species-list-relation-filter.input';
+import { MovesListRelationFilter } from '../moves/moves-list-relation-filter.input';
+import { TypesListRelationFilter } from '../types/types-list-relation-filter.input';
+import { AbilitiesListRelationFilter } from '../abilities/abilities-list-relation-filter.input';
+import { PokemonFormGenerationsListRelationFilter } from '../pokemon-form-generations/pokemon-form-generations-list-relation-filter.input';
+import { ItemGameIndicesListRelationFilter } from '../item-game-indices/item-game-indices-list-relation-filter.input';
+import { TypeGameIndicesListRelationFilter } from '../type-game-indices/type-game-indices-list-relation-filter.input';
+import { LocationGameIndicesListRelationFilter } from '../location-game-indices/location-game-indices-list-relation-filter.input';
+import { VersionGroupsListRelationFilter } from '../version-groups/version-groups-list-relation-filter.input';
+
+@InputType()
+export class GenerationsWhereInput {
+
+    @Field(() => [GenerationsWhereInput], {nullable:true})
+    AND?: Array<GenerationsWhereInput>;
+
+    @Field(() => [GenerationsWhereInput], {nullable:true})
+    OR?: Array<GenerationsWhereInput>;
+
+    @Field(() => [GenerationsWhereInput], {nullable:true})
+    NOT?: Array<GenerationsWhereInput>;
+
+    @Field(() => IntFilter, {nullable:true})
+    id?: Identity<IntFilter>;
+
+    @Field(() => IntFilter, {nullable:true})
+    main_region_id?: Identity<IntFilter>;
+
+    @Field(() => StringFilter, {nullable:true})
+    identifier?: Identity<StringFilter>;
+
+    @Field(() => RegionsScalarRelationFilter, {nullable:true})
+    region?: Identity<RegionsScalarRelationFilter>;
+
+    @Field(() => PokemonSpeciesListRelationFilter, {nullable:true})
+    pokemonSpecies?: Identity<PokemonSpeciesListRelationFilter>;
+
+    @Field(() => MovesListRelationFilter, {nullable:true})
+    moves?: Identity<MovesListRelationFilter>;
+
+    @Field(() => TypesListRelationFilter, {nullable:true})
+    types?: Identity<TypesListRelationFilter>;
+
+    @Field(() => AbilitiesListRelationFilter, {nullable:true})
+    abilities?: Identity<AbilitiesListRelationFilter>;
+
+    @Field(() => PokemonFormGenerationsListRelationFilter, {nullable:true})
+    pokemonFormGenerations?: Identity<PokemonFormGenerationsListRelationFilter>;
+
+    @Field(() => ItemGameIndicesListRelationFilter, {nullable:true})
+    itemGameIndices?: Identity<ItemGameIndicesListRelationFilter>;
+
+    @Field(() => TypeGameIndicesListRelationFilter, {nullable:true})
+    typeGameIndices?: Identity<TypeGameIndicesListRelationFilter>;
+
+    @Field(() => LocationGameIndicesListRelationFilter, {nullable:true})
+    locationGameIndices?: Identity<LocationGameIndicesListRelationFilter>;
+
+    @Field(() => VersionGroupsListRelationFilter, {nullable:true})
+    versionGroups?: Identity<VersionGroupsListRelationFilter>;
+}

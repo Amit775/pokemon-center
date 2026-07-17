@@ -1,0 +1,1583 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model Versions
+ * @@TypeGraphQL.type(name: "Version")
+ */
+export type VersionsModel = runtime.Types.Result.DefaultSelection<Prisma.$VersionsPayload>;
+export type AggregateVersions = {
+    _count: VersionsCountAggregateOutputType | null;
+    _avg: VersionsAvgAggregateOutputType | null;
+    _sum: VersionsSumAggregateOutputType | null;
+    _min: VersionsMinAggregateOutputType | null;
+    _max: VersionsMaxAggregateOutputType | null;
+};
+export type VersionsAvgAggregateOutputType = {
+    id: number | null;
+    version_group_id: number | null;
+};
+export type VersionsSumAggregateOutputType = {
+    id: number | null;
+    version_group_id: number | null;
+};
+export type VersionsMinAggregateOutputType = {
+    id: number | null;
+    version_group_id: number | null;
+    identifier: string | null;
+};
+export type VersionsMaxAggregateOutputType = {
+    id: number | null;
+    version_group_id: number | null;
+    identifier: string | null;
+};
+export type VersionsCountAggregateOutputType = {
+    id: number;
+    version_group_id: number;
+    identifier: number;
+    _all: number;
+};
+export type VersionsAvgAggregateInputType = {
+    id?: true;
+    version_group_id?: true;
+};
+export type VersionsSumAggregateInputType = {
+    id?: true;
+    version_group_id?: true;
+};
+export type VersionsMinAggregateInputType = {
+    id?: true;
+    version_group_id?: true;
+    identifier?: true;
+};
+export type VersionsMaxAggregateInputType = {
+    id?: true;
+    version_group_id?: true;
+    identifier?: true;
+};
+export type VersionsCountAggregateInputType = {
+    id?: true;
+    version_group_id?: true;
+    identifier?: true;
+    _all?: true;
+};
+export type VersionsAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which Versions to aggregate.
+     */
+    where?: Prisma.VersionsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Versions to fetch.
+     */
+    orderBy?: Prisma.VersionsOrderByWithRelationInput | Prisma.VersionsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.VersionsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Versions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Versions.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned Versions
+    **/
+    _count?: true | VersionsCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+    **/
+    _avg?: VersionsAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: VersionsSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: VersionsMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: VersionsMaxAggregateInputType;
+};
+export type GetVersionsAggregateType<T extends VersionsAggregateArgs> = {
+    [P in keyof T & keyof AggregateVersions]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateVersions[P]> : Prisma.GetScalarType<T[P], AggregateVersions[P]>;
+};
+export type VersionsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.VersionsWhereInput;
+    orderBy?: Prisma.VersionsOrderByWithAggregationInput | Prisma.VersionsOrderByWithAggregationInput[];
+    by: Prisma.VersionsScalarFieldEnum[] | Prisma.VersionsScalarFieldEnum;
+    having?: Prisma.VersionsScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: VersionsCountAggregateInputType | true;
+    _avg?: VersionsAvgAggregateInputType;
+    _sum?: VersionsSumAggregateInputType;
+    _min?: VersionsMinAggregateInputType;
+    _max?: VersionsMaxAggregateInputType;
+};
+export type VersionsGroupByOutputType = {
+    id: number;
+    version_group_id: number;
+    identifier: string;
+    _count: VersionsCountAggregateOutputType | null;
+    _avg: VersionsAvgAggregateOutputType | null;
+    _sum: VersionsSumAggregateOutputType | null;
+    _min: VersionsMinAggregateOutputType | null;
+    _max: VersionsMaxAggregateOutputType | null;
+};
+export type GetVersionsGroupByPayload<T extends VersionsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<VersionsGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof VersionsGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], VersionsGroupByOutputType[P]> : Prisma.GetScalarType<T[P], VersionsGroupByOutputType[P]>;
+}>>;
+export type VersionsWhereInput = {
+    AND?: Prisma.VersionsWhereInput | Prisma.VersionsWhereInput[];
+    OR?: Prisma.VersionsWhereInput[];
+    NOT?: Prisma.VersionsWhereInput | Prisma.VersionsWhereInput[];
+    id?: Prisma.IntFilter<"Versions"> | number;
+    version_group_id?: Prisma.IntFilter<"Versions"> | number;
+    identifier?: Prisma.StringFilter<"Versions"> | string;
+    versionGroup?: Prisma.XOR<Prisma.VersionGroupsScalarRelationFilter, Prisma.VersionGroupsWhereInput>;
+    encounters?: Prisma.EncountersListRelationFilter;
+    pokemonItems?: Prisma.PokemonItemsListRelationFilter;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesListRelationFilter;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesListRelationFilter;
+};
+export type VersionsOrderByWithRelationInput = {
+    id?: Prisma.SortOrder;
+    version_group_id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+    versionGroup?: Prisma.VersionGroupsOrderByWithRelationInput;
+    encounters?: Prisma.EncountersOrderByRelationAggregateInput;
+    pokemonItems?: Prisma.PokemonItemsOrderByRelationAggregateInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesOrderByRelationAggregateInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesOrderByRelationAggregateInput;
+};
+export type VersionsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number;
+    AND?: Prisma.VersionsWhereInput | Prisma.VersionsWhereInput[];
+    OR?: Prisma.VersionsWhereInput[];
+    NOT?: Prisma.VersionsWhereInput | Prisma.VersionsWhereInput[];
+    version_group_id?: Prisma.IntFilter<"Versions"> | number;
+    identifier?: Prisma.StringFilter<"Versions"> | string;
+    versionGroup?: Prisma.XOR<Prisma.VersionGroupsScalarRelationFilter, Prisma.VersionGroupsWhereInput>;
+    encounters?: Prisma.EncountersListRelationFilter;
+    pokemonItems?: Prisma.PokemonItemsListRelationFilter;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesListRelationFilter;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesListRelationFilter;
+}, "id">;
+export type VersionsOrderByWithAggregationInput = {
+    id?: Prisma.SortOrder;
+    version_group_id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+    _count?: Prisma.VersionsCountOrderByAggregateInput;
+    _avg?: Prisma.VersionsAvgOrderByAggregateInput;
+    _max?: Prisma.VersionsMaxOrderByAggregateInput;
+    _min?: Prisma.VersionsMinOrderByAggregateInput;
+    _sum?: Prisma.VersionsSumOrderByAggregateInput;
+};
+export type VersionsScalarWhereWithAggregatesInput = {
+    AND?: Prisma.VersionsScalarWhereWithAggregatesInput | Prisma.VersionsScalarWhereWithAggregatesInput[];
+    OR?: Prisma.VersionsScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.VersionsScalarWhereWithAggregatesInput | Prisma.VersionsScalarWhereWithAggregatesInput[];
+    id?: Prisma.IntWithAggregatesFilter<"Versions"> | number;
+    version_group_id?: Prisma.IntWithAggregatesFilter<"Versions"> | number;
+    identifier?: Prisma.StringWithAggregatesFilter<"Versions"> | string;
+};
+export type VersionsCreateInput = {
+    id: number;
+    identifier: string;
+    versionGroup: Prisma.VersionGroupsCreateNestedOneWithoutVersionsInput;
+    encounters?: Prisma.EncountersCreateNestedManyWithoutVersionInput;
+    pokemonItems?: Prisma.PokemonItemsCreateNestedManyWithoutVersionInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesCreateNestedManyWithoutVersionInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesCreateNestedManyWithoutVersionInput;
+};
+export type VersionsUncheckedCreateInput = {
+    id: number;
+    version_group_id: number;
+    identifier: string;
+    encounters?: Prisma.EncountersUncheckedCreateNestedManyWithoutVersionInput;
+    pokemonItems?: Prisma.PokemonItemsUncheckedCreateNestedManyWithoutVersionInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUncheckedCreateNestedManyWithoutVersionInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUncheckedCreateNestedManyWithoutVersionInput;
+};
+export type VersionsUpdateInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    versionGroup?: Prisma.VersionGroupsUpdateOneRequiredWithoutVersionsNestedInput;
+    encounters?: Prisma.EncountersUpdateManyWithoutVersionNestedInput;
+    pokemonItems?: Prisma.PokemonItemsUpdateManyWithoutVersionNestedInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUpdateManyWithoutVersionNestedInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUpdateManyWithoutVersionNestedInput;
+};
+export type VersionsUncheckedUpdateInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    version_group_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    encounters?: Prisma.EncountersUncheckedUpdateManyWithoutVersionNestedInput;
+    pokemonItems?: Prisma.PokemonItemsUncheckedUpdateManyWithoutVersionNestedInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUncheckedUpdateManyWithoutVersionNestedInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUncheckedUpdateManyWithoutVersionNestedInput;
+};
+export type VersionsCreateManyInput = {
+    id: number;
+    version_group_id: number;
+    identifier: string;
+};
+export type VersionsUpdateManyMutationInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+};
+export type VersionsUncheckedUpdateManyInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    version_group_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+};
+export type VersionsListRelationFilter = {
+    every?: Prisma.VersionsWhereInput;
+    some?: Prisma.VersionsWhereInput;
+    none?: Prisma.VersionsWhereInput;
+};
+export type VersionsOrderByRelationAggregateInput = {
+    _count?: Prisma.SortOrder;
+};
+export type VersionsCountOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    version_group_id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+};
+export type VersionsAvgOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    version_group_id?: Prisma.SortOrder;
+};
+export type VersionsMaxOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    version_group_id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+};
+export type VersionsMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    version_group_id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+};
+export type VersionsSumOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    version_group_id?: Prisma.SortOrder;
+};
+export type VersionsScalarRelationFilter = {
+    is?: Prisma.VersionsWhereInput;
+    isNot?: Prisma.VersionsWhereInput;
+};
+export type VersionsCreateNestedManyWithoutVersionGroupInput = {
+    create?: Prisma.XOR<Prisma.VersionsCreateWithoutVersionGroupInput, Prisma.VersionsUncheckedCreateWithoutVersionGroupInput> | Prisma.VersionsCreateWithoutVersionGroupInput[] | Prisma.VersionsUncheckedCreateWithoutVersionGroupInput[];
+    connectOrCreate?: Prisma.VersionsCreateOrConnectWithoutVersionGroupInput | Prisma.VersionsCreateOrConnectWithoutVersionGroupInput[];
+    createMany?: Prisma.VersionsCreateManyVersionGroupInputEnvelope;
+    connect?: Prisma.VersionsWhereUniqueInput | Prisma.VersionsWhereUniqueInput[];
+};
+export type VersionsUncheckedCreateNestedManyWithoutVersionGroupInput = {
+    create?: Prisma.XOR<Prisma.VersionsCreateWithoutVersionGroupInput, Prisma.VersionsUncheckedCreateWithoutVersionGroupInput> | Prisma.VersionsCreateWithoutVersionGroupInput[] | Prisma.VersionsUncheckedCreateWithoutVersionGroupInput[];
+    connectOrCreate?: Prisma.VersionsCreateOrConnectWithoutVersionGroupInput | Prisma.VersionsCreateOrConnectWithoutVersionGroupInput[];
+    createMany?: Prisma.VersionsCreateManyVersionGroupInputEnvelope;
+    connect?: Prisma.VersionsWhereUniqueInput | Prisma.VersionsWhereUniqueInput[];
+};
+export type VersionsUpdateManyWithoutVersionGroupNestedInput = {
+    create?: Prisma.XOR<Prisma.VersionsCreateWithoutVersionGroupInput, Prisma.VersionsUncheckedCreateWithoutVersionGroupInput> | Prisma.VersionsCreateWithoutVersionGroupInput[] | Prisma.VersionsUncheckedCreateWithoutVersionGroupInput[];
+    connectOrCreate?: Prisma.VersionsCreateOrConnectWithoutVersionGroupInput | Prisma.VersionsCreateOrConnectWithoutVersionGroupInput[];
+    upsert?: Prisma.VersionsUpsertWithWhereUniqueWithoutVersionGroupInput | Prisma.VersionsUpsertWithWhereUniqueWithoutVersionGroupInput[];
+    createMany?: Prisma.VersionsCreateManyVersionGroupInputEnvelope;
+    set?: Prisma.VersionsWhereUniqueInput | Prisma.VersionsWhereUniqueInput[];
+    disconnect?: Prisma.VersionsWhereUniqueInput | Prisma.VersionsWhereUniqueInput[];
+    delete?: Prisma.VersionsWhereUniqueInput | Prisma.VersionsWhereUniqueInput[];
+    connect?: Prisma.VersionsWhereUniqueInput | Prisma.VersionsWhereUniqueInput[];
+    update?: Prisma.VersionsUpdateWithWhereUniqueWithoutVersionGroupInput | Prisma.VersionsUpdateWithWhereUniqueWithoutVersionGroupInput[];
+    updateMany?: Prisma.VersionsUpdateManyWithWhereWithoutVersionGroupInput | Prisma.VersionsUpdateManyWithWhereWithoutVersionGroupInput[];
+    deleteMany?: Prisma.VersionsScalarWhereInput | Prisma.VersionsScalarWhereInput[];
+};
+export type VersionsUncheckedUpdateManyWithoutVersionGroupNestedInput = {
+    create?: Prisma.XOR<Prisma.VersionsCreateWithoutVersionGroupInput, Prisma.VersionsUncheckedCreateWithoutVersionGroupInput> | Prisma.VersionsCreateWithoutVersionGroupInput[] | Prisma.VersionsUncheckedCreateWithoutVersionGroupInput[];
+    connectOrCreate?: Prisma.VersionsCreateOrConnectWithoutVersionGroupInput | Prisma.VersionsCreateOrConnectWithoutVersionGroupInput[];
+    upsert?: Prisma.VersionsUpsertWithWhereUniqueWithoutVersionGroupInput | Prisma.VersionsUpsertWithWhereUniqueWithoutVersionGroupInput[];
+    createMany?: Prisma.VersionsCreateManyVersionGroupInputEnvelope;
+    set?: Prisma.VersionsWhereUniqueInput | Prisma.VersionsWhereUniqueInput[];
+    disconnect?: Prisma.VersionsWhereUniqueInput | Prisma.VersionsWhereUniqueInput[];
+    delete?: Prisma.VersionsWhereUniqueInput | Prisma.VersionsWhereUniqueInput[];
+    connect?: Prisma.VersionsWhereUniqueInput | Prisma.VersionsWhereUniqueInput[];
+    update?: Prisma.VersionsUpdateWithWhereUniqueWithoutVersionGroupInput | Prisma.VersionsUpdateWithWhereUniqueWithoutVersionGroupInput[];
+    updateMany?: Prisma.VersionsUpdateManyWithWhereWithoutVersionGroupInput | Prisma.VersionsUpdateManyWithWhereWithoutVersionGroupInput[];
+    deleteMany?: Prisma.VersionsScalarWhereInput | Prisma.VersionsScalarWhereInput[];
+};
+export type VersionsCreateNestedOneWithoutEncountersInput = {
+    create?: Prisma.XOR<Prisma.VersionsCreateWithoutEncountersInput, Prisma.VersionsUncheckedCreateWithoutEncountersInput>;
+    connectOrCreate?: Prisma.VersionsCreateOrConnectWithoutEncountersInput;
+    connect?: Prisma.VersionsWhereUniqueInput;
+};
+export type VersionsUpdateOneRequiredWithoutEncountersNestedInput = {
+    create?: Prisma.XOR<Prisma.VersionsCreateWithoutEncountersInput, Prisma.VersionsUncheckedCreateWithoutEncountersInput>;
+    connectOrCreate?: Prisma.VersionsCreateOrConnectWithoutEncountersInput;
+    upsert?: Prisma.VersionsUpsertWithoutEncountersInput;
+    connect?: Prisma.VersionsWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.VersionsUpdateToOneWithWhereWithoutEncountersInput, Prisma.VersionsUpdateWithoutEncountersInput>, Prisma.VersionsUncheckedUpdateWithoutEncountersInput>;
+};
+export type VersionsCreateNestedOneWithoutPokemonItemsInput = {
+    create?: Prisma.XOR<Prisma.VersionsCreateWithoutPokemonItemsInput, Prisma.VersionsUncheckedCreateWithoutPokemonItemsInput>;
+    connectOrCreate?: Prisma.VersionsCreateOrConnectWithoutPokemonItemsInput;
+    connect?: Prisma.VersionsWhereUniqueInput;
+};
+export type VersionsUpdateOneRequiredWithoutPokemonItemsNestedInput = {
+    create?: Prisma.XOR<Prisma.VersionsCreateWithoutPokemonItemsInput, Prisma.VersionsUncheckedCreateWithoutPokemonItemsInput>;
+    connectOrCreate?: Prisma.VersionsCreateOrConnectWithoutPokemonItemsInput;
+    upsert?: Prisma.VersionsUpsertWithoutPokemonItemsInput;
+    connect?: Prisma.VersionsWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.VersionsUpdateToOneWithWhereWithoutPokemonItemsInput, Prisma.VersionsUpdateWithoutPokemonItemsInput>, Prisma.VersionsUncheckedUpdateWithoutPokemonItemsInput>;
+};
+export type VersionsCreateNestedOneWithoutPokemonGameIndicesInput = {
+    create?: Prisma.XOR<Prisma.VersionsCreateWithoutPokemonGameIndicesInput, Prisma.VersionsUncheckedCreateWithoutPokemonGameIndicesInput>;
+    connectOrCreate?: Prisma.VersionsCreateOrConnectWithoutPokemonGameIndicesInput;
+    connect?: Prisma.VersionsWhereUniqueInput;
+};
+export type VersionsUpdateOneRequiredWithoutPokemonGameIndicesNestedInput = {
+    create?: Prisma.XOR<Prisma.VersionsCreateWithoutPokemonGameIndicesInput, Prisma.VersionsUncheckedCreateWithoutPokemonGameIndicesInput>;
+    connectOrCreate?: Prisma.VersionsCreateOrConnectWithoutPokemonGameIndicesInput;
+    upsert?: Prisma.VersionsUpsertWithoutPokemonGameIndicesInput;
+    connect?: Prisma.VersionsWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.VersionsUpdateToOneWithWhereWithoutPokemonGameIndicesInput, Prisma.VersionsUpdateWithoutPokemonGameIndicesInput>, Prisma.VersionsUncheckedUpdateWithoutPokemonGameIndicesInput>;
+};
+export type VersionsCreateNestedOneWithoutLocationAreaEncounterRatesInput = {
+    create?: Prisma.XOR<Prisma.VersionsCreateWithoutLocationAreaEncounterRatesInput, Prisma.VersionsUncheckedCreateWithoutLocationAreaEncounterRatesInput>;
+    connectOrCreate?: Prisma.VersionsCreateOrConnectWithoutLocationAreaEncounterRatesInput;
+    connect?: Prisma.VersionsWhereUniqueInput;
+};
+export type VersionsUpdateOneRequiredWithoutLocationAreaEncounterRatesNestedInput = {
+    create?: Prisma.XOR<Prisma.VersionsCreateWithoutLocationAreaEncounterRatesInput, Prisma.VersionsUncheckedCreateWithoutLocationAreaEncounterRatesInput>;
+    connectOrCreate?: Prisma.VersionsCreateOrConnectWithoutLocationAreaEncounterRatesInput;
+    upsert?: Prisma.VersionsUpsertWithoutLocationAreaEncounterRatesInput;
+    connect?: Prisma.VersionsWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.VersionsUpdateToOneWithWhereWithoutLocationAreaEncounterRatesInput, Prisma.VersionsUpdateWithoutLocationAreaEncounterRatesInput>, Prisma.VersionsUncheckedUpdateWithoutLocationAreaEncounterRatesInput>;
+};
+export type VersionsCreateWithoutVersionGroupInput = {
+    id: number;
+    identifier: string;
+    encounters?: Prisma.EncountersCreateNestedManyWithoutVersionInput;
+    pokemonItems?: Prisma.PokemonItemsCreateNestedManyWithoutVersionInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesCreateNestedManyWithoutVersionInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesCreateNestedManyWithoutVersionInput;
+};
+export type VersionsUncheckedCreateWithoutVersionGroupInput = {
+    id: number;
+    identifier: string;
+    encounters?: Prisma.EncountersUncheckedCreateNestedManyWithoutVersionInput;
+    pokemonItems?: Prisma.PokemonItemsUncheckedCreateNestedManyWithoutVersionInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUncheckedCreateNestedManyWithoutVersionInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUncheckedCreateNestedManyWithoutVersionInput;
+};
+export type VersionsCreateOrConnectWithoutVersionGroupInput = {
+    where: Prisma.VersionsWhereUniqueInput;
+    create: Prisma.XOR<Prisma.VersionsCreateWithoutVersionGroupInput, Prisma.VersionsUncheckedCreateWithoutVersionGroupInput>;
+};
+export type VersionsCreateManyVersionGroupInputEnvelope = {
+    data: Prisma.VersionsCreateManyVersionGroupInput | Prisma.VersionsCreateManyVersionGroupInput[];
+    skipDuplicates?: boolean;
+};
+export type VersionsUpsertWithWhereUniqueWithoutVersionGroupInput = {
+    where: Prisma.VersionsWhereUniqueInput;
+    update: Prisma.XOR<Prisma.VersionsUpdateWithoutVersionGroupInput, Prisma.VersionsUncheckedUpdateWithoutVersionGroupInput>;
+    create: Prisma.XOR<Prisma.VersionsCreateWithoutVersionGroupInput, Prisma.VersionsUncheckedCreateWithoutVersionGroupInput>;
+};
+export type VersionsUpdateWithWhereUniqueWithoutVersionGroupInput = {
+    where: Prisma.VersionsWhereUniqueInput;
+    data: Prisma.XOR<Prisma.VersionsUpdateWithoutVersionGroupInput, Prisma.VersionsUncheckedUpdateWithoutVersionGroupInput>;
+};
+export type VersionsUpdateManyWithWhereWithoutVersionGroupInput = {
+    where: Prisma.VersionsScalarWhereInput;
+    data: Prisma.XOR<Prisma.VersionsUpdateManyMutationInput, Prisma.VersionsUncheckedUpdateManyWithoutVersionGroupInput>;
+};
+export type VersionsScalarWhereInput = {
+    AND?: Prisma.VersionsScalarWhereInput | Prisma.VersionsScalarWhereInput[];
+    OR?: Prisma.VersionsScalarWhereInput[];
+    NOT?: Prisma.VersionsScalarWhereInput | Prisma.VersionsScalarWhereInput[];
+    id?: Prisma.IntFilter<"Versions"> | number;
+    version_group_id?: Prisma.IntFilter<"Versions"> | number;
+    identifier?: Prisma.StringFilter<"Versions"> | string;
+};
+export type VersionsCreateWithoutEncountersInput = {
+    id: number;
+    identifier: string;
+    versionGroup: Prisma.VersionGroupsCreateNestedOneWithoutVersionsInput;
+    pokemonItems?: Prisma.PokemonItemsCreateNestedManyWithoutVersionInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesCreateNestedManyWithoutVersionInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesCreateNestedManyWithoutVersionInput;
+};
+export type VersionsUncheckedCreateWithoutEncountersInput = {
+    id: number;
+    version_group_id: number;
+    identifier: string;
+    pokemonItems?: Prisma.PokemonItemsUncheckedCreateNestedManyWithoutVersionInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUncheckedCreateNestedManyWithoutVersionInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUncheckedCreateNestedManyWithoutVersionInput;
+};
+export type VersionsCreateOrConnectWithoutEncountersInput = {
+    where: Prisma.VersionsWhereUniqueInput;
+    create: Prisma.XOR<Prisma.VersionsCreateWithoutEncountersInput, Prisma.VersionsUncheckedCreateWithoutEncountersInput>;
+};
+export type VersionsUpsertWithoutEncountersInput = {
+    update: Prisma.XOR<Prisma.VersionsUpdateWithoutEncountersInput, Prisma.VersionsUncheckedUpdateWithoutEncountersInput>;
+    create: Prisma.XOR<Prisma.VersionsCreateWithoutEncountersInput, Prisma.VersionsUncheckedCreateWithoutEncountersInput>;
+    where?: Prisma.VersionsWhereInput;
+};
+export type VersionsUpdateToOneWithWhereWithoutEncountersInput = {
+    where?: Prisma.VersionsWhereInput;
+    data: Prisma.XOR<Prisma.VersionsUpdateWithoutEncountersInput, Prisma.VersionsUncheckedUpdateWithoutEncountersInput>;
+};
+export type VersionsUpdateWithoutEncountersInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    versionGroup?: Prisma.VersionGroupsUpdateOneRequiredWithoutVersionsNestedInput;
+    pokemonItems?: Prisma.PokemonItemsUpdateManyWithoutVersionNestedInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUpdateManyWithoutVersionNestedInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUpdateManyWithoutVersionNestedInput;
+};
+export type VersionsUncheckedUpdateWithoutEncountersInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    version_group_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    pokemonItems?: Prisma.PokemonItemsUncheckedUpdateManyWithoutVersionNestedInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUncheckedUpdateManyWithoutVersionNestedInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUncheckedUpdateManyWithoutVersionNestedInput;
+};
+export type VersionsCreateWithoutPokemonItemsInput = {
+    id: number;
+    identifier: string;
+    versionGroup: Prisma.VersionGroupsCreateNestedOneWithoutVersionsInput;
+    encounters?: Prisma.EncountersCreateNestedManyWithoutVersionInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesCreateNestedManyWithoutVersionInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesCreateNestedManyWithoutVersionInput;
+};
+export type VersionsUncheckedCreateWithoutPokemonItemsInput = {
+    id: number;
+    version_group_id: number;
+    identifier: string;
+    encounters?: Prisma.EncountersUncheckedCreateNestedManyWithoutVersionInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUncheckedCreateNestedManyWithoutVersionInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUncheckedCreateNestedManyWithoutVersionInput;
+};
+export type VersionsCreateOrConnectWithoutPokemonItemsInput = {
+    where: Prisma.VersionsWhereUniqueInput;
+    create: Prisma.XOR<Prisma.VersionsCreateWithoutPokemonItemsInput, Prisma.VersionsUncheckedCreateWithoutPokemonItemsInput>;
+};
+export type VersionsUpsertWithoutPokemonItemsInput = {
+    update: Prisma.XOR<Prisma.VersionsUpdateWithoutPokemonItemsInput, Prisma.VersionsUncheckedUpdateWithoutPokemonItemsInput>;
+    create: Prisma.XOR<Prisma.VersionsCreateWithoutPokemonItemsInput, Prisma.VersionsUncheckedCreateWithoutPokemonItemsInput>;
+    where?: Prisma.VersionsWhereInput;
+};
+export type VersionsUpdateToOneWithWhereWithoutPokemonItemsInput = {
+    where?: Prisma.VersionsWhereInput;
+    data: Prisma.XOR<Prisma.VersionsUpdateWithoutPokemonItemsInput, Prisma.VersionsUncheckedUpdateWithoutPokemonItemsInput>;
+};
+export type VersionsUpdateWithoutPokemonItemsInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    versionGroup?: Prisma.VersionGroupsUpdateOneRequiredWithoutVersionsNestedInput;
+    encounters?: Prisma.EncountersUpdateManyWithoutVersionNestedInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUpdateManyWithoutVersionNestedInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUpdateManyWithoutVersionNestedInput;
+};
+export type VersionsUncheckedUpdateWithoutPokemonItemsInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    version_group_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    encounters?: Prisma.EncountersUncheckedUpdateManyWithoutVersionNestedInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUncheckedUpdateManyWithoutVersionNestedInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUncheckedUpdateManyWithoutVersionNestedInput;
+};
+export type VersionsCreateWithoutPokemonGameIndicesInput = {
+    id: number;
+    identifier: string;
+    versionGroup: Prisma.VersionGroupsCreateNestedOneWithoutVersionsInput;
+    encounters?: Prisma.EncountersCreateNestedManyWithoutVersionInput;
+    pokemonItems?: Prisma.PokemonItemsCreateNestedManyWithoutVersionInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesCreateNestedManyWithoutVersionInput;
+};
+export type VersionsUncheckedCreateWithoutPokemonGameIndicesInput = {
+    id: number;
+    version_group_id: number;
+    identifier: string;
+    encounters?: Prisma.EncountersUncheckedCreateNestedManyWithoutVersionInput;
+    pokemonItems?: Prisma.PokemonItemsUncheckedCreateNestedManyWithoutVersionInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUncheckedCreateNestedManyWithoutVersionInput;
+};
+export type VersionsCreateOrConnectWithoutPokemonGameIndicesInput = {
+    where: Prisma.VersionsWhereUniqueInput;
+    create: Prisma.XOR<Prisma.VersionsCreateWithoutPokemonGameIndicesInput, Prisma.VersionsUncheckedCreateWithoutPokemonGameIndicesInput>;
+};
+export type VersionsUpsertWithoutPokemonGameIndicesInput = {
+    update: Prisma.XOR<Prisma.VersionsUpdateWithoutPokemonGameIndicesInput, Prisma.VersionsUncheckedUpdateWithoutPokemonGameIndicesInput>;
+    create: Prisma.XOR<Prisma.VersionsCreateWithoutPokemonGameIndicesInput, Prisma.VersionsUncheckedCreateWithoutPokemonGameIndicesInput>;
+    where?: Prisma.VersionsWhereInput;
+};
+export type VersionsUpdateToOneWithWhereWithoutPokemonGameIndicesInput = {
+    where?: Prisma.VersionsWhereInput;
+    data: Prisma.XOR<Prisma.VersionsUpdateWithoutPokemonGameIndicesInput, Prisma.VersionsUncheckedUpdateWithoutPokemonGameIndicesInput>;
+};
+export type VersionsUpdateWithoutPokemonGameIndicesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    versionGroup?: Prisma.VersionGroupsUpdateOneRequiredWithoutVersionsNestedInput;
+    encounters?: Prisma.EncountersUpdateManyWithoutVersionNestedInput;
+    pokemonItems?: Prisma.PokemonItemsUpdateManyWithoutVersionNestedInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUpdateManyWithoutVersionNestedInput;
+};
+export type VersionsUncheckedUpdateWithoutPokemonGameIndicesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    version_group_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    encounters?: Prisma.EncountersUncheckedUpdateManyWithoutVersionNestedInput;
+    pokemonItems?: Prisma.PokemonItemsUncheckedUpdateManyWithoutVersionNestedInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUncheckedUpdateManyWithoutVersionNestedInput;
+};
+export type VersionsCreateWithoutLocationAreaEncounterRatesInput = {
+    id: number;
+    identifier: string;
+    versionGroup: Prisma.VersionGroupsCreateNestedOneWithoutVersionsInput;
+    encounters?: Prisma.EncountersCreateNestedManyWithoutVersionInput;
+    pokemonItems?: Prisma.PokemonItemsCreateNestedManyWithoutVersionInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesCreateNestedManyWithoutVersionInput;
+};
+export type VersionsUncheckedCreateWithoutLocationAreaEncounterRatesInput = {
+    id: number;
+    version_group_id: number;
+    identifier: string;
+    encounters?: Prisma.EncountersUncheckedCreateNestedManyWithoutVersionInput;
+    pokemonItems?: Prisma.PokemonItemsUncheckedCreateNestedManyWithoutVersionInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUncheckedCreateNestedManyWithoutVersionInput;
+};
+export type VersionsCreateOrConnectWithoutLocationAreaEncounterRatesInput = {
+    where: Prisma.VersionsWhereUniqueInput;
+    create: Prisma.XOR<Prisma.VersionsCreateWithoutLocationAreaEncounterRatesInput, Prisma.VersionsUncheckedCreateWithoutLocationAreaEncounterRatesInput>;
+};
+export type VersionsUpsertWithoutLocationAreaEncounterRatesInput = {
+    update: Prisma.XOR<Prisma.VersionsUpdateWithoutLocationAreaEncounterRatesInput, Prisma.VersionsUncheckedUpdateWithoutLocationAreaEncounterRatesInput>;
+    create: Prisma.XOR<Prisma.VersionsCreateWithoutLocationAreaEncounterRatesInput, Prisma.VersionsUncheckedCreateWithoutLocationAreaEncounterRatesInput>;
+    where?: Prisma.VersionsWhereInput;
+};
+export type VersionsUpdateToOneWithWhereWithoutLocationAreaEncounterRatesInput = {
+    where?: Prisma.VersionsWhereInput;
+    data: Prisma.XOR<Prisma.VersionsUpdateWithoutLocationAreaEncounterRatesInput, Prisma.VersionsUncheckedUpdateWithoutLocationAreaEncounterRatesInput>;
+};
+export type VersionsUpdateWithoutLocationAreaEncounterRatesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    versionGroup?: Prisma.VersionGroupsUpdateOneRequiredWithoutVersionsNestedInput;
+    encounters?: Prisma.EncountersUpdateManyWithoutVersionNestedInput;
+    pokemonItems?: Prisma.PokemonItemsUpdateManyWithoutVersionNestedInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUpdateManyWithoutVersionNestedInput;
+};
+export type VersionsUncheckedUpdateWithoutLocationAreaEncounterRatesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    version_group_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    encounters?: Prisma.EncountersUncheckedUpdateManyWithoutVersionNestedInput;
+    pokemonItems?: Prisma.PokemonItemsUncheckedUpdateManyWithoutVersionNestedInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUncheckedUpdateManyWithoutVersionNestedInput;
+};
+export type VersionsCreateManyVersionGroupInput = {
+    id: number;
+    identifier: string;
+};
+export type VersionsUpdateWithoutVersionGroupInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    encounters?: Prisma.EncountersUpdateManyWithoutVersionNestedInput;
+    pokemonItems?: Prisma.PokemonItemsUpdateManyWithoutVersionNestedInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUpdateManyWithoutVersionNestedInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUpdateManyWithoutVersionNestedInput;
+};
+export type VersionsUncheckedUpdateWithoutVersionGroupInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    encounters?: Prisma.EncountersUncheckedUpdateManyWithoutVersionNestedInput;
+    pokemonItems?: Prisma.PokemonItemsUncheckedUpdateManyWithoutVersionNestedInput;
+    pokemonGameIndices?: Prisma.PokemonGameIndicesUncheckedUpdateManyWithoutVersionNestedInput;
+    locationAreaEncounterRates?: Prisma.LocationAreaEncounterRatesUncheckedUpdateManyWithoutVersionNestedInput;
+};
+export type VersionsUncheckedUpdateManyWithoutVersionGroupInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+};
+/**
+ * Count Type VersionsCountOutputType
+ */
+export type VersionsCountOutputType = {
+    encounters: number;
+    pokemonItems: number;
+    pokemonGameIndices: number;
+    locationAreaEncounterRates: number;
+};
+export type VersionsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    encounters?: boolean | VersionsCountOutputTypeCountEncountersArgs;
+    pokemonItems?: boolean | VersionsCountOutputTypeCountPokemonItemsArgs;
+    pokemonGameIndices?: boolean | VersionsCountOutputTypeCountPokemonGameIndicesArgs;
+    locationAreaEncounterRates?: boolean | VersionsCountOutputTypeCountLocationAreaEncounterRatesArgs;
+};
+/**
+ * VersionsCountOutputType without action
+ */
+export type VersionsCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionsCountOutputType
+     */
+    select?: Prisma.VersionsCountOutputTypeSelect<ExtArgs> | null;
+};
+/**
+ * VersionsCountOutputType without action
+ */
+export type VersionsCountOutputTypeCountEncountersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.EncountersWhereInput;
+};
+/**
+ * VersionsCountOutputType without action
+ */
+export type VersionsCountOutputTypeCountPokemonItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.PokemonItemsWhereInput;
+};
+/**
+ * VersionsCountOutputType without action
+ */
+export type VersionsCountOutputTypeCountPokemonGameIndicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.PokemonGameIndicesWhereInput;
+};
+/**
+ * VersionsCountOutputType without action
+ */
+export type VersionsCountOutputTypeCountLocationAreaEncounterRatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.LocationAreaEncounterRatesWhereInput;
+};
+export type VersionsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    version_group_id?: boolean;
+    identifier?: boolean;
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+    encounters?: boolean | Prisma.Versions$encountersArgs<ExtArgs>;
+    pokemonItems?: boolean | Prisma.Versions$pokemonItemsArgs<ExtArgs>;
+    pokemonGameIndices?: boolean | Prisma.Versions$pokemonGameIndicesArgs<ExtArgs>;
+    locationAreaEncounterRates?: boolean | Prisma.Versions$locationAreaEncounterRatesArgs<ExtArgs>;
+    _count?: boolean | Prisma.VersionsCountOutputTypeDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["versions"]>;
+export type VersionsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    version_group_id?: boolean;
+    identifier?: boolean;
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["versions"]>;
+export type VersionsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    version_group_id?: boolean;
+    identifier?: boolean;
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["versions"]>;
+export type VersionsSelectScalar = {
+    id?: boolean;
+    version_group_id?: boolean;
+    identifier?: boolean;
+};
+export type VersionsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "version_group_id" | "identifier", ExtArgs["result"]["versions"]>;
+export type VersionsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+    encounters?: boolean | Prisma.Versions$encountersArgs<ExtArgs>;
+    pokemonItems?: boolean | Prisma.Versions$pokemonItemsArgs<ExtArgs>;
+    pokemonGameIndices?: boolean | Prisma.Versions$pokemonGameIndicesArgs<ExtArgs>;
+    locationAreaEncounterRates?: boolean | Prisma.Versions$locationAreaEncounterRatesArgs<ExtArgs>;
+    _count?: boolean | Prisma.VersionsCountOutputTypeDefaultArgs<ExtArgs>;
+};
+export type VersionsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+};
+export type VersionsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    versionGroup?: boolean | Prisma.VersionGroupsDefaultArgs<ExtArgs>;
+};
+export type $VersionsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "Versions";
+    objects: {
+        versionGroup: Prisma.$VersionGroupsPayload<ExtArgs>;
+        encounters: Prisma.$EncountersPayload<ExtArgs>[];
+        pokemonItems: Prisma.$PokemonItemsPayload<ExtArgs>[];
+        pokemonGameIndices: Prisma.$PokemonGameIndicesPayload<ExtArgs>[];
+        locationAreaEncounterRates: Prisma.$LocationAreaEncounterRatesPayload<ExtArgs>[];
+    };
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        id: number;
+        version_group_id: number;
+        identifier: string;
+    }, ExtArgs["result"]["versions"]>;
+    composites: {};
+};
+export type VersionsGetPayload<S extends boolean | null | undefined | VersionsDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$VersionsPayload, S>;
+export type VersionsCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<VersionsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: VersionsCountAggregateInputType | true;
+};
+export interface VersionsDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['Versions'];
+        meta: {
+            name: 'Versions';
+        };
+    };
+    /**
+     * Find zero or one Versions that matches the filter.
+     * @param {VersionsFindUniqueArgs} args - Arguments to find a Versions
+     * @example
+     * // Get one Versions
+     * const versions = await prisma.versions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VersionsFindUniqueArgs>(args: Prisma.SelectSubset<T, VersionsFindUniqueArgs<ExtArgs>>): Prisma.Prisma__VersionsClient<runtime.Types.Result.GetResult<Prisma.$VersionsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one Versions that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VersionsFindUniqueOrThrowArgs} args - Arguments to find a Versions
+     * @example
+     * // Get one Versions
+     * const versions = await prisma.versions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VersionsFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, VersionsFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__VersionsClient<runtime.Types.Result.GetResult<Prisma.$VersionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first Versions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionsFindFirstArgs} args - Arguments to find a Versions
+     * @example
+     * // Get one Versions
+     * const versions = await prisma.versions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VersionsFindFirstArgs>(args?: Prisma.SelectSubset<T, VersionsFindFirstArgs<ExtArgs>>): Prisma.Prisma__VersionsClient<runtime.Types.Result.GetResult<Prisma.$VersionsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first Versions that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionsFindFirstOrThrowArgs} args - Arguments to find a Versions
+     * @example
+     * // Get one Versions
+     * const versions = await prisma.versions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VersionsFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, VersionsFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__VersionsClient<runtime.Types.Result.GetResult<Prisma.$VersionsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more Versions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Versions
+     * const versions = await prisma.versions.findMany()
+     *
+     * // Get first 10 Versions
+     * const versions = await prisma.versions.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const versionsWithIdOnly = await prisma.versions.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends VersionsFindManyArgs>(args?: Prisma.SelectSubset<T, VersionsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VersionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a Versions.
+     * @param {VersionsCreateArgs} args - Arguments to create a Versions.
+     * @example
+     * // Create one Versions
+     * const Versions = await prisma.versions.create({
+     *   data: {
+     *     // ... data to create a Versions
+     *   }
+     * })
+     *
+     */
+    create<T extends VersionsCreateArgs>(args: Prisma.SelectSubset<T, VersionsCreateArgs<ExtArgs>>): Prisma.Prisma__VersionsClient<runtime.Types.Result.GetResult<Prisma.$VersionsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many Versions.
+     * @param {VersionsCreateManyArgs} args - Arguments to create many Versions.
+     * @example
+     * // Create many Versions
+     * const versions = await prisma.versions.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends VersionsCreateManyArgs>(args?: Prisma.SelectSubset<T, VersionsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many Versions and returns the data saved in the database.
+     * @param {VersionsCreateManyAndReturnArgs} args - Arguments to create many Versions.
+     * @example
+     * // Create many Versions
+     * const versions = await prisma.versions.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Versions and only return the `id`
+     * const versionsWithIdOnly = await prisma.versions.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends VersionsCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, VersionsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VersionsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a Versions.
+     * @param {VersionsDeleteArgs} args - Arguments to delete one Versions.
+     * @example
+     * // Delete one Versions
+     * const Versions = await prisma.versions.delete({
+     *   where: {
+     *     // ... filter to delete one Versions
+     *   }
+     * })
+     *
+     */
+    delete<T extends VersionsDeleteArgs>(args: Prisma.SelectSubset<T, VersionsDeleteArgs<ExtArgs>>): Prisma.Prisma__VersionsClient<runtime.Types.Result.GetResult<Prisma.$VersionsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one Versions.
+     * @param {VersionsUpdateArgs} args - Arguments to update one Versions.
+     * @example
+     * // Update one Versions
+     * const versions = await prisma.versions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends VersionsUpdateArgs>(args: Prisma.SelectSubset<T, VersionsUpdateArgs<ExtArgs>>): Prisma.Prisma__VersionsClient<runtime.Types.Result.GetResult<Prisma.$VersionsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more Versions.
+     * @param {VersionsDeleteManyArgs} args - Arguments to filter Versions to delete.
+     * @example
+     * // Delete a few Versions
+     * const { count } = await prisma.versions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends VersionsDeleteManyArgs>(args?: Prisma.SelectSubset<T, VersionsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Versions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Versions
+     * const versions = await prisma.versions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends VersionsUpdateManyArgs>(args: Prisma.SelectSubset<T, VersionsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Versions and returns the data updated in the database.
+     * @param {VersionsUpdateManyAndReturnArgs} args - Arguments to update many Versions.
+     * @example
+     * // Update many Versions
+     * const versions = await prisma.versions.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more Versions and only return the `id`
+     * const versionsWithIdOnly = await prisma.versions.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends VersionsUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, VersionsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VersionsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one Versions.
+     * @param {VersionsUpsertArgs} args - Arguments to update or create a Versions.
+     * @example
+     * // Update or create a Versions
+     * const versions = await prisma.versions.upsert({
+     *   create: {
+     *     // ... data to create a Versions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Versions we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VersionsUpsertArgs>(args: Prisma.SelectSubset<T, VersionsUpsertArgs<ExtArgs>>): Prisma.Prisma__VersionsClient<runtime.Types.Result.GetResult<Prisma.$VersionsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of Versions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionsCountArgs} args - Arguments to filter Versions to count.
+     * @example
+     * // Count the number of Versions
+     * const count = await prisma.versions.count({
+     *   where: {
+     *     // ... the filter for the Versions we want to count
+     *   }
+     * })
+    **/
+    count<T extends VersionsCountArgs>(args?: Prisma.Subset<T, VersionsCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], VersionsCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a Versions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VersionsAggregateArgs>(args: Prisma.Subset<T, VersionsAggregateArgs>): Prisma.PrismaPromise<GetVersionsAggregateType<T>>;
+    /**
+     * Group by Versions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends VersionsGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: VersionsGroupByArgs['orderBy'];
+    } : {
+        orderBy?: VersionsGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, VersionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVersionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the Versions model
+     */
+    readonly fields: VersionsFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for Versions.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__VersionsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    versionGroup<T extends Prisma.VersionGroupsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VersionGroupsDefaultArgs<ExtArgs>>): Prisma.Prisma__VersionGroupsClient<runtime.Types.Result.GetResult<Prisma.$VersionGroupsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    encounters<T extends Prisma.Versions$encountersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Versions$encountersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EncountersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    pokemonItems<T extends Prisma.Versions$pokemonItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Versions$pokemonItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PokemonItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    pokemonGameIndices<T extends Prisma.Versions$pokemonGameIndicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Versions$pokemonGameIndicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PokemonGameIndicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    locationAreaEncounterRates<T extends Prisma.Versions$locationAreaEncounterRatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Versions$locationAreaEncounterRatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LocationAreaEncounterRatesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the Versions model
+ */
+export interface VersionsFieldRefs {
+    readonly id: Prisma.FieldRef<"Versions", 'Int'>;
+    readonly version_group_id: Prisma.FieldRef<"Versions", 'Int'>;
+    readonly identifier: Prisma.FieldRef<"Versions", 'String'>;
+}
+/**
+ * Versions findUnique
+ */
+export type VersionsFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Versions
+     */
+    select?: Prisma.VersionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Versions
+     */
+    omit?: Prisma.VersionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionsInclude<ExtArgs> | null;
+    /**
+     * Filter, which Versions to fetch.
+     */
+    where: Prisma.VersionsWhereUniqueInput;
+};
+/**
+ * Versions findUniqueOrThrow
+ */
+export type VersionsFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Versions
+     */
+    select?: Prisma.VersionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Versions
+     */
+    omit?: Prisma.VersionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionsInclude<ExtArgs> | null;
+    /**
+     * Filter, which Versions to fetch.
+     */
+    where: Prisma.VersionsWhereUniqueInput;
+};
+/**
+ * Versions findFirst
+ */
+export type VersionsFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Versions
+     */
+    select?: Prisma.VersionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Versions
+     */
+    omit?: Prisma.VersionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionsInclude<ExtArgs> | null;
+    /**
+     * Filter, which Versions to fetch.
+     */
+    where?: Prisma.VersionsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Versions to fetch.
+     */
+    orderBy?: Prisma.VersionsOrderByWithRelationInput | Prisma.VersionsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Versions.
+     */
+    cursor?: Prisma.VersionsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Versions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Versions.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Versions.
+     */
+    distinct?: Prisma.VersionsScalarFieldEnum | Prisma.VersionsScalarFieldEnum[];
+};
+/**
+ * Versions findFirstOrThrow
+ */
+export type VersionsFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Versions
+     */
+    select?: Prisma.VersionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Versions
+     */
+    omit?: Prisma.VersionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionsInclude<ExtArgs> | null;
+    /**
+     * Filter, which Versions to fetch.
+     */
+    where?: Prisma.VersionsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Versions to fetch.
+     */
+    orderBy?: Prisma.VersionsOrderByWithRelationInput | Prisma.VersionsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Versions.
+     */
+    cursor?: Prisma.VersionsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Versions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Versions.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Versions.
+     */
+    distinct?: Prisma.VersionsScalarFieldEnum | Prisma.VersionsScalarFieldEnum[];
+};
+/**
+ * Versions findMany
+ */
+export type VersionsFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Versions
+     */
+    select?: Prisma.VersionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Versions
+     */
+    omit?: Prisma.VersionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionsInclude<ExtArgs> | null;
+    /**
+     * Filter, which Versions to fetch.
+     */
+    where?: Prisma.VersionsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Versions to fetch.
+     */
+    orderBy?: Prisma.VersionsOrderByWithRelationInput | Prisma.VersionsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing Versions.
+     */
+    cursor?: Prisma.VersionsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Versions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Versions.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Versions.
+     */
+    distinct?: Prisma.VersionsScalarFieldEnum | Prisma.VersionsScalarFieldEnum[];
+};
+/**
+ * Versions create
+ */
+export type VersionsCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Versions
+     */
+    select?: Prisma.VersionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Versions
+     */
+    omit?: Prisma.VersionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionsInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a Versions.
+     */
+    data: Prisma.XOR<Prisma.VersionsCreateInput, Prisma.VersionsUncheckedCreateInput>;
+};
+/**
+ * Versions createMany
+ */
+export type VersionsCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Versions.
+     */
+    data: Prisma.VersionsCreateManyInput | Prisma.VersionsCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * Versions createManyAndReturn
+ */
+export type VersionsCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Versions
+     */
+    select?: Prisma.VersionsSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Versions
+     */
+    omit?: Prisma.VersionsOmit<ExtArgs> | null;
+    /**
+     * The data used to create many Versions.
+     */
+    data: Prisma.VersionsCreateManyInput | Prisma.VersionsCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionsIncludeCreateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * Versions update
+ */
+export type VersionsUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Versions
+     */
+    select?: Prisma.VersionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Versions
+     */
+    omit?: Prisma.VersionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionsInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a Versions.
+     */
+    data: Prisma.XOR<Prisma.VersionsUpdateInput, Prisma.VersionsUncheckedUpdateInput>;
+    /**
+     * Choose, which Versions to update.
+     */
+    where: Prisma.VersionsWhereUniqueInput;
+};
+/**
+ * Versions updateMany
+ */
+export type VersionsUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Versions.
+     */
+    data: Prisma.XOR<Prisma.VersionsUpdateManyMutationInput, Prisma.VersionsUncheckedUpdateManyInput>;
+    /**
+     * Filter which Versions to update
+     */
+    where?: Prisma.VersionsWhereInput;
+    /**
+     * Limit how many Versions to update.
+     */
+    limit?: number;
+};
+/**
+ * Versions updateManyAndReturn
+ */
+export type VersionsUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Versions
+     */
+    select?: Prisma.VersionsSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Versions
+     */
+    omit?: Prisma.VersionsOmit<ExtArgs> | null;
+    /**
+     * The data used to update Versions.
+     */
+    data: Prisma.XOR<Prisma.VersionsUpdateManyMutationInput, Prisma.VersionsUncheckedUpdateManyInput>;
+    /**
+     * Filter which Versions to update
+     */
+    where?: Prisma.VersionsWhereInput;
+    /**
+     * Limit how many Versions to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionsIncludeUpdateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * Versions upsert
+ */
+export type VersionsUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Versions
+     */
+    select?: Prisma.VersionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Versions
+     */
+    omit?: Prisma.VersionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionsInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the Versions to update in case it exists.
+     */
+    where: Prisma.VersionsWhereUniqueInput;
+    /**
+     * In case the Versions found by the `where` argument doesn't exist, create a new Versions with this data.
+     */
+    create: Prisma.XOR<Prisma.VersionsCreateInput, Prisma.VersionsUncheckedCreateInput>;
+    /**
+     * In case the Versions was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.VersionsUpdateInput, Prisma.VersionsUncheckedUpdateInput>;
+};
+/**
+ * Versions delete
+ */
+export type VersionsDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Versions
+     */
+    select?: Prisma.VersionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Versions
+     */
+    omit?: Prisma.VersionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionsInclude<ExtArgs> | null;
+    /**
+     * Filter which Versions to delete.
+     */
+    where: Prisma.VersionsWhereUniqueInput;
+};
+/**
+ * Versions deleteMany
+ */
+export type VersionsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which Versions to delete
+     */
+    where?: Prisma.VersionsWhereInput;
+    /**
+     * Limit how many Versions to delete.
+     */
+    limit?: number;
+};
+/**
+ * Versions.encounters
+ */
+export type Versions$encountersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Encounters
+     */
+    select?: Prisma.EncountersSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Encounters
+     */
+    omit?: Prisma.EncountersOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EncountersInclude<ExtArgs> | null;
+    where?: Prisma.EncountersWhereInput;
+    orderBy?: Prisma.EncountersOrderByWithRelationInput | Prisma.EncountersOrderByWithRelationInput[];
+    cursor?: Prisma.EncountersWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.EncountersScalarFieldEnum | Prisma.EncountersScalarFieldEnum[];
+};
+/**
+ * Versions.pokemonItems
+ */
+export type Versions$pokemonItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokemonItems
+     */
+    select?: Prisma.PokemonItemsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokemonItems
+     */
+    omit?: Prisma.PokemonItemsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokemonItemsInclude<ExtArgs> | null;
+    where?: Prisma.PokemonItemsWhereInput;
+    orderBy?: Prisma.PokemonItemsOrderByWithRelationInput | Prisma.PokemonItemsOrderByWithRelationInput[];
+    cursor?: Prisma.PokemonItemsWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.PokemonItemsScalarFieldEnum | Prisma.PokemonItemsScalarFieldEnum[];
+};
+/**
+ * Versions.pokemonGameIndices
+ */
+export type Versions$pokemonGameIndicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokemonGameIndices
+     */
+    select?: Prisma.PokemonGameIndicesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokemonGameIndices
+     */
+    omit?: Prisma.PokemonGameIndicesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokemonGameIndicesInclude<ExtArgs> | null;
+    where?: Prisma.PokemonGameIndicesWhereInput;
+    orderBy?: Prisma.PokemonGameIndicesOrderByWithRelationInput | Prisma.PokemonGameIndicesOrderByWithRelationInput[];
+    cursor?: Prisma.PokemonGameIndicesWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.PokemonGameIndicesScalarFieldEnum | Prisma.PokemonGameIndicesScalarFieldEnum[];
+};
+/**
+ * Versions.locationAreaEncounterRates
+ */
+export type Versions$locationAreaEncounterRatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationAreaEncounterRates
+     */
+    select?: Prisma.LocationAreaEncounterRatesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the LocationAreaEncounterRates
+     */
+    omit?: Prisma.LocationAreaEncounterRatesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.LocationAreaEncounterRatesInclude<ExtArgs> | null;
+    where?: Prisma.LocationAreaEncounterRatesWhereInput;
+    orderBy?: Prisma.LocationAreaEncounterRatesOrderByWithRelationInput | Prisma.LocationAreaEncounterRatesOrderByWithRelationInput[];
+    cursor?: Prisma.LocationAreaEncounterRatesWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.LocationAreaEncounterRatesScalarFieldEnum | Prisma.LocationAreaEncounterRatesScalarFieldEnum[];
+};
+/**
+ * Versions without action
+ */
+export type VersionsDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Versions
+     */
+    select?: Prisma.VersionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Versions
+     */
+    omit?: Prisma.VersionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.VersionsInclude<ExtArgs> | null;
+};

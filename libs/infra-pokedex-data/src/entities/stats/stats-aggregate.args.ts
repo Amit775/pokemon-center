@@ -1,0 +1,49 @@
+import { Field } from '@nestjs/graphql';
+import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
+import { StatsWhereInput } from './stats-where.input';
+import { Type } from 'class-transformer';
+import { StatsOrderByWithRelationInput } from './stats-order-by-with-relation.input';
+import { Prisma } from '@pokemon-center/prisma';
+import { StatsWhereUniqueInput } from './stats-where-unique.input';
+import { Int } from '@nestjs/graphql';
+import { StatsCountAggregateInput } from './stats-count-aggregate.input';
+import { StatsAvgAggregateInput } from './stats-avg-aggregate.input';
+import { StatsSumAggregateInput } from './stats-sum-aggregate.input';
+import { StatsMinAggregateInput } from './stats-min-aggregate.input';
+import { StatsMaxAggregateInput } from './stats-max-aggregate.input';
+
+@ArgsType()
+export class StatsAggregateArgs {
+
+    @Field(() => StatsWhereInput, {nullable:true})
+    @Type(() => StatsWhereInput)
+    where?: Identity<StatsWhereInput>;
+
+    @Field(() => [StatsOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<StatsOrderByWithRelationInput>;
+
+    @Field(() => StatsWhereUniqueInput, {nullable:true})
+    cursor?: Prisma.AtLeast<StatsWhereUniqueInput, 'id'>;
+
+    @Field(() => Int, {nullable:true})
+    take?: number;
+
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+
+    @Field(() => StatsCountAggregateInput, {nullable:true})
+    _count?: Identity<StatsCountAggregateInput>;
+
+    @Field(() => StatsAvgAggregateInput, {nullable:true})
+    _avg?: Identity<StatsAvgAggregateInput>;
+
+    @Field(() => StatsSumAggregateInput, {nullable:true})
+    _sum?: Identity<StatsSumAggregateInput>;
+
+    @Field(() => StatsMinAggregateInput, {nullable:true})
+    _min?: Identity<StatsMinAggregateInput>;
+
+    @Field(() => StatsMaxAggregateInput, {nullable:true})
+    _max?: Identity<StatsMaxAggregateInput>;
+}

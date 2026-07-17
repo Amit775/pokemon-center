@@ -1,0 +1,49 @@
+import { Field } from '@nestjs/graphql';
+import { ArgsType } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
+import { EncounterMethodsWhereInput } from './encounter-methods-where.input';
+import { Type } from 'class-transformer';
+import { EncounterMethodsOrderByWithRelationInput } from './encounter-methods-order-by-with-relation.input';
+import { Prisma } from '@pokemon-center/prisma';
+import { EncounterMethodsWhereUniqueInput } from './encounter-methods-where-unique.input';
+import { Int } from '@nestjs/graphql';
+import { EncounterMethodsCountAggregateInput } from './encounter-methods-count-aggregate.input';
+import { EncounterMethodsAvgAggregateInput } from './encounter-methods-avg-aggregate.input';
+import { EncounterMethodsSumAggregateInput } from './encounter-methods-sum-aggregate.input';
+import { EncounterMethodsMinAggregateInput } from './encounter-methods-min-aggregate.input';
+import { EncounterMethodsMaxAggregateInput } from './encounter-methods-max-aggregate.input';
+
+@ArgsType()
+export class EncounterMethodsAggregateArgs {
+
+    @Field(() => EncounterMethodsWhereInput, {nullable:true})
+    @Type(() => EncounterMethodsWhereInput)
+    where?: Identity<EncounterMethodsWhereInput>;
+
+    @Field(() => [EncounterMethodsOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<EncounterMethodsOrderByWithRelationInput>;
+
+    @Field(() => EncounterMethodsWhereUniqueInput, {nullable:true})
+    cursor?: Prisma.AtLeast<EncounterMethodsWhereUniqueInput, 'id'>;
+
+    @Field(() => Int, {nullable:true})
+    take?: number;
+
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+
+    @Field(() => EncounterMethodsCountAggregateInput, {nullable:true})
+    _count?: Identity<EncounterMethodsCountAggregateInput>;
+
+    @Field(() => EncounterMethodsAvgAggregateInput, {nullable:true})
+    _avg?: Identity<EncounterMethodsAvgAggregateInput>;
+
+    @Field(() => EncounterMethodsSumAggregateInput, {nullable:true})
+    _sum?: Identity<EncounterMethodsSumAggregateInput>;
+
+    @Field(() => EncounterMethodsMinAggregateInput, {nullable:true})
+    _min?: Identity<EncounterMethodsMinAggregateInput>;
+
+    @Field(() => EncounterMethodsMaxAggregateInput, {nullable:true})
+    _max?: Identity<EncounterMethodsMaxAggregateInput>;
+}

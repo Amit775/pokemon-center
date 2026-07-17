@@ -1,6 +1,7 @@
 import { PromiseExecutor, logger } from '@nx/devkit';
-import { PrismaClient } from '@prisma/client';
-import * as csv from 'csv-parser';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from '@pokemon-center/infra-pokedex-data';
+import csv from 'csv-parser';
 import * as fs from 'fs';
 import * as path from 'path';
 import { PokedexSeedExecutorSchema } from './schema';
@@ -8,7 +9,8 @@ import { PokedexSeedExecutorSchema } from './schema';
 const runExecutor: PromiseExecutor<PokedexSeedExecutorSchema> = async (options) => {
 	logger.info(`Executor ran for PokedexSeed ${JSON.stringify(options)}`);
 
-	const csvProcessorService = new CsvProcessorService(new PrismaClient(), options.tables);
+	const adapter = new PrismaPg({ connectionString: process.env['DATABASE_URL'] });
+	const csvProcessorService = new CsvProcessorService(new PrismaClient({ adapter }), options.tables);
 	await csvProcessorService.processAllCsvFiles();
 	return {
 		success: true,
@@ -552,13 +554,8 @@ class CsvProcessorService {
 
 		return new Promise((resolve, reject) => {
 			fs.createReadStream(filePath)
-				.pipe(
-					csv({
-						skipEmptyLines: true,
-						skipLinesWithError: true,
-					}),
-				)
-				.on('data', (data) => {
+				.pipe(csv())
+				.on('data', (data: Record<string, string>) => {
 					try {
 						results.push(this.convertCsvData(data));
 					} catch (error) {
@@ -586,14 +583,15 @@ class CsvProcessorService {
 
 						resolve();
 					} catch (error) {
+						const err = error as { message?: string; code?: string };
 						logger.error(`Database error for ${String(prismaModelName)}:`);
-						logger.error(`Error message: ${error.message || error}`);
-						logger.error(`Error code: ${error.code || 'N/A'}`);
+						logger.error(`Error message: ${err.message || error}`);
+						logger.error(`Error code: ${err.code || 'N/A'}`);
 						logger.error(`Error details: ${JSON.stringify(error, null, 2)}`);
 						reject(error);
 					}
 				})
-				.on('error', (error) => {
+				.on('error', (error: Error) => {
 					logger.error(`File reading error: ${error}`);
 					reject(error);
 				});

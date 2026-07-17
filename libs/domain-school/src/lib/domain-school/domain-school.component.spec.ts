@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DomainSchoolComponent } from './domain-school.component';
+import { default as DomainSchoolComponent } from './domain-school.component';
 
 describe('DomainSchoolComponent', () => {
   let component: DomainSchoolComponent;

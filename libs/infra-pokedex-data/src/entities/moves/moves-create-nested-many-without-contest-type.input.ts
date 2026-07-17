@@ -1,0 +1,29 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { MovesCreateWithoutContestTypeInput } from './moves-create-without-contest-type.input';
+import { Type } from 'class-transformer';
+import { MovesCreateOrConnectWithoutContestTypeInput } from './moves-create-or-connect-without-contest-type.input';
+import type { Identity } from 'identity-type';
+import { MovesCreateManyContestTypeInputEnvelope } from './moves-create-many-contest-type-input-envelope.input';
+import { Prisma } from '@pokemon-center/prisma';
+import { MovesWhereUniqueInput } from './moves-where-unique.input';
+
+@InputType()
+export class MovesCreateNestedManyWithoutContestTypeInput {
+
+    @Field(() => [MovesCreateWithoutContestTypeInput], {nullable:true})
+    @Type(() => MovesCreateWithoutContestTypeInput)
+    create?: Array<MovesCreateWithoutContestTypeInput>;
+
+    @Field(() => [MovesCreateOrConnectWithoutContestTypeInput], {nullable:true})
+    @Type(() => MovesCreateOrConnectWithoutContestTypeInput)
+    connectOrCreate?: Array<MovesCreateOrConnectWithoutContestTypeInput>;
+
+    @Field(() => MovesCreateManyContestTypeInputEnvelope, {nullable:true})
+    @Type(() => MovesCreateManyContestTypeInputEnvelope)
+    createMany?: Identity<MovesCreateManyContestTypeInputEnvelope>;
+
+    @Field(() => [MovesWhereUniqueInput], {nullable:true})
+    @Type(() => MovesWhereUniqueInput)
+    connect?: Array<Prisma.AtLeast<MovesWhereUniqueInput, 'id'>>;
+}

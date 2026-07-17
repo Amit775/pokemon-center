@@ -1,0 +1,22 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
+
+@InputType()
+export class StatsUpdateManyMutationInput {
+
+    @Field(() => Int, {nullable:true})
+    id?: number;
+
+    @Field(() => Int, {nullable:true})
+    damage_class_id?: number;
+
+    @Field(() => String, {nullable:true})
+    identifier?: string;
+
+    @Field(() => Int, {nullable:true})
+    is_battle_only?: number;
+
+    @Field(() => Int, {nullable:true})
+    game_index?: number;
+}

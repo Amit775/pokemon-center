@@ -49,3 +49,8 @@ Thumbs.db
 .github/instructions/nx.instructions.md
 
 .env
+.nx/polygraph
+.claude/worktrees
+.claude/settings.local.json
+.nx/self-healing
+.nx/migrate-runs

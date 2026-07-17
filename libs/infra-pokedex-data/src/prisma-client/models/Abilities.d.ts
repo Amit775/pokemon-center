@@ -1,0 +1,1307 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model Abilities
+ * @@TypeGraphQL.type(name: "Ability")
+ */
+export type AbilitiesModel = runtime.Types.Result.DefaultSelection<Prisma.$AbilitiesPayload>;
+export type AggregateAbilities = {
+    _count: AbilitiesCountAggregateOutputType | null;
+    _avg: AbilitiesAvgAggregateOutputType | null;
+    _sum: AbilitiesSumAggregateOutputType | null;
+    _min: AbilitiesMinAggregateOutputType | null;
+    _max: AbilitiesMaxAggregateOutputType | null;
+};
+export type AbilitiesAvgAggregateOutputType = {
+    id: number | null;
+    generation_id: number | null;
+    is_main_series: number | null;
+};
+export type AbilitiesSumAggregateOutputType = {
+    id: number | null;
+    generation_id: number | null;
+    is_main_series: number | null;
+};
+export type AbilitiesMinAggregateOutputType = {
+    id: number | null;
+    identifier: string | null;
+    generation_id: number | null;
+    is_main_series: number | null;
+};
+export type AbilitiesMaxAggregateOutputType = {
+    id: number | null;
+    identifier: string | null;
+    generation_id: number | null;
+    is_main_series: number | null;
+};
+export type AbilitiesCountAggregateOutputType = {
+    id: number;
+    identifier: number;
+    generation_id: number;
+    is_main_series: number;
+    _all: number;
+};
+export type AbilitiesAvgAggregateInputType = {
+    id?: true;
+    generation_id?: true;
+    is_main_series?: true;
+};
+export type AbilitiesSumAggregateInputType = {
+    id?: true;
+    generation_id?: true;
+    is_main_series?: true;
+};
+export type AbilitiesMinAggregateInputType = {
+    id?: true;
+    identifier?: true;
+    generation_id?: true;
+    is_main_series?: true;
+};
+export type AbilitiesMaxAggregateInputType = {
+    id?: true;
+    identifier?: true;
+    generation_id?: true;
+    is_main_series?: true;
+};
+export type AbilitiesCountAggregateInputType = {
+    id?: true;
+    identifier?: true;
+    generation_id?: true;
+    is_main_series?: true;
+    _all?: true;
+};
+export type AbilitiesAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which Abilities to aggregate.
+     */
+    where?: Prisma.AbilitiesWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Abilities to fetch.
+     */
+    orderBy?: Prisma.AbilitiesOrderByWithRelationInput | Prisma.AbilitiesOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.AbilitiesWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Abilities from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Abilities.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned Abilities
+    **/
+    _count?: true | AbilitiesCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+    **/
+    _avg?: AbilitiesAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: AbilitiesSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: AbilitiesMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: AbilitiesMaxAggregateInputType;
+};
+export type GetAbilitiesAggregateType<T extends AbilitiesAggregateArgs> = {
+    [P in keyof T & keyof AggregateAbilities]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateAbilities[P]> : Prisma.GetScalarType<T[P], AggregateAbilities[P]>;
+};
+export type AbilitiesGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.AbilitiesWhereInput;
+    orderBy?: Prisma.AbilitiesOrderByWithAggregationInput | Prisma.AbilitiesOrderByWithAggregationInput[];
+    by: Prisma.AbilitiesScalarFieldEnum[] | Prisma.AbilitiesScalarFieldEnum;
+    having?: Prisma.AbilitiesScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: AbilitiesCountAggregateInputType | true;
+    _avg?: AbilitiesAvgAggregateInputType;
+    _sum?: AbilitiesSumAggregateInputType;
+    _min?: AbilitiesMinAggregateInputType;
+    _max?: AbilitiesMaxAggregateInputType;
+};
+export type AbilitiesGroupByOutputType = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    is_main_series: number;
+    _count: AbilitiesCountAggregateOutputType | null;
+    _avg: AbilitiesAvgAggregateOutputType | null;
+    _sum: AbilitiesSumAggregateOutputType | null;
+    _min: AbilitiesMinAggregateOutputType | null;
+    _max: AbilitiesMaxAggregateOutputType | null;
+};
+export type GetAbilitiesGroupByPayload<T extends AbilitiesGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<AbilitiesGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof AbilitiesGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], AbilitiesGroupByOutputType[P]> : Prisma.GetScalarType<T[P], AbilitiesGroupByOutputType[P]>;
+}>>;
+export type AbilitiesWhereInput = {
+    AND?: Prisma.AbilitiesWhereInput | Prisma.AbilitiesWhereInput[];
+    OR?: Prisma.AbilitiesWhereInput[];
+    NOT?: Prisma.AbilitiesWhereInput | Prisma.AbilitiesWhereInput[];
+    id?: Prisma.IntFilter<"Abilities"> | number;
+    identifier?: Prisma.StringFilter<"Abilities"> | string;
+    generation_id?: Prisma.IntFilter<"Abilities"> | number;
+    is_main_series?: Prisma.IntFilter<"Abilities"> | number;
+    generation?: Prisma.XOR<Prisma.GenerationsScalarRelationFilter, Prisma.GenerationsWhereInput>;
+    pokemonAbilities?: Prisma.PokemonAbilitiesListRelationFilter;
+};
+export type AbilitiesOrderByWithRelationInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+    generation_id?: Prisma.SortOrder;
+    is_main_series?: Prisma.SortOrder;
+    generation?: Prisma.GenerationsOrderByWithRelationInput;
+    pokemonAbilities?: Prisma.PokemonAbilitiesOrderByRelationAggregateInput;
+};
+export type AbilitiesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number;
+    AND?: Prisma.AbilitiesWhereInput | Prisma.AbilitiesWhereInput[];
+    OR?: Prisma.AbilitiesWhereInput[];
+    NOT?: Prisma.AbilitiesWhereInput | Prisma.AbilitiesWhereInput[];
+    identifier?: Prisma.StringFilter<"Abilities"> | string;
+    generation_id?: Prisma.IntFilter<"Abilities"> | number;
+    is_main_series?: Prisma.IntFilter<"Abilities"> | number;
+    generation?: Prisma.XOR<Prisma.GenerationsScalarRelationFilter, Prisma.GenerationsWhereInput>;
+    pokemonAbilities?: Prisma.PokemonAbilitiesListRelationFilter;
+}, "id">;
+export type AbilitiesOrderByWithAggregationInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+    generation_id?: Prisma.SortOrder;
+    is_main_series?: Prisma.SortOrder;
+    _count?: Prisma.AbilitiesCountOrderByAggregateInput;
+    _avg?: Prisma.AbilitiesAvgOrderByAggregateInput;
+    _max?: Prisma.AbilitiesMaxOrderByAggregateInput;
+    _min?: Prisma.AbilitiesMinOrderByAggregateInput;
+    _sum?: Prisma.AbilitiesSumOrderByAggregateInput;
+};
+export type AbilitiesScalarWhereWithAggregatesInput = {
+    AND?: Prisma.AbilitiesScalarWhereWithAggregatesInput | Prisma.AbilitiesScalarWhereWithAggregatesInput[];
+    OR?: Prisma.AbilitiesScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.AbilitiesScalarWhereWithAggregatesInput | Prisma.AbilitiesScalarWhereWithAggregatesInput[];
+    id?: Prisma.IntWithAggregatesFilter<"Abilities"> | number;
+    identifier?: Prisma.StringWithAggregatesFilter<"Abilities"> | string;
+    generation_id?: Prisma.IntWithAggregatesFilter<"Abilities"> | number;
+    is_main_series?: Prisma.IntWithAggregatesFilter<"Abilities"> | number;
+};
+export type AbilitiesCreateInput = {
+    id: number;
+    identifier: string;
+    is_main_series: number;
+    generation: Prisma.GenerationsCreateNestedOneWithoutAbilitiesInput;
+    pokemonAbilities?: Prisma.PokemonAbilitiesCreateNestedManyWithoutAbilityInput;
+};
+export type AbilitiesUncheckedCreateInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    is_main_series: number;
+    pokemonAbilities?: Prisma.PokemonAbilitiesUncheckedCreateNestedManyWithoutAbilityInput;
+};
+export type AbilitiesUpdateInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    is_main_series?: Prisma.IntFieldUpdateOperationsInput | number;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutAbilitiesNestedInput;
+    pokemonAbilities?: Prisma.PokemonAbilitiesUpdateManyWithoutAbilityNestedInput;
+};
+export type AbilitiesUncheckedUpdateInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    is_main_series?: Prisma.IntFieldUpdateOperationsInput | number;
+    pokemonAbilities?: Prisma.PokemonAbilitiesUncheckedUpdateManyWithoutAbilityNestedInput;
+};
+export type AbilitiesCreateManyInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    is_main_series: number;
+};
+export type AbilitiesUpdateManyMutationInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    is_main_series?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type AbilitiesUncheckedUpdateManyInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    is_main_series?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type AbilitiesCountOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+    generation_id?: Prisma.SortOrder;
+    is_main_series?: Prisma.SortOrder;
+};
+export type AbilitiesAvgOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    generation_id?: Prisma.SortOrder;
+    is_main_series?: Prisma.SortOrder;
+};
+export type AbilitiesMaxOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+    generation_id?: Prisma.SortOrder;
+    is_main_series?: Prisma.SortOrder;
+};
+export type AbilitiesMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+    generation_id?: Prisma.SortOrder;
+    is_main_series?: Prisma.SortOrder;
+};
+export type AbilitiesSumOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    generation_id?: Prisma.SortOrder;
+    is_main_series?: Prisma.SortOrder;
+};
+export type AbilitiesListRelationFilter = {
+    every?: Prisma.AbilitiesWhereInput;
+    some?: Prisma.AbilitiesWhereInput;
+    none?: Prisma.AbilitiesWhereInput;
+};
+export type AbilitiesOrderByRelationAggregateInput = {
+    _count?: Prisma.SortOrder;
+};
+export type AbilitiesScalarRelationFilter = {
+    is?: Prisma.AbilitiesWhereInput;
+    isNot?: Prisma.AbilitiesWhereInput;
+};
+export type AbilitiesCreateNestedManyWithoutGenerationInput = {
+    create?: Prisma.XOR<Prisma.AbilitiesCreateWithoutGenerationInput, Prisma.AbilitiesUncheckedCreateWithoutGenerationInput> | Prisma.AbilitiesCreateWithoutGenerationInput[] | Prisma.AbilitiesUncheckedCreateWithoutGenerationInput[];
+    connectOrCreate?: Prisma.AbilitiesCreateOrConnectWithoutGenerationInput | Prisma.AbilitiesCreateOrConnectWithoutGenerationInput[];
+    createMany?: Prisma.AbilitiesCreateManyGenerationInputEnvelope;
+    connect?: Prisma.AbilitiesWhereUniqueInput | Prisma.AbilitiesWhereUniqueInput[];
+};
+export type AbilitiesUncheckedCreateNestedManyWithoutGenerationInput = {
+    create?: Prisma.XOR<Prisma.AbilitiesCreateWithoutGenerationInput, Prisma.AbilitiesUncheckedCreateWithoutGenerationInput> | Prisma.AbilitiesCreateWithoutGenerationInput[] | Prisma.AbilitiesUncheckedCreateWithoutGenerationInput[];
+    connectOrCreate?: Prisma.AbilitiesCreateOrConnectWithoutGenerationInput | Prisma.AbilitiesCreateOrConnectWithoutGenerationInput[];
+    createMany?: Prisma.AbilitiesCreateManyGenerationInputEnvelope;
+    connect?: Prisma.AbilitiesWhereUniqueInput | Prisma.AbilitiesWhereUniqueInput[];
+};
+export type AbilitiesUpdateManyWithoutGenerationNestedInput = {
+    create?: Prisma.XOR<Prisma.AbilitiesCreateWithoutGenerationInput, Prisma.AbilitiesUncheckedCreateWithoutGenerationInput> | Prisma.AbilitiesCreateWithoutGenerationInput[] | Prisma.AbilitiesUncheckedCreateWithoutGenerationInput[];
+    connectOrCreate?: Prisma.AbilitiesCreateOrConnectWithoutGenerationInput | Prisma.AbilitiesCreateOrConnectWithoutGenerationInput[];
+    upsert?: Prisma.AbilitiesUpsertWithWhereUniqueWithoutGenerationInput | Prisma.AbilitiesUpsertWithWhereUniqueWithoutGenerationInput[];
+    createMany?: Prisma.AbilitiesCreateManyGenerationInputEnvelope;
+    set?: Prisma.AbilitiesWhereUniqueInput | Prisma.AbilitiesWhereUniqueInput[];
+    disconnect?: Prisma.AbilitiesWhereUniqueInput | Prisma.AbilitiesWhereUniqueInput[];
+    delete?: Prisma.AbilitiesWhereUniqueInput | Prisma.AbilitiesWhereUniqueInput[];
+    connect?: Prisma.AbilitiesWhereUniqueInput | Prisma.AbilitiesWhereUniqueInput[];
+    update?: Prisma.AbilitiesUpdateWithWhereUniqueWithoutGenerationInput | Prisma.AbilitiesUpdateWithWhereUniqueWithoutGenerationInput[];
+    updateMany?: Prisma.AbilitiesUpdateManyWithWhereWithoutGenerationInput | Prisma.AbilitiesUpdateManyWithWhereWithoutGenerationInput[];
+    deleteMany?: Prisma.AbilitiesScalarWhereInput | Prisma.AbilitiesScalarWhereInput[];
+};
+export type AbilitiesUncheckedUpdateManyWithoutGenerationNestedInput = {
+    create?: Prisma.XOR<Prisma.AbilitiesCreateWithoutGenerationInput, Prisma.AbilitiesUncheckedCreateWithoutGenerationInput> | Prisma.AbilitiesCreateWithoutGenerationInput[] | Prisma.AbilitiesUncheckedCreateWithoutGenerationInput[];
+    connectOrCreate?: Prisma.AbilitiesCreateOrConnectWithoutGenerationInput | Prisma.AbilitiesCreateOrConnectWithoutGenerationInput[];
+    upsert?: Prisma.AbilitiesUpsertWithWhereUniqueWithoutGenerationInput | Prisma.AbilitiesUpsertWithWhereUniqueWithoutGenerationInput[];
+    createMany?: Prisma.AbilitiesCreateManyGenerationInputEnvelope;
+    set?: Prisma.AbilitiesWhereUniqueInput | Prisma.AbilitiesWhereUniqueInput[];
+    disconnect?: Prisma.AbilitiesWhereUniqueInput | Prisma.AbilitiesWhereUniqueInput[];
+    delete?: Prisma.AbilitiesWhereUniqueInput | Prisma.AbilitiesWhereUniqueInput[];
+    connect?: Prisma.AbilitiesWhereUniqueInput | Prisma.AbilitiesWhereUniqueInput[];
+    update?: Prisma.AbilitiesUpdateWithWhereUniqueWithoutGenerationInput | Prisma.AbilitiesUpdateWithWhereUniqueWithoutGenerationInput[];
+    updateMany?: Prisma.AbilitiesUpdateManyWithWhereWithoutGenerationInput | Prisma.AbilitiesUpdateManyWithWhereWithoutGenerationInput[];
+    deleteMany?: Prisma.AbilitiesScalarWhereInput | Prisma.AbilitiesScalarWhereInput[];
+};
+export type AbilitiesCreateNestedOneWithoutPokemonAbilitiesInput = {
+    create?: Prisma.XOR<Prisma.AbilitiesCreateWithoutPokemonAbilitiesInput, Prisma.AbilitiesUncheckedCreateWithoutPokemonAbilitiesInput>;
+    connectOrCreate?: Prisma.AbilitiesCreateOrConnectWithoutPokemonAbilitiesInput;
+    connect?: Prisma.AbilitiesWhereUniqueInput;
+};
+export type AbilitiesUpdateOneRequiredWithoutPokemonAbilitiesNestedInput = {
+    create?: Prisma.XOR<Prisma.AbilitiesCreateWithoutPokemonAbilitiesInput, Prisma.AbilitiesUncheckedCreateWithoutPokemonAbilitiesInput>;
+    connectOrCreate?: Prisma.AbilitiesCreateOrConnectWithoutPokemonAbilitiesInput;
+    upsert?: Prisma.AbilitiesUpsertWithoutPokemonAbilitiesInput;
+    connect?: Prisma.AbilitiesWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.AbilitiesUpdateToOneWithWhereWithoutPokemonAbilitiesInput, Prisma.AbilitiesUpdateWithoutPokemonAbilitiesInput>, Prisma.AbilitiesUncheckedUpdateWithoutPokemonAbilitiesInput>;
+};
+export type AbilitiesCreateWithoutGenerationInput = {
+    id: number;
+    identifier: string;
+    is_main_series: number;
+    pokemonAbilities?: Prisma.PokemonAbilitiesCreateNestedManyWithoutAbilityInput;
+};
+export type AbilitiesUncheckedCreateWithoutGenerationInput = {
+    id: number;
+    identifier: string;
+    is_main_series: number;
+    pokemonAbilities?: Prisma.PokemonAbilitiesUncheckedCreateNestedManyWithoutAbilityInput;
+};
+export type AbilitiesCreateOrConnectWithoutGenerationInput = {
+    where: Prisma.AbilitiesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.AbilitiesCreateWithoutGenerationInput, Prisma.AbilitiesUncheckedCreateWithoutGenerationInput>;
+};
+export type AbilitiesCreateManyGenerationInputEnvelope = {
+    data: Prisma.AbilitiesCreateManyGenerationInput | Prisma.AbilitiesCreateManyGenerationInput[];
+    skipDuplicates?: boolean;
+};
+export type AbilitiesUpsertWithWhereUniqueWithoutGenerationInput = {
+    where: Prisma.AbilitiesWhereUniqueInput;
+    update: Prisma.XOR<Prisma.AbilitiesUpdateWithoutGenerationInput, Prisma.AbilitiesUncheckedUpdateWithoutGenerationInput>;
+    create: Prisma.XOR<Prisma.AbilitiesCreateWithoutGenerationInput, Prisma.AbilitiesUncheckedCreateWithoutGenerationInput>;
+};
+export type AbilitiesUpdateWithWhereUniqueWithoutGenerationInput = {
+    where: Prisma.AbilitiesWhereUniqueInput;
+    data: Prisma.XOR<Prisma.AbilitiesUpdateWithoutGenerationInput, Prisma.AbilitiesUncheckedUpdateWithoutGenerationInput>;
+};
+export type AbilitiesUpdateManyWithWhereWithoutGenerationInput = {
+    where: Prisma.AbilitiesScalarWhereInput;
+    data: Prisma.XOR<Prisma.AbilitiesUpdateManyMutationInput, Prisma.AbilitiesUncheckedUpdateManyWithoutGenerationInput>;
+};
+export type AbilitiesScalarWhereInput = {
+    AND?: Prisma.AbilitiesScalarWhereInput | Prisma.AbilitiesScalarWhereInput[];
+    OR?: Prisma.AbilitiesScalarWhereInput[];
+    NOT?: Prisma.AbilitiesScalarWhereInput | Prisma.AbilitiesScalarWhereInput[];
+    id?: Prisma.IntFilter<"Abilities"> | number;
+    identifier?: Prisma.StringFilter<"Abilities"> | string;
+    generation_id?: Prisma.IntFilter<"Abilities"> | number;
+    is_main_series?: Prisma.IntFilter<"Abilities"> | number;
+};
+export type AbilitiesCreateWithoutPokemonAbilitiesInput = {
+    id: number;
+    identifier: string;
+    is_main_series: number;
+    generation: Prisma.GenerationsCreateNestedOneWithoutAbilitiesInput;
+};
+export type AbilitiesUncheckedCreateWithoutPokemonAbilitiesInput = {
+    id: number;
+    identifier: string;
+    generation_id: number;
+    is_main_series: number;
+};
+export type AbilitiesCreateOrConnectWithoutPokemonAbilitiesInput = {
+    where: Prisma.AbilitiesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.AbilitiesCreateWithoutPokemonAbilitiesInput, Prisma.AbilitiesUncheckedCreateWithoutPokemonAbilitiesInput>;
+};
+export type AbilitiesUpsertWithoutPokemonAbilitiesInput = {
+    update: Prisma.XOR<Prisma.AbilitiesUpdateWithoutPokemonAbilitiesInput, Prisma.AbilitiesUncheckedUpdateWithoutPokemonAbilitiesInput>;
+    create: Prisma.XOR<Prisma.AbilitiesCreateWithoutPokemonAbilitiesInput, Prisma.AbilitiesUncheckedCreateWithoutPokemonAbilitiesInput>;
+    where?: Prisma.AbilitiesWhereInput;
+};
+export type AbilitiesUpdateToOneWithWhereWithoutPokemonAbilitiesInput = {
+    where?: Prisma.AbilitiesWhereInput;
+    data: Prisma.XOR<Prisma.AbilitiesUpdateWithoutPokemonAbilitiesInput, Prisma.AbilitiesUncheckedUpdateWithoutPokemonAbilitiesInput>;
+};
+export type AbilitiesUpdateWithoutPokemonAbilitiesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    is_main_series?: Prisma.IntFieldUpdateOperationsInput | number;
+    generation?: Prisma.GenerationsUpdateOneRequiredWithoutAbilitiesNestedInput;
+};
+export type AbilitiesUncheckedUpdateWithoutPokemonAbilitiesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    generation_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    is_main_series?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type AbilitiesCreateManyGenerationInput = {
+    id: number;
+    identifier: string;
+    is_main_series: number;
+};
+export type AbilitiesUpdateWithoutGenerationInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    is_main_series?: Prisma.IntFieldUpdateOperationsInput | number;
+    pokemonAbilities?: Prisma.PokemonAbilitiesUpdateManyWithoutAbilityNestedInput;
+};
+export type AbilitiesUncheckedUpdateWithoutGenerationInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    is_main_series?: Prisma.IntFieldUpdateOperationsInput | number;
+    pokemonAbilities?: Prisma.PokemonAbilitiesUncheckedUpdateManyWithoutAbilityNestedInput;
+};
+export type AbilitiesUncheckedUpdateManyWithoutGenerationInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    is_main_series?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+/**
+ * Count Type AbilitiesCountOutputType
+ */
+export type AbilitiesCountOutputType = {
+    pokemonAbilities: number;
+};
+export type AbilitiesCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    pokemonAbilities?: boolean | AbilitiesCountOutputTypeCountPokemonAbilitiesArgs;
+};
+/**
+ * AbilitiesCountOutputType without action
+ */
+export type AbilitiesCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbilitiesCountOutputType
+     */
+    select?: Prisma.AbilitiesCountOutputTypeSelect<ExtArgs> | null;
+};
+/**
+ * AbilitiesCountOutputType without action
+ */
+export type AbilitiesCountOutputTypeCountPokemonAbilitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.PokemonAbilitiesWhereInput;
+};
+export type AbilitiesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    identifier?: boolean;
+    generation_id?: boolean;
+    is_main_series?: boolean;
+    generation?: boolean | Prisma.GenerationsDefaultArgs<ExtArgs>;
+    pokemonAbilities?: boolean | Prisma.Abilities$pokemonAbilitiesArgs<ExtArgs>;
+    _count?: boolean | Prisma.AbilitiesCountOutputTypeDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["abilities"]>;
+export type AbilitiesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    identifier?: boolean;
+    generation_id?: boolean;
+    is_main_series?: boolean;
+    generation?: boolean | Prisma.GenerationsDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["abilities"]>;
+export type AbilitiesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    identifier?: boolean;
+    generation_id?: boolean;
+    is_main_series?: boolean;
+    generation?: boolean | Prisma.GenerationsDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["abilities"]>;
+export type AbilitiesSelectScalar = {
+    id?: boolean;
+    identifier?: boolean;
+    generation_id?: boolean;
+    is_main_series?: boolean;
+};
+export type AbilitiesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "identifier" | "generation_id" | "is_main_series", ExtArgs["result"]["abilities"]>;
+export type AbilitiesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    generation?: boolean | Prisma.GenerationsDefaultArgs<ExtArgs>;
+    pokemonAbilities?: boolean | Prisma.Abilities$pokemonAbilitiesArgs<ExtArgs>;
+    _count?: boolean | Prisma.AbilitiesCountOutputTypeDefaultArgs<ExtArgs>;
+};
+export type AbilitiesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    generation?: boolean | Prisma.GenerationsDefaultArgs<ExtArgs>;
+};
+export type AbilitiesIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    generation?: boolean | Prisma.GenerationsDefaultArgs<ExtArgs>;
+};
+export type $AbilitiesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "Abilities";
+    objects: {
+        generation: Prisma.$GenerationsPayload<ExtArgs>;
+        pokemonAbilities: Prisma.$PokemonAbilitiesPayload<ExtArgs>[];
+    };
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        id: number;
+        identifier: string;
+        generation_id: number;
+        is_main_series: number;
+    }, ExtArgs["result"]["abilities"]>;
+    composites: {};
+};
+export type AbilitiesGetPayload<S extends boolean | null | undefined | AbilitiesDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$AbilitiesPayload, S>;
+export type AbilitiesCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<AbilitiesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: AbilitiesCountAggregateInputType | true;
+};
+export interface AbilitiesDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['Abilities'];
+        meta: {
+            name: 'Abilities';
+        };
+    };
+    /**
+     * Find zero or one Abilities that matches the filter.
+     * @param {AbilitiesFindUniqueArgs} args - Arguments to find a Abilities
+     * @example
+     * // Get one Abilities
+     * const abilities = await prisma.abilities.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AbilitiesFindUniqueArgs>(args: Prisma.SelectSubset<T, AbilitiesFindUniqueArgs<ExtArgs>>): Prisma.Prisma__AbilitiesClient<runtime.Types.Result.GetResult<Prisma.$AbilitiesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one Abilities that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AbilitiesFindUniqueOrThrowArgs} args - Arguments to find a Abilities
+     * @example
+     * // Get one Abilities
+     * const abilities = await prisma.abilities.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AbilitiesFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, AbilitiesFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__AbilitiesClient<runtime.Types.Result.GetResult<Prisma.$AbilitiesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first Abilities that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbilitiesFindFirstArgs} args - Arguments to find a Abilities
+     * @example
+     * // Get one Abilities
+     * const abilities = await prisma.abilities.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AbilitiesFindFirstArgs>(args?: Prisma.SelectSubset<T, AbilitiesFindFirstArgs<ExtArgs>>): Prisma.Prisma__AbilitiesClient<runtime.Types.Result.GetResult<Prisma.$AbilitiesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first Abilities that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbilitiesFindFirstOrThrowArgs} args - Arguments to find a Abilities
+     * @example
+     * // Get one Abilities
+     * const abilities = await prisma.abilities.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AbilitiesFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, AbilitiesFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__AbilitiesClient<runtime.Types.Result.GetResult<Prisma.$AbilitiesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more Abilities that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbilitiesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Abilities
+     * const abilities = await prisma.abilities.findMany()
+     *
+     * // Get first 10 Abilities
+     * const abilities = await prisma.abilities.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const abilitiesWithIdOnly = await prisma.abilities.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends AbilitiesFindManyArgs>(args?: Prisma.SelectSubset<T, AbilitiesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AbilitiesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a Abilities.
+     * @param {AbilitiesCreateArgs} args - Arguments to create a Abilities.
+     * @example
+     * // Create one Abilities
+     * const Abilities = await prisma.abilities.create({
+     *   data: {
+     *     // ... data to create a Abilities
+     *   }
+     * })
+     *
+     */
+    create<T extends AbilitiesCreateArgs>(args: Prisma.SelectSubset<T, AbilitiesCreateArgs<ExtArgs>>): Prisma.Prisma__AbilitiesClient<runtime.Types.Result.GetResult<Prisma.$AbilitiesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many Abilities.
+     * @param {AbilitiesCreateManyArgs} args - Arguments to create many Abilities.
+     * @example
+     * // Create many Abilities
+     * const abilities = await prisma.abilities.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends AbilitiesCreateManyArgs>(args?: Prisma.SelectSubset<T, AbilitiesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many Abilities and returns the data saved in the database.
+     * @param {AbilitiesCreateManyAndReturnArgs} args - Arguments to create many Abilities.
+     * @example
+     * // Create many Abilities
+     * const abilities = await prisma.abilities.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Abilities and only return the `id`
+     * const abilitiesWithIdOnly = await prisma.abilities.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends AbilitiesCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, AbilitiesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AbilitiesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a Abilities.
+     * @param {AbilitiesDeleteArgs} args - Arguments to delete one Abilities.
+     * @example
+     * // Delete one Abilities
+     * const Abilities = await prisma.abilities.delete({
+     *   where: {
+     *     // ... filter to delete one Abilities
+     *   }
+     * })
+     *
+     */
+    delete<T extends AbilitiesDeleteArgs>(args: Prisma.SelectSubset<T, AbilitiesDeleteArgs<ExtArgs>>): Prisma.Prisma__AbilitiesClient<runtime.Types.Result.GetResult<Prisma.$AbilitiesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one Abilities.
+     * @param {AbilitiesUpdateArgs} args - Arguments to update one Abilities.
+     * @example
+     * // Update one Abilities
+     * const abilities = await prisma.abilities.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends AbilitiesUpdateArgs>(args: Prisma.SelectSubset<T, AbilitiesUpdateArgs<ExtArgs>>): Prisma.Prisma__AbilitiesClient<runtime.Types.Result.GetResult<Prisma.$AbilitiesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more Abilities.
+     * @param {AbilitiesDeleteManyArgs} args - Arguments to filter Abilities to delete.
+     * @example
+     * // Delete a few Abilities
+     * const { count } = await prisma.abilities.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends AbilitiesDeleteManyArgs>(args?: Prisma.SelectSubset<T, AbilitiesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Abilities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbilitiesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Abilities
+     * const abilities = await prisma.abilities.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends AbilitiesUpdateManyArgs>(args: Prisma.SelectSubset<T, AbilitiesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Abilities and returns the data updated in the database.
+     * @param {AbilitiesUpdateManyAndReturnArgs} args - Arguments to update many Abilities.
+     * @example
+     * // Update many Abilities
+     * const abilities = await prisma.abilities.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more Abilities and only return the `id`
+     * const abilitiesWithIdOnly = await prisma.abilities.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends AbilitiesUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, AbilitiesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AbilitiesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one Abilities.
+     * @param {AbilitiesUpsertArgs} args - Arguments to update or create a Abilities.
+     * @example
+     * // Update or create a Abilities
+     * const abilities = await prisma.abilities.upsert({
+     *   create: {
+     *     // ... data to create a Abilities
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Abilities we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AbilitiesUpsertArgs>(args: Prisma.SelectSubset<T, AbilitiesUpsertArgs<ExtArgs>>): Prisma.Prisma__AbilitiesClient<runtime.Types.Result.GetResult<Prisma.$AbilitiesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of Abilities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbilitiesCountArgs} args - Arguments to filter Abilities to count.
+     * @example
+     * // Count the number of Abilities
+     * const count = await prisma.abilities.count({
+     *   where: {
+     *     // ... the filter for the Abilities we want to count
+     *   }
+     * })
+    **/
+    count<T extends AbilitiesCountArgs>(args?: Prisma.Subset<T, AbilitiesCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], AbilitiesCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a Abilities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbilitiesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AbilitiesAggregateArgs>(args: Prisma.Subset<T, AbilitiesAggregateArgs>): Prisma.PrismaPromise<GetAbilitiesAggregateType<T>>;
+    /**
+     * Group by Abilities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbilitiesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends AbilitiesGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: AbilitiesGroupByArgs['orderBy'];
+    } : {
+        orderBy?: AbilitiesGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, AbilitiesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAbilitiesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the Abilities model
+     */
+    readonly fields: AbilitiesFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for Abilities.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__AbilitiesClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    generation<T extends Prisma.GenerationsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GenerationsDefaultArgs<ExtArgs>>): Prisma.Prisma__GenerationsClient<runtime.Types.Result.GetResult<Prisma.$GenerationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    pokemonAbilities<T extends Prisma.Abilities$pokemonAbilitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Abilities$pokemonAbilitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PokemonAbilitiesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the Abilities model
+ */
+export interface AbilitiesFieldRefs {
+    readonly id: Prisma.FieldRef<"Abilities", 'Int'>;
+    readonly identifier: Prisma.FieldRef<"Abilities", 'String'>;
+    readonly generation_id: Prisma.FieldRef<"Abilities", 'Int'>;
+    readonly is_main_series: Prisma.FieldRef<"Abilities", 'Int'>;
+}
+/**
+ * Abilities findUnique
+ */
+export type AbilitiesFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Abilities
+     */
+    select?: Prisma.AbilitiesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Abilities
+     */
+    omit?: Prisma.AbilitiesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.AbilitiesInclude<ExtArgs> | null;
+    /**
+     * Filter, which Abilities to fetch.
+     */
+    where: Prisma.AbilitiesWhereUniqueInput;
+};
+/**
+ * Abilities findUniqueOrThrow
+ */
+export type AbilitiesFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Abilities
+     */
+    select?: Prisma.AbilitiesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Abilities
+     */
+    omit?: Prisma.AbilitiesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.AbilitiesInclude<ExtArgs> | null;
+    /**
+     * Filter, which Abilities to fetch.
+     */
+    where: Prisma.AbilitiesWhereUniqueInput;
+};
+/**
+ * Abilities findFirst
+ */
+export type AbilitiesFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Abilities
+     */
+    select?: Prisma.AbilitiesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Abilities
+     */
+    omit?: Prisma.AbilitiesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.AbilitiesInclude<ExtArgs> | null;
+    /**
+     * Filter, which Abilities to fetch.
+     */
+    where?: Prisma.AbilitiesWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Abilities to fetch.
+     */
+    orderBy?: Prisma.AbilitiesOrderByWithRelationInput | Prisma.AbilitiesOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Abilities.
+     */
+    cursor?: Prisma.AbilitiesWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Abilities from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Abilities.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Abilities.
+     */
+    distinct?: Prisma.AbilitiesScalarFieldEnum | Prisma.AbilitiesScalarFieldEnum[];
+};
+/**
+ * Abilities findFirstOrThrow
+ */
+export type AbilitiesFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Abilities
+     */
+    select?: Prisma.AbilitiesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Abilities
+     */
+    omit?: Prisma.AbilitiesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.AbilitiesInclude<ExtArgs> | null;
+    /**
+     * Filter, which Abilities to fetch.
+     */
+    where?: Prisma.AbilitiesWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Abilities to fetch.
+     */
+    orderBy?: Prisma.AbilitiesOrderByWithRelationInput | Prisma.AbilitiesOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Abilities.
+     */
+    cursor?: Prisma.AbilitiesWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Abilities from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Abilities.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Abilities.
+     */
+    distinct?: Prisma.AbilitiesScalarFieldEnum | Prisma.AbilitiesScalarFieldEnum[];
+};
+/**
+ * Abilities findMany
+ */
+export type AbilitiesFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Abilities
+     */
+    select?: Prisma.AbilitiesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Abilities
+     */
+    omit?: Prisma.AbilitiesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.AbilitiesInclude<ExtArgs> | null;
+    /**
+     * Filter, which Abilities to fetch.
+     */
+    where?: Prisma.AbilitiesWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Abilities to fetch.
+     */
+    orderBy?: Prisma.AbilitiesOrderByWithRelationInput | Prisma.AbilitiesOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing Abilities.
+     */
+    cursor?: Prisma.AbilitiesWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Abilities from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Abilities.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Abilities.
+     */
+    distinct?: Prisma.AbilitiesScalarFieldEnum | Prisma.AbilitiesScalarFieldEnum[];
+};
+/**
+ * Abilities create
+ */
+export type AbilitiesCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Abilities
+     */
+    select?: Prisma.AbilitiesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Abilities
+     */
+    omit?: Prisma.AbilitiesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.AbilitiesInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a Abilities.
+     */
+    data: Prisma.XOR<Prisma.AbilitiesCreateInput, Prisma.AbilitiesUncheckedCreateInput>;
+};
+/**
+ * Abilities createMany
+ */
+export type AbilitiesCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Abilities.
+     */
+    data: Prisma.AbilitiesCreateManyInput | Prisma.AbilitiesCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * Abilities createManyAndReturn
+ */
+export type AbilitiesCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Abilities
+     */
+    select?: Prisma.AbilitiesSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Abilities
+     */
+    omit?: Prisma.AbilitiesOmit<ExtArgs> | null;
+    /**
+     * The data used to create many Abilities.
+     */
+    data: Prisma.AbilitiesCreateManyInput | Prisma.AbilitiesCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.AbilitiesIncludeCreateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * Abilities update
+ */
+export type AbilitiesUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Abilities
+     */
+    select?: Prisma.AbilitiesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Abilities
+     */
+    omit?: Prisma.AbilitiesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.AbilitiesInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a Abilities.
+     */
+    data: Prisma.XOR<Prisma.AbilitiesUpdateInput, Prisma.AbilitiesUncheckedUpdateInput>;
+    /**
+     * Choose, which Abilities to update.
+     */
+    where: Prisma.AbilitiesWhereUniqueInput;
+};
+/**
+ * Abilities updateMany
+ */
+export type AbilitiesUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Abilities.
+     */
+    data: Prisma.XOR<Prisma.AbilitiesUpdateManyMutationInput, Prisma.AbilitiesUncheckedUpdateManyInput>;
+    /**
+     * Filter which Abilities to update
+     */
+    where?: Prisma.AbilitiesWhereInput;
+    /**
+     * Limit how many Abilities to update.
+     */
+    limit?: number;
+};
+/**
+ * Abilities updateManyAndReturn
+ */
+export type AbilitiesUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Abilities
+     */
+    select?: Prisma.AbilitiesSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Abilities
+     */
+    omit?: Prisma.AbilitiesOmit<ExtArgs> | null;
+    /**
+     * The data used to update Abilities.
+     */
+    data: Prisma.XOR<Prisma.AbilitiesUpdateManyMutationInput, Prisma.AbilitiesUncheckedUpdateManyInput>;
+    /**
+     * Filter which Abilities to update
+     */
+    where?: Prisma.AbilitiesWhereInput;
+    /**
+     * Limit how many Abilities to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.AbilitiesIncludeUpdateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * Abilities upsert
+ */
+export type AbilitiesUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Abilities
+     */
+    select?: Prisma.AbilitiesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Abilities
+     */
+    omit?: Prisma.AbilitiesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.AbilitiesInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the Abilities to update in case it exists.
+     */
+    where: Prisma.AbilitiesWhereUniqueInput;
+    /**
+     * In case the Abilities found by the `where` argument doesn't exist, create a new Abilities with this data.
+     */
+    create: Prisma.XOR<Prisma.AbilitiesCreateInput, Prisma.AbilitiesUncheckedCreateInput>;
+    /**
+     * In case the Abilities was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.AbilitiesUpdateInput, Prisma.AbilitiesUncheckedUpdateInput>;
+};
+/**
+ * Abilities delete
+ */
+export type AbilitiesDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Abilities
+     */
+    select?: Prisma.AbilitiesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Abilities
+     */
+    omit?: Prisma.AbilitiesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.AbilitiesInclude<ExtArgs> | null;
+    /**
+     * Filter which Abilities to delete.
+     */
+    where: Prisma.AbilitiesWhereUniqueInput;
+};
+/**
+ * Abilities deleteMany
+ */
+export type AbilitiesDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which Abilities to delete
+     */
+    where?: Prisma.AbilitiesWhereInput;
+    /**
+     * Limit how many Abilities to delete.
+     */
+    limit?: number;
+};
+/**
+ * Abilities.pokemonAbilities
+ */
+export type Abilities$pokemonAbilitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PokemonAbilities
+     */
+    select?: Prisma.PokemonAbilitiesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the PokemonAbilities
+     */
+    omit?: Prisma.PokemonAbilitiesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.PokemonAbilitiesInclude<ExtArgs> | null;
+    where?: Prisma.PokemonAbilitiesWhereInput;
+    orderBy?: Prisma.PokemonAbilitiesOrderByWithRelationInput | Prisma.PokemonAbilitiesOrderByWithRelationInput[];
+    cursor?: Prisma.PokemonAbilitiesWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.PokemonAbilitiesScalarFieldEnum | Prisma.PokemonAbilitiesScalarFieldEnum[];
+};
+/**
+ * Abilities without action
+ */
+export type AbilitiesDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Abilities
+     */
+    select?: Prisma.AbilitiesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Abilities
+     */
+    omit?: Prisma.AbilitiesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.AbilitiesInclude<ExtArgs> | null;
+};

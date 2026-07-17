@@ -1,0 +1,18 @@
+import { Field } from '@nestjs/graphql';
+import { InputType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
+import type { Identity } from 'identity-type';
+import { MoveFlagMapUncheckedUpdateManyWithoutFlagNestedInput } from '../move-flag-map/move-flag-map-unchecked-update-many-without-flag-nested.input';
+
+@InputType()
+export class MoveFlagsUncheckedUpdateInput {
+
+    @Field(() => Int, {nullable:true})
+    id?: number;
+
+    @Field(() => String, {nullable:true})
+    identifier?: string;
+
+    @Field(() => MoveFlagMapUncheckedUpdateManyWithoutFlagNestedInput, {nullable:true})
+    flagMap?: Identity<MoveFlagMapUncheckedUpdateManyWithoutFlagNestedInput>;
+}

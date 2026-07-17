@@ -1,0 +1,1253 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model MoveMetaStatChanges
+ * @@TypeGraphQL.type(name: "MoveMetaStatChanges")
+ */
+export type MoveMetaStatChangesModel = runtime.Types.Result.DefaultSelection<Prisma.$MoveMetaStatChangesPayload>;
+export type AggregateMoveMetaStatChanges = {
+    _count: MoveMetaStatChangesCountAggregateOutputType | null;
+    _avg: MoveMetaStatChangesAvgAggregateOutputType | null;
+    _sum: MoveMetaStatChangesSumAggregateOutputType | null;
+    _min: MoveMetaStatChangesMinAggregateOutputType | null;
+    _max: MoveMetaStatChangesMaxAggregateOutputType | null;
+};
+export type MoveMetaStatChangesAvgAggregateOutputType = {
+    move_id: number | null;
+    stat_id: number | null;
+    change: number | null;
+};
+export type MoveMetaStatChangesSumAggregateOutputType = {
+    move_id: number | null;
+    stat_id: number | null;
+    change: number | null;
+};
+export type MoveMetaStatChangesMinAggregateOutputType = {
+    move_id: number | null;
+    stat_id: number | null;
+    change: number | null;
+};
+export type MoveMetaStatChangesMaxAggregateOutputType = {
+    move_id: number | null;
+    stat_id: number | null;
+    change: number | null;
+};
+export type MoveMetaStatChangesCountAggregateOutputType = {
+    move_id: number;
+    stat_id: number;
+    change: number;
+    _all: number;
+};
+export type MoveMetaStatChangesAvgAggregateInputType = {
+    move_id?: true;
+    stat_id?: true;
+    change?: true;
+};
+export type MoveMetaStatChangesSumAggregateInputType = {
+    move_id?: true;
+    stat_id?: true;
+    change?: true;
+};
+export type MoveMetaStatChangesMinAggregateInputType = {
+    move_id?: true;
+    stat_id?: true;
+    change?: true;
+};
+export type MoveMetaStatChangesMaxAggregateInputType = {
+    move_id?: true;
+    stat_id?: true;
+    change?: true;
+};
+export type MoveMetaStatChangesCountAggregateInputType = {
+    move_id?: true;
+    stat_id?: true;
+    change?: true;
+    _all?: true;
+};
+export type MoveMetaStatChangesAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which MoveMetaStatChanges to aggregate.
+     */
+    where?: Prisma.MoveMetaStatChangesWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of MoveMetaStatChanges to fetch.
+     */
+    orderBy?: Prisma.MoveMetaStatChangesOrderByWithRelationInput | Prisma.MoveMetaStatChangesOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.MoveMetaStatChangesWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` MoveMetaStatChanges from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` MoveMetaStatChanges.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned MoveMetaStatChanges
+    **/
+    _count?: true | MoveMetaStatChangesCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+    **/
+    _avg?: MoveMetaStatChangesAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: MoveMetaStatChangesSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: MoveMetaStatChangesMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: MoveMetaStatChangesMaxAggregateInputType;
+};
+export type GetMoveMetaStatChangesAggregateType<T extends MoveMetaStatChangesAggregateArgs> = {
+    [P in keyof T & keyof AggregateMoveMetaStatChanges]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateMoveMetaStatChanges[P]> : Prisma.GetScalarType<T[P], AggregateMoveMetaStatChanges[P]>;
+};
+export type MoveMetaStatChangesGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.MoveMetaStatChangesWhereInput;
+    orderBy?: Prisma.MoveMetaStatChangesOrderByWithAggregationInput | Prisma.MoveMetaStatChangesOrderByWithAggregationInput[];
+    by: Prisma.MoveMetaStatChangesScalarFieldEnum[] | Prisma.MoveMetaStatChangesScalarFieldEnum;
+    having?: Prisma.MoveMetaStatChangesScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: MoveMetaStatChangesCountAggregateInputType | true;
+    _avg?: MoveMetaStatChangesAvgAggregateInputType;
+    _sum?: MoveMetaStatChangesSumAggregateInputType;
+    _min?: MoveMetaStatChangesMinAggregateInputType;
+    _max?: MoveMetaStatChangesMaxAggregateInputType;
+};
+export type MoveMetaStatChangesGroupByOutputType = {
+    move_id: number;
+    stat_id: number;
+    change: number;
+    _count: MoveMetaStatChangesCountAggregateOutputType | null;
+    _avg: MoveMetaStatChangesAvgAggregateOutputType | null;
+    _sum: MoveMetaStatChangesSumAggregateOutputType | null;
+    _min: MoveMetaStatChangesMinAggregateOutputType | null;
+    _max: MoveMetaStatChangesMaxAggregateOutputType | null;
+};
+export type GetMoveMetaStatChangesGroupByPayload<T extends MoveMetaStatChangesGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<MoveMetaStatChangesGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof MoveMetaStatChangesGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], MoveMetaStatChangesGroupByOutputType[P]> : Prisma.GetScalarType<T[P], MoveMetaStatChangesGroupByOutputType[P]>;
+}>>;
+export type MoveMetaStatChangesWhereInput = {
+    AND?: Prisma.MoveMetaStatChangesWhereInput | Prisma.MoveMetaStatChangesWhereInput[];
+    OR?: Prisma.MoveMetaStatChangesWhereInput[];
+    NOT?: Prisma.MoveMetaStatChangesWhereInput | Prisma.MoveMetaStatChangesWhereInput[];
+    move_id?: Prisma.IntFilter<"MoveMetaStatChanges"> | number;
+    stat_id?: Prisma.IntFilter<"MoveMetaStatChanges"> | number;
+    change?: Prisma.IntFilter<"MoveMetaStatChanges"> | number;
+    stat?: Prisma.XOR<Prisma.StatsScalarRelationFilter, Prisma.StatsWhereInput>;
+    meta?: Prisma.XOR<Prisma.MoveMetaScalarRelationFilter, Prisma.MoveMetaWhereInput>;
+};
+export type MoveMetaStatChangesOrderByWithRelationInput = {
+    move_id?: Prisma.SortOrder;
+    stat_id?: Prisma.SortOrder;
+    change?: Prisma.SortOrder;
+    stat?: Prisma.StatsOrderByWithRelationInput;
+    meta?: Prisma.MoveMetaOrderByWithRelationInput;
+};
+export type MoveMetaStatChangesWhereUniqueInput = Prisma.AtLeast<{
+    move_id_stat_id?: Prisma.MoveMetaStatChangesMove_idStat_idCompoundUniqueInput;
+    AND?: Prisma.MoveMetaStatChangesWhereInput | Prisma.MoveMetaStatChangesWhereInput[];
+    OR?: Prisma.MoveMetaStatChangesWhereInput[];
+    NOT?: Prisma.MoveMetaStatChangesWhereInput | Prisma.MoveMetaStatChangesWhereInput[];
+    move_id?: Prisma.IntFilter<"MoveMetaStatChanges"> | number;
+    stat_id?: Prisma.IntFilter<"MoveMetaStatChanges"> | number;
+    change?: Prisma.IntFilter<"MoveMetaStatChanges"> | number;
+    stat?: Prisma.XOR<Prisma.StatsScalarRelationFilter, Prisma.StatsWhereInput>;
+    meta?: Prisma.XOR<Prisma.MoveMetaScalarRelationFilter, Prisma.MoveMetaWhereInput>;
+}, "move_id_stat_id">;
+export type MoveMetaStatChangesOrderByWithAggregationInput = {
+    move_id?: Prisma.SortOrder;
+    stat_id?: Prisma.SortOrder;
+    change?: Prisma.SortOrder;
+    _count?: Prisma.MoveMetaStatChangesCountOrderByAggregateInput;
+    _avg?: Prisma.MoveMetaStatChangesAvgOrderByAggregateInput;
+    _max?: Prisma.MoveMetaStatChangesMaxOrderByAggregateInput;
+    _min?: Prisma.MoveMetaStatChangesMinOrderByAggregateInput;
+    _sum?: Prisma.MoveMetaStatChangesSumOrderByAggregateInput;
+};
+export type MoveMetaStatChangesScalarWhereWithAggregatesInput = {
+    AND?: Prisma.MoveMetaStatChangesScalarWhereWithAggregatesInput | Prisma.MoveMetaStatChangesScalarWhereWithAggregatesInput[];
+    OR?: Prisma.MoveMetaStatChangesScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.MoveMetaStatChangesScalarWhereWithAggregatesInput | Prisma.MoveMetaStatChangesScalarWhereWithAggregatesInput[];
+    move_id?: Prisma.IntWithAggregatesFilter<"MoveMetaStatChanges"> | number;
+    stat_id?: Prisma.IntWithAggregatesFilter<"MoveMetaStatChanges"> | number;
+    change?: Prisma.IntWithAggregatesFilter<"MoveMetaStatChanges"> | number;
+};
+export type MoveMetaStatChangesCreateInput = {
+    change: number;
+    stat: Prisma.StatsCreateNestedOneWithoutMoveMetaStatChangesInput;
+    meta: Prisma.MoveMetaCreateNestedOneWithoutStatChangesInput;
+};
+export type MoveMetaStatChangesUncheckedCreateInput = {
+    move_id: number;
+    stat_id: number;
+    change: number;
+};
+export type MoveMetaStatChangesUpdateInput = {
+    change?: Prisma.IntFieldUpdateOperationsInput | number;
+    stat?: Prisma.StatsUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput;
+    meta?: Prisma.MoveMetaUpdateOneRequiredWithoutStatChangesNestedInput;
+};
+export type MoveMetaStatChangesUncheckedUpdateInput = {
+    move_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    stat_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    change?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type MoveMetaStatChangesCreateManyInput = {
+    move_id: number;
+    stat_id: number;
+    change: number;
+};
+export type MoveMetaStatChangesUpdateManyMutationInput = {
+    change?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type MoveMetaStatChangesUncheckedUpdateManyInput = {
+    move_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    stat_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    change?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type MoveMetaStatChangesListRelationFilter = {
+    every?: Prisma.MoveMetaStatChangesWhereInput;
+    some?: Prisma.MoveMetaStatChangesWhereInput;
+    none?: Prisma.MoveMetaStatChangesWhereInput;
+};
+export type MoveMetaStatChangesOrderByRelationAggregateInput = {
+    _count?: Prisma.SortOrder;
+};
+export type MoveMetaStatChangesMove_idStat_idCompoundUniqueInput = {
+    move_id: number;
+    stat_id: number;
+};
+export type MoveMetaStatChangesCountOrderByAggregateInput = {
+    move_id?: Prisma.SortOrder;
+    stat_id?: Prisma.SortOrder;
+    change?: Prisma.SortOrder;
+};
+export type MoveMetaStatChangesAvgOrderByAggregateInput = {
+    move_id?: Prisma.SortOrder;
+    stat_id?: Prisma.SortOrder;
+    change?: Prisma.SortOrder;
+};
+export type MoveMetaStatChangesMaxOrderByAggregateInput = {
+    move_id?: Prisma.SortOrder;
+    stat_id?: Prisma.SortOrder;
+    change?: Prisma.SortOrder;
+};
+export type MoveMetaStatChangesMinOrderByAggregateInput = {
+    move_id?: Prisma.SortOrder;
+    stat_id?: Prisma.SortOrder;
+    change?: Prisma.SortOrder;
+};
+export type MoveMetaStatChangesSumOrderByAggregateInput = {
+    move_id?: Prisma.SortOrder;
+    stat_id?: Prisma.SortOrder;
+    change?: Prisma.SortOrder;
+};
+export type MoveMetaStatChangesCreateNestedManyWithoutStatInput = {
+    create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutStatInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutStatInput> | Prisma.MoveMetaStatChangesCreateWithoutStatInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutStatInput[];
+    connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutStatInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutStatInput[];
+    createMany?: Prisma.MoveMetaStatChangesCreateManyStatInputEnvelope;
+    connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+};
+export type MoveMetaStatChangesUncheckedCreateNestedManyWithoutStatInput = {
+    create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutStatInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutStatInput> | Prisma.MoveMetaStatChangesCreateWithoutStatInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutStatInput[];
+    connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutStatInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutStatInput[];
+    createMany?: Prisma.MoveMetaStatChangesCreateManyStatInputEnvelope;
+    connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+};
+export type MoveMetaStatChangesUpdateManyWithoutStatNestedInput = {
+    create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutStatInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutStatInput> | Prisma.MoveMetaStatChangesCreateWithoutStatInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutStatInput[];
+    connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutStatInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutStatInput[];
+    upsert?: Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutStatInput | Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutStatInput[];
+    createMany?: Prisma.MoveMetaStatChangesCreateManyStatInputEnvelope;
+    set?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    disconnect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    delete?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    update?: Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutStatInput | Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutStatInput[];
+    updateMany?: Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutStatInput | Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutStatInput[];
+    deleteMany?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[];
+};
+export type MoveMetaStatChangesUncheckedUpdateManyWithoutStatNestedInput = {
+    create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutStatInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutStatInput> | Prisma.MoveMetaStatChangesCreateWithoutStatInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutStatInput[];
+    connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutStatInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutStatInput[];
+    upsert?: Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutStatInput | Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutStatInput[];
+    createMany?: Prisma.MoveMetaStatChangesCreateManyStatInputEnvelope;
+    set?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    disconnect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    delete?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    update?: Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutStatInput | Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutStatInput[];
+    updateMany?: Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutStatInput | Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutStatInput[];
+    deleteMany?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[];
+};
+export type MoveMetaStatChangesCreateNestedManyWithoutMetaInput = {
+    create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput> | Prisma.MoveMetaStatChangesCreateWithoutMetaInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput[];
+    connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput[];
+    createMany?: Prisma.MoveMetaStatChangesCreateManyMetaInputEnvelope;
+    connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+};
+export type MoveMetaStatChangesUncheckedCreateNestedManyWithoutMetaInput = {
+    create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput> | Prisma.MoveMetaStatChangesCreateWithoutMetaInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput[];
+    connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput[];
+    createMany?: Prisma.MoveMetaStatChangesCreateManyMetaInputEnvelope;
+    connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+};
+export type MoveMetaStatChangesUpdateManyWithoutMetaNestedInput = {
+    create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput> | Prisma.MoveMetaStatChangesCreateWithoutMetaInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput[];
+    connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput[];
+    upsert?: Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutMetaInput | Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutMetaInput[];
+    createMany?: Prisma.MoveMetaStatChangesCreateManyMetaInputEnvelope;
+    set?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    disconnect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    delete?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    update?: Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutMetaInput | Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutMetaInput[];
+    updateMany?: Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutMetaInput | Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutMetaInput[];
+    deleteMany?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[];
+};
+export type MoveMetaStatChangesUncheckedUpdateManyWithoutMetaNestedInput = {
+    create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput> | Prisma.MoveMetaStatChangesCreateWithoutMetaInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput[];
+    connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput[];
+    upsert?: Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutMetaInput | Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutMetaInput[];
+    createMany?: Prisma.MoveMetaStatChangesCreateManyMetaInputEnvelope;
+    set?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    disconnect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    delete?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[];
+    update?: Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutMetaInput | Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutMetaInput[];
+    updateMany?: Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutMetaInput | Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutMetaInput[];
+    deleteMany?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[];
+};
+export type MoveMetaStatChangesCreateWithoutStatInput = {
+    change: number;
+    meta: Prisma.MoveMetaCreateNestedOneWithoutStatChangesInput;
+};
+export type MoveMetaStatChangesUncheckedCreateWithoutStatInput = {
+    move_id: number;
+    change: number;
+};
+export type MoveMetaStatChangesCreateOrConnectWithoutStatInput = {
+    where: Prisma.MoveMetaStatChangesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutStatInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutStatInput>;
+};
+export type MoveMetaStatChangesCreateManyStatInputEnvelope = {
+    data: Prisma.MoveMetaStatChangesCreateManyStatInput | Prisma.MoveMetaStatChangesCreateManyStatInput[];
+    skipDuplicates?: boolean;
+};
+export type MoveMetaStatChangesUpsertWithWhereUniqueWithoutStatInput = {
+    where: Prisma.MoveMetaStatChangesWhereUniqueInput;
+    update: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateWithoutStatInput, Prisma.MoveMetaStatChangesUncheckedUpdateWithoutStatInput>;
+    create: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutStatInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutStatInput>;
+};
+export type MoveMetaStatChangesUpdateWithWhereUniqueWithoutStatInput = {
+    where: Prisma.MoveMetaStatChangesWhereUniqueInput;
+    data: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateWithoutStatInput, Prisma.MoveMetaStatChangesUncheckedUpdateWithoutStatInput>;
+};
+export type MoveMetaStatChangesUpdateManyWithWhereWithoutStatInput = {
+    where: Prisma.MoveMetaStatChangesScalarWhereInput;
+    data: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateManyMutationInput, Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutStatInput>;
+};
+export type MoveMetaStatChangesScalarWhereInput = {
+    AND?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[];
+    OR?: Prisma.MoveMetaStatChangesScalarWhereInput[];
+    NOT?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[];
+    move_id?: Prisma.IntFilter<"MoveMetaStatChanges"> | number;
+    stat_id?: Prisma.IntFilter<"MoveMetaStatChanges"> | number;
+    change?: Prisma.IntFilter<"MoveMetaStatChanges"> | number;
+};
+export type MoveMetaStatChangesCreateWithoutMetaInput = {
+    change: number;
+    stat: Prisma.StatsCreateNestedOneWithoutMoveMetaStatChangesInput;
+};
+export type MoveMetaStatChangesUncheckedCreateWithoutMetaInput = {
+    stat_id: number;
+    change: number;
+};
+export type MoveMetaStatChangesCreateOrConnectWithoutMetaInput = {
+    where: Prisma.MoveMetaStatChangesWhereUniqueInput;
+    create: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput>;
+};
+export type MoveMetaStatChangesCreateManyMetaInputEnvelope = {
+    data: Prisma.MoveMetaStatChangesCreateManyMetaInput | Prisma.MoveMetaStatChangesCreateManyMetaInput[];
+    skipDuplicates?: boolean;
+};
+export type MoveMetaStatChangesUpsertWithWhereUniqueWithoutMetaInput = {
+    where: Prisma.MoveMetaStatChangesWhereUniqueInput;
+    update: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedUpdateWithoutMetaInput>;
+    create: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput>;
+};
+export type MoveMetaStatChangesUpdateWithWhereUniqueWithoutMetaInput = {
+    where: Prisma.MoveMetaStatChangesWhereUniqueInput;
+    data: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedUpdateWithoutMetaInput>;
+};
+export type MoveMetaStatChangesUpdateManyWithWhereWithoutMetaInput = {
+    where: Prisma.MoveMetaStatChangesScalarWhereInput;
+    data: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateManyMutationInput, Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMetaInput>;
+};
+export type MoveMetaStatChangesCreateManyStatInput = {
+    move_id: number;
+    change: number;
+};
+export type MoveMetaStatChangesUpdateWithoutStatInput = {
+    change?: Prisma.IntFieldUpdateOperationsInput | number;
+    meta?: Prisma.MoveMetaUpdateOneRequiredWithoutStatChangesNestedInput;
+};
+export type MoveMetaStatChangesUncheckedUpdateWithoutStatInput = {
+    move_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    change?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type MoveMetaStatChangesUncheckedUpdateManyWithoutStatInput = {
+    move_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    change?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type MoveMetaStatChangesCreateManyMetaInput = {
+    stat_id: number;
+    change: number;
+};
+export type MoveMetaStatChangesUpdateWithoutMetaInput = {
+    change?: Prisma.IntFieldUpdateOperationsInput | number;
+    stat?: Prisma.StatsUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput;
+};
+export type MoveMetaStatChangesUncheckedUpdateWithoutMetaInput = {
+    stat_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    change?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type MoveMetaStatChangesUncheckedUpdateManyWithoutMetaInput = {
+    stat_id?: Prisma.IntFieldUpdateOperationsInput | number;
+    change?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type MoveMetaStatChangesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    move_id?: boolean;
+    stat_id?: boolean;
+    change?: boolean;
+    stat?: boolean | Prisma.StatsDefaultArgs<ExtArgs>;
+    meta?: boolean | Prisma.MoveMetaDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["moveMetaStatChanges"]>;
+export type MoveMetaStatChangesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    move_id?: boolean;
+    stat_id?: boolean;
+    change?: boolean;
+    stat?: boolean | Prisma.StatsDefaultArgs<ExtArgs>;
+    meta?: boolean | Prisma.MoveMetaDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["moveMetaStatChanges"]>;
+export type MoveMetaStatChangesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    move_id?: boolean;
+    stat_id?: boolean;
+    change?: boolean;
+    stat?: boolean | Prisma.StatsDefaultArgs<ExtArgs>;
+    meta?: boolean | Prisma.MoveMetaDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["moveMetaStatChanges"]>;
+export type MoveMetaStatChangesSelectScalar = {
+    move_id?: boolean;
+    stat_id?: boolean;
+    change?: boolean;
+};
+export type MoveMetaStatChangesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"move_id" | "stat_id" | "change", ExtArgs["result"]["moveMetaStatChanges"]>;
+export type MoveMetaStatChangesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    stat?: boolean | Prisma.StatsDefaultArgs<ExtArgs>;
+    meta?: boolean | Prisma.MoveMetaDefaultArgs<ExtArgs>;
+};
+export type MoveMetaStatChangesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    stat?: boolean | Prisma.StatsDefaultArgs<ExtArgs>;
+    meta?: boolean | Prisma.MoveMetaDefaultArgs<ExtArgs>;
+};
+export type MoveMetaStatChangesIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    stat?: boolean | Prisma.StatsDefaultArgs<ExtArgs>;
+    meta?: boolean | Prisma.MoveMetaDefaultArgs<ExtArgs>;
+};
+export type $MoveMetaStatChangesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "MoveMetaStatChanges";
+    objects: {
+        stat: Prisma.$StatsPayload<ExtArgs>;
+        meta: Prisma.$MoveMetaPayload<ExtArgs>;
+    };
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        move_id: number;
+        stat_id: number;
+        change: number;
+    }, ExtArgs["result"]["moveMetaStatChanges"]>;
+    composites: {};
+};
+export type MoveMetaStatChangesGetPayload<S extends boolean | null | undefined | MoveMetaStatChangesDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$MoveMetaStatChangesPayload, S>;
+export type MoveMetaStatChangesCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<MoveMetaStatChangesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: MoveMetaStatChangesCountAggregateInputType | true;
+};
+export interface MoveMetaStatChangesDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['MoveMetaStatChanges'];
+        meta: {
+            name: 'MoveMetaStatChanges';
+        };
+    };
+    /**
+     * Find zero or one MoveMetaStatChanges that matches the filter.
+     * @param {MoveMetaStatChangesFindUniqueArgs} args - Arguments to find a MoveMetaStatChanges
+     * @example
+     * // Get one MoveMetaStatChanges
+     * const moveMetaStatChanges = await prisma.moveMetaStatChanges.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MoveMetaStatChangesFindUniqueArgs>(args: Prisma.SelectSubset<T, MoveMetaStatChangesFindUniqueArgs<ExtArgs>>): Prisma.Prisma__MoveMetaStatChangesClient<runtime.Types.Result.GetResult<Prisma.$MoveMetaStatChangesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one MoveMetaStatChanges that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MoveMetaStatChangesFindUniqueOrThrowArgs} args - Arguments to find a MoveMetaStatChanges
+     * @example
+     * // Get one MoveMetaStatChanges
+     * const moveMetaStatChanges = await prisma.moveMetaStatChanges.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MoveMetaStatChangesFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, MoveMetaStatChangesFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__MoveMetaStatChangesClient<runtime.Types.Result.GetResult<Prisma.$MoveMetaStatChangesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first MoveMetaStatChanges that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoveMetaStatChangesFindFirstArgs} args - Arguments to find a MoveMetaStatChanges
+     * @example
+     * // Get one MoveMetaStatChanges
+     * const moveMetaStatChanges = await prisma.moveMetaStatChanges.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MoveMetaStatChangesFindFirstArgs>(args?: Prisma.SelectSubset<T, MoveMetaStatChangesFindFirstArgs<ExtArgs>>): Prisma.Prisma__MoveMetaStatChangesClient<runtime.Types.Result.GetResult<Prisma.$MoveMetaStatChangesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first MoveMetaStatChanges that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoveMetaStatChangesFindFirstOrThrowArgs} args - Arguments to find a MoveMetaStatChanges
+     * @example
+     * // Get one MoveMetaStatChanges
+     * const moveMetaStatChanges = await prisma.moveMetaStatChanges.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MoveMetaStatChangesFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, MoveMetaStatChangesFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__MoveMetaStatChangesClient<runtime.Types.Result.GetResult<Prisma.$MoveMetaStatChangesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more MoveMetaStatChanges that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoveMetaStatChangesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MoveMetaStatChanges
+     * const moveMetaStatChanges = await prisma.moveMetaStatChanges.findMany()
+     *
+     * // Get first 10 MoveMetaStatChanges
+     * const moveMetaStatChanges = await prisma.moveMetaStatChanges.findMany({ take: 10 })
+     *
+     * // Only select the `move_id`
+     * const moveMetaStatChangesWithMove_idOnly = await prisma.moveMetaStatChanges.findMany({ select: { move_id: true } })
+     *
+     */
+    findMany<T extends MoveMetaStatChangesFindManyArgs>(args?: Prisma.SelectSubset<T, MoveMetaStatChangesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MoveMetaStatChangesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a MoveMetaStatChanges.
+     * @param {MoveMetaStatChangesCreateArgs} args - Arguments to create a MoveMetaStatChanges.
+     * @example
+     * // Create one MoveMetaStatChanges
+     * const MoveMetaStatChanges = await prisma.moveMetaStatChanges.create({
+     *   data: {
+     *     // ... data to create a MoveMetaStatChanges
+     *   }
+     * })
+     *
+     */
+    create<T extends MoveMetaStatChangesCreateArgs>(args: Prisma.SelectSubset<T, MoveMetaStatChangesCreateArgs<ExtArgs>>): Prisma.Prisma__MoveMetaStatChangesClient<runtime.Types.Result.GetResult<Prisma.$MoveMetaStatChangesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many MoveMetaStatChanges.
+     * @param {MoveMetaStatChangesCreateManyArgs} args - Arguments to create many MoveMetaStatChanges.
+     * @example
+     * // Create many MoveMetaStatChanges
+     * const moveMetaStatChanges = await prisma.moveMetaStatChanges.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends MoveMetaStatChangesCreateManyArgs>(args?: Prisma.SelectSubset<T, MoveMetaStatChangesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many MoveMetaStatChanges and returns the data saved in the database.
+     * @param {MoveMetaStatChangesCreateManyAndReturnArgs} args - Arguments to create many MoveMetaStatChanges.
+     * @example
+     * // Create many MoveMetaStatChanges
+     * const moveMetaStatChanges = await prisma.moveMetaStatChanges.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many MoveMetaStatChanges and only return the `move_id`
+     * const moveMetaStatChangesWithMove_idOnly = await prisma.moveMetaStatChanges.createManyAndReturn({
+     *   select: { move_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends MoveMetaStatChangesCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, MoveMetaStatChangesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MoveMetaStatChangesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a MoveMetaStatChanges.
+     * @param {MoveMetaStatChangesDeleteArgs} args - Arguments to delete one MoveMetaStatChanges.
+     * @example
+     * // Delete one MoveMetaStatChanges
+     * const MoveMetaStatChanges = await prisma.moveMetaStatChanges.delete({
+     *   where: {
+     *     // ... filter to delete one MoveMetaStatChanges
+     *   }
+     * })
+     *
+     */
+    delete<T extends MoveMetaStatChangesDeleteArgs>(args: Prisma.SelectSubset<T, MoveMetaStatChangesDeleteArgs<ExtArgs>>): Prisma.Prisma__MoveMetaStatChangesClient<runtime.Types.Result.GetResult<Prisma.$MoveMetaStatChangesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one MoveMetaStatChanges.
+     * @param {MoveMetaStatChangesUpdateArgs} args - Arguments to update one MoveMetaStatChanges.
+     * @example
+     * // Update one MoveMetaStatChanges
+     * const moveMetaStatChanges = await prisma.moveMetaStatChanges.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends MoveMetaStatChangesUpdateArgs>(args: Prisma.SelectSubset<T, MoveMetaStatChangesUpdateArgs<ExtArgs>>): Prisma.Prisma__MoveMetaStatChangesClient<runtime.Types.Result.GetResult<Prisma.$MoveMetaStatChangesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more MoveMetaStatChanges.
+     * @param {MoveMetaStatChangesDeleteManyArgs} args - Arguments to filter MoveMetaStatChanges to delete.
+     * @example
+     * // Delete a few MoveMetaStatChanges
+     * const { count } = await prisma.moveMetaStatChanges.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends MoveMetaStatChangesDeleteManyArgs>(args?: Prisma.SelectSubset<T, MoveMetaStatChangesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more MoveMetaStatChanges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoveMetaStatChangesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MoveMetaStatChanges
+     * const moveMetaStatChanges = await prisma.moveMetaStatChanges.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends MoveMetaStatChangesUpdateManyArgs>(args: Prisma.SelectSubset<T, MoveMetaStatChangesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more MoveMetaStatChanges and returns the data updated in the database.
+     * @param {MoveMetaStatChangesUpdateManyAndReturnArgs} args - Arguments to update many MoveMetaStatChanges.
+     * @example
+     * // Update many MoveMetaStatChanges
+     * const moveMetaStatChanges = await prisma.moveMetaStatChanges.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more MoveMetaStatChanges and only return the `move_id`
+     * const moveMetaStatChangesWithMove_idOnly = await prisma.moveMetaStatChanges.updateManyAndReturn({
+     *   select: { move_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends MoveMetaStatChangesUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, MoveMetaStatChangesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MoveMetaStatChangesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one MoveMetaStatChanges.
+     * @param {MoveMetaStatChangesUpsertArgs} args - Arguments to update or create a MoveMetaStatChanges.
+     * @example
+     * // Update or create a MoveMetaStatChanges
+     * const moveMetaStatChanges = await prisma.moveMetaStatChanges.upsert({
+     *   create: {
+     *     // ... data to create a MoveMetaStatChanges
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MoveMetaStatChanges we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MoveMetaStatChangesUpsertArgs>(args: Prisma.SelectSubset<T, MoveMetaStatChangesUpsertArgs<ExtArgs>>): Prisma.Prisma__MoveMetaStatChangesClient<runtime.Types.Result.GetResult<Prisma.$MoveMetaStatChangesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of MoveMetaStatChanges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoveMetaStatChangesCountArgs} args - Arguments to filter MoveMetaStatChanges to count.
+     * @example
+     * // Count the number of MoveMetaStatChanges
+     * const count = await prisma.moveMetaStatChanges.count({
+     *   where: {
+     *     // ... the filter for the MoveMetaStatChanges we want to count
+     *   }
+     * })
+    **/
+    count<T extends MoveMetaStatChangesCountArgs>(args?: Prisma.Subset<T, MoveMetaStatChangesCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], MoveMetaStatChangesCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a MoveMetaStatChanges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoveMetaStatChangesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MoveMetaStatChangesAggregateArgs>(args: Prisma.Subset<T, MoveMetaStatChangesAggregateArgs>): Prisma.PrismaPromise<GetMoveMetaStatChangesAggregateType<T>>;
+    /**
+     * Group by MoveMetaStatChanges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoveMetaStatChangesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends MoveMetaStatChangesGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: MoveMetaStatChangesGroupByArgs['orderBy'];
+    } : {
+        orderBy?: MoveMetaStatChangesGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, MoveMetaStatChangesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMoveMetaStatChangesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the MoveMetaStatChanges model
+     */
+    readonly fields: MoveMetaStatChangesFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for MoveMetaStatChanges.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__MoveMetaStatChangesClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    stat<T extends Prisma.StatsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StatsDefaultArgs<ExtArgs>>): Prisma.Prisma__StatsClient<runtime.Types.Result.GetResult<Prisma.$StatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    meta<T extends Prisma.MoveMetaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MoveMetaDefaultArgs<ExtArgs>>): Prisma.Prisma__MoveMetaClient<runtime.Types.Result.GetResult<Prisma.$MoveMetaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the MoveMetaStatChanges model
+ */
+export interface MoveMetaStatChangesFieldRefs {
+    readonly move_id: Prisma.FieldRef<"MoveMetaStatChanges", 'Int'>;
+    readonly stat_id: Prisma.FieldRef<"MoveMetaStatChanges", 'Int'>;
+    readonly change: Prisma.FieldRef<"MoveMetaStatChanges", 'Int'>;
+}
+/**
+ * MoveMetaStatChanges findUnique
+ */
+export type MoveMetaStatChangesFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoveMetaStatChanges
+     */
+    select?: Prisma.MoveMetaStatChangesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MoveMetaStatChanges
+     */
+    omit?: Prisma.MoveMetaStatChangesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MoveMetaStatChangesInclude<ExtArgs> | null;
+    /**
+     * Filter, which MoveMetaStatChanges to fetch.
+     */
+    where: Prisma.MoveMetaStatChangesWhereUniqueInput;
+};
+/**
+ * MoveMetaStatChanges findUniqueOrThrow
+ */
+export type MoveMetaStatChangesFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoveMetaStatChanges
+     */
+    select?: Prisma.MoveMetaStatChangesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MoveMetaStatChanges
+     */
+    omit?: Prisma.MoveMetaStatChangesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MoveMetaStatChangesInclude<ExtArgs> | null;
+    /**
+     * Filter, which MoveMetaStatChanges to fetch.
+     */
+    where: Prisma.MoveMetaStatChangesWhereUniqueInput;
+};
+/**
+ * MoveMetaStatChanges findFirst
+ */
+export type MoveMetaStatChangesFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoveMetaStatChanges
+     */
+    select?: Prisma.MoveMetaStatChangesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MoveMetaStatChanges
+     */
+    omit?: Prisma.MoveMetaStatChangesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MoveMetaStatChangesInclude<ExtArgs> | null;
+    /**
+     * Filter, which MoveMetaStatChanges to fetch.
+     */
+    where?: Prisma.MoveMetaStatChangesWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of MoveMetaStatChanges to fetch.
+     */
+    orderBy?: Prisma.MoveMetaStatChangesOrderByWithRelationInput | Prisma.MoveMetaStatChangesOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for MoveMetaStatChanges.
+     */
+    cursor?: Prisma.MoveMetaStatChangesWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` MoveMetaStatChanges from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` MoveMetaStatChanges.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of MoveMetaStatChanges.
+     */
+    distinct?: Prisma.MoveMetaStatChangesScalarFieldEnum | Prisma.MoveMetaStatChangesScalarFieldEnum[];
+};
+/**
+ * MoveMetaStatChanges findFirstOrThrow
+ */
+export type MoveMetaStatChangesFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoveMetaStatChanges
+     */
+    select?: Prisma.MoveMetaStatChangesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MoveMetaStatChanges
+     */
+    omit?: Prisma.MoveMetaStatChangesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MoveMetaStatChangesInclude<ExtArgs> | null;
+    /**
+     * Filter, which MoveMetaStatChanges to fetch.
+     */
+    where?: Prisma.MoveMetaStatChangesWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of MoveMetaStatChanges to fetch.
+     */
+    orderBy?: Prisma.MoveMetaStatChangesOrderByWithRelationInput | Prisma.MoveMetaStatChangesOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for MoveMetaStatChanges.
+     */
+    cursor?: Prisma.MoveMetaStatChangesWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` MoveMetaStatChanges from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` MoveMetaStatChanges.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of MoveMetaStatChanges.
+     */
+    distinct?: Prisma.MoveMetaStatChangesScalarFieldEnum | Prisma.MoveMetaStatChangesScalarFieldEnum[];
+};
+/**
+ * MoveMetaStatChanges findMany
+ */
+export type MoveMetaStatChangesFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoveMetaStatChanges
+     */
+    select?: Prisma.MoveMetaStatChangesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MoveMetaStatChanges
+     */
+    omit?: Prisma.MoveMetaStatChangesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MoveMetaStatChangesInclude<ExtArgs> | null;
+    /**
+     * Filter, which MoveMetaStatChanges to fetch.
+     */
+    where?: Prisma.MoveMetaStatChangesWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of MoveMetaStatChanges to fetch.
+     */
+    orderBy?: Prisma.MoveMetaStatChangesOrderByWithRelationInput | Prisma.MoveMetaStatChangesOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing MoveMetaStatChanges.
+     */
+    cursor?: Prisma.MoveMetaStatChangesWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` MoveMetaStatChanges from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` MoveMetaStatChanges.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of MoveMetaStatChanges.
+     */
+    distinct?: Prisma.MoveMetaStatChangesScalarFieldEnum | Prisma.MoveMetaStatChangesScalarFieldEnum[];
+};
+/**
+ * MoveMetaStatChanges create
+ */
+export type MoveMetaStatChangesCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoveMetaStatChanges
+     */
+    select?: Prisma.MoveMetaStatChangesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MoveMetaStatChanges
+     */
+    omit?: Prisma.MoveMetaStatChangesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MoveMetaStatChangesInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a MoveMetaStatChanges.
+     */
+    data: Prisma.XOR<Prisma.MoveMetaStatChangesCreateInput, Prisma.MoveMetaStatChangesUncheckedCreateInput>;
+};
+/**
+ * MoveMetaStatChanges createMany
+ */
+export type MoveMetaStatChangesCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MoveMetaStatChanges.
+     */
+    data: Prisma.MoveMetaStatChangesCreateManyInput | Prisma.MoveMetaStatChangesCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * MoveMetaStatChanges createManyAndReturn
+ */
+export type MoveMetaStatChangesCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoveMetaStatChanges
+     */
+    select?: Prisma.MoveMetaStatChangesSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MoveMetaStatChanges
+     */
+    omit?: Prisma.MoveMetaStatChangesOmit<ExtArgs> | null;
+    /**
+     * The data used to create many MoveMetaStatChanges.
+     */
+    data: Prisma.MoveMetaStatChangesCreateManyInput | Prisma.MoveMetaStatChangesCreateManyInput[];
+    skipDuplicates?: boolean;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MoveMetaStatChangesIncludeCreateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * MoveMetaStatChanges update
+ */
+export type MoveMetaStatChangesUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoveMetaStatChanges
+     */
+    select?: Prisma.MoveMetaStatChangesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MoveMetaStatChanges
+     */
+    omit?: Prisma.MoveMetaStatChangesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MoveMetaStatChangesInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a MoveMetaStatChanges.
+     */
+    data: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateInput, Prisma.MoveMetaStatChangesUncheckedUpdateInput>;
+    /**
+     * Choose, which MoveMetaStatChanges to update.
+     */
+    where: Prisma.MoveMetaStatChangesWhereUniqueInput;
+};
+/**
+ * MoveMetaStatChanges updateMany
+ */
+export type MoveMetaStatChangesUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MoveMetaStatChanges.
+     */
+    data: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateManyMutationInput, Prisma.MoveMetaStatChangesUncheckedUpdateManyInput>;
+    /**
+     * Filter which MoveMetaStatChanges to update
+     */
+    where?: Prisma.MoveMetaStatChangesWhereInput;
+    /**
+     * Limit how many MoveMetaStatChanges to update.
+     */
+    limit?: number;
+};
+/**
+ * MoveMetaStatChanges updateManyAndReturn
+ */
+export type MoveMetaStatChangesUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoveMetaStatChanges
+     */
+    select?: Prisma.MoveMetaStatChangesSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MoveMetaStatChanges
+     */
+    omit?: Prisma.MoveMetaStatChangesOmit<ExtArgs> | null;
+    /**
+     * The data used to update MoveMetaStatChanges.
+     */
+    data: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateManyMutationInput, Prisma.MoveMetaStatChangesUncheckedUpdateManyInput>;
+    /**
+     * Filter which MoveMetaStatChanges to update
+     */
+    where?: Prisma.MoveMetaStatChangesWhereInput;
+    /**
+     * Limit how many MoveMetaStatChanges to update.
+     */
+    limit?: number;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MoveMetaStatChangesIncludeUpdateManyAndReturn<ExtArgs> | null;
+};
+/**
+ * MoveMetaStatChanges upsert
+ */
+export type MoveMetaStatChangesUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoveMetaStatChanges
+     */
+    select?: Prisma.MoveMetaStatChangesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MoveMetaStatChanges
+     */
+    omit?: Prisma.MoveMetaStatChangesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MoveMetaStatChangesInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the MoveMetaStatChanges to update in case it exists.
+     */
+    where: Prisma.MoveMetaStatChangesWhereUniqueInput;
+    /**
+     * In case the MoveMetaStatChanges found by the `where` argument doesn't exist, create a new MoveMetaStatChanges with this data.
+     */
+    create: Prisma.XOR<Prisma.MoveMetaStatChangesCreateInput, Prisma.MoveMetaStatChangesUncheckedCreateInput>;
+    /**
+     * In case the MoveMetaStatChanges was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateInput, Prisma.MoveMetaStatChangesUncheckedUpdateInput>;
+};
+/**
+ * MoveMetaStatChanges delete
+ */
+export type MoveMetaStatChangesDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoveMetaStatChanges
+     */
+    select?: Prisma.MoveMetaStatChangesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MoveMetaStatChanges
+     */
+    omit?: Prisma.MoveMetaStatChangesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MoveMetaStatChangesInclude<ExtArgs> | null;
+    /**
+     * Filter which MoveMetaStatChanges to delete.
+     */
+    where: Prisma.MoveMetaStatChangesWhereUniqueInput;
+};
+/**
+ * MoveMetaStatChanges deleteMany
+ */
+export type MoveMetaStatChangesDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which MoveMetaStatChanges to delete
+     */
+    where?: Prisma.MoveMetaStatChangesWhereInput;
+    /**
+     * Limit how many MoveMetaStatChanges to delete.
+     */
+    limit?: number;
+};
+/**
+ * MoveMetaStatChanges without action
+ */
+export type MoveMetaStatChangesDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoveMetaStatChanges
+     */
+    select?: Prisma.MoveMetaStatChangesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MoveMetaStatChanges
+     */
+    omit?: Prisma.MoveMetaStatChangesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MoveMetaStatChangesInclude<ExtArgs> | null;
+};

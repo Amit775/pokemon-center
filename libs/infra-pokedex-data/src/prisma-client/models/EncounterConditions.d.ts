@@ -1,0 +1,1101 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model EncounterConditions
+ * @@TypeGraphQL.type(name: "EncounterCondition")
+ */
+export type EncounterConditionsModel = runtime.Types.Result.DefaultSelection<Prisma.$EncounterConditionsPayload>;
+export type AggregateEncounterConditions = {
+    _count: EncounterConditionsCountAggregateOutputType | null;
+    _avg: EncounterConditionsAvgAggregateOutputType | null;
+    _sum: EncounterConditionsSumAggregateOutputType | null;
+    _min: EncounterConditionsMinAggregateOutputType | null;
+    _max: EncounterConditionsMaxAggregateOutputType | null;
+};
+export type EncounterConditionsAvgAggregateOutputType = {
+    id: number | null;
+};
+export type EncounterConditionsSumAggregateOutputType = {
+    id: number | null;
+};
+export type EncounterConditionsMinAggregateOutputType = {
+    id: number | null;
+    identifier: string | null;
+};
+export type EncounterConditionsMaxAggregateOutputType = {
+    id: number | null;
+    identifier: string | null;
+};
+export type EncounterConditionsCountAggregateOutputType = {
+    id: number;
+    identifier: number;
+    _all: number;
+};
+export type EncounterConditionsAvgAggregateInputType = {
+    id?: true;
+};
+export type EncounterConditionsSumAggregateInputType = {
+    id?: true;
+};
+export type EncounterConditionsMinAggregateInputType = {
+    id?: true;
+    identifier?: true;
+};
+export type EncounterConditionsMaxAggregateInputType = {
+    id?: true;
+    identifier?: true;
+};
+export type EncounterConditionsCountAggregateInputType = {
+    id?: true;
+    identifier?: true;
+    _all?: true;
+};
+export type EncounterConditionsAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which EncounterConditions to aggregate.
+     */
+    where?: Prisma.EncounterConditionsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of EncounterConditions to fetch.
+     */
+    orderBy?: Prisma.EncounterConditionsOrderByWithRelationInput | Prisma.EncounterConditionsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.EncounterConditionsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` EncounterConditions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` EncounterConditions.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned EncounterConditions
+    **/
+    _count?: true | EncounterConditionsCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+    **/
+    _avg?: EncounterConditionsAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: EncounterConditionsSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: EncounterConditionsMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: EncounterConditionsMaxAggregateInputType;
+};
+export type GetEncounterConditionsAggregateType<T extends EncounterConditionsAggregateArgs> = {
+    [P in keyof T & keyof AggregateEncounterConditions]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateEncounterConditions[P]> : Prisma.GetScalarType<T[P], AggregateEncounterConditions[P]>;
+};
+export type EncounterConditionsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.EncounterConditionsWhereInput;
+    orderBy?: Prisma.EncounterConditionsOrderByWithAggregationInput | Prisma.EncounterConditionsOrderByWithAggregationInput[];
+    by: Prisma.EncounterConditionsScalarFieldEnum[] | Prisma.EncounterConditionsScalarFieldEnum;
+    having?: Prisma.EncounterConditionsScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: EncounterConditionsCountAggregateInputType | true;
+    _avg?: EncounterConditionsAvgAggregateInputType;
+    _sum?: EncounterConditionsSumAggregateInputType;
+    _min?: EncounterConditionsMinAggregateInputType;
+    _max?: EncounterConditionsMaxAggregateInputType;
+};
+export type EncounterConditionsGroupByOutputType = {
+    id: number;
+    identifier: string;
+    _count: EncounterConditionsCountAggregateOutputType | null;
+    _avg: EncounterConditionsAvgAggregateOutputType | null;
+    _sum: EncounterConditionsSumAggregateOutputType | null;
+    _min: EncounterConditionsMinAggregateOutputType | null;
+    _max: EncounterConditionsMaxAggregateOutputType | null;
+};
+export type GetEncounterConditionsGroupByPayload<T extends EncounterConditionsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<EncounterConditionsGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof EncounterConditionsGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], EncounterConditionsGroupByOutputType[P]> : Prisma.GetScalarType<T[P], EncounterConditionsGroupByOutputType[P]>;
+}>>;
+export type EncounterConditionsWhereInput = {
+    AND?: Prisma.EncounterConditionsWhereInput | Prisma.EncounterConditionsWhereInput[];
+    OR?: Prisma.EncounterConditionsWhereInput[];
+    NOT?: Prisma.EncounterConditionsWhereInput | Prisma.EncounterConditionsWhereInput[];
+    id?: Prisma.IntFilter<"EncounterConditions"> | number;
+    identifier?: Prisma.StringFilter<"EncounterConditions"> | string;
+    values?: Prisma.EncounterConditionValuesListRelationFilter;
+};
+export type EncounterConditionsOrderByWithRelationInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+    values?: Prisma.EncounterConditionValuesOrderByRelationAggregateInput;
+};
+export type EncounterConditionsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number;
+    AND?: Prisma.EncounterConditionsWhereInput | Prisma.EncounterConditionsWhereInput[];
+    OR?: Prisma.EncounterConditionsWhereInput[];
+    NOT?: Prisma.EncounterConditionsWhereInput | Prisma.EncounterConditionsWhereInput[];
+    identifier?: Prisma.StringFilter<"EncounterConditions"> | string;
+    values?: Prisma.EncounterConditionValuesListRelationFilter;
+}, "id">;
+export type EncounterConditionsOrderByWithAggregationInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+    _count?: Prisma.EncounterConditionsCountOrderByAggregateInput;
+    _avg?: Prisma.EncounterConditionsAvgOrderByAggregateInput;
+    _max?: Prisma.EncounterConditionsMaxOrderByAggregateInput;
+    _min?: Prisma.EncounterConditionsMinOrderByAggregateInput;
+    _sum?: Prisma.EncounterConditionsSumOrderByAggregateInput;
+};
+export type EncounterConditionsScalarWhereWithAggregatesInput = {
+    AND?: Prisma.EncounterConditionsScalarWhereWithAggregatesInput | Prisma.EncounterConditionsScalarWhereWithAggregatesInput[];
+    OR?: Prisma.EncounterConditionsScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.EncounterConditionsScalarWhereWithAggregatesInput | Prisma.EncounterConditionsScalarWhereWithAggregatesInput[];
+    id?: Prisma.IntWithAggregatesFilter<"EncounterConditions"> | number;
+    identifier?: Prisma.StringWithAggregatesFilter<"EncounterConditions"> | string;
+};
+export type EncounterConditionsCreateInput = {
+    id: number;
+    identifier: string;
+    values?: Prisma.EncounterConditionValuesCreateNestedManyWithoutConditionInput;
+};
+export type EncounterConditionsUncheckedCreateInput = {
+    id: number;
+    identifier: string;
+    values?: Prisma.EncounterConditionValuesUncheckedCreateNestedManyWithoutConditionInput;
+};
+export type EncounterConditionsUpdateInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    values?: Prisma.EncounterConditionValuesUpdateManyWithoutConditionNestedInput;
+};
+export type EncounterConditionsUncheckedUpdateInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+    values?: Prisma.EncounterConditionValuesUncheckedUpdateManyWithoutConditionNestedInput;
+};
+export type EncounterConditionsCreateManyInput = {
+    id: number;
+    identifier: string;
+};
+export type EncounterConditionsUpdateManyMutationInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+};
+export type EncounterConditionsUncheckedUpdateManyInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+};
+export type EncounterConditionsCountOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+};
+export type EncounterConditionsAvgOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+};
+export type EncounterConditionsMaxOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+};
+export type EncounterConditionsMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    identifier?: Prisma.SortOrder;
+};
+export type EncounterConditionsSumOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+};
+export type EncounterConditionsScalarRelationFilter = {
+    is?: Prisma.EncounterConditionsWhereInput;
+    isNot?: Prisma.EncounterConditionsWhereInput;
+};
+export type EncounterConditionsCreateNestedOneWithoutValuesInput = {
+    create?: Prisma.XOR<Prisma.EncounterConditionsCreateWithoutValuesInput, Prisma.EncounterConditionsUncheckedCreateWithoutValuesInput>;
+    connectOrCreate?: Prisma.EncounterConditionsCreateOrConnectWithoutValuesInput;
+    connect?: Prisma.EncounterConditionsWhereUniqueInput;
+};
+export type EncounterConditionsUpdateOneRequiredWithoutValuesNestedInput = {
+    create?: Prisma.XOR<Prisma.EncounterConditionsCreateWithoutValuesInput, Prisma.EncounterConditionsUncheckedCreateWithoutValuesInput>;
+    connectOrCreate?: Prisma.EncounterConditionsCreateOrConnectWithoutValuesInput;
+    upsert?: Prisma.EncounterConditionsUpsertWithoutValuesInput;
+    connect?: Prisma.EncounterConditionsWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.EncounterConditionsUpdateToOneWithWhereWithoutValuesInput, Prisma.EncounterConditionsUpdateWithoutValuesInput>, Prisma.EncounterConditionsUncheckedUpdateWithoutValuesInput>;
+};
+export type EncounterConditionsCreateWithoutValuesInput = {
+    id: number;
+    identifier: string;
+};
+export type EncounterConditionsUncheckedCreateWithoutValuesInput = {
+    id: number;
+    identifier: string;
+};
+export type EncounterConditionsCreateOrConnectWithoutValuesInput = {
+    where: Prisma.EncounterConditionsWhereUniqueInput;
+    create: Prisma.XOR<Prisma.EncounterConditionsCreateWithoutValuesInput, Prisma.EncounterConditionsUncheckedCreateWithoutValuesInput>;
+};
+export type EncounterConditionsUpsertWithoutValuesInput = {
+    update: Prisma.XOR<Prisma.EncounterConditionsUpdateWithoutValuesInput, Prisma.EncounterConditionsUncheckedUpdateWithoutValuesInput>;
+    create: Prisma.XOR<Prisma.EncounterConditionsCreateWithoutValuesInput, Prisma.EncounterConditionsUncheckedCreateWithoutValuesInput>;
+    where?: Prisma.EncounterConditionsWhereInput;
+};
+export type EncounterConditionsUpdateToOneWithWhereWithoutValuesInput = {
+    where?: Prisma.EncounterConditionsWhereInput;
+    data: Prisma.XOR<Prisma.EncounterConditionsUpdateWithoutValuesInput, Prisma.EncounterConditionsUncheckedUpdateWithoutValuesInput>;
+};
+export type EncounterConditionsUpdateWithoutValuesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+};
+export type EncounterConditionsUncheckedUpdateWithoutValuesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    identifier?: Prisma.StringFieldUpdateOperationsInput | string;
+};
+/**
+ * Count Type EncounterConditionsCountOutputType
+ */
+export type EncounterConditionsCountOutputType = {
+    values: number;
+};
+export type EncounterConditionsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    values?: boolean | EncounterConditionsCountOutputTypeCountValuesArgs;
+};
+/**
+ * EncounterConditionsCountOutputType without action
+ */
+export type EncounterConditionsCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EncounterConditionsCountOutputType
+     */
+    select?: Prisma.EncounterConditionsCountOutputTypeSelect<ExtArgs> | null;
+};
+/**
+ * EncounterConditionsCountOutputType without action
+ */
+export type EncounterConditionsCountOutputTypeCountValuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.EncounterConditionValuesWhereInput;
+};
+export type EncounterConditionsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    identifier?: boolean;
+    values?: boolean | Prisma.EncounterConditions$valuesArgs<ExtArgs>;
+    _count?: boolean | Prisma.EncounterConditionsCountOutputTypeDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["encounterConditions"]>;
+export type EncounterConditionsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    identifier?: boolean;
+}, ExtArgs["result"]["encounterConditions"]>;
+export type EncounterConditionsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    identifier?: boolean;
+}, ExtArgs["result"]["encounterConditions"]>;
+export type EncounterConditionsSelectScalar = {
+    id?: boolean;
+    identifier?: boolean;
+};
+export type EncounterConditionsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "identifier", ExtArgs["result"]["encounterConditions"]>;
+export type EncounterConditionsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    values?: boolean | Prisma.EncounterConditions$valuesArgs<ExtArgs>;
+    _count?: boolean | Prisma.EncounterConditionsCountOutputTypeDefaultArgs<ExtArgs>;
+};
+export type EncounterConditionsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
+export type EncounterConditionsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
+export type $EncounterConditionsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "EncounterConditions";
+    objects: {
+        values: Prisma.$EncounterConditionValuesPayload<ExtArgs>[];
+    };
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        id: number;
+        identifier: string;
+    }, ExtArgs["result"]["encounterConditions"]>;
+    composites: {};
+};
+export type EncounterConditionsGetPayload<S extends boolean | null | undefined | EncounterConditionsDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$EncounterConditionsPayload, S>;
+export type EncounterConditionsCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<EncounterConditionsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: EncounterConditionsCountAggregateInputType | true;
+};
+export interface EncounterConditionsDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['EncounterConditions'];
+        meta: {
+            name: 'EncounterConditions';
+        };
+    };
+    /**
+     * Find zero or one EncounterConditions that matches the filter.
+     * @param {EncounterConditionsFindUniqueArgs} args - Arguments to find a EncounterConditions
+     * @example
+     * // Get one EncounterConditions
+     * const encounterConditions = await prisma.encounterConditions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EncounterConditionsFindUniqueArgs>(args: Prisma.SelectSubset<T, EncounterConditionsFindUniqueArgs<ExtArgs>>): Prisma.Prisma__EncounterConditionsClient<runtime.Types.Result.GetResult<Prisma.$EncounterConditionsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one EncounterConditions that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EncounterConditionsFindUniqueOrThrowArgs} args - Arguments to find a EncounterConditions
+     * @example
+     * // Get one EncounterConditions
+     * const encounterConditions = await prisma.encounterConditions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EncounterConditionsFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, EncounterConditionsFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__EncounterConditionsClient<runtime.Types.Result.GetResult<Prisma.$EncounterConditionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first EncounterConditions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EncounterConditionsFindFirstArgs} args - Arguments to find a EncounterConditions
+     * @example
+     * // Get one EncounterConditions
+     * const encounterConditions = await prisma.encounterConditions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EncounterConditionsFindFirstArgs>(args?: Prisma.SelectSubset<T, EncounterConditionsFindFirstArgs<ExtArgs>>): Prisma.Prisma__EncounterConditionsClient<runtime.Types.Result.GetResult<Prisma.$EncounterConditionsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first EncounterConditions that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EncounterConditionsFindFirstOrThrowArgs} args - Arguments to find a EncounterConditions
+     * @example
+     * // Get one EncounterConditions
+     * const encounterConditions = await prisma.encounterConditions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EncounterConditionsFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, EncounterConditionsFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__EncounterConditionsClient<runtime.Types.Result.GetResult<Prisma.$EncounterConditionsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more EncounterConditions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EncounterConditionsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EncounterConditions
+     * const encounterConditions = await prisma.encounterConditions.findMany()
+     *
+     * // Get first 10 EncounterConditions
+     * const encounterConditions = await prisma.encounterConditions.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const encounterConditionsWithIdOnly = await prisma.encounterConditions.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends EncounterConditionsFindManyArgs>(args?: Prisma.SelectSubset<T, EncounterConditionsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EncounterConditionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a EncounterConditions.
+     * @param {EncounterConditionsCreateArgs} args - Arguments to create a EncounterConditions.
+     * @example
+     * // Create one EncounterConditions
+     * const EncounterConditions = await prisma.encounterConditions.create({
+     *   data: {
+     *     // ... data to create a EncounterConditions
+     *   }
+     * })
+     *
+     */
+    create<T extends EncounterConditionsCreateArgs>(args: Prisma.SelectSubset<T, EncounterConditionsCreateArgs<ExtArgs>>): Prisma.Prisma__EncounterConditionsClient<runtime.Types.Result.GetResult<Prisma.$EncounterConditionsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many EncounterConditions.
+     * @param {EncounterConditionsCreateManyArgs} args - Arguments to create many EncounterConditions.
+     * @example
+     * // Create many EncounterConditions
+     * const encounterConditions = await prisma.encounterConditions.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends EncounterConditionsCreateManyArgs>(args?: Prisma.SelectSubset<T, EncounterConditionsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many EncounterConditions and returns the data saved in the database.
+     * @param {EncounterConditionsCreateManyAndReturnArgs} args - Arguments to create many EncounterConditions.
+     * @example
+     * // Create many EncounterConditions
+     * const encounterConditions = await prisma.encounterConditions.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many EncounterConditions and only return the `id`
+     * const encounterConditionsWithIdOnly = await prisma.encounterConditions.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends EncounterConditionsCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, EncounterConditionsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EncounterConditionsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a EncounterConditions.
+     * @param {EncounterConditionsDeleteArgs} args - Arguments to delete one EncounterConditions.
+     * @example
+     * // Delete one EncounterConditions
+     * const EncounterConditions = await prisma.encounterConditions.delete({
+     *   where: {
+     *     // ... filter to delete one EncounterConditions
+     *   }
+     * })
+     *
+     */
+    delete<T extends EncounterConditionsDeleteArgs>(args: Prisma.SelectSubset<T, EncounterConditionsDeleteArgs<ExtArgs>>): Prisma.Prisma__EncounterConditionsClient<runtime.Types.Result.GetResult<Prisma.$EncounterConditionsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one EncounterConditions.
+     * @param {EncounterConditionsUpdateArgs} args - Arguments to update one EncounterConditions.
+     * @example
+     * // Update one EncounterConditions
+     * const encounterConditions = await prisma.encounterConditions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends EncounterConditionsUpdateArgs>(args: Prisma.SelectSubset<T, EncounterConditionsUpdateArgs<ExtArgs>>): Prisma.Prisma__EncounterConditionsClient<runtime.Types.Result.GetResult<Prisma.$EncounterConditionsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more EncounterConditions.
+     * @param {EncounterConditionsDeleteManyArgs} args - Arguments to filter EncounterConditions to delete.
+     * @example
+     * // Delete a few EncounterConditions
+     * const { count } = await prisma.encounterConditions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends EncounterConditionsDeleteManyArgs>(args?: Prisma.SelectSubset<T, EncounterConditionsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more EncounterConditions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EncounterConditionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EncounterConditions
+     * const encounterConditions = await prisma.encounterConditions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends EncounterConditionsUpdateManyArgs>(args: Prisma.SelectSubset<T, EncounterConditionsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more EncounterConditions and returns the data updated in the database.
+     * @param {EncounterConditionsUpdateManyAndReturnArgs} args - Arguments to update many EncounterConditions.
+     * @example
+     * // Update many EncounterConditions
+     * const encounterConditions = await prisma.encounterConditions.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more EncounterConditions and only return the `id`
+     * const encounterConditionsWithIdOnly = await prisma.encounterConditions.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends EncounterConditionsUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, EncounterConditionsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EncounterConditionsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one EncounterConditions.
+     * @param {EncounterConditionsUpsertArgs} args - Arguments to update or create a EncounterConditions.
+     * @example
+     * // Update or create a EncounterConditions
+     * const encounterConditions = await prisma.encounterConditions.upsert({
+     *   create: {
+     *     // ... data to create a EncounterConditions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EncounterConditions we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EncounterConditionsUpsertArgs>(args: Prisma.SelectSubset<T, EncounterConditionsUpsertArgs<ExtArgs>>): Prisma.Prisma__EncounterConditionsClient<runtime.Types.Result.GetResult<Prisma.$EncounterConditionsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of EncounterConditions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EncounterConditionsCountArgs} args - Arguments to filter EncounterConditions to count.
+     * @example
+     * // Count the number of EncounterConditions
+     * const count = await prisma.encounterConditions.count({
+     *   where: {
+     *     // ... the filter for the EncounterConditions we want to count
+     *   }
+     * })
+    **/
+    count<T extends EncounterConditionsCountArgs>(args?: Prisma.Subset<T, EncounterConditionsCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], EncounterConditionsCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a EncounterConditions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EncounterConditionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EncounterConditionsAggregateArgs>(args: Prisma.Subset<T, EncounterConditionsAggregateArgs>): Prisma.PrismaPromise<GetEncounterConditionsAggregateType<T>>;
+    /**
+     * Group by EncounterConditions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EncounterConditionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends EncounterConditionsGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: EncounterConditionsGroupByArgs['orderBy'];
+    } : {
+        orderBy?: EncounterConditionsGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, EncounterConditionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEncounterConditionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the EncounterConditions model
+     */
+    readonly fields: EncounterConditionsFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for EncounterConditions.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__EncounterConditionsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    values<T extends Prisma.EncounterConditions$valuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EncounterConditions$valuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EncounterConditionValuesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the EncounterConditions model
+ */
+export interface EncounterConditionsFieldRefs {
+    readonly id: Prisma.FieldRef<"EncounterConditions", 'Int'>;
+    readonly identifier: Prisma.FieldRef<"EncounterConditions", 'String'>;
+}
+/**
+ * EncounterConditions findUnique
+ */
+export type EncounterConditionsFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EncounterConditions
+     */
+    select?: Prisma.EncounterConditionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the EncounterConditions
+     */
+    omit?: Prisma.EncounterConditionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EncounterConditionsInclude<ExtArgs> | null;
+    /**
+     * Filter, which EncounterConditions to fetch.
+     */
+    where: Prisma.EncounterConditionsWhereUniqueInput;
+};
+/**
+ * EncounterConditions findUniqueOrThrow
+ */
+export type EncounterConditionsFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EncounterConditions
+     */
+    select?: Prisma.EncounterConditionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the EncounterConditions
+     */
+    omit?: Prisma.EncounterConditionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EncounterConditionsInclude<ExtArgs> | null;
+    /**
+     * Filter, which EncounterConditions to fetch.
+     */
+    where: Prisma.EncounterConditionsWhereUniqueInput;
+};
+/**
+ * EncounterConditions findFirst
+ */
+export type EncounterConditionsFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EncounterConditions
+     */
+    select?: Prisma.EncounterConditionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the EncounterConditions
+     */
+    omit?: Prisma.EncounterConditionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EncounterConditionsInclude<ExtArgs> | null;
+    /**
+     * Filter, which EncounterConditions to fetch.
+     */
+    where?: Prisma.EncounterConditionsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of EncounterConditions to fetch.
+     */
+    orderBy?: Prisma.EncounterConditionsOrderByWithRelationInput | Prisma.EncounterConditionsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for EncounterConditions.
+     */
+    cursor?: Prisma.EncounterConditionsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` EncounterConditions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` EncounterConditions.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of EncounterConditions.
+     */
+    distinct?: Prisma.EncounterConditionsScalarFieldEnum | Prisma.EncounterConditionsScalarFieldEnum[];
+};
+/**
+ * EncounterConditions findFirstOrThrow
+ */
+export type EncounterConditionsFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EncounterConditions
+     */
+    select?: Prisma.EncounterConditionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the EncounterConditions
+     */
+    omit?: Prisma.EncounterConditionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EncounterConditionsInclude<ExtArgs> | null;
+    /**
+     * Filter, which EncounterConditions to fetch.
+     */
+    where?: Prisma.EncounterConditionsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of EncounterConditions to fetch.
+     */
+    orderBy?: Prisma.EncounterConditionsOrderByWithRelationInput | Prisma.EncounterConditionsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for EncounterConditions.
+     */
+    cursor?: Prisma.EncounterConditionsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` EncounterConditions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` EncounterConditions.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of EncounterConditions.
+     */
+    distinct?: Prisma.EncounterConditionsScalarFieldEnum | Prisma.EncounterConditionsScalarFieldEnum[];
+};
+/**
+ * EncounterConditions findMany
+ */
+export type EncounterConditionsFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EncounterConditions
+     */
+    select?: Prisma.EncounterConditionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the EncounterConditions
+     */
+    omit?: Prisma.EncounterConditionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EncounterConditionsInclude<ExtArgs> | null;
+    /**
+     * Filter, which EncounterConditions to fetch.
+     */
+    where?: Prisma.EncounterConditionsWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of EncounterConditions to fetch.
+     */
+    orderBy?: Prisma.EncounterConditionsOrderByWithRelationInput | Prisma.EncounterConditionsOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing EncounterConditions.
+     */
+    cursor?: Prisma.EncounterConditionsWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` EncounterConditions from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` EncounterConditions.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of EncounterConditions.
+     */
+    distinct?: Prisma.EncounterConditionsScalarFieldEnum | Prisma.EncounterConditionsScalarFieldEnum[];
+};
+/**
+ * EncounterConditions create
+ */
+export type EncounterConditionsCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EncounterConditions
+     */
+    select?: Prisma.EncounterConditionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the EncounterConditions
+     */
+    omit?: Prisma.EncounterConditionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EncounterConditionsInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a EncounterConditions.
+     */
+    data: Prisma.XOR<Prisma.EncounterConditionsCreateInput, Prisma.EncounterConditionsUncheckedCreateInput>;
+};
+/**
+ * EncounterConditions createMany
+ */
+export type EncounterConditionsCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EncounterConditions.
+     */
+    data: Prisma.EncounterConditionsCreateManyInput | Prisma.EncounterConditionsCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * EncounterConditions createManyAndReturn
+ */
+export type EncounterConditionsCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EncounterConditions
+     */
+    select?: Prisma.EncounterConditionsSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the EncounterConditions
+     */
+    omit?: Prisma.EncounterConditionsOmit<ExtArgs> | null;
+    /**
+     * The data used to create many EncounterConditions.
+     */
+    data: Prisma.EncounterConditionsCreateManyInput | Prisma.EncounterConditionsCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * EncounterConditions update
+ */
+export type EncounterConditionsUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EncounterConditions
+     */
+    select?: Prisma.EncounterConditionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the EncounterConditions
+     */
+    omit?: Prisma.EncounterConditionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EncounterConditionsInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a EncounterConditions.
+     */
+    data: Prisma.XOR<Prisma.EncounterConditionsUpdateInput, Prisma.EncounterConditionsUncheckedUpdateInput>;
+    /**
+     * Choose, which EncounterConditions to update.
+     */
+    where: Prisma.EncounterConditionsWhereUniqueInput;
+};
+/**
+ * EncounterConditions updateMany
+ */
+export type EncounterConditionsUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EncounterConditions.
+     */
+    data: Prisma.XOR<Prisma.EncounterConditionsUpdateManyMutationInput, Prisma.EncounterConditionsUncheckedUpdateManyInput>;
+    /**
+     * Filter which EncounterConditions to update
+     */
+    where?: Prisma.EncounterConditionsWhereInput;
+    /**
+     * Limit how many EncounterConditions to update.
+     */
+    limit?: number;
+};
+/**
+ * EncounterConditions updateManyAndReturn
+ */
+export type EncounterConditionsUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EncounterConditions
+     */
+    select?: Prisma.EncounterConditionsSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the EncounterConditions
+     */
+    omit?: Prisma.EncounterConditionsOmit<ExtArgs> | null;
+    /**
+     * The data used to update EncounterConditions.
+     */
+    data: Prisma.XOR<Prisma.EncounterConditionsUpdateManyMutationInput, Prisma.EncounterConditionsUncheckedUpdateManyInput>;
+    /**
+     * Filter which EncounterConditions to update
+     */
+    where?: Prisma.EncounterConditionsWhereInput;
+    /**
+     * Limit how many EncounterConditions to update.
+     */
+    limit?: number;
+};
+/**
+ * EncounterConditions upsert
+ */
+export type EncounterConditionsUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EncounterConditions
+     */
+    select?: Prisma.EncounterConditionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the EncounterConditions
+     */
+    omit?: Prisma.EncounterConditionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EncounterConditionsInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the EncounterConditions to update in case it exists.
+     */
+    where: Prisma.EncounterConditionsWhereUniqueInput;
+    /**
+     * In case the EncounterConditions found by the `where` argument doesn't exist, create a new EncounterConditions with this data.
+     */
+    create: Prisma.XOR<Prisma.EncounterConditionsCreateInput, Prisma.EncounterConditionsUncheckedCreateInput>;
+    /**
+     * In case the EncounterConditions was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.EncounterConditionsUpdateInput, Prisma.EncounterConditionsUncheckedUpdateInput>;
+};
+/**
+ * EncounterConditions delete
+ */
+export type EncounterConditionsDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EncounterConditions
+     */
+    select?: Prisma.EncounterConditionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the EncounterConditions
+     */
+    omit?: Prisma.EncounterConditionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EncounterConditionsInclude<ExtArgs> | null;
+    /**
+     * Filter which EncounterConditions to delete.
+     */
+    where: Prisma.EncounterConditionsWhereUniqueInput;
+};
+/**
+ * EncounterConditions deleteMany
+ */
+export type EncounterConditionsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which EncounterConditions to delete
+     */
+    where?: Prisma.EncounterConditionsWhereInput;
+    /**
+     * Limit how many EncounterConditions to delete.
+     */
+    limit?: number;
+};
+/**
+ * EncounterConditions.values
+ */
+export type EncounterConditions$valuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EncounterConditionValues
+     */
+    select?: Prisma.EncounterConditionValuesSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the EncounterConditionValues
+     */
+    omit?: Prisma.EncounterConditionValuesOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EncounterConditionValuesInclude<ExtArgs> | null;
+    where?: Prisma.EncounterConditionValuesWhereInput;
+    orderBy?: Prisma.EncounterConditionValuesOrderByWithRelationInput | Prisma.EncounterConditionValuesOrderByWithRelationInput[];
+    cursor?: Prisma.EncounterConditionValuesWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.EncounterConditionValuesScalarFieldEnum | Prisma.EncounterConditionValuesScalarFieldEnum[];
+};
+/**
+ * EncounterConditions without action
+ */
+export type EncounterConditionsDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EncounterConditions
+     */
+    select?: Prisma.EncounterConditionsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the EncounterConditions
+     */
+    omit?: Prisma.EncounterConditionsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.EncounterConditionsInclude<ExtArgs> | null;
+};

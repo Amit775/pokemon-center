@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ListComponent, ListItemDirective } from '@pokemon-center/ui-list';
-import { Move } from '@pokemon-center/data';
+import { Moves as Move } from '@pokemon-center/infra-pokedex-data';
 
 @Component({
 	templateUrl: './moves-list.component.html',
 	styleUrls: ['./moves-list.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [ListComponent, ListItemDirective],
 })
 export class MovesListComponent {
