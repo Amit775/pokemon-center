@@ -3,15 +3,15 @@
 
 generator client {
   provider     = "prisma-client"
-  output       = "../libs/infra-pokedex-data/src/prisma-client"
+  output       = "../libs/prisma-client/src/generated"
   moduleFormat = "cjs"
 }
 
 generator nestgraphql {
-    provider = "prisma-nestjs-graphql"
-    output = "../libs/infra-pokedex-data/src/entities"
-    reExport = All
-    prismaClientImport = "@pokemon-center/prisma"
+  provider           = "prisma-nestjs-graphql"
+  output             = "../libs/infra-pokedex-data/src/entities"
+  emitSingle         = true
+  prismaClientImport = "@pokemon-center/prisma"
 }
 
 datasource db {
@@ -24,31 +24,34 @@ datasource db {
 
 // Core Pokemon tables
 model Pokemon {
-  id              Int     @id
+  id              Int    @id
   identifier      String
   species_id      Int
   height          Int
   weight          Int
-  base_experience Int
+  base_experience Int?
   order           Int?
   is_default      Int
 
   // Relations
-  species         PokemonSpecies @relation(fields: [species_id], references: [id])
-  forms           PokemonForms[]
-  abilities       PokemonAbilities[]
-  moves           PokemonMoves[]
-  stats           PokemonStats[]
-  types           PokemonTypes[]
-  items           PokemonItems[]
-  gameIndices     PokemonGameIndices[]
-  encounters      Encounters[]
+  species               PokemonSpecies         @relation(fields: [species_id], references: [id])
+  forms                 PokemonForms[]
+  abilities             PokemonAbilities[]
+  moves                 PokemonMoves[]
+  stats                 PokemonStats[]
+  types                 PokemonTypes[]
+  items                 PokemonItems[]
+  gameIndices           PokemonGameIndices[]
+  encounters            Encounters[]
+  pokemonAbilitiesPasts PokemonAbilitiesPast[]
+  pokemonStatsPasts     PokemonStatsPast[]
+  pokemonTypesPasts     PokemonTypesPast[]
 
   @@map("pokemon")
 }
 
 model PokemonSpecies {
-  id                      Int     @id
+  id                      Int    @id
   identifier              String
   generation_id           Int
   evolves_from_species_id Int?
@@ -70,42 +73,51 @@ model PokemonSpecies {
   conquest_order          Int?
 
   // Relations
-  generation              Generations @relation(fields: [generation_id], references: [id])
-  evolvesFrom             PokemonSpecies? @relation("SpeciesEvolution", fields: [evolves_from_species_id], references: [id])
-  evolvesTo               PokemonSpecies[] @relation("SpeciesEvolution")
-  evolutionChain          EvolutionChains @relation(fields: [evolution_chain_id], references: [id])
-  color                   PokemonColors @relation(fields: [color_id], references: [id])
-  shape                   PokemonShapes @relation(fields: [shape_id], references: [id])
-  habitat                 PokemonHabitats? @relation(fields: [habitat_id], references: [id])
-  growthRate              GrowthRates @relation(fields: [growth_rate_id], references: [id])
-  pokemon                 Pokemon[]
-  eggGroups               PokemonEggGroups[]
-  dexNumbers              PokemonDexNumbers[]
-  evolution               PokemonEvolution[]
-  partySpecies            PokemonEvolution[] @relation("PartySpecies")
-  tradeSpecies            PokemonEvolution[] @relation("TradeSpecies")
+  generation                    Generations                     @relation(fields: [generation_id], references: [id])
+  evolvesFrom                   PokemonSpecies?                 @relation("SpeciesEvolution", fields: [evolves_from_species_id], references: [id])
+  evolvesTo                     PokemonSpecies[]                @relation("SpeciesEvolution")
+  evolutionChain                EvolutionChains                 @relation(fields: [evolution_chain_id], references: [id])
+  color                         PokemonColors                   @relation(fields: [color_id], references: [id])
+  shape                         PokemonShapes                   @relation(fields: [shape_id], references: [id])
+  habitat                       PokemonHabitats?                @relation(fields: [habitat_id], references: [id])
+  growthRate                    GrowthRates                     @relation(fields: [growth_rate_id], references: [id])
+  pokemon                       Pokemon[]
+  eggGroups                     PokemonEggGroups[]
+  dexNumbers                    PokemonDexNumbers[]
+  evolution                     PokemonEvolution[]
+  partySpecies                  PokemonEvolution[]              @relation("PartySpecies")
+  tradeSpecies                  PokemonEvolution[]              @relation("TradeSpecies")
+  pokemonSpeciesFlavorSummaries PokemonSpeciesFlavorSummaries[]
+  pokemonSpeciesFlavorTexts     PokemonSpeciesFlavorText[]
+  pokemonSpeciesNames           PokemonSpeciesNames[]
+  pokemonSpeciesProses          PokemonSpeciesProse[]
 
   @@map("pokemon_species")
 }
 
 /// @@TypeGraphQL.type(name: "PokemonForm")
 model PokemonForms {
-  id                              Int     @id
-  identifier                      String
-  form_identifier                 String?
-  pokemon_id                      Int
-  introduced_in_version_group_id  Int
-  is_default                      Int
-  is_battle_only                  Int
-  is_mega                         Int
-  form_order                      Int
-  order                           Int
+  id                             Int     @id
+  identifier                     String
+  form_identifier                String?
+  pokemon_id                     Int
+  introduced_in_version_group_id Int
+  is_default                     Int
+  is_battle_only                 Int
+  is_mega                        Int
+  form_order                     Int
+  order                          Int
 
   // Relations
-  pokemon                         Pokemon @relation(fields: [pokemon_id], references: [id])
-  versionGroup                    VersionGroups @relation(fields: [introduced_in_version_group_id], references: [id])
-  generations                     PokemonFormGenerations[]
-  types                           PokemonFormTypes[]
+  pokemon      Pokemon                  @relation(fields: [pokemon_id], references: [id])
+  versionGroup VersionGroups            @relation(fields: [introduced_in_version_group_id], references: [id])
+  generations  PokemonFormGenerations[]
+  types        PokemonFormTypes[]
+
+  evolutionsAsBaseForm    PokemonEvolution[]      @relation("EvolutionBaseForm")
+  evolutionsAsEvolvedForm PokemonEvolution[]      @relation("EvolutionEvolvedForm")
+  pokemonFormConditions   PokemonFormConditions[]
+  pokemonFormNames        PokemonFormNames[]
 
   @@map("pokemon_forms")
 }
@@ -113,7 +125,7 @@ model PokemonForms {
 // Core Move tables
 /// @@TypeGraphQL.type(name: "Move")
 model Moves {
-  id                      Int     @id
+  id                      Int    @id
   identifier              String
   generation_id           Int
   type_id                 Int
@@ -130,22 +142,30 @@ model Moves {
   super_contest_effect_id Int?
 
   // Relations
-  generation              Generations @relation(fields: [generation_id], references: [id])
-  type                    Types @relation(fields: [type_id], references: [id])
-  target                  MoveTargets @relation(fields: [target_id], references: [id])
-  damageClass             MoveDamageClasses @relation(fields: [damage_class_id], references: [id])
-  contestType             ContestTypes? @relation(fields: [contest_type_id], references: [id])
-  contestEffect           ContestEffects? @relation(fields: [contest_effect_id], references: [id])
-  superContestEffect      SuperContestEffects? @relation(fields: [super_contest_effect_id], references: [id])
-  pokemonMoves            PokemonMoves[]
-  machines                Machines[]
-  meta                    MoveMeta[]
-  flagMap                 MoveFlagMap[]
-  contestCombos           ContestCombos[] @relation("FirstMove")
-  contestCombosSecond     ContestCombos[] @relation("SecondMove")
-  superContestCombos      SuperContestCombos[] @relation("SuperFirstMove")
+  generation               Generations          @relation(fields: [generation_id], references: [id])
+  type                     Types                @relation(fields: [type_id], references: [id])
+  target                   MoveTargets          @relation(fields: [target_id], references: [id])
+  damageClass              MoveDamageClasses    @relation(fields: [damage_class_id], references: [id])
+  contestType              ContestTypes?        @relation(fields: [contest_type_id], references: [id])
+  contestEffect            ContestEffects?      @relation(fields: [contest_effect_id], references: [id])
+  superContestEffect       SuperContestEffects? @relation(fields: [super_contest_effect_id], references: [id])
+  pokemonMoves             PokemonMoves[]
+  machines                 Machines[]
+  meta                     MoveMeta[]
+  flagMap                  MoveFlagMap[]
+  contestCombos            ContestCombos[]      @relation("FirstMove")
+  contestCombosSecond      ContestCombos[]      @relation("SecondMove")
+  superContestCombos       SuperContestCombos[] @relation("SuperFirstMove")
   superContestCombosSecond SuperContestCombos[] @relation("SuperSecondMove")
-  knownMoves              PokemonEvolution[] @relation("KnownMove")
+  knownMoves               PokemonEvolution[]   @relation("KnownMove")
+
+  evolutionsAsUsedMove  PokemonEvolution[]      @relation("EvolutionUsedMove")
+  moveChangelogs        MoveChangelog[]
+  moveFlavorSummaries   MoveFlavorSummaries[]
+  moveFlavorTexts       MoveFlavorText[]
+  moveNames             MoveNames[]
+  pokemonFormConditions PokemonFormConditions[]
+  metaStatChanges       MoveMetaStatChanges[]
 
   @@map("moves")
 }
@@ -156,7 +176,9 @@ model MoveTargets {
   identifier String
 
   // Relations
-  moves      Moves[]
+  moves            Moves[]
+  moveChangelogs   MoveChangelog[]
+  moveTargetProses MoveTargetProse[]
 
   @@map("move_targets")
 }
@@ -167,8 +189,9 @@ model MoveDamageClasses {
   identifier String
 
   // Relations
-  moves      Moves[]
-  types      Types[]
+  moves                 Moves[]
+  types                 Types[]
+  moveDamageClassProses MoveDamageClassProse[]
 
   @@map("move_damage_classes")
 }
@@ -176,24 +199,30 @@ model MoveDamageClasses {
 // Core Type tables
 /// @@TypeGraphQL.type(name: "Type")
 model Types {
-  id              Int     @id
+  id              Int    @id
   identifier      String
   generation_id   Int
   damage_class_id Int?
 
   // Relations
-  generation      Generations @relation(fields: [generation_id], references: [id])
-  damageClass     MoveDamageClasses? @relation(fields: [damage_class_id], references: [id])
-  moves           Moves[]
-  pokemonTypes    PokemonTypes[]
-  formTypes       PokemonFormTypes[]
-  gameIndices     TypeGameIndices[]
-  efficacy        TypeEfficacy[] @relation("DamageType")
-  efficacyTarget  TypeEfficacy[] @relation("TargetType")
-  berryFlavors    BerryFlavors[]
-  knownMoveTypes  PokemonEvolution[] @relation("KnownMoveType")
-  partyTypes      PokemonEvolution[] @relation("PartyType")
+  generation       Generations        @relation(fields: [generation_id], references: [id])
+  damageClass      MoveDamageClasses? @relation(fields: [damage_class_id], references: [id])
+  moves            Moves[]
+  pokemonTypes     PokemonTypes[]
+  formTypes        PokemonFormTypes[]
+  gameIndices      TypeGameIndices[]
+  efficacy         TypeEfficacy[]     @relation("DamageType")
+  efficacyTarget   TypeEfficacy[]     @relation("TargetType")
+  berryFlavors     BerryFlavors[]
+  knownMoveTypes   PokemonEvolution[] @relation("KnownMoveType")
+  partyTypes       PokemonEvolution[] @relation("PartyType")
   naturalGiftTypes Berries[]
+
+  efficacyPastAsDamage TypeEfficacyPast[] @relation("TypeEfficacyPast_damage_type_id")
+  efficacyPastAsTarget TypeEfficacyPast[] @relation("TypeEfficacyPast_target_type_id")
+  moveChangelogs       MoveChangelog[]
+  pokemonTypesPasts    PokemonTypesPast[]
+  typeNames            TypeNames[]
 
   @@map("types")
 }
@@ -201,14 +230,20 @@ model Types {
 // Core Ability tables
 /// @@TypeGraphQL.type(name: "Ability")
 model Abilities {
-  id              Int     @id
-  identifier      String
-  generation_id   Int
-  is_main_series  Int
+  id             Int    @id
+  identifier     String
+  generation_id  Int
+  is_main_series Int
 
   // Relations
-  generation      Generations @relation(fields: [generation_id], references: [id])
-  pokemonAbilities PokemonAbilities[]
+  generation            Generations             @relation(fields: [generation_id], references: [id])
+  pokemonAbilities      PokemonAbilities[]
+  abilityChangelogs     AbilityChangelog[]
+  abilityFlavorTexts    AbilityFlavorText[]
+  abilityNames          AbilityNames[]
+  abilityProses         AbilityProse[]
+  pokemonAbilitiesPasts PokemonAbilitiesPast[]
+  pokemonFormConditions PokemonFormConditions[]
 
   @@map("abilities")
 }
@@ -216,24 +251,29 @@ model Abilities {
 // Core Item tables
 /// @@TypeGraphQL.type(name: "Item")
 model Items {
-  id               Int     @id
-  identifier       String
-  category_id      Int
-  cost             Int
-  fling_power      Int?
-  fling_effect_id  Int?
+  id              Int    @id
+  identifier      String
+  category_id     Int
+  cost            Int
+  fling_power     Int?
+  fling_effect_id Int?
 
   // Relations
-  category         ItemCategories @relation(fields: [category_id], references: [id])
-  flingEffect      ItemFlingEffects? @relation(fields: [fling_effect_id], references: [id])
-  pokemonItems     PokemonItems[]
-  machines         Machines[]
-  berries          Berries[]
-  gameIndices      ItemGameIndices[]
-  flagMap          ItemFlagMap[]
-  babyTriggerItems EvolutionChains[]
-  triggerItems     PokemonEvolution[] @relation("TriggerItem")
-  heldItems        PokemonEvolution[] @relation("HeldItem")
+  category              ItemCategories          @relation(fields: [category_id], references: [id])
+  flingEffect           ItemFlingEffects?       @relation(fields: [fling_effect_id], references: [id])
+  pokemonItems          PokemonItems[]
+  machines              Machines[]
+  berries               Berries[]
+  gameIndices           ItemGameIndices[]
+  flagMap               ItemFlagMap[]
+  babyTriggerItems      EvolutionChains[]
+  triggerItems          PokemonEvolution[]      @relation("TriggerItem")
+  heldItems             PokemonEvolution[]      @relation("HeldItem")
+  itemFlavorSummaries   ItemFlavorSummaries[]
+  itemFlavorTexts       ItemFlavorText[]
+  itemNames             ItemNames[]
+  itemProses            ItemProse[]
+  pokemonFormConditions PokemonFormConditions[]
 
   @@map("items")
 }
@@ -245,8 +285,9 @@ model ItemCategories {
   identifier String
 
   // Relations
-  pocket     ItemPockets @relation(fields: [pocket_id], references: [id])
-  items      Items[]
+  pocket             ItemPockets         @relation(fields: [pocket_id], references: [id])
+  items              Items[]
+  itemCategoryProses ItemCategoryProse[]
 
   @@map("item_categories")
 }
@@ -257,7 +298,8 @@ model ItemPockets {
   identifier String
 
   // Relations
-  categories ItemCategories[]
+  categories      ItemCategories[]
+  itemPocketNames ItemPocketNames[]
 
   @@map("item_pockets")
 }
@@ -265,18 +307,21 @@ model ItemPockets {
 // Core Stat tables
 /// @@TypeGraphQL.type(name: "Stat")
 model Stats {
-  id              Int     @id
+  id              Int    @id
   damage_class_id Int?
   identifier      String
   is_battle_only  Int
   game_index      Int?
 
   // Relations
-  pokemonStats    PokemonStats[]
+  pokemonStats        PokemonStats[]
   moveMetaStatChanges MoveMetaStatChanges[]
-  characteristics Characteristics[]
-  naturesDecreased Natures[] @relation("DecreasedStat")
-  naturesIncreased Natures[] @relation("IncreasedStat")
+  characteristics     Characteristics[]
+  naturesDecreased    Natures[]             @relation("DecreasedStat")
+  naturesIncreased    Natures[]             @relation("IncreasedStat")
+  pokeathlonStatNames PokeathlonStatNames[]
+  pokemonStatsPasts   PokemonStatsPast[]
+  statNames           StatNames[]
 
   @@map("stats")
 }
@@ -284,58 +329,72 @@ model Stats {
 // Core Generation/Version tables
 /// @@TypeGraphQL.type(name: "Generation")
 model Generations {
-  id              Int     @id
-  main_region_id  Int
-  identifier      String
+  id             Int    @id
+  main_region_id Int
+  identifier     String
 
   // Relations
-  region          Regions @relation(fields: [main_region_id], references: [id])
-  pokemonSpecies  PokemonSpecies[]
-  moves           Moves[]
-  types           Types[]
-  abilities       Abilities[]
+  region                 Regions                  @relation(fields: [main_region_id], references: [id])
+  pokemonSpecies         PokemonSpecies[]
+  moves                  Moves[]
+  types                  Types[]
+  abilities              Abilities[]
   pokemonFormGenerations PokemonFormGenerations[]
-  itemGameIndices ItemGameIndices[]
-  typeGameIndices TypeGameIndices[]
-  locationGameIndices LocationGameIndices[]
-  versionGroups   VersionGroups[]
+  itemGameIndices        ItemGameIndices[]
+  typeGameIndices        TypeGameIndices[]
+  locationGameIndices    LocationGameIndices[]
+  versionGroups          VersionGroups[]
+  generationNames        GenerationNames[]
+  pokemonAbilitiesPasts  PokemonAbilitiesPast[]
+  pokemonStatsPasts      PokemonStatsPast[]
+  pokemonTypesPasts      PokemonTypesPast[]
+  typeEfficacyPasts      TypeEfficacyPast[]
 
   @@map("generations")
 }
 
 /// @@TypeGraphQL.type(name: "VersionGroup")
 model VersionGroups {
-  id            Int     @id
+  id            Int    @id
   identifier    String
   generation_id Int
   order         Int
 
   // Relations
-  generation    Generations @relation(fields: [generation_id], references: [id])
-  versions      Versions[]
-  encounterSlots EncounterSlots[]
-  machines      Machines[]
+  generation                     Generations                      @relation(fields: [generation_id], references: [id])
+  versions                       Versions[]
+  encounterSlots                 EncounterSlots[]
+  machines                       Machines[]
   versionGroupPokemonMoveMethods VersionGroupPokemonMoveMethods[]
-  versionGroupRegions VersionGroupRegions[]
-  pokedexVersionGroups PokedexVersionGroups[]
-  pokemonMoves  PokemonMoves[]
-  pokemonForms PokemonForms[]
+  versionGroupRegions            VersionGroupRegions[]
+  pokedexVersionGroups           PokedexVersionGroups[]
+  pokemonMoves                   PokemonMoves[]
+  pokemonForms                   PokemonForms[]
+  pokemonEvolutions              PokemonEvolution[]
+  abilityChangelogs              AbilityChangelog[]
+  abilityFlavorTexts             AbilityFlavorText[]
+  itemFlavorTexts                ItemFlavorText[]
+  moveChangelogs                 MoveChangelog[]
+  moveEffectChangelogs           MoveEffectChangelog[]
+  moveFlavorTexts                MoveFlavorText[]
 
   @@map("version_groups")
 }
 
 /// @@TypeGraphQL.type(name: "Version")
 model Versions {
-  id               Int     @id
+  id               Int    @id
   version_group_id Int
   identifier       String
 
   // Relations
-  versionGroup     VersionGroups @relation(fields: [version_group_id], references: [id])
-  encounters       Encounters[]
-  pokemonItems     PokemonItems[]
-  pokemonGameIndices PokemonGameIndices[]
+  versionGroup               VersionGroups                @relation(fields: [version_group_id], references: [id])
+  encounters                 Encounters[]
+  pokemonItems               PokemonItems[]
+  pokemonGameIndices         PokemonGameIndices[]
   locationAreaEncounterRates LocationAreaEncounterRates[]
+  pokemonSpeciesFlavorTexts  PokemonSpeciesFlavorText[]
+  versionNames               VersionNames[]
 
   @@map("versions")
 }
@@ -347,57 +406,61 @@ model Regions {
   identifier String
 
   // Relations
-  generations Generations[]
-  locations   Locations[]
-  pokedexes   Pokedexes[]
-  versionGroups VersionGroupRegions[]
+  generations       Generations[]
+  locations         Locations[]
+  pokedexes         Pokedexes[]
+  versionGroups     VersionGroupRegions[]
+  pokemonEvolutions PokemonEvolution[]
+  regionNames       RegionNames[]
 
   @@map("regions")
 }
 
 /// @@TypeGraphQL.type(name: "Location")
 model Locations {
-  id         Int     @id
+  id         Int    @id
   region_id  Int?
   identifier String
 
   // Relations
-  region     Regions? @relation(fields: [region_id], references: [id])
-  areas      LocationAreas[]
-  gameIndices LocationGameIndices[]
-  evolution  PokemonEvolution[]
+  region        Regions?              @relation(fields: [region_id], references: [id])
+  areas         LocationAreas[]
+  gameIndices   LocationGameIndices[]
+  evolution     PokemonEvolution[]
+  locationNames LocationNames[]
 
   @@map("locations")
 }
 
 /// @@TypeGraphQL.type(name: "LocationArea")
 model LocationAreas {
-  id         Int     @id
+  id          Int     @id
   location_id Int
   game_index  Int
   identifier  String?
 
   // Relations
-  location   Locations @relation(fields: [location_id], references: [id])
-  encounters Encounters[]
-  encounterRates LocationAreaEncounterRates[]
+  location           Locations                    @relation(fields: [location_id], references: [id])
+  encounters         Encounters[]
+  encounterRates     LocationAreaEncounterRates[]
+  locationAreaProses LocationAreaProse[]
 
   @@map("location_areas")
 }
 
-
 // Core Pokedex tables
 /// @@TypeGraphQL.type(name: "Pokedex")
 model Pokedexes {
-  id             Int     @id
+  id             Int    @id
   region_id      Int?
   identifier     String
   is_main_series Int
 
   // Relations
-  region         Regions? @relation(fields: [region_id], references: [id])
-  dexNumbers     PokemonDexNumbers[]
-  versionGroups  PokedexVersionGroups[]
+  region        Regions?               @relation(fields: [region_id], references: [id])
+  dexNumbers    PokemonDexNumbers[]
+  versionGroups PokedexVersionGroups[]
+  pokedexProses PokedexProse[]
 
   @@map("pokedexes")
 }
@@ -405,12 +468,12 @@ model Pokedexes {
 // Core Evolution tables
 /// @@TypeGraphQL.type(name: "EvolutionChain")
 model EvolutionChains {
-  id                  Int     @id
+  id                   Int  @id
   baby_trigger_item_id Int?
 
   // Relations
-  babyTriggerItem     Items? @relation(fields: [baby_trigger_item_id], references: [id])
-  species             PokemonSpecies[]
+  babyTriggerItem Items?           @relation(fields: [baby_trigger_item_id], references: [id])
+  species         PokemonSpecies[]
 
   @@map("evolution_chains")
 }
@@ -421,7 +484,8 @@ model EvolutionTriggers {
   identifier String
 
   // Relations
-  evolution  PokemonEvolution[]
+  evolution              PokemonEvolution[]
+  evolutionTriggerProses EvolutionTriggerProse[]
 
   @@map("evolution_triggers")
 }
@@ -447,32 +511,49 @@ model PokemonEvolution {
   trade_species_id        Int?
   needs_overworld_rain    Int
   turn_upside_down        Int
+  version_group_id        Int
+  is_default              Int
+  needs_multiplayer       Int
+  near_special_rock       Int
+  region_id               Int?
+  base_form_id            Int?
+  evolved_form_id         Int?
+  used_move_id            Int?
+  minimum_move_count      Int?
+  minimum_steps           Int?
+  minimum_damage_taken    Int?
 
   // Relations
-  evolvedSpecies          PokemonSpecies @relation(fields: [evolved_species_id], references: [id])
-  evolutionTrigger        EvolutionTriggers @relation(fields: [evolution_trigger_id], references: [id])
-  triggerItem             Items? @relation("TriggerItem", fields: [trigger_item_id], references: [id])
-  gender                  Genders? @relation(fields: [gender_id], references: [id])
-  location                Locations? @relation(fields: [location_id], references: [id])
-  heldItem                Items? @relation("HeldItem", fields: [held_item_id], references: [id])
-  knownMove               Moves? @relation("KnownMove", fields: [known_move_id], references: [id])
-  knownMoveType           Types? @relation("KnownMoveType", fields: [known_move_type_id], references: [id])
-  partySpecies            PokemonSpecies? @relation("PartySpecies", fields: [party_species_id], references: [id])
-  partyType               Types? @relation("PartyType", fields: [party_type_id], references: [id])
-  tradeSpecies            PokemonSpecies? @relation("TradeSpecies", fields: [trade_species_id], references: [id])
+  versionGroup     VersionGroups     @relation(fields: [version_group_id], references: [id])
+  region           Regions?          @relation(fields: [region_id], references: [id])
+  baseForm         PokemonForms?     @relation("EvolutionBaseForm", fields: [base_form_id], references: [id])
+  evolvedForm      PokemonForms?     @relation("EvolutionEvolvedForm", fields: [evolved_form_id], references: [id])
+  usedMove         Moves?            @relation("EvolutionUsedMove", fields: [used_move_id], references: [id])
+  evolvedSpecies   PokemonSpecies    @relation(fields: [evolved_species_id], references: [id])
+  evolutionTrigger EvolutionTriggers @relation(fields: [evolution_trigger_id], references: [id])
+  triggerItem      Items?            @relation("TriggerItem", fields: [trigger_item_id], references: [id])
+  gender           Genders?          @relation(fields: [gender_id], references: [id])
+  location         Locations?        @relation(fields: [location_id], references: [id])
+  heldItem         Items?            @relation("HeldItem", fields: [held_item_id], references: [id])
+  knownMove        Moves?            @relation("KnownMove", fields: [known_move_id], references: [id])
+  knownMoveType    Types?            @relation("KnownMoveType", fields: [known_move_type_id], references: [id])
+  partySpecies     PokemonSpecies?   @relation("PartySpecies", fields: [party_species_id], references: [id])
+  partyType        Types?            @relation("PartyType", fields: [party_type_id], references: [id])
+  tradeSpecies     PokemonSpecies?   @relation("TradeSpecies", fields: [trade_species_id], references: [id])
 
   @@map("pokemon_evolution")
 }
 
 // Core Growth Rate tables
 model GrowthRates {
-  id         Int     @id
+  id         Int    @id
   identifier String
   formula    String
 
   // Relations
-  species    PokemonSpecies[]
-  experience Experience[]
+  species          PokemonSpecies[]
+  experience       Experience[]
+  growthRateProses GrowthRateProse[]
 
   @@map("growth_rates")
 }
@@ -484,7 +565,7 @@ model Experience {
   experience     Int
 
   // Relations
-  growthRate     GrowthRates @relation(fields: [growth_rate_id], references: [id])
+  growthRate GrowthRates @relation(fields: [growth_rate_id], references: [id])
 
   @@id([growth_rate_id, level])
   @@map("experience")
@@ -497,7 +578,7 @@ model Genders {
   identifier String
 
   // Relations
-  evolution  PokemonEvolution[]
+  evolution PokemonEvolution[]
 
   @@map("genders")
 }
@@ -512,6 +593,63 @@ model Languages {
   official   Int
   order      Int
 
+  namesAsSubject                LanguageNames[]                 @relation("LanguageNames_language_id")
+  namesAsLanguage               LanguageNames[]                 @relation("LanguageNames_local_language_id")
+  abilityChangelogProses        AbilityChangelogProse[]
+  abilityFlavorTexts            AbilityFlavorText[]
+  abilityNames                  AbilityNames[]
+  abilityProses                 AbilityProse[]
+  berryFirmnessNames            BerryFirmnessNames[]
+  characteristicTexts           CharacteristicText[]
+  contestEffectProses           ContestEffectProse[]
+  contestTypeNames              ContestTypeNames[]
+  eggGroupProses                EggGroupProse[]
+  encounterConditionProses      EncounterConditionProse[]
+  encounterConditionValueProses EncounterConditionValueProse[]
+  encounterMethodProses         EncounterMethodProse[]
+  evolutionTriggerProses        EvolutionTriggerProse[]
+  generationNames               GenerationNames[]
+  growthRateProses              GrowthRateProse[]
+  itemCategoryProses            ItemCategoryProse[]
+  itemFlagProses                ItemFlagProse[]
+  itemFlavorSummaries           ItemFlavorSummaries[]
+  itemFlavorTexts               ItemFlavorText[]
+  itemFlingEffectProses         ItemFlingEffectProse[]
+  itemNames                     ItemNames[]
+  itemPocketNames               ItemPocketNames[]
+  itemProses                    ItemProse[]
+  locationAreaProses            LocationAreaProse[]
+  locationNames                 LocationNames[]
+  moveBattleStyleProses         MoveBattleStyleProse[]
+  moveDamageClassProses         MoveDamageClassProse[]
+  moveEffectChangelogProses     MoveEffectChangelogProse[]
+  moveEffectProses              MoveEffectProse[]
+  moveFlagProses                MoveFlagProse[]
+  moveFlavorSummaries           MoveFlavorSummaries[]
+  moveFlavorTexts               MoveFlavorText[]
+  moveMetaAilmentNames          MoveMetaAilmentNames[]
+  moveMetaCategoryProses        MoveMetaCategoryProse[]
+  moveNames                     MoveNames[]
+  moveTargetProses              MoveTargetProse[]
+  natureNames                   NatureNames[]
+  pokeathlonStatNames           PokeathlonStatNames[]
+  pokedexProses                 PokedexProse[]
+  pokemonColorNames             PokemonColorNames[]
+  pokemonFormNames              PokemonFormNames[]
+  pokemonFormTriggerProses      PokemonFormTriggerProse[]
+  pokemonHabitatNames           PokemonHabitatNames[]
+  pokemonMoveMethodProses       PokemonMoveMethodProse[]
+  pokemonShapeProses            PokemonShapeProse[]
+  pokemonSpeciesFlavorSummaries PokemonSpeciesFlavorSummaries[]
+  pokemonSpeciesFlavorTexts     PokemonSpeciesFlavorText[]
+  pokemonSpeciesNames           PokemonSpeciesNames[]
+  pokemonSpeciesProses          PokemonSpeciesProse[]
+  regionNames                   RegionNames[]
+  statNames                     StatNames[]
+  superContestEffectProses      SuperContestEffectProse[]
+  typeNames                     TypeNames[]
+  versionNames                  VersionNames[]
+
   @@map("languages")
 }
 
@@ -522,7 +660,8 @@ model EggGroups {
   identifier String
 
   // Relations
-  species    PokemonEggGroups[]
+  species        PokemonEggGroups[]
+  eggGroupProses EggGroupProse[]
 
   @@map("egg_groups")
 }
@@ -530,18 +669,19 @@ model EggGroups {
 // Core Nature tables
 /// @@TypeGraphQL.type(name: "Nature")
 model Natures {
-  id                  Int     @id
-  identifier          String
-  decreased_stat_id   Int
-  increased_stat_id   Int
-  hates_flavor_id     Int
-  likes_flavor_id     Int
-  game_index          Int
+  id                Int    @id
+  identifier        String
+  decreased_stat_id Int
+  increased_stat_id Int
+  hates_flavor_id   Int
+  likes_flavor_id   Int
+  game_index        Int
 
   // Relations
-  decreasedStat       Stats @relation("DecreasedStat", fields: [decreased_stat_id], references: [id])
-  increasedStat       Stats @relation("IncreasedStat", fields: [increased_stat_id], references: [id])
+  decreasedStat          Stats                          @relation("DecreasedStat", fields: [decreased_stat_id], references: [id])
+  increasedStat          Stats                          @relation("IncreasedStat", fields: [increased_stat_id], references: [id])
   battleStylePreferences NatureBattleStylePreferences[]
+  natureNames            NatureNames[]
 
   @@map("natures")
 }
@@ -553,8 +693,9 @@ model ContestTypes {
   identifier String
 
   // Relations
-  moves      Moves[]
-  berryFlavors BerryFlavors[]
+  moves            Moves[]
+  berryFlavors     BerryFlavors[]
+  contestTypeNames ContestTypeNames[]
 
   @@map("contest_types")
 }
@@ -566,7 +707,8 @@ model ContestEffects {
   jam    Int
 
   // Relations
-  moves  Moves[]
+  moves               Moves[]
+  contestEffectProses ContestEffectProse[]
 
   @@map("contest_effects")
 }
@@ -578,7 +720,8 @@ model SuperContestEffects {
   appeal Int
 
   // Relations
-  moves  Moves[]
+  moves                    Moves[]
+  superContestEffectProses SuperContestEffectProse[]
 
   @@map("super_contest_effects")
 }
@@ -586,66 +729,67 @@ model SuperContestEffects {
 // Core Machine tables
 /// @@TypeGraphQL.type(name: "Machine")
 model Machines {
-  machine_number    Int
-  version_group_id  Int
-  item_id           Int
-  move_id           Int
+  machine_number   Int
+  version_group_id Int
+  item_id          Int
+  move_id          Int
 
   // Relations
-  versionGroup      VersionGroups @relation(fields: [version_group_id], references: [id])
-  item              Items @relation(fields: [item_id], references: [id])
-  move              Moves @relation(fields: [move_id], references: [id])
+  versionGroup VersionGroups @relation(fields: [version_group_id], references: [id])
+  item         Items         @relation(fields: [item_id], references: [id])
+  move         Moves         @relation(fields: [move_id], references: [id])
 
-  @@id([machine_number, version_group_id])   
+  @@id([machine_number, version_group_id])
   @@map("machines")
 }
 
 // Core Encounter tables
 /// @@TypeGraphQL.type(name: "EncounterMethod")
 model EncounterMethods {
-  id         Int     @id
+  id         Int    @id
   identifier String
   order      Int
 
   // Relations
-  slots      EncounterSlots[]
-  encounterRates LocationAreaEncounterRates[]
+  slots                 EncounterSlots[]
+  encounterRates        LocationAreaEncounterRates[]
+  encounterMethodProses EncounterMethodProse[]
 
   @@map("encounter_methods")
 }
 
 /// @@TypeGraphQL.type(name: "EncounterSlot")
 model EncounterSlots {
-  id                   Int     @id
-  version_group_id     Int
-  encounter_method_id  Int
-  slot                 Int?
-  rarity               Int
+  id                  Int  @id
+  version_group_id    Int
+  encounter_method_id Int
+  slot                Int?
+  rarity              Int
 
   // Relations
-  versionGroup         VersionGroups @relation(fields: [version_group_id], references: [id])
-  encounterMethod      EncounterMethods @relation(fields: [encounter_method_id], references: [id])
-  encounters           Encounters[]
+  versionGroup    VersionGroups    @relation(fields: [version_group_id], references: [id])
+  encounterMethod EncounterMethods @relation(fields: [encounter_method_id], references: [id])
+  encounters      Encounters[]
 
   @@map("encounter_slots")
 }
 
 /// @@TypeGraphQL.type(name: "Encounter")
 model Encounters {
-  id                 Int     @id
-  version_id         Int
-  location_area_id   Int
-  encounter_slot_id  Int
-  pokemon_id         Int
-  min_level          Int
-  max_level          Int
+  id                Int @id
+  version_id        Int
+  location_area_id  Int
+  encounter_slot_id Int
+  pokemon_id        Int
+  min_level         Int
+  max_level         Int
 
   // Relations
-  version            Versions @relation(fields: [version_id], references: [id])
-  locationArea       LocationAreas @relation(fields: [location_area_id], references: [id])
-  encounterSlot      EncounterSlots @relation(fields: [encounter_slot_id], references: [id])
-  pokemon            Pokemon @relation(fields: [pokemon_id], references: [id])
-  conditionValueMap  EncounterConditionValueMap[]
+  version           Versions                     @relation(fields: [version_id], references: [id])
+  locationArea      LocationAreas                @relation(fields: [location_area_id], references: [id])
+  encounterSlot     EncounterSlots               @relation(fields: [encounter_slot_id], references: [id])
+  pokemon           Pokemon                      @relation(fields: [pokemon_id], references: [id])
+  conditionValueMap EncounterConditionValueMap[]
 
   @@map("encounters")
 }
@@ -656,38 +800,39 @@ model EncounterConditions {
   identifier String
 
   // Relations
-  values     EncounterConditionValues[]
+  values                   EncounterConditionValues[]
+  encounterConditionProses EncounterConditionProse[]
 
   @@map("encounter_conditions")
 }
 
 /// @@TypeGraphQL.type(name: "EncounterConditionValue")
 model EncounterConditionValues {
-  id                      Int     @id
-  encounter_condition_id  Int
-  identifier              String
-  is_default              Int
+  id                     Int    @id
+  encounter_condition_id Int
+  identifier             String
+  is_default             Int
 
   // Relations
-  condition               EncounterConditions @relation(fields: [encounter_condition_id], references: [id])
-  conditionValueMap       EncounterConditionValueMap[]
+  condition                     EncounterConditions            @relation(fields: [encounter_condition_id], references: [id])
+  conditionValueMap             EncounterConditionValueMap[]
+  encounterConditionValueProses EncounterConditionValueProse[]
 
   @@map("encounter_condition_values")
 }
 
 /// @@TypeGraphQL.type(name: "EncounterConditionValueMap")
 model EncounterConditionValueMap {
-  encounter_id                    Int @id
-  encounter_condition_value_id    Int
+  encounter_id                 Int
+  encounter_condition_value_id Int
 
   // Relations
-  encounter                       Encounters @relation(fields: [encounter_id], references: [id])
-  conditionValue                  EncounterConditionValues @relation(fields: [encounter_condition_value_id], references: [id])
+  encounter      Encounters               @relation(fields: [encounter_id], references: [id])
+  conditionValue EncounterConditionValues @relation(fields: [encounter_condition_value_id], references: [id])
 
+  @@id([encounter_id, encounter_condition_value_id])
   @@map("encounter_condition_value_map")
 }
-
-
 
 // Core Move Meta tables
 /// @@TypeGraphQL.type(name: "MoveMetaCategory")
@@ -696,7 +841,8 @@ model MoveMetaCategories {
   identifier String
 
   // Relations
-  meta       MoveMeta[]
+  meta                   MoveMeta[]
+  moveMetaCategoryProses MoveMetaCategoryProse[]
 
   @@map("move_meta_categories")
 }
@@ -707,14 +853,15 @@ model MoveMetaAilments {
   identifier String
 
   // Relations
-  meta       MoveMeta[]
+  meta                 MoveMeta[]
+  moveMetaAilmentNames MoveMetaAilmentNames[]
 
   @@map("move_meta_ailments")
 }
 
 /// @@TypeGraphQL.type(name: "MoveMeta")
 model MoveMeta {
-  move_id         Int     @id
+  move_id          Int  @id
   meta_category_id Int
   meta_ailment_id  Int?
   min_hits         Int?
@@ -729,11 +876,9 @@ model MoveMeta {
   stat_chance      Int
 
   // Relations
-  move            Moves @relation(fields: [move_id], references: [id])
-  metaCategory    MoveMetaCategories @relation(fields: [meta_category_id], references: [id])
-  metaAilment     MoveMetaAilments? @relation(fields: [meta_ailment_id], references: [id])
-  statChanges     MoveMetaStatChanges[] @relation("MoveMetaStatChanges")
-
+  move         Moves                 @relation(fields: [move_id], references: [id])
+  metaCategory MoveMetaCategories    @relation(fields: [meta_category_id], references: [id])
+  metaAilment  MoveMetaAilments?     @relation(fields: [meta_ailment_id], references: [id])
   @@map("move_meta")
 }
 
@@ -744,8 +889,8 @@ model MoveMetaStatChanges {
   change  Int
 
   // Relations
-  stat    Stats @relation(fields: [stat_id], references: [id])
-  meta    MoveMeta @relation("MoveMetaStatChanges", fields: [move_id], references: [move_id], map: "move_meta_stat_changes_move_id_fkey")
+  stat Stats @relation(fields: [stat_id], references: [id])
+  move Moves @relation(fields: [move_id], references: [id])
 
   @@id([move_id, stat_id])
   @@map("move_meta_stat_changes")
@@ -758,20 +903,22 @@ model MoveFlags {
   identifier String
 
   // Relations
-  flagMap    MoveFlagMap[]
+  flagMap        MoveFlagMap[]
+  moveFlagProses MoveFlagProse[]
 
   @@map("move_flags")
 }
 
 /// @@TypeGraphQL.type(name: "MoveFlagMap")
 model MoveFlagMap {
-  move_id      Int @id
+  move_id      Int
   move_flag_id Int
 
   // Relations
-  move         Moves @relation(fields: [move_id], references: [id])
-  flag         MoveFlags @relation(fields: [move_flag_id], references: [id])
+  move Moves     @relation(fields: [move_id], references: [id])
+  flag MoveFlags @relation(fields: [move_flag_id], references: [id])
 
+  @@id([move_id, move_flag_id])
   @@map("move_flag_map")
 }
 
@@ -782,7 +929,8 @@ model MoveBattleStyles {
   identifier String
 
   // Relations
-  naturePreferences NatureBattleStylePreferences[]
+  naturePreferences     NatureBattleStylePreferences[]
+  moveBattleStyleProses MoveBattleStyleProse[]
 
   @@map("move_battle_styles")
 }
@@ -794,20 +942,22 @@ model ItemFlags {
   identifier String
 
   // Relations
-  flagMap    ItemFlagMap[]
+  flagMap        ItemFlagMap[]
+  itemFlagProses ItemFlagProse[]
 
   @@map("item_flags")
 }
 
 /// @@TypeGraphQL.type(name: "ItemFlagMap")
 model ItemFlagMap {
-  item_id      Int @id
+  item_id      Int
   item_flag_id Int
 
   // Relations
-  item         Items @relation(fields: [item_id], references: [id])
-  flag         ItemFlags @relation(fields: [item_flag_id], references: [id])
+  item Items     @relation(fields: [item_id], references: [id])
+  flag ItemFlags @relation(fields: [item_flag_id], references: [id])
 
+  @@id([item_id, item_flag_id])
   @@map("item_flag_map")
 }
 
@@ -817,7 +967,8 @@ model ItemFlingEffects {
   identifier String
 
   // Relations
-  items      Items[]
+  items                 Items[]
+  itemFlingEffectProses ItemFlingEffectProse[]
 
   @@map("item_fling_effects")
 }
@@ -825,7 +976,7 @@ model ItemFlingEffects {
 // Core Berry tables
 /// @@TypeGraphQL.type(name: "Berry")
 model Berries {
-  id                   Int     @id
+  id                   Int  @id
   item_id              Int
   firmness_id          Int
   natural_gift_power   Int?
@@ -837,10 +988,10 @@ model Berries {
   smoothness           Int
 
   // Relations
-  item                 Items @relation(fields: [item_id], references: [id])
-  firmness             BerryFirmness @relation(fields: [firmness_id], references: [id])
-  naturalGiftType      Types? @relation(fields: [natural_gift_type_id], references: [id])
-  flavors              BerryFlavors[]
+  item            Items          @relation(fields: [item_id], references: [id])
+  firmness        BerryFirmness  @relation(fields: [firmness_id], references: [id])
+  naturalGiftType Types?         @relation(fields: [natural_gift_type_id], references: [id])
+  flavors         BerryFlavors[]
 
   @@map("berries")
 }
@@ -851,7 +1002,8 @@ model BerryFirmness {
   identifier String
 
   // Relations
-  berries    Berries[]
+  berries            Berries[]
+  berryFirmnessNames BerryFirmnessNames[]
 
   @@map("berry_firmness")
 }
@@ -863,9 +1015,9 @@ model BerryFlavors {
   flavor          Int
 
   // Relations
-  berry           Berries @relation(fields: [berry_id], references: [id])
-  contestType     ContestTypes @relation(fields: [contest_type_id], references: [id])
-  type            Types @relation(fields: [contest_type_id], references: [id], map: "berry_flavors_contest_type_id_fkey2")
+  berry       Berries      @relation(fields: [berry_id], references: [id])
+  contestType ContestTypes @relation(fields: [contest_type_id], references: [id])
+  type        Types        @relation(fields: [contest_type_id], references: [id], map: "berry_flavors_contest_type_id_fkey2")
 
   @@id([berry_id, contest_type_id])
   @@map("berry_flavors")
@@ -874,64 +1026,68 @@ model BerryFlavors {
 // Core Characteristic tables
 /// @@TypeGraphQL.type(name: "Characteristic")
 model Characteristics {
-  id          Int     @id
-  stat_id     Int
-  gene_mod_5  Int
+  id         Int @id
+  stat_id    Int
+  gene_mod_5 Int
 
   // Relations
-  stat        Stats @relation(fields: [stat_id], references: [id])
+  stat                Stats                @relation(fields: [stat_id], references: [id])
+  characteristicTexts CharacteristicText[]
 
   @@map("characteristics")
 }
 
-
 // Core Contest Combo tables
 /// @@TypeGraphQL.type(name: "ContestCombo")
 model ContestCombos {
-  first_move_id  Int @id
+  first_move_id  Int
   second_move_id Int
 
   // Relations
-  firstMove      Moves @relation("FirstMove", fields: [first_move_id], references: [id])
-  secondMove     Moves @relation("SecondMove", fields: [second_move_id], references: [id])
+  firstMove  Moves @relation("FirstMove", fields: [first_move_id], references: [id])
+  secondMove Moves @relation("SecondMove", fields: [second_move_id], references: [id])
 
+  @@id([first_move_id, second_move_id])
   @@map("contest_combos")
 }
 
 /// @@TypeGraphQL.type(name: "SuperContestCombo")
 model SuperContestCombos {
-  first_move_id  Int @id
+  first_move_id  Int
   second_move_id Int
 
   // Relations
-  firstMove      Moves @relation("SuperFirstMove", fields: [first_move_id], references: [id])
-  secondMove     Moves @relation("SuperSecondMove", fields: [second_move_id], references: [id])
+  firstMove  Moves @relation("SuperFirstMove", fields: [first_move_id], references: [id])
+  secondMove Moves @relation("SuperSecondMove", fields: [second_move_id], references: [id])
 
+  @@id([first_move_id, second_move_id])
   @@map("super_contest_combos")
 }
 
 // Core Pokemon Move Method tables
 /// @@TypeGraphQL.type(name: "PokemonMoveMethod")
 model PokemonMoveMethods {
-  id         Int     @id
+  id         Int    @id
   identifier String
 
   // Relations
-  pokemonMoves PokemonMoves[]
-  versionGroups VersionGroupPokemonMoveMethods[]
+  pokemonMoves            PokemonMoves[]
+  versionGroups           VersionGroupPokemonMoveMethods[]
+  pokemonMoveMethodProses PokemonMoveMethodProse[]
 
   @@map("pokemon_move_methods")
 }
 
 /// @@TypeGraphQL.type(name: "VersionGroupPokemonMoveMethod")
 model VersionGroupPokemonMoveMethods {
-  version_group_id        Int @id
-  pokemon_move_method_id  Int
+  version_group_id       Int
+  pokemon_move_method_id Int
 
   // Relations
-  versionGroup            VersionGroups @relation(fields: [version_group_id], references: [id])
-  moveMethod              PokemonMoveMethods @relation(fields: [pokemon_move_method_id], references: [id])
+  versionGroup VersionGroups      @relation(fields: [version_group_id], references: [id])
+  moveMethod   PokemonMoveMethods @relation(fields: [pokemon_move_method_id], references: [id])
 
+  @@id([version_group_id, pokemon_move_method_id])
   @@map("version_group_pokemon_move_methods")
 }
 
@@ -942,7 +1098,8 @@ model PokemonShapes {
   identifier String
 
   // Relations
-  species    PokemonSpecies[]
+  species            PokemonSpecies[]
+  pokemonShapeProses PokemonShapeProse[]
 
   @@map("pokemon_shapes")
 }
@@ -954,7 +1111,8 @@ model PokemonColors {
   identifier String
 
   // Relations
-  species    PokemonSpecies[]
+  species           PokemonSpecies[]
+  pokemonColorNames PokemonColorNames[]
 
   @@map("pokemon_colors")
 }
@@ -966,7 +1124,8 @@ model PokemonHabitats {
   identifier String
 
   // Relations
-  species    PokemonSpecies[]
+  species             PokemonSpecies[]
+  pokemonHabitatNames PokemonHabitatNames[]
 
   @@map("pokemon_habitats")
 }
@@ -979,37 +1138,38 @@ model TypeEfficacy {
   damage_factor  Int
 
   // Relations
-  damageType     Types @relation("DamageType", fields: [damage_type_id], references: [id])
-  targetType     Types @relation("TargetType", fields: [target_type_id], references: [id])
+  damageType Types @relation("DamageType", fields: [damage_type_id], references: [id])
+  targetType Types @relation("TargetType", fields: [target_type_id], references: [id])
 
-  @@id([damage_type_id, target_type_id])     
+  @@id([damage_type_id, target_type_id])
   @@map("type_efficacy")
 }
-
 
 // Core Version Group Region tables
 /// @@TypeGraphQL.type(name: "VersionGroupRegion")
 model VersionGroupRegions {
-  version_group_id Int @id
+  version_group_id Int
   region_id        Int
 
   // Relations
-  versionGroup     VersionGroups @relation(fields: [version_group_id], references: [id])
-  region           Regions @relation(fields: [region_id], references: [id])
+  versionGroup VersionGroups @relation(fields: [version_group_id], references: [id])
+  region       Regions       @relation(fields: [region_id], references: [id])
 
+  @@id([version_group_id, region_id])
   @@map("version_group_regions")
 }
 
 // Core Pokedex Version Group tables
 /// @@TypeGraphQL.type(name: "PokedexVersionGroup")
 model PokedexVersionGroups {
-  pokedex_id       Int @id
+  pokedex_id       Int
   version_group_id Int
 
   // Relations
-  pokedex          Pokedexes @relation(fields: [pokedex_id], references: [id])
-  versionGroup     VersionGroups @relation(fields: [version_group_id], references: [id])
+  pokedex      Pokedexes     @relation(fields: [pokedex_id], references: [id])
+  versionGroup VersionGroups @relation(fields: [version_group_id], references: [id])
 
+  @@id([pokedex_id, version_group_id])
   @@map("pokedex_version_groups")
 }
 
@@ -1026,31 +1186,30 @@ model PokemonAbilities {
   slot       Int
 
   // Relations
-  pokemon    Pokemon @relation(fields: [pokemon_id], references: [id])
-  ability    Abilities @relation(fields: [ability_id], references: [id])
+  pokemon Pokemon   @relation(fields: [pokemon_id], references: [id])
+  ability Abilities @relation(fields: [ability_id], references: [id])
 
   @@id([pokemon_id, ability_id])
   @@map("pokemon_abilities")
 }
 
-
 /// @@TypeGraphQL.type(name: "PokemonMove")
 model PokemonMoves {
-  pokemon_id              Int
-  version_group_id        Int
-  move_id                 Int
-  pokemon_move_method_id  Int
-  level                   Int?
-  order                   Int?
-  mastery                 Int?
+  pokemon_id             Int
+  version_group_id       Int
+  move_id                Int
+  pokemon_move_method_id Int
+  level                  Int
+  order                  Int?
+  mastery                Int?
 
   // Relations
-  pokemon                 Pokemon @relation(fields: [pokemon_id], references: [id])
-  versionGroup            VersionGroups @relation(fields: [version_group_id], references: [id])
-  move                    Moves @relation(fields: [move_id], references: [id])
-  moveMethod              PokemonMoveMethods @relation(fields: [pokemon_move_method_id], references: [id])
+  pokemon      Pokemon            @relation(fields: [pokemon_id], references: [id])
+  versionGroup VersionGroups      @relation(fields: [version_group_id], references: [id])
+  move         Moves              @relation(fields: [move_id], references: [id])
+  moveMethod   PokemonMoveMethods @relation(fields: [pokemon_move_method_id], references: [id])
 
-  @@id([pokemon_id, version_group_id, move_id, pokemon_move_method_id])
+  @@id([pokemon_id, version_group_id, move_id, pokemon_move_method_id, level])
   @@map("pokemon_moves")
 }
 
@@ -1062,8 +1221,8 @@ model PokemonStats {
   effort     Int
 
   // Relations
-  pokemon    Pokemon @relation(fields: [pokemon_id], references: [id])
-  stat       Stats @relation(fields: [stat_id], references: [id])
+  pokemon Pokemon @relation(fields: [pokemon_id], references: [id])
+  stat    Stats   @relation(fields: [stat_id], references: [id])
 
   @@id([pokemon_id, stat_id])
   @@map("pokemon_stats")
@@ -1076,22 +1235,21 @@ model PokemonTypes {
   slot       Int
 
   // Relations
-  pokemon    Pokemon @relation(fields: [pokemon_id], references: [id])
-  type       Types @relation(fields: [type_id], references: [id])
+  pokemon Pokemon @relation(fields: [pokemon_id], references: [id])
+  type    Types   @relation(fields: [type_id], references: [id])
 
   @@id([pokemon_id, type_id])
   @@map("pokemon_types")
 }
 
-
 /// @@TypeGraphQL.type(name: "PokemonEggGroup")
 model PokemonEggGroups {
-  species_id  Int
+  species_id   Int
   egg_group_id Int
 
   // Relations
-  species     PokemonSpecies @relation(fields: [species_id], references: [id])
-  eggGroup    EggGroups @relation(fields: [egg_group_id], references: [id])
+  species  PokemonSpecies @relation(fields: [species_id], references: [id])
+  eggGroup EggGroups      @relation(fields: [egg_group_id], references: [id])
 
   @@id([species_id, egg_group_id])
   @@map("pokemon_egg_groups")
@@ -1105,9 +1263,9 @@ model PokemonItems {
   rarity     Int
 
   // Relations
-  pokemon    Pokemon @relation(fields: [pokemon_id], references: [id])
-  version    Versions @relation(fields: [version_id], references: [id])
-  item       Items @relation(fields: [item_id], references: [id])
+  pokemon Pokemon  @relation(fields: [pokemon_id], references: [id])
+  version Versions @relation(fields: [version_id], references: [id])
+  item    Items    @relation(fields: [item_id], references: [id])
 
   @@id([pokemon_id, version_id, item_id])
   @@map("pokemon_items")
@@ -1120,8 +1278,8 @@ model PokemonGameIndices {
   game_index Int
 
   // Relations
-  pokemon    Pokemon @relation(fields: [pokemon_id], references: [id])
-  version    Versions @relation(fields: [version_id], references: [id])
+  pokemon Pokemon  @relation(fields: [pokemon_id], references: [id])
+  version Versions @relation(fields: [version_id], references: [id])
 
   @@id([pokemon_id, version_id])
   @@map("pokemon_game_indices")
@@ -1129,13 +1287,13 @@ model PokemonGameIndices {
 
 /// @@TypeGraphQL.type(name: "PokemonDexNumber")
 model PokemonDexNumbers {
-  species_id    Int
-  pokedex_id    Int
+  species_id     Int
+  pokedex_id     Int
   pokedex_number Int
 
   // Relations
-  species       PokemonSpecies @relation(fields: [species_id], references: [id])
-  pokedex       Pokedexes @relation(fields: [pokedex_id], references: [id])
+  species PokemonSpecies @relation(fields: [species_id], references: [id])
+  pokedex Pokedexes      @relation(fields: [pokedex_id], references: [id])
 
   @@id([species_id, pokedex_id])
   @@map("pokemon_dex_numbers")
@@ -1148,8 +1306,8 @@ model PokemonFormGenerations {
   game_index      Int
 
   // Relations
-  pokemonForm    PokemonForms @relation(fields: [pokemon_form_id], references: [id])
-  generation     Generations @relation(fields: [generation_id], references: [id])
+  pokemonForm PokemonForms @relation(fields: [pokemon_form_id], references: [id])
+  generation  Generations  @relation(fields: [generation_id], references: [id])
 
   @@id([pokemon_form_id, generation_id])
   @@map("pokemon_form_generations")
@@ -1162,8 +1320,8 @@ model PokemonFormTypes {
   slot            Int
 
   // Relations
-  pokemonForm    PokemonForms @relation(fields: [pokemon_form_id], references: [id])
-  type           Types @relation(fields: [type_id], references: [id])
+  pokemonForm PokemonForms @relation(fields: [pokemon_form_id], references: [id])
+  type        Types        @relation(fields: [type_id], references: [id])
 
   @@id([pokemon_form_id, type_id])
   @@map("pokemon_form_types")
@@ -1176,14 +1334,12 @@ model TypeGameIndices {
   game_index    Int
 
   // Relations
-  type          Types @relation(fields: [type_id], references: [id])
-  generation    Generations @relation(fields: [generation_id], references: [id])
+  type       Types       @relation(fields: [type_id], references: [id])
+  generation Generations @relation(fields: [generation_id], references: [id])
 
   @@id([type_id, generation_id])
   @@map("type_game_indices")
 }
-
-
 
 /// @@TypeGraphQL.type(name: "ItemGameIndex")
 model ItemGameIndices {
@@ -1192,14 +1348,12 @@ model ItemGameIndices {
   game_index    Int
 
   // Relations
-  item          Items @relation(fields: [item_id], references: [id])
-  generation    Generations @relation(fields: [generation_id], references: [id])
+  item       Items       @relation(fields: [item_id], references: [id])
+  generation Generations @relation(fields: [generation_id], references: [id])
 
   @@id([item_id, generation_id])
   @@map("item_game_indices")
 }
-
-
 
 /// @@TypeGraphQL.type(name: "LocationGameIndex")
 model LocationGameIndices {
@@ -1208,41 +1362,868 @@ model LocationGameIndices {
   game_index    Int
 
   // Relations
-  location      Locations @relation(fields: [location_id], references: [id])
-  generation    Generations @relation(fields: [generation_id], references: [id])
+  location   Locations   @relation(fields: [location_id], references: [id])
+  generation Generations @relation(fields: [generation_id], references: [id])
 
-  @@id([location_id, generation_id])
+  @@id([location_id, generation_id, game_index])
   @@map("location_game_indices")
 }
 
-
 /// @@TypeGraphQL.type(name: "LocationAreaEncounterRate")
 model LocationAreaEncounterRates {
-  location_area_id     Int
-  encounter_method_id  Int
-  version_id           Int
-  rate                 Int
+  location_area_id    Int
+  encounter_method_id Int
+  version_id          Int
+  rate                Int
 
   // Relations
-  locationArea         LocationAreas @relation(fields: [location_area_id], references: [id])
-  encounterMethod      EncounterMethods @relation(fields: [encounter_method_id], references: [id])
-  version              Versions @relation(fields: [version_id], references: [id])
+  locationArea    LocationAreas    @relation(fields: [location_area_id], references: [id])
+  encounterMethod EncounterMethods @relation(fields: [encounter_method_id], references: [id])
+  version         Versions         @relation(fields: [version_id], references: [id])
 
   @@id([location_area_id, encounter_method_id, version_id])
-  @@map("location_area_encounter_rates")    
+  @@map("location_area_encounter_rates")
 }
-
 
 /// @@TypeGraphQL.type(name: "NatureBattleStylePreference")
 model NatureBattleStylePreferences {
-  nature_id           Int     @id
+  nature_id            Int
   move_battle_style_id Int
-  low_hp_preference   Int
-  high_hp_preference  Int
+  low_hp_preference    Int
+  high_hp_preference   Int
 
   // Relations
-  nature              Natures @relation(fields: [nature_id], references: [id])
-  battleStyle         MoveBattleStyles @relation(fields: [move_battle_style_id], references: [id])
+  nature      Natures          @relation(fields: [nature_id], references: [id])
+  battleStyle MoveBattleStyles @relation(fields: [move_battle_style_id], references: [id])
 
+  @@id([nature_id, move_battle_style_id])
   @@map("nature_battle_style_preferences")
+}
+
+// ===========================================
+// GENERATED MODELS (pokeapi core reimport)
+// ===========================================
+
+model AbilityChangelog {
+  id                          Int @id
+  ability_id                  Int
+  changed_in_version_group_id Int
+
+  ability                Abilities               @relation(fields: [ability_id], references: [id])
+  changedInVersionGroup  VersionGroups           @relation(fields: [changed_in_version_group_id], references: [id])
+  abilityChangelogProses AbilityChangelogProse[]
+
+  @@map("ability_changelog")
+}
+
+model AbilityChangelogProse {
+  ability_changelog_id Int
+  local_language_id    Int
+  effect               String
+
+  abilityChangelog AbilityChangelog @relation(fields: [ability_changelog_id], references: [id])
+  localLanguage    Languages        @relation(fields: [local_language_id], references: [id])
+
+  @@id([ability_changelog_id, local_language_id])
+  @@map("ability_changelog_prose")
+}
+
+model AbilityFlavorText {
+  ability_id       Int
+  version_group_id Int
+  language_id      Int
+  flavor_text      String
+
+  ability      Abilities     @relation(fields: [ability_id], references: [id])
+  versionGroup VersionGroups @relation(fields: [version_group_id], references: [id])
+  language     Languages     @relation(fields: [language_id], references: [id])
+
+  @@id([ability_id, version_group_id, language_id])
+  @@map("ability_flavor_text")
+}
+
+model AbilityNames {
+  ability_id        Int
+  local_language_id Int
+  name              String
+
+  ability       Abilities @relation(fields: [ability_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([ability_id, local_language_id])
+  @@map("ability_names")
+}
+
+model AbilityProse {
+  ability_id        Int
+  local_language_id Int
+  short_effect      String
+  effect            String
+
+  ability       Abilities @relation(fields: [ability_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([ability_id, local_language_id])
+  @@map("ability_prose")
+}
+
+model BerryFirmnessNames {
+  berry_firmness_id Int
+  local_language_id Int
+  name              String
+
+  berryFirmness BerryFirmness @relation(fields: [berry_firmness_id], references: [id])
+  localLanguage Languages     @relation(fields: [local_language_id], references: [id])
+
+  @@id([berry_firmness_id, local_language_id])
+  @@map("berry_firmness_names")
+}
+
+model CharacteristicText {
+  characteristic_id Int
+  local_language_id Int
+  message           String
+
+  characteristic Characteristics @relation(fields: [characteristic_id], references: [id])
+  localLanguage  Languages       @relation(fields: [local_language_id], references: [id])
+
+  @@id([characteristic_id, local_language_id])
+  @@map("characteristic_text")
+}
+
+model ContestEffectProse {
+  contest_effect_id Int
+  local_language_id Int
+  flavor_text       String
+  effect            String
+
+  contestEffect ContestEffects @relation(fields: [contest_effect_id], references: [id])
+  localLanguage Languages      @relation(fields: [local_language_id], references: [id])
+
+  @@id([contest_effect_id, local_language_id])
+  @@map("contest_effect_prose")
+}
+
+model ContestTypeNames {
+  contest_type_id   Int
+  local_language_id Int
+  name              String
+  flavor            String
+  color             String?
+
+  contestType   ContestTypes @relation(fields: [contest_type_id], references: [id])
+  localLanguage Languages    @relation(fields: [local_language_id], references: [id])
+
+  @@id([contest_type_id, local_language_id])
+  @@map("contest_type_names")
+}
+
+model EggGroupProse {
+  egg_group_id      Int
+  local_language_id Int
+  name              String
+
+  eggGroup      EggGroups @relation(fields: [egg_group_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([egg_group_id, local_language_id])
+  @@map("egg_group_prose")
+}
+
+model EncounterConditionProse {
+  encounter_condition_id Int
+  local_language_id      Int
+  name                   String
+
+  encounterCondition EncounterConditions @relation(fields: [encounter_condition_id], references: [id])
+  localLanguage      Languages           @relation(fields: [local_language_id], references: [id])
+
+  @@id([encounter_condition_id, local_language_id])
+  @@map("encounter_condition_prose")
+}
+
+model EncounterConditionValueProse {
+  encounter_condition_value_id Int
+  local_language_id            Int
+  name                         String
+
+  encounterConditionValue EncounterConditionValues @relation(fields: [encounter_condition_value_id], references: [id])
+  localLanguage           Languages                @relation(fields: [local_language_id], references: [id])
+
+  @@id([encounter_condition_value_id, local_language_id])
+  @@map("encounter_condition_value_prose")
+}
+
+model EncounterMethodProse {
+  encounter_method_id Int
+  local_language_id   Int
+  name                String
+
+  encounterMethod EncounterMethods @relation(fields: [encounter_method_id], references: [id])
+  localLanguage   Languages        @relation(fields: [local_language_id], references: [id])
+
+  @@id([encounter_method_id, local_language_id])
+  @@map("encounter_method_prose")
+}
+
+model EvolutionTriggerProse {
+  evolution_trigger_id Int
+  local_language_id    Int
+  name                 String
+
+  evolutionTrigger EvolutionTriggers @relation(fields: [evolution_trigger_id], references: [id])
+  localLanguage    Languages         @relation(fields: [local_language_id], references: [id])
+
+  @@id([evolution_trigger_id, local_language_id])
+  @@map("evolution_trigger_prose")
+}
+
+model GenerationNames {
+  generation_id     Int
+  local_language_id Int
+  name              String
+
+  generation    Generations @relation(fields: [generation_id], references: [id])
+  localLanguage Languages   @relation(fields: [local_language_id], references: [id])
+
+  @@id([generation_id, local_language_id])
+  @@map("generation_names")
+}
+
+model GrowthRateProse {
+  growth_rate_id    Int
+  local_language_id Int
+  name              String
+
+  growthRate    GrowthRates @relation(fields: [growth_rate_id], references: [id])
+  localLanguage Languages   @relation(fields: [local_language_id], references: [id])
+
+  @@id([growth_rate_id, local_language_id])
+  @@map("growth_rate_prose")
+}
+
+model ItemCategoryProse {
+  item_category_id  Int
+  local_language_id Int
+  name              String
+
+  itemCategory  ItemCategories @relation(fields: [item_category_id], references: [id])
+  localLanguage Languages      @relation(fields: [local_language_id], references: [id])
+
+  @@id([item_category_id, local_language_id])
+  @@map("item_category_prose")
+}
+
+model ItemFlagProse {
+  item_flag_id      Int
+  local_language_id Int
+  name              String
+  description       String
+
+  itemFlag      ItemFlags @relation(fields: [item_flag_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([item_flag_id, local_language_id])
+  @@map("item_flag_prose")
+}
+
+model ItemFlavorSummaries {
+  item_id           Int
+  local_language_id Int
+  flavor_summary    String
+
+  item          Items     @relation(fields: [item_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([item_id, local_language_id])
+  @@map("item_flavor_summaries")
+}
+
+model ItemFlavorText {
+  item_id          Int
+  version_group_id Int
+  language_id      Int
+  flavor_text      String?
+
+  item         Items         @relation(fields: [item_id], references: [id])
+  versionGroup VersionGroups @relation(fields: [version_group_id], references: [id])
+  language     Languages     @relation(fields: [language_id], references: [id])
+
+  @@id([item_id, version_group_id, language_id])
+  @@map("item_flavor_text")
+}
+
+model ItemFlingEffectProse {
+  item_fling_effect_id Int
+  local_language_id    Int
+  effect               String
+
+  itemFlingEffect ItemFlingEffects @relation(fields: [item_fling_effect_id], references: [id])
+  localLanguage   Languages        @relation(fields: [local_language_id], references: [id])
+
+  @@id([item_fling_effect_id, local_language_id])
+  @@map("item_fling_effect_prose")
+}
+
+model ItemNames {
+  item_id           Int
+  local_language_id Int
+  name              String
+
+  item          Items     @relation(fields: [item_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([item_id, local_language_id])
+  @@map("item_names")
+}
+
+model ItemPocketNames {
+  item_pocket_id    Int
+  local_language_id Int
+  name              String
+
+  itemPocket    ItemPockets @relation(fields: [item_pocket_id], references: [id])
+  localLanguage Languages   @relation(fields: [local_language_id], references: [id])
+
+  @@id([item_pocket_id, local_language_id])
+  @@map("item_pocket_names")
+}
+
+model ItemProse {
+  item_id           Int
+  local_language_id Int
+  short_effect      String?
+  effect            String?
+
+  item          Items     @relation(fields: [item_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([item_id, local_language_id])
+  @@map("item_prose")
+}
+
+model LanguageNames {
+  language_id       Int
+  local_language_id Int
+  name              String
+
+  language      Languages @relation("LanguageNames_language_id", fields: [language_id], references: [id])
+  localLanguage Languages @relation("LanguageNames_local_language_id", fields: [local_language_id], references: [id])
+
+  @@id([language_id, local_language_id])
+  @@map("language_names")
+}
+
+model LocationAreaProse {
+  location_area_id  Int
+  local_language_id Int
+  name              String
+
+  locationArea  LocationAreas @relation(fields: [location_area_id], references: [id])
+  localLanguage Languages     @relation(fields: [local_language_id], references: [id])
+
+  @@id([location_area_id, local_language_id])
+  @@map("location_area_prose")
+}
+
+model LocationNames {
+  location_id       Int
+  local_language_id Int
+  name              String?
+  subtitle          String?
+
+  location      Locations @relation(fields: [location_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([location_id, local_language_id])
+  @@map("location_names")
+}
+
+model MoveBattleStyleProse {
+  move_battle_style_id Int
+  local_language_id    Int
+  name                 String
+
+  moveBattleStyle MoveBattleStyles @relation(fields: [move_battle_style_id], references: [id])
+  localLanguage   Languages        @relation(fields: [local_language_id], references: [id])
+
+  @@id([move_battle_style_id, local_language_id])
+  @@map("move_battle_style_prose")
+}
+
+model MoveChangelog {
+  move_id                     Int
+  changed_in_version_group_id Int
+  type_id                     Int?
+  power                       Int?
+  pp                          Int?
+  accuracy                    Int?
+  priority                    Int?
+  target_id                   Int?
+  effect_id                   Int?
+  effect_chance               Int?
+
+  move                  Moves         @relation(fields: [move_id], references: [id])
+  changedInVersionGroup VersionGroups @relation(fields: [changed_in_version_group_id], references: [id])
+  type                  Types?        @relation(fields: [type_id], references: [id])
+  target                MoveTargets?  @relation(fields: [target_id], references: [id])
+  effect                MoveEffects?  @relation(fields: [effect_id], references: [id])
+
+  @@id([move_id, changed_in_version_group_id])
+  @@map("move_changelog")
+}
+
+model MoveDamageClassProse {
+  move_damage_class_id Int
+  local_language_id    Int
+  name                 String
+  description          String
+
+  moveDamageClass MoveDamageClasses @relation(fields: [move_damage_class_id], references: [id])
+  localLanguage   Languages         @relation(fields: [local_language_id], references: [id])
+
+  @@id([move_damage_class_id, local_language_id])
+  @@map("move_damage_class_prose")
+}
+
+model MoveEffectChangelog {
+  id                          Int @id
+  effect_id                   Int
+  changed_in_version_group_id Int
+
+  effect                    MoveEffects                @relation(fields: [effect_id], references: [id])
+  changedInVersionGroup     VersionGroups              @relation(fields: [changed_in_version_group_id], references: [id])
+  moveEffectChangelogProses MoveEffectChangelogProse[]
+
+  @@map("move_effect_changelog")
+}
+
+model MoveEffectChangelogProse {
+  move_effect_changelog_id Int
+  local_language_id        Int
+  effect                   String
+
+  moveEffectChangelog MoveEffectChangelog @relation(fields: [move_effect_changelog_id], references: [id])
+  localLanguage       Languages           @relation(fields: [local_language_id], references: [id])
+
+  @@id([move_effect_changelog_id, local_language_id])
+  @@map("move_effect_changelog_prose")
+}
+
+model MoveEffectProse {
+  move_effect_id    Int
+  local_language_id Int
+  short_effect      String
+  effect            String
+
+  moveEffect    MoveEffects @relation(fields: [move_effect_id], references: [id])
+  localLanguage Languages   @relation(fields: [local_language_id], references: [id])
+
+  @@id([move_effect_id, local_language_id])
+  @@map("move_effect_prose")
+}
+
+model MoveEffects {
+  id                   Int                   @id
+  moveChangelogs       MoveChangelog[]
+  moveEffectChangelogs MoveEffectChangelog[]
+  moveEffectProses     MoveEffectProse[]
+
+  @@map("move_effects")
+}
+
+model MoveFlagProse {
+  move_flag_id      Int
+  local_language_id Int
+  name              String
+  description       String
+
+  moveFlag      MoveFlags @relation(fields: [move_flag_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([move_flag_id, local_language_id])
+  @@map("move_flag_prose")
+}
+
+model MoveFlavorSummaries {
+  move_id           Int
+  local_language_id Int
+  flavor_summary    String
+
+  move          Moves     @relation(fields: [move_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([move_id, local_language_id])
+  @@map("move_flavor_summaries")
+}
+
+model MoveFlavorText {
+  move_id          Int
+  version_group_id Int
+  language_id      Int
+  flavor_text      String
+
+  move         Moves         @relation(fields: [move_id], references: [id])
+  versionGroup VersionGroups @relation(fields: [version_group_id], references: [id])
+  language     Languages     @relation(fields: [language_id], references: [id])
+
+  @@id([move_id, version_group_id, language_id])
+  @@map("move_flavor_text")
+}
+
+model MoveMetaAilmentNames {
+  move_meta_ailment_id Int
+  local_language_id    Int
+  name                 String
+
+  moveMetaAilment MoveMetaAilments @relation(fields: [move_meta_ailment_id], references: [id])
+  localLanguage   Languages        @relation(fields: [local_language_id], references: [id])
+
+  @@id([move_meta_ailment_id, local_language_id])
+  @@map("move_meta_ailment_names")
+}
+
+model MoveMetaCategoryProse {
+  move_meta_category_id Int
+  local_language_id     Int
+  description           String
+
+  moveMetaCategory MoveMetaCategories @relation(fields: [move_meta_category_id], references: [id])
+  localLanguage    Languages          @relation(fields: [local_language_id], references: [id])
+
+  @@id([move_meta_category_id, local_language_id])
+  @@map("move_meta_category_prose")
+}
+
+model MoveNames {
+  move_id           Int
+  local_language_id Int
+  name              String
+
+  move          Moves     @relation(fields: [move_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([move_id, local_language_id])
+  @@map("move_names")
+}
+
+model MoveTargetProse {
+  move_target_id    Int
+  local_language_id Int
+  name              String
+  description       String
+
+  moveTarget    MoveTargets @relation(fields: [move_target_id], references: [id])
+  localLanguage Languages   @relation(fields: [local_language_id], references: [id])
+
+  @@id([move_target_id, local_language_id])
+  @@map("move_target_prose")
+}
+
+model NatureNames {
+  nature_id         Int
+  local_language_id Int
+  name              String
+
+  nature        Natures   @relation(fields: [nature_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([nature_id, local_language_id])
+  @@map("nature_names")
+}
+
+model PokeathlonStatNames {
+  pokeathlon_stat_id Int
+  local_language_id  Int
+  name               String
+
+  pokeathlonStat Stats     @relation(fields: [pokeathlon_stat_id], references: [id])
+  localLanguage  Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([pokeathlon_stat_id, local_language_id])
+  @@map("pokeathlon_stat_names")
+}
+
+model PokedexProse {
+  pokedex_id        Int
+  local_language_id Int
+  name              String
+  description       String?
+
+  pokedex       Pokedexes @relation(fields: [pokedex_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([pokedex_id, local_language_id])
+  @@map("pokedex_prose")
+}
+
+model PokemonAbilitiesPast {
+  pokemon_id    Int
+  generation_id Int
+  ability_id    Int?
+  is_hidden     Int
+  slot          Int
+
+  pokemon    Pokemon     @relation(fields: [pokemon_id], references: [id])
+  generation Generations @relation(fields: [generation_id], references: [id])
+  ability    Abilities?  @relation(fields: [ability_id], references: [id])
+
+  @@id([pokemon_id, generation_id, slot])
+  @@map("pokemon_abilities_past")
+}
+
+model PokemonColorNames {
+  pokemon_color_id  Int
+  local_language_id Int
+  name              String
+
+  pokemonColor  PokemonColors @relation(fields: [pokemon_color_id], references: [id])
+  localLanguage Languages     @relation(fields: [local_language_id], references: [id])
+
+  @@id([pokemon_color_id, local_language_id])
+  @@map("pokemon_color_names")
+}
+
+model PokemonFormConditions {
+  row_id             Int  @id @default(autoincrement())
+  pokemon_form_id    Int
+  form_trigger_id    Int
+  trigger_item_id    Int?
+  trigger_ability_id Int?
+  trigger_move_id    Int?
+
+  pokemonForm    PokemonForms        @relation(fields: [pokemon_form_id], references: [id])
+  formTrigger    PokemonFormTriggers @relation(fields: [form_trigger_id], references: [id])
+  triggerItem    Items?              @relation(fields: [trigger_item_id], references: [id])
+  triggerAbility Abilities?          @relation(fields: [trigger_ability_id], references: [id])
+  triggerMove    Moves?              @relation(fields: [trigger_move_id], references: [id])
+
+  @@map("pokemon_form_conditions")
+}
+
+model PokemonFormNames {
+  pokemon_form_id   Int
+  local_language_id Int
+  form_name         String?
+  pokemon_name      String?
+
+  pokemonForm   PokemonForms @relation(fields: [pokemon_form_id], references: [id])
+  localLanguage Languages    @relation(fields: [local_language_id], references: [id])
+
+  @@id([pokemon_form_id, local_language_id])
+  @@map("pokemon_form_names")
+}
+
+model PokemonFormTriggerProse {
+  pokemon_form_trigger_id Int
+  local_language_id       Int
+  name                    String
+
+  pokemonFormTrigger PokemonFormTriggers @relation(fields: [pokemon_form_trigger_id], references: [id])
+  localLanguage      Languages           @relation(fields: [local_language_id], references: [id])
+
+  @@id([pokemon_form_trigger_id, local_language_id])
+  @@map("pokemon_form_trigger_prose")
+}
+
+model PokemonFormTriggers {
+  id                       Int                       @id
+  identifier               String
+  pokemonFormConditions    PokemonFormConditions[]
+  pokemonFormTriggerProses PokemonFormTriggerProse[]
+
+  @@map("pokemon_form_triggers")
+}
+
+model PokemonHabitatNames {
+  pokemon_habitat_id Int
+  local_language_id  Int
+  name               String
+
+  pokemonHabitat PokemonHabitats @relation(fields: [pokemon_habitat_id], references: [id])
+  localLanguage  Languages       @relation(fields: [local_language_id], references: [id])
+
+  @@id([pokemon_habitat_id, local_language_id])
+  @@map("pokemon_habitat_names")
+}
+
+model PokemonMoveMethodProse {
+  pokemon_move_method_id Int
+  local_language_id      Int
+  name                   String
+  description            String
+
+  pokemonMoveMethod PokemonMoveMethods @relation(fields: [pokemon_move_method_id], references: [id])
+  localLanguage     Languages          @relation(fields: [local_language_id], references: [id])
+
+  @@id([pokemon_move_method_id, local_language_id])
+  @@map("pokemon_move_method_prose")
+}
+
+model PokemonShapeProse {
+  pokemon_shape_id  Int
+  local_language_id Int
+  name              String
+  awesome_name      String
+  description       String
+
+  pokemonShape  PokemonShapes @relation(fields: [pokemon_shape_id], references: [id])
+  localLanguage Languages     @relation(fields: [local_language_id], references: [id])
+
+  @@id([pokemon_shape_id, local_language_id])
+  @@map("pokemon_shape_prose")
+}
+
+model PokemonSpeciesFlavorSummaries {
+  pokemon_species_id Int
+  local_language_id  Int
+  flavor_summary     String
+
+  pokemonSpecies PokemonSpecies @relation(fields: [pokemon_species_id], references: [id])
+  localLanguage  Languages      @relation(fields: [local_language_id], references: [id])
+
+  @@id([pokemon_species_id, local_language_id])
+  @@map("pokemon_species_flavor_summaries")
+}
+
+model PokemonSpeciesFlavorText {
+  species_id  Int
+  version_id  Int
+  language_id Int
+  flavor_text String
+
+  species  PokemonSpecies @relation(fields: [species_id], references: [id])
+  version  Versions       @relation(fields: [version_id], references: [id])
+  language Languages      @relation(fields: [language_id], references: [id])
+
+  @@id([species_id, version_id, language_id])
+  @@map("pokemon_species_flavor_text")
+}
+
+model PokemonSpeciesNames {
+  pokemon_species_id Int
+  local_language_id  Int
+  name               String
+  genus              String?
+
+  pokemonSpecies PokemonSpecies @relation(fields: [pokemon_species_id], references: [id])
+  localLanguage  Languages      @relation(fields: [local_language_id], references: [id])
+
+  @@id([pokemon_species_id, local_language_id])
+  @@map("pokemon_species_names")
+}
+
+model PokemonSpeciesProse {
+  pokemon_species_id Int
+  local_language_id  Int
+  form_description   String
+
+  pokemonSpecies PokemonSpecies @relation(fields: [pokemon_species_id], references: [id])
+  localLanguage  Languages      @relation(fields: [local_language_id], references: [id])
+
+  @@id([pokemon_species_id, local_language_id])
+  @@map("pokemon_species_prose")
+}
+
+model PokemonStatsPast {
+  pokemon_id    Int
+  generation_id Int
+  stat_id       Int
+  base_stat     Int
+  effort        Int
+
+  pokemon    Pokemon     @relation(fields: [pokemon_id], references: [id])
+  generation Generations @relation(fields: [generation_id], references: [id])
+  stat       Stats       @relation(fields: [stat_id], references: [id])
+
+  @@id([pokemon_id, generation_id, stat_id])
+  @@map("pokemon_stats_past")
+}
+
+model PokemonTypesPast {
+  pokemon_id    Int
+  generation_id Int
+  type_id       Int
+  slot          Int
+
+  pokemon    Pokemon     @relation(fields: [pokemon_id], references: [id])
+  generation Generations @relation(fields: [generation_id], references: [id])
+  type       Types       @relation(fields: [type_id], references: [id])
+
+  @@id([pokemon_id, generation_id, type_id, slot])
+  @@map("pokemon_types_past")
+}
+
+model RegionNames {
+  region_id         Int
+  local_language_id Int
+  name              String
+
+  region        Regions   @relation(fields: [region_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([region_id, local_language_id])
+  @@map("region_names")
+}
+
+model StatNames {
+  stat_id           Int
+  local_language_id Int
+  name              String
+
+  stat          Stats     @relation(fields: [stat_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([stat_id, local_language_id])
+  @@map("stat_names")
+}
+
+model SuperContestEffectProse {
+  super_contest_effect_id Int
+  local_language_id       Int
+  flavor_text             String
+
+  superContestEffect SuperContestEffects @relation(fields: [super_contest_effect_id], references: [id])
+  localLanguage      Languages           @relation(fields: [local_language_id], references: [id])
+
+  @@id([super_contest_effect_id, local_language_id])
+  @@map("super_contest_effect_prose")
+}
+
+model TypeEfficacyPast {
+  damage_type_id Int
+  target_type_id Int
+  damage_factor  Int
+  generation_id  Int
+
+  damageType Types       @relation("TypeEfficacyPast_damage_type_id", fields: [damage_type_id], references: [id])
+  targetType Types       @relation("TypeEfficacyPast_target_type_id", fields: [target_type_id], references: [id])
+  generation Generations @relation(fields: [generation_id], references: [id])
+
+  @@id([damage_type_id, target_type_id, generation_id])
+  @@map("type_efficacy_past")
+}
+
+model TypeNames {
+  type_id           Int
+  local_language_id Int
+  name              String
+
+  type          Types     @relation(fields: [type_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([type_id, local_language_id])
+  @@map("type_names")
+}
+
+model VersionNames {
+  version_id        Int
+  local_language_id Int
+  name              String
+
+  version       Versions  @relation(fields: [version_id], references: [id])
+  localLanguage Languages @relation(fields: [local_language_id], references: [id])
+
+  @@id([version_id, local_language_id])
+  @@map("version_names")
 }

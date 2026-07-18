@@ -1,7 +1,7 @@
 import { PromiseExecutor, logger } from '@nx/devkit';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from '@pokemon-center/infra-pokedex-data';
-import csv from 'csv-parser';
+import { PrismaClient } from '@pokemon-center/prisma';
+import csv = require('csv-parser');
 import * as fs from 'fs';
 import * as path from 'path';
 import { PokedexSeedExecutorSchema } from './schema';
@@ -10,8 +10,13 @@ const runExecutor: PromiseExecutor<PokedexSeedExecutorSchema> = async (options) 
 	logger.info(`Executor ran for PokedexSeed ${JSON.stringify(options)}`);
 
 	const adapter = new PrismaPg({ connectionString: process.env['DATABASE_URL'] });
-	const csvProcessorService = new CsvProcessorService(new PrismaClient({ adapter }), options.tables);
-	await csvProcessorService.processAllCsvFiles();
+	const prisma = new PrismaClient({ adapter });
+	try {
+		const csvProcessorService = new CsvProcessorService(prisma, options.tables);
+		await csvProcessorService.processAllCsvFiles();
+	} finally {
+		await prisma.$disconnect();
+	}
 	return {
 		success: true,
 	};
@@ -47,435 +52,63 @@ class CsvProcessorService {
 		}
 	}
 
+	/**
+	 * Derives seed order from prisma/schema.prisma: builds the FK dependency
+	 * graph from @relation declarations and topologically sorts it, so the
+	 * order can never drift from the schema again.
+	 */
 	private getOrderedFiles(csvDir: string): string[] {
-		// If specific tables are requested, we need to include their dependencies
-		const requestedTables = this.tables ? new Set(this.tables.map((table) => `${table}.csv`)) : undefined;
-		const onlyTables = requestedTables;
-		// Define the order of processing - core entities only
-		// Order is critical: dependencies must be processed before dependents
-		// Based on foreign key relationships in Prisma schema
-		const filesToProcess = [
-			// Level 1: No dependencies (foundational tables)
-			'languages.csv',
-			'regions.csv',
-			'genders.csv',
-			'egg_groups.csv',
-			'growth_rates.csv',
-			'evolution_triggers.csv',
-			'pokemon_colors.csv',
-			'pokemon_shapes.csv',
-			'pokemon_habitats.csv',
-			'contest_types.csv',
-			'contest_effects.csv',
-			'super_contest_effects.csv',
-			'encounter_methods.csv',
-			'encounter_conditions.csv',
-			'move_meta_categories.csv',
-			'move_meta_ailments.csv',
-			'move_flags.csv',
-			'move_battle_styles.csv',
-			'item_flags.csv',
-			'item_fling_effects.csv',
-			'berry_firmness.csv',
-			'characteristics.csv',
-			'move_effects.csv',
-			'move_targets.csv',
-			'move_damage_classes.csv',
-			'pokemon_move_methods.csv',
+		const schema = fs.readFileSync(path.join(process.cwd(), 'prisma', 'schema.prisma'), 'utf8');
 
-			// Level 2: Depend on Level 1
-			'generations.csv', // depends on regions
-			'stats.csv', // no dependencies
-			'evolution_chains.csv', // depends on items (optional)
-			'item_categories.csv', // depends on item_pockets
-			'item_pockets.csv', // no dependencies
-			'encounter_condition_values.csv', // depends on encounter_conditions
-
-			// Level 3: Depend on Level 2
-			'version_groups.csv', // depends on generations
-			'types.csv', // depends on generations, stats
-			'abilities.csv', // depends on generations
-			'items.csv', // depends on item_categories, item_fling_effects
-			'experience.csv', // depends on growth_rates
-			'natures.csv', // depends on stats
-			'locations.csv', // depends on regions
-			'pokedexes.csv', // depends on regions
-			'berries.csv', // depends on items, berry_firmness, types
-
-			// Level 4: Depend on Level 3
-			'versions.csv', // depends on version_groups
-			'location_areas.csv', // depends on locations
-			'pokemon_species.csv', // depends on generations, evolution_chains, pokemon_colors, pokemon_shapes, pokemon_habitats, growth_rates
-			'moves.csv', // depends on generations, types, move_targets, move_damage_classes, move_effects, contest_types, contest_effects, super_contest_effects
-			'encounter_slots.csv', // depends on version_groups, encounter_methods
-			'machines.csv', // depends on version_groups, items, moves
-
-			// Level 5: Depend on Level 4
-			'pokemon.csv', // depends on pokemon_species
-			'pokemon_forms.csv', // depends on pokemon, version_groups
-			'encounters.csv', // depends on versions, location_areas, encounter_slots, pokemon
-
-			// Level 6: Relation tables and remaining files
-			'pokemon_abilities.csv', // depends on pokemon, abilities
-			'pokemon_moves.csv', // depends on pokemon, version_groups, moves, pokemon_move_methods
-			'pokemon_stats.csv', // depends on pokemon, stats
-			'pokemon_types.csv', // depends on pokemon, types
-			'pokemon_egg_groups.csv', // depends on pokemon_species, egg_groups
-			'pokemon_items.csv', // depends on pokemon, versions, items
-			'pokemon_game_indices.csv', // depends on pokemon, versions
-			'pokemon_dex_numbers.csv', // depends on pokemon_species, pokedexes
-			'pokemon_form_generations.csv', // depends on pokemon_forms, generations
-			'pokemon_form_types.csv', // depends on pokemon_forms, types
-			'pokemon_evolution.csv', // depends on pokemon_species, evolution_triggers, items, genders, locations, moves, types
-			'type_efficacy.csv', // depends on types
-			'type_game_indices.csv', // depends on types, generations
-			'item_game_indices.csv', // depends on items, generations
-			'location_game_indices.csv', // depends on locations, generations
-			'location_area_encounter_rates.csv', // depends on location_areas, encounter_methods, versions
-			'nature_battle_style_preferences.csv', // depends on natures, move_battle_styles
-			'version_group_pokemon_move_methods.csv', // depends on version_groups, pokemon_move_methods
-			'version_group_regions.csv', // depends on version_groups, regions
-			'pokedex_version_groups.csv', // depends on pokedexes, version_groups
-			'encounter_condition_value_map.csv', // depends on encounters, encounter_condition_values
-			'berry_flavors.csv', // depends on berries, contest_types
-			'contest_combos.csv', // depends on moves
-			'super_contest_combos.csv', // depends on moves
-			'move_meta.csv', // depends on moves, move_meta_categories, move_meta_ailments
-			'move_meta_stat_changes.csv', // depends on moves, stats
-			'move_flag_map.csv', // depends on moves, move_flags
-			'item_flag_map.csv', // depends on items, item_flags
-		];
-
-		// Get all CSV files in the directory
-		const allCsvFiles = fs
-			.readdirSync(csvDir)
-			.filter((file) => file.endsWith('.csv'))
-			.sort();
-
-		// If specific tables are requested, include their dependencies
-		if (requestedTables) {
-			const dependencies = this.getDependenciesForTables(requestedTables);
-			const allRequiredFiles = new Set([...requestedTables, ...dependencies]);
-			return filesToProcess.filter((file) => allRequiredFiles.has(file));
+		const modelToTable = new Map<string, string>();
+		const modelBodies = new Map<string, string>();
+		for (const match of schema.matchAll(/model\s+(\w+)\s*\{([^}]*)\}/g)) {
+			const [, name, body] = match;
+			const map = body.match(/@@map\("([^"]+)"\)/);
+			modelToTable.set(name, map ? map[1] : name);
+			modelBodies.set(name, body);
 		}
 
-		// Process files in the defined order first, then any remaining files
-		const remainingFiles = allCsvFiles.filter((file) => !filesToProcess.includes(file));
-		return [...filesToProcess, ...remainingFiles];
-	}
-
-	private getDependenciesForTables(requestedTables: Set<string>): string[] {
-		const dependencies: string[] = [];
-
-		// Define dependency mappings
-		const dependencyMap: { [key: string]: string[] } = {
-			'locations.csv': ['regions.csv'],
-			'pokedexes.csv': ['regions.csv'],
-			'location_areas.csv': ['locations.csv', 'regions.csv'],
-			'pokemon_species.csv': [
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-				'regions.csv',
-			],
-			'pokemon.csv': [
-				'pokemon_species.csv',
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-				'regions.csv',
-			],
-			'pokemon_forms.csv': [
-				'pokemon.csv',
-				'version_groups.csv',
-				'pokemon_species.csv',
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-				'regions.csv',
-			],
-			'encounters.csv': [
-				'versions.csv',
-				'location_areas.csv',
-				'encounter_slots.csv',
-				'pokemon.csv',
-				'location_groups.csv',
-				'regions.csv',
-				'pokemon_species.csv',
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-			],
-			'pokemon_abilities.csv': [
-				'pokemon.csv',
-				'abilities.csv',
-				'pokemon_species.csv',
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-				'regions.csv',
-			],
-			'pokemon_moves.csv': [
-				'pokemon.csv',
-				'version_groups.csv',
-				'moves.csv',
-				'pokemon_move_methods.csv',
-				'pokemon_species.csv',
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-				'regions.csv',
-			],
-			'pokemon_stats.csv': [
-				'pokemon.csv',
-				'stats.csv',
-				'pokemon_species.csv',
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-				'regions.csv',
-			],
-			'pokemon_types.csv': [
-				'pokemon.csv',
-				'types.csv',
-				'pokemon_species.csv',
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-				'regions.csv',
-			],
-			'pokemon_egg_groups.csv': [
-				'pokemon_species.csv',
-				'egg_groups.csv',
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-				'regions.csv',
-			],
-			'pokemon_items.csv': [
-				'pokemon.csv',
-				'versions.csv',
-				'items.csv',
-				'pokemon_species.csv',
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-				'regions.csv',
-			],
-			'pokemon_game_indices.csv': [
-				'pokemon.csv',
-				'versions.csv',
-				'pokemon_species.csv',
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-				'regions.csv',
-			],
-			'pokemon_dex_numbers.csv': [
-				'pokemon_species.csv',
-				'pokedexes.csv',
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-				'regions.csv',
-			],
-			'pokemon_form_generations.csv': [
-				'pokemon_forms.csv',
-				'generations.csv',
-				'pokemon.csv',
-				'version_groups.csv',
-				'pokemon_species.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-				'regions.csv',
-			],
-			'pokemon_form_types.csv': [
-				'pokemon_forms.csv',
-				'types.csv',
-				'pokemon.csv',
-				'version_groups.csv',
-				'pokemon_species.csv',
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-				'regions.csv',
-			],
-			'pokemon_evolution.csv': [
-				'pokemon_species.csv',
-				'evolution_triggers.csv',
-				'items.csv',
-				'genders.csv',
-				'locations.csv',
-				'moves.csv',
-				'types.csv',
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-				'regions.csv',
-			],
-			'type_efficacy.csv': ['types.csv', 'generations.csv', 'stats.csv'],
-			'type_game_indices.csv': ['types.csv', 'generations.csv', 'stats.csv'],
-			'item_game_indices.csv': ['items.csv', 'generations.csv', 'item_categories.csv', 'item_fling_effects.csv', 'item_pockets.csv'],
-			'location_game_indices.csv': ['locations.csv', 'generations.csv', 'regions.csv'],
-			'location_area_encounter_rates.csv': ['location_areas.csv', 'encounter_methods.csv', 'versions.csv', 'locations.csv', 'regions.csv'],
-			'nature_battle_style_preferences.csv': ['natures.csv', 'move_battle_styles.csv', 'stats.csv'],
-			'version_group_pokemon_move_methods.csv': ['version_groups.csv', 'pokemon_move_methods.csv', 'generations.csv', 'regions.csv'],
-			'version_group_regions.csv': ['version_groups.csv', 'regions.csv', 'generations.csv'],
-			'pokedex_version_groups.csv': ['pokedexes.csv', 'version_groups.csv', 'regions.csv', 'generations.csv'],
-			'encounter_condition_value_map.csv': [
-				'encounters.csv',
-				'encounter_condition_values.csv',
-				'versions.csv',
-				'location_areas.csv',
-				'encounter_slots.csv',
-				'pokemon.csv',
-				'locations.csv',
-				'regions.csv',
-				'pokemon_species.csv',
-				'generations.csv',
-				'evolution_chains.csv',
-				'pokemon_colors.csv',
-				'pokemon_shapes.csv',
-				'pokemon_habitats.csv',
-				'growth_rates.csv',
-			],
-			'berry_flavors.csv': [
-				'berries.csv',
-				'contest_types.csv',
-				'items.csv',
-				'berry_firmness.csv',
-				'types.csv',
-				'item_categories.csv',
-				'item_fling_effects.csv',
-				'item_pockets.csv',
-			],
-			'contest_combos.csv': [
-				'moves.csv',
-				'generations.csv',
-				'types.csv',
-				'move_targets.csv',
-				'move_damage_classes.csv',
-				'move_effects.csv',
-				'contest_types.csv',
-				'contest_effects.csv',
-				'super_contest_effects.csv',
-				'stats.csv',
-			],
-			'super_contest_combos.csv': [
-				'moves.csv',
-				'generations.csv',
-				'types.csv',
-				'move_targets.csv',
-				'move_damage_classes.csv',
-				'move_effects.csv',
-				'contest_types.csv',
-				'contest_effects.csv',
-				'super_contest_effects.csv',
-				'stats.csv',
-			],
-			'move_meta.csv': [
-				'moves.csv',
-				'move_meta_categories.csv',
-				'move_meta_ailments.csv',
-				'generations.csv',
-				'types.csv',
-				'move_targets.csv',
-				'move_damage_classes.csv',
-				'move_effects.csv',
-				'contest_types.csv',
-				'contest_effects.csv',
-				'super_contest_effects.csv',
-				'stats.csv',
-			],
-			'move_meta_stat_changes.csv': [
-				'moves.csv',
-				'stats.csv',
-				'generations.csv',
-				'types.csv',
-				'move_targets.csv',
-				'move_damage_classes.csv',
-				'move_effects.csv',
-				'contest_types.csv',
-				'contest_effects.csv',
-				'super_contest_effects.csv',
-			],
-			'move_flag_map.csv': [
-				'moves.csv',
-				'move_flags.csv',
-				'generations.csv',
-				'types.csv',
-				'move_targets.csv',
-				'move_damage_classes.csv',
-				'move_effects.csv',
-				'contest_types.csv',
-				'contest_effects.csv',
-				'super_contest_effects.csv',
-				'stats.csv',
-			],
-			'item_flag_map.csv': ['items.csv', 'item_flags.csv', 'item_categories.csv', 'item_fling_effects.csv', 'item_pockets.csv'],
-		};
-
-		// Recursively find all dependencies
-		const findDependencies = (table: string) => {
-			const deps = dependencyMap[table] || [];
-			for (const dep of deps) {
-				if (!dependencies.includes(dep)) {
-					dependencies.push(dep);
-					findDependencies(dep);
-				}
+		const deps = new Map<string, Set<string>>();
+		for (const [name, body] of modelBodies) {
+			const table = modelToTable.get(name) as string;
+			if (!deps.has(table)) deps.set(table, new Set());
+			for (const rel of body.matchAll(/\s\w+\s+(\w+)\??\s+@relation\([^)]*fields:/g)) {
+				const targetTable = modelToTable.get(rel[1]);
+				if (targetTable && targetTable !== table) deps.get(table)?.add(targetTable);
 			}
-		};
-
-		for (const table of requestedTables) {
-			findDependencies(table);
 		}
 
-		return dependencies;
+		// Kahn's algorithm
+		const ordered: string[] = [];
+		const remaining = new Map([...deps].map(([t, d]) => [t, new Set(d)] as const));
+		while (remaining.size > 0) {
+			const ready = [...remaining.keys()].filter((t) => [...(remaining.get(t) as Set<string>)].every((d) => !remaining.has(d)));
+			if (ready.length === 0) {
+				logger.warn(`Circular dependency among: ${[...remaining.keys()].join(', ')} - appending as-is`);
+				ordered.push(...remaining.keys());
+				break;
+			}
+			ready.sort();
+			for (const t of ready) {
+				ordered.push(t);
+				remaining.delete(t);
+			}
+		}
+
+		let tables = ordered;
+		if (this.tables) {
+			const wanted = new Set<string>();
+			const visit = (t: string): void => {
+				if (wanted.has(t)) return;
+				wanted.add(t);
+				for (const d of deps.get(t) ?? []) visit(d);
+			};
+			for (const t of this.tables) visit(t);
+			tables = ordered.filter((t) => wanted.has(t));
+		}
+
+		return tables.map((t) => `${t}.csv`).filter((f) => fs.existsSync(path.join(csvDir, f)));
 	}
 
 	private async processCsvFile(filePath: string): Promise<void> {
@@ -491,7 +124,7 @@ class CsvProcessorService {
 
 			await this.processCsv(filePath, prismaModelName);
 		} catch (error) {
-			logger.error(`Error processing ${fileName}.csv:`);
+			logger.error(`Error processing ${fileName}.csv: ${error instanceof Error ? error.message : JSON.stringify(error)}`);
 		}
 	}
 
@@ -572,10 +205,19 @@ class CsvProcessorService {
 						}
 
 						const prismaModel = this.prisma[prismaModelName] as any;
-						await prismaModel.createMany({
-							data: results,
-							skipDuplicates: true,
-						});
+						// Insert in batches: a single createMany with hundreds of
+						// thousands of rows exceeds the postgres bind-parameter limit
+						// and stalls query construction.
+						const BATCH_SIZE = 5000;
+						for (let i = 0; i < results.length; i += BATCH_SIZE) {
+							await prismaModel.createMany({
+								data: results.slice(i, i + BATCH_SIZE),
+								skipDuplicates: true,
+							});
+							if (results.length > BATCH_SIZE) {
+								logger.log(`  ${String(prismaModelName)}: ${Math.min(i + BATCH_SIZE, results.length)}/${results.length}`);
+							}
+						}
 
 						// Generate log message from Prisma model name
 						const modelName = this.formatModelNameForLog(prismaModelName);

@@ -2,7 +2,7 @@ import { Client } from '@elastic/elasticsearch';
 import { PromiseExecutor, logger } from '@nx/devkit';
 import { PokedexIndex, PokemonDocument } from '@pokemon-center/infra-pokedex-index';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { Prisma, PrismaClient } from '@pokemon-center/infra-pokedex-data';
+import { Prisma, PrismaClient } from '@pokemon-center/prisma';
 import { PokedexSyncExecutorSchema } from './schema';
 
 type PokemonWithRelations = Prisma.PokemonGetPayload<{
