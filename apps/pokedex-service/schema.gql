@@ -6072,14 +6072,26 @@ type Query {
   """Lookup by canonical id (pokemon:25), numeric id, or slug (pikachu)"""
   pokemon(idOrSlug: String!): Pokemon
 
-  """Paginated pokemon list, optionally fuzzy-filtered by name"""
-  pokemonList(search: String, skip: Int! = 0, take: Int! = 50): [Pokemon!]!
+  """
+  Paginated pokemon list; optionally fuzzy-filtered by name and scoped to a version group regional dex
+  """
+  pokemonList(
+    search: String
+    skip: Int! = 0
+    take: Int! = 50
+
+    """Version group slug, e.g. firered-leafgreen"""
+    versionGroup: String
+  ): [Pokemon!]!
 
   """Moves learnable by a pokemon, optionally per version group"""
   pokemonMoves(idOrSlug: String!, skip: Int! = 0, take: Int! = 100, versionGroup: String): [PokemonMoves!]!
   species(idOrSlug: String!): PokemonSpecies
   type(idOrSlug: String!): Types
   typeList: [Types!]!
+
+  """All version groups (games), in release order, with their versions"""
+  versionGroups: [VersionGroups!]!
 }
 
 type RegionNames {

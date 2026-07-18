@@ -1,0 +1,17 @@
+<div class="filters">
+	<input type="search" placeholder="Search pokemon (typo-friendly)…" [value]="search()" (input)="onSearch($event)" />
+	<button type="button" (click)="saveCurrent()" title="Save current search + game as a filter set">💾 Save filter</button>
+	@for (filter of store.savedFilters(); track filter.name) {
+		<span class="filter-chip">
+			<button
+				type="button"
+				class="apply"
+				(click)="apply(filter)"
+				[title]="'search: ' + (filter.search || '—') + ' · game: ' + (filter.versionGroup || 'all')"
+			>
+				{{ filter.name }}
+			</button>
+			<button type="button" class="delete" (click)="remove(filter)" [attr.aria-label]="'Delete filter ' + filter.name">✕</button>
+		</span>
+	}
+</div>

@@ -14,26 +14,44 @@ const POKEMON_INCLUDE = {
 export class PokemonResolver {
 	constructor(private readonly prisma: PrismaService) {}
 
-	@Query(() => [Pokemon], { description: 'Paginated pokemon list, optionally fuzzy-filtered by name' })
+	@Query(() => [Pokemon], {
+		description: 'Paginated pokemon list; optionally fuzzy-filtered by name and scoped to a version group regional dex',
+	})
 	async pokemonList(
 		@Args('take', { type: () => Int, defaultValue: 50 }) take: number,
 		@Args('skip', { type: () => Int, defaultValue: 0 }) skip: number,
 		@Args('search', { type: () => String, nullable: true }) search?: string,
+		@Args('versionGroup', { type: () => String, nullable: true, description: 'Version group slug, e.g. firered-leafgreen' })
+		versionGroup?: string,
 	): Promise<Pokemon[]> {
+		// Regional dex scoping: only pokemon whose species appears in a pokedex of the version group
+		const contextWhere = versionGroup
+			? {
+					species: {
+						dexNumbers: {
+							some: { pokedex: { versionGroups: { some: { versionGroup: { identifier: versionGroup } } } } },
+						},
+					},
+				}
+			: {};
+
 		if (search) {
 			const ids = await this.prisma.$queryRaw<{ id: number }[]>`
 				SELECT id FROM pokemon
 				WHERE identifier % ${search}
 				ORDER BY similarity(identifier, ${search}) DESC
-				LIMIT ${take} OFFSET ${skip}`;
+				LIMIT 100`;
 			const rows = await this.prisma.pokemon.findMany({
-				where: { id: { in: ids.map((r) => r.id) } },
+				where: { id: { in: ids.map((r) => r.id) }, ...contextWhere },
 				include: POKEMON_INCLUDE,
 			});
 			const order = new Map(ids.map((r, i) => [r.id, i]));
-			return rows.sort((a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0)) as unknown as Pokemon[];
+			return rows
+				.sort((a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0))
+				.slice(skip, skip + take) as unknown as Pokemon[];
 		}
 		return (await this.prisma.pokemon.findMany({
+			where: contextWhere,
 			take,
 			skip,
 			orderBy: { id: 'asc' },

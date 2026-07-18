@@ -1,5 +1,21 @@
-query PokemonList($take: Int!, $skip: Int!, $search: String) {
-	pokemonList(take: $take, skip: $skip, search: $search) {
+query VersionGroups {
+	versionGroups {
+		id
+		identifier
+		order
+		generation {
+			id
+			identifier
+		}
+		versions {
+			id
+			identifier
+		}
+	}
+}
+
+query PokemonList($take: Int!, $skip: Int!, $search: String, $versionGroup: String) {
+	pokemonList(take: $take, skip: $skip, search: $search, versionGroup: $versionGroup) {
 		id
 		canonicalId
 		slug

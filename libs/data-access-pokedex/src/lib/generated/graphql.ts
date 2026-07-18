@@ -4,10 +4,16 @@ type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** Internal type. DO NOT USE DIRECTLY. */
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 import { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
+export type VersionGroupsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type VersionGroupsQuery = { versionGroups: Array<{ id: string, identifier: string, order: number, generation: { id: string, identifier: string }, versions: Array<{ id: string, identifier: string }> }> };
+
 export type PokemonListQueryVariables = Exact<{
   take: number;
   skip: number;
   search?: string | null | undefined;
+  versionGroup?: string | null | undefined;
 }>;
 
 
@@ -72,9 +78,31 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
+export const VersionGroupsDocument = new TypedDocumentString(`
+    query VersionGroups {
+  versionGroups {
+    id
+    identifier
+    order
+    generation {
+      id
+      identifier
+    }
+    versions {
+      id
+      identifier
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<VersionGroupsQuery, VersionGroupsQueryVariables>;
 export const PokemonListDocument = new TypedDocumentString(`
-    query PokemonList($take: Int!, $skip: Int!, $search: String) {
-  pokemonList(take: $take, skip: $skip, search: $search) {
+    query PokemonList($take: Int!, $skip: Int!, $search: String, $versionGroup: String) {
+  pokemonList(
+    take: $take
+    skip: $skip
+    search: $search
+    versionGroup: $versionGroup
+  ) {
     id
     canonicalId
     slug

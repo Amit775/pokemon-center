@@ -1,4 +1,4 @@
-<div class="filters">Pokemon Filters</div>
+<pokedex-pokemon-filters [(search)]="search" />
 <ui-list [list]="pokemons()">
 	<ng-template let-pokemon [listItem]="pokemonType">
 		<pokedex-pokemon-record [pokemon]="pokemon" [routerLink]="[pokemon.id]" />

@@ -1,0 +1,29 @@
+.filters {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+
+	input {
+		flex: 1 1 16rem;
+		max-width: 24rem;
+		padding: 0.4rem 0.6rem;
+		border-radius: 6px;
+	}
+
+	.filter-chip {
+		border-radius: 999px;
+		padding: 0.25rem 0.75rem;
+		cursor: pointer;
+
+		.delete {
+			margin-left: 0.4rem;
+			opacity: 0.6;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+	}
+}
