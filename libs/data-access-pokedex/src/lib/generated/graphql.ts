@@ -9,11 +9,28 @@ export type VersionGroupsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type VersionGroupsQuery = { versionGroups: Array<{ id: string, identifier: string, order: number, generation: { id: string, identifier: string }, versions: Array<{ id: string, identifier: string }> }> };
 
+export type SearchQueryVariables = Exact<{
+  term: string;
+  takePerKind?: number | null | undefined;
+}>;
+
+
+export type SearchQuery = { search: Array<{ kind: string, id: number, canonicalId: string, slug: string, matchedName: string, similarity: number }> };
+
+export type TypesListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TypesListQuery = { typeList: Array<{ id: string, identifier: string }> };
+
 export type PokemonListQueryVariables = Exact<{
   take: number;
   skip: number;
   search?: string | null | undefined;
   versionGroup?: string | null | undefined;
+  types?: Array<string> | string | null | undefined;
+  generation?: number | null | undefined;
+  sortBy?: string | null | undefined;
+  sortDesc?: boolean | null | undefined;
 }>;
 
 
@@ -95,13 +112,37 @@ export const VersionGroupsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<VersionGroupsQuery, VersionGroupsQueryVariables>;
+export const SearchDocument = new TypedDocumentString(`
+    query Search($term: String!, $takePerKind: Int) {
+  search(term: $term, takePerKind: $takePerKind) {
+    kind
+    id
+    canonicalId
+    slug
+    matchedName
+    similarity
+  }
+}
+    `) as unknown as TypedDocumentString<SearchQuery, SearchQueryVariables>;
+export const TypesListDocument = new TypedDocumentString(`
+    query TypesList {
+  typeList {
+    id
+    identifier
+  }
+}
+    `) as unknown as TypedDocumentString<TypesListQuery, TypesListQueryVariables>;
 export const PokemonListDocument = new TypedDocumentString(`
-    query PokemonList($take: Int!, $skip: Int!, $search: String, $versionGroup: String) {
+    query PokemonList($take: Int!, $skip: Int!, $search: String, $versionGroup: String, $types: [String!], $generation: Int, $sortBy: String, $sortDesc: Boolean) {
   pokemonList(
     take: $take
     skip: $skip
     search: $search
     versionGroup: $versionGroup
+    types: $types
+    generation: $generation
+    sortBy: $sortBy
+    sortDesc: $sortDesc
   ) {
     id
     canonicalId

@@ -14,8 +14,44 @@ query VersionGroups {
 	}
 }
 
-query PokemonList($take: Int!, $skip: Int!, $search: String, $versionGroup: String) {
-	pokemonList(take: $take, skip: $skip, search: $search, versionGroup: $versionGroup) {
+query Search($term: String!, $takePerKind: Int) {
+	search(term: $term, takePerKind: $takePerKind) {
+		kind
+		id
+		canonicalId
+		slug
+		matchedName
+		similarity
+	}
+}
+
+query TypesList {
+	typeList {
+		id
+		identifier
+	}
+}
+
+query PokemonList(
+	$take: Int!
+	$skip: Int!
+	$search: String
+	$versionGroup: String
+	$types: [String!]
+	$generation: Int
+	$sortBy: String
+	$sortDesc: Boolean
+) {
+	pokemonList(
+		take: $take
+		skip: $skip
+		search: $search
+		versionGroup: $versionGroup
+		types: $types
+		generation: $generation
+		sortBy: $sortBy
+		sortDesc: $sortDesc
+	) {
 		id
 		canonicalId
 		slug

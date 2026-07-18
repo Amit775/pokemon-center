@@ -13,17 +13,44 @@
 	}
 
 	.filter-chip {
+		display: inline-flex;
 		border-radius: 999px;
-		padding: 0.25rem 0.75rem;
-		cursor: pointer;
+		overflow: hidden;
+
+		.apply {
+			padding: 0.25rem 0.5rem 0.25rem 0.75rem;
+			cursor: pointer;
+			border: none;
+		}
 
 		.delete {
-			margin-left: 0.4rem;
+			padding: 0.25rem 0.6rem 0.25rem 0.3rem;
+			cursor: pointer;
+			border: none;
 			opacity: 0.6;
 
 			&:hover {
 				opacity: 1;
 			}
+		}
+	}
+}
+
+.type-facets {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem;
+	padding: 0 1rem 0.5rem;
+
+	.type-chip {
+		border-radius: 999px;
+		padding: 0.15rem 0.65rem;
+		cursor: pointer;
+		text-transform: capitalize;
+
+		&.active {
+			outline: 2px solid currentColor;
+			font-weight: 600;
 		}
 	}
 }

@@ -6076,9 +6076,18 @@ type Query {
   Paginated pokemon list; optionally fuzzy-filtered by name and scoped to a version group regional dex
   """
   pokemonList(
+    """Introduced-in generation id"""
+    generation: Int
     search: String
     skip: Int! = 0
+
+    """id | name | height | weight"""
+    sortBy: String
+    sortDesc: Boolean! = false
     take: Int! = 50
+
+    """Type slugs; pokemon matching ANY of them"""
+    types: [String!]
 
     """Version group slug, e.g. firered-leafgreen"""
     versionGroup: String
@@ -6086,6 +6095,11 @@ type Query {
 
   """Moves learnable by a pokemon, optionally per version group"""
   pokemonMoves(idOrSlug: String!, skip: Int! = 0, take: Int! = 100, versionGroup: String): [PokemonMoves!]!
+
+  """
+  Fuzzy, multilingual search across pokemon, moves, abilities, items and types
+  """
+  search(takePerKind: Int! = 5, term: String!): [SearchHit!]!
   species(idOrSlug: String!): PokemonSpecies
   type(idOrSlug: String!): Types
   typeList: [Types!]!
@@ -6175,6 +6189,15 @@ type RegionsMinAggregate {
 
 type RegionsSumAggregate {
   id: Int
+}
+
+type SearchHit {
+  canonicalId: String!
+  id: Int!
+  kind: String!
+  matchedName: String!
+  similarity: Float!
+  slug: String!
 }
 
 type StatNames {

@@ -5,6 +5,10 @@ export interface FilterSet {
 	name: string;
 	search: string;
 	versionGroup: string | null;
+	types?: string[];
+	generation?: number | null;
+	sortBy?: string;
+	sortDesc?: boolean;
 }
 
 export interface PokedexContextState {

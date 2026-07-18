@@ -23,17 +23,34 @@ export class PokemonResolver {
 		@Args('search', { type: () => String, nullable: true }) search?: string,
 		@Args('versionGroup', { type: () => String, nullable: true, description: 'Version group slug, e.g. firered-leafgreen' })
 		versionGroup?: string,
+		@Args('types', { type: () => [String], nullable: true, description: 'Type slugs; pokemon matching ANY of them' })
+		types?: string[],
+		@Args('generation', { type: () => Int, nullable: true, description: 'Introduced-in generation id' })
+		generation?: number,
+		@Args('sortBy', { type: () => String, nullable: true, description: 'id | name | height | weight' })
+		sortBy?: string,
+		@Args('sortDesc', { type: () => Boolean, defaultValue: false }) sortDesc = false,
 	): Promise<Pokemon[]> {
-		// Regional dex scoping: only pokemon whose species appears in a pokedex of the version group
-		const contextWhere = versionGroup
-			? {
-					species: {
-						dexNumbers: {
-							some: { pokedex: { versionGroups: { some: { versionGroup: { identifier: versionGroup } } } } },
-						},
-					},
-				}
-			: {};
+		// Regional dex scoping + facets. generation and versionGroup both constrain species.
+		const speciesWhere = {
+			...(versionGroup
+				? { dexNumbers: { some: { pokedex: { versionGroups: { some: { versionGroup: { identifier: versionGroup } } } } } } }
+				: {}),
+			...(generation ? { generation_id: generation } : {}),
+		};
+		const contextWhere = {
+			...(Object.keys(speciesWhere).length ? { species: speciesWhere } : {}),
+			...(types?.length ? { types: { some: { type: { identifier: { in: types } } } } } : {}),
+		};
+		const direction = sortDesc ? ('desc' as const) : ('asc' as const);
+		const orderBy =
+			sortBy === 'name'
+				? { identifier: direction }
+				: sortBy === 'height'
+					? { height: direction }
+					: sortBy === 'weight'
+						? { weight: direction }
+						: { id: direction };
 
 		if (search) {
 			const ids = await this.prisma.$queryRaw<{ id: number }[]>`
@@ -54,7 +71,7 @@ export class PokemonResolver {
 			where: contextWhere,
 			take,
 			skip,
-			orderBy: { id: 'asc' },
+			orderBy,
 			include: POKEMON_INCLUDE,
 		})) as unknown as Pokemon[];
 	}

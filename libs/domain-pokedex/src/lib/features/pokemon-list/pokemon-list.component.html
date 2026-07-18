@@ -1,4 +1,10 @@
-<pokedex-pokemon-filters [(search)]="search" />
+<pokedex-pokemon-filters
+	[(search)]="search"
+	[(types)]="types"
+	[(generation)]="generation"
+	[(sortBy)]="sortBy"
+	[(sortDesc)]="sortDesc"
+/>
 <ui-list [list]="pokemons()">
 	<ng-template let-pokemon [listItem]="pokemonType">
 		<pokedex-pokemon-record [pokemon]="pokemon" [routerLink]="[pokemon.id]" />

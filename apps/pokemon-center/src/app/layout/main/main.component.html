@@ -5,6 +5,9 @@
 		<a mat-button [routerLink]="nav.path">{{ nav.display }}</a>
 	}
 	<span class="spacer"></span>
-	<span class="edge"><pokedex-game-select /></span>
+	<span class="edge">
+		<pokedex-omnisearch />
+		<pokedex-game-select />
+	</span>
 </mat-toolbar>
 <router-outlet />

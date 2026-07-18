@@ -6,6 +6,7 @@ import { AbilityResolver, ItemResolver, SpeciesResolver, TypeResolver } from './
 import { ContextResolver } from './resolvers/context.resolver';
 import { MoveResolver } from './resolvers/move.resolver';
 import { PokemonResolver } from './resolvers/pokemon.resolver';
+import { SearchResolver } from './resolvers/search.resolver';
 
 @Module({
 	imports: [
@@ -16,6 +17,16 @@ import { PokemonResolver } from './resolvers/pokemon.resolver';
 			path: '/graphql',
 		}),
 	],
-	providers: [PrismaService, PokemonResolver, MoveResolver, AbilityResolver, TypeResolver, ItemResolver, SpeciesResolver, ContextResolver],
+	providers: [
+		PrismaService,
+		PokemonResolver,
+		MoveResolver,
+		AbilityResolver,
+		TypeResolver,
+		ItemResolver,
+		SpeciesResolver,
+		ContextResolver,
+		SearchResolver,
+	],
 })
 export class AppModule {}
