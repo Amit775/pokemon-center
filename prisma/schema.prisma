@@ -2,9 +2,10 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider     = "prisma-client"
-  output       = "../libs/prisma-client/src/generated"
-  moduleFormat = "cjs"
+  provider        = "prisma-client"
+  output          = "../libs/prisma-client/src/generated"
+  moduleFormat    = "cjs"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 generator nestgraphql {
@@ -15,7 +16,8 @@ generator nestgraphql {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider   = "postgresql"
+  extensions = [pg_trgm]
 }
 
 // ===========================================
@@ -47,6 +49,7 @@ model Pokemon {
   pokemonStatsPasts     PokemonStatsPast[]
   pokemonTypesPasts     PokemonTypesPast[]
 
+    @@index([identifier(ops: raw("gin_trgm_ops"))], type: Gin)
   @@map("pokemon")
 }
 
@@ -167,6 +170,7 @@ model Moves {
   pokemonFormConditions PokemonFormConditions[]
   metaStatChanges       MoveMetaStatChanges[]
 
+    @@index([identifier(ops: raw("gin_trgm_ops"))], type: Gin)
   @@map("moves")
 }
 
@@ -245,6 +249,7 @@ model Abilities {
   pokemonAbilitiesPasts PokemonAbilitiesPast[]
   pokemonFormConditions PokemonFormConditions[]
 
+    @@index([identifier(ops: raw("gin_trgm_ops"))], type: Gin)
   @@map("abilities")
 }
 
@@ -275,6 +280,7 @@ model Items {
   itemProses            ItemProse[]
   pokemonFormConditions PokemonFormConditions[]
 
+    @@index([identifier(ops: raw("gin_trgm_ops"))], type: Gin)
   @@map("items")
 }
 
@@ -1210,6 +1216,7 @@ model PokemonMoves {
   moveMethod   PokemonMoveMethods @relation(fields: [pokemon_move_method_id], references: [id])
 
   @@id([pokemon_id, version_group_id, move_id, pokemon_move_method_id, level])
+  @@index([version_group_id])
   @@map("pokemon_moves")
 }
 
