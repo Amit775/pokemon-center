@@ -1,4 +1,4 @@
-import { Directive, ElementRef, effect, inject, input, output, untracked } from '@angular/core';
+import { Directive, ElementRef, effect, inject, input, numberAttribute, output, untracked } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { PokemonAvatarService } from './pokemon-avatar.service';
 
@@ -11,7 +11,7 @@ export class PokemonAvatarDirective {
   private host = inject(ElementRef).nativeElement as HTMLImageElement;
   private service = inject(PokemonAvatarService);
 
-  public index = input.required<number>();
+  public index = input.required<number, number | string>({ transform: numberAttribute });
   public loaded = output<string>();
 
   private readonly loadImage = effect((cleanup) => {

@@ -10,7 +10,7 @@ import { PokemonResolver } from './resolvers/pokemon.resolver';
 	imports: [
 		GraphQLModule.forRoot<ApolloDriverConfig>({
 			driver: ApolloDriver,
-			autoSchemaFile: true,
+			autoSchemaFile: 'apps/pokedex-service/schema.gql',
 			sortSchema: true,
 			path: '/graphql',
 		}),

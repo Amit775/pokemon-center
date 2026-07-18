@@ -1,20 +1,22 @@
-<div>
-	<span>id</span>
-	<span>{{ pokemon().id }}</span>
-</div>
-<div>
-	<span>name</span>
-	<span>{{ pokemon().identifier }}</span>
-</div>
-<div>
-	<span>types</span>
-	@for (type of pokemon().types; track type) {
-		<span>{{ type.type?.identifier }}</span>
-	}
-</div>
-<div>
-	<span>abilities</span>
-	@for (ability of pokemon().abilities; track ability) {
-		<span>{{ ability.ability?.identifier }}</span>
-	}
-</div>
+@if (pokemon(); as pokemon) {
+	<div>
+		<span>id</span>
+		<span>{{ pokemon.id }}</span>
+	</div>
+	<div>
+		<span>name</span>
+		<span>{{ pokemon.identifier }}</span>
+	</div>
+	<div>
+		<span>types</span>
+		@for (type of pokemon.types; track type.slot) {
+			<span>{{ type.type.identifier }}</span>
+		}
+	</div>
+	<div>
+		<span>abilities</span>
+		@for (ability of pokemon.abilities; track ability.slot) {
+			<span>{{ ability.ability.identifier }}</span>
+		}
+	</div>
+}

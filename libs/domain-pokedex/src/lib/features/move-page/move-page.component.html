@@ -1,4 +1,9 @@
-<div>{{ move().identifier }}</div>
-<div>{{ move().id }}</div>
-<div>{{ move().power }}</div>
-<div>{{ move().type?.identifier }}</div>
+@if (move(); as move) {
+	<div>{{ move.identifier }}</div>
+	<div>{{ move.canonicalId }}</div>
+	<div>power: {{ move.power ?? '—' }}</div>
+	<div>accuracy: {{ move.accuracy ?? '—' }}</div>
+	<div>pp: {{ move.pp ?? '—' }}</div>
+	<div>type: {{ move.type.identifier }}</div>
+	<div>class: {{ move.damageClass.identifier }}</div>
+}

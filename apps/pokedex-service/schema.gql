@@ -1,0 +1,6859 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""@@TypeGraphQL.type(name: "Ability")"""
+type Abilities {
+  _count: AbilitiesCount!
+  abilityChangelogs: [AbilityChangelog!]!
+  abilityFlavorTexts: [AbilityFlavorText!]!
+  abilityNames: [AbilityNames!]!
+  abilityProses: [AbilityProse!]!
+  canonicalId: String!
+  generation: Generations!
+  generation_id: Int!
+  id: ID!
+  identifier: String!
+  is_main_series: Int!
+  pokemonAbilities: [PokemonAbilities!]!
+  pokemonAbilitiesPasts: [PokemonAbilitiesPast!]!
+  pokemonFormConditions: [PokemonFormConditions!]!
+}
+
+type AbilitiesAvgAggregate {
+  generation_id: Float
+  id: Float
+  is_main_series: Float
+}
+
+type AbilitiesCount {
+  abilityChangelogs: Int!
+  abilityFlavorTexts: Int!
+  abilityNames: Int!
+  abilityProses: Int!
+  pokemonAbilities: Int!
+  pokemonAbilitiesPasts: Int!
+  pokemonFormConditions: Int!
+}
+
+type AbilitiesCountAggregate {
+  _all: Int!
+  generation_id: Int!
+  id: Int!
+  identifier: Int!
+  is_main_series: Int!
+}
+
+type AbilitiesMaxAggregate {
+  generation_id: Int
+  id: Int
+  identifier: String
+  is_main_series: Int
+}
+
+type AbilitiesMinAggregate {
+  generation_id: Int
+  id: Int
+  identifier: String
+  is_main_series: Int
+}
+
+type AbilitiesSumAggregate {
+  generation_id: Int
+  id: Int
+  is_main_series: Int
+}
+
+type AbilityChangelog {
+  _count: AbilityChangelogCount!
+  ability: Abilities!
+  abilityChangelogProses: [AbilityChangelogProse!]!
+  ability_id: Int!
+  changedInVersionGroup: VersionGroups!
+  changed_in_version_group_id: Int!
+  id: ID!
+}
+
+type AbilityChangelogAvgAggregate {
+  ability_id: Float
+  changed_in_version_group_id: Float
+  id: Float
+}
+
+type AbilityChangelogCount {
+  abilityChangelogProses: Int!
+}
+
+type AbilityChangelogCountAggregate {
+  _all: Int!
+  ability_id: Int!
+  changed_in_version_group_id: Int!
+  id: Int!
+}
+
+type AbilityChangelogMaxAggregate {
+  ability_id: Int
+  changed_in_version_group_id: Int
+  id: Int
+}
+
+type AbilityChangelogMinAggregate {
+  ability_id: Int
+  changed_in_version_group_id: Int
+  id: Int
+}
+
+type AbilityChangelogProse {
+  abilityChangelog: AbilityChangelog!
+  ability_changelog_id: Int!
+  effect: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+}
+
+type AbilityChangelogProseAvgAggregate {
+  ability_changelog_id: Float
+  local_language_id: Float
+}
+
+type AbilityChangelogProseCountAggregate {
+  _all: Int!
+  ability_changelog_id: Int!
+  effect: Int!
+  local_language_id: Int!
+}
+
+type AbilityChangelogProseMaxAggregate {
+  ability_changelog_id: Int
+  effect: String
+  local_language_id: Int
+}
+
+type AbilityChangelogProseMinAggregate {
+  ability_changelog_id: Int
+  effect: String
+  local_language_id: Int
+}
+
+type AbilityChangelogProseSumAggregate {
+  ability_changelog_id: Int
+  local_language_id: Int
+}
+
+type AbilityChangelogSumAggregate {
+  ability_id: Int
+  changed_in_version_group_id: Int
+  id: Int
+}
+
+type AbilityFlavorText {
+  ability: Abilities!
+  ability_id: Int!
+  flavor_text: String!
+  language: Languages!
+  language_id: Int!
+  versionGroup: VersionGroups!
+  version_group_id: Int!
+}
+
+type AbilityFlavorTextAvgAggregate {
+  ability_id: Float
+  language_id: Float
+  version_group_id: Float
+}
+
+type AbilityFlavorTextCountAggregate {
+  _all: Int!
+  ability_id: Int!
+  flavor_text: Int!
+  language_id: Int!
+  version_group_id: Int!
+}
+
+type AbilityFlavorTextMaxAggregate {
+  ability_id: Int
+  flavor_text: String
+  language_id: Int
+  version_group_id: Int
+}
+
+type AbilityFlavorTextMinAggregate {
+  ability_id: Int
+  flavor_text: String
+  language_id: Int
+  version_group_id: Int
+}
+
+type AbilityFlavorTextSumAggregate {
+  ability_id: Int
+  language_id: Int
+  version_group_id: Int
+}
+
+type AbilityNames {
+  ability: Abilities!
+  ability_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type AbilityNamesAvgAggregate {
+  ability_id: Float
+  local_language_id: Float
+}
+
+type AbilityNamesCountAggregate {
+  _all: Int!
+  ability_id: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type AbilityNamesMaxAggregate {
+  ability_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type AbilityNamesMinAggregate {
+  ability_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type AbilityNamesSumAggregate {
+  ability_id: Int
+  local_language_id: Int
+}
+
+type AbilityProse {
+  ability: Abilities!
+  ability_id: Int!
+  effect: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+  short_effect: String!
+}
+
+type AbilityProseAvgAggregate {
+  ability_id: Float
+  local_language_id: Float
+}
+
+type AbilityProseCountAggregate {
+  _all: Int!
+  ability_id: Int!
+  effect: Int!
+  local_language_id: Int!
+  short_effect: Int!
+}
+
+type AbilityProseMaxAggregate {
+  ability_id: Int
+  effect: String
+  local_language_id: Int
+  short_effect: String
+}
+
+type AbilityProseMinAggregate {
+  ability_id: Int
+  effect: String
+  local_language_id: Int
+  short_effect: String
+}
+
+type AbilityProseSumAggregate {
+  ability_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Berry")"""
+type Berries {
+  _count: BerriesCount!
+  firmness: BerryFirmness!
+  firmness_id: Int!
+  flavors: [BerryFlavors!]!
+  growth_time: Int!
+  id: ID!
+  item: Items!
+  item_id: Int!
+  max_harvest: Int!
+  naturalGiftType: Types
+  natural_gift_power: Int
+  natural_gift_type_id: Int
+  size: Int!
+  smoothness: Int!
+  soil_dryness: Int!
+}
+
+type BerriesAvgAggregate {
+  firmness_id: Float
+  growth_time: Float
+  id: Float
+  item_id: Float
+  max_harvest: Float
+  natural_gift_power: Float
+  natural_gift_type_id: Float
+  size: Float
+  smoothness: Float
+  soil_dryness: Float
+}
+
+type BerriesCount {
+  flavors: Int!
+}
+
+type BerriesCountAggregate {
+  _all: Int!
+  firmness_id: Int!
+  growth_time: Int!
+  id: Int!
+  item_id: Int!
+  max_harvest: Int!
+  natural_gift_power: Int!
+  natural_gift_type_id: Int!
+  size: Int!
+  smoothness: Int!
+  soil_dryness: Int!
+}
+
+type BerriesMaxAggregate {
+  firmness_id: Int
+  growth_time: Int
+  id: Int
+  item_id: Int
+  max_harvest: Int
+  natural_gift_power: Int
+  natural_gift_type_id: Int
+  size: Int
+  smoothness: Int
+  soil_dryness: Int
+}
+
+type BerriesMinAggregate {
+  firmness_id: Int
+  growth_time: Int
+  id: Int
+  item_id: Int
+  max_harvest: Int
+  natural_gift_power: Int
+  natural_gift_type_id: Int
+  size: Int
+  smoothness: Int
+  soil_dryness: Int
+}
+
+type BerriesSumAggregate {
+  firmness_id: Int
+  growth_time: Int
+  id: Int
+  item_id: Int
+  max_harvest: Int
+  natural_gift_power: Int
+  natural_gift_type_id: Int
+  size: Int
+  smoothness: Int
+  soil_dryness: Int
+}
+
+"""@@TypeGraphQL.type(name: "BerryFirmness")"""
+type BerryFirmness {
+  _count: BerryFirmnessCount!
+  berries: [Berries!]!
+  berryFirmnessNames: [BerryFirmnessNames!]!
+  id: ID!
+  identifier: String!
+}
+
+type BerryFirmnessAvgAggregate {
+  id: Float
+}
+
+type BerryFirmnessCount {
+  berries: Int!
+  berryFirmnessNames: Int!
+}
+
+type BerryFirmnessCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type BerryFirmnessMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type BerryFirmnessMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type BerryFirmnessNames {
+  berryFirmness: BerryFirmness!
+  berry_firmness_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type BerryFirmnessNamesAvgAggregate {
+  berry_firmness_id: Float
+  local_language_id: Float
+}
+
+type BerryFirmnessNamesCountAggregate {
+  _all: Int!
+  berry_firmness_id: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type BerryFirmnessNamesMaxAggregate {
+  berry_firmness_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type BerryFirmnessNamesMinAggregate {
+  berry_firmness_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type BerryFirmnessNamesSumAggregate {
+  berry_firmness_id: Int
+  local_language_id: Int
+}
+
+type BerryFirmnessSumAggregate {
+  id: Int
+}
+
+"""@@TypeGraphQL.type(name: "BerryFlavor")"""
+type BerryFlavors {
+  berry: Berries!
+  berry_id: Int!
+  contestType: ContestTypes!
+  contest_type_id: Int!
+  flavor: Int!
+  type: Types!
+}
+
+type BerryFlavorsAvgAggregate {
+  berry_id: Float
+  contest_type_id: Float
+  flavor: Float
+}
+
+type BerryFlavorsCountAggregate {
+  _all: Int!
+  berry_id: Int!
+  contest_type_id: Int!
+  flavor: Int!
+}
+
+type BerryFlavorsMaxAggregate {
+  berry_id: Int
+  contest_type_id: Int
+  flavor: Int
+}
+
+type BerryFlavorsMinAggregate {
+  berry_id: Int
+  contest_type_id: Int
+  flavor: Int
+}
+
+type BerryFlavorsSumAggregate {
+  berry_id: Int
+  contest_type_id: Int
+  flavor: Int
+}
+
+type CharacteristicText {
+  characteristic: Characteristics!
+  characteristic_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  message: String!
+}
+
+type CharacteristicTextAvgAggregate {
+  characteristic_id: Float
+  local_language_id: Float
+}
+
+type CharacteristicTextCountAggregate {
+  _all: Int!
+  characteristic_id: Int!
+  local_language_id: Int!
+  message: Int!
+}
+
+type CharacteristicTextMaxAggregate {
+  characteristic_id: Int
+  local_language_id: Int
+  message: String
+}
+
+type CharacteristicTextMinAggregate {
+  characteristic_id: Int
+  local_language_id: Int
+  message: String
+}
+
+type CharacteristicTextSumAggregate {
+  characteristic_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Characteristic")"""
+type Characteristics {
+  _count: CharacteristicsCount!
+  characteristicTexts: [CharacteristicText!]!
+  gene_mod_5: Int!
+  id: ID!
+  stat: Stats!
+  stat_id: Int!
+}
+
+type CharacteristicsAvgAggregate {
+  gene_mod_5: Float
+  id: Float
+  stat_id: Float
+}
+
+type CharacteristicsCount {
+  characteristicTexts: Int!
+}
+
+type CharacteristicsCountAggregate {
+  _all: Int!
+  gene_mod_5: Int!
+  id: Int!
+  stat_id: Int!
+}
+
+type CharacteristicsMaxAggregate {
+  gene_mod_5: Int
+  id: Int
+  stat_id: Int
+}
+
+type CharacteristicsMinAggregate {
+  gene_mod_5: Int
+  id: Int
+  stat_id: Int
+}
+
+type CharacteristicsSumAggregate {
+  gene_mod_5: Int
+  id: Int
+  stat_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "ContestCombo")"""
+type ContestCombos {
+  firstMove: Moves!
+  first_move_id: ID!
+  secondMove: Moves!
+  second_move_id: Int!
+}
+
+type ContestCombosAvgAggregate {
+  first_move_id: Float
+  second_move_id: Float
+}
+
+type ContestCombosCountAggregate {
+  _all: Int!
+  first_move_id: Int!
+  second_move_id: Int!
+}
+
+type ContestCombosMaxAggregate {
+  first_move_id: Int
+  second_move_id: Int
+}
+
+type ContestCombosMinAggregate {
+  first_move_id: Int
+  second_move_id: Int
+}
+
+type ContestCombosSumAggregate {
+  first_move_id: Int
+  second_move_id: Int
+}
+
+type ContestEffectProse {
+  contestEffect: ContestEffects!
+  contest_effect_id: Int!
+  effect: String!
+  flavor_text: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+}
+
+type ContestEffectProseAvgAggregate {
+  contest_effect_id: Float
+  local_language_id: Float
+}
+
+type ContestEffectProseCountAggregate {
+  _all: Int!
+  contest_effect_id: Int!
+  effect: Int!
+  flavor_text: Int!
+  local_language_id: Int!
+}
+
+type ContestEffectProseMaxAggregate {
+  contest_effect_id: Int
+  effect: String
+  flavor_text: String
+  local_language_id: Int
+}
+
+type ContestEffectProseMinAggregate {
+  contest_effect_id: Int
+  effect: String
+  flavor_text: String
+  local_language_id: Int
+}
+
+type ContestEffectProseSumAggregate {
+  contest_effect_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "ContestEffect")"""
+type ContestEffects {
+  _count: ContestEffectsCount!
+  appeal: Int!
+  contestEffectProses: [ContestEffectProse!]!
+  id: ID!
+  jam: Int!
+  moves: [Moves!]!
+}
+
+type ContestEffectsAvgAggregate {
+  appeal: Float
+  id: Float
+  jam: Float
+}
+
+type ContestEffectsCount {
+  contestEffectProses: Int!
+  moves: Int!
+}
+
+type ContestEffectsCountAggregate {
+  _all: Int!
+  appeal: Int!
+  id: Int!
+  jam: Int!
+}
+
+type ContestEffectsMaxAggregate {
+  appeal: Int
+  id: Int
+  jam: Int
+}
+
+type ContestEffectsMinAggregate {
+  appeal: Int
+  id: Int
+  jam: Int
+}
+
+type ContestEffectsSumAggregate {
+  appeal: Int
+  id: Int
+  jam: Int
+}
+
+type ContestTypeNames {
+  color: String
+  contestType: ContestTypes!
+  contest_type_id: Int!
+  flavor: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type ContestTypeNamesAvgAggregate {
+  contest_type_id: Float
+  local_language_id: Float
+}
+
+type ContestTypeNamesCountAggregate {
+  _all: Int!
+  color: Int!
+  contest_type_id: Int!
+  flavor: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type ContestTypeNamesMaxAggregate {
+  color: String
+  contest_type_id: Int
+  flavor: String
+  local_language_id: Int
+  name: String
+}
+
+type ContestTypeNamesMinAggregate {
+  color: String
+  contest_type_id: Int
+  flavor: String
+  local_language_id: Int
+  name: String
+}
+
+type ContestTypeNamesSumAggregate {
+  contest_type_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "ContestType")"""
+type ContestTypes {
+  _count: ContestTypesCount!
+  berryFlavors: [BerryFlavors!]!
+  contestTypeNames: [ContestTypeNames!]!
+  id: ID!
+  identifier: String!
+  moves: [Moves!]!
+}
+
+type ContestTypesAvgAggregate {
+  id: Float
+}
+
+type ContestTypesCount {
+  berryFlavors: Int!
+  contestTypeNames: Int!
+  moves: Int!
+}
+
+type ContestTypesCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type ContestTypesMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type ContestTypesMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type ContestTypesSumAggregate {
+  id: Int
+}
+
+type EggGroupProse {
+  eggGroup: EggGroups!
+  egg_group_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type EggGroupProseAvgAggregate {
+  egg_group_id: Float
+  local_language_id: Float
+}
+
+type EggGroupProseCountAggregate {
+  _all: Int!
+  egg_group_id: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type EggGroupProseMaxAggregate {
+  egg_group_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type EggGroupProseMinAggregate {
+  egg_group_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type EggGroupProseSumAggregate {
+  egg_group_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "EggGroup")"""
+type EggGroups {
+  _count: EggGroupsCount!
+  eggGroupProses: [EggGroupProse!]!
+  id: ID!
+  identifier: String!
+  species: [PokemonEggGroups!]!
+}
+
+type EggGroupsAvgAggregate {
+  id: Float
+}
+
+type EggGroupsCount {
+  eggGroupProses: Int!
+  species: Int!
+}
+
+type EggGroupsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type EggGroupsMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type EggGroupsMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type EggGroupsSumAggregate {
+  id: Int
+}
+
+type EncounterConditionProse {
+  encounterCondition: EncounterConditions!
+  encounter_condition_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type EncounterConditionProseAvgAggregate {
+  encounter_condition_id: Float
+  local_language_id: Float
+}
+
+type EncounterConditionProseCountAggregate {
+  _all: Int!
+  encounter_condition_id: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type EncounterConditionProseMaxAggregate {
+  encounter_condition_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type EncounterConditionProseMinAggregate {
+  encounter_condition_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type EncounterConditionProseSumAggregate {
+  encounter_condition_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "EncounterConditionValueMap")"""
+type EncounterConditionValueMap {
+  conditionValue: EncounterConditionValues!
+  encounter: Encounters!
+  encounter_condition_value_id: Int!
+  encounter_id: ID!
+}
+
+type EncounterConditionValueMapAvgAggregate {
+  encounter_condition_value_id: Float
+  encounter_id: Float
+}
+
+type EncounterConditionValueMapCountAggregate {
+  _all: Int!
+  encounter_condition_value_id: Int!
+  encounter_id: Int!
+}
+
+type EncounterConditionValueMapMaxAggregate {
+  encounter_condition_value_id: Int
+  encounter_id: Int
+}
+
+type EncounterConditionValueMapMinAggregate {
+  encounter_condition_value_id: Int
+  encounter_id: Int
+}
+
+type EncounterConditionValueMapSumAggregate {
+  encounter_condition_value_id: Int
+  encounter_id: Int
+}
+
+type EncounterConditionValueProse {
+  encounterConditionValue: EncounterConditionValues!
+  encounter_condition_value_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type EncounterConditionValueProseAvgAggregate {
+  encounter_condition_value_id: Float
+  local_language_id: Float
+}
+
+type EncounterConditionValueProseCountAggregate {
+  _all: Int!
+  encounter_condition_value_id: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type EncounterConditionValueProseMaxAggregate {
+  encounter_condition_value_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type EncounterConditionValueProseMinAggregate {
+  encounter_condition_value_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type EncounterConditionValueProseSumAggregate {
+  encounter_condition_value_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "EncounterConditionValue")"""
+type EncounterConditionValues {
+  _count: EncounterConditionValuesCount!
+  condition: EncounterConditions!
+  conditionValueMap: [EncounterConditionValueMap!]!
+  encounterConditionValueProses: [EncounterConditionValueProse!]!
+  encounter_condition_id: Int!
+  id: ID!
+  identifier: String!
+  is_default: Int!
+}
+
+type EncounterConditionValuesAvgAggregate {
+  encounter_condition_id: Float
+  id: Float
+  is_default: Float
+}
+
+type EncounterConditionValuesCount {
+  conditionValueMap: Int!
+  encounterConditionValueProses: Int!
+}
+
+type EncounterConditionValuesCountAggregate {
+  _all: Int!
+  encounter_condition_id: Int!
+  id: Int!
+  identifier: Int!
+  is_default: Int!
+}
+
+type EncounterConditionValuesMaxAggregate {
+  encounter_condition_id: Int
+  id: Int
+  identifier: String
+  is_default: Int
+}
+
+type EncounterConditionValuesMinAggregate {
+  encounter_condition_id: Int
+  id: Int
+  identifier: String
+  is_default: Int
+}
+
+type EncounterConditionValuesSumAggregate {
+  encounter_condition_id: Int
+  id: Int
+  is_default: Int
+}
+
+"""@@TypeGraphQL.type(name: "EncounterCondition")"""
+type EncounterConditions {
+  _count: EncounterConditionsCount!
+  encounterConditionProses: [EncounterConditionProse!]!
+  id: ID!
+  identifier: String!
+  values: [EncounterConditionValues!]!
+}
+
+type EncounterConditionsAvgAggregate {
+  id: Float
+}
+
+type EncounterConditionsCount {
+  encounterConditionProses: Int!
+  values: Int!
+}
+
+type EncounterConditionsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type EncounterConditionsMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type EncounterConditionsMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type EncounterConditionsSumAggregate {
+  id: Int
+}
+
+type EncounterMethodProse {
+  encounterMethod: EncounterMethods!
+  encounter_method_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type EncounterMethodProseAvgAggregate {
+  encounter_method_id: Float
+  local_language_id: Float
+}
+
+type EncounterMethodProseCountAggregate {
+  _all: Int!
+  encounter_method_id: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type EncounterMethodProseMaxAggregate {
+  encounter_method_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type EncounterMethodProseMinAggregate {
+  encounter_method_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type EncounterMethodProseSumAggregate {
+  encounter_method_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "EncounterMethod")"""
+type EncounterMethods {
+  _count: EncounterMethodsCount!
+  encounterMethodProses: [EncounterMethodProse!]!
+  encounterRates: [LocationAreaEncounterRates!]!
+  id: ID!
+  identifier: String!
+  order: Int!
+  slots: [EncounterSlots!]!
+}
+
+type EncounterMethodsAvgAggregate {
+  id: Float
+  order: Float
+}
+
+type EncounterMethodsCount {
+  encounterMethodProses: Int!
+  encounterRates: Int!
+  slots: Int!
+}
+
+type EncounterMethodsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+  order: Int!
+}
+
+type EncounterMethodsMaxAggregate {
+  id: Int
+  identifier: String
+  order: Int
+}
+
+type EncounterMethodsMinAggregate {
+  id: Int
+  identifier: String
+  order: Int
+}
+
+type EncounterMethodsSumAggregate {
+  id: Int
+  order: Int
+}
+
+"""@@TypeGraphQL.type(name: "EncounterSlot")"""
+type EncounterSlots {
+  _count: EncounterSlotsCount!
+  encounterMethod: EncounterMethods!
+  encounter_method_id: Int!
+  encounters: [Encounters!]!
+  id: ID!
+  rarity: Int!
+  slot: Int
+  versionGroup: VersionGroups!
+  version_group_id: Int!
+}
+
+type EncounterSlotsAvgAggregate {
+  encounter_method_id: Float
+  id: Float
+  rarity: Float
+  slot: Float
+  version_group_id: Float
+}
+
+type EncounterSlotsCount {
+  encounters: Int!
+}
+
+type EncounterSlotsCountAggregate {
+  _all: Int!
+  encounter_method_id: Int!
+  id: Int!
+  rarity: Int!
+  slot: Int!
+  version_group_id: Int!
+}
+
+type EncounterSlotsMaxAggregate {
+  encounter_method_id: Int
+  id: Int
+  rarity: Int
+  slot: Int
+  version_group_id: Int
+}
+
+type EncounterSlotsMinAggregate {
+  encounter_method_id: Int
+  id: Int
+  rarity: Int
+  slot: Int
+  version_group_id: Int
+}
+
+type EncounterSlotsSumAggregate {
+  encounter_method_id: Int
+  id: Int
+  rarity: Int
+  slot: Int
+  version_group_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Encounter")"""
+type Encounters {
+  _count: EncountersCount!
+  conditionValueMap: [EncounterConditionValueMap!]!
+  encounterSlot: EncounterSlots!
+  encounter_slot_id: Int!
+  id: ID!
+  locationArea: LocationAreas!
+  location_area_id: Int!
+  max_level: Int!
+  min_level: Int!
+  pokemon: Pokemon!
+  pokemon_id: Int!
+  version: Versions!
+  version_id: Int!
+}
+
+type EncountersAvgAggregate {
+  encounter_slot_id: Float
+  id: Float
+  location_area_id: Float
+  max_level: Float
+  min_level: Float
+  pokemon_id: Float
+  version_id: Float
+}
+
+type EncountersCount {
+  conditionValueMap: Int!
+}
+
+type EncountersCountAggregate {
+  _all: Int!
+  encounter_slot_id: Int!
+  id: Int!
+  location_area_id: Int!
+  max_level: Int!
+  min_level: Int!
+  pokemon_id: Int!
+  version_id: Int!
+}
+
+type EncountersMaxAggregate {
+  encounter_slot_id: Int
+  id: Int
+  location_area_id: Int
+  max_level: Int
+  min_level: Int
+  pokemon_id: Int
+  version_id: Int
+}
+
+type EncountersMinAggregate {
+  encounter_slot_id: Int
+  id: Int
+  location_area_id: Int
+  max_level: Int
+  min_level: Int
+  pokemon_id: Int
+  version_id: Int
+}
+
+type EncountersSumAggregate {
+  encounter_slot_id: Int
+  id: Int
+  location_area_id: Int
+  max_level: Int
+  min_level: Int
+  pokemon_id: Int
+  version_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "EvolutionChain")"""
+type EvolutionChains {
+  _count: EvolutionChainsCount!
+  babyTriggerItem: Items
+  baby_trigger_item_id: Int
+  id: ID!
+  species: [PokemonSpecies!]!
+}
+
+type EvolutionChainsAvgAggregate {
+  baby_trigger_item_id: Float
+  id: Float
+}
+
+type EvolutionChainsCount {
+  species: Int!
+}
+
+type EvolutionChainsCountAggregate {
+  _all: Int!
+  baby_trigger_item_id: Int!
+  id: Int!
+}
+
+type EvolutionChainsMaxAggregate {
+  baby_trigger_item_id: Int
+  id: Int
+}
+
+type EvolutionChainsMinAggregate {
+  baby_trigger_item_id: Int
+  id: Int
+}
+
+type EvolutionChainsSumAggregate {
+  baby_trigger_item_id: Int
+  id: Int
+}
+
+type EvolutionTriggerProse {
+  evolutionTrigger: EvolutionTriggers!
+  evolution_trigger_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type EvolutionTriggerProseAvgAggregate {
+  evolution_trigger_id: Float
+  local_language_id: Float
+}
+
+type EvolutionTriggerProseCountAggregate {
+  _all: Int!
+  evolution_trigger_id: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type EvolutionTriggerProseMaxAggregate {
+  evolution_trigger_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type EvolutionTriggerProseMinAggregate {
+  evolution_trigger_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type EvolutionTriggerProseSumAggregate {
+  evolution_trigger_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "EvolutionTrigger")"""
+type EvolutionTriggers {
+  _count: EvolutionTriggersCount!
+  evolution: [PokemonEvolution!]!
+  evolutionTriggerProses: [EvolutionTriggerProse!]!
+  id: ID!
+  identifier: String!
+}
+
+type EvolutionTriggersAvgAggregate {
+  id: Float
+}
+
+type EvolutionTriggersCount {
+  evolution: Int!
+  evolutionTriggerProses: Int!
+}
+
+type EvolutionTriggersCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type EvolutionTriggersMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type EvolutionTriggersMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type EvolutionTriggersSumAggregate {
+  id: Int
+}
+
+type Experience {
+  experience: Int!
+  growthRate: GrowthRates!
+  growth_rate_id: Int!
+  level: Int!
+}
+
+type ExperienceAvgAggregate {
+  experience: Float
+  growth_rate_id: Float
+  level: Float
+}
+
+type ExperienceCountAggregate {
+  _all: Int!
+  experience: Int!
+  growth_rate_id: Int!
+  level: Int!
+}
+
+type ExperienceMaxAggregate {
+  experience: Int
+  growth_rate_id: Int
+  level: Int
+}
+
+type ExperienceMinAggregate {
+  experience: Int
+  growth_rate_id: Int
+  level: Int
+}
+
+type ExperienceSumAggregate {
+  experience: Int
+  growth_rate_id: Int
+  level: Int
+}
+
+"""@@TypeGraphQL.type(name: "Gender")"""
+type Genders {
+  _count: GendersCount!
+  evolution: [PokemonEvolution!]!
+  id: ID!
+  identifier: String!
+}
+
+type GendersAvgAggregate {
+  id: Float
+}
+
+type GendersCount {
+  evolution: Int!
+}
+
+type GendersCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type GendersMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type GendersMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type GendersSumAggregate {
+  id: Int
+}
+
+type GenerationNames {
+  generation: Generations!
+  generation_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type GenerationNamesAvgAggregate {
+  generation_id: Float
+  local_language_id: Float
+}
+
+type GenerationNamesCountAggregate {
+  _all: Int!
+  generation_id: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type GenerationNamesMaxAggregate {
+  generation_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type GenerationNamesMinAggregate {
+  generation_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type GenerationNamesSumAggregate {
+  generation_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Generation")"""
+type Generations {
+  _count: GenerationsCount!
+  abilities: [Abilities!]!
+  generationNames: [GenerationNames!]!
+  id: ID!
+  identifier: String!
+  itemGameIndices: [ItemGameIndices!]!
+  locationGameIndices: [LocationGameIndices!]!
+  main_region_id: Int!
+  moves: [Moves!]!
+  pokemonAbilitiesPasts: [PokemonAbilitiesPast!]!
+  pokemonFormGenerations: [PokemonFormGenerations!]!
+  pokemonSpecies: [PokemonSpecies!]!
+  pokemonStatsPasts: [PokemonStatsPast!]!
+  pokemonTypesPasts: [PokemonTypesPast!]!
+  region: Regions!
+  typeEfficacyPasts: [TypeEfficacyPast!]!
+  typeGameIndices: [TypeGameIndices!]!
+  types: [Types!]!
+  versionGroups: [VersionGroups!]!
+}
+
+type GenerationsAvgAggregate {
+  id: Float
+  main_region_id: Float
+}
+
+type GenerationsCount {
+  abilities: Int!
+  generationNames: Int!
+  itemGameIndices: Int!
+  locationGameIndices: Int!
+  moves: Int!
+  pokemonAbilitiesPasts: Int!
+  pokemonFormGenerations: Int!
+  pokemonSpecies: Int!
+  pokemonStatsPasts: Int!
+  pokemonTypesPasts: Int!
+  typeEfficacyPasts: Int!
+  typeGameIndices: Int!
+  types: Int!
+  versionGroups: Int!
+}
+
+type GenerationsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+  main_region_id: Int!
+}
+
+type GenerationsMaxAggregate {
+  id: Int
+  identifier: String
+  main_region_id: Int
+}
+
+type GenerationsMinAggregate {
+  id: Int
+  identifier: String
+  main_region_id: Int
+}
+
+type GenerationsSumAggregate {
+  id: Int
+  main_region_id: Int
+}
+
+type GrowthRateProse {
+  growthRate: GrowthRates!
+  growth_rate_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type GrowthRateProseAvgAggregate {
+  growth_rate_id: Float
+  local_language_id: Float
+}
+
+type GrowthRateProseCountAggregate {
+  _all: Int!
+  growth_rate_id: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type GrowthRateProseMaxAggregate {
+  growth_rate_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type GrowthRateProseMinAggregate {
+  growth_rate_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type GrowthRateProseSumAggregate {
+  growth_rate_id: Int
+  local_language_id: Int
+}
+
+type GrowthRates {
+  _count: GrowthRatesCount!
+  experience: [Experience!]!
+  formula: String!
+  growthRateProses: [GrowthRateProse!]!
+  id: ID!
+  identifier: String!
+  species: [PokemonSpecies!]!
+}
+
+type GrowthRatesAvgAggregate {
+  id: Float
+}
+
+type GrowthRatesCount {
+  experience: Int!
+  growthRateProses: Int!
+  species: Int!
+}
+
+type GrowthRatesCountAggregate {
+  _all: Int!
+  formula: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type GrowthRatesMaxAggregate {
+  formula: String
+  id: Int
+  identifier: String
+}
+
+type GrowthRatesMinAggregate {
+  formula: String
+  id: Int
+  identifier: String
+}
+
+type GrowthRatesSumAggregate {
+  id: Int
+}
+
+"""@@TypeGraphQL.type(name: "ItemCategory")"""
+type ItemCategories {
+  _count: ItemCategoriesCount!
+  id: ID!
+  identifier: String!
+  itemCategoryProses: [ItemCategoryProse!]!
+  items: [Items!]!
+  pocket: ItemPockets!
+  pocket_id: Int!
+}
+
+type ItemCategoriesAvgAggregate {
+  id: Float
+  pocket_id: Float
+}
+
+type ItemCategoriesCount {
+  itemCategoryProses: Int!
+  items: Int!
+}
+
+type ItemCategoriesCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+  pocket_id: Int!
+}
+
+type ItemCategoriesMaxAggregate {
+  id: Int
+  identifier: String
+  pocket_id: Int
+}
+
+type ItemCategoriesMinAggregate {
+  id: Int
+  identifier: String
+  pocket_id: Int
+}
+
+type ItemCategoriesSumAggregate {
+  id: Int
+  pocket_id: Int
+}
+
+type ItemCategoryProse {
+  itemCategory: ItemCategories!
+  item_category_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type ItemCategoryProseAvgAggregate {
+  item_category_id: Float
+  local_language_id: Float
+}
+
+type ItemCategoryProseCountAggregate {
+  _all: Int!
+  item_category_id: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type ItemCategoryProseMaxAggregate {
+  item_category_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type ItemCategoryProseMinAggregate {
+  item_category_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type ItemCategoryProseSumAggregate {
+  item_category_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "ItemFlagMap")"""
+type ItemFlagMap {
+  flag: ItemFlags!
+  item: Items!
+  item_flag_id: Int!
+  item_id: ID!
+}
+
+type ItemFlagMapAvgAggregate {
+  item_flag_id: Float
+  item_id: Float
+}
+
+type ItemFlagMapCountAggregate {
+  _all: Int!
+  item_flag_id: Int!
+  item_id: Int!
+}
+
+type ItemFlagMapMaxAggregate {
+  item_flag_id: Int
+  item_id: Int
+}
+
+type ItemFlagMapMinAggregate {
+  item_flag_id: Int
+  item_id: Int
+}
+
+type ItemFlagMapSumAggregate {
+  item_flag_id: Int
+  item_id: Int
+}
+
+type ItemFlagProse {
+  description: String!
+  itemFlag: ItemFlags!
+  item_flag_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type ItemFlagProseAvgAggregate {
+  item_flag_id: Float
+  local_language_id: Float
+}
+
+type ItemFlagProseCountAggregate {
+  _all: Int!
+  description: Int!
+  item_flag_id: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type ItemFlagProseMaxAggregate {
+  description: String
+  item_flag_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type ItemFlagProseMinAggregate {
+  description: String
+  item_flag_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type ItemFlagProseSumAggregate {
+  item_flag_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "ItemFlag")"""
+type ItemFlags {
+  _count: ItemFlagsCount!
+  flagMap: [ItemFlagMap!]!
+  id: ID!
+  identifier: String!
+  itemFlagProses: [ItemFlagProse!]!
+}
+
+type ItemFlagsAvgAggregate {
+  id: Float
+}
+
+type ItemFlagsCount {
+  flagMap: Int!
+  itemFlagProses: Int!
+}
+
+type ItemFlagsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type ItemFlagsMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type ItemFlagsMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type ItemFlagsSumAggregate {
+  id: Int
+}
+
+type ItemFlavorSummaries {
+  flavor_summary: String!
+  item: Items!
+  item_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+}
+
+type ItemFlavorSummariesAvgAggregate {
+  item_id: Float
+  local_language_id: Float
+}
+
+type ItemFlavorSummariesCountAggregate {
+  _all: Int!
+  flavor_summary: Int!
+  item_id: Int!
+  local_language_id: Int!
+}
+
+type ItemFlavorSummariesMaxAggregate {
+  flavor_summary: String
+  item_id: Int
+  local_language_id: Int
+}
+
+type ItemFlavorSummariesMinAggregate {
+  flavor_summary: String
+  item_id: Int
+  local_language_id: Int
+}
+
+type ItemFlavorSummariesSumAggregate {
+  item_id: Int
+  local_language_id: Int
+}
+
+type ItemFlavorText {
+  flavor_text: String
+  item: Items!
+  item_id: Int!
+  language: Languages!
+  language_id: Int!
+  versionGroup: VersionGroups!
+  version_group_id: Int!
+}
+
+type ItemFlavorTextAvgAggregate {
+  item_id: Float
+  language_id: Float
+  version_group_id: Float
+}
+
+type ItemFlavorTextCountAggregate {
+  _all: Int!
+  flavor_text: Int!
+  item_id: Int!
+  language_id: Int!
+  version_group_id: Int!
+}
+
+type ItemFlavorTextMaxAggregate {
+  flavor_text: String
+  item_id: Int
+  language_id: Int
+  version_group_id: Int
+}
+
+type ItemFlavorTextMinAggregate {
+  flavor_text: String
+  item_id: Int
+  language_id: Int
+  version_group_id: Int
+}
+
+type ItemFlavorTextSumAggregate {
+  item_id: Int
+  language_id: Int
+  version_group_id: Int
+}
+
+type ItemFlingEffectProse {
+  effect: String!
+  itemFlingEffect: ItemFlingEffects!
+  item_fling_effect_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+}
+
+type ItemFlingEffectProseAvgAggregate {
+  item_fling_effect_id: Float
+  local_language_id: Float
+}
+
+type ItemFlingEffectProseCountAggregate {
+  _all: Int!
+  effect: Int!
+  item_fling_effect_id: Int!
+  local_language_id: Int!
+}
+
+type ItemFlingEffectProseMaxAggregate {
+  effect: String
+  item_fling_effect_id: Int
+  local_language_id: Int
+}
+
+type ItemFlingEffectProseMinAggregate {
+  effect: String
+  item_fling_effect_id: Int
+  local_language_id: Int
+}
+
+type ItemFlingEffectProseSumAggregate {
+  item_fling_effect_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "ItemFlingEffect")"""
+type ItemFlingEffects {
+  _count: ItemFlingEffectsCount!
+  id: ID!
+  identifier: String!
+  itemFlingEffectProses: [ItemFlingEffectProse!]!
+  items: [Items!]!
+}
+
+type ItemFlingEffectsAvgAggregate {
+  id: Float
+}
+
+type ItemFlingEffectsCount {
+  itemFlingEffectProses: Int!
+  items: Int!
+}
+
+type ItemFlingEffectsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type ItemFlingEffectsMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type ItemFlingEffectsMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type ItemFlingEffectsSumAggregate {
+  id: Int
+}
+
+"""@@TypeGraphQL.type(name: "ItemGameIndex")"""
+type ItemGameIndices {
+  game_index: Int!
+  generation: Generations!
+  generation_id: Int!
+  item: Items!
+  item_id: Int!
+}
+
+type ItemGameIndicesAvgAggregate {
+  game_index: Float
+  generation_id: Float
+  item_id: Float
+}
+
+type ItemGameIndicesCountAggregate {
+  _all: Int!
+  game_index: Int!
+  generation_id: Int!
+  item_id: Int!
+}
+
+type ItemGameIndicesMaxAggregate {
+  game_index: Int
+  generation_id: Int
+  item_id: Int
+}
+
+type ItemGameIndicesMinAggregate {
+  game_index: Int
+  generation_id: Int
+  item_id: Int
+}
+
+type ItemGameIndicesSumAggregate {
+  game_index: Int
+  generation_id: Int
+  item_id: Int
+}
+
+type ItemNames {
+  item: Items!
+  item_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type ItemNamesAvgAggregate {
+  item_id: Float
+  local_language_id: Float
+}
+
+type ItemNamesCountAggregate {
+  _all: Int!
+  item_id: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type ItemNamesMaxAggregate {
+  item_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type ItemNamesMinAggregate {
+  item_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type ItemNamesSumAggregate {
+  item_id: Int
+  local_language_id: Int
+}
+
+type ItemPocketNames {
+  itemPocket: ItemPockets!
+  item_pocket_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type ItemPocketNamesAvgAggregate {
+  item_pocket_id: Float
+  local_language_id: Float
+}
+
+type ItemPocketNamesCountAggregate {
+  _all: Int!
+  item_pocket_id: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type ItemPocketNamesMaxAggregate {
+  item_pocket_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type ItemPocketNamesMinAggregate {
+  item_pocket_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type ItemPocketNamesSumAggregate {
+  item_pocket_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "ItemPocket")"""
+type ItemPockets {
+  _count: ItemPocketsCount!
+  categories: [ItemCategories!]!
+  id: ID!
+  identifier: String!
+  itemPocketNames: [ItemPocketNames!]!
+}
+
+type ItemPocketsAvgAggregate {
+  id: Float
+}
+
+type ItemPocketsCount {
+  categories: Int!
+  itemPocketNames: Int!
+}
+
+type ItemPocketsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type ItemPocketsMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type ItemPocketsMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type ItemPocketsSumAggregate {
+  id: Int
+}
+
+type ItemProse {
+  effect: String
+  item: Items!
+  item_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  short_effect: String
+}
+
+type ItemProseAvgAggregate {
+  item_id: Float
+  local_language_id: Float
+}
+
+type ItemProseCountAggregate {
+  _all: Int!
+  effect: Int!
+  item_id: Int!
+  local_language_id: Int!
+  short_effect: Int!
+}
+
+type ItemProseMaxAggregate {
+  effect: String
+  item_id: Int
+  local_language_id: Int
+  short_effect: String
+}
+
+type ItemProseMinAggregate {
+  effect: String
+  item_id: Int
+  local_language_id: Int
+  short_effect: String
+}
+
+type ItemProseSumAggregate {
+  item_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Item")"""
+type Items {
+  _count: ItemsCount!
+  babyTriggerItems: [EvolutionChains!]!
+  berries: [Berries!]!
+  canonicalId: String!
+  category: ItemCategories!
+  category_id: Int!
+  cost: Int!
+  flagMap: [ItemFlagMap!]!
+  flingEffect: ItemFlingEffects
+  fling_effect_id: Int
+  fling_power: Int
+  gameIndices: [ItemGameIndices!]!
+  heldItems: [PokemonEvolution!]!
+  id: ID!
+  identifier: String!
+  itemFlavorSummaries: [ItemFlavorSummaries!]!
+  itemFlavorTexts: [ItemFlavorText!]!
+  itemNames: [ItemNames!]!
+  itemProses: [ItemProse!]!
+  machines: [Machines!]!
+  pokemonFormConditions: [PokemonFormConditions!]!
+  pokemonItems: [PokemonItems!]!
+  triggerItems: [PokemonEvolution!]!
+}
+
+type ItemsAvgAggregate {
+  category_id: Float
+  cost: Float
+  fling_effect_id: Float
+  fling_power: Float
+  id: Float
+}
+
+type ItemsCount {
+  babyTriggerItems: Int!
+  berries: Int!
+  flagMap: Int!
+  gameIndices: Int!
+  heldItems: Int!
+  itemFlavorSummaries: Int!
+  itemFlavorTexts: Int!
+  itemNames: Int!
+  itemProses: Int!
+  machines: Int!
+  pokemonFormConditions: Int!
+  pokemonItems: Int!
+  triggerItems: Int!
+}
+
+type ItemsCountAggregate {
+  _all: Int!
+  category_id: Int!
+  cost: Int!
+  fling_effect_id: Int!
+  fling_power: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type ItemsMaxAggregate {
+  category_id: Int
+  cost: Int
+  fling_effect_id: Int
+  fling_power: Int
+  id: Int
+  identifier: String
+}
+
+type ItemsMinAggregate {
+  category_id: Int
+  cost: Int
+  fling_effect_id: Int
+  fling_power: Int
+  id: Int
+  identifier: String
+}
+
+type ItemsSumAggregate {
+  category_id: Int
+  cost: Int
+  fling_effect_id: Int
+  fling_power: Int
+  id: Int
+}
+
+type LanguageNames {
+  language: Languages!
+  language_id: Int!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+}
+
+type LanguageNamesAvgAggregate {
+  language_id: Float
+  local_language_id: Float
+}
+
+type LanguageNamesCountAggregate {
+  _all: Int!
+  language_id: Int!
+  local_language_id: Int!
+  name: Int!
+}
+
+type LanguageNamesMaxAggregate {
+  language_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type LanguageNamesMinAggregate {
+  language_id: Int
+  local_language_id: Int
+  name: String
+}
+
+type LanguageNamesSumAggregate {
+  language_id: Int
+  local_language_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Language")"""
+type Languages {
+  _count: LanguagesCount!
+  abilityChangelogProses: [AbilityChangelogProse!]!
+  abilityFlavorTexts: [AbilityFlavorText!]!
+  abilityNames: [AbilityNames!]!
+  abilityProses: [AbilityProse!]!
+  berryFirmnessNames: [BerryFirmnessNames!]!
+  characteristicTexts: [CharacteristicText!]!
+  contestEffectProses: [ContestEffectProse!]!
+  contestTypeNames: [ContestTypeNames!]!
+  eggGroupProses: [EggGroupProse!]!
+  encounterConditionProses: [EncounterConditionProse!]!
+  encounterConditionValueProses: [EncounterConditionValueProse!]!
+  encounterMethodProses: [EncounterMethodProse!]!
+  evolutionTriggerProses: [EvolutionTriggerProse!]!
+  generationNames: [GenerationNames!]!
+  growthRateProses: [GrowthRateProse!]!
+  id: ID!
+  identifier: String!
+  iso639: String!
+  iso3166: String!
+  itemCategoryProses: [ItemCategoryProse!]!
+  itemFlagProses: [ItemFlagProse!]!
+  itemFlavorSummaries: [ItemFlavorSummaries!]!
+  itemFlavorTexts: [ItemFlavorText!]!
+  itemFlingEffectProses: [ItemFlingEffectProse!]!
+  itemNames: [ItemNames!]!
+  itemPocketNames: [ItemPocketNames!]!
+  itemProses: [ItemProse!]!
+  locationAreaProses: [LocationAreaProse!]!
+  locationNames: [LocationNames!]!
+  moveBattleStyleProses: [MoveBattleStyleProse!]!
+  moveDamageClassProses: [MoveDamageClassProse!]!
+  moveEffectChangelogProses: [MoveEffectChangelogProse!]!
+  moveEffectProses: [MoveEffectProse!]!
+  moveFlagProses: [MoveFlagProse!]!
+  moveFlavorSummaries: [MoveFlavorSummaries!]!
+  moveFlavorTexts: [MoveFlavorText!]!
+  moveMetaAilmentNames: [MoveMetaAilmentNames!]!
+  moveMetaCategoryProses: [MoveMetaCategoryProse!]!
+  moveNames: [MoveNames!]!
+  moveTargetProses: [MoveTargetProse!]!
+  namesAsLanguage: [LanguageNames!]!
+  namesAsSubject: [LanguageNames!]!
+  natureNames: [NatureNames!]!
+  official: Int!
+  order: Int!
+  pokeathlonStatNames: [PokeathlonStatNames!]!
+  pokedexProses: [PokedexProse!]!
+  pokemonColorNames: [PokemonColorNames!]!
+  pokemonFormNames: [PokemonFormNames!]!
+  pokemonFormTriggerProses: [PokemonFormTriggerProse!]!
+  pokemonHabitatNames: [PokemonHabitatNames!]!
+  pokemonMoveMethodProses: [PokemonMoveMethodProse!]!
+  pokemonShapeProses: [PokemonShapeProse!]!
+  pokemonSpeciesFlavorSummaries: [PokemonSpeciesFlavorSummaries!]!
+  pokemonSpeciesFlavorTexts: [PokemonSpeciesFlavorText!]!
+  pokemonSpeciesNames: [PokemonSpeciesNames!]!
+  pokemonSpeciesProses: [PokemonSpeciesProse!]!
+  regionNames: [RegionNames!]!
+  statNames: [StatNames!]!
+  superContestEffectProses: [SuperContestEffectProse!]!
+  typeNames: [TypeNames!]!
+  versionNames: [VersionNames!]!
+}
+
+type LanguagesAvgAggregate {
+  id: Float
+  official: Float
+  order: Float
+}
+
+type LanguagesCount {
+  abilityChangelogProses: Int!
+  abilityFlavorTexts: Int!
+  abilityNames: Int!
+  abilityProses: Int!
+  berryFirmnessNames: Int!
+  characteristicTexts: Int!
+  contestEffectProses: Int!
+  contestTypeNames: Int!
+  eggGroupProses: Int!
+  encounterConditionProses: Int!
+  encounterConditionValueProses: Int!
+  encounterMethodProses: Int!
+  evolutionTriggerProses: Int!
+  generationNames: Int!
+  growthRateProses: Int!
+  itemCategoryProses: Int!
+  itemFlagProses: Int!
+  itemFlavorSummaries: Int!
+  itemFlavorTexts: Int!
+  itemFlingEffectProses: Int!
+  itemNames: Int!
+  itemPocketNames: Int!
+  itemProses: Int!
+  locationAreaProses: Int!
+  locationNames: Int!
+  moveBattleStyleProses: Int!
+  moveDamageClassProses: Int!
+  moveEffectChangelogProses: Int!
+  moveEffectProses: Int!
+  moveFlagProses: Int!
+  moveFlavorSummaries: Int!
+  moveFlavorTexts: Int!
+  moveMetaAilmentNames: Int!
+  moveMetaCategoryProses: Int!
+  moveNames: Int!
+  moveTargetProses: Int!
+  namesAsLanguage: Int!
+  namesAsSubject: Int!
+  natureNames: Int!
+  pokeathlonStatNames: Int!
+  pokedexProses: Int!
+  pokemonColorNames: Int!
+  pokemonFormNames: Int!
+  pokemonFormTriggerProses: Int!
+  pokemonHabitatNames: Int!
+  pokemonMoveMethodProses: Int!
+  pokemonShapeProses: Int!
+  pokemonSpeciesFlavorSummaries: Int!
+  pokemonSpeciesFlavorTexts: Int!
+  pokemonSpeciesNames: Int!
+  pokemonSpeciesProses: Int!
+  regionNames: Int!
+  statNames: Int!
+  superContestEffectProses: Int!
+  typeNames: Int!
+  versionNames: Int!
+}
+
+type LanguagesCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+  iso639: Int!
+  iso3166: Int!
+  official: Int!
+  order: Int!
+}
+
+type LanguagesMaxAggregate {
+  id: Int
+  identifier: String
+  iso639: String
+  iso3166: String
+  official: Int
+  order: Int
+}
+
+type LanguagesMinAggregate {
+  id: Int
+  identifier: String
+  iso639: String
+  iso3166: String
+  official: Int
+  order: Int
+}
+
+type LanguagesSumAggregate {
+  id: Int
+  official: Int
+  order: Int
+}
+
+"""@@TypeGraphQL.type(name: "LocationAreaEncounterRate")"""
+type LocationAreaEncounterRates {
+  encounterMethod: EncounterMethods!
+  encounter_method_id: Int!
+  locationArea: LocationAreas!
+  location_area_id: Int!
+  rate: Int!
+  version: Versions!
+  version_id: Int!
+}
+
+type LocationAreaEncounterRatesAvgAggregate {
+  encounter_method_id: Float
+  location_area_id: Float
+  rate: Float
+  version_id: Float
+}
+
+type LocationAreaEncounterRatesCountAggregate {
+  _all: Int!
+  encounter_method_id: Int!
+  location_area_id: Int!
+  rate: Int!
+  version_id: Int!
+}
+
+type LocationAreaEncounterRatesMaxAggregate {
+  encounter_method_id: Int
+  location_area_id: Int
+  rate: Int
+  version_id: Int
+}
+
+type LocationAreaEncounterRatesMinAggregate {
+  encounter_method_id: Int
+  location_area_id: Int
+  rate: Int
+  version_id: Int
+}
+
+type LocationAreaEncounterRatesSumAggregate {
+  encounter_method_id: Int
+  location_area_id: Int
+  rate: Int
+  version_id: Int
+}
+
+type LocationAreaProse {
+  localLanguage: Languages!
+  local_language_id: Int!
+  locationArea: LocationAreas!
+  location_area_id: Int!
+  name: String!
+}
+
+type LocationAreaProseAvgAggregate {
+  local_language_id: Float
+  location_area_id: Float
+}
+
+type LocationAreaProseCountAggregate {
+  _all: Int!
+  local_language_id: Int!
+  location_area_id: Int!
+  name: Int!
+}
+
+type LocationAreaProseMaxAggregate {
+  local_language_id: Int
+  location_area_id: Int
+  name: String
+}
+
+type LocationAreaProseMinAggregate {
+  local_language_id: Int
+  location_area_id: Int
+  name: String
+}
+
+type LocationAreaProseSumAggregate {
+  local_language_id: Int
+  location_area_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "LocationArea")"""
+type LocationAreas {
+  _count: LocationAreasCount!
+  encounterRates: [LocationAreaEncounterRates!]!
+  encounters: [Encounters!]!
+  game_index: Int!
+  id: ID!
+  identifier: String
+  location: Locations!
+  locationAreaProses: [LocationAreaProse!]!
+  location_id: Int!
+}
+
+type LocationAreasAvgAggregate {
+  game_index: Float
+  id: Float
+  location_id: Float
+}
+
+type LocationAreasCount {
+  encounterRates: Int!
+  encounters: Int!
+  locationAreaProses: Int!
+}
+
+type LocationAreasCountAggregate {
+  _all: Int!
+  game_index: Int!
+  id: Int!
+  identifier: Int!
+  location_id: Int!
+}
+
+type LocationAreasMaxAggregate {
+  game_index: Int
+  id: Int
+  identifier: String
+  location_id: Int
+}
+
+type LocationAreasMinAggregate {
+  game_index: Int
+  id: Int
+  identifier: String
+  location_id: Int
+}
+
+type LocationAreasSumAggregate {
+  game_index: Int
+  id: Int
+  location_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "LocationGameIndex")"""
+type LocationGameIndices {
+  game_index: Int!
+  generation: Generations!
+  generation_id: Int!
+  location: Locations!
+  location_id: Int!
+}
+
+type LocationGameIndicesAvgAggregate {
+  game_index: Float
+  generation_id: Float
+  location_id: Float
+}
+
+type LocationGameIndicesCountAggregate {
+  _all: Int!
+  game_index: Int!
+  generation_id: Int!
+  location_id: Int!
+}
+
+type LocationGameIndicesMaxAggregate {
+  game_index: Int
+  generation_id: Int
+  location_id: Int
+}
+
+type LocationGameIndicesMinAggregate {
+  game_index: Int
+  generation_id: Int
+  location_id: Int
+}
+
+type LocationGameIndicesSumAggregate {
+  game_index: Int
+  generation_id: Int
+  location_id: Int
+}
+
+type LocationNames {
+  localLanguage: Languages!
+  local_language_id: Int!
+  location: Locations!
+  location_id: Int!
+  name: String
+  subtitle: String
+}
+
+type LocationNamesAvgAggregate {
+  local_language_id: Float
+  location_id: Float
+}
+
+type LocationNamesCountAggregate {
+  _all: Int!
+  local_language_id: Int!
+  location_id: Int!
+  name: Int!
+  subtitle: Int!
+}
+
+type LocationNamesMaxAggregate {
+  local_language_id: Int
+  location_id: Int
+  name: String
+  subtitle: String
+}
+
+type LocationNamesMinAggregate {
+  local_language_id: Int
+  location_id: Int
+  name: String
+  subtitle: String
+}
+
+type LocationNamesSumAggregate {
+  local_language_id: Int
+  location_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Location")"""
+type Locations {
+  _count: LocationsCount!
+  areas: [LocationAreas!]!
+  evolution: [PokemonEvolution!]!
+  gameIndices: [LocationGameIndices!]!
+  id: ID!
+  identifier: String!
+  locationNames: [LocationNames!]!
+  region: Regions
+  region_id: Int
+}
+
+type LocationsAvgAggregate {
+  id: Float
+  region_id: Float
+}
+
+type LocationsCount {
+  areas: Int!
+  evolution: Int!
+  gameIndices: Int!
+  locationNames: Int!
+}
+
+type LocationsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+  region_id: Int!
+}
+
+type LocationsMaxAggregate {
+  id: Int
+  identifier: String
+  region_id: Int
+}
+
+type LocationsMinAggregate {
+  id: Int
+  identifier: String
+  region_id: Int
+}
+
+type LocationsSumAggregate {
+  id: Int
+  region_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Machine")"""
+type Machines {
+  item: Items!
+  item_id: Int!
+  machine_number: Int!
+  move: Moves!
+  move_id: Int!
+  versionGroup: VersionGroups!
+  version_group_id: Int!
+}
+
+type MachinesAvgAggregate {
+  item_id: Float
+  machine_number: Float
+  move_id: Float
+  version_group_id: Float
+}
+
+type MachinesCountAggregate {
+  _all: Int!
+  item_id: Int!
+  machine_number: Int!
+  move_id: Int!
+  version_group_id: Int!
+}
+
+type MachinesMaxAggregate {
+  item_id: Int
+  machine_number: Int
+  move_id: Int
+  version_group_id: Int
+}
+
+type MachinesMinAggregate {
+  item_id: Int
+  machine_number: Int
+  move_id: Int
+  version_group_id: Int
+}
+
+type MachinesSumAggregate {
+  item_id: Int
+  machine_number: Int
+  move_id: Int
+  version_group_id: Int
+}
+
+type MoveBattleStyleProse {
+  localLanguage: Languages!
+  local_language_id: Int!
+  moveBattleStyle: MoveBattleStyles!
+  move_battle_style_id: Int!
+  name: String!
+}
+
+type MoveBattleStyleProseAvgAggregate {
+  local_language_id: Float
+  move_battle_style_id: Float
+}
+
+type MoveBattleStyleProseCountAggregate {
+  _all: Int!
+  local_language_id: Int!
+  move_battle_style_id: Int!
+  name: Int!
+}
+
+type MoveBattleStyleProseMaxAggregate {
+  local_language_id: Int
+  move_battle_style_id: Int
+  name: String
+}
+
+type MoveBattleStyleProseMinAggregate {
+  local_language_id: Int
+  move_battle_style_id: Int
+  name: String
+}
+
+type MoveBattleStyleProseSumAggregate {
+  local_language_id: Int
+  move_battle_style_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "MoveBattleStyle")"""
+type MoveBattleStyles {
+  _count: MoveBattleStylesCount!
+  id: ID!
+  identifier: String!
+  moveBattleStyleProses: [MoveBattleStyleProse!]!
+  naturePreferences: [NatureBattleStylePreferences!]!
+}
+
+type MoveBattleStylesAvgAggregate {
+  id: Float
+}
+
+type MoveBattleStylesCount {
+  moveBattleStyleProses: Int!
+  naturePreferences: Int!
+}
+
+type MoveBattleStylesCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type MoveBattleStylesMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type MoveBattleStylesMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type MoveBattleStylesSumAggregate {
+  id: Int
+}
+
+type MoveChangelog {
+  accuracy: Int
+  changedInVersionGroup: VersionGroups!
+  changed_in_version_group_id: Int!
+  effect: MoveEffects
+  effect_chance: Int
+  effect_id: Int
+  move: Moves!
+  move_id: Int!
+  power: Int
+  pp: Int
+  priority: Int
+  target: MoveTargets
+  target_id: Int
+  type: Types
+  type_id: Int
+}
+
+type MoveChangelogAvgAggregate {
+  accuracy: Float
+  changed_in_version_group_id: Float
+  effect_chance: Float
+  effect_id: Float
+  move_id: Float
+  power: Float
+  pp: Float
+  priority: Float
+  target_id: Float
+  type_id: Float
+}
+
+type MoveChangelogCountAggregate {
+  _all: Int!
+  accuracy: Int!
+  changed_in_version_group_id: Int!
+  effect_chance: Int!
+  effect_id: Int!
+  move_id: Int!
+  power: Int!
+  pp: Int!
+  priority: Int!
+  target_id: Int!
+  type_id: Int!
+}
+
+type MoveChangelogMaxAggregate {
+  accuracy: Int
+  changed_in_version_group_id: Int
+  effect_chance: Int
+  effect_id: Int
+  move_id: Int
+  power: Int
+  pp: Int
+  priority: Int
+  target_id: Int
+  type_id: Int
+}
+
+type MoveChangelogMinAggregate {
+  accuracy: Int
+  changed_in_version_group_id: Int
+  effect_chance: Int
+  effect_id: Int
+  move_id: Int
+  power: Int
+  pp: Int
+  priority: Int
+  target_id: Int
+  type_id: Int
+}
+
+type MoveChangelogSumAggregate {
+  accuracy: Int
+  changed_in_version_group_id: Int
+  effect_chance: Int
+  effect_id: Int
+  move_id: Int
+  power: Int
+  pp: Int
+  priority: Int
+  target_id: Int
+  type_id: Int
+}
+
+type MoveDamageClassProse {
+  description: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+  moveDamageClass: MoveDamageClasses!
+  move_damage_class_id: Int!
+  name: String!
+}
+
+type MoveDamageClassProseAvgAggregate {
+  local_language_id: Float
+  move_damage_class_id: Float
+}
+
+type MoveDamageClassProseCountAggregate {
+  _all: Int!
+  description: Int!
+  local_language_id: Int!
+  move_damage_class_id: Int!
+  name: Int!
+}
+
+type MoveDamageClassProseMaxAggregate {
+  description: String
+  local_language_id: Int
+  move_damage_class_id: Int
+  name: String
+}
+
+type MoveDamageClassProseMinAggregate {
+  description: String
+  local_language_id: Int
+  move_damage_class_id: Int
+  name: String
+}
+
+type MoveDamageClassProseSumAggregate {
+  local_language_id: Int
+  move_damage_class_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "MoveDamageClass")"""
+type MoveDamageClasses {
+  _count: MoveDamageClassesCount!
+  id: ID!
+  identifier: String!
+  moveDamageClassProses: [MoveDamageClassProse!]!
+  moves: [Moves!]!
+  types: [Types!]!
+}
+
+type MoveDamageClassesAvgAggregate {
+  id: Float
+}
+
+type MoveDamageClassesCount {
+  moveDamageClassProses: Int!
+  moves: Int!
+  types: Int!
+}
+
+type MoveDamageClassesCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type MoveDamageClassesMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type MoveDamageClassesMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type MoveDamageClassesSumAggregate {
+  id: Int
+}
+
+type MoveEffectChangelog {
+  _count: MoveEffectChangelogCount!
+  changedInVersionGroup: VersionGroups!
+  changed_in_version_group_id: Int!
+  effect: MoveEffects!
+  effect_id: Int!
+  id: ID!
+  moveEffectChangelogProses: [MoveEffectChangelogProse!]!
+}
+
+type MoveEffectChangelogAvgAggregate {
+  changed_in_version_group_id: Float
+  effect_id: Float
+  id: Float
+}
+
+type MoveEffectChangelogCount {
+  moveEffectChangelogProses: Int!
+}
+
+type MoveEffectChangelogCountAggregate {
+  _all: Int!
+  changed_in_version_group_id: Int!
+  effect_id: Int!
+  id: Int!
+}
+
+type MoveEffectChangelogMaxAggregate {
+  changed_in_version_group_id: Int
+  effect_id: Int
+  id: Int
+}
+
+type MoveEffectChangelogMinAggregate {
+  changed_in_version_group_id: Int
+  effect_id: Int
+  id: Int
+}
+
+type MoveEffectChangelogProse {
+  effect: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+  moveEffectChangelog: MoveEffectChangelog!
+  move_effect_changelog_id: Int!
+}
+
+type MoveEffectChangelogProseAvgAggregate {
+  local_language_id: Float
+  move_effect_changelog_id: Float
+}
+
+type MoveEffectChangelogProseCountAggregate {
+  _all: Int!
+  effect: Int!
+  local_language_id: Int!
+  move_effect_changelog_id: Int!
+}
+
+type MoveEffectChangelogProseMaxAggregate {
+  effect: String
+  local_language_id: Int
+  move_effect_changelog_id: Int
+}
+
+type MoveEffectChangelogProseMinAggregate {
+  effect: String
+  local_language_id: Int
+  move_effect_changelog_id: Int
+}
+
+type MoveEffectChangelogProseSumAggregate {
+  local_language_id: Int
+  move_effect_changelog_id: Int
+}
+
+type MoveEffectChangelogSumAggregate {
+  changed_in_version_group_id: Int
+  effect_id: Int
+  id: Int
+}
+
+type MoveEffectProse {
+  effect: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+  moveEffect: MoveEffects!
+  move_effect_id: Int!
+  short_effect: String!
+}
+
+type MoveEffectProseAvgAggregate {
+  local_language_id: Float
+  move_effect_id: Float
+}
+
+type MoveEffectProseCountAggregate {
+  _all: Int!
+  effect: Int!
+  local_language_id: Int!
+  move_effect_id: Int!
+  short_effect: Int!
+}
+
+type MoveEffectProseMaxAggregate {
+  effect: String
+  local_language_id: Int
+  move_effect_id: Int
+  short_effect: String
+}
+
+type MoveEffectProseMinAggregate {
+  effect: String
+  local_language_id: Int
+  move_effect_id: Int
+  short_effect: String
+}
+
+type MoveEffectProseSumAggregate {
+  local_language_id: Int
+  move_effect_id: Int
+}
+
+type MoveEffects {
+  _count: MoveEffectsCount!
+  id: ID!
+  moveChangelogs: [MoveChangelog!]!
+  moveEffectChangelogs: [MoveEffectChangelog!]!
+  moveEffectProses: [MoveEffectProse!]!
+}
+
+type MoveEffectsAvgAggregate {
+  id: Float
+}
+
+type MoveEffectsCount {
+  moveChangelogs: Int!
+  moveEffectChangelogs: Int!
+  moveEffectProses: Int!
+}
+
+type MoveEffectsCountAggregate {
+  _all: Int!
+  id: Int!
+}
+
+type MoveEffectsMaxAggregate {
+  id: Int
+}
+
+type MoveEffectsMinAggregate {
+  id: Int
+}
+
+type MoveEffectsSumAggregate {
+  id: Int
+}
+
+"""@@TypeGraphQL.type(name: "MoveFlagMap")"""
+type MoveFlagMap {
+  flag: MoveFlags!
+  move: Moves!
+  move_flag_id: Int!
+  move_id: ID!
+}
+
+type MoveFlagMapAvgAggregate {
+  move_flag_id: Float
+  move_id: Float
+}
+
+type MoveFlagMapCountAggregate {
+  _all: Int!
+  move_flag_id: Int!
+  move_id: Int!
+}
+
+type MoveFlagMapMaxAggregate {
+  move_flag_id: Int
+  move_id: Int
+}
+
+type MoveFlagMapMinAggregate {
+  move_flag_id: Int
+  move_id: Int
+}
+
+type MoveFlagMapSumAggregate {
+  move_flag_id: Int
+  move_id: Int
+}
+
+type MoveFlagProse {
+  description: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+  moveFlag: MoveFlags!
+  move_flag_id: Int!
+  name: String!
+}
+
+type MoveFlagProseAvgAggregate {
+  local_language_id: Float
+  move_flag_id: Float
+}
+
+type MoveFlagProseCountAggregate {
+  _all: Int!
+  description: Int!
+  local_language_id: Int!
+  move_flag_id: Int!
+  name: Int!
+}
+
+type MoveFlagProseMaxAggregate {
+  description: String
+  local_language_id: Int
+  move_flag_id: Int
+  name: String
+}
+
+type MoveFlagProseMinAggregate {
+  description: String
+  local_language_id: Int
+  move_flag_id: Int
+  name: String
+}
+
+type MoveFlagProseSumAggregate {
+  local_language_id: Int
+  move_flag_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "MoveFlag")"""
+type MoveFlags {
+  _count: MoveFlagsCount!
+  flagMap: [MoveFlagMap!]!
+  id: ID!
+  identifier: String!
+  moveFlagProses: [MoveFlagProse!]!
+}
+
+type MoveFlagsAvgAggregate {
+  id: Float
+}
+
+type MoveFlagsCount {
+  flagMap: Int!
+  moveFlagProses: Int!
+}
+
+type MoveFlagsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type MoveFlagsMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type MoveFlagsMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type MoveFlagsSumAggregate {
+  id: Int
+}
+
+type MoveFlavorSummaries {
+  flavor_summary: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+  move: Moves!
+  move_id: Int!
+}
+
+type MoveFlavorSummariesAvgAggregate {
+  local_language_id: Float
+  move_id: Float
+}
+
+type MoveFlavorSummariesCountAggregate {
+  _all: Int!
+  flavor_summary: Int!
+  local_language_id: Int!
+  move_id: Int!
+}
+
+type MoveFlavorSummariesMaxAggregate {
+  flavor_summary: String
+  local_language_id: Int
+  move_id: Int
+}
+
+type MoveFlavorSummariesMinAggregate {
+  flavor_summary: String
+  local_language_id: Int
+  move_id: Int
+}
+
+type MoveFlavorSummariesSumAggregate {
+  local_language_id: Int
+  move_id: Int
+}
+
+type MoveFlavorText {
+  flavor_text: String!
+  language: Languages!
+  language_id: Int!
+  move: Moves!
+  move_id: Int!
+  versionGroup: VersionGroups!
+  version_group_id: Int!
+}
+
+type MoveFlavorTextAvgAggregate {
+  language_id: Float
+  move_id: Float
+  version_group_id: Float
+}
+
+type MoveFlavorTextCountAggregate {
+  _all: Int!
+  flavor_text: Int!
+  language_id: Int!
+  move_id: Int!
+  version_group_id: Int!
+}
+
+type MoveFlavorTextMaxAggregate {
+  flavor_text: String
+  language_id: Int
+  move_id: Int
+  version_group_id: Int
+}
+
+type MoveFlavorTextMinAggregate {
+  flavor_text: String
+  language_id: Int
+  move_id: Int
+  version_group_id: Int
+}
+
+type MoveFlavorTextSumAggregate {
+  language_id: Int
+  move_id: Int
+  version_group_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "MoveMeta")"""
+type MoveMeta {
+  _count: MoveMetaCount!
+  ailment_chance: Int!
+  crit_rate: Int!
+  drain: Int!
+  flinch_chance: Int!
+  healing: Int!
+  max_hits: Int
+  max_turns: Int
+  metaAilment: MoveMetaAilments
+  metaCategory: MoveMetaCategories!
+  meta_ailment_id: Int
+  meta_category_id: Int!
+  min_hits: Int
+  min_turns: Int
+  move: Moves!
+  move_id: ID!
+  statChanges: [MoveMetaStatChanges!]!
+  stat_chance: Int!
+}
+
+type MoveMetaAilmentNames {
+  localLanguage: Languages!
+  local_language_id: Int!
+  moveMetaAilment: MoveMetaAilments!
+  move_meta_ailment_id: Int!
+  name: String!
+}
+
+type MoveMetaAilmentNamesAvgAggregate {
+  local_language_id: Float
+  move_meta_ailment_id: Float
+}
+
+type MoveMetaAilmentNamesCountAggregate {
+  _all: Int!
+  local_language_id: Int!
+  move_meta_ailment_id: Int!
+  name: Int!
+}
+
+type MoveMetaAilmentNamesMaxAggregate {
+  local_language_id: Int
+  move_meta_ailment_id: Int
+  name: String
+}
+
+type MoveMetaAilmentNamesMinAggregate {
+  local_language_id: Int
+  move_meta_ailment_id: Int
+  name: String
+}
+
+type MoveMetaAilmentNamesSumAggregate {
+  local_language_id: Int
+  move_meta_ailment_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "MoveMetaAilment")"""
+type MoveMetaAilments {
+  _count: MoveMetaAilmentsCount!
+  id: ID!
+  identifier: String!
+  meta: [MoveMeta!]!
+  moveMetaAilmentNames: [MoveMetaAilmentNames!]!
+}
+
+type MoveMetaAilmentsAvgAggregate {
+  id: Float
+}
+
+type MoveMetaAilmentsCount {
+  meta: Int!
+  moveMetaAilmentNames: Int!
+}
+
+type MoveMetaAilmentsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type MoveMetaAilmentsMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type MoveMetaAilmentsMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type MoveMetaAilmentsSumAggregate {
+  id: Int
+}
+
+type MoveMetaAvgAggregate {
+  ailment_chance: Float
+  crit_rate: Float
+  drain: Float
+  flinch_chance: Float
+  healing: Float
+  max_hits: Float
+  max_turns: Float
+  meta_ailment_id: Float
+  meta_category_id: Float
+  min_hits: Float
+  min_turns: Float
+  move_id: Float
+  stat_chance: Float
+}
+
+"""@@TypeGraphQL.type(name: "MoveMetaCategory")"""
+type MoveMetaCategories {
+  _count: MoveMetaCategoriesCount!
+  id: ID!
+  identifier: String!
+  meta: [MoveMeta!]!
+  moveMetaCategoryProses: [MoveMetaCategoryProse!]!
+}
+
+type MoveMetaCategoriesAvgAggregate {
+  id: Float
+}
+
+type MoveMetaCategoriesCount {
+  meta: Int!
+  moveMetaCategoryProses: Int!
+}
+
+type MoveMetaCategoriesCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type MoveMetaCategoriesMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type MoveMetaCategoriesMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type MoveMetaCategoriesSumAggregate {
+  id: Int
+}
+
+type MoveMetaCategoryProse {
+  description: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+  moveMetaCategory: MoveMetaCategories!
+  move_meta_category_id: Int!
+}
+
+type MoveMetaCategoryProseAvgAggregate {
+  local_language_id: Float
+  move_meta_category_id: Float
+}
+
+type MoveMetaCategoryProseCountAggregate {
+  _all: Int!
+  description: Int!
+  local_language_id: Int!
+  move_meta_category_id: Int!
+}
+
+type MoveMetaCategoryProseMaxAggregate {
+  description: String
+  local_language_id: Int
+  move_meta_category_id: Int
+}
+
+type MoveMetaCategoryProseMinAggregate {
+  description: String
+  local_language_id: Int
+  move_meta_category_id: Int
+}
+
+type MoveMetaCategoryProseSumAggregate {
+  local_language_id: Int
+  move_meta_category_id: Int
+}
+
+type MoveMetaCount {
+  statChanges: Int!
+}
+
+type MoveMetaCountAggregate {
+  _all: Int!
+  ailment_chance: Int!
+  crit_rate: Int!
+  drain: Int!
+  flinch_chance: Int!
+  healing: Int!
+  max_hits: Int!
+  max_turns: Int!
+  meta_ailment_id: Int!
+  meta_category_id: Int!
+  min_hits: Int!
+  min_turns: Int!
+  move_id: Int!
+  stat_chance: Int!
+}
+
+type MoveMetaMaxAggregate {
+  ailment_chance: Int
+  crit_rate: Int
+  drain: Int
+  flinch_chance: Int
+  healing: Int
+  max_hits: Int
+  max_turns: Int
+  meta_ailment_id: Int
+  meta_category_id: Int
+  min_hits: Int
+  min_turns: Int
+  move_id: Int
+  stat_chance: Int
+}
+
+type MoveMetaMinAggregate {
+  ailment_chance: Int
+  crit_rate: Int
+  drain: Int
+  flinch_chance: Int
+  healing: Int
+  max_hits: Int
+  max_turns: Int
+  meta_ailment_id: Int
+  meta_category_id: Int
+  min_hits: Int
+  min_turns: Int
+  move_id: Int
+  stat_chance: Int
+}
+
+"""@@TypeGraphQL.type(name: "MoveMetaStatChanges")"""
+type MoveMetaStatChanges {
+  change: Int!
+  meta: MoveMeta!
+  move_id: Int!
+  stat: Stats!
+  stat_id: Int!
+}
+
+type MoveMetaStatChangesAvgAggregate {
+  change: Float
+  move_id: Float
+  stat_id: Float
+}
+
+type MoveMetaStatChangesCountAggregate {
+  _all: Int!
+  change: Int!
+  move_id: Int!
+  stat_id: Int!
+}
+
+type MoveMetaStatChangesMaxAggregate {
+  change: Int
+  move_id: Int
+  stat_id: Int
+}
+
+type MoveMetaStatChangesMinAggregate {
+  change: Int
+  move_id: Int
+  stat_id: Int
+}
+
+type MoveMetaStatChangesSumAggregate {
+  change: Int
+  move_id: Int
+  stat_id: Int
+}
+
+type MoveMetaSumAggregate {
+  ailment_chance: Int
+  crit_rate: Int
+  drain: Int
+  flinch_chance: Int
+  healing: Int
+  max_hits: Int
+  max_turns: Int
+  meta_ailment_id: Int
+  meta_category_id: Int
+  min_hits: Int
+  min_turns: Int
+  move_id: Int
+  stat_chance: Int
+}
+
+type MoveNames {
+  localLanguage: Languages!
+  local_language_id: Int!
+  move: Moves!
+  move_id: Int!
+  name: String!
+}
+
+type MoveNamesAvgAggregate {
+  local_language_id: Float
+  move_id: Float
+}
+
+type MoveNamesCountAggregate {
+  _all: Int!
+  local_language_id: Int!
+  move_id: Int!
+  name: Int!
+}
+
+type MoveNamesMaxAggregate {
+  local_language_id: Int
+  move_id: Int
+  name: String
+}
+
+type MoveNamesMinAggregate {
+  local_language_id: Int
+  move_id: Int
+  name: String
+}
+
+type MoveNamesSumAggregate {
+  local_language_id: Int
+  move_id: Int
+}
+
+type MoveTargetProse {
+  description: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+  moveTarget: MoveTargets!
+  move_target_id: Int!
+  name: String!
+}
+
+type MoveTargetProseAvgAggregate {
+  local_language_id: Float
+  move_target_id: Float
+}
+
+type MoveTargetProseCountAggregate {
+  _all: Int!
+  description: Int!
+  local_language_id: Int!
+  move_target_id: Int!
+  name: Int!
+}
+
+type MoveTargetProseMaxAggregate {
+  description: String
+  local_language_id: Int
+  move_target_id: Int
+  name: String
+}
+
+type MoveTargetProseMinAggregate {
+  description: String
+  local_language_id: Int
+  move_target_id: Int
+  name: String
+}
+
+type MoveTargetProseSumAggregate {
+  local_language_id: Int
+  move_target_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "MoveTarget")"""
+type MoveTargets {
+  _count: MoveTargetsCount!
+  id: ID!
+  identifier: String!
+  moveChangelogs: [MoveChangelog!]!
+  moveTargetProses: [MoveTargetProse!]!
+  moves: [Moves!]!
+}
+
+type MoveTargetsAvgAggregate {
+  id: Float
+}
+
+type MoveTargetsCount {
+  moveChangelogs: Int!
+  moveTargetProses: Int!
+  moves: Int!
+}
+
+type MoveTargetsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type MoveTargetsMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type MoveTargetsMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type MoveTargetsSumAggregate {
+  id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Move")"""
+type Moves {
+  _count: MovesCount!
+  accuracy: Int
+  canonicalId: String!
+  contestCombos: [ContestCombos!]!
+  contestCombosSecond: [ContestCombos!]!
+  contestEffect: ContestEffects
+  contestType: ContestTypes
+  contest_effect_id: Int
+  contest_type_id: Int
+  damageClass: MoveDamageClasses!
+  damage_class_id: Int!
+  effect_chance: Int
+  effect_id: Int
+  evolutionsAsUsedMove: [PokemonEvolution!]!
+  flagMap: [MoveFlagMap!]!
+  generation: Generations!
+  generation_id: Int!
+  id: ID!
+  identifier: String!
+  knownMoves: [PokemonEvolution!]!
+  machines: [Machines!]!
+  meta: [MoveMeta!]!
+  moveChangelogs: [MoveChangelog!]!
+  moveFlavorSummaries: [MoveFlavorSummaries!]!
+  moveFlavorTexts: [MoveFlavorText!]!
+  moveNames: [MoveNames!]!
+  pokemonFormConditions: [PokemonFormConditions!]!
+  pokemonMoves: [PokemonMoves!]!
+  power: Int
+  pp: Int
+  priority: Int!
+  slug: String!
+  superContestCombos: [SuperContestCombos!]!
+  superContestCombosSecond: [SuperContestCombos!]!
+  superContestEffect: SuperContestEffects
+  super_contest_effect_id: Int
+  target: MoveTargets!
+  target_id: Int!
+  type: Types!
+  type_id: Int!
+}
+
+type MovesAvgAggregate {
+  accuracy: Float
+  contest_effect_id: Float
+  contest_type_id: Float
+  damage_class_id: Float
+  effect_chance: Float
+  effect_id: Float
+  generation_id: Float
+  id: Float
+  power: Float
+  pp: Float
+  priority: Float
+  super_contest_effect_id: Float
+  target_id: Float
+  type_id: Float
+}
+
+type MovesCount {
+  contestCombos: Int!
+  contestCombosSecond: Int!
+  evolutionsAsUsedMove: Int!
+  flagMap: Int!
+  knownMoves: Int!
+  machines: Int!
+  meta: Int!
+  moveChangelogs: Int!
+  moveFlavorSummaries: Int!
+  moveFlavorTexts: Int!
+  moveNames: Int!
+  pokemonFormConditions: Int!
+  pokemonMoves: Int!
+  superContestCombos: Int!
+  superContestCombosSecond: Int!
+}
+
+type MovesCountAggregate {
+  _all: Int!
+  accuracy: Int!
+  contest_effect_id: Int!
+  contest_type_id: Int!
+  damage_class_id: Int!
+  effect_chance: Int!
+  effect_id: Int!
+  generation_id: Int!
+  id: Int!
+  identifier: Int!
+  power: Int!
+  pp: Int!
+  priority: Int!
+  super_contest_effect_id: Int!
+  target_id: Int!
+  type_id: Int!
+}
+
+type MovesMaxAggregate {
+  accuracy: Int
+  contest_effect_id: Int
+  contest_type_id: Int
+  damage_class_id: Int
+  effect_chance: Int
+  effect_id: Int
+  generation_id: Int
+  id: Int
+  identifier: String
+  power: Int
+  pp: Int
+  priority: Int
+  super_contest_effect_id: Int
+  target_id: Int
+  type_id: Int
+}
+
+type MovesMinAggregate {
+  accuracy: Int
+  contest_effect_id: Int
+  contest_type_id: Int
+  damage_class_id: Int
+  effect_chance: Int
+  effect_id: Int
+  generation_id: Int
+  id: Int
+  identifier: String
+  power: Int
+  pp: Int
+  priority: Int
+  super_contest_effect_id: Int
+  target_id: Int
+  type_id: Int
+}
+
+type MovesSumAggregate {
+  accuracy: Int
+  contest_effect_id: Int
+  contest_type_id: Int
+  damage_class_id: Int
+  effect_chance: Int
+  effect_id: Int
+  generation_id: Int
+  id: Int
+  power: Int
+  pp: Int
+  priority: Int
+  super_contest_effect_id: Int
+  target_id: Int
+  type_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "NatureBattleStylePreference")"""
+type NatureBattleStylePreferences {
+  battleStyle: MoveBattleStyles!
+  high_hp_preference: Int!
+  low_hp_preference: Int!
+  move_battle_style_id: Int!
+  nature: Natures!
+  nature_id: ID!
+}
+
+type NatureBattleStylePreferencesAvgAggregate {
+  high_hp_preference: Float
+  low_hp_preference: Float
+  move_battle_style_id: Float
+  nature_id: Float
+}
+
+type NatureBattleStylePreferencesCountAggregate {
+  _all: Int!
+  high_hp_preference: Int!
+  low_hp_preference: Int!
+  move_battle_style_id: Int!
+  nature_id: Int!
+}
+
+type NatureBattleStylePreferencesMaxAggregate {
+  high_hp_preference: Int
+  low_hp_preference: Int
+  move_battle_style_id: Int
+  nature_id: Int
+}
+
+type NatureBattleStylePreferencesMinAggregate {
+  high_hp_preference: Int
+  low_hp_preference: Int
+  move_battle_style_id: Int
+  nature_id: Int
+}
+
+type NatureBattleStylePreferencesSumAggregate {
+  high_hp_preference: Int
+  low_hp_preference: Int
+  move_battle_style_id: Int
+  nature_id: Int
+}
+
+type NatureNames {
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+  nature: Natures!
+  nature_id: Int!
+}
+
+type NatureNamesAvgAggregate {
+  local_language_id: Float
+  nature_id: Float
+}
+
+type NatureNamesCountAggregate {
+  _all: Int!
+  local_language_id: Int!
+  name: Int!
+  nature_id: Int!
+}
+
+type NatureNamesMaxAggregate {
+  local_language_id: Int
+  name: String
+  nature_id: Int
+}
+
+type NatureNamesMinAggregate {
+  local_language_id: Int
+  name: String
+  nature_id: Int
+}
+
+type NatureNamesSumAggregate {
+  local_language_id: Int
+  nature_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Nature")"""
+type Natures {
+  _count: NaturesCount!
+  battleStylePreferences: [NatureBattleStylePreferences!]!
+  decreasedStat: Stats!
+  decreased_stat_id: Int!
+  game_index: Int!
+  hates_flavor_id: Int!
+  id: ID!
+  identifier: String!
+  increasedStat: Stats!
+  increased_stat_id: Int!
+  likes_flavor_id: Int!
+  natureNames: [NatureNames!]!
+}
+
+type NaturesAvgAggregate {
+  decreased_stat_id: Float
+  game_index: Float
+  hates_flavor_id: Float
+  id: Float
+  increased_stat_id: Float
+  likes_flavor_id: Float
+}
+
+type NaturesCount {
+  battleStylePreferences: Int!
+  natureNames: Int!
+}
+
+type NaturesCountAggregate {
+  _all: Int!
+  decreased_stat_id: Int!
+  game_index: Int!
+  hates_flavor_id: Int!
+  id: Int!
+  identifier: Int!
+  increased_stat_id: Int!
+  likes_flavor_id: Int!
+}
+
+type NaturesMaxAggregate {
+  decreased_stat_id: Int
+  game_index: Int
+  hates_flavor_id: Int
+  id: Int
+  identifier: String
+  increased_stat_id: Int
+  likes_flavor_id: Int
+}
+
+type NaturesMinAggregate {
+  decreased_stat_id: Int
+  game_index: Int
+  hates_flavor_id: Int
+  id: Int
+  identifier: String
+  increased_stat_id: Int
+  likes_flavor_id: Int
+}
+
+type NaturesSumAggregate {
+  decreased_stat_id: Int
+  game_index: Int
+  hates_flavor_id: Int
+  id: Int
+  increased_stat_id: Int
+  likes_flavor_id: Int
+}
+
+type PokeathlonStatNames {
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+  pokeathlonStat: Stats!
+  pokeathlon_stat_id: Int!
+}
+
+type PokeathlonStatNamesAvgAggregate {
+  local_language_id: Float
+  pokeathlon_stat_id: Float
+}
+
+type PokeathlonStatNamesCountAggregate {
+  _all: Int!
+  local_language_id: Int!
+  name: Int!
+  pokeathlon_stat_id: Int!
+}
+
+type PokeathlonStatNamesMaxAggregate {
+  local_language_id: Int
+  name: String
+  pokeathlon_stat_id: Int
+}
+
+type PokeathlonStatNamesMinAggregate {
+  local_language_id: Int
+  name: String
+  pokeathlon_stat_id: Int
+}
+
+type PokeathlonStatNamesSumAggregate {
+  local_language_id: Int
+  pokeathlon_stat_id: Int
+}
+
+type PokedexProse {
+  description: String
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+  pokedex: Pokedexes!
+  pokedex_id: Int!
+}
+
+type PokedexProseAvgAggregate {
+  local_language_id: Float
+  pokedex_id: Float
+}
+
+type PokedexProseCountAggregate {
+  _all: Int!
+  description: Int!
+  local_language_id: Int!
+  name: Int!
+  pokedex_id: Int!
+}
+
+type PokedexProseMaxAggregate {
+  description: String
+  local_language_id: Int
+  name: String
+  pokedex_id: Int
+}
+
+type PokedexProseMinAggregate {
+  description: String
+  local_language_id: Int
+  name: String
+  pokedex_id: Int
+}
+
+type PokedexProseSumAggregate {
+  local_language_id: Int
+  pokedex_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "PokedexVersionGroup")"""
+type PokedexVersionGroups {
+  pokedex: Pokedexes!
+  pokedex_id: ID!
+  versionGroup: VersionGroups!
+  version_group_id: Int!
+}
+
+type PokedexVersionGroupsAvgAggregate {
+  pokedex_id: Float
+  version_group_id: Float
+}
+
+type PokedexVersionGroupsCountAggregate {
+  _all: Int!
+  pokedex_id: Int!
+  version_group_id: Int!
+}
+
+type PokedexVersionGroupsMaxAggregate {
+  pokedex_id: Int
+  version_group_id: Int
+}
+
+type PokedexVersionGroupsMinAggregate {
+  pokedex_id: Int
+  version_group_id: Int
+}
+
+type PokedexVersionGroupsSumAggregate {
+  pokedex_id: Int
+  version_group_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Pokedex")"""
+type Pokedexes {
+  _count: PokedexesCount!
+  dexNumbers: [PokemonDexNumbers!]!
+  id: ID!
+  identifier: String!
+  is_main_series: Int!
+  pokedexProses: [PokedexProse!]!
+  region: Regions
+  region_id: Int
+  versionGroups: [PokedexVersionGroups!]!
+}
+
+type PokedexesAvgAggregate {
+  id: Float
+  is_main_series: Float
+  region_id: Float
+}
+
+type PokedexesCount {
+  dexNumbers: Int!
+  pokedexProses: Int!
+  versionGroups: Int!
+}
+
+type PokedexesCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+  is_main_series: Int!
+  region_id: Int!
+}
+
+type PokedexesMaxAggregate {
+  id: Int
+  identifier: String
+  is_main_series: Int
+  region_id: Int
+}
+
+type PokedexesMinAggregate {
+  id: Int
+  identifier: String
+  is_main_series: Int
+  region_id: Int
+}
+
+type PokedexesSumAggregate {
+  id: Int
+  is_main_series: Int
+  region_id: Int
+}
+
+type Pokemon {
+  _count: PokemonCount!
+  abilities: [PokemonAbilities!]!
+  base_experience: Int
+
+  """Canonical resource id, e.g. pokemon:25"""
+  canonicalId: String!
+  encounters: [Encounters!]!
+  forms: [PokemonForms!]!
+  gameIndices: [PokemonGameIndices!]!
+  height: Int!
+  id: ID!
+  identifier: String!
+  is_default: Int!
+  items: [PokemonItems!]!
+  moves: [PokemonMoves!]!
+  order: Int
+  pokemonAbilitiesPasts: [PokemonAbilitiesPast!]!
+  pokemonStatsPasts: [PokemonStatsPast!]!
+  pokemonTypesPasts: [PokemonTypesPast!]!
+
+  """URL-safe human slug"""
+  slug: String!
+  species: PokemonSpecies!
+  species_id: Int!
+  stats: [PokemonStats!]!
+  types: [PokemonTypes!]!
+  weight: Int!
+}
+
+"""@@TypeGraphQL.type(name: "PokemonAbility")"""
+type PokemonAbilities {
+  ability: Abilities!
+  ability_id: Int!
+  is_hidden: Int!
+  pokemon: Pokemon!
+  pokemon_id: Int!
+  slot: Int!
+}
+
+type PokemonAbilitiesAvgAggregate {
+  ability_id: Float
+  is_hidden: Float
+  pokemon_id: Float
+  slot: Float
+}
+
+type PokemonAbilitiesCountAggregate {
+  _all: Int!
+  ability_id: Int!
+  is_hidden: Int!
+  pokemon_id: Int!
+  slot: Int!
+}
+
+type PokemonAbilitiesMaxAggregate {
+  ability_id: Int
+  is_hidden: Int
+  pokemon_id: Int
+  slot: Int
+}
+
+type PokemonAbilitiesMinAggregate {
+  ability_id: Int
+  is_hidden: Int
+  pokemon_id: Int
+  slot: Int
+}
+
+type PokemonAbilitiesPast {
+  ability: Abilities
+  ability_id: Int
+  generation: Generations!
+  generation_id: Int!
+  is_hidden: Int!
+  pokemon: Pokemon!
+  pokemon_id: Int!
+  slot: Int!
+}
+
+type PokemonAbilitiesPastAvgAggregate {
+  ability_id: Float
+  generation_id: Float
+  is_hidden: Float
+  pokemon_id: Float
+  slot: Float
+}
+
+type PokemonAbilitiesPastCountAggregate {
+  _all: Int!
+  ability_id: Int!
+  generation_id: Int!
+  is_hidden: Int!
+  pokemon_id: Int!
+  slot: Int!
+}
+
+type PokemonAbilitiesPastMaxAggregate {
+  ability_id: Int
+  generation_id: Int
+  is_hidden: Int
+  pokemon_id: Int
+  slot: Int
+}
+
+type PokemonAbilitiesPastMinAggregate {
+  ability_id: Int
+  generation_id: Int
+  is_hidden: Int
+  pokemon_id: Int
+  slot: Int
+}
+
+type PokemonAbilitiesPastSumAggregate {
+  ability_id: Int
+  generation_id: Int
+  is_hidden: Int
+  pokemon_id: Int
+  slot: Int
+}
+
+type PokemonAbilitiesSumAggregate {
+  ability_id: Int
+  is_hidden: Int
+  pokemon_id: Int
+  slot: Int
+}
+
+type PokemonAvgAggregate {
+  base_experience: Float
+  height: Float
+  id: Float
+  is_default: Float
+  order: Float
+  species_id: Float
+  weight: Float
+}
+
+type PokemonColorNames {
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+  pokemonColor: PokemonColors!
+  pokemon_color_id: Int!
+}
+
+type PokemonColorNamesAvgAggregate {
+  local_language_id: Float
+  pokemon_color_id: Float
+}
+
+type PokemonColorNamesCountAggregate {
+  _all: Int!
+  local_language_id: Int!
+  name: Int!
+  pokemon_color_id: Int!
+}
+
+type PokemonColorNamesMaxAggregate {
+  local_language_id: Int
+  name: String
+  pokemon_color_id: Int
+}
+
+type PokemonColorNamesMinAggregate {
+  local_language_id: Int
+  name: String
+  pokemon_color_id: Int
+}
+
+type PokemonColorNamesSumAggregate {
+  local_language_id: Int
+  pokemon_color_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "PokemonColor")"""
+type PokemonColors {
+  _count: PokemonColorsCount!
+  id: ID!
+  identifier: String!
+  pokemonColorNames: [PokemonColorNames!]!
+  species: [PokemonSpecies!]!
+}
+
+type PokemonColorsAvgAggregate {
+  id: Float
+}
+
+type PokemonColorsCount {
+  pokemonColorNames: Int!
+  species: Int!
+}
+
+type PokemonColorsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type PokemonColorsMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type PokemonColorsMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type PokemonColorsSumAggregate {
+  id: Int
+}
+
+type PokemonCount {
+  abilities: Int!
+  encounters: Int!
+  forms: Int!
+  gameIndices: Int!
+  items: Int!
+  moves: Int!
+  pokemonAbilitiesPasts: Int!
+  pokemonStatsPasts: Int!
+  pokemonTypesPasts: Int!
+  stats: Int!
+  types: Int!
+}
+
+type PokemonCountAggregate {
+  _all: Int!
+  base_experience: Int!
+  height: Int!
+  id: Int!
+  identifier: Int!
+  is_default: Int!
+  order: Int!
+  species_id: Int!
+  weight: Int!
+}
+
+"""@@TypeGraphQL.type(name: "PokemonDexNumber")"""
+type PokemonDexNumbers {
+  pokedex: Pokedexes!
+  pokedex_id: Int!
+  pokedex_number: Int!
+  species: PokemonSpecies!
+  species_id: Int!
+}
+
+type PokemonDexNumbersAvgAggregate {
+  pokedex_id: Float
+  pokedex_number: Float
+  species_id: Float
+}
+
+type PokemonDexNumbersCountAggregate {
+  _all: Int!
+  pokedex_id: Int!
+  pokedex_number: Int!
+  species_id: Int!
+}
+
+type PokemonDexNumbersMaxAggregate {
+  pokedex_id: Int
+  pokedex_number: Int
+  species_id: Int
+}
+
+type PokemonDexNumbersMinAggregate {
+  pokedex_id: Int
+  pokedex_number: Int
+  species_id: Int
+}
+
+type PokemonDexNumbersSumAggregate {
+  pokedex_id: Int
+  pokedex_number: Int
+  species_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "PokemonEggGroup")"""
+type PokemonEggGroups {
+  eggGroup: EggGroups!
+  egg_group_id: Int!
+  species: PokemonSpecies!
+  species_id: Int!
+}
+
+type PokemonEggGroupsAvgAggregate {
+  egg_group_id: Float
+  species_id: Float
+}
+
+type PokemonEggGroupsCountAggregate {
+  _all: Int!
+  egg_group_id: Int!
+  species_id: Int!
+}
+
+type PokemonEggGroupsMaxAggregate {
+  egg_group_id: Int
+  species_id: Int
+}
+
+type PokemonEggGroupsMinAggregate {
+  egg_group_id: Int
+  species_id: Int
+}
+
+type PokemonEggGroupsSumAggregate {
+  egg_group_id: Int
+  species_id: Int
+}
+
+type PokemonEvolution {
+  baseForm: PokemonForms
+  base_form_id: Int
+  evolutionTrigger: EvolutionTriggers!
+  evolution_trigger_id: Int!
+  evolvedForm: PokemonForms
+  evolvedSpecies: PokemonSpecies!
+  evolved_form_id: Int
+  evolved_species_id: Int!
+  gender: Genders
+  gender_id: Int
+  heldItem: Items
+  held_item_id: Int
+  id: ID!
+  is_default: Int!
+  knownMove: Moves
+  knownMoveType: Types
+  known_move_id: Int
+  known_move_type_id: Int
+  location: Locations
+  location_id: Int
+  minimum_affection: Int
+  minimum_beauty: Int
+  minimum_damage_taken: Int
+  minimum_happiness: Int
+  minimum_level: Int
+  minimum_move_count: Int
+  minimum_steps: Int
+  near_special_rock: Int!
+  needs_multiplayer: Int!
+  needs_overworld_rain: Int!
+  partySpecies: PokemonSpecies
+  partyType: Types
+  party_species_id: Int
+  party_type_id: Int
+  region: Regions
+  region_id: Int
+  relative_physical_stats: Int
+  time_of_day: String
+  tradeSpecies: PokemonSpecies
+  trade_species_id: Int
+  triggerItem: Items
+  trigger_item_id: Int
+  turn_upside_down: Int!
+  usedMove: Moves
+  used_move_id: Int
+  versionGroup: VersionGroups!
+  version_group_id: Int!
+}
+
+type PokemonEvolutionAvgAggregate {
+  base_form_id: Float
+  evolution_trigger_id: Float
+  evolved_form_id: Float
+  evolved_species_id: Float
+  gender_id: Float
+  held_item_id: Float
+  id: Float
+  is_default: Float
+  known_move_id: Float
+  known_move_type_id: Float
+  location_id: Float
+  minimum_affection: Float
+  minimum_beauty: Float
+  minimum_damage_taken: Float
+  minimum_happiness: Float
+  minimum_level: Float
+  minimum_move_count: Float
+  minimum_steps: Float
+  near_special_rock: Float
+  needs_multiplayer: Float
+  needs_overworld_rain: Float
+  party_species_id: Float
+  party_type_id: Float
+  region_id: Float
+  relative_physical_stats: Float
+  trade_species_id: Float
+  trigger_item_id: Float
+  turn_upside_down: Float
+  used_move_id: Float
+  version_group_id: Float
+}
+
+type PokemonEvolutionCountAggregate {
+  _all: Int!
+  base_form_id: Int!
+  evolution_trigger_id: Int!
+  evolved_form_id: Int!
+  evolved_species_id: Int!
+  gender_id: Int!
+  held_item_id: Int!
+  id: Int!
+  is_default: Int!
+  known_move_id: Int!
+  known_move_type_id: Int!
+  location_id: Int!
+  minimum_affection: Int!
+  minimum_beauty: Int!
+  minimum_damage_taken: Int!
+  minimum_happiness: Int!
+  minimum_level: Int!
+  minimum_move_count: Int!
+  minimum_steps: Int!
+  near_special_rock: Int!
+  needs_multiplayer: Int!
+  needs_overworld_rain: Int!
+  party_species_id: Int!
+  party_type_id: Int!
+  region_id: Int!
+  relative_physical_stats: Int!
+  time_of_day: Int!
+  trade_species_id: Int!
+  trigger_item_id: Int!
+  turn_upside_down: Int!
+  used_move_id: Int!
+  version_group_id: Int!
+}
+
+type PokemonEvolutionMaxAggregate {
+  base_form_id: Int
+  evolution_trigger_id: Int
+  evolved_form_id: Int
+  evolved_species_id: Int
+  gender_id: Int
+  held_item_id: Int
+  id: Int
+  is_default: Int
+  known_move_id: Int
+  known_move_type_id: Int
+  location_id: Int
+  minimum_affection: Int
+  minimum_beauty: Int
+  minimum_damage_taken: Int
+  minimum_happiness: Int
+  minimum_level: Int
+  minimum_move_count: Int
+  minimum_steps: Int
+  near_special_rock: Int
+  needs_multiplayer: Int
+  needs_overworld_rain: Int
+  party_species_id: Int
+  party_type_id: Int
+  region_id: Int
+  relative_physical_stats: Int
+  time_of_day: String
+  trade_species_id: Int
+  trigger_item_id: Int
+  turn_upside_down: Int
+  used_move_id: Int
+  version_group_id: Int
+}
+
+type PokemonEvolutionMinAggregate {
+  base_form_id: Int
+  evolution_trigger_id: Int
+  evolved_form_id: Int
+  evolved_species_id: Int
+  gender_id: Int
+  held_item_id: Int
+  id: Int
+  is_default: Int
+  known_move_id: Int
+  known_move_type_id: Int
+  location_id: Int
+  minimum_affection: Int
+  minimum_beauty: Int
+  minimum_damage_taken: Int
+  minimum_happiness: Int
+  minimum_level: Int
+  minimum_move_count: Int
+  minimum_steps: Int
+  near_special_rock: Int
+  needs_multiplayer: Int
+  needs_overworld_rain: Int
+  party_species_id: Int
+  party_type_id: Int
+  region_id: Int
+  relative_physical_stats: Int
+  time_of_day: String
+  trade_species_id: Int
+  trigger_item_id: Int
+  turn_upside_down: Int
+  used_move_id: Int
+  version_group_id: Int
+}
+
+type PokemonEvolutionSumAggregate {
+  base_form_id: Int
+  evolution_trigger_id: Int
+  evolved_form_id: Int
+  evolved_species_id: Int
+  gender_id: Int
+  held_item_id: Int
+  id: Int
+  is_default: Int
+  known_move_id: Int
+  known_move_type_id: Int
+  location_id: Int
+  minimum_affection: Int
+  minimum_beauty: Int
+  minimum_damage_taken: Int
+  minimum_happiness: Int
+  minimum_level: Int
+  minimum_move_count: Int
+  minimum_steps: Int
+  near_special_rock: Int
+  needs_multiplayer: Int
+  needs_overworld_rain: Int
+  party_species_id: Int
+  party_type_id: Int
+  region_id: Int
+  relative_physical_stats: Int
+  trade_species_id: Int
+  trigger_item_id: Int
+  turn_upside_down: Int
+  used_move_id: Int
+  version_group_id: Int
+}
+
+type PokemonFormConditions {
+  formTrigger: PokemonFormTriggers!
+  form_trigger_id: Int!
+  pokemonForm: PokemonForms!
+  pokemon_form_id: Int!
+  triggerAbility: Abilities
+  triggerItem: Items
+  triggerMove: Moves
+  trigger_ability_id: Int
+  trigger_item_id: Int
+  trigger_move_id: Int
+}
+
+type PokemonFormConditionsAvgAggregate {
+  form_trigger_id: Float
+  pokemon_form_id: Float
+  trigger_ability_id: Float
+  trigger_item_id: Float
+  trigger_move_id: Float
+}
+
+type PokemonFormConditionsCountAggregate {
+  _all: Int!
+  form_trigger_id: Int!
+  pokemon_form_id: Int!
+  trigger_ability_id: Int!
+  trigger_item_id: Int!
+  trigger_move_id: Int!
+}
+
+type PokemonFormConditionsMaxAggregate {
+  form_trigger_id: Int
+  pokemon_form_id: Int
+  trigger_ability_id: Int
+  trigger_item_id: Int
+  trigger_move_id: Int
+}
+
+type PokemonFormConditionsMinAggregate {
+  form_trigger_id: Int
+  pokemon_form_id: Int
+  trigger_ability_id: Int
+  trigger_item_id: Int
+  trigger_move_id: Int
+}
+
+type PokemonFormConditionsSumAggregate {
+  form_trigger_id: Int
+  pokemon_form_id: Int
+  trigger_ability_id: Int
+  trigger_item_id: Int
+  trigger_move_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "PokemonFormGeneration")"""
+type PokemonFormGenerations {
+  game_index: Int!
+  generation: Generations!
+  generation_id: Int!
+  pokemonForm: PokemonForms!
+  pokemon_form_id: Int!
+}
+
+type PokemonFormGenerationsAvgAggregate {
+  game_index: Float
+  generation_id: Float
+  pokemon_form_id: Float
+}
+
+type PokemonFormGenerationsCountAggregate {
+  _all: Int!
+  game_index: Int!
+  generation_id: Int!
+  pokemon_form_id: Int!
+}
+
+type PokemonFormGenerationsMaxAggregate {
+  game_index: Int
+  generation_id: Int
+  pokemon_form_id: Int
+}
+
+type PokemonFormGenerationsMinAggregate {
+  game_index: Int
+  generation_id: Int
+  pokemon_form_id: Int
+}
+
+type PokemonFormGenerationsSumAggregate {
+  game_index: Int
+  generation_id: Int
+  pokemon_form_id: Int
+}
+
+type PokemonFormNames {
+  form_name: String
+  localLanguage: Languages!
+  local_language_id: Int!
+  pokemonForm: PokemonForms!
+  pokemon_form_id: Int!
+  pokemon_name: String
+}
+
+type PokemonFormNamesAvgAggregate {
+  local_language_id: Float
+  pokemon_form_id: Float
+}
+
+type PokemonFormNamesCountAggregate {
+  _all: Int!
+  form_name: Int!
+  local_language_id: Int!
+  pokemon_form_id: Int!
+  pokemon_name: Int!
+}
+
+type PokemonFormNamesMaxAggregate {
+  form_name: String
+  local_language_id: Int
+  pokemon_form_id: Int
+  pokemon_name: String
+}
+
+type PokemonFormNamesMinAggregate {
+  form_name: String
+  local_language_id: Int
+  pokemon_form_id: Int
+  pokemon_name: String
+}
+
+type PokemonFormNamesSumAggregate {
+  local_language_id: Int
+  pokemon_form_id: Int
+}
+
+type PokemonFormTriggerProse {
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+  pokemonFormTrigger: PokemonFormTriggers!
+  pokemon_form_trigger_id: Int!
+}
+
+type PokemonFormTriggerProseAvgAggregate {
+  local_language_id: Float
+  pokemon_form_trigger_id: Float
+}
+
+type PokemonFormTriggerProseCountAggregate {
+  _all: Int!
+  local_language_id: Int!
+  name: Int!
+  pokemon_form_trigger_id: Int!
+}
+
+type PokemonFormTriggerProseMaxAggregate {
+  local_language_id: Int
+  name: String
+  pokemon_form_trigger_id: Int
+}
+
+type PokemonFormTriggerProseMinAggregate {
+  local_language_id: Int
+  name: String
+  pokemon_form_trigger_id: Int
+}
+
+type PokemonFormTriggerProseSumAggregate {
+  local_language_id: Int
+  pokemon_form_trigger_id: Int
+}
+
+type PokemonFormTriggers {
+  _count: PokemonFormTriggersCount!
+  id: ID!
+  identifier: String!
+  pokemonFormConditions: [PokemonFormConditions!]!
+  pokemonFormTriggerProses: [PokemonFormTriggerProse!]!
+}
+
+type PokemonFormTriggersAvgAggregate {
+  id: Float
+}
+
+type PokemonFormTriggersCount {
+  pokemonFormConditions: Int!
+  pokemonFormTriggerProses: Int!
+}
+
+type PokemonFormTriggersCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type PokemonFormTriggersMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type PokemonFormTriggersMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type PokemonFormTriggersSumAggregate {
+  id: Int
+}
+
+"""@@TypeGraphQL.type(name: "PokemonFormType")"""
+type PokemonFormTypes {
+  pokemonForm: PokemonForms!
+  pokemon_form_id: Int!
+  slot: Int!
+  type: Types!
+  type_id: Int!
+}
+
+type PokemonFormTypesAvgAggregate {
+  pokemon_form_id: Float
+  slot: Float
+  type_id: Float
+}
+
+type PokemonFormTypesCountAggregate {
+  _all: Int!
+  pokemon_form_id: Int!
+  slot: Int!
+  type_id: Int!
+}
+
+type PokemonFormTypesMaxAggregate {
+  pokemon_form_id: Int
+  slot: Int
+  type_id: Int
+}
+
+type PokemonFormTypesMinAggregate {
+  pokemon_form_id: Int
+  slot: Int
+  type_id: Int
+}
+
+type PokemonFormTypesSumAggregate {
+  pokemon_form_id: Int
+  slot: Int
+  type_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "PokemonForm")"""
+type PokemonForms {
+  _count: PokemonFormsCount!
+  evolutionsAsBaseForm: [PokemonEvolution!]!
+  evolutionsAsEvolvedForm: [PokemonEvolution!]!
+  form_identifier: String
+  form_order: Int!
+  generations: [PokemonFormGenerations!]!
+  id: ID!
+  identifier: String!
+  introduced_in_version_group_id: Int!
+  is_battle_only: Int!
+  is_default: Int!
+  is_mega: Int!
+  order: Int!
+  pokemon: Pokemon!
+  pokemonFormConditions: [PokemonFormConditions!]!
+  pokemonFormNames: [PokemonFormNames!]!
+  pokemon_id: Int!
+  types: [PokemonFormTypes!]!
+  versionGroup: VersionGroups!
+}
+
+type PokemonFormsAvgAggregate {
+  form_order: Float
+  id: Float
+  introduced_in_version_group_id: Float
+  is_battle_only: Float
+  is_default: Float
+  is_mega: Float
+  order: Float
+  pokemon_id: Float
+}
+
+type PokemonFormsCount {
+  evolutionsAsBaseForm: Int!
+  evolutionsAsEvolvedForm: Int!
+  generations: Int!
+  pokemonFormConditions: Int!
+  pokemonFormNames: Int!
+  types: Int!
+}
+
+type PokemonFormsCountAggregate {
+  _all: Int!
+  form_identifier: Int!
+  form_order: Int!
+  id: Int!
+  identifier: Int!
+  introduced_in_version_group_id: Int!
+  is_battle_only: Int!
+  is_default: Int!
+  is_mega: Int!
+  order: Int!
+  pokemon_id: Int!
+}
+
+type PokemonFormsMaxAggregate {
+  form_identifier: String
+  form_order: Int
+  id: Int
+  identifier: String
+  introduced_in_version_group_id: Int
+  is_battle_only: Int
+  is_default: Int
+  is_mega: Int
+  order: Int
+  pokemon_id: Int
+}
+
+type PokemonFormsMinAggregate {
+  form_identifier: String
+  form_order: Int
+  id: Int
+  identifier: String
+  introduced_in_version_group_id: Int
+  is_battle_only: Int
+  is_default: Int
+  is_mega: Int
+  order: Int
+  pokemon_id: Int
+}
+
+type PokemonFormsSumAggregate {
+  form_order: Int
+  id: Int
+  introduced_in_version_group_id: Int
+  is_battle_only: Int
+  is_default: Int
+  is_mega: Int
+  order: Int
+  pokemon_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "PokemonGameIndex")"""
+type PokemonGameIndices {
+  game_index: Int!
+  pokemon: Pokemon!
+  pokemon_id: Int!
+  version: Versions!
+  version_id: Int!
+}
+
+type PokemonGameIndicesAvgAggregate {
+  game_index: Float
+  pokemon_id: Float
+  version_id: Float
+}
+
+type PokemonGameIndicesCountAggregate {
+  _all: Int!
+  game_index: Int!
+  pokemon_id: Int!
+  version_id: Int!
+}
+
+type PokemonGameIndicesMaxAggregate {
+  game_index: Int
+  pokemon_id: Int
+  version_id: Int
+}
+
+type PokemonGameIndicesMinAggregate {
+  game_index: Int
+  pokemon_id: Int
+  version_id: Int
+}
+
+type PokemonGameIndicesSumAggregate {
+  game_index: Int
+  pokemon_id: Int
+  version_id: Int
+}
+
+type PokemonHabitatNames {
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+  pokemonHabitat: PokemonHabitats!
+  pokemon_habitat_id: Int!
+}
+
+type PokemonHabitatNamesAvgAggregate {
+  local_language_id: Float
+  pokemon_habitat_id: Float
+}
+
+type PokemonHabitatNamesCountAggregate {
+  _all: Int!
+  local_language_id: Int!
+  name: Int!
+  pokemon_habitat_id: Int!
+}
+
+type PokemonHabitatNamesMaxAggregate {
+  local_language_id: Int
+  name: String
+  pokemon_habitat_id: Int
+}
+
+type PokemonHabitatNamesMinAggregate {
+  local_language_id: Int
+  name: String
+  pokemon_habitat_id: Int
+}
+
+type PokemonHabitatNamesSumAggregate {
+  local_language_id: Int
+  pokemon_habitat_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "PokemonHabitat")"""
+type PokemonHabitats {
+  _count: PokemonHabitatsCount!
+  id: ID!
+  identifier: String!
+  pokemonHabitatNames: [PokemonHabitatNames!]!
+  species: [PokemonSpecies!]!
+}
+
+type PokemonHabitatsAvgAggregate {
+  id: Float
+}
+
+type PokemonHabitatsCount {
+  pokemonHabitatNames: Int!
+  species: Int!
+}
+
+type PokemonHabitatsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type PokemonHabitatsMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type PokemonHabitatsMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type PokemonHabitatsSumAggregate {
+  id: Int
+}
+
+"""@@TypeGraphQL.type(name: "PokemonItem")"""
+type PokemonItems {
+  item: Items!
+  item_id: Int!
+  pokemon: Pokemon!
+  pokemon_id: Int!
+  rarity: Int!
+  version: Versions!
+  version_id: Int!
+}
+
+type PokemonItemsAvgAggregate {
+  item_id: Float
+  pokemon_id: Float
+  rarity: Float
+  version_id: Float
+}
+
+type PokemonItemsCountAggregate {
+  _all: Int!
+  item_id: Int!
+  pokemon_id: Int!
+  rarity: Int!
+  version_id: Int!
+}
+
+type PokemonItemsMaxAggregate {
+  item_id: Int
+  pokemon_id: Int
+  rarity: Int
+  version_id: Int
+}
+
+type PokemonItemsMinAggregate {
+  item_id: Int
+  pokemon_id: Int
+  rarity: Int
+  version_id: Int
+}
+
+type PokemonItemsSumAggregate {
+  item_id: Int
+  pokemon_id: Int
+  rarity: Int
+  version_id: Int
+}
+
+type PokemonMaxAggregate {
+  base_experience: Int
+  height: Int
+  id: Int
+  identifier: String
+  is_default: Int
+  order: Int
+  species_id: Int
+  weight: Int
+}
+
+type PokemonMinAggregate {
+  base_experience: Int
+  height: Int
+  id: Int
+  identifier: String
+  is_default: Int
+  order: Int
+  species_id: Int
+  weight: Int
+}
+
+type PokemonMoveMethodProse {
+  description: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+  pokemonMoveMethod: PokemonMoveMethods!
+  pokemon_move_method_id: Int!
+}
+
+type PokemonMoveMethodProseAvgAggregate {
+  local_language_id: Float
+  pokemon_move_method_id: Float
+}
+
+type PokemonMoveMethodProseCountAggregate {
+  _all: Int!
+  description: Int!
+  local_language_id: Int!
+  name: Int!
+  pokemon_move_method_id: Int!
+}
+
+type PokemonMoveMethodProseMaxAggregate {
+  description: String
+  local_language_id: Int
+  name: String
+  pokemon_move_method_id: Int
+}
+
+type PokemonMoveMethodProseMinAggregate {
+  description: String
+  local_language_id: Int
+  name: String
+  pokemon_move_method_id: Int
+}
+
+type PokemonMoveMethodProseSumAggregate {
+  local_language_id: Int
+  pokemon_move_method_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "PokemonMoveMethod")"""
+type PokemonMoveMethods {
+  _count: PokemonMoveMethodsCount!
+  id: ID!
+  identifier: String!
+  pokemonMoveMethodProses: [PokemonMoveMethodProse!]!
+  pokemonMoves: [PokemonMoves!]!
+  versionGroups: [VersionGroupPokemonMoveMethods!]!
+}
+
+type PokemonMoveMethodsAvgAggregate {
+  id: Float
+}
+
+type PokemonMoveMethodsCount {
+  pokemonMoveMethodProses: Int!
+  pokemonMoves: Int!
+  versionGroups: Int!
+}
+
+type PokemonMoveMethodsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type PokemonMoveMethodsMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type PokemonMoveMethodsMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type PokemonMoveMethodsSumAggregate {
+  id: Int
+}
+
+"""@@TypeGraphQL.type(name: "PokemonMove")"""
+type PokemonMoves {
+  level: Int
+  mastery: Int
+  move: Moves!
+  moveMethod: PokemonMoveMethods!
+  move_id: Int!
+  order: Int
+  pokemon: Pokemon!
+  pokemon_id: Int!
+  pokemon_move_method_id: Int!
+  versionGroup: VersionGroups!
+  version_group_id: Int!
+}
+
+type PokemonMovesAvgAggregate {
+  level: Float
+  mastery: Float
+  move_id: Float
+  order: Float
+  pokemon_id: Float
+  pokemon_move_method_id: Float
+  version_group_id: Float
+}
+
+type PokemonMovesCountAggregate {
+  _all: Int!
+  level: Int!
+  mastery: Int!
+  move_id: Int!
+  order: Int!
+  pokemon_id: Int!
+  pokemon_move_method_id: Int!
+  version_group_id: Int!
+}
+
+type PokemonMovesMaxAggregate {
+  level: Int
+  mastery: Int
+  move_id: Int
+  order: Int
+  pokemon_id: Int
+  pokemon_move_method_id: Int
+  version_group_id: Int
+}
+
+type PokemonMovesMinAggregate {
+  level: Int
+  mastery: Int
+  move_id: Int
+  order: Int
+  pokemon_id: Int
+  pokemon_move_method_id: Int
+  version_group_id: Int
+}
+
+type PokemonMovesSumAggregate {
+  level: Int
+  mastery: Int
+  move_id: Int
+  order: Int
+  pokemon_id: Int
+  pokemon_move_method_id: Int
+  version_group_id: Int
+}
+
+type PokemonShapeProse {
+  awesome_name: String!
+  description: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+  pokemonShape: PokemonShapes!
+  pokemon_shape_id: Int!
+}
+
+type PokemonShapeProseAvgAggregate {
+  local_language_id: Float
+  pokemon_shape_id: Float
+}
+
+type PokemonShapeProseCountAggregate {
+  _all: Int!
+  awesome_name: Int!
+  description: Int!
+  local_language_id: Int!
+  name: Int!
+  pokemon_shape_id: Int!
+}
+
+type PokemonShapeProseMaxAggregate {
+  awesome_name: String
+  description: String
+  local_language_id: Int
+  name: String
+  pokemon_shape_id: Int
+}
+
+type PokemonShapeProseMinAggregate {
+  awesome_name: String
+  description: String
+  local_language_id: Int
+  name: String
+  pokemon_shape_id: Int
+}
+
+type PokemonShapeProseSumAggregate {
+  local_language_id: Int
+  pokemon_shape_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "PokemonShape")"""
+type PokemonShapes {
+  _count: PokemonShapesCount!
+  id: ID!
+  identifier: String!
+  pokemonShapeProses: [PokemonShapeProse!]!
+  species: [PokemonSpecies!]!
+}
+
+type PokemonShapesAvgAggregate {
+  id: Float
+}
+
+type PokemonShapesCount {
+  pokemonShapeProses: Int!
+  species: Int!
+}
+
+type PokemonShapesCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type PokemonShapesMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type PokemonShapesMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type PokemonShapesSumAggregate {
+  id: Int
+}
+
+type PokemonSpecies {
+  _count: PokemonSpeciesCount!
+  base_happiness: Int!
+  canonicalId: String!
+  capture_rate: Int!
+  color: PokemonColors!
+  color_id: Int!
+  conquest_order: Int
+  dexNumbers: [PokemonDexNumbers!]!
+  eggGroups: [PokemonEggGroups!]!
+  evolution: [PokemonEvolution!]!
+  evolutionChain: EvolutionChains!
+  evolution_chain_id: Int!
+  evolvesFrom: PokemonSpecies
+  evolvesTo: [PokemonSpecies!]!
+  evolves_from_species_id: Int
+  forms_switchable: Int!
+  gender_rate: Int!
+  generation: Generations!
+  generation_id: Int!
+  growthRate: GrowthRates!
+  growth_rate_id: Int!
+  habitat: PokemonHabitats
+  habitat_id: Int
+  has_gender_differences: Int!
+  hatch_counter: Int!
+  id: ID!
+  identifier: String!
+  is_baby: Int!
+  is_legendary: Int!
+  is_mythical: Int!
+  order: Int!
+  partySpecies: [PokemonEvolution!]!
+  pokemon: [Pokemon!]!
+  pokemonSpeciesFlavorSummaries: [PokemonSpeciesFlavorSummaries!]!
+  pokemonSpeciesFlavorTexts: [PokemonSpeciesFlavorText!]!
+  pokemonSpeciesNames: [PokemonSpeciesNames!]!
+  pokemonSpeciesProses: [PokemonSpeciesProse!]!
+  shape: PokemonShapes!
+  shape_id: Int!
+  tradeSpecies: [PokemonEvolution!]!
+}
+
+type PokemonSpeciesAvgAggregate {
+  base_happiness: Float
+  capture_rate: Float
+  color_id: Float
+  conquest_order: Float
+  evolution_chain_id: Float
+  evolves_from_species_id: Float
+  forms_switchable: Float
+  gender_rate: Float
+  generation_id: Float
+  growth_rate_id: Float
+  habitat_id: Float
+  has_gender_differences: Float
+  hatch_counter: Float
+  id: Float
+  is_baby: Float
+  is_legendary: Float
+  is_mythical: Float
+  order: Float
+  shape_id: Float
+}
+
+type PokemonSpeciesCount {
+  dexNumbers: Int!
+  eggGroups: Int!
+  evolution: Int!
+  evolvesTo: Int!
+  partySpecies: Int!
+  pokemon: Int!
+  pokemonSpeciesFlavorSummaries: Int!
+  pokemonSpeciesFlavorTexts: Int!
+  pokemonSpeciesNames: Int!
+  pokemonSpeciesProses: Int!
+  tradeSpecies: Int!
+}
+
+type PokemonSpeciesCountAggregate {
+  _all: Int!
+  base_happiness: Int!
+  capture_rate: Int!
+  color_id: Int!
+  conquest_order: Int!
+  evolution_chain_id: Int!
+  evolves_from_species_id: Int!
+  forms_switchable: Int!
+  gender_rate: Int!
+  generation_id: Int!
+  growth_rate_id: Int!
+  habitat_id: Int!
+  has_gender_differences: Int!
+  hatch_counter: Int!
+  id: Int!
+  identifier: Int!
+  is_baby: Int!
+  is_legendary: Int!
+  is_mythical: Int!
+  order: Int!
+  shape_id: Int!
+}
+
+type PokemonSpeciesFlavorSummaries {
+  flavor_summary: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+  pokemonSpecies: PokemonSpecies!
+  pokemon_species_id: Int!
+}
+
+type PokemonSpeciesFlavorSummariesAvgAggregate {
+  local_language_id: Float
+  pokemon_species_id: Float
+}
+
+type PokemonSpeciesFlavorSummariesCountAggregate {
+  _all: Int!
+  flavor_summary: Int!
+  local_language_id: Int!
+  pokemon_species_id: Int!
+}
+
+type PokemonSpeciesFlavorSummariesMaxAggregate {
+  flavor_summary: String
+  local_language_id: Int
+  pokemon_species_id: Int
+}
+
+type PokemonSpeciesFlavorSummariesMinAggregate {
+  flavor_summary: String
+  local_language_id: Int
+  pokemon_species_id: Int
+}
+
+type PokemonSpeciesFlavorSummariesSumAggregate {
+  local_language_id: Int
+  pokemon_species_id: Int
+}
+
+type PokemonSpeciesFlavorText {
+  flavor_text: String!
+  language: Languages!
+  language_id: Int!
+  species: PokemonSpecies!
+  species_id: Int!
+  version: Versions!
+  version_id: Int!
+}
+
+type PokemonSpeciesFlavorTextAvgAggregate {
+  language_id: Float
+  species_id: Float
+  version_id: Float
+}
+
+type PokemonSpeciesFlavorTextCountAggregate {
+  _all: Int!
+  flavor_text: Int!
+  language_id: Int!
+  species_id: Int!
+  version_id: Int!
+}
+
+type PokemonSpeciesFlavorTextMaxAggregate {
+  flavor_text: String
+  language_id: Int
+  species_id: Int
+  version_id: Int
+}
+
+type PokemonSpeciesFlavorTextMinAggregate {
+  flavor_text: String
+  language_id: Int
+  species_id: Int
+  version_id: Int
+}
+
+type PokemonSpeciesFlavorTextSumAggregate {
+  language_id: Int
+  species_id: Int
+  version_id: Int
+}
+
+type PokemonSpeciesMaxAggregate {
+  base_happiness: Int
+  capture_rate: Int
+  color_id: Int
+  conquest_order: Int
+  evolution_chain_id: Int
+  evolves_from_species_id: Int
+  forms_switchable: Int
+  gender_rate: Int
+  generation_id: Int
+  growth_rate_id: Int
+  habitat_id: Int
+  has_gender_differences: Int
+  hatch_counter: Int
+  id: Int
+  identifier: String
+  is_baby: Int
+  is_legendary: Int
+  is_mythical: Int
+  order: Int
+  shape_id: Int
+}
+
+type PokemonSpeciesMinAggregate {
+  base_happiness: Int
+  capture_rate: Int
+  color_id: Int
+  conquest_order: Int
+  evolution_chain_id: Int
+  evolves_from_species_id: Int
+  forms_switchable: Int
+  gender_rate: Int
+  generation_id: Int
+  growth_rate_id: Int
+  habitat_id: Int
+  has_gender_differences: Int
+  hatch_counter: Int
+  id: Int
+  identifier: String
+  is_baby: Int
+  is_legendary: Int
+  is_mythical: Int
+  order: Int
+  shape_id: Int
+}
+
+type PokemonSpeciesNames {
+  genus: String
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+  pokemonSpecies: PokemonSpecies!
+  pokemon_species_id: Int!
+}
+
+type PokemonSpeciesNamesAvgAggregate {
+  local_language_id: Float
+  pokemon_species_id: Float
+}
+
+type PokemonSpeciesNamesCountAggregate {
+  _all: Int!
+  genus: Int!
+  local_language_id: Int!
+  name: Int!
+  pokemon_species_id: Int!
+}
+
+type PokemonSpeciesNamesMaxAggregate {
+  genus: String
+  local_language_id: Int
+  name: String
+  pokemon_species_id: Int
+}
+
+type PokemonSpeciesNamesMinAggregate {
+  genus: String
+  local_language_id: Int
+  name: String
+  pokemon_species_id: Int
+}
+
+type PokemonSpeciesNamesSumAggregate {
+  local_language_id: Int
+  pokemon_species_id: Int
+}
+
+type PokemonSpeciesProse {
+  form_description: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+  pokemonSpecies: PokemonSpecies!
+  pokemon_species_id: Int!
+}
+
+type PokemonSpeciesProseAvgAggregate {
+  local_language_id: Float
+  pokemon_species_id: Float
+}
+
+type PokemonSpeciesProseCountAggregate {
+  _all: Int!
+  form_description: Int!
+  local_language_id: Int!
+  pokemon_species_id: Int!
+}
+
+type PokemonSpeciesProseMaxAggregate {
+  form_description: String
+  local_language_id: Int
+  pokemon_species_id: Int
+}
+
+type PokemonSpeciesProseMinAggregate {
+  form_description: String
+  local_language_id: Int
+  pokemon_species_id: Int
+}
+
+type PokemonSpeciesProseSumAggregate {
+  local_language_id: Int
+  pokemon_species_id: Int
+}
+
+type PokemonSpeciesSumAggregate {
+  base_happiness: Int
+  capture_rate: Int
+  color_id: Int
+  conquest_order: Int
+  evolution_chain_id: Int
+  evolves_from_species_id: Int
+  forms_switchable: Int
+  gender_rate: Int
+  generation_id: Int
+  growth_rate_id: Int
+  habitat_id: Int
+  has_gender_differences: Int
+  hatch_counter: Int
+  id: Int
+  is_baby: Int
+  is_legendary: Int
+  is_mythical: Int
+  order: Int
+  shape_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "PokemonStat")"""
+type PokemonStats {
+  base_stat: Int!
+  effort: Int!
+  pokemon: Pokemon!
+  pokemon_id: Int!
+  stat: Stats!
+  stat_id: Int!
+}
+
+type PokemonStatsAvgAggregate {
+  base_stat: Float
+  effort: Float
+  pokemon_id: Float
+  stat_id: Float
+}
+
+type PokemonStatsCountAggregate {
+  _all: Int!
+  base_stat: Int!
+  effort: Int!
+  pokemon_id: Int!
+  stat_id: Int!
+}
+
+type PokemonStatsMaxAggregate {
+  base_stat: Int
+  effort: Int
+  pokemon_id: Int
+  stat_id: Int
+}
+
+type PokemonStatsMinAggregate {
+  base_stat: Int
+  effort: Int
+  pokemon_id: Int
+  stat_id: Int
+}
+
+type PokemonStatsPast {
+  base_stat: Int!
+  effort: Int!
+  generation: Generations!
+  generation_id: Int!
+  pokemon: Pokemon!
+  pokemon_id: Int!
+  stat: Stats!
+  stat_id: Int!
+}
+
+type PokemonStatsPastAvgAggregate {
+  base_stat: Float
+  effort: Float
+  generation_id: Float
+  pokemon_id: Float
+  stat_id: Float
+}
+
+type PokemonStatsPastCountAggregate {
+  _all: Int!
+  base_stat: Int!
+  effort: Int!
+  generation_id: Int!
+  pokemon_id: Int!
+  stat_id: Int!
+}
+
+type PokemonStatsPastMaxAggregate {
+  base_stat: Int
+  effort: Int
+  generation_id: Int
+  pokemon_id: Int
+  stat_id: Int
+}
+
+type PokemonStatsPastMinAggregate {
+  base_stat: Int
+  effort: Int
+  generation_id: Int
+  pokemon_id: Int
+  stat_id: Int
+}
+
+type PokemonStatsPastSumAggregate {
+  base_stat: Int
+  effort: Int
+  generation_id: Int
+  pokemon_id: Int
+  stat_id: Int
+}
+
+type PokemonStatsSumAggregate {
+  base_stat: Int
+  effort: Int
+  pokemon_id: Int
+  stat_id: Int
+}
+
+type PokemonSumAggregate {
+  base_experience: Int
+  height: Int
+  id: Int
+  is_default: Int
+  order: Int
+  species_id: Int
+  weight: Int
+}
+
+"""@@TypeGraphQL.type(name: "PokemonType")"""
+type PokemonTypes {
+  pokemon: Pokemon!
+  pokemon_id: Int!
+  slot: Int!
+  type: Types!
+  type_id: Int!
+}
+
+type PokemonTypesAvgAggregate {
+  pokemon_id: Float
+  slot: Float
+  type_id: Float
+}
+
+type PokemonTypesCountAggregate {
+  _all: Int!
+  pokemon_id: Int!
+  slot: Int!
+  type_id: Int!
+}
+
+type PokemonTypesMaxAggregate {
+  pokemon_id: Int
+  slot: Int
+  type_id: Int
+}
+
+type PokemonTypesMinAggregate {
+  pokemon_id: Int
+  slot: Int
+  type_id: Int
+}
+
+type PokemonTypesPast {
+  generation: Generations!
+  generation_id: Int!
+  pokemon: Pokemon!
+  pokemon_id: Int!
+  slot: Int!
+  type: Types!
+  type_id: Int!
+}
+
+type PokemonTypesPastAvgAggregate {
+  generation_id: Float
+  pokemon_id: Float
+  slot: Float
+  type_id: Float
+}
+
+type PokemonTypesPastCountAggregate {
+  _all: Int!
+  generation_id: Int!
+  pokemon_id: Int!
+  slot: Int!
+  type_id: Int!
+}
+
+type PokemonTypesPastMaxAggregate {
+  generation_id: Int
+  pokemon_id: Int
+  slot: Int
+  type_id: Int
+}
+
+type PokemonTypesPastMinAggregate {
+  generation_id: Int
+  pokemon_id: Int
+  slot: Int
+  type_id: Int
+}
+
+type PokemonTypesPastSumAggregate {
+  generation_id: Int
+  pokemon_id: Int
+  slot: Int
+  type_id: Int
+}
+
+type PokemonTypesSumAggregate {
+  pokemon_id: Int
+  slot: Int
+  type_id: Int
+}
+
+type Query {
+  ability(idOrSlug: String!): Abilities
+  abilityList(skip: Int! = 0, take: Int! = 50): [Abilities!]!
+  item(idOrSlug: String!): Items
+  itemList(search: String, skip: Int! = 0, take: Int! = 50): [Items!]!
+
+  """Lookup by canonical id (move:63), numeric id, or slug (thunderbolt)"""
+  move(idOrSlug: String!): Moves
+
+  """Paginated move list, optionally fuzzy-filtered by name"""
+  moveList(search: String, skip: Int! = 0, take: Int! = 50): [Moves!]!
+
+  """Lookup by canonical id (pokemon:25), numeric id, or slug (pikachu)"""
+  pokemon(idOrSlug: String!): Pokemon
+
+  """Paginated pokemon list, optionally fuzzy-filtered by name"""
+  pokemonList(search: String, skip: Int! = 0, take: Int! = 50): [Pokemon!]!
+
+  """Moves learnable by a pokemon, optionally per version group"""
+  pokemonMoves(idOrSlug: String!, skip: Int! = 0, take: Int! = 100, versionGroup: String): [PokemonMoves!]!
+  species(idOrSlug: String!): PokemonSpecies
+  type(idOrSlug: String!): Types
+  typeList: [Types!]!
+}
+
+type RegionNames {
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+  region: Regions!
+  region_id: Int!
+}
+
+type RegionNamesAvgAggregate {
+  local_language_id: Float
+  region_id: Float
+}
+
+type RegionNamesCountAggregate {
+  _all: Int!
+  local_language_id: Int!
+  name: Int!
+  region_id: Int!
+}
+
+type RegionNamesMaxAggregate {
+  local_language_id: Int
+  name: String
+  region_id: Int
+}
+
+type RegionNamesMinAggregate {
+  local_language_id: Int
+  name: String
+  region_id: Int
+}
+
+type RegionNamesSumAggregate {
+  local_language_id: Int
+  region_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Region")"""
+type Regions {
+  _count: RegionsCount!
+  generations: [Generations!]!
+  id: ID!
+  identifier: String!
+  locations: [Locations!]!
+  pokedexes: [Pokedexes!]!
+  pokemonEvolutions: [PokemonEvolution!]!
+  regionNames: [RegionNames!]!
+  versionGroups: [VersionGroupRegions!]!
+}
+
+type RegionsAvgAggregate {
+  id: Float
+}
+
+type RegionsCount {
+  generations: Int!
+  locations: Int!
+  pokedexes: Int!
+  pokemonEvolutions: Int!
+  regionNames: Int!
+  versionGroups: Int!
+}
+
+type RegionsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type RegionsMaxAggregate {
+  id: Int
+  identifier: String
+}
+
+type RegionsMinAggregate {
+  id: Int
+  identifier: String
+}
+
+type RegionsSumAggregate {
+  id: Int
+}
+
+type StatNames {
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+  stat: Stats!
+  stat_id: Int!
+}
+
+type StatNamesAvgAggregate {
+  local_language_id: Float
+  stat_id: Float
+}
+
+type StatNamesCountAggregate {
+  _all: Int!
+  local_language_id: Int!
+  name: Int!
+  stat_id: Int!
+}
+
+type StatNamesMaxAggregate {
+  local_language_id: Int
+  name: String
+  stat_id: Int
+}
+
+type StatNamesMinAggregate {
+  local_language_id: Int
+  name: String
+  stat_id: Int
+}
+
+type StatNamesSumAggregate {
+  local_language_id: Int
+  stat_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Stat")"""
+type Stats {
+  _count: StatsCount!
+  characteristics: [Characteristics!]!
+  damage_class_id: Int
+  game_index: Int
+  id: ID!
+  identifier: String!
+  is_battle_only: Int!
+  moveMetaStatChanges: [MoveMetaStatChanges!]!
+  naturesDecreased: [Natures!]!
+  naturesIncreased: [Natures!]!
+  pokeathlonStatNames: [PokeathlonStatNames!]!
+  pokemonStats: [PokemonStats!]!
+  pokemonStatsPasts: [PokemonStatsPast!]!
+  statNames: [StatNames!]!
+}
+
+type StatsAvgAggregate {
+  damage_class_id: Float
+  game_index: Float
+  id: Float
+  is_battle_only: Float
+}
+
+type StatsCount {
+  characteristics: Int!
+  moveMetaStatChanges: Int!
+  naturesDecreased: Int!
+  naturesIncreased: Int!
+  pokeathlonStatNames: Int!
+  pokemonStats: Int!
+  pokemonStatsPasts: Int!
+  statNames: Int!
+}
+
+type StatsCountAggregate {
+  _all: Int!
+  damage_class_id: Int!
+  game_index: Int!
+  id: Int!
+  identifier: Int!
+  is_battle_only: Int!
+}
+
+type StatsMaxAggregate {
+  damage_class_id: Int
+  game_index: Int
+  id: Int
+  identifier: String
+  is_battle_only: Int
+}
+
+type StatsMinAggregate {
+  damage_class_id: Int
+  game_index: Int
+  id: Int
+  identifier: String
+  is_battle_only: Int
+}
+
+type StatsSumAggregate {
+  damage_class_id: Int
+  game_index: Int
+  id: Int
+  is_battle_only: Int
+}
+
+"""@@TypeGraphQL.type(name: "SuperContestCombo")"""
+type SuperContestCombos {
+  firstMove: Moves!
+  first_move_id: ID!
+  secondMove: Moves!
+  second_move_id: Int!
+}
+
+type SuperContestCombosAvgAggregate {
+  first_move_id: Float
+  second_move_id: Float
+}
+
+type SuperContestCombosCountAggregate {
+  _all: Int!
+  first_move_id: Int!
+  second_move_id: Int!
+}
+
+type SuperContestCombosMaxAggregate {
+  first_move_id: Int
+  second_move_id: Int
+}
+
+type SuperContestCombosMinAggregate {
+  first_move_id: Int
+  second_move_id: Int
+}
+
+type SuperContestCombosSumAggregate {
+  first_move_id: Int
+  second_move_id: Int
+}
+
+type SuperContestEffectProse {
+  flavor_text: String!
+  localLanguage: Languages!
+  local_language_id: Int!
+  superContestEffect: SuperContestEffects!
+  super_contest_effect_id: Int!
+}
+
+type SuperContestEffectProseAvgAggregate {
+  local_language_id: Float
+  super_contest_effect_id: Float
+}
+
+type SuperContestEffectProseCountAggregate {
+  _all: Int!
+  flavor_text: Int!
+  local_language_id: Int!
+  super_contest_effect_id: Int!
+}
+
+type SuperContestEffectProseMaxAggregate {
+  flavor_text: String
+  local_language_id: Int
+  super_contest_effect_id: Int
+}
+
+type SuperContestEffectProseMinAggregate {
+  flavor_text: String
+  local_language_id: Int
+  super_contest_effect_id: Int
+}
+
+type SuperContestEffectProseSumAggregate {
+  local_language_id: Int
+  super_contest_effect_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "SuperContestEffect")"""
+type SuperContestEffects {
+  _count: SuperContestEffectsCount!
+  appeal: Int!
+  id: ID!
+  moves: [Moves!]!
+  superContestEffectProses: [SuperContestEffectProse!]!
+}
+
+type SuperContestEffectsAvgAggregate {
+  appeal: Float
+  id: Float
+}
+
+type SuperContestEffectsCount {
+  moves: Int!
+  superContestEffectProses: Int!
+}
+
+type SuperContestEffectsCountAggregate {
+  _all: Int!
+  appeal: Int!
+  id: Int!
+}
+
+type SuperContestEffectsMaxAggregate {
+  appeal: Int
+  id: Int
+}
+
+type SuperContestEffectsMinAggregate {
+  appeal: Int
+  id: Int
+}
+
+type SuperContestEffectsSumAggregate {
+  appeal: Int
+  id: Int
+}
+
+"""@@TypeGraphQL.type(name: "TypeEfficacy")"""
+type TypeEfficacy {
+  damageType: Types!
+  damage_factor: Int!
+  damage_type_id: Int!
+  targetType: Types!
+  target_type_id: Int!
+}
+
+type TypeEfficacyAvgAggregate {
+  damage_factor: Float
+  damage_type_id: Float
+  target_type_id: Float
+}
+
+type TypeEfficacyCountAggregate {
+  _all: Int!
+  damage_factor: Int!
+  damage_type_id: Int!
+  target_type_id: Int!
+}
+
+type TypeEfficacyMaxAggregate {
+  damage_factor: Int
+  damage_type_id: Int
+  target_type_id: Int
+}
+
+type TypeEfficacyMinAggregate {
+  damage_factor: Int
+  damage_type_id: Int
+  target_type_id: Int
+}
+
+type TypeEfficacyPast {
+  damageType: Types!
+  damage_factor: Int!
+  damage_type_id: Int!
+  generation: Generations!
+  generation_id: Int!
+  targetType: Types!
+  target_type_id: Int!
+}
+
+type TypeEfficacyPastAvgAggregate {
+  damage_factor: Float
+  damage_type_id: Float
+  generation_id: Float
+  target_type_id: Float
+}
+
+type TypeEfficacyPastCountAggregate {
+  _all: Int!
+  damage_factor: Int!
+  damage_type_id: Int!
+  generation_id: Int!
+  target_type_id: Int!
+}
+
+type TypeEfficacyPastMaxAggregate {
+  damage_factor: Int
+  damage_type_id: Int
+  generation_id: Int
+  target_type_id: Int
+}
+
+type TypeEfficacyPastMinAggregate {
+  damage_factor: Int
+  damage_type_id: Int
+  generation_id: Int
+  target_type_id: Int
+}
+
+type TypeEfficacyPastSumAggregate {
+  damage_factor: Int
+  damage_type_id: Int
+  generation_id: Int
+  target_type_id: Int
+}
+
+type TypeEfficacySumAggregate {
+  damage_factor: Int
+  damage_type_id: Int
+  target_type_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "TypeGameIndex")"""
+type TypeGameIndices {
+  game_index: Int!
+  generation: Generations!
+  generation_id: Int!
+  type: Types!
+  type_id: Int!
+}
+
+type TypeGameIndicesAvgAggregate {
+  game_index: Float
+  generation_id: Float
+  type_id: Float
+}
+
+type TypeGameIndicesCountAggregate {
+  _all: Int!
+  game_index: Int!
+  generation_id: Int!
+  type_id: Int!
+}
+
+type TypeGameIndicesMaxAggregate {
+  game_index: Int
+  generation_id: Int
+  type_id: Int
+}
+
+type TypeGameIndicesMinAggregate {
+  game_index: Int
+  generation_id: Int
+  type_id: Int
+}
+
+type TypeGameIndicesSumAggregate {
+  game_index: Int
+  generation_id: Int
+  type_id: Int
+}
+
+type TypeNames {
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+  type: Types!
+  type_id: Int!
+}
+
+type TypeNamesAvgAggregate {
+  local_language_id: Float
+  type_id: Float
+}
+
+type TypeNamesCountAggregate {
+  _all: Int!
+  local_language_id: Int!
+  name: Int!
+  type_id: Int!
+}
+
+type TypeNamesMaxAggregate {
+  local_language_id: Int
+  name: String
+  type_id: Int
+}
+
+type TypeNamesMinAggregate {
+  local_language_id: Int
+  name: String
+  type_id: Int
+}
+
+type TypeNamesSumAggregate {
+  local_language_id: Int
+  type_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Type")"""
+type Types {
+  _count: TypesCount!
+  berryFlavors: [BerryFlavors!]!
+  canonicalId: String!
+  damageClass: MoveDamageClasses
+  damage_class_id: Int
+  efficacy: [TypeEfficacy!]!
+  efficacyPastAsDamage: [TypeEfficacyPast!]!
+  efficacyPastAsTarget: [TypeEfficacyPast!]!
+  efficacyTarget: [TypeEfficacy!]!
+  formTypes: [PokemonFormTypes!]!
+  gameIndices: [TypeGameIndices!]!
+  generation: Generations!
+  generation_id: Int!
+  id: ID!
+  identifier: String!
+  knownMoveTypes: [PokemonEvolution!]!
+  moveChangelogs: [MoveChangelog!]!
+  moves: [Moves!]!
+  naturalGiftTypes: [Berries!]!
+  partyTypes: [PokemonEvolution!]!
+  pokemonTypes: [PokemonTypes!]!
+  pokemonTypesPasts: [PokemonTypesPast!]!
+  typeNames: [TypeNames!]!
+}
+
+type TypesAvgAggregate {
+  damage_class_id: Float
+  generation_id: Float
+  id: Float
+}
+
+type TypesCount {
+  berryFlavors: Int!
+  efficacy: Int!
+  efficacyPastAsDamage: Int!
+  efficacyPastAsTarget: Int!
+  efficacyTarget: Int!
+  formTypes: Int!
+  gameIndices: Int!
+  knownMoveTypes: Int!
+  moveChangelogs: Int!
+  moves: Int!
+  naturalGiftTypes: Int!
+  partyTypes: Int!
+  pokemonTypes: Int!
+  pokemonTypesPasts: Int!
+  typeNames: Int!
+}
+
+type TypesCountAggregate {
+  _all: Int!
+  damage_class_id: Int!
+  generation_id: Int!
+  id: Int!
+  identifier: Int!
+}
+
+type TypesMaxAggregate {
+  damage_class_id: Int
+  generation_id: Int
+  id: Int
+  identifier: String
+}
+
+type TypesMinAggregate {
+  damage_class_id: Int
+  generation_id: Int
+  id: Int
+  identifier: String
+}
+
+type TypesSumAggregate {
+  damage_class_id: Int
+  generation_id: Int
+  id: Int
+}
+
+"""@@TypeGraphQL.type(name: "VersionGroupPokemonMoveMethod")"""
+type VersionGroupPokemonMoveMethods {
+  moveMethod: PokemonMoveMethods!
+  pokemon_move_method_id: Int!
+  versionGroup: VersionGroups!
+  version_group_id: ID!
+}
+
+type VersionGroupPokemonMoveMethodsAvgAggregate {
+  pokemon_move_method_id: Float
+  version_group_id: Float
+}
+
+type VersionGroupPokemonMoveMethodsCountAggregate {
+  _all: Int!
+  pokemon_move_method_id: Int!
+  version_group_id: Int!
+}
+
+type VersionGroupPokemonMoveMethodsMaxAggregate {
+  pokemon_move_method_id: Int
+  version_group_id: Int
+}
+
+type VersionGroupPokemonMoveMethodsMinAggregate {
+  pokemon_move_method_id: Int
+  version_group_id: Int
+}
+
+type VersionGroupPokemonMoveMethodsSumAggregate {
+  pokemon_move_method_id: Int
+  version_group_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "VersionGroupRegion")"""
+type VersionGroupRegions {
+  region: Regions!
+  region_id: Int!
+  versionGroup: VersionGroups!
+  version_group_id: ID!
+}
+
+type VersionGroupRegionsAvgAggregate {
+  region_id: Float
+  version_group_id: Float
+}
+
+type VersionGroupRegionsCountAggregate {
+  _all: Int!
+  region_id: Int!
+  version_group_id: Int!
+}
+
+type VersionGroupRegionsMaxAggregate {
+  region_id: Int
+  version_group_id: Int
+}
+
+type VersionGroupRegionsMinAggregate {
+  region_id: Int
+  version_group_id: Int
+}
+
+type VersionGroupRegionsSumAggregate {
+  region_id: Int
+  version_group_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "VersionGroup")"""
+type VersionGroups {
+  _count: VersionGroupsCount!
+  abilityChangelogs: [AbilityChangelog!]!
+  abilityFlavorTexts: [AbilityFlavorText!]!
+  encounterSlots: [EncounterSlots!]!
+  generation: Generations!
+  generation_id: Int!
+  id: ID!
+  identifier: String!
+  itemFlavorTexts: [ItemFlavorText!]!
+  machines: [Machines!]!
+  moveChangelogs: [MoveChangelog!]!
+  moveEffectChangelogs: [MoveEffectChangelog!]!
+  moveFlavorTexts: [MoveFlavorText!]!
+  order: Int!
+  pokedexVersionGroups: [PokedexVersionGroups!]!
+  pokemonEvolutions: [PokemonEvolution!]!
+  pokemonForms: [PokemonForms!]!
+  pokemonMoves: [PokemonMoves!]!
+  versionGroupPokemonMoveMethods: [VersionGroupPokemonMoveMethods!]!
+  versionGroupRegions: [VersionGroupRegions!]!
+  versions: [Versions!]!
+}
+
+type VersionGroupsAvgAggregate {
+  generation_id: Float
+  id: Float
+  order: Float
+}
+
+type VersionGroupsCount {
+  abilityChangelogs: Int!
+  abilityFlavorTexts: Int!
+  encounterSlots: Int!
+  itemFlavorTexts: Int!
+  machines: Int!
+  moveChangelogs: Int!
+  moveEffectChangelogs: Int!
+  moveFlavorTexts: Int!
+  pokedexVersionGroups: Int!
+  pokemonEvolutions: Int!
+  pokemonForms: Int!
+  pokemonMoves: Int!
+  versionGroupPokemonMoveMethods: Int!
+  versionGroupRegions: Int!
+  versions: Int!
+}
+
+type VersionGroupsCountAggregate {
+  _all: Int!
+  generation_id: Int!
+  id: Int!
+  identifier: Int!
+  order: Int!
+}
+
+type VersionGroupsMaxAggregate {
+  generation_id: Int
+  id: Int
+  identifier: String
+  order: Int
+}
+
+type VersionGroupsMinAggregate {
+  generation_id: Int
+  id: Int
+  identifier: String
+  order: Int
+}
+
+type VersionGroupsSumAggregate {
+  generation_id: Int
+  id: Int
+  order: Int
+}
+
+type VersionNames {
+  localLanguage: Languages!
+  local_language_id: Int!
+  name: String!
+  version: Versions!
+  version_id: Int!
+}
+
+type VersionNamesAvgAggregate {
+  local_language_id: Float
+  version_id: Float
+}
+
+type VersionNamesCountAggregate {
+  _all: Int!
+  local_language_id: Int!
+  name: Int!
+  version_id: Int!
+}
+
+type VersionNamesMaxAggregate {
+  local_language_id: Int
+  name: String
+  version_id: Int
+}
+
+type VersionNamesMinAggregate {
+  local_language_id: Int
+  name: String
+  version_id: Int
+}
+
+type VersionNamesSumAggregate {
+  local_language_id: Int
+  version_id: Int
+}
+
+"""@@TypeGraphQL.type(name: "Version")"""
+type Versions {
+  _count: VersionsCount!
+  encounters: [Encounters!]!
+  id: ID!
+  identifier: String!
+  locationAreaEncounterRates: [LocationAreaEncounterRates!]!
+  pokemonGameIndices: [PokemonGameIndices!]!
+  pokemonItems: [PokemonItems!]!
+  pokemonSpeciesFlavorTexts: [PokemonSpeciesFlavorText!]!
+  versionGroup: VersionGroups!
+  versionNames: [VersionNames!]!
+  version_group_id: Int!
+}
+
+type VersionsAvgAggregate {
+  id: Float
+  version_group_id: Float
+}
+
+type VersionsCount {
+  encounters: Int!
+  locationAreaEncounterRates: Int!
+  pokemonGameIndices: Int!
+  pokemonItems: Int!
+  pokemonSpeciesFlavorTexts: Int!
+  versionNames: Int!
+}
+
+type VersionsCountAggregate {
+  _all: Int!
+  id: Int!
+  identifier: Int!
+  version_group_id: Int!
+}
+
+type VersionsMaxAggregate {
+  id: Int
+  identifier: String
+  version_group_id: Int
+}
+
+type VersionsMinAggregate {
+  id: Int
+  identifier: String
+  version_group_id: Int
+}
+
+type VersionsSumAggregate {
+  id: Int
+  version_group_id: Int
+}

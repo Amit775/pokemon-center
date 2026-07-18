@@ -1,0 +1,17 @@
+{
+	"name": "data-access-pokedex",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/data-access-pokedex/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"codegen": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "graphql-codegen --config libs/data-access-pokedex/codegen.ts"
+			},
+			"inputs": ["{workspaceRoot}/apps/pokedex-service/schema.gql", "{projectRoot}/src/lib/operations.graphql"],
+			"outputs": ["{projectRoot}/src/lib/generated"]
+		}
+	}
+}

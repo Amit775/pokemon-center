@@ -1,9 +1,8 @@
-import { httpResource } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router, RouterModule } from '@angular/router';
-import { Pokemon } from '@pokemon-center/infra-pokedex-data';
+import { PokemonDetailDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
 
 @Component({
 	templateUrl: './pokemon-page.component.html',
@@ -14,11 +13,11 @@ import { Pokemon } from '@pokemon-center/infra-pokedex-data';
 export class PokemonPageComponent {
 	private router = inject(Router);
 
-	public id = input.required({
-		transform: (value: number | string) => Number(value),
-	});
+	public id = input.required<string>();
 
-	public pokemon = httpResource<Pokemon>(() => `/pokemon/${this.id()}`);
+	private readonly detail = gqlResource(PokemonDetailDocument, () => ({ idOrSlug: this.id() }));
+
+	public pokemon = computed(() => this.detail.value()?.pokemon);
 
 	public tabs = [
 		{ label: 'About', path: 'about' },

@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Moves as Move, Pokemon } from '@pokemon-center/infra-pokedex-data';
+import { PokemonMoveRow, PokemonMovesDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
 import { ListComponent, ListItemDirective } from '@pokemon-center/ui-list';
 
 export const type = <T>() => undefined as T;
@@ -12,6 +12,11 @@ export const type = <T>() => undefined as T;
 	imports: [ListComponent, ListItemDirective, RouterModule],
 })
 export class PokemonMovesComponent {
-	pokemon = input.required<Pokemon>();
-	moveType = type<Move>();
+	public id = input.required<string>();
+
+	private readonly list = gqlResource(PokemonMovesDocument, () => ({ idOrSlug: this.id(), take: 500, skip: 0 }));
+
+	public moves = computed(() => this.list.value()?.pokemonMoves ?? []);
+
+	moveType = type<PokemonMoveRow>();
 }

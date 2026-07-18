@@ -15,6 +15,7 @@
 		"skipDefaultLibCheck": true,
 		"ignoreDeprecations": "6.0",
 		"paths": {
+			"@pokemon-center/data-access-pokedex": ["./libs/data-access-pokedex/src/index.ts"],
 			"@pokemon-center/domain-arena": ["./libs/domain-arena/src/index.ts"],
 			"@pokemon-center/domain-pokedex": ["./libs/domain-pokedex/src/index.ts"],
 			"@pokemon-center/domain-school": ["./libs/domain-school/src/index.ts"],

@@ -1,0 +1,152 @@
+query PokemonList($take: Int!, $skip: Int!, $search: String) {
+	pokemonList(take: $take, skip: $skip, search: $search) {
+		id
+		canonicalId
+		slug
+		identifier
+		height
+		weight
+		types {
+			slot
+			type {
+				id
+				identifier
+			}
+		}
+	}
+}
+
+query PokemonDetail($idOrSlug: String!) {
+	pokemon(idOrSlug: $idOrSlug) {
+		id
+		canonicalId
+		slug
+		identifier
+		height
+		weight
+		base_experience
+		species {
+			id
+			identifier
+			generation_id
+			capture_rate
+			base_happiness
+			is_legendary
+			is_mythical
+		}
+		types {
+			slot
+			type {
+				id
+				identifier
+			}
+		}
+		stats {
+			base_stat
+			effort
+			stat {
+				id
+				identifier
+			}
+		}
+		abilities {
+			is_hidden
+			slot
+			ability {
+				id
+				identifier
+			}
+		}
+	}
+}
+
+query PokemonMoves($idOrSlug: String!, $versionGroup: String, $take: Int!, $skip: Int!) {
+	pokemonMoves(idOrSlug: $idOrSlug, versionGroup: $versionGroup, take: $take, skip: $skip) {
+		level
+		moveMethod {
+			identifier
+		}
+		versionGroup {
+			identifier
+		}
+		move {
+			id
+			identifier
+			power
+			accuracy
+			pp
+			type {
+				identifier
+			}
+			damageClass {
+				identifier
+			}
+		}
+	}
+}
+
+query MoveList($take: Int!, $skip: Int!, $search: String) {
+	moveList(take: $take, skip: $skip, search: $search) {
+		id
+		canonicalId
+		slug
+		identifier
+		power
+		accuracy
+		pp
+		type {
+			identifier
+		}
+		damageClass {
+			identifier
+		}
+	}
+}
+
+query MoveDetail($idOrSlug: String!) {
+	move(idOrSlug: $idOrSlug) {
+		id
+		canonicalId
+		slug
+		identifier
+		power
+		accuracy
+		pp
+		priority
+		effect_chance
+		type {
+			id
+			identifier
+		}
+		damageClass {
+			identifier
+		}
+		target {
+			identifier
+		}
+		generation {
+			identifier
+		}
+	}
+}
+
+query TypeMatchups($idOrSlug: String!) {
+	type(idOrSlug: $idOrSlug) {
+		id
+		identifier
+		efficacy {
+			damage_factor
+			targetType {
+				id
+				identifier
+			}
+		}
+		efficacyTarget {
+			damage_factor
+			damageType {
+				id
+				identifier
+			}
+		}
+	}
+}

@@ -1,5 +1,11 @@
 <ui-list [list]="moves()">
-	<ng-template listItem let-move>
-		{{ move }}
+	<ng-template let-move [listItem]="moveType">
+		<div class="move">
+			<span>{{ move.identifier }}</span>
+			<span>{{ move.type.identifier }}</span>
+			@if (move.power) {
+				<span>{{ move.power }}</span>
+			}
+		</div>
 	</ng-template>
 </ui-list>

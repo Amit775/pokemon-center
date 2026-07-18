@@ -1,6 +1,6 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { MoveListDocument, MoveListItem, gqlResource } from '@pokemon-center/data-access-pokedex';
 import { ListComponent, ListItemDirective } from '@pokemon-center/ui-list';
-import { Moves as Move } from '@pokemon-center/infra-pokedex-data';
 
 @Component({
 	templateUrl: './moves-list.component.html',
@@ -9,5 +9,15 @@ import { Moves as Move } from '@pokemon-center/infra-pokedex-data';
 	imports: [ListComponent, ListItemDirective],
 })
 export class MovesListComponent {
-	moves = signal<Move[]>([]);
+	public search = signal('');
+
+	private readonly list = gqlResource(MoveListDocument, () => ({
+		take: 500,
+		skip: 0,
+		search: this.search() || undefined,
+	}));
+
+	public moves = computed(() => this.list.value()?.moveList ?? []);
+
+	moveType = undefined as unknown as MoveListItem;
 }

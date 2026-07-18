@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Pokemon } from '@pokemon-center/infra-pokedex-data';
+import { PokemonListDocument, PokemonListItem, gqlResource } from '@pokemon-center/data-access-pokedex';
 import { ListComponent, ListItemDirective } from '@pokemon-center/ui-list';
 import { PokemonRecordComponent } from './pokemon-record/pokemon-record.component';
 
@@ -11,7 +11,15 @@ import { PokemonRecordComponent } from './pokemon-record/pokemon-record.componen
 	imports: [PokemonRecordComponent, RouterModule, ListComponent, ListItemDirective],
 })
 export class PokemonListComponent {
-	public pokemons = signal<Pokemon[]>([]);
+	public search = signal('');
 
-	pokemonType = undefined as unknown as Pokemon;
+	private readonly list = gqlResource(PokemonListDocument, () => ({
+		take: 500,
+		skip: 0,
+		search: this.search() || undefined,
+	}));
+
+	public pokemons = computed(() => this.list.value()?.pokemonList ?? []);
+
+	pokemonType = undefined as unknown as PokemonListItem;
 }
