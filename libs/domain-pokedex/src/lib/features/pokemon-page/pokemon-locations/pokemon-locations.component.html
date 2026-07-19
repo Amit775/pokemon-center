@@ -1,0 +1,34 @@
+@if (groups().length) {
+	<table>
+		<thead>
+			<tr>
+				<th>version</th>
+				<th>location</th>
+				<th>method</th>
+				<th>levels</th>
+				<th>chance</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (group of groups(); track group.version + group.location + group.area) {
+				<tr>
+					<td>{{ group.version }}</td>
+					<td>
+						{{ group.location }}
+						@if (group.area) {
+							<small>({{ group.area }})</small>
+						}
+					</td>
+					<td>{{ group.methods }}</td>
+					<td>{{ group.levels }}</td>
+					<td>{{ group.chance }}%</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+} @else if (!loading()) {
+	<p class="empty">
+		Not found in the wild{{ store.activeVersionGroup() ? ' in ' + store.activeVersionGroup() : '' }} — evolution, trade, or
+		gift only.
+	</p>
+}

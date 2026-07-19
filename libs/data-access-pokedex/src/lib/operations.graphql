@@ -85,6 +85,16 @@ query PokemonDetail($idOrSlug: String!) {
 			base_happiness
 			is_legendary
 			is_mythical
+			gender_rate
+			hatch_counter
+			eggGroups {
+				eggGroup {
+					identifier
+				}
+			}
+			growthRate {
+				identifier
+			}
 		}
 		types {
 			slot
@@ -197,6 +207,135 @@ query TypeMatchups($idOrSlug: String!) {
 			damage_factor
 			damageType {
 				id
+				identifier
+			}
+		}
+	}
+}
+
+query PokemonFlavor($idOrSlug: String!, $versionGroup: String) {
+	pokemonFlavor(idOrSlug: $idOrSlug, versionGroup: $versionGroup) {
+		flavor_text
+		version {
+			identifier
+		}
+	}
+}
+
+query EvolutionChain($idOrSlug: String!) {
+	evolutionChain(idOrSlug: $idOrSlug) {
+		id
+		identifier
+		evolves_from_species_id
+		pokemon {
+			id
+		}
+		evolution {
+			minimum_level
+			minimum_happiness
+			time_of_day
+			evolutionTrigger {
+				identifier
+			}
+			triggerItem {
+				identifier
+			}
+			heldItem {
+				identifier
+			}
+			knownMove {
+				identifier
+			}
+			location {
+				identifier
+			}
+		}
+	}
+}
+
+query PokemonEncounters($idOrSlug: String!, $versionGroup: String, $take: Int) {
+	pokemonEncounters(idOrSlug: $idOrSlug, versionGroup: $versionGroup, take: $take) {
+		min_level
+		max_level
+		version {
+			identifier
+		}
+		locationArea {
+			identifier
+			location {
+				identifier
+			}
+		}
+		encounterSlot {
+			rarity
+			encounterMethod {
+				identifier
+			}
+		}
+	}
+}
+
+query MoveLearnedBy($idOrSlug: String!, $versionGroup: String, $take: Int) {
+	moveLearnedBy(idOrSlug: $idOrSlug, versionGroup: $versionGroup, take: $take) {
+		level
+		pokemon {
+			id
+			identifier
+		}
+		moveMethod {
+			identifier
+		}
+		versionGroup {
+			identifier
+		}
+	}
+}
+
+query MoveFlavor($idOrSlug: String!, $versionGroup: String) {
+	moveFlavor(idOrSlug: $idOrSlug, versionGroup: $versionGroup) {
+		flavor_text
+		versionGroup {
+			identifier
+		}
+	}
+}
+
+query AbilityDetail($idOrSlug: String!) {
+	ability(idOrSlug: $idOrSlug) {
+		id
+		canonicalId
+		identifier
+		abilityProses {
+			short_effect
+			effect
+		}
+		pokemonAbilities {
+			is_hidden
+			pokemon {
+				id
+				identifier
+			}
+		}
+	}
+}
+
+query ItemDetail($idOrSlug: String!) {
+	item(idOrSlug: $idOrSlug) {
+		id
+		canonicalId
+		identifier
+		cost
+		fling_power
+		category {
+			identifier
+		}
+		itemProses {
+			short_effect
+			effect
+		}
+		itemFlavorTexts {
+			flavor_text
+			versionGroup {
 				identifier
 			}
 		}

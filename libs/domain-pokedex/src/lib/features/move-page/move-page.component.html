@@ -1,9 +1,38 @@
 @if (move(); as move) {
-	<div>{{ move.identifier }}</div>
-	<div>{{ move.canonicalId }}</div>
-	<div>power: {{ move.power ?? '—' }}</div>
-	<div>accuracy: {{ move.accuracy ?? '—' }}</div>
-	<div>pp: {{ move.pp ?? '—' }}</div>
-	<div>type: {{ move.type.identifier }}</div>
-	<div>class: {{ move.damageClass.identifier }}</div>
+	<h2>{{ move.identifier }}</h2>
+	<section class="facts">
+		<div><span>type</span><span>{{ move.type.identifier }}</span></div>
+		<div><span>class</span><span>{{ move.damageClass.identifier }}</span></div>
+		<div><span>power</span><span>{{ move.power ?? '—' }}</span></div>
+		<div><span>accuracy</span><span>{{ move.accuracy ?? '—' }}</span></div>
+		<div><span>pp</span><span>{{ move.pp ?? '—' }}</span></div>
+		<div><span>priority</span><span>{{ move.priority }}</span></div>
+		@if (move.effect_chance) {
+			<div><span>effect chance</span><span>{{ move.effect_chance }}%</span></div>
+		}
+		<div><span>target</span><span>{{ move.target.identifier }}</span></div>
+		<div><span>introduced</span><span>{{ move.generation.identifier }}</span></div>
+	</section>
+
+	@if (flavor().length) {
+		<section class="flavor">
+			@for (entry of flavor(); track entry.versionGroup.identifier) {
+				<blockquote>
+					<cite>{{ entry.versionGroup.identifier }}</cite>
+					{{ entry.flavor_text }}
+				</blockquote>
+			}
+		</section>
+	}
+
+	@if (learnedBy().length) {
+		<section class="learned-by">
+			<h3>Learned by {{ learnedBy().length }} pokemon{{ store.activeVersionGroup() ? ' in ' + store.activeVersionGroup() : '' }}</h3>
+			<div class="grid">
+				@for (pokemon of learnedBy(); track pokemon.id) {
+					<a [routerLink]="['/', 'pokedex', 'pokemon', pokemon.id]">{{ pokemon.identifier }}</a>
+				}
+			</div>
+		</section>
+	}
 }

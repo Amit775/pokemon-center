@@ -20,11 +20,28 @@ export const domainPokedexRoutes: Route[] = [
 				path: 'moves',
 				loadComponent: () => import('./features/pokemon-page/pokemon-moves/pokemon-moves.component').then((m) => m.PokemonMovesComponent),
 			},
+			{
+				path: 'locations',
+				loadComponent: () =>
+					import('./features/pokemon-page/pokemon-locations/pokemon-locations.component').then((m) => m.PokemonLocationsComponent),
+			},
 		],
 	},
 	{ path: 'moves', loadComponent: () => import('./features/moves-list/moves-list.component').then((m) => m.MovesListComponent) },
 	{
 		path: 'moves/:id',
 		loadComponent: () => import('./features/move-page/move-page.component').then((m) => m.MovePageComponent),
+	},
+	{
+		path: 'abilities/:id',
+		loadComponent: () => import('./features/ability-page/ability-page.component').then((m) => m.AbilityPageComponent),
+	},
+	{
+		path: 'items/:id',
+		loadComponent: () => import('./features/item-page/item-page.component').then((m) => m.ItemPageComponent),
+	},
+	{
+		path: 'types/:id',
+		loadComponent: () => import('./features/type-page/type-page.component').then((m) => m.TypePageComponent),
 	},
 ];

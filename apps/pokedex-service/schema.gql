@@ -6060,17 +6060,38 @@ type PokemonTypesSumAggregate {
 type Query {
   ability(idOrSlug: String!): Abilities
   abilityList(skip: Int! = 0, take: Int! = 50): [Abilities!]!
+
+  """
+  Every species in the pokemon evolution chain, with evolution conditions
+  """
+  evolutionChain(idOrSlug: String!): [PokemonSpecies!]!
   item(idOrSlug: String!): Items
   itemList(search: String, skip: Int! = 0, take: Int! = 50): [Items!]!
 
   """Lookup by canonical id (move:63), numeric id, or slug (thunderbolt)"""
   move(idOrSlug: String!): Moves
 
+  """Move flavor text entries, optionally per version group"""
+  moveFlavor(idOrSlug: String!, versionGroup: String): [MoveFlavorText!]!
+
+  """Pokemon that can learn a move, optionally per version group"""
+  moveLearnedBy(idOrSlug: String!, take: Int! = 500, versionGroup: String): [PokemonMoves!]!
+
   """Paginated move list, optionally fuzzy-filtered by name"""
   moveList(search: String, skip: Int! = 0, take: Int! = 50): [Moves!]!
 
   """Lookup by canonical id (pokemon:25), numeric id, or slug (pikachu)"""
   pokemon(idOrSlug: String!): Pokemon
+
+  """
+  Where to catch a pokemon: locations, methods, levels, rarity - optionally per version group
+  """
+  pokemonEncounters(idOrSlug: String!, take: Int! = 500, versionGroup: String): [Encounters!]!
+
+  """
+  Pokedex flavor entries for a pokemon, optionally scoped to a version group
+  """
+  pokemonFlavor(idOrSlug: String!, versionGroup: String): [PokemonSpeciesFlavorText!]!
 
   """
   Paginated pokemon list; optionally fuzzy-filtered by name and scoped to a version group regional dex

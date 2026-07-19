@@ -4,7 +4,7 @@ import { PrismaService } from '../prisma.service';
 import { whereIdOrSlug } from './lookup';
 
 const POKEMON_INCLUDE = {
-	species: true,
+	species: { include: { eggGroups: { include: { eggGroup: true } }, growthRate: true } },
 	types: { include: { type: true } },
 	stats: { include: { stat: true } },
 	abilities: { include: { ability: true } },

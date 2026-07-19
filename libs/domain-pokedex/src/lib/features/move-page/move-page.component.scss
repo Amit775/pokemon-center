@@ -1,0 +1,58 @@
+:host {
+	display: block;
+	padding: 1rem;
+}
+
+h2,
+h3 {
+	text-transform: capitalize;
+}
+
+.facts {
+	display: grid;
+	gap: 0.35rem;
+	max-width: 28rem;
+
+	> div {
+		display: grid;
+		grid-template-columns: 10rem 1fr;
+
+		> span:first-child {
+			opacity: 0.65;
+		}
+	}
+}
+
+.flavor {
+	margin-top: 1.25rem;
+	max-width: 40rem;
+
+	blockquote {
+		margin: 0.5rem 0;
+		padding-left: 0.75rem;
+		border-left: 3px solid currentColor;
+		white-space: pre-line;
+
+		cite {
+			display: block;
+			opacity: 0.6;
+			text-transform: capitalize;
+			font-size: 0.8rem;
+		}
+	}
+}
+
+.learned-by {
+	margin-top: 1.25rem;
+
+	.grid {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem 1rem;
+
+		a {
+			color: inherit;
+			text-transform: capitalize;
+		}
+	}
+}

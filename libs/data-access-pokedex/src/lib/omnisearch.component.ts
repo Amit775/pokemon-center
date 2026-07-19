@@ -150,14 +150,14 @@ export class OmnisearchComponent {
 		this.term.set((event.target as HTMLInputElement).value);
 	}
 
-	protected isNavigable(kind: string): boolean {
-		return kind === 'pokemon' || kind === 'move';
+	protected isNavigable(_kind: string): boolean {
+		return true;
 	}
 
 	protected go(kind: string, id: number): void {
-		if (!this.isNavigable(kind)) return;
 		this.close();
-		this.router.navigate(kind === 'pokemon' ? ['/pokedex', 'pokemon', id] : ['/pokedex', 'moves', id]);
+		const segment = { pokemon: 'pokemon', move: 'moves', ability: 'abilities', item: 'items', type: 'types' }[kind] ?? 'pokemon';
+		this.router.navigate(['/pokedex', segment, id]);
 	}
 
 	protected openFirst(): void {

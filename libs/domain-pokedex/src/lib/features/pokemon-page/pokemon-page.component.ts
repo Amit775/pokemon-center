@@ -23,6 +23,7 @@ export class PokemonPageComponent {
 		{ label: 'About', path: 'about' },
 		{ label: 'Stats', path: 'stats' },
 		{ label: 'Moves', path: 'moves' },
+		{ label: 'Locations', path: 'locations' },
 	];
 
 	public goBack(): void {

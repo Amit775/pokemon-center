@@ -41,7 +41,7 @@ export type PokemonDetailQueryVariables = Exact<{
 }>;
 
 
-export type PokemonDetailQuery = { pokemon: { id: string, canonicalId: string, slug: string, identifier: string, height: number, weight: number, base_experience: number | null, species: { id: string, identifier: string, generation_id: number, capture_rate: number, base_happiness: number, is_legendary: number, is_mythical: number }, types: Array<{ slot: number, type: { id: string, identifier: string } }>, stats: Array<{ base_stat: number, effort: number, stat: { id: string, identifier: string } }>, abilities: Array<{ is_hidden: number, slot: number, ability: { id: string, identifier: string } }> } | null };
+export type PokemonDetailQuery = { pokemon: { id: string, canonicalId: string, slug: string, identifier: string, height: number, weight: number, base_experience: number | null, species: { id: string, identifier: string, generation_id: number, capture_rate: number, base_happiness: number, is_legendary: number, is_mythical: number, gender_rate: number, hatch_counter: number, eggGroups: Array<{ eggGroup: { identifier: string } }>, growthRate: { identifier: string } }, types: Array<{ slot: number, type: { id: string, identifier: string } }>, stats: Array<{ base_stat: number, effort: number, stat: { id: string, identifier: string } }>, abilities: Array<{ is_hidden: number, slot: number, ability: { id: string, identifier: string } }> } | null };
 
 export type PokemonMovesQueryVariables = Exact<{
   idOrSlug: string;
@@ -75,6 +75,61 @@ export type TypeMatchupsQueryVariables = Exact<{
 
 
 export type TypeMatchupsQuery = { type: { id: string, identifier: string, efficacy: Array<{ damage_factor: number, targetType: { id: string, identifier: string } }>, efficacyTarget: Array<{ damage_factor: number, damageType: { id: string, identifier: string } }> } | null };
+
+export type PokemonFlavorQueryVariables = Exact<{
+  idOrSlug: string;
+  versionGroup?: string | null | undefined;
+}>;
+
+
+export type PokemonFlavorQuery = { pokemonFlavor: Array<{ flavor_text: string, version: { identifier: string } }> };
+
+export type EvolutionChainQueryVariables = Exact<{
+  idOrSlug: string;
+}>;
+
+
+export type EvolutionChainQuery = { evolutionChain: Array<{ id: string, identifier: string, evolves_from_species_id: number | null, pokemon: Array<{ id: string }>, evolution: Array<{ minimum_level: number | null, minimum_happiness: number | null, time_of_day: string | null, evolutionTrigger: { identifier: string }, triggerItem: { identifier: string } | null, heldItem: { identifier: string } | null, knownMove: { identifier: string } | null, location: { identifier: string } | null }> }> };
+
+export type PokemonEncountersQueryVariables = Exact<{
+  idOrSlug: string;
+  versionGroup?: string | null | undefined;
+  take?: number | null | undefined;
+}>;
+
+
+export type PokemonEncountersQuery = { pokemonEncounters: Array<{ min_level: number, max_level: number, version: { identifier: string }, locationArea: { identifier: string | null, location: { identifier: string } }, encounterSlot: { rarity: number, encounterMethod: { identifier: string } } }> };
+
+export type MoveLearnedByQueryVariables = Exact<{
+  idOrSlug: string;
+  versionGroup?: string | null | undefined;
+  take?: number | null | undefined;
+}>;
+
+
+export type MoveLearnedByQuery = { moveLearnedBy: Array<{ level: number | null, pokemon: { id: string, identifier: string }, moveMethod: { identifier: string }, versionGroup: { identifier: string } }> };
+
+export type MoveFlavorQueryVariables = Exact<{
+  idOrSlug: string;
+  versionGroup?: string | null | undefined;
+}>;
+
+
+export type MoveFlavorQuery = { moveFlavor: Array<{ flavor_text: string, versionGroup: { identifier: string } }> };
+
+export type AbilityDetailQueryVariables = Exact<{
+  idOrSlug: string;
+}>;
+
+
+export type AbilityDetailQuery = { ability: { id: string, canonicalId: string, identifier: string, abilityProses: Array<{ short_effect: string, effect: string }>, pokemonAbilities: Array<{ is_hidden: number, pokemon: { id: string, identifier: string } }> } | null };
+
+export type ItemDetailQueryVariables = Exact<{
+  idOrSlug: string;
+}>;
+
+
+export type ItemDetailQuery = { item: { id: string, canonicalId: string, identifier: string, cost: number, fling_power: number | null, category: { identifier: string }, itemProses: Array<{ short_effect: string | null, effect: string | null }>, itemFlavorTexts: Array<{ flavor_text: string | null, versionGroup: { identifier: string } }> } | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -178,6 +233,16 @@ export const PokemonDetailDocument = new TypedDocumentString(`
       base_happiness
       is_legendary
       is_mythical
+      gender_rate
+      hatch_counter
+      eggGroups {
+        eggGroup {
+          identifier
+        }
+      }
+      growthRate {
+        identifier
+      }
     }
     types {
       slot
@@ -305,3 +370,139 @@ export const TypeMatchupsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<TypeMatchupsQuery, TypeMatchupsQueryVariables>;
+export const PokemonFlavorDocument = new TypedDocumentString(`
+    query PokemonFlavor($idOrSlug: String!, $versionGroup: String) {
+  pokemonFlavor(idOrSlug: $idOrSlug, versionGroup: $versionGroup) {
+    flavor_text
+    version {
+      identifier
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<PokemonFlavorQuery, PokemonFlavorQueryVariables>;
+export const EvolutionChainDocument = new TypedDocumentString(`
+    query EvolutionChain($idOrSlug: String!) {
+  evolutionChain(idOrSlug: $idOrSlug) {
+    id
+    identifier
+    evolves_from_species_id
+    pokemon {
+      id
+    }
+    evolution {
+      minimum_level
+      minimum_happiness
+      time_of_day
+      evolutionTrigger {
+        identifier
+      }
+      triggerItem {
+        identifier
+      }
+      heldItem {
+        identifier
+      }
+      knownMove {
+        identifier
+      }
+      location {
+        identifier
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<EvolutionChainQuery, EvolutionChainQueryVariables>;
+export const PokemonEncountersDocument = new TypedDocumentString(`
+    query PokemonEncounters($idOrSlug: String!, $versionGroup: String, $take: Int) {
+  pokemonEncounters(idOrSlug: $idOrSlug, versionGroup: $versionGroup, take: $take) {
+    min_level
+    max_level
+    version {
+      identifier
+    }
+    locationArea {
+      identifier
+      location {
+        identifier
+      }
+    }
+    encounterSlot {
+      rarity
+      encounterMethod {
+        identifier
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<PokemonEncountersQuery, PokemonEncountersQueryVariables>;
+export const MoveLearnedByDocument = new TypedDocumentString(`
+    query MoveLearnedBy($idOrSlug: String!, $versionGroup: String, $take: Int) {
+  moveLearnedBy(idOrSlug: $idOrSlug, versionGroup: $versionGroup, take: $take) {
+    level
+    pokemon {
+      id
+      identifier
+    }
+    moveMethod {
+      identifier
+    }
+    versionGroup {
+      identifier
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<MoveLearnedByQuery, MoveLearnedByQueryVariables>;
+export const MoveFlavorDocument = new TypedDocumentString(`
+    query MoveFlavor($idOrSlug: String!, $versionGroup: String) {
+  moveFlavor(idOrSlug: $idOrSlug, versionGroup: $versionGroup) {
+    flavor_text
+    versionGroup {
+      identifier
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<MoveFlavorQuery, MoveFlavorQueryVariables>;
+export const AbilityDetailDocument = new TypedDocumentString(`
+    query AbilityDetail($idOrSlug: String!) {
+  ability(idOrSlug: $idOrSlug) {
+    id
+    canonicalId
+    identifier
+    abilityProses {
+      short_effect
+      effect
+    }
+    pokemonAbilities {
+      is_hidden
+      pokemon {
+        id
+        identifier
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<AbilityDetailQuery, AbilityDetailQueryVariables>;
+export const ItemDetailDocument = new TypedDocumentString(`
+    query ItemDetail($idOrSlug: String!) {
+  item(idOrSlug: $idOrSlug) {
+    id
+    canonicalId
+    identifier
+    cost
+    fling_power
+    category {
+      identifier
+    }
+    itemProses {
+      short_effect
+      effect
+    }
+    itemFlavorTexts {
+      flavor_text
+      versionGroup {
+        identifier
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ItemDetailQuery, ItemDetailQueryVariables>;

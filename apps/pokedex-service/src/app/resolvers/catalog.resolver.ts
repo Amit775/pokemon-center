@@ -17,7 +17,13 @@ export class AbilityResolver {
 
 	@Query(() => Abilities, { nullable: true })
 	async ability(@Args('idOrSlug') idOrSlug: string): Promise<Abilities | null> {
-		return (await this.prisma.abilities.findFirst({ where: whereIdOrSlug('ability', idOrSlug) })) as unknown as Abilities | null;
+		return (await this.prisma.abilities.findFirst({
+			where: whereIdOrSlug('ability', idOrSlug),
+			include: {
+				abilityProses: { where: { local_language_id: 9 } },
+				pokemonAbilities: { include: { pokemon: true }, orderBy: { pokemon_id: 'asc' } },
+			},
+		})) as unknown as Abilities | null;
 	}
 
 	@ResolveField(() => String)
@@ -74,7 +80,11 @@ export class ItemResolver {
 	async item(@Args('idOrSlug') idOrSlug: string): Promise<Items | null> {
 		return (await this.prisma.items.findFirst({
 			where: whereIdOrSlug('item', idOrSlug),
-			include: { category: true },
+			include: {
+				category: true,
+				itemProses: { where: { local_language_id: 9 } },
+				itemFlavorTexts: { where: { language_id: 9 }, include: { versionGroup: true }, orderBy: { version_group_id: 'desc' as const }, take: 1 },
+			},
 		})) as unknown as Items | null;
 	}
 
