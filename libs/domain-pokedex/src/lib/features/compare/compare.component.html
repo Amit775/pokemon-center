@@ -1,0 +1,57 @@
+<h2>Compare</h2>
+<p class="hint">Enter 2–4 pokemon slugs (e.g. <code>charizard</code>). Highest base stat in each row is highlighted.</p>
+
+<div class="slots">
+	@for (slot of slots; track $index) {
+		<input type="text" placeholder="pokemon slug…" [value]="slot()" (change)="onSlot($index, $event)" />
+	}
+</div>
+
+@if (filled().length) {
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+				@for (pokemon of filled(); track pokemon.id) {
+					<th>{{ pokemon.identifier }}</th>
+				}
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="label">types</td>
+				@for (pokemon of filled(); track pokemon.id) {
+					<td>
+						@for (type of pokemon.types; track type.slot) {
+							<span class="chip">{{ type.type.identifier }}</span>
+						}
+					</td>
+				}
+			</tr>
+			@for (statId of statOrder; track statId) {
+				<tr>
+					<td class="label">{{ statId }}</td>
+					@for (pokemon of filled(); track pokemon.id) {
+						<td [class.best]="isMax(statId, baseStat(pokemon, statId))">{{ baseStat(pokemon, statId) }}</td>
+					}
+				</tr>
+			}
+			<tr class="total">
+				<td class="label">BST</td>
+				@for (pokemon of filled(); track pokemon.id) {
+					<td [class.best]="isMaxBst(bst(pokemon))">{{ bst(pokemon) }}</td>
+				}
+			</tr>
+			<tr>
+				<td class="label">abilities</td>
+				@for (pokemon of filled(); track pokemon.id) {
+					<td>
+						@for (ability of pokemon.abilities; track ability.ability.identifier) {
+							<span class="chip">{{ ability.ability.identifier }}{{ ability.is_hidden ? ' (H)' : '' }}</span>
+						}
+					</td>
+				}
+			</tr>
+		</tbody>
+	</table>
+}

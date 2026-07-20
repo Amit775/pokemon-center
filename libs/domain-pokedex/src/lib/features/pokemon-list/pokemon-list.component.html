@@ -1,3 +1,10 @@
+<nav class="tools-nav">
+	<a routerLink="/pokedex/pokemon" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Pokedex</a>
+	<a routerLink="/pokedex/moves" routerLinkActive="active">Moves</a>
+	<a routerLink="/pokedex/analyzer" routerLinkActive="active">Analyzer</a>
+	<a routerLink="/pokedex/coverage" routerLinkActive="active">Coverage</a>
+	<a routerLink="/pokedex/compare" routerLinkActive="active">Compare</a>
+</nav>
 <pokedex-pokemon-filters
 	[(search)]="search"
 	[(types)]="types"

@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { PrismaService } from './prisma.service';
 import { AbilityResolver, ItemResolver, SpeciesResolver, TypeResolver } from './resolvers/catalog.resolver';
+import { AnalysisResolver } from './resolvers/analysis.resolver';
 import { ContextResolver } from './resolvers/context.resolver';
 import { DepthResolver } from './resolvers/depth.resolver';
 import { MoveResolver } from './resolvers/move.resolver';
@@ -29,6 +30,7 @@ import { SearchResolver } from './resolvers/search.resolver';
 		ContextResolver,
 		SearchResolver,
 		DepthResolver,
+		AnalysisResolver,
 	],
 })
 export class AppModule {}

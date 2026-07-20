@@ -1,0 +1,50 @@
+<h2>Matchup Analyzer</h2>
+<p class="hint">
+	Pick a defender's type(s) — up to two. We rank the best offensive counters{{ store.activeVersionGroup() ? ' obtainable in ' + store.activeVersionGroup() : '' }},
+	honoring STAB, the attacker's offensive stat, and the era-correct type chart.
+</p>
+
+<div class="type-picker">
+	@for (type of allTypes(); track type.id) {
+		<button
+			type="button"
+			class="type-chip"
+			[class.active]="defenderTypes().includes(type.identifier)"
+			[disabled]="!defenderTypes().includes(type.identifier) && defenderTypes().length >= 2"
+			(click)="toggleType(type.identifier)"
+		>
+			{{ type.identifier }}
+		</button>
+	}
+</div>
+
+@if (loading()) {
+	<p class="status">Analyzing…</p>
+} @else if (counters().length) {
+	<table>
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>pokemon</th>
+				<th>best move</th>
+				<th>type</th>
+				<th>×</th>
+				<th>score</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (counter of counters(); track counter.pokemonId; let i = $index) {
+				<tr>
+					<td>{{ i + 1 }}</td>
+					<td><a [routerLink]="['/', 'pokedex', 'pokemon', counter.pokemonId]">{{ counter.pokemonSlug }}</a></td>
+					<td>{{ counter.bestMove }}</td>
+					<td>{{ counter.bestMoveType }}</td>
+					<td>{{ counter.effectiveness }}×</td>
+					<td>{{ counter.score }}</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+} @else if (defenderTypes().length) {
+	<p class="status">No counters found.</p>
+}

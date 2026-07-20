@@ -761,6 +761,12 @@ type ContestTypesSumAggregate {
   id: Int
 }
 
+type CoverageCell {
+  bestFactor: Float!
+  defendingType: String!
+  viaMove: String
+}
+
 type EggGroupProse {
   eggGroup: EggGroups!
   egg_group_id: Int!
@@ -2766,6 +2772,15 @@ type MachinesSumAggregate {
   machine_number: Int
   move_id: Int
   version_group_id: Int
+}
+
+type MatchupCounter {
+  bestMove: String!
+  bestMoveType: String!
+  effectiveness: Float!
+  pokemonId: Int!
+  pokemonSlug: String!
+  score: Int!
 }
 
 type MoveBattleStyleProse {
@@ -6062,11 +6077,21 @@ type Query {
   abilityList(skip: Int! = 0, take: Int! = 50): [Abilities!]!
 
   """
+  For a set of moves, the best damage multiplier achieved against each of the 18 defending types
+  """
+  coverage(moves: [String!]!): [CoverageCell!]!
+
+  """
   Every species in the pokemon evolution chain, with evolution conditions
   """
   evolutionChain(idOrSlug: String!): [PokemonSpecies!]!
   item(idOrSlug: String!): Items
   itemList(search: String, skip: Int! = 0, take: Int! = 50): [Items!]!
+
+  """
+  Best offensive counters against a defender with the given types, honoring STAB, the attacker offensive stat, and (optionally) a version group regional dex + learnset
+  """
+  matchupAnalysis(defenderTypes: [String!]!, take: Int! = 15, versionGroup: String): [MatchupCounter!]!
 
   """Lookup by canonical id (move:63), numeric id, or slug (thunderbolt)"""
   move(idOrSlug: String!): Moves

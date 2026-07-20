@@ -341,3 +341,49 @@ query ItemDetail($idOrSlug: String!) {
 		}
 	}
 }
+
+query MatchupAnalysis($defenderTypes: [String!]!, $versionGroup: String, $take: Int) {
+	matchupAnalysis(defenderTypes: $defenderTypes, versionGroup: $versionGroup, take: $take) {
+		pokemonId
+		pokemonSlug
+		bestMove
+		bestMoveType
+		effectiveness
+		score
+	}
+}
+
+query Coverage($moves: [String!]!) {
+	coverage(moves: $moves) {
+		defendingType
+		bestFactor
+		viaMove
+	}
+}
+
+query ComparePokemon($idOrSlug: String!) {
+	pokemon(idOrSlug: $idOrSlug) {
+		id
+		identifier
+		height
+		weight
+		types {
+			slot
+			type {
+				identifier
+			}
+		}
+		stats {
+			base_stat
+			stat {
+				identifier
+			}
+		}
+		abilities {
+			is_hidden
+			ability {
+				identifier
+			}
+		}
+	}
+}

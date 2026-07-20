@@ -131,6 +131,29 @@ export type ItemDetailQueryVariables = Exact<{
 
 export type ItemDetailQuery = { item: { id: string, canonicalId: string, identifier: string, cost: number, fling_power: number | null, category: { identifier: string }, itemProses: Array<{ short_effect: string | null, effect: string | null }>, itemFlavorTexts: Array<{ flavor_text: string | null, versionGroup: { identifier: string } }> } | null };
 
+export type MatchupAnalysisQueryVariables = Exact<{
+  defenderTypes: Array<string> | string;
+  versionGroup?: string | null | undefined;
+  take?: number | null | undefined;
+}>;
+
+
+export type MatchupAnalysisQuery = { matchupAnalysis: Array<{ pokemonId: number, pokemonSlug: string, bestMove: string, bestMoveType: string, effectiveness: number, score: number }> };
+
+export type CoverageQueryVariables = Exact<{
+  moves: Array<string> | string;
+}>;
+
+
+export type CoverageQuery = { coverage: Array<{ defendingType: string, bestFactor: number, viaMove: string | null }> };
+
+export type ComparePokemonQueryVariables = Exact<{
+  idOrSlug: string;
+}>;
+
+
+export type ComparePokemonQuery = { pokemon: { id: string, identifier: string, height: number, weight: number, types: Array<{ slot: number, type: { identifier: string } }>, stats: Array<{ base_stat: number, stat: { identifier: string } }>, abilities: Array<{ is_hidden: number, ability: { identifier: string } }> } | null };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -506,3 +529,56 @@ export const ItemDetailDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ItemDetailQuery, ItemDetailQueryVariables>;
+export const MatchupAnalysisDocument = new TypedDocumentString(`
+    query MatchupAnalysis($defenderTypes: [String!]!, $versionGroup: String, $take: Int) {
+  matchupAnalysis(
+    defenderTypes: $defenderTypes
+    versionGroup: $versionGroup
+    take: $take
+  ) {
+    pokemonId
+    pokemonSlug
+    bestMove
+    bestMoveType
+    effectiveness
+    score
+  }
+}
+    `) as unknown as TypedDocumentString<MatchupAnalysisQuery, MatchupAnalysisQueryVariables>;
+export const CoverageDocument = new TypedDocumentString(`
+    query Coverage($moves: [String!]!) {
+  coverage(moves: $moves) {
+    defendingType
+    bestFactor
+    viaMove
+  }
+}
+    `) as unknown as TypedDocumentString<CoverageQuery, CoverageQueryVariables>;
+export const ComparePokemonDocument = new TypedDocumentString(`
+    query ComparePokemon($idOrSlug: String!) {
+  pokemon(idOrSlug: $idOrSlug) {
+    id
+    identifier
+    height
+    weight
+    types {
+      slot
+      type {
+        identifier
+      }
+    }
+    stats {
+      base_stat
+      stat {
+        identifier
+      }
+    }
+    abilities {
+      is_hidden
+      ability {
+        identifier
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ComparePokemonQuery, ComparePokemonQueryVariables>;

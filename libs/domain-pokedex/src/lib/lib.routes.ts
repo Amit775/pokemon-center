@@ -44,4 +44,16 @@ export const domainPokedexRoutes: Route[] = [
 		path: 'types/:id',
 		loadComponent: () => import('./features/type-page/type-page.component').then((m) => m.TypePageComponent),
 	},
+	{
+		path: 'analyzer',
+		loadComponent: () => import('./features/analyzer/analyzer.component').then((m) => m.AnalyzerComponent),
+	},
+	{
+		path: 'coverage',
+		loadComponent: () => import('./features/coverage/coverage.component').then((m) => m.CoverageComponent),
+	},
+	{
+		path: 'compare',
+		loadComponent: () => import('./features/compare/compare.component').then((m) => m.CompareComponent),
+	},
 ];
