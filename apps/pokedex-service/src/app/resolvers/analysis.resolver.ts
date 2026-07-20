@@ -63,9 +63,10 @@ export class AnalysisResolver {
 				SELECT id FROM types WHERE identifier = ANY(${defenderTypes})
 			),
 			matchup AS (
-				-- product of per-type damage factors of each attacking type vs the defender combo
+				-- product of per-type damage factors of each attacking type vs the defender combo.
+				-- nullif() skips ln(0) for immunities; those groups are dropped by HAVING min > 0 anyway.
 				SELECT te.damage_type_id,
-				       exp(sum(ln(te.damage_factor / 100.0))) AS factor
+				       exp(sum(ln(nullif(te.damage_factor, 0) / 100.0))) AS factor
 				FROM type_efficacy te
 				JOIN defender d ON d.id = te.target_type_id
 				GROUP BY te.damage_type_id
