@@ -7,6 +7,7 @@ import {
 	PokedexContextStore,
 	gqlResource,
 } from '@pokemon-center/data-access-pokedex';
+import { SectionHeadingComponent, TypeChipComponent } from '@pokemon-center/ui-pokedex';
 
 @Component({
 	standalone: true,
@@ -14,7 +15,7 @@ import {
 	templateUrl: './move-page.component.html',
 	styleUrls: ['./move-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [RouterModule],
+	imports: [RouterModule, TypeChipComponent, SectionHeadingComponent],
 })
 export class MovePageComponent {
 	protected readonly store = inject(PokedexContextStore);
@@ -32,12 +33,12 @@ export class MovePageComponent {
 		take: 500,
 	}));
 
-	public move = computed(() => this.detail.value()?.move);
-	public flavor = computed(() => this.flavorQuery.value()?.moveFlavor ?? []);
+	public move = computed(() => (this.detail.hasValue() ? this.detail.value()?.move : undefined));
+	public flavor = computed(() => (this.flavorQuery.hasValue() ? (this.flavorQuery.value()?.moveFlavor ?? []) : []));
 
 	/** unique pokemon that learn this move (any method), in dex order */
 	public learnedBy = computed(() => {
-		const rows = this.learnedByQuery.value()?.moveLearnedBy ?? [];
+		const rows = this.learnedByQuery.hasValue() ? (this.learnedByQuery.value()?.moveLearnedBy ?? []) : [];
 		const seen = new Map<string, { id: string; identifier: string }>();
 		for (const row of rows) {
 			if (!seen.has(row.pokemon.id)) seen.set(row.pokemon.id, row.pokemon);

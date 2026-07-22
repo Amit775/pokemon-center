@@ -12,18 +12,5 @@
 </div>
 
 @if (cells().length) {
-	<div class="grid">
-		@for (cell of cells(); track cell.defendingType) {
-			<div class="cell" [class]="factorClass(cell.bestFactor)" [title]="cell.viaMove ? 'via ' + cell.viaMove : ''">
-				<span class="type">{{ cell.defendingType }}</span>
-				<span class="factor">{{ cell.bestFactor }}×</span>
-			</div>
-		}
-	</div>
-	<div class="legend">
-		<span class="cell super">super-effective</span>
-		<span class="cell neutral">neutral</span>
-		<span class="cell weak">resisted</span>
-		<span class="cell immune">immune</span>
-	</div>
+	<pkd-matchup-grid [cells]="cells()" />
 }

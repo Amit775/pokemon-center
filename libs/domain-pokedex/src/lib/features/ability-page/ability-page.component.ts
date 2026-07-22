@@ -56,5 +56,5 @@ export class AbilityPageComponent {
 
 	private readonly detail = gqlResource(AbilityDetailDocument, () => ({ idOrSlug: this.id() }));
 
-	public ability = computed(() => this.detail.value()?.ability);
+	public ability = computed(() => (this.detail.hasValue() ? this.detail.value()?.ability : undefined));
 }

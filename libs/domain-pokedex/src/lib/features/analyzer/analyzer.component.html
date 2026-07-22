@@ -6,15 +6,13 @@
 
 <div class="type-picker">
 	@for (type of allTypes(); track type.id) {
-		<button
-			type="button"
-			class="type-chip"
-			[class.active]="defenderTypes().includes(type.identifier)"
+		<pkd-chip-toggle
+			[label]="type.identifier"
+			[type]="type.identifier"
+			[active]="defenderTypes().includes(type.identifier)"
 			[disabled]="!defenderTypes().includes(type.identifier) && defenderTypes().length >= 2"
-			(click)="toggleType(type.identifier)"
-		>
-			{{ type.identifier }}
-		</button>
+			(toggled)="toggleType(type.identifier)"
+		/>
 	}
 </div>
 
@@ -38,7 +36,7 @@
 					<td>{{ i + 1 }}</td>
 					<td><a [routerLink]="['/', 'pokedex', 'pokemon', counter.pokemonId]">{{ counter.pokemonSlug }}</a></td>
 					<td>{{ counter.bestMove }}</td>
-					<td>{{ counter.bestMoveType }}</td>
+					<td><pkd-type-chip [type]="counter.bestMoveType" size="sm" /></td>
 					<td>{{ counter.effectiveness }}×</td>
 					<td>{{ counter.score }}</td>
 				</tr>

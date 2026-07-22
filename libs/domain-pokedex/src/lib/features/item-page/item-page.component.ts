@@ -73,5 +73,5 @@ export class ItemPageComponent {
 
 	private readonly detail = gqlResource(ItemDetailDocument, () => ({ idOrSlug: this.id() }));
 
-	public item = computed(() => this.detail.value()?.item);
+	public item = computed(() => (this.detail.hasValue() ? this.detail.value()?.item : undefined));
 }

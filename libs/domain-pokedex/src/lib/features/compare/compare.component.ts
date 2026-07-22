@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ComparePokemonDocument, ComparePokemonQuery, gqlResource } from '@pokemon-center/data-access-pokedex';
+import { TypeChipComponent } from '@pokemon-center/ui-pokedex';
 
 type ComparedPokemon = NonNullable<ComparePokemonQuery['pokemon']>;
 
@@ -13,6 +14,7 @@ const STAT_ORDER = ['hp', 'attack', 'defense', 'special-attack', 'special-defens
 	templateUrl: './compare.component.html',
 	styleUrl: './compare.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [TypeChipComponent],
 })
 export class CompareComponent {
 	private readonly router = inject(Router);

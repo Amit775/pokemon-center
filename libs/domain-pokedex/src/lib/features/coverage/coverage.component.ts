@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { CoverageDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
+import { MatchupCell, MatchupGridComponent, SectionHeadingComponent } from '@pokemon-center/ui-pokedex';
 
 /** Coverage Checker: pick up to 4 moves, see the best multiplier vs each of the 18 defending types. */
 @Component({
@@ -8,6 +9,7 @@ import { CoverageDocument, gqlResource } from '@pokemon-center/data-access-poked
 	templateUrl: './coverage.component.html',
 	styleUrl: './coverage.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [MatchupGridComponent, SectionHeadingComponent],
 })
 export class CoverageComponent {
 	protected readonly moves = signal<string[]>([]);
@@ -15,7 +17,10 @@ export class CoverageComponent {
 
 	private readonly query = gqlResource(CoverageDocument, () => ({ moves: this.moves() }));
 
-	protected readonly cells = computed(() => (this.moves().length ? (this.query.value()?.coverage ?? []) : []));
+	protected readonly cells = computed<MatchupCell[]>(() => {
+		if (!this.moves().length || !this.query.hasValue()) return [];
+		return (this.query.value()?.coverage ?? []).map((c) => ({ type: c.defendingType, factor: c.bestFactor, note: c.viaMove ? 'via ' + c.viaMove : null }));
+	});
 
 	protected onInput(event: Event): void {
 		this.draft.set((event.target as HTMLInputElement).value);
@@ -31,12 +36,5 @@ export class CoverageComponent {
 
 	protected removeMove(slug: string): void {
 		this.moves.set(this.moves().filter((m) => m !== slug));
-	}
-
-	protected factorClass(factor: number): string {
-		if (factor === 0) return 'immune';
-		if (factor >= 2) return 'super';
-		if (factor < 1) return 'weak';
-		return 'neutral';
 	}
 }

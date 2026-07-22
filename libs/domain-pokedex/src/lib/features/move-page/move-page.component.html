@@ -1,17 +1,17 @@
 @if (move(); as move) {
 	<h2>{{ move.identifier }}</h2>
 	<section class="facts">
-		<div><span>type</span><span>{{ move.type.identifier }}</span></div>
-		<div><span>class</span><span>{{ move.damageClass.identifier }}</span></div>
-		<div><span>power</span><span>{{ move.power ?? '—' }}</span></div>
-		<div><span>accuracy</span><span>{{ move.accuracy ?? '—' }}</span></div>
-		<div><span>pp</span><span>{{ move.pp ?? '—' }}</span></div>
-		<div><span>priority</span><span>{{ move.priority }}</span></div>
+		<div><span>Type</span><span><pkd-type-chip [type]="move.type.identifier" size="sm" /></span></div>
+		<div><span>Class</span><span>{{ move.damageClass.identifier }}</span></div>
+		<div><span>Power</span><span>{{ move.power ?? '—' }}</span></div>
+		<div><span>Accuracy</span><span>{{ move.accuracy ?? '—' }}</span></div>
+		<div><span>PP</span><span>{{ move.pp ?? '—' }}</span></div>
+		<div><span>Priority</span><span>{{ move.priority }}</span></div>
 		@if (move.effect_chance) {
-			<div><span>effect chance</span><span>{{ move.effect_chance }}%</span></div>
+			<div><span>Effect chance</span><span>{{ move.effect_chance }}%</span></div>
 		}
-		<div><span>target</span><span>{{ move.target.identifier }}</span></div>
-		<div><span>introduced</span><span>{{ move.generation.identifier }}</span></div>
+		<div><span>Target</span><span>{{ move.target.identifier }}</span></div>
+		<div><span>Introduced</span><span>{{ move.generation.identifier }}</span></div>
 	</section>
 
 	@if (flavor().length) {
@@ -27,7 +27,7 @@
 
 	@if (learnedBy().length) {
 		<section class="learned-by">
-			<h3>Learned by {{ learnedBy().length }} pokemon{{ store.activeVersionGroup() ? ' in ' + store.activeVersionGroup() : '' }}</h3>
+			<pkd-section-heading [label]="'Learned by ' + learnedBy().length + ' pokémon' + (store.activeVersionGroup() ? ' in ' + store.activeVersionGroup() : '')" />
 			<div class="grid">
 				@for (pokemon of learnedBy(); track pokemon.id) {
 					<a [routerLink]="['/', 'pokedex', 'pokemon', pokemon.id]">{{ pokemon.identifier }}</a>

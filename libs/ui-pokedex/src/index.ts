@@ -8,3 +8,4 @@ export * from './lib/section-heading/section-heading.component';
 export * from './lib/ui-skeleton/ui-skeleton.component';
 export * from './lib/ui-tabs/ui-tabs.component';
 export * from './lib/chip-toggle/chip-toggle.component';
+export * from './lib/matchup-grid/matchup-grid.component';

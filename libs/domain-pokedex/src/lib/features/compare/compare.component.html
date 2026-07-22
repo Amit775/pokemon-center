@@ -22,9 +22,11 @@
 				<td class="label">types</td>
 				@for (pokemon of filled(); track pokemon.id) {
 					<td>
-						@for (type of pokemon.types; track type.slot) {
-							<span class="chip">{{ type.type.identifier }}</span>
-						}
+						<span class="chips">
+							@for (type of pokemon.types; track type.slot) {
+								<pkd-type-chip [type]="type.type.identifier" size="sm" />
+							}
+						</span>
 					</td>
 				}
 			</tr>
