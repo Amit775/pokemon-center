@@ -5,15 +5,21 @@
 	<a routerLink="/pokedex/coverage" routerLinkActive="active">Coverage</a>
 	<a routerLink="/pokedex/compare" routerLinkActive="active">Compare</a>
 </nav>
-<pokedex-pokemon-filters
-	[(search)]="search"
-	[(types)]="types"
-	[(generation)]="generation"
-	[(sortBy)]="sortBy"
-	[(sortDesc)]="sortDesc"
-/>
-<ui-list [list]="pokemons()">
-	<ng-template let-pokemon [listItem]="pokemonType">
-		<pokedex-pokemon-record [pokemon]="pokemon" [routerLink]="[pokemon.id]" />
-	</ng-template>
-</ui-list>
+<pokedex-pokemon-filters [(search)]="search" [(types)]="types" [(generation)]="generation" [(sortBy)]="sortBy" [(sortDesc)]="sortDesc" />
+
+<div class="grid">
+	@if (loading() && !pokemons().length) {
+		@for (s of skeletons; track $index) {
+			<pkd-skeleton height="190px" radius="var(--r-lg)" />
+		}
+	} @else {
+		@for (pokemon of pokemons(); track pokemon.id) {
+			<a class="card-link" [routerLink]="[pokemon.id]">
+				<pkd-pokemon-card [dexNumber]="pokemon.id" [name]="pokemon.identifier" [types]="pokemon.types | pokemonTypes" [src]="spriteUrl(pokemon.id)" />
+			</a>
+		}
+		@if (!pokemons().length) {
+			<p class="empty">No pokémon match those filters.</p>
+		}
+	}
+</div>

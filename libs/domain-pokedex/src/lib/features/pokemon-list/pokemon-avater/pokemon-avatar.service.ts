@@ -6,6 +6,11 @@ export function getImageUrl(index: number): string {
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${index}.svg`;
 }
 
+/** Official-artwork PNG — served with a proper image content-type, so it renders via a plain <img src>. */
+export function officialArtworkUrl(index: number): string {
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${index}.png`;
+}
+
 @Injectable({ providedIn: 'root' })
 export class PokemonAvatarService {
   private _cache = new Map<number, string>();

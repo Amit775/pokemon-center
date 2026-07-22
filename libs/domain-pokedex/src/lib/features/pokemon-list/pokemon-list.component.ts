@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { PokedexContextStore, PokemonListDocument, PokemonListItem, gqlResource } from '@pokemon-center/data-access-pokedex';
-import { ListComponent, ListItemDirective } from '@pokemon-center/ui-list';
+import { PokedexContextStore, PokemonListDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
+import { PokemonCardComponent, UiSkeletonComponent } from '@pokemon-center/ui-pokedex';
+import { officialArtworkUrl } from './pokemon-avater/pokemon-avatar.service';
 import { PokemonFiltersComponent } from './pokemon-filters/pokemon-filters.component';
-import { PokemonRecordComponent } from './pokemon-record/pokemon-record.component';
+import { PokemonTypesPipe } from './pokemon-types.pipe';
 
 @Component({
 	templateUrl: './pokemon-list.component.html',
 	styleUrl: './pokemon-list.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [PokemonRecordComponent, RouterModule, ListComponent, ListItemDirective, PokemonFiltersComponent],
+	imports: [RouterModule, PokemonCardComponent, UiSkeletonComponent, PokemonFiltersComponent, PokemonTypesPipe],
 })
 export class PokemonListComponent {
 	private readonly router = inject(Router);
@@ -35,9 +36,13 @@ export class PokemonListComponent {
 		sortDesc: this.sortDesc(),
 	}));
 
-	public pokemons = computed(() => this.list.value()?.pokemonList ?? []);
+	public pokemons = computed(() => (this.list.hasValue() ? (this.list.value()?.pokemonList ?? []) : []));
+	public loading = computed(() => this.list.isLoading());
+	protected readonly skeletons = Array.from({ length: 12 });
 
-	pokemonType = undefined as unknown as PokemonListItem;
+	protected spriteUrl(id: string | number): string {
+		return officialArtworkUrl(Number(id));
+	}
 
 	constructor() {
 		// deep-linked game context (?vg=) wins over the persisted one

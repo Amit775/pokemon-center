@@ -1,32 +1,47 @@
-.viewport {
-	height: calc(100vh - 64px - 64px);
-
-	pokemon-record {
-		cursor: pointer;
-	}
-}
-
-.filters {
-	height: 64px;
-	width: 100%;
-	text-align: center;
+:host {
+	display: block;
+	height: calc(100vh - 60px);
+	overflow-y: auto;
 }
 
 .tools-nav {
 	display: flex;
-	gap: 1rem;
-	padding: 0.5rem 1rem;
-	border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+	gap: var(--s-4);
+	padding: var(--s-2) var(--s-4);
+	border-bottom: 1px solid var(--line);
 
 	a {
-		color: inherit;
+		color: var(--ink-muted);
 		text-decoration: none;
-		opacity: 0.65;
+		font-weight: 600;
+		font-size: var(--fs-sm);
 
 		&.active {
-			opacity: 1;
-			font-weight: 600;
-			border-bottom: 2px solid currentColor;
+			color: var(--accent);
+			border-bottom: 2px solid var(--accent);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
 		}
 	}
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+	gap: var(--s-3);
+	padding: var(--s-4);
+}
+
+.card-link {
+	text-decoration: none;
+}
+
+.empty {
+	grid-column: 1 / -1;
+	color: var(--ink-muted);
+	padding: var(--s-5);
+	text-align: center;
 }

@@ -11,7 +11,7 @@ import { TypeChipComponent } from '../type-chip/type-chip.component';
 	template: `
 		<div class="hd">
 			<span class="no">#{{ dexNumber() }}</span>
-			<pkd-entity-portrait [type]="primaryType()" [src]="src()" [size]="72" />
+			<pkd-entity-portrait [type]="primaryType()" [src]="src()" [alt]="name()" [size]="72" />
 		</div>
 		<div class="bd">
 			<h3>{{ name() }}</h3>
