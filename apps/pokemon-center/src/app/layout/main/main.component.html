@@ -1,16 +1,17 @@
-<mat-toolbar>
-	<span class="edge">Pokemon</span>
+<header class="app-bar">
+	<span class="brand">Pokémon</span>
+	<nav class="nav">
+		@for (nav of navRoutes; track nav) {
+			<a [routerLink]="nav.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: nav.path === '' }">{{ nav.display }}</a>
+		}
+	</nav>
 	<span class="spacer"></span>
-	@for (nav of navRoutes; track nav) {
-		<a mat-button [routerLink]="nav.path">{{ nav.display }}</a>
-	}
-	<span class="spacer"></span>
-	<span class="edge">
+	<div class="tools">
 		<pokedex-omnisearch />
 		<pokedex-game-select />
-		<button mat-icon-button type="button" (click)="store.toggleTheme()" [attr.aria-label]="isDark() ? 'Switch to light theme' : 'Switch to dark theme'">
+		<button type="button" class="icon-btn" (click)="store.toggleTheme()" [attr.aria-label]="isDark() ? 'Switch to light theme' : 'Switch to dark theme'">
 			<mat-icon>{{ isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
 		</button>
-	</span>
-</mat-toolbar>
+	</div>
+</header>
 <router-outlet />

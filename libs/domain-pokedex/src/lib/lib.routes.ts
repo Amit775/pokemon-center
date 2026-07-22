@@ -56,4 +56,8 @@ export const domainPokedexRoutes: Route[] = [
 		path: 'compare',
 		loadComponent: () => import('./features/compare/compare.component').then((m) => m.CompareComponent),
 	},
+	{
+		path: 'kit',
+		loadComponent: () => import('./features/kit/kit.component').then((m) => m.KitComponent),
+	},
 ];
