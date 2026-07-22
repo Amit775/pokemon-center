@@ -1,38 +1,41 @@
 <div class="filters">
-	<input type="search" placeholder="Search pokemon (typo-friendly)…" [value]="search()" (input)="onSearch($event)" />
-	<select (change)="onGeneration($event)" title="Generation">
-		<option value="" [selected]="generation() === null">All gens</option>
-		@for (gen of generations; track gen) {
-			<option [value]="gen" [selected]="generation() === gen">Gen {{ gen }}</option>
-		}
-	</select>
-	<select (change)="onSort($event)" title="Sort by">
-		@for (option of sortOptions; track option) {
-			<option [value]="option" [selected]="sortBy() === option">Sort: {{ option }}</option>
-		}
-	</select>
-	<button type="button" class="dir" (click)="sortDesc.set(!sortDesc())" [title]="sortDesc() ? 'Descending' : 'Ascending'">
+	<input class="search" type="search" placeholder="Search pokémon (typo-friendly)…" [value]="search()" (input)="onSearch($event)" />
+
+	<label class="select">
+		Gen
+		<select (change)="onGeneration($event)">
+			<option value="" [selected]="generation() === null">All</option>
+			@for (gen of generations; track gen) {
+				<option [value]="gen" [selected]="generation() === gen">{{ gen }}</option>
+			}
+		</select>
+	</label>
+
+	<label class="select">
+		Sort
+		<select (change)="onSort($event)">
+			@for (option of sortOptions; track option) {
+				<option [value]="option" [selected]="sortBy() === option">{{ option }}</option>
+			}
+		</select>
+	</label>
+
+	<button type="button" class="dir" (click)="sortDesc.set(!sortDesc())" [attr.aria-label]="sortDesc() ? 'Descending' : 'Ascending'">
 		{{ sortDesc() ? '↓' : '↑' }}
 	</button>
-	<button type="button" (click)="saveCurrent()" title="Save current search + facets + game as a filter set">💾 Save filter</button>
+
+	<button type="button" class="save" (click)="saveCurrent()">💾 Save filter</button>
+
 	@for (filter of store.savedFilters(); track filter.name) {
 		<span class="filter-chip">
-			<button
-				type="button"
-				class="apply"
-				(click)="apply(filter)"
-				[title]="'search: ' + (filter.search || '—') + ' · game: ' + (filter.versionGroup || 'all') + ' · types: ' + (filter.types?.join(',') || 'any')"
-			>
-				{{ filter.name }}
-			</button>
+			<button type="button" class="apply" (click)="apply(filter)">{{ filter.name }}</button>
 			<button type="button" class="delete" (click)="remove(filter)" [attr.aria-label]="'Delete filter ' + filter.name">✕</button>
 		</span>
 	}
 </div>
+
 <div class="type-facets">
 	@for (type of allTypes(); track type.id) {
-		<button type="button" class="type-chip" [class.active]="types().includes(type.identifier)" (click)="toggleType(type.identifier)">
-			{{ type.identifier }}
-		</button>
+		<pkd-chip-toggle [label]="type.identifier" [type]="type.identifier" [active]="types().includes(type.identifier)" (toggled)="toggleType(type.identifier)" />
 	}
 </div>

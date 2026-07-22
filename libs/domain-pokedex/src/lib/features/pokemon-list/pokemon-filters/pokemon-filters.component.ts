@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, model } from '@angular/core';
 import { FilterSet, PokedexContextStore, TypesListDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
+import { ChipToggleComponent } from '@pokemon-center/ui-pokedex';
 
 /** Search box + facets + saved filter sets. The active game itself lives in the header (GameSelectComponent). */
 @Component({
@@ -7,6 +8,7 @@ import { FilterSet, PokedexContextStore, TypesListDocument, gqlResource } from '
 	templateUrl: './pokemon-filters.component.html',
 	styleUrl: './pokemon-filters.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [ChipToggleComponent],
 })
 export class PokemonFiltersComponent {
 	protected readonly store = inject(PokedexContextStore);
@@ -21,7 +23,9 @@ export class PokemonFiltersComponent {
 	protected readonly sortOptions = ['id', 'name', 'height', 'weight'];
 
 	private readonly typesQuery = gqlResource(TypesListDocument, () => ({}));
-	protected readonly allTypes = computed(() => (this.typesQuery.value()?.typeList ?? []).filter((t) => Number(t.id) < 10000));
+	protected readonly allTypes = computed(() =>
+		(this.typesQuery.hasValue() ? (this.typesQuery.value()?.typeList ?? []) : []).filter((t) => Number(t.id) < 10000),
+	);
 
 	protected onSearch(event: Event): void {
 		this.search.set((event.target as HTMLInputElement).value);
