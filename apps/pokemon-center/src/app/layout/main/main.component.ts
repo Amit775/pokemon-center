@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { GameSelectComponent, OmnisearchComponent } from '@pokemon-center/data-access-pokedex';
+import { GameSelectComponent, OmnisearchComponent, PokedexContextStore } from '@pokemon-center/data-access-pokedex';
 
 import { NavRoute, isNavRoute, routes } from '../../app.routes';
 
@@ -11,8 +12,14 @@ import { NavRoute, isNavRoute, routes } from '../../app.routes';
 	templateUrl: './main.component.html',
 	styleUrls: ['./main.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [MatToolbarModule, MatButtonModule, RouterModule, GameSelectComponent, OmnisearchComponent],
+	imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterModule, GameSelectComponent, OmnisearchComponent],
 })
 export class MainComponent {
+	protected readonly store = inject(PokedexContextStore);
 	public navRoutes: NavRoute[] = routes.filter(isNavRoute);
+
+	protected readonly isDark = computed(() => {
+		const theme = this.store.theme();
+		return theme === 'system' ? matchMedia('(prefers-color-scheme: dark)').matches : theme === 'dark';
+	});
 }

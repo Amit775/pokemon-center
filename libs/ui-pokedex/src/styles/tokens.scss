@@ -1,0 +1,129 @@
+// ============================================================================
+// ui-pokedex design tokens — the SINGLE source of truth for the app's look.
+// Direction: "Type Prism". Every component reads these; no component holds a
+// raw hex. Flip a theme (or re-skin entirely) by changing values here only.
+// The Material bridge (--mat-sys-* -> these) lives in the app styles.scss,
+// after Material's theme is emitted, so our overrides win.
+// ============================================================================
+
+// ---- theme-dependent tokens (color + shadow + color-scheme) ----
+@mixin light {
+	color-scheme: light;
+
+	--page-bg: #f3f5fb;
+	--surface: #ffffff;
+	--surface-raised: #ffffff;
+	--surface-sunken: #edeff5;
+	--ink: #14161d;
+	--ink-muted: #5b6475;
+	--ink-faint: #8992a3;
+	--line: #e5e8f0;
+
+	--accent: #4c5bf5;
+	--accent-ink: #ffffff;
+	--accent-soft: #eaecfe;
+
+	--good: #2e9e5b;
+	--warn: #d98a1e;
+	--crit: #d93a4a;
+
+	--shadow-sm: 0 2px 10px rgba(20, 22, 29, 0.05);
+	--shadow-md: 0 4px 16px rgba(20, 22, 29, 0.08);
+	--shadow-lg: 0 12px 30px rgba(20, 22, 29, 0.12);
+}
+
+@mixin dark {
+	color-scheme: dark;
+
+	--page-bg: #12141b;
+	--surface: #1b1e27;
+	--surface-raised: #21252f;
+	--surface-sunken: #14161d;
+	--ink: #eef0f6;
+	--ink-muted: #98a1b2;
+	--ink-faint: #6b7383;
+	--line: #2a2e3a;
+
+	--accent: #7b8aff;
+	--accent-ink: #0e1018;
+	--accent-soft: #23283f;
+
+	--good: #4ec07f;
+	--warn: #f0a94b;
+	--crit: #ff6b7a;
+
+	--shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+	--shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+	--shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+// light is the base; dark applies via OS preference OR an explicit data-theme.
+// The store stamps data-theme (resolving 'system' to remove the attribute so the
+// media query governs and live OS changes still work).
+:root {
+	@include light;
+}
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) {
+		@include dark;
+	}
+}
+:root[data-theme='light'] {
+	@include light;
+}
+:root[data-theme='dark'] {
+	@include dark;
+}
+
+// ---- theme-independent tokens ----
+:root {
+	// the 18 canonical type colors — intrinsic, identical in both themes
+	--t-normal: #a8a77a;
+	--t-fire: #ee8130;
+	--t-water: #6390f0;
+	--t-electric: #f7d02c;
+	--t-grass: #7ac74c;
+	--t-ice: #96d9d6;
+	--t-fighting: #c22e28;
+	--t-poison: #a33ea1;
+	--t-ground: #e2bf65;
+	--t-flying: #a98ff3;
+	--t-psychic: #f95587;
+	--t-bug: #a6b91a;
+	--t-rock: #b6a136;
+	--t-ghost: #735797;
+	--t-dragon: #6f35fc;
+	--t-dark: #705746;
+	--t-steel: #b7b7ce;
+	--t-fairy: #d685ad;
+
+	// radius scale (Type Prism is generously rounded)
+	--r-sm: 8px;
+	--r-md: 14px;
+	--r-lg: 20px;
+	--r-xl: 24px;
+	--r-pill: 999px;
+
+	// spacing scale
+	--s-1: 4px;
+	--s-2: 8px;
+	--s-3: 12px;
+	--s-4: 16px;
+	--s-5: 24px;
+	--s-6: 32px;
+	--s-8: 48px;
+
+	// type
+	--font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+	--font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Consolas, monospace;
+	--fs-xs: 0.72rem;
+	--fs-sm: 0.82rem;
+	--fs-md: 0.92rem;
+	--fs-lg: 1.1rem;
+	--fs-xl: 1.4rem;
+	--fs-2xl: 1.8rem;
+
+	// motion
+	--ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+	--dur: 0.16s;
+}

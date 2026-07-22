@@ -23,7 +23,8 @@
 			"@pokemon-center/infra-pokedex-index": ["./libs/infra-pokedex-index/src/index.ts"],
 			"@pokemon-center/pokedex": ["./tools/pokedex/src/index.ts"],
 			"@pokemon-center/prisma": ["./libs/prisma-client/src/index.ts"],
-			"@pokemon-center/ui-list": ["./libs/ui-list/src/index.ts"]
+			"@pokemon-center/ui-list": ["./libs/ui-list/src/index.ts"],
+			"@pokemon-center/ui-pokedex": ["./libs/ui-pokedex/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

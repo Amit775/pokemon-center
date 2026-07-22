@@ -8,6 +8,9 @@
 	<span class="edge">
 		<pokedex-omnisearch />
 		<pokedex-game-select />
+		<button mat-icon-button type="button" (click)="store.toggleTheme()" [attr.aria-label]="isDark() ? 'Switch to light theme' : 'Switch to dark theme'">
+			<mat-icon>{{ isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+		</button>
 	</span>
 </mat-toolbar>
 <router-outlet />
