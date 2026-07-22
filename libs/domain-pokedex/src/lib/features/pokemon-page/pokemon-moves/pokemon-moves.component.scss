@@ -1,0 +1,40 @@
+.moves {
+	display: flex;
+	flex-direction: column;
+	max-width: 40rem;
+}
+
+.move {
+	display: grid;
+	grid-template-columns: 1fr auto auto;
+	align-items: center;
+	gap: var(--s-3);
+	padding: var(--s-2) var(--s-3);
+	border-radius: var(--r-sm);
+	text-decoration: none;
+	color: var(--ink);
+
+	&:hover {
+		background: var(--surface-sunken);
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: -2px;
+	}
+
+	.name {
+		font-weight: 600;
+		text-transform: capitalize;
+	}
+
+	.meta {
+		color: var(--ink-muted);
+		font-size: var(--fs-sm);
+		text-transform: capitalize;
+	}
+}
+
+.empty {
+	color: var(--ink-muted);
+}

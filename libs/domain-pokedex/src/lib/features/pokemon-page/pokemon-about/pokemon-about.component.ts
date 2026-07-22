@@ -8,6 +8,7 @@ import {
 	PokemonFlavorDocument,
 	gqlResource,
 } from '@pokemon-center/data-access-pokedex';
+import { SectionHeadingComponent, TypeChipComponent } from '@pokemon-center/ui-pokedex';
 import { PokemonAvatarDirective } from '../../pokemon-list/pokemon-avater/pokemon-avatar.directive';
 
 type ChainSpecies = EvolutionChainQuery['evolutionChain'][number];
@@ -18,7 +19,7 @@ type EvolutionRow = ChainSpecies['evolution'][number];
 	templateUrl: './pokemon-about.component.html',
 	styleUrls: ['./pokemon-about.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [PokemonAvatarDirective, RouterModule],
+	imports: [PokemonAvatarDirective, RouterModule, TypeChipComponent, SectionHeadingComponent],
 })
 export class PokemonAboutComponent {
 	protected readonly store = inject(PokedexContextStore);

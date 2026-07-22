@@ -1,50 +1,48 @@
 @if (pokemon(); as pokemon) {
 	<section class="facts">
-		<div><span>id</span><span>{{ pokemon.id }}</span></div>
-		<div><span>name</span><span>{{ pokemon.identifier }}</span></div>
 		<div>
-			<span>types</span>
-			<span>
+			<span>Types</span>
+			<span class="chips">
 				@for (type of pokemon.types; track type.slot) {
-					<span class="chip">{{ type.type.identifier }}</span>
+					<pkd-type-chip [type]="type.type.identifier" size="sm" />
 				}
 			</span>
 		</div>
 		<div>
-			<span>abilities</span>
-			<span>
+			<span>Abilities</span>
+			<span class="chips">
 				@for (ability of pokemon.abilities; track ability.slot) {
 					<span class="chip">{{ ability.ability.identifier }}{{ ability.is_hidden ? ' (hidden)' : '' }}</span>
 				}
 			</span>
 		</div>
-		<div><span>height / weight</span><span>{{ pokemon.height / 10 }} m / {{ pokemon.weight / 10 }} kg</span></div>
+		<div><span>Height / weight</span><span>{{ pokemon.height / 10 }} m / {{ pokemon.weight / 10 }} kg</span></div>
 		@if (pokemon.species; as species) {
-			<div><span>catch rate</span><span>{{ species.capture_rate }}</span></div>
-			<div><span>base happiness</span><span>{{ species.base_happiness }}</span></div>
-			<div><span>gender</span><span>{{ genderText(species.gender_rate) }}</span></div>
-			<div><span>hatch counter</span><span>{{ species.hatch_counter }} cycles</span></div>
+			<div><span>Catch rate</span><span>{{ species.capture_rate }}</span></div>
+			<div><span>Base happiness</span><span>{{ species.base_happiness }}</span></div>
+			<div><span>Gender</span><span>{{ genderText(species.gender_rate) }}</span></div>
+			<div><span>Hatch counter</span><span>{{ species.hatch_counter }} cycles</span></div>
 			<div>
-				<span>egg groups</span>
-				<span>
+				<span>Egg groups</span>
+				<span class="chips">
 					@for (group of species.eggGroups; track group.eggGroup.identifier) {
 						<span class="chip">{{ group.eggGroup.identifier }}</span>
 					}
 				</span>
 			</div>
-			<div><span>growth rate</span><span>{{ species.growthRate.identifier }}</span></div>
+			<div><span>Growth rate</span><span>{{ species.growthRate.identifier }}</span></div>
 			@if (species.is_legendary) {
-				<div><span>status</span><span>legendary</span></div>
+				<div><span>Status</span><span>legendary</span></div>
 			}
 			@if (species.is_mythical) {
-				<div><span>status</span><span>mythical</span></div>
+				<div><span>Status</span><span>mythical</span></div>
 			}
 		}
 	</section>
 
 	@if (flavor().length) {
 		<section class="flavor">
-			<h3>Pokedex entries{{ store.activeVersionGroup() ? ' — ' + store.activeVersionGroup() : '' }}</h3>
+			<pkd-section-heading [label]="'Pokédex entries' + (store.activeVersionGroup() ? ' — ' + store.activeVersionGroup() : '')" />
 			@for (entry of flavor(); track entry.version.identifier) {
 				<blockquote>
 					<cite>{{ entry.version.identifier }}</cite>
@@ -56,7 +54,7 @@
 
 	@if (chain().length > 1) {
 		<section class="evolution">
-			<h3>Evolution</h3>
+			<pkd-section-heading label="Evolution" />
 			<div class="chain">
 				@for (species of chain(); track species.id) {
 					@if (!$first) {

@@ -1,8 +1,12 @@
-<ui-list [list]="moves()">
-	<ng-template let-row [listItem]="moveType">
-		<div class="move" [routerLink]="['/', 'pokedex', 'moves', row.move.id]">
-			<div class="move-name">{{ row.move.identifier }}</div>
-			<div class="move-url">{{ row.move.type.identifier }} · {{ row.moveMethod.identifier }}@if (row.level) { · lv {{ row.level }}}</div>
-		</div>
-	</ng-template>
-</ui-list>
+<div class="moves">
+	@for (row of moves(); track row.move.id + '-' + row.moveMethod.identifier + '-' + row.level) {
+		<a class="move" [routerLink]="['/', 'pokedex', 'moves', row.move.id]">
+			<span class="name">{{ row.move.identifier }}</span>
+			<pkd-type-chip [type]="row.move.type.identifier" size="sm" />
+			<span class="meta">{{ row.moveMethod.identifier }}@if (row.level) { · lv {{ row.level }}}</span>
+		</a>
+	}
+	@if (!moves().length) {
+		<p class="empty">No moves in this context.</p>
+	}
+</div>

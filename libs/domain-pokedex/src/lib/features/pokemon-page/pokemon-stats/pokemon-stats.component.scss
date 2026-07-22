@@ -1,3 +1,18 @@
-span {
-	margin: 2px;
+.stats {
+	max-width: 32rem;
+}
+
+.total {
+	display: grid;
+	grid-template-columns: 74px 1fr;
+	gap: var(--s-3);
+	margin-top: var(--s-3);
+	padding-top: var(--s-3);
+	border-top: 1px solid var(--line);
+	font-weight: 800;
+
+	span:first-child {
+		color: var(--ink-muted);
+		font-weight: 600;
+	}
 }

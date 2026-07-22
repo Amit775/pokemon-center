@@ -1,60 +1,70 @@
 :host {
 	display: block;
-	padding: 1rem;
 }
 
 .facts {
 	display: grid;
-	gap: 0.35rem;
+	gap: var(--s-2);
 	max-width: 32rem;
 
 	> div {
 		display: grid;
 		grid-template-columns: 10rem 1fr;
+		align-items: center;
 
 		> span:first-child {
-			opacity: 0.65;
+			color: var(--ink-muted);
+			font-size: var(--fs-sm);
 		}
+	}
+
+	.chips {
+		display: flex;
+		gap: var(--s-1);
+		flex-wrap: wrap;
 	}
 }
 
 .chip {
 	display: inline-block;
-	border: 1px solid currentColor;
-	border-radius: 999px;
-	padding: 0 0.6rem;
-	margin-right: 0.3rem;
+	border: 1px solid var(--line);
+	background: var(--surface-sunken);
+	border-radius: var(--r-pill);
+	padding: 0.1rem 0.6rem;
 	text-transform: capitalize;
-	opacity: 0.9;
+	font-size: var(--fs-sm);
 }
 
 .flavor {
-	margin-top: 1.5rem;
-	max-width: 40rem;
+	margin-top: var(--s-5);
+	max-width: 42rem;
 
 	blockquote {
-		margin: 0.5rem 0;
-		padding-left: 0.75rem;
-		border-left: 3px solid currentColor;
+		margin: var(--s-2) 0;
+		padding-left: var(--s-3);
+		border-left: 3px solid var(--accent);
 		white-space: pre-line;
+		color: var(--ink);
 
 		cite {
 			display: block;
-			opacity: 0.6;
+			color: var(--ink-muted);
 			text-transform: capitalize;
-			font-size: 0.8rem;
+			font-size: var(--fs-xs);
+			font-style: normal;
+			margin-bottom: 0.2rem;
 		}
 	}
 }
 
 .evolution {
-	margin-top: 1.5rem;
+	margin-top: var(--s-5);
 
 	.chain {
 		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
-		gap: 0.75rem;
+		gap: var(--s-3);
 	}
 
 	.stage {
@@ -62,8 +72,15 @@
 		flex-direction: column;
 		align-items: center;
 		text-decoration: none;
-		color: inherit;
+		color: var(--ink);
 		text-transform: capitalize;
+		font-weight: 600;
+
+		img {
+			width: 72px;
+			height: 72px;
+			object-fit: contain;
+		}
 	}
 
 	.arrow {
@@ -72,9 +89,10 @@
 		align-items: center;
 		max-width: 10rem;
 		text-align: center;
+		color: var(--ink-muted);
 
 		small {
-			opacity: 0.7;
+			font-size: var(--fs-xs);
 		}
 	}
 }

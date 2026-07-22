@@ -1,11 +1,25 @@
 @if (pokemon(); as pokemon) {
-	<nav mat-tab-nav-bar [tabPanel]="panel">
-		<mat-icon class="back" (click)="goBack()">arrow_back</mat-icon>
-		@for (tab of tabs; track tab) {
-			<a mat-tab-link [routerLink]="[tab.path]" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
-				{{ tab.label }}
-			</a>
+	<header class="hero" [style.--pt]="'var(--t-' + primaryType() + ')'">
+		<button type="button" class="back" (click)="goBack()" aria-label="Back to pokedex"><mat-icon>arrow_back</mat-icon></button>
+		<pkd-entity-portrait [type]="primaryType()" [src]="spriteUrl(pokemon.id)" [alt]="pokemon.identifier" [size]="120" />
+		<div class="id">
+			<span class="no">#{{ pokemon.id }}</span>
+			<h1>{{ pokemon.identifier }}</h1>
+			<div class="chips">
+				@for (t of types(); track t) {
+					<pkd-type-chip [type]="t" />
+				}
+			</div>
+		</div>
+	</header>
+
+	<nav class="tabs">
+		@for (tab of tabs; track tab.path) {
+			<a [routerLink]="[tab.path]" routerLinkActive="active">{{ tab.label }}</a>
 		}
 	</nav>
-	<mat-tab-nav-panel #panel><router-outlet></router-outlet></mat-tab-nav-panel>
+
+	<div class="panel">
+		<router-outlet />
+	</div>
 }

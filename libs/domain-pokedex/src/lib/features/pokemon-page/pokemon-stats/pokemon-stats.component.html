@@ -1,6 +1,11 @@
-@for (stat of stats(); track stat.stat.id) {
-	<div>
-		<span>{{ stat.stat.identifier }}</span>
-		<span>{{ stat.base_stat }}</span>
-	</div>
-}
+<div class="stats">
+	@for (stat of stats(); track stat.stat.id) {
+		<pkd-stat-bar [label]="label(stat.stat.identifier)" [value]="stat.base_stat" [type]="primaryType()" />
+	}
+	@if (stats().length) {
+		<div class="total">
+			<span>Total</span>
+			<span>{{ total() }}</span>
+		</div>
+	}
+</div>
