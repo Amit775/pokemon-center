@@ -56,3 +56,9 @@ Thumbs.db
 .nx/migrate-runs
 # locally mirrored sprites (run tools/mirror-sprites.mjs)
 apps/pokemon-center/public/sprites/
+
+# stray installers — never commit binaries into the repo
+.cursor/rules/*.msi
+.cursor/rules/*.exe
+*.msi
+*.exe
