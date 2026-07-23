@@ -11,6 +11,11 @@ export function officialArtworkUrl(index: number): string {
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${index}.png`;
 }
 
+/** Locally mirrored sprite (see tools/mirror-sprites.mjs). Falls back to the remote artwork when absent. */
+export function localSpriteUrl(index: number): string {
+  return `/sprites/${index}.png`;
+}
+
 @Injectable({ providedIn: 'root' })
 export class PokemonAvatarService {
   private _cache = new Map<number, string>();

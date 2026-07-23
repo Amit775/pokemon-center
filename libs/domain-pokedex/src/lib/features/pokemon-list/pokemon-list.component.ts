@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, u
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PokedexContextStore, PokemonListDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
 import { PokemonCardComponent, UiSkeletonComponent } from '@pokemon-center/ui-pokedex';
-import { officialArtworkUrl } from './pokemon-avater/pokemon-avatar.service';
+import { localSpriteUrl, officialArtworkUrl } from './pokemon-avater/pokemon-avatar.service';
 import { PokemonFiltersComponent } from './pokemon-filters/pokemon-filters.component';
 import { PokemonTypesPipe } from './pokemon-types.pipe';
 
@@ -41,6 +41,10 @@ export class PokemonListComponent {
 	protected readonly skeletons = Array.from({ length: 12 });
 
 	protected spriteUrl(id: string | number): string {
+		return localSpriteUrl(Number(id));
+	}
+
+	protected fallbackUrl(id: string | number): string {
 		return officialArtworkUrl(Number(id));
 	}
 

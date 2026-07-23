@@ -26,6 +26,7 @@ export class MovePageComponent {
 	private readonly flavorQuery = gqlResource(MoveFlavorDocument, () => ({
 		idOrSlug: this.id(),
 		versionGroup: this.store.activeVersionGroup(),
+		language: this.store.language(),
 	}));
 	private readonly learnedByQuery = gqlResource(MoveLearnedByDocument, () => ({
 		idOrSlug: this.id(),

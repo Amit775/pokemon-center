@@ -9,6 +9,11 @@ export type VersionGroupsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type VersionGroupsQuery = { versionGroups: Array<{ id: string, identifier: string, order: number, generation: { id: string, identifier: string }, versions: Array<{ id: string, identifier: string }> }> };
 
+export type LanguagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LanguagesQuery = { languages: Array<{ id: number, code: string, name: string }> };
+
 export type SearchQueryVariables = Exact<{
   term: string;
   takePerKind?: number | null | undefined;
@@ -79,6 +84,7 @@ export type TypeMatchupsQuery = { type: { id: string, identifier: string, effica
 export type PokemonFlavorQueryVariables = Exact<{
   idOrSlug: string;
   versionGroup?: string | null | undefined;
+  language?: string | null | undefined;
 }>;
 
 
@@ -112,6 +118,7 @@ export type MoveLearnedByQuery = { moveLearnedBy: Array<{ level: number | null, 
 export type MoveFlavorQueryVariables = Exact<{
   idOrSlug: string;
   versionGroup?: string | null | undefined;
+  language?: string | null | undefined;
 }>;
 
 
@@ -119,6 +126,7 @@ export type MoveFlavorQuery = { moveFlavor: Array<{ flavor_text: string, version
 
 export type AbilityDetailQueryVariables = Exact<{
   idOrSlug: string;
+  language?: string | null | undefined;
 }>;
 
 
@@ -126,6 +134,7 @@ export type AbilityDetailQuery = { ability: { id: string, canonicalId: string, i
 
 export type ItemDetailQueryVariables = Exact<{
   idOrSlug: string;
+  language?: string | null | undefined;
 }>;
 
 
@@ -190,6 +199,15 @@ export const VersionGroupsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<VersionGroupsQuery, VersionGroupsQueryVariables>;
+export const LanguagesDocument = new TypedDocumentString(`
+    query Languages {
+  languages {
+    id
+    code
+    name
+  }
+}
+    `) as unknown as TypedDocumentString<LanguagesQuery, LanguagesQueryVariables>;
 export const SearchDocument = new TypedDocumentString(`
     query Search($term: String!, $takePerKind: Int) {
   search(term: $term, takePerKind: $takePerKind) {
@@ -394,8 +412,12 @@ export const TypeMatchupsDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<TypeMatchupsQuery, TypeMatchupsQueryVariables>;
 export const PokemonFlavorDocument = new TypedDocumentString(`
-    query PokemonFlavor($idOrSlug: String!, $versionGroup: String) {
-  pokemonFlavor(idOrSlug: $idOrSlug, versionGroup: $versionGroup) {
+    query PokemonFlavor($idOrSlug: String!, $versionGroup: String, $language: String) {
+  pokemonFlavor(
+    idOrSlug: $idOrSlug
+    versionGroup: $versionGroup
+    language: $language
+  ) {
     flavor_text
     version {
       identifier
@@ -476,8 +498,12 @@ export const MoveLearnedByDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<MoveLearnedByQuery, MoveLearnedByQueryVariables>;
 export const MoveFlavorDocument = new TypedDocumentString(`
-    query MoveFlavor($idOrSlug: String!, $versionGroup: String) {
-  moveFlavor(idOrSlug: $idOrSlug, versionGroup: $versionGroup) {
+    query MoveFlavor($idOrSlug: String!, $versionGroup: String, $language: String) {
+  moveFlavor(
+    idOrSlug: $idOrSlug
+    versionGroup: $versionGroup
+    language: $language
+  ) {
     flavor_text
     versionGroup {
       identifier
@@ -486,8 +512,8 @@ export const MoveFlavorDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<MoveFlavorQuery, MoveFlavorQueryVariables>;
 export const AbilityDetailDocument = new TypedDocumentString(`
-    query AbilityDetail($idOrSlug: String!) {
-  ability(idOrSlug: $idOrSlug) {
+    query AbilityDetail($idOrSlug: String!, $language: String) {
+  ability(idOrSlug: $idOrSlug, language: $language) {
     id
     canonicalId
     identifier
@@ -506,8 +532,8 @@ export const AbilityDetailDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<AbilityDetailQuery, AbilityDetailQueryVariables>;
 export const ItemDetailDocument = new TypedDocumentString(`
-    query ItemDetail($idOrSlug: String!) {
-  item(idOrSlug: $idOrSlug) {
+    query ItemDetail($idOrSlug: String!, $language: String) {
+  item(idOrSlug: $idOrSlug, language: $language) {
     id
     canonicalId
     identifier

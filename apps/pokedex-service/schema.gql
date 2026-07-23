@@ -2294,6 +2294,12 @@ type LanguageNamesSumAggregate {
   local_language_id: Int
 }
 
+type LanguageOption {
+  code: String!
+  id: Int!
+  name: String!
+}
+
 """@@TypeGraphQL.type(name: "Language")"""
 type Languages {
   _count: LanguagesCount!
@@ -6073,7 +6079,7 @@ type PokemonTypesSumAggregate {
 }
 
 type Query {
-  ability(idOrSlug: String!): Abilities
+  ability(idOrSlug: String!, language: String): Abilities
   abilityList(skip: Int! = 0, take: Int! = 50): [Abilities!]!
 
   """
@@ -6085,8 +6091,13 @@ type Query {
   Every species in the pokemon evolution chain, with evolution conditions
   """
   evolutionChain(idOrSlug: String!): [PokemonSpecies!]!
-  item(idOrSlug: String!): Items
+  item(idOrSlug: String!, language: String): Items
   itemList(search: String, skip: Int! = 0, take: Int! = 50): [Items!]!
+
+  """
+  Official game languages, each with its own name (autonym), for the display-language selector
+  """
+  languages: [LanguageOption!]!
 
   """
   Best offensive counters against a defender with the given types, honoring STAB, the attacker offensive stat, and (optionally) a version group regional dex + learnset
@@ -6096,8 +6107,10 @@ type Query {
   """Lookup by canonical id (move:63), numeric id, or slug (thunderbolt)"""
   move(idOrSlug: String!): Moves
 
-  """Move flavor text entries, optionally per version group"""
-  moveFlavor(idOrSlug: String!, versionGroup: String): [MoveFlavorText!]!
+  """
+  Move flavor text entries, optionally per version group and display language
+  """
+  moveFlavor(idOrSlug: String!, language: String, versionGroup: String): [MoveFlavorText!]!
 
   """Pokemon that can learn a move, optionally per version group"""
   moveLearnedBy(idOrSlug: String!, take: Int! = 500, versionGroup: String): [PokemonMoves!]!
@@ -6114,9 +6127,9 @@ type Query {
   pokemonEncounters(idOrSlug: String!, take: Int! = 500, versionGroup: String): [Encounters!]!
 
   """
-  Pokedex flavor entries for a pokemon, optionally scoped to a version group
+  Pokedex flavor entries for a pokemon, optionally scoped to a version group and display language
   """
-  pokemonFlavor(idOrSlug: String!, versionGroup: String): [PokemonSpeciesFlavorText!]!
+  pokemonFlavor(idOrSlug: String!, language: String, versionGroup: String): [PokemonSpeciesFlavorText!]!
 
   """
   Paginated pokemon list; optionally fuzzy-filtered by name and scoped to a version group regional dex

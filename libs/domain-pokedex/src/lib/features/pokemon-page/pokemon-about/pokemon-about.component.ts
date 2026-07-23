@@ -30,6 +30,7 @@ export class PokemonAboutComponent {
 	private readonly flavorQuery = gqlResource(PokemonFlavorDocument, () => ({
 		idOrSlug: this.id(),
 		versionGroup: this.store.activeVersionGroup(),
+		language: this.store.language(),
 	}));
 	private readonly chainQuery = gqlResource(EvolutionChainDocument, () => ({ idOrSlug: this.id() }));
 

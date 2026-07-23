@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { GameSelectComponent, OmnisearchComponent, PokedexContextStore } from '@pokemon-center/data-access-pokedex';
+import { GameSelectComponent, LanguageSelectComponent, OmnisearchComponent, PokedexContextStore } from '@pokemon-center/data-access-pokedex';
 
 import { NavRoute, isNavRoute, routes } from '../../app.routes';
 
@@ -10,7 +10,7 @@ import { NavRoute, isNavRoute, routes } from '../../app.routes';
 	templateUrl: './main.component.html',
 	styleUrls: ['./main.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [MatIconModule, RouterModule, GameSelectComponent, OmnisearchComponent],
+	imports: [MatIconModule, RouterModule, GameSelectComponent, LanguageSelectComponent, OmnisearchComponent],
 })
 export class MainComponent {
 	protected readonly store = inject(PokedexContextStore);

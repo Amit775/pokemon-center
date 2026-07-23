@@ -2,16 +2,16 @@ import { ChangeDetectionStrategy, Component, computed, input, linkedSignal } fro
 import { typeColorVar } from '../type-colors';
 
 /**
- * The circular artwork frame. Shows the sprite when a src is provided (falling
- * back to a type-tinted orb on error or when absent). Decorative unless an alt
- * is supplied.
+ * The circular artwork frame. Tries `src`, then `fallbackSrc`, then a type-tinted
+ * orb — so a local sprite mirror can fall back to a remote source and finally the
+ * placeholder. Decorative unless an alt is supplied.
  */
 @Component({
 	selector: 'pkd-entity-portrait',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@if (src() && !failed()) {
-			<img [src]="src()" [alt]="alt()" loading="lazy" (error)="failed.set(true)" />
+		@if (currentSrc(); as source) {
+			<img [src]="source" [alt]="alt()" loading="lazy" (error)="onError()" />
 		}
 	`,
 	host: {
@@ -43,13 +43,21 @@ import { typeColorVar } from '../type-colors';
 export class EntityPortraitComponent {
 	readonly type = input<string>('normal');
 	readonly src = input<string | null>(null);
+	/** Tried if `src` fails to load (e.g. remote when a local mirror is absent). */
+	readonly fallbackSrc = input<string | null>(null);
 	readonly alt = input<string>('');
 	readonly size = input<number>(72);
 
-	/** Resets to false whenever the src changes, so a new sprite gets a fresh try. */
-	protected readonly failed = linkedSignal<string | null, boolean>({
+	/** 0 = primary src, 1 = fallback, 2 = orb only. Resets when src changes. */
+	protected readonly stage = linkedSignal<string | null, number>({
 		source: () => this.src(),
-		computation: () => false,
+		computation: () => 0,
 	});
+
+	protected readonly currentSrc = computed(() => (this.stage() === 0 ? this.src() : this.stage() === 1 ? this.fallbackSrc() : null));
 	protected readonly colorVar = computed(() => typeColorVar(this.type()));
+
+	protected onError(): void {
+		this.stage.update((s) => (s === 0 && this.fallbackSrc() ? 1 : 2));
+	}
 }

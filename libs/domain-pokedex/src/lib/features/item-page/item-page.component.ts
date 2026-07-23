@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { ItemDetailDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { ItemDetailDocument, PokedexContextStore, gqlResource } from '@pokemon-center/data-access-pokedex';
 
 @Component({
 	standalone: true,
@@ -69,9 +69,10 @@ import { ItemDetailDocument, gqlResource } from '@pokemon-center/data-access-pok
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemPageComponent {
+	private readonly store = inject(PokedexContextStore);
 	public id = input.required<string>();
 
-	private readonly detail = gqlResource(ItemDetailDocument, () => ({ idOrSlug: this.id() }));
+	private readonly detail = gqlResource(ItemDetailDocument, () => ({ idOrSlug: this.id(), language: this.store.language() }));
 
 	public item = computed(() => (this.detail.hasValue() ? this.detail.value()?.item : undefined));
 }

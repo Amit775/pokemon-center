@@ -3,7 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { PokemonDetailDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
 import { EntityPortraitComponent, TypeChipComponent } from '@pokemon-center/ui-pokedex';
-import { officialArtworkUrl } from '../pokemon-list/pokemon-avater/pokemon-avatar.service';
+import { localSpriteUrl, officialArtworkUrl } from '../pokemon-list/pokemon-avater/pokemon-avatar.service';
 
 @Component({
 	templateUrl: './pokemon-page.component.html',
@@ -30,6 +30,10 @@ export class PokemonPageComponent {
 	];
 
 	protected spriteUrl(id: string | number): string {
+		return localSpriteUrl(Number(id));
+	}
+
+	protected fallbackUrl(id: string | number): string {
 		return officialArtworkUrl(Number(id));
 	}
 

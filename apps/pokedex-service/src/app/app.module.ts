@@ -1,6 +1,7 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { LanguageService } from './language.service';
 import { PrismaService } from './prisma.service';
 import { AbilityResolver, ItemResolver, SpeciesResolver, TypeResolver } from './resolvers/catalog.resolver';
 import { AnalysisResolver } from './resolvers/analysis.resolver';
@@ -21,6 +22,7 @@ import { SearchResolver } from './resolvers/search.resolver';
 	],
 	providers: [
 		PrismaService,
+		LanguageService,
 		PokemonResolver,
 		MoveResolver,
 		AbilityResolver,

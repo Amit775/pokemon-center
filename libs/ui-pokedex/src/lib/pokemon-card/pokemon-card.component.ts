@@ -11,7 +11,7 @@ import { TypeChipComponent } from '../type-chip/type-chip.component';
 	template: `
 		<div class="hd">
 			<span class="no">#{{ dexNumber() }}</span>
-			<pkd-entity-portrait [type]="primaryType()" [src]="src()" [alt]="name()" [size]="72" />
+			<pkd-entity-portrait [type]="primaryType()" [src]="src()" [fallbackSrc]="fallbackSrc()" [alt]="name()" [size]="72" />
 		</div>
 		<div class="bd">
 			<h3>{{ name() }}</h3>
@@ -99,6 +99,7 @@ export class PokemonCardComponent {
 	readonly name = input.required<string>();
 	readonly types = input.required<readonly string[]>();
 	readonly src = input<string | null>(null);
+	readonly fallbackSrc = input<string | null>(null);
 	readonly selected = input<boolean>(false);
 
 	protected readonly primaryType = computed(() => this.types()[0] ?? 'normal');

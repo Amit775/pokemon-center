@@ -24,6 +24,15 @@ export interface PokedexContextState {
 	recent: string[];
 	/** Display theme; 'system' follows the OS preference */
 	theme: ThemePreference;
+	/** Display language slug for names/flavor/effect text, e.g. 'en', 'de', 'ja' */
+	language: string;
+}
+
+/** Best-guess pokeapi language slug from the browser locale, English fallback. */
+function defaultLanguage(): string {
+	const base = (typeof navigator !== 'undefined' ? navigator.language : 'en').toLowerCase().split('-')[0];
+	const supported = ['en', 'de', 'fr', 'es', 'it', 'ja', 'ko', 'cs', 'zh', 'pt'];
+	return supported.includes(base) ? base : 'en';
 }
 
 const STORAGE_KEY = 'pokemon-center.pokedex-context.v1';
@@ -34,6 +43,7 @@ const initialState: PokedexContextState = {
 	favorites: [],
 	recent: [],
 	theme: 'system',
+	language: defaultLanguage(),
 };
 
 function hydrate(): PokedexContextState {
@@ -75,6 +85,9 @@ export const PokedexContextStore = signalStore(
 		},
 		setTheme(theme: ThemePreference): void {
 			patchState(store, { theme });
+		},
+		setLanguage(language: string): void {
+			patchState(store, { language });
 		},
 		/** Flip between light and dark, resolving 'system' to the opposite of the current OS setting. */
 		toggleTheme(): void {

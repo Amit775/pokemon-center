@@ -1,26 +1,28 @@
 import { Args, Query, Resolver, Int } from '@nestjs/graphql';
 import { Encounters, MoveFlavorText, PokemonMoves, PokemonSpecies, PokemonSpeciesFlavorText } from '@pokemon-center/infra-pokedex-data';
+import { LanguageService } from '../language.service';
 import { PrismaService } from '../prisma.service';
 import { whereIdOrSlug } from './lookup';
 
-/** English; display-language selection arrives with R5 i18n. */
-const LANGUAGE_EN = 9;
-
 @Resolver()
 export class DepthResolver {
-	constructor(private readonly prisma: PrismaService) {}
+	constructor(
+		private readonly prisma: PrismaService,
+		private readonly language: LanguageService,
+	) {}
 
-	@Query(() => [PokemonSpeciesFlavorText], { description: 'Pokedex flavor entries for a pokemon, optionally scoped to a version group' })
+	@Query(() => [PokemonSpeciesFlavorText], { description: 'Pokedex flavor entries for a pokemon, optionally scoped to a version group and display language' })
 	async pokemonFlavor(
 		@Args('idOrSlug') idOrSlug: string,
 		@Args('versionGroup', { type: () => String, nullable: true }) versionGroup?: string,
+		@Args('language', { type: () => String, nullable: true }) language?: string,
 	): Promise<PokemonSpeciesFlavorText[]> {
 		const pokemon = await this.prisma.pokemon.findFirst({ where: whereIdOrSlug('pokemon', idOrSlug), select: { species_id: true } });
 		if (!pokemon) return [];
 		return (await this.prisma.pokemonSpeciesFlavorText.findMany({
 			where: {
 				species_id: pokemon.species_id,
-				language_id: LANGUAGE_EN,
+				language_id: await this.language.idFor(language),
 				...(versionGroup ? { version: { versionGroup: { identifier: versionGroup } } } : {}),
 			},
 			include: { version: true },
@@ -88,17 +90,18 @@ export class DepthResolver {
 		})) as unknown as PokemonMoves[];
 	}
 
-	@Query(() => [MoveFlavorText], { description: 'Move flavor text entries, optionally per version group' })
+	@Query(() => [MoveFlavorText], { description: 'Move flavor text entries, optionally per version group and display language' })
 	async moveFlavor(
 		@Args('idOrSlug') idOrSlug: string,
 		@Args('versionGroup', { type: () => String, nullable: true }) versionGroup?: string,
+		@Args('language', { type: () => String, nullable: true }) language?: string,
 	): Promise<MoveFlavorText[]> {
 		const move = await this.prisma.moves.findFirst({ where: whereIdOrSlug('move', idOrSlug), select: { id: true } });
 		if (!move) return [];
 		return (await this.prisma.moveFlavorText.findMany({
 			where: {
 				move_id: move.id,
-				language_id: LANGUAGE_EN,
+				language_id: await this.language.idFor(language),
 				...(versionGroup ? { versionGroup: { identifier: versionGroup } } : {}),
 			},
 			include: { versionGroup: true },

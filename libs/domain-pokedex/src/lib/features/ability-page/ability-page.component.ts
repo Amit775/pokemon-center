@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AbilityDetailDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
+import { AbilityDetailDocument, PokedexContextStore, gqlResource } from '@pokemon-center/data-access-pokedex';
 
 @Component({
 	standalone: true,
@@ -52,9 +52,10 @@ import { AbilityDetailDocument, gqlResource } from '@pokemon-center/data-access-
 	imports: [RouterModule],
 })
 export class AbilityPageComponent {
+	private readonly store = inject(PokedexContextStore);
 	public id = input.required<string>();
 
-	private readonly detail = gqlResource(AbilityDetailDocument, () => ({ idOrSlug: this.id() }));
+	private readonly detail = gqlResource(AbilityDetailDocument, () => ({ idOrSlug: this.id(), language: this.store.language() }));
 
 	public ability = computed(() => (this.detail.hasValue() ? this.detail.value()?.ability : undefined));
 }

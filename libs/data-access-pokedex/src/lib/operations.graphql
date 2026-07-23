@@ -14,6 +14,14 @@ query VersionGroups {
 	}
 }
 
+query Languages {
+	languages {
+		id
+		code
+		name
+	}
+}
+
 query Search($term: String!, $takePerKind: Int) {
 	search(term: $term, takePerKind: $takePerKind) {
 		kind
@@ -213,8 +221,8 @@ query TypeMatchups($idOrSlug: String!) {
 	}
 }
 
-query PokemonFlavor($idOrSlug: String!, $versionGroup: String) {
-	pokemonFlavor(idOrSlug: $idOrSlug, versionGroup: $versionGroup) {
+query PokemonFlavor($idOrSlug: String!, $versionGroup: String, $language: String) {
+	pokemonFlavor(idOrSlug: $idOrSlug, versionGroup: $versionGroup, language: $language) {
 		flavor_text
 		version {
 			identifier
@@ -291,8 +299,8 @@ query MoveLearnedBy($idOrSlug: String!, $versionGroup: String, $take: Int) {
 	}
 }
 
-query MoveFlavor($idOrSlug: String!, $versionGroup: String) {
-	moveFlavor(idOrSlug: $idOrSlug, versionGroup: $versionGroup) {
+query MoveFlavor($idOrSlug: String!, $versionGroup: String, $language: String) {
+	moveFlavor(idOrSlug: $idOrSlug, versionGroup: $versionGroup, language: $language) {
 		flavor_text
 		versionGroup {
 			identifier
@@ -300,8 +308,8 @@ query MoveFlavor($idOrSlug: String!, $versionGroup: String) {
 	}
 }
 
-query AbilityDetail($idOrSlug: String!) {
-	ability(idOrSlug: $idOrSlug) {
+query AbilityDetail($idOrSlug: String!, $language: String) {
+	ability(idOrSlug: $idOrSlug, language: $language) {
 		id
 		canonicalId
 		identifier
@@ -319,8 +327,8 @@ query AbilityDetail($idOrSlug: String!) {
 	}
 }
 
-query ItemDetail($idOrSlug: String!) {
-	item(idOrSlug: $idOrSlug) {
+query ItemDetail($idOrSlug: String!, $language: String) {
+	item(idOrSlug: $idOrSlug, language: $language) {
 		id
 		canonicalId
 		identifier

@@ -15,7 +15,13 @@
 	} @else {
 		@for (pokemon of pokemons(); track pokemon.id) {
 			<a class="card-link" [routerLink]="[pokemon.id]">
-				<pkd-pokemon-card [dexNumber]="pokemon.id" [name]="pokemon.identifier" [types]="pokemon.types | pokemonTypes" [src]="spriteUrl(pokemon.id)" />
+				<pkd-pokemon-card
+					[dexNumber]="pokemon.id"
+					[name]="pokemon.identifier"
+					[types]="pokemon.types | pokemonTypes"
+					[src]="spriteUrl(pokemon.id)"
+					[fallbackSrc]="fallbackUrl(pokemon.id)"
+				/>
 			</a>
 		}
 		@if (!pokemons().length) {

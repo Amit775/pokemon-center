@@ -54,3 +54,5 @@ Thumbs.db
 .claude/settings.local.json
 .nx/self-healing
 .nx/migrate-runs
+# locally mirrored sprites (run tools/mirror-sprites.mjs)
+apps/pokemon-center/public/sprites/
