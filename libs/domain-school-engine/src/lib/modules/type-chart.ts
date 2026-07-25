@@ -24,6 +24,9 @@ export function dualEffectiveness(chart: TypeChart, attacking: string, first: st
 
 const title = (slug: string): string => slug.charAt(0).toUpperCase() + slug.slice(1);
 
+/** "an Ice-type", "a Fire-type" — the two vowel-initial types are Ice and Electric. */
+const article = (slug: string): string => (/^[aeiou]/i.test(slug) ? 'an' : 'a');
+
 function multiplierLabel(multiplier: number): string {
 	switch (multiplier) {
 		case 0:
@@ -76,8 +79,8 @@ const SINGLE_OUTCOMES = [0, 0.5, 1, 2];
 const DUAL_OUTCOMES = [0, 0.25, 0.5, 1, 2, 4];
 
 export const singleTypeEffectivenessGenerator: ExerciseGenerator = {
-	id: 'type-chart/single',
-	lessonId: 'type-chart/single-type-effectiveness',
+	id: 'type-chart.single',
+	lessonId: 'type-chart.single-type-effectiveness',
 	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
 		const rng = createRng(seed);
 		const chart = ref.typeChart;
@@ -100,7 +103,7 @@ export const singleTypeEffectivenessGenerator: ExerciseGenerator = {
 			id: `${this.lessonId}:${seed}`,
 			lessonId: this.lessonId,
 			seed,
-			prompt: `How effective is a ${title(attacking)}-type move against a ${title(defending)}-type Pokémon?`,
+			prompt: `How effective is ${article(attacking)} ${title(attacking)}-type move against ${article(defending)} ${title(defending)}-type Pokémon?`,
 			candidates,
 			hints,
 			explanation: `${title(attacking)} → ${title(defending)} = ${multiplierLabel(answer)}${eraNote(ctx)}.`,
@@ -109,8 +112,8 @@ export const singleTypeEffectivenessGenerator: ExerciseGenerator = {
 };
 
 export const dualTypeMultipliersGenerator: ExerciseGenerator = {
-	id: 'type-chart/dual',
-	lessonId: 'type-chart/dual-type-multipliers',
+	id: 'type-chart.dual',
+	lessonId: 'type-chart.dual-type-multipliers',
 	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
 		const rng = createRng(seed);
 		const chart = ref.typeChart;
@@ -139,7 +142,7 @@ export const dualTypeMultipliersGenerator: ExerciseGenerator = {
 			id: `${this.lessonId}:${seed}`,
 			lessonId: this.lessonId,
 			seed,
-			prompt: `How effective is a ${title(attacking)}-type move against a ${title(first)}/${title(second)} Pokémon?`,
+			prompt: `How effective is ${article(attacking)} ${title(attacking)}-type move against ${article(first)} ${title(first)}/${title(second)} Pokémon?`,
 			candidates,
 			hints,
 			explanation: `${firstFactor}× × ${secondFactor}× = ${answer}× — ${multiplierLabel(answer)}${eraNote(ctx)}.`,
@@ -148,8 +151,8 @@ export const dualTypeMultipliersGenerator: ExerciseGenerator = {
 };
 
 export const immunitiesGenerator: ExerciseGenerator = {
-	id: 'type-chart/immunity',
-	lessonId: 'type-chart/immunities',
+	id: 'type-chart.immunity',
+	lessonId: 'type-chart.immunities',
 	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
 		const rng = createRng(seed);
 		const chart = ref.typeChart;
@@ -161,7 +164,7 @@ export const immunitiesGenerator: ExerciseGenerator = {
 			}
 		}
 		if (immunePairs.length === 0) {
-			throw new Error('[type-chart/immunities] the supplied chart contains no immunities');
+			throw new Error('[type-chart.immunities] the supplied chart contains no immunities');
 		}
 
 		const [attacking, defending] = rng.pick(immunePairs);
@@ -209,28 +212,28 @@ export const typeChartModule: CurriculumModule = {
 	summary: 'The 18×18 matrix every other decision rests on — and the one that changed most between generations.',
 	lessons: [
 		{
-			id: 'type-chart/single-type-effectiveness',
+			id: 'type-chart.single-type-effectiveness',
 			moduleId: 'type-chart',
 			title: 'Single-type effectiveness',
 			summary: 'One attacking type against one defending type: super effective, neutral, resisted, or nothing at all.',
 			prereqs: [],
-			generatorId: 'type-chart/single',
+			generatorId: 'type-chart.single',
 		},
 		{
-			id: 'type-chart/immunities',
+			id: 'type-chart.immunities',
 			moduleId: 'type-chart',
 			title: 'Immunities',
 			summary: 'The handful of matchups that deal literally zero damage — the ones that lose games when forgotten.',
-			prereqs: ['type-chart/single-type-effectiveness'],
-			generatorId: 'type-chart/immunity',
+			prereqs: ['type-chart.single-type-effectiveness'],
+			generatorId: 'type-chart.immunity',
 		},
 		{
-			id: 'type-chart/dual-type-multipliers',
+			id: 'type-chart.dual-type-multipliers',
 			moduleId: 'type-chart',
 			title: 'Dual-type multipliers',
 			summary: 'Two defending types multiply, producing 4× and ¼× outcomes that single-type intuition misses.',
-			prereqs: ['type-chart/single-type-effectiveness'],
-			generatorId: 'type-chart/dual',
+			prereqs: ['type-chart.single-type-effectiveness'],
+			generatorId: 'type-chart.dual',
 		},
 	],
 };

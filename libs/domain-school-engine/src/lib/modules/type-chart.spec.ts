@@ -138,6 +138,15 @@ describe.each(typeChartGenerators.map((g) => [g.id, g] as const))('%s', (_id, ge
 		}
 	});
 
+	it('agrees its indefinite article with the type name', () => {
+		// "a Ice-type move" reads as broken English in a product whose whole job is teaching.
+		for (const seed of SEEDS) {
+			const { prompt } = generator.generate(seed, modernRef, modernCtx);
+			expect(prompt).not.toMatch(/\ba (?=[AEIOU])/);
+			expect(prompt).not.toMatch(/\ban (?![AEIOU])/);
+		}
+	});
+
 	it('produces a real prompt and at least two options', () => {
 		for (const seed of SEEDS.slice(0, 50)) {
 			const exercise = generator.generate(seed, modernRef, modernCtx);
@@ -179,7 +188,7 @@ describe('dualTypeMultipliersGenerator', () => {
 		for (const seed of SEEDS.slice(0, 50)) {
 			// "Water/Water" would be nonsense; sample() without replacement prevents it.
 			const prompt = dualTypeMultipliersGenerator.generate(seed, modernRef, modernCtx).prompt;
-			const pair = /against a (\w+)\/(\w+) /.exec(prompt);
+			const pair = /against an? (\w+)\/(\w+) /.exec(prompt);
 			expect(pair).not.toBeNull();
 			expect(pair?.[1]).not.toBe(pair?.[2]);
 		}

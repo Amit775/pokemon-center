@@ -44,6 +44,15 @@ describe('validateCurriculum', () => {
 		expect(roots.length).toBeGreaterThan(0);
 	});
 
+	it('every lesson id survives as a single URL path segment', () => {
+		// Lesson ids appear in /school/lesson/:lessonId. A '/' in an id encodes to %2F, which the
+		// router reads as an extra segment — the route then silently fails to match rather than
+		// erroring, so this is caught here instead of in the browser.
+		for (const lesson of allLessons(curriculum)) {
+			expect(encodeURIComponent(lesson.id)).toBe(lesson.id);
+		}
+	});
+
 	it('every generatorId referenced by a lesson resolves', () => {
 		// Guards against renaming a generator and forgetting the lesson that points at it.
 		const ids = new Set(allLessons(curriculum).map((l) => l.generatorId));
@@ -80,7 +89,7 @@ describe('unlockedLessons', () => {
 
 describe('findLesson', () => {
 	it('finds a known lesson and returns undefined otherwise', () => {
-		expect(findLesson(curriculum, 'type-chart/single-type-effectiveness')?.moduleId).toBe('type-chart');
+		expect(findLesson(curriculum, 'type-chart.single-type-effectiveness')?.moduleId).toBe('type-chart');
 		expect(findLesson(curriculum, 'nope')).toBeUndefined();
 	});
 });
