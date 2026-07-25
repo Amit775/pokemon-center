@@ -191,11 +191,11 @@ lens over M1–M4 driven by `move_changelog`, `type_efficacy_past`, and `pokemon
 *"In gen 1, which stat governed Fire Blast's damage?"* (Special, before the gen-4 physical/special split).
 No competitor teaches this, and we get it free from tables already seeded.
 
-**`guess-pallete`** — the existing toy in `libs/domain-school/.../features/guess-pallete` (random sprite,
-hardcoded 1–152, hotlinked from GitHub) is a legitimate recall exercise trapped in a prototype. Fold it
-into an optional **"Who's That Pokémon"** flavor module, repointed at the local sprite mirror added in
-Pokedex R5 — or delete it. Leaving it hotlinking GitHub contradicts the offline-friendly decision already
-made. Proposed: fold it in, in S5.
+**`guess-pallete`** — **deleted** (owner's call: not important). The prototype hotlinked sprites from
+GitHub, contradicting the offline-friendly local mirror added in Pokedex R5, and hardcoded a 1–152 range
+rather than deriving it from context. A **"Who's That Pokémon"** recall module remains a reasonable
+optional addition later, but it would be built fresh against the sprite mirror and the active game
+context — nothing in the prototype was worth carrying forward.
 
 ## 5. The three modes
 
@@ -261,8 +261,7 @@ part needs real mastery data to tune against.
 ### S5 — Polish, a11y, i18n, M7
 
 Design-system pass on the token architecture; keyboard-first drilling (answering without a mouse is the
-whole point of rapid-fire); localized entity names via the existing language store; M7 Progression;
-fold in or delete `guess-pallete`.
+whole point of rapid-fire); localized entity names via the existing language store; M7 Progression.
 
 | Release | Focus | Effort (sessions) | Depends on |
 |---|---|---|---|
