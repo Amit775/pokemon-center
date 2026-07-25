@@ -9,8 +9,8 @@ _Last updated: 2026-07-18 · Status: approved stack modernization done (pnpm / N
 | Domain | Mission | Status |
 |---|---|---|
 | **Pokedex** | Interconnected knowledge base: Pokemon, moves, items, abilities, types. Advanced search/filtering, bi-directional linking. MVP scope: **Generation 1** | In progress — data layer exists, API missing |
-| **School** | Interactive training ground: lessons + simulations generated from the mechanics data | Stub |
-| **Arena** | Mechanically accurate turn-based battle engine over WebSockets, engine-first | Stub |
+| **School** | Interactive training ground: lessons + simulations generated from the mechanics data ([plan](school-plan.md)) | Stub |
+| **Arena** | Mechanically accurate turn-based battle engine over WebSockets, engine-first ([plan](arena-plan.md)) | Stub |
 
 The strategic bet: **every domain and every sibling project is a projection of the same relational dataset.** Get the dataset and its API right once, and everything downstream gets cheaper.
 
@@ -172,8 +172,8 @@ project can reproduce the database deterministically.
 2. Wire pokemon-center's list/detail pages to the API via `httpResource`
 3. Document the endpoint + codegen recipe for sibling projects (one README)
 
-**Phase 4 — School MVP** (curriculum from mechanics data; lessons/simulations)
-**Phase 5 — Arena MVP** (pure-TS battle engine lib → WebSocket gateway → minimal UI)
+**Phase 4 — School MVP** (curriculum from mechanics data; lessons/simulations) — see [school-plan.md](school-plan.md)
+**Phase 5 — Arena MVP** (pure-TS battle engine lib → WebSocket gateway → minimal UI) — see [arena-plan.md](arena-plan.md)
 
 **Deferred / mothballed:** Elasticsearch + `sync` executor (until search outgrows
 Postgres), Relay pagination, TS 7 native (waiting on Angular/ts-jest), Vitest.
