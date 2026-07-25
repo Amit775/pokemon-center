@@ -1,0 +1,20 @@
+{
+	"name": "domain-school-engine",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/domain-school-engine/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/domain-school-engine/jest.config.ts",
+				"tsConfig": "libs/domain-school-engine/tsconfig.spec.json"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint"
+		}
+	}
+}
