@@ -1,4 +1,9 @@
-import type { ExerciseGenerator, ReferenceData, ReferenceKey } from './types';
+import type { ReferenceData, ReferenceKey } from './types';
+
+/** Anything that declares reference needs — an exercise generator or a scenario spec. */
+export interface ReferenceConsumer {
+	requires: readonly ReferenceKey[];
+}
 
 /**
  * Fetch a reference section, or fail loudly.
@@ -16,11 +21,11 @@ export function requireRef<K extends ReferenceKey>(ref: ReferenceData, key: K, l
 }
 
 /** Whether everything a generator needs is loaded — lets the UI offer only playable lessons. */
-export function hasRequired(ref: ReferenceData, generator: ExerciseGenerator): boolean {
+export function hasRequired(ref: ReferenceData, generator: ReferenceConsumer): boolean {
 	return generator.requires.every((key) => ref[key] !== undefined);
 }
 
 /** The sections a generator wants but does not have; useful for explaining *why* something is unavailable. */
-export function missingRefs(ref: ReferenceData, generator: ExerciseGenerator): ReferenceKey[] {
+export function missingRefs(ref: ReferenceData, generator: ReferenceConsumer): ReferenceKey[] {
 	return generator.requires.filter((key) => ref[key] === undefined);
 }

@@ -28,6 +28,13 @@ export interface Attempt {
 	/** Deepest hint opened before answering; `null` means unaided. */
 	deepestHintTier: HintTier | null;
 	atISO: string;
+	/**
+	 * 0..1 for graded simulations, absent for right/wrong exercises.
+	 *
+	 * A simulation has no single right answer — picking the second-best counter is not the same
+	 * mistake as picking the worst, and scoring both as zero would teach nothing.
+	 */
+	quality?: number;
 }
 
 export interface MasteryRecord {
@@ -40,8 +47,11 @@ export function emptyRecord(lessonId: LessonId): MasteryRecord {
 }
 
 export function creditFor(attempt: Attempt): number {
-	if (!attempt.correct) return 0;
-	return attempt.deepestHintTier === null ? 1 : HINT_CREDIT[attempt.deepestHintTier];
+	const hintWeight = attempt.deepestHintTier === null ? 1 : HINT_CREDIT[attempt.deepestHintTier];
+	// A graded simulation scales credit by how close to optimal it was; a plain exercise is
+	// all-or-nothing before the hint weighting applies.
+	if (attempt.quality !== undefined) return attempt.quality * hintWeight;
+	return attempt.correct ? hintWeight : 0;
 }
 
 /** Mean credit across the rolling window; 0 when there is nothing to judge. */

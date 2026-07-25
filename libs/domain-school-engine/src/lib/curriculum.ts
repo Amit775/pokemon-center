@@ -8,6 +8,12 @@ import type { LessonId, ModuleId } from './types';
  * versioned and reviewed with the code, and adding a lesson never needs a migration.
  */
 
+/**
+ * `exercise` lessons have one right answer; `scenario` lessons are graded 0..1 against the best
+ * available choice (docs/school-plan.md 5).
+ */
+export type LessonKind = 'exercise' | 'scenario';
+
 export interface Lesson {
 	id: LessonId;
 	moduleId: ModuleId;
@@ -15,8 +21,13 @@ export interface Lesson {
 	/** The teaching frame. Every *fact* inside a lesson comes from a generator, not from here. */
 	summary: string;
 	prereqs: LessonId[];
+	/** Id of the generator or scenario spec that produces this lesson's content. */
 	generatorId: string;
+	/** Defaults to `exercise`. */
+	kind?: LessonKind;
 }
+
+export const lessonKind = (lesson: Lesson): LessonKind => lesson.kind ?? 'exercise';
 
 export interface CurriculumModule {
 	id: ModuleId;
