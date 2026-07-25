@@ -3381,6 +3381,26 @@ type MoveFlavorTextSumAggregate {
   version_group_id: Int
 }
 
+type MoveMechanics {
+  accuracy: Int
+  ailment: String
+  ailmentChance: Int!
+  critRate: Int!
+  damageClass: String!
+  drain: Int!
+  flinchChance: Int!
+  healing: Int!
+  maxHits: Int
+  minHits: Int
+  power: Int
+  pp: Int
+  priority: Int!
+  slug: String!
+  statChance: Int!
+  statChanges: [MoveStatChange!]!
+  type: String!
+}
+
 """@@TypeGraphQL.type(name: "MoveMeta")"""
 type MoveMeta {
   _count: MoveMetaCount!
@@ -3715,6 +3735,11 @@ type MoveNamesSumAggregate {
   move_id: Int
 }
 
+type MoveStatChange {
+  change: Int!
+  stat: String!
+}
+
 type MoveTargetProse {
   description: String!
   localLanguage: Languages!
@@ -3991,6 +4016,12 @@ type NatureBattleStylePreferencesSumAggregate {
   low_hp_preference: Int
   move_battle_style_id: Int
   nature_id: Int
+}
+
+type NatureEffect {
+  decreased: String!
+  increased: String!
+  slug: String!
 }
 
 type NatureNames {
@@ -6117,6 +6148,16 @@ type Query {
 
   """Paginated move list, optionally fuzzy-filtered by name"""
   moveList(search: String, skip: Int! = 0, take: Int! = 50): [Moves!]!
+
+  """
+  Moves with their move_meta mechanics (ailment, chances, drain, multi-hit, stat changes). Pass versionGroup to drop moves introduced after that era. Note: per-generation power/accuracy changes from move_changelog are not yet applied
+  """
+  moveMechanics(take: Int! = 500, versionGroup: String): [MoveMechanics!]!
+
+  """
+  The 25 natures and the stats each raises and lowers. Neutral natures raise and lower the same stat
+  """
+  natureList: [NatureEffect!]!
 
   """Lookup by canonical id (pokemon:25), numeric id, or slug (pikachu)"""
   pokemon(idOrSlug: String!): Pokemon

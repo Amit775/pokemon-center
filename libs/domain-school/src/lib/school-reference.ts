@@ -1,6 +1,6 @@
 import { Injectable, computed, inject } from '@angular/core';
-import { PokedexContextStore, TypeChartDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
-import type { GameContext, ReferenceData, TypeChart } from '@pokemon-center/domain-school-engine';
+import { MoveMechanicsDocument, NatureListDocument, PokedexContextStore, TypeChartDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
+import type { DamageClass, GameContext, MoveRef, NatureRef, ReferenceData, TypeChart } from '@pokemon-center/domain-school-engine';
 import { SchoolProgressStore } from './school-progress.store';
 
 /**
@@ -25,9 +25,14 @@ export class SchoolReference {
 	});
 
 	private readonly query = gqlResource(TypeChartDocument, () => ({ versionGroup: this.versionGroup() }));
+	private readonly movesQuery = gqlResource(MoveMechanicsDocument, () => ({ versionGroup: this.versionGroup(), take: 500 }));
+	// Natures are era-independent: the same 25 in every generation that has them.
+	private readonly naturesQuery = gqlResource(NatureListDocument, () => ({}));
 
-	readonly isLoading = computed(() => this.query.isLoading());
-	readonly hasError = computed(() => this.query.error() !== undefined);
+	readonly isLoading = computed(() => this.query.isLoading() || this.movesQuery.isLoading() || this.naturesQuery.isLoading());
+	readonly hasError = computed(
+		() => this.query.error() !== undefined || this.movesQuery.error() !== undefined || this.naturesQuery.error() !== undefined,
+	);
 
 	readonly typeChart = computed<TypeChart | null>(() => {
 		const chart = this.query.hasValue() ? this.query.value()?.typeChart : undefined;
@@ -45,14 +50,53 @@ export class SchoolReference {
 		return { types: chart.types, factor };
 	});
 
+	readonly moves = computed<readonly MoveRef[] | undefined>(() => {
+		const rows = this.movesQuery.hasValue() ? this.movesQuery.value()?.moveMechanics : undefined;
+		if (!rows || rows.length === 0) return undefined;
+
+		return rows.map((row) => ({
+			slug: row.slug,
+			type: row.type,
+			damageClass: row.damageClass as DamageClass,
+			power: row.power ?? null,
+			accuracy: row.accuracy ?? null,
+			pp: row.pp ?? null,
+			priority: row.priority,
+			// The API reports "no ailment" as the identifier `none`; the engine expects null.
+			ailment: row.ailment === null || row.ailment === 'none' ? null : row.ailment,
+			ailmentChance: row.ailmentChance,
+			critRate: row.critRate,
+			flinchChance: row.flinchChance,
+			drain: row.drain,
+			healing: row.healing,
+			minHits: row.minHits ?? null,
+			maxHits: row.maxHits ?? null,
+			statChance: row.statChance,
+			statChanges: row.statChanges.map((change) => ({ stat: change.stat, change: change.change })),
+		}));
+	});
+
+	readonly natures = computed<readonly NatureRef[] | undefined>(() => {
+		const rows = this.naturesQuery.hasValue() ? this.naturesQuery.value()?.natureList : undefined;
+		if (!rows || rows.length === 0) return undefined;
+		return rows.map((row) => ({ slug: row.slug, increased: row.increased, decreased: row.decreased }));
+	});
+
 	/**
-	 * Always an object — sections arrive independently, so "the move table has not loaded"
-	 * is a normal state that leaves type-chart lessons perfectly playable. Callers ask
-	 * `isLessonPlayable` rather than testing for null.
+	 * Always an object, and each section is omitted until it genuinely arrives — sections load
+	 * independently, so a missing move table should leave type-chart lessons perfectly playable.
+	 * Callers ask `isLessonPlayable` rather than testing for null.
 	 */
 	readonly reference = computed<ReferenceData>(() => {
+		const reference: ReferenceData = {};
 		const typeChart = this.typeChart();
-		return typeChart ? { typeChart } : {};
+		const moves = this.moves();
+		const natures = this.natures();
+
+		if (typeChart) reference.typeChart = typeChart;
+		if (moves) reference.moves = moves;
+		if (natures) reference.natures = natures;
+		return reference;
 	});
 
 	readonly context = computed<GameContext>(() => ({

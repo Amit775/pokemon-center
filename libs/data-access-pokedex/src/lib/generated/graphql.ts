@@ -170,6 +170,19 @@ export type ComparePokemonQueryVariables = Exact<{
 
 export type ComparePokemonQuery = { pokemon: { id: string, identifier: string, height: number, weight: number, types: Array<{ slot: number, type: { identifier: string } }>, stats: Array<{ base_stat: number, stat: { identifier: string } }>, abilities: Array<{ is_hidden: number, ability: { identifier: string } }> } | null };
 
+export type MoveMechanicsQueryVariables = Exact<{
+  versionGroup?: string | null | undefined;
+  take?: number | null | undefined;
+}>;
+
+
+export type MoveMechanicsQuery = { moveMechanics: Array<{ slug: string, type: string, damageClass: string, power: number | null, accuracy: number | null, pp: number | null, priority: number, ailment: string | null, ailmentChance: number, critRate: number, flinchChance: number, drain: number, healing: number, minHits: number | null, maxHits: number | null, statChance: number, statChanges: Array<{ stat: string, change: number }> }> };
+
+export type NatureListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NatureListQuery = { natureList: Array<{ slug: string, increased: string, decreased: string }> };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -628,3 +641,38 @@ export const ComparePokemonDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ComparePokemonQuery, ComparePokemonQueryVariables>;
+export const MoveMechanicsDocument = new TypedDocumentString(`
+    query MoveMechanics($versionGroup: String, $take: Int) {
+  moveMechanics(versionGroup: $versionGroup, take: $take) {
+    slug
+    type
+    damageClass
+    power
+    accuracy
+    pp
+    priority
+    ailment
+    ailmentChance
+    critRate
+    flinchChance
+    drain
+    healing
+    minHits
+    maxHits
+    statChance
+    statChanges {
+      stat
+      change
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<MoveMechanicsQuery, MoveMechanicsQueryVariables>;
+export const NatureListDocument = new TypedDocumentString(`
+    query NatureList {
+  natureList {
+    slug
+    increased
+    decreased
+  }
+}
+    `) as unknown as TypedDocumentString<NatureListQuery, NatureListQueryVariables>;

@@ -7,6 +7,7 @@ import { AbilityResolver, ItemResolver, SpeciesResolver, TypeResolver } from './
 import { AnalysisResolver } from './resolvers/analysis.resolver';
 import { ContextResolver } from './resolvers/context.resolver';
 import { DepthResolver } from './resolvers/depth.resolver';
+import { MechanicsResolver } from './resolvers/mechanics.resolver';
 import { MoveResolver } from './resolvers/move.resolver';
 import { PokemonResolver } from './resolvers/pokemon.resolver';
 import { SearchResolver } from './resolvers/search.resolver';
@@ -33,6 +34,7 @@ import { SearchResolver } from './resolvers/search.resolver';
 		SearchResolver,
 		DepthResolver,
 		AnalysisResolver,
+		MechanicsResolver,
 	],
 })
 export class AppModule {}

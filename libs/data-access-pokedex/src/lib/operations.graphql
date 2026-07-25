@@ -407,3 +407,36 @@ query ComparePokemon($idOrSlug: String!) {
 		}
 	}
 }
+
+query MoveMechanics($versionGroup: String, $take: Int) {
+	moveMechanics(versionGroup: $versionGroup, take: $take) {
+		slug
+		type
+		damageClass
+		power
+		accuracy
+		pp
+		priority
+		ailment
+		ailmentChance
+		critRate
+		flinchChance
+		drain
+		healing
+		minHits
+		maxHits
+		statChance
+		statChanges {
+			stat
+			change
+		}
+	}
+}
+
+query NatureList {
+	natureList {
+		slug
+		increased
+		decreased
+	}
+}
