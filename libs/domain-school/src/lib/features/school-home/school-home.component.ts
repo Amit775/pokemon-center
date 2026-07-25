@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { curriculum, isLessonPlayable } from '@pokemon-center/domain-school-engine';
+import { curriculum, isLessonPlayable, lessonKind } from '@pokemon-center/domain-school-engine';
 import { SchoolProgressStore } from '../../school-progress.store';
 import { SchoolReference } from '../../school-reference';
 
@@ -48,7 +48,10 @@ import { SchoolReference } from '../../school-reference';
 						<li class="lesson" [class.is-locked]="!lesson.startable">
 							<div class="lesson-head">
 								@if (lesson.startable) {
-									<a [routerLink]="['/school/lesson', lesson.id]">{{ lesson.title }}</a>
+									<a [routerLink]="[lesson.route, lesson.id]">{{ lesson.title }}</a>
+									@if (lesson.scenario) {
+										<span class="badge sim">simulation</span>
+									}
 								} @else if (!lesson.unlocked) {
 									<span class="locked-title">🔒 {{ lesson.title }}</span>
 								} @else {
@@ -187,6 +190,10 @@ import { SchoolReference } from '../../school-reference';
 			color: var(--ink);
 			font-size: var(--fs-xs);
 		}
+		.badge.sim {
+			background: var(--surface-sunken);
+			color: var(--ink-muted);
+		}
 		.meter {
 			height: 0.4rem;
 			border-radius: var(--r-pill);
@@ -236,10 +243,13 @@ export default class SchoolHomeComponent {
 				// not opened it yet, or its reference data has not loaded. They read differently
 				// to the learner, so they are tracked separately.
 				const playable = isLessonPlayable(lesson.id, ref);
+				const scenario = lessonKind(lesson) === 'scenario';
 				return {
 					...lesson,
 					unlocked: open.has(lesson.id),
 					playable,
+					scenario,
+					route: scenario ? '/school/simulation' : '/school/lesson',
 					startable: open.has(lesson.id) && playable,
 					mastered: this.progress.hasMastered(lesson.id),
 					percent: Math.round(this.progress.scoreFor(lesson.id) * 100),
