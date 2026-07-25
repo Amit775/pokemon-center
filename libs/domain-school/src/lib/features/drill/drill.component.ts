@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { generateDrill, type Attempt } from '@pokemon-center/domain-school-engine';
+import { generateDrill, isLessonPlayable, type Attempt } from '@pokemon-center/domain-school-engine';
 import { map } from 'rxjs';
 import { SchoolProgressStore } from '../../school-progress.store';
 import { SchoolReference } from '../../school-reference';
@@ -29,13 +29,13 @@ const randomSeed = (): number => Math.floor(Math.random() * 0x7fffffff);
 		</header>
 
 		@if (lessonIds().length === 0) {
-			<p class="empty">No lessons unlocked yet. <a routerLink="/school">Start a lesson</a> first.</p>
-		} @else if (!reference.reference()) {
 			<p class="empty">
 				@if (reference.isLoading()) {
-					Loading the type chart…
+					Loading reference data…
+				} @else if (reference.hasError() || !reference.typeChart()) {
+					Reference data could not be loaded, so no exercises can be generated. Is pokedex-service running?
 				} @else {
-					The type chart could not be loaded, so no exercises can be generated. Is pokedex-service running?
+					No lessons unlocked yet. <a routerLink="/school">Start a lesson</a> first.
 				}
 			</p>
 		} @else if (current(); as exercise) {
@@ -170,7 +170,14 @@ export default class DrillComponent {
 		return Number.isInteger(parsed) && parsed >= 0 ? parsed : this.ownSeed();
 	});
 
-	protected readonly lessonIds = computed(() => this.progress.available().map((lesson) => lesson.id));
+	/** Unlocked *and* backed by loaded reference data — a drill must never stall mid-run. */
+	protected readonly lessonIds = computed(() => {
+		const ref = this.reference.reference();
+		return this.progress
+			.available()
+			.map((lesson) => lesson.id)
+			.filter((id) => isLessonPlayable(id, ref));
+	});
 	protected readonly index = signal(0);
 	protected readonly correct = signal(0);
 

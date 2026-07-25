@@ -8,7 +8,13 @@
 
 export type ModuleId = string;
 
-/** Canonical lesson id, namespaced by module — e.g. `type-chart/dual-type`. */
+/**
+ * Canonical lesson id, namespaced by module — e.g. `type-chart.dual-type-multipliers`.
+ *
+ * The separator is `.` and not `/` deliberately: lesson ids appear in
+ * `/school/lesson/:lessonId`, and a slash encodes to %2F, which the router reads as an
+ * extra path segment and then silently fails to match.
+ */
 export type LessonId = string;
 
 /** Hint depth. Deeper tiers give more away and are worth less credit (docs/school-plan.md 6). */
@@ -50,6 +56,8 @@ export interface GameContext {
 	generation: number | null;
 }
 
+/* ------------------------------------------------------------------ reference shapes */
+
 /**
  * Era-resolved type chart. `factor[attacking][defending]` is a damage multiplier
  * (0, 0.5, 1, 2) — already converted from the API's integer percentages.
@@ -59,9 +67,71 @@ export interface TypeChart {
 	factor: Record<string, Record<string, number>>;
 }
 
-export interface ReferenceData {
-	typeChart: TypeChart;
+export type DamageClass = 'physical' | 'special' | 'status';
+
+export interface MoveStatChange {
+	stat: string;
+	/** Stat stages, e.g. +2 for Swords Dance, -1 for Growl. */
+	change: number;
 }
+
+export interface MoveRef {
+	slug: string;
+	type: string;
+	damageClass: DamageClass;
+	power: number | null;
+	/** `null` means the move cannot miss (Swift, Aerial Ace). */
+	accuracy: number | null;
+	pp: number | null;
+	priority: number;
+	ailment: string | null;
+	ailmentChance: number;
+	critRate: number;
+	flinchChance: number;
+	/** Positive drains HP from the target; negative is recoil to the user. */
+	drain: number;
+	healing: number;
+	minHits: number | null;
+	maxHits: number | null;
+	statChance: number;
+	statChanges: readonly MoveStatChange[];
+}
+
+export interface NatureRef {
+	slug: string;
+	/** Stat slug raised 10%; `null` on the five neutral natures. */
+	increased: string | null;
+	decreased: string | null;
+}
+
+export interface AilmentRef {
+	slug: string;
+}
+
+export interface StatRef {
+	slug: string;
+	/** Accuracy/evasion exist only inside a battle, never as a base stat. */
+	isBattleOnly: boolean;
+}
+
+/**
+ * Whatever reference data has been loaded so far.
+ *
+ * Every section is optional because they arrive independently and a module should be
+ * playable as soon as *its* data is present — the type chart alone is enough for M1, with
+ * no reason to block it on the move table. Generators declare what they need via
+ * `ExerciseGenerator.requires`, and `requireRef` turns a missing section into a clear
+ * error instead of an undefined-property crash mid-question.
+ */
+export interface ReferenceData {
+	typeChart?: TypeChart;
+	moves?: readonly MoveRef[];
+	natures?: readonly NatureRef[];
+	ailments?: readonly AilmentRef[];
+	stats?: readonly StatRef[];
+}
+
+export type ReferenceKey = keyof ReferenceData;
 
 /**
  * A generator is a pure function of (seed, reference data, context). Determinism is the
@@ -71,5 +141,7 @@ export interface ReferenceData {
 export interface ExerciseGenerator {
 	id: string;
 	lessonId: LessonId;
+	/** Reference sections that must be loaded before this generator can run. */
+	requires: readonly ReferenceKey[];
 	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise;
 }

@@ -45,9 +45,14 @@ export class SchoolReference {
 		return { types: chart.types, factor };
 	});
 
-	readonly reference = computed<ReferenceData | null>(() => {
+	/**
+	 * Always an object — sections arrive independently, so "the move table has not loaded"
+	 * is a normal state that leaves type-chart lessons perfectly playable. Callers ask
+	 * `isLessonPlayable` rather than testing for null.
+	 */
+	readonly reference = computed<ReferenceData>(() => {
 		const typeChart = this.typeChart();
-		return typeChart ? { typeChart } : null;
+		return typeChart ? { typeChart } : {};
 	});
 
 	readonly context = computed<GameContext>(() => ({

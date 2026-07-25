@@ -1,6 +1,9 @@
 import { assertUnambiguous } from '../ambiguity';
 import type { CurriculumModule } from '../curriculum';
+import { eliminationHint } from '../hints';
+import { requireRef } from '../reference';
 import { createRng } from '../rng';
+import { article, eraNote, title } from '../text';
 import type { Candidate, Exercise, ExerciseGenerator, GameContext, Hint, ReferenceData, TypeChart } from '../types';
 
 /**
@@ -21,11 +24,6 @@ export function effectiveness(chart: TypeChart, attacking: string, defending: st
 export function dualEffectiveness(chart: TypeChart, attacking: string, first: string, second: string): number {
 	return effectiveness(chart, attacking, first) * effectiveness(chart, attacking, second);
 }
-
-const title = (slug: string): string => slug.charAt(0).toUpperCase() + slug.slice(1);
-
-/** "an Ice-type", "a Fire-type" — the two vowel-initial types are Ice and Electric. */
-const article = (slug: string): string => (/^[aeiou]/i.test(slug) ? 'an' : 'a');
 
 function multiplierLabel(multiplier: number): string {
 	switch (multiplier) {
@@ -53,12 +51,6 @@ const toCandidate = (multiplier: number, answer: number): Candidate<number> => (
 	correct: multiplier === answer,
 });
 
-/** Names two wrong options to strike out — the T2 "narrow the field" move. */
-function eliminationHint(candidates: readonly Candidate<unknown>[]): string {
-	const wrong = candidates.filter((c) => !c.correct).slice(0, 2);
-	return `It is not ${wrong.map((c) => `"${c.label}"`).join(' and not ')}.`;
-}
-
 /** How a defending type fares across the whole era — true of the data, silent on the answer. */
 function defenderProfile(chart: TypeChart, defending: string): string {
 	let weak = 0;
@@ -73,17 +65,16 @@ function defenderProfile(chart: TypeChart, defending: string): string {
 	return `In this era ${title(defending)} is weak to ${weak} type(s), resists ${resists}, and is immune to ${immune}.`;
 }
 
-const eraNote = (ctx: GameContext): string => (ctx.versionGroup ? ` (as of ${ctx.versionGroup})` : '');
-
 const SINGLE_OUTCOMES = [0, 0.5, 1, 2];
 const DUAL_OUTCOMES = [0, 0.25, 0.5, 1, 2, 4];
 
 export const singleTypeEffectivenessGenerator: ExerciseGenerator = {
 	id: 'type-chart.single',
 	lessonId: 'type-chart.single-type-effectiveness',
+	requires: ['typeChart'],
 	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
 		const rng = createRng(seed);
-		const chart = ref.typeChart;
+		const chart = requireRef(ref, 'typeChart', this.lessonId);
 		const attacking = rng.pick(chart.types);
 		const defending = rng.pick(chart.types);
 		const answer = effectiveness(chart, attacking, defending);
@@ -106,7 +97,7 @@ export const singleTypeEffectivenessGenerator: ExerciseGenerator = {
 			prompt: `How effective is ${article(attacking)} ${title(attacking)}-type move against ${article(defending)} ${title(defending)}-type Pokémon?`,
 			candidates,
 			hints,
-			explanation: `${title(attacking)} → ${title(defending)} = ${multiplierLabel(answer)}${eraNote(ctx)}.`,
+			explanation: `${title(attacking)} → ${title(defending)} = ${multiplierLabel(answer)}${eraNote(ctx.versionGroup)}.`,
 		};
 	},
 };
@@ -114,9 +105,10 @@ export const singleTypeEffectivenessGenerator: ExerciseGenerator = {
 export const dualTypeMultipliersGenerator: ExerciseGenerator = {
 	id: 'type-chart.dual',
 	lessonId: 'type-chart.dual-type-multipliers',
+	requires: ['typeChart'],
 	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
 		const rng = createRng(seed);
-		const chart = ref.typeChart;
+		const chart = requireRef(ref, 'typeChart', this.lessonId);
 		const attacking = rng.pick(chart.types);
 		const [first, second] = rng.sample(chart.types, 2);
 		const firstFactor = effectiveness(chart, attacking, first);
@@ -145,7 +137,7 @@ export const dualTypeMultipliersGenerator: ExerciseGenerator = {
 			prompt: `How effective is ${article(attacking)} ${title(attacking)}-type move against ${article(first)} ${title(first)}/${title(second)} Pokémon?`,
 			candidates,
 			hints,
-			explanation: `${firstFactor}× × ${secondFactor}× = ${answer}× — ${multiplierLabel(answer)}${eraNote(ctx)}.`,
+			explanation: `${firstFactor}× × ${secondFactor}× = ${answer}× — ${multiplierLabel(answer)}${eraNote(ctx.versionGroup)}.`,
 		};
 	},
 };
@@ -153,9 +145,10 @@ export const dualTypeMultipliersGenerator: ExerciseGenerator = {
 export const immunitiesGenerator: ExerciseGenerator = {
 	id: 'type-chart.immunity',
 	lessonId: 'type-chart.immunities',
+	requires: ['typeChart'],
 	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
 		const rng = createRng(seed);
-		const chart = ref.typeChart;
+		const chart = requireRef(ref, 'typeChart', this.lessonId);
 
 		const immunePairs: [string, string][] = [];
 		for (const attacking of chart.types) {
@@ -199,7 +192,7 @@ export const immunitiesGenerator: ExerciseGenerator = {
 			prompt: `Which of these types is completely immune to ${title(attacking)}-type moves?`,
 			candidates,
 			hints,
-			explanation: `${title(attacking)} → ${title(defending)} = 0×${eraNote(ctx)}.`,
+			explanation: `${title(attacking)} → ${title(defending)} = 0×${eraNote(ctx.versionGroup)}.`,
 		};
 	},
 };

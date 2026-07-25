@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { curriculum } from '@pokemon-center/domain-school-engine';
+import { curriculum, isLessonPlayable } from '@pokemon-center/domain-school-engine';
 import { SchoolProgressStore } from '../../school-progress.store';
 import { SchoolReference } from '../../school-reference';
 
@@ -45,12 +45,14 @@ import { SchoolReference } from '../../school-reference';
 
 				<ul class="lessons">
 					@for (lesson of module.lessons; track lesson.id) {
-						<li class="lesson" [class.is-locked]="!lesson.unlocked">
+						<li class="lesson" [class.is-locked]="!lesson.startable">
 							<div class="lesson-head">
-								@if (lesson.unlocked) {
+								@if (lesson.startable) {
 									<a [routerLink]="['/school/lesson', lesson.id]">{{ lesson.title }}</a>
-								} @else {
+								} @else if (!lesson.unlocked) {
 									<span class="locked-title">🔒 {{ lesson.title }}</span>
+								} @else {
+									<span class="locked-title">{{ lesson.title }}</span>
 								}
 								@if (lesson.mastered) {
 									<span class="badge">mastered</span>
@@ -62,6 +64,8 @@ import { SchoolReference } from '../../school-reference';
 							</div>
 							@if (!lesson.unlocked) {
 								<p class="note">Needs: {{ lesson.prereqTitles }}</p>
+							} @else if (!lesson.playable) {
+								<p class="note">Waiting on reference data the API doesn’t serve yet.</p>
 							}
 						</li>
 					}
@@ -223,16 +227,25 @@ export default class SchoolHomeComponent {
 	protected readonly modules = computed(() => {
 		const open = new Set(this.progress.available().map((l) => l.id));
 		const titles = new Map(curriculum.flatMap((m) => m.lessons).map((l) => [l.id, l.title]));
+		const ref = this.reference.reference();
 
 		return curriculum.map((module) => ({
 			...module,
-			lessons: module.lessons.map((lesson) => ({
-				...lesson,
-				unlocked: open.has(lesson.id),
-				mastered: this.progress.hasMastered(lesson.id),
-				percent: Math.round(this.progress.scoreFor(lesson.id) * 100),
-				prereqTitles: lesson.prereqs.map((id) => titles.get(id) ?? id).join(', '),
-			})),
+			lessons: module.lessons.map((lesson) => {
+				// Two different reasons a lesson may not be startable: the curriculum graph has
+				// not opened it yet, or its reference data has not loaded. They read differently
+				// to the learner, so they are tracked separately.
+				const playable = isLessonPlayable(lesson.id, ref);
+				return {
+					...lesson,
+					unlocked: open.has(lesson.id),
+					playable,
+					startable: open.has(lesson.id) && playable,
+					mastered: this.progress.hasMastered(lesson.id),
+					percent: Math.round(this.progress.scoreFor(lesson.id) * 100),
+					prereqTitles: lesson.prereqs.map((id) => titles.get(id) ?? id).join(', '),
+				};
+			}),
 		}));
 	});
 

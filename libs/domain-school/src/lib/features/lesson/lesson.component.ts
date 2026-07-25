@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { curriculum, findLesson, generateDrill, type Attempt } from '@pokemon-center/domain-school-engine';
+import { curriculum, findLesson, generateDrill, isLessonPlayable, type Attempt } from '@pokemon-center/domain-school-engine';
 import { map } from 'rxjs';
 import { SchoolProgressStore } from '../../school-progress.store';
 import { SchoolReference } from '../../school-reference';
@@ -29,12 +29,14 @@ const CHECKS_PER_LESSON = 5;
 				<p class="sub">{{ lesson.summary }}</p>
 			</header>
 
-			@if (!reference.reference()) {
+			@if (!playable()) {
 				<p class="empty">
 					@if (reference.isLoading()) {
-						Loading the type chart…
+						Loading reference data…
+					} @else if (reference.hasError()) {
+						Reference data could not be loaded, so no exercises can be generated. Is pokedex-service running?
 					} @else {
-						The type chart could not be loaded, so no exercises can be generated. Is pokedex-service running?
+						This lesson needs reference data the API doesn’t serve yet. <a routerLink="/school">Back to School</a>
 					}
 				</p>
 			} @else if (current(); as exercise) {
@@ -144,11 +146,15 @@ export default class LessonComponent {
 	protected readonly index = signal(0);
 	protected readonly correct = signal(0);
 
-	protected readonly exercises = computed(() => {
-		const ref = this.reference.reference();
+	protected readonly playable = computed(() => {
 		const lesson = this.lesson();
-		if (!ref || !lesson) return [];
-		return generateDrill([lesson.id], this.seed(), CHECKS_PER_LESSON, ref, this.reference.context());
+		return lesson !== undefined && isLessonPlayable(lesson.id, this.reference.reference());
+	});
+
+	protected readonly exercises = computed(() => {
+		const lesson = this.lesson();
+		if (!lesson || !this.playable()) return [];
+		return generateDrill([lesson.id], this.seed(), CHECKS_PER_LESSON, this.reference.reference(), this.reference.context());
 	});
 
 	protected readonly current = computed(() => this.exercises()[this.index()]);
