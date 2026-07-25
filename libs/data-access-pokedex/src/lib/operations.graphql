@@ -361,6 +361,18 @@ query MatchupAnalysis($defenderTypes: [String!]!, $versionGroup: String, $take: 
 	}
 }
 
+query TypeChart($versionGroup: String) {
+	typeChart(versionGroup: $versionGroup) {
+		generationId
+		types
+		cells {
+			damageType
+			targetType
+			factor
+		}
+	}
+}
+
 query Coverage($moves: [String!]!) {
 	coverage(moves: $moves) {
 		defendingType

@@ -1,5 +1,6 @@
 import { Args, Field, Float, Int, ObjectType, Query, Resolver } from '@nestjs/graphql';
 import { PrismaService } from '../prisma.service';
+import { eraEfficacySql } from './era-efficacy.sql';
 
 @ObjectType()
 export class MatchupCounter {
@@ -34,6 +35,33 @@ export class CoverageCell {
 	viaMove!: string | null;
 }
 
+@ObjectType()
+export class TypeChartCell {
+	@Field(() => String)
+	damageType!: string;
+
+	@Field(() => String)
+	targetType!: string;
+
+	/** Multiplier, not the stored percentage: 0, 0.5, 1 or 2 */
+	@Field(() => Float)
+	factor!: number;
+}
+
+@ObjectType()
+export class TypeChart {
+	/** The generation the requested version group belongs to; null for the modern chart */
+	@Field(() => Int, { nullable: true })
+	generationId!: number | null;
+
+	/** Type slugs present in this era, in national type order - 15 for gen 1, 18 today */
+	@Field(() => [String])
+	types!: string[];
+
+	@Field(() => [TypeChartCell])
+	cells!: TypeChartCell[];
+}
+
 interface RawCounter {
 	pokemon_id: number;
 	pokemon_slug: string;
@@ -47,6 +75,44 @@ interface RawCounter {
 export class AnalysisResolver {
 	constructor(private readonly prisma: PrismaService) {}
 
+	/** `type_efficacy_past` is keyed by generation, so an era request has to be resolved through the version group first. */
+	private async generationOf(versionGroup: string): Promise<number | null> {
+		const vg = await this.prisma.versionGroups.findFirst({
+			where: { identifier: versionGroup },
+			select: { generation_id: true },
+		});
+		return vg?.generation_id ?? null;
+	}
+
+	@Query(() => TypeChart, {
+		description:
+			'The type effectiveness matrix, era-correct: types that did not exist yet are omitted and changed cells are overlaid from type_efficacy_past. Omit versionGroup for the modern chart',
+	})
+	async typeChart(@Args('versionGroup', { type: () => String, nullable: true }) versionGroup?: string): Promise<TypeChart> {
+		const generationId = versionGroup ? await this.generationOf(versionGroup) : null;
+		// Unknown version group: empty rather than a silently-modern chart, matching how the other version-scoped queries degrade.
+		if (versionGroup && generationId === null) return { generationId: null, types: [], cells: [] };
+
+		const rows = await this.prisma.$queryRaw<{ damage_type: string; target_type: string; damage_factor: number }[]>`
+			WITH efficacy AS (${eraEfficacySql(generationId)})
+			SELECT atk.identifier AS damage_type, def.identifier AS target_type, e.damage_factor
+			FROM efficacy e
+			JOIN types atk ON atk.id = e.damage_type_id
+			JOIN types def ON def.id = e.target_type_id
+			ORDER BY atk.id, def.id`;
+
+		return {
+			generationId,
+			// Ordered by attacker id above, so first appearance is national type order.
+			types: [...new Set(rows.map((r) => r.damage_type))],
+			cells: rows.map((r) => ({
+				damageType: r.damage_type,
+				targetType: r.target_type,
+				factor: r.damage_factor / 100,
+			})),
+		};
+	}
+
 	@Query(() => [MatchupCounter], {
 		description: 'Best offensive counters against a defender with the given types, honoring STAB, the attacker offensive stat, and (optionally) a version group regional dex + learnset',
 	})
@@ -58,16 +124,22 @@ export class AnalysisResolver {
 		if (defenderTypes.length === 0) return [];
 
 		const vg = versionGroup ?? null;
+		const generationId = vg ? await this.generationOf(vg) : null;
+		if (vg && generationId === null) return [];
+
 		const rows = await this.prisma.$queryRaw<RawCounter[]>`
-			WITH defender AS (
+			WITH efficacy AS (${eraEfficacySql(generationId)}),
+			defender AS (
 				SELECT id FROM types WHERE identifier = ANY(${defenderTypes})
 			),
 			matchup AS (
 				-- product of per-type damage factors of each attacking type vs the defender combo.
 				-- nullif() skips ln(0) for immunities; those groups are dropped by HAVING min > 0 anyway.
+				-- efficacy is era-scoped, so attacking types the era lacks drop out here and never reach
+				-- the join below; a defender type the era lacks likewise contributes no factor.
 				SELECT te.damage_type_id,
 				       exp(sum(ln(nullif(te.damage_factor, 0) / 100.0))) AS factor
-				FROM type_efficacy te
+				FROM efficacy te
 				JOIN defender d ON d.id = te.target_type_id
 				GROUP BY te.damage_type_id
 				HAVING min(te.damage_factor) > 0

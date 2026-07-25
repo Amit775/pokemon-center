@@ -149,6 +149,13 @@ export type MatchupAnalysisQueryVariables = Exact<{
 
 export type MatchupAnalysisQuery = { matchupAnalysis: Array<{ pokemonId: number, pokemonSlug: string, bestMove: string, bestMoveType: string, effectiveness: number, score: number }> };
 
+export type TypeChartQueryVariables = Exact<{
+  versionGroup?: string | null | undefined;
+}>;
+
+
+export type TypeChartQuery = { typeChart: { generationId: number | null, types: Array<string>, cells: Array<{ damageType: string, targetType: string, factor: number }> } };
+
 export type CoverageQueryVariables = Exact<{
   moves: Array<string> | string;
 }>;
@@ -571,6 +578,19 @@ export const MatchupAnalysisDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<MatchupAnalysisQuery, MatchupAnalysisQueryVariables>;
+export const TypeChartDocument = new TypedDocumentString(`
+    query TypeChart($versionGroup: String) {
+  typeChart(versionGroup: $versionGroup) {
+    generationId
+    types
+    cells {
+      damageType
+      targetType
+      factor
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<TypeChartQuery, TypeChartQueryVariables>;
 export const CoverageDocument = new TypedDocumentString(`
     query Coverage($moves: [String!]!) {
   coverage(moves: $moves) {

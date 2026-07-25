@@ -6161,6 +6161,11 @@ type Query {
   search(takePerKind: Int! = 5, term: String!): [SearchHit!]!
   species(idOrSlug: String!): PokemonSpecies
   type(idOrSlug: String!): Types
+
+  """
+  The type effectiveness matrix, era-correct: types that did not exist yet are omitted and changed cells are overlaid from type_efficacy_past. Omit versionGroup for the modern chart
+  """
+  typeChart(versionGroup: String): TypeChart!
   typeList: [Types!]!
 
   """All version groups (games), in release order, with their versions"""
@@ -6473,6 +6478,18 @@ type SuperContestEffectsMinAggregate {
 type SuperContestEffectsSumAggregate {
   appeal: Int
   id: Int
+}
+
+type TypeChart {
+  cells: [TypeChartCell!]!
+  generationId: Int
+  types: [String!]!
+}
+
+type TypeChartCell {
+  damageType: String!
+  factor: Float!
+  targetType: String!
 }
 
 """@@TypeGraphQL.type(name: "TypeEfficacy")"""
