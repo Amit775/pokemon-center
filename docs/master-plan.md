@@ -184,11 +184,11 @@ record of what was built and why. Phase 4 (School) is the active frontier._
 **Phase 5 — Arena MVP** (pure-TS battle engine lib → WebSocket gateway → minimal UI) — see
 [arena-plan.md](arena-plan.md)
 
-**Known follow-up on shipped work:** R4's matchup analyzer is *not* era-correct — the SQL joins plain
-`type_efficacy`, while `type_efficacy_past` (and `pokemon_stats_past`, `pokemon_types_past`,
-`move_changelog`) are seeded but unread. The R4 spec claims era-correctness, so this is a small gap in
-working code rather than a missing feature. Tracked as **S0** in [school-plan.md](school-plan.md),
-since School's era-correct lessons depend on it.
+**Known follow-up on shipped work:** R4's matchup analyzer is now era-correct — a shared era-overlay SQL
+fragment reads `type_efficacy_past`, and the new `typeChart(versionGroup)` query exposes the same matrix
+(**S0** in [school-plan.md](school-plan.md), done). Still seeded but unread: `pokemon_stats_past`,
+`pokemon_types_past`, `move_changelog`, so era-correct base stats, typings, and move power remain a
+smaller follow-up of the same shape.
 
 **Deferred / mothballed:** Elasticsearch + `sync` executor (until search outgrows
 Postgres), Relay pagination, TS 7 native (waiting on Angular/ts-jest), Vitest.

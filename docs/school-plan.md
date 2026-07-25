@@ -120,29 +120,29 @@ interface SchoolProgressState {
 }
 ```
 
-### 3.5 Era-correct mechanics — small follow-up on shipped work ⚠️
+### 3.5 Era-correct mechanics — type chart shipped ✅, other past tables still unread ⚠️
 
-To be clear about scope: **the Pokedex is done** — Phases 1–3 and R1–R5 all shipped. This is not an
-unfinished release; it is one detail inside working R4 code that was specified but never wired.
+To be clear about scope: **the Pokedex is done** — Phases 1–3 and R1–R5 all shipped. What follows was
+one detail inside working R4 code that was specified but never wired; the type-chart half is now closed.
 
-School's sharpest differentiator ("learn the type chart *of your game*") depends on data that is
-**seeded but unread**. Verified in this repo:
+School's sharpest differentiator ("learn the type chart *of your game*") is live:
+[era-efficacy.sql.ts](../apps/pokedex-service/src/app/resolvers/era-efficacy.sql.ts) builds the era chart
+as a composable `Prisma.Sql` fragment, and both the new `typeChart(versionGroup)` query and the existing
+`matchupAnalysis` run it, so R4 now honors "the era-correct type chart" as
+[pokedex-product-plan.md §R4](pokedex-product-plan.md) always claimed. Two rules produce an era:
 
-- `TypeEfficacyPast`, `PokemonStatsPast`, `PokemonTypesPast`, `MoveChangelog` appear only as
-  auto-generated Prisma/GraphQL entity types in `apps/pokedex-service/schema.gql`.
-- **No resolver or hand-written service reads any of them.**
-- [analysis.resolver.ts:68](../apps/pokedex-service/src/app/resolvers/analysis.resolver.ts#L68) joins plain
-  `type_efficacy`, so `matchupAnalysis` is **not** era-correct today — despite
-  [pokedex-product-plan.md §R4](pokedex-product-plan.md) describing it as honoring "the era-correct type chart."
+- **Types the era lacks are dropped** via `types.generation_id` — a gen-1 chart is 15×15, not 18×18.
+- **Changed cells are overlaid from `type_efficacy_past`**, taking the row with the smallest
+  `generation_id >= target` (veekun's "value applied *through* this generation" convention). Verified
+  against the seeded data: gen 1 yields Ghost → Psychic **0×**, Poison ↔ Bug 2×, Ice → Fire 1×; gen 2
+  yields Dark/Ghost → Steel 0.5×, reverting to 1× in gen 6; a null version group is the modern chart,
+  byte-identical to pre-change output.
 
-The R4 tools all *work* — matchup analyzer, coverage checker, and compare are live; only the
-era-scoping refinement within them is missing. A `typeChart(versionGroup)` resolver overlaying
-`type_efficacy_past` onto `type_efficacy` closes it, and fixes R4's stated behavior at the same time.
-
-**Scope of the dependency is narrow:** only M1's era-correct lessons and the "What Changed" lens need
-it. The rest of S1 — the engine lib, progress store, lesson DAG, hint tiers, modern-era type chart —
-proceeds without it. Sequenced as **S0** in §7 simply because it is cheap and unblocks the best
-lessons early.
+**Still seeded but unread:** `PokemonStatsPast`, `PokemonTypesPast`, `MoveChangelog` appear only as
+auto-generated Prisma/GraphQL entity types in `apps/pokedex-service/schema.gql`, with no resolver or
+hand-written service reading them. Era-correct *base stats*, *typings*, and *move power* therefore
+remain modern-only — a smaller follow-up of the same shape, needed by the "What Changed" lens beyond
+types.
 
 ### 3.6 Curriculum graph: authored DAG in typed code ✅
 
@@ -225,12 +225,13 @@ step themselves, because that is the step that has to become automatic.
 
 ## 7. Releases
 
-### S0 — Era-correct type chart (small follow-up, Pokedex layer)
+### S0 — Era-correct type chart (small follow-up, Pokedex layer) ✅
 
-A `typeChart(versionGroup)` resolver overlaying `type_efficacy_past` onto `type_efficacy`, plus
-threading it through `matchupAnalysis`. Half a session, and it makes shipped R4 code do what its spec
-already claims (§3.5). Only M1's era-correct lessons and the "What Changed" lens depend on it — not
-S1 as a whole.
+Shipped. `typeChart(versionGroup)` overlays `type_efficacy_past` onto `type_efficacy` and drops types the
+era lacks; `matchupAnalysis` runs the same fragment, so its `versionGroup` argument now moves the type
+math and not just learnsets and dex membership. `TypeChart` is in
+[operations.graphql](../libs/data-access-pokedex/src/lib/operations.graphql) with typed documents
+generated, matching the `TypeChart` shape the engine's `ReferenceData` already expects (§3.5).
 
 ### S1 — Curriculum spine + Type Chart, end to end 🎯
 
@@ -265,7 +266,7 @@ fold in or delete `guess-pallete`.
 
 | Release | Focus | Effort (sessions) | Depends on |
 |---|---|---|---|
-| S0 | Era-correct `typeChart` resolver | 0.5–1 | — (Pokedex layer, independent) |
+| S0 ✅ | Era-correct `typeChart` resolver | 0.5–1 | — (Pokedex layer, independent) |
 | S1 | Spine + M1 end-to-end | 3–4 | S0 *for era-correct lessons only* |
 | S2 | Generalize + M2/M3/M4 | 3–4 | S1 |
 | S3 | Simulation + M5/M6 | 2–3 | S1 (R4 resolvers exist) |
