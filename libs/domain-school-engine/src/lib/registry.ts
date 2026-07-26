@@ -5,7 +5,9 @@ import { MATCHUP_LESSON_ID, matchupModule } from './modules/matchup';
 import { statsGenerators, statsModule } from './modules/stats';
 import { statusGenerators, statusModule } from './modules/status';
 import { typeChartGenerators, typeChartModule } from './modules/type-chart';
+import type { MasteryRecord } from './mastery';
 import { hasRequired } from './reference';
+import { reviewWeight } from './review';
 import { createRng } from './rng';
 import type { Scenario } from './scenario';
 import type { Exercise, ExerciseGenerator, GameContext, LessonId, ReferenceData, ReferenceKey } from './types';
@@ -84,9 +86,21 @@ export function buildLocalScenario(lessonId: LessonId, seed: number, ref: Refere
 	return spec.build(seed, ref, ctx);
 }
 
+export interface DrillOptions {
+	/**
+	 * Mastery history to bias sampling toward weak and overdue lessons.
+	 *
+	 * Omitting it keeps sampling uniform, and that is a real choice rather than a default:
+	 * uniform is what makes `?seed=8412` reproduce the same drill for anyone who opens it,
+	 * whereas an adaptive drill is personal by construction. One run cannot be both, so the
+	 * caller picks — shareable practice, or targeted practice.
+	 */
+	records?: readonly MasteryRecord[];
+	nowISO?: string;
+}
+
 /**
- * A whole drill from a single seed — which is what makes `/school/drill?seed=8412` reproduce
- * an identical run for anyone who opens it.
+ * A whole drill from a single seed.
  *
  * Exercise lessons only: simulations are a considered decision with a graded outcome, which is
  * the opposite of rapid-fire. Unplayable lessons are dropped rather than allowed to throw ten
@@ -98,10 +112,19 @@ export function generateDrill(
 	count: number,
 	ref: ReferenceData,
 	ctx: GameContext,
+	options: DrillOptions = {},
 ): Exercise[] {
 	const playable = lessonIds.filter((id) => !isScenarioLesson(id) && isLessonPlayable(id, ref));
 	if (playable.length === 0) throw new Error('generateDrill: none of the given lessons have their reference data loaded');
 
 	const rng = createRng(seed);
-	return Array.from({ length: count }, () => generateForLesson(rng.pick(playable), rng.int(0x7fffffff), ref, ctx));
+	const { records, nowISO = new Date().toISOString() } = options;
+	const byLesson = records ? new Map(records.map((record) => [record.lessonId, record])) : undefined;
+
+	return Array.from({ length: count }, () => {
+		const lessonId = byLesson
+			? rng.pickWeighted(playable, (id) => reviewWeight(byLesson.get(id), nowISO))
+			: rng.pick(playable);
+		return generateForLesson(lessonId, rng.int(0x7fffffff), ref, ctx);
+	});
 }

@@ -89,14 +89,48 @@ export function validateCurriculum(curriculum: Curriculum): void {
 	for (const lesson of lessons) visit(lesson.id, []);
 }
 
+/** Every prerequisite, transitively. Passing an advanced lesson implies the ones beneath it. */
+export function ancestorsOf(curriculum: Curriculum, lessonId: LessonId): Set<LessonId> {
+	const byId = new Map(allLessons(curriculum).map((lesson) => [lesson.id, lesson]));
+	const found = new Set<LessonId>();
+
+	const visit = (id: LessonId): void => {
+		for (const prereq of byId.get(id)?.prereqs ?? []) {
+			if (found.has(prereq)) continue;
+			found.add(prereq);
+			visit(prereq);
+		}
+	};
+
+	visit(lessonId);
+	return found;
+}
+
+const NOTHING_GRANTED: ReadonlySet<LessonId> = new Set();
+
 /**
  * A lesson opens when every prerequisite is mastered — or when the learner has taken the
  * ruleset's opt-out, which experienced users need so the graph is a guide, not a gate.
+ *
+ * `granted` is the placement test's output: lessons the learner demonstrated they already know.
+ * It is kept separate from mastery on purpose — passing one question proves you should not be
+ * gated, not that you have earned a mastery history.
  */
-export function isUnlocked(lesson: Lesson, mastered: ReadonlySet<LessonId>, unlockOverride = false): boolean {
-	return unlockOverride || lesson.prereqs.every((p) => mastered.has(p));
+export function isUnlocked(
+	lesson: Lesson,
+	mastered: ReadonlySet<LessonId>,
+	unlockOverride = false,
+	granted: ReadonlySet<LessonId> = NOTHING_GRANTED,
+): boolean {
+	if (unlockOverride || granted.has(lesson.id)) return true;
+	return lesson.prereqs.every((prereq) => mastered.has(prereq) || granted.has(prereq));
 }
 
-export function unlockedLessons(curriculum: Curriculum, mastered: ReadonlySet<LessonId>, unlockOverride = false): Lesson[] {
-	return allLessons(curriculum).filter((l) => isUnlocked(l, mastered, unlockOverride));
+export function unlockedLessons(
+	curriculum: Curriculum,
+	mastered: ReadonlySet<LessonId>,
+	unlockOverride = false,
+	granted: ReadonlySet<LessonId> = NOTHING_GRANTED,
+): Lesson[] {
+	return allLessons(curriculum).filter((lesson) => isUnlocked(lesson, mastered, unlockOverride, granted));
 }
