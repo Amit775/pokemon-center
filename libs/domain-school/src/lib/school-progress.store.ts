@@ -9,6 +9,7 @@ import {
 	nextStreak,
 	recordAttempt,
 	unlockedLessons,
+	weakestFirst,
 	type Attempt,
 	type LessonId,
 	type MasteryRecord,
@@ -39,8 +40,16 @@ export interface SchoolSettings {
 
 export interface SchoolProgressState {
 	mastery: MasteryRecord[];
-	/** The ruleset's opt-out: makes the curriculum graph a guide rather than a gate. */
+	/** The ruleset's blunt opt-out: makes the curriculum graph a guide rather than a gate. */
 	unlockOverride: boolean;
+	/**
+	 * Lessons opened by the placement test — demonstrated, not mastered.
+	 *
+	 * Kept apart from `mastery` deliberately: answering one cold question proves you should not
+	 * be gated, but it is not the sustained evidence mastery means, and folding it in would
+	 * corrupt the signal every adaptive feature reads.
+	 */
+	granted: LessonId[];
 	streak: Streak;
 	settings: SchoolSettings;
 }
@@ -50,6 +59,7 @@ const STORAGE_KEY = 'pokemon-center.school-progress.v1';
 const initialState: SchoolProgressState = {
 	mastery: [],
 	unlockOverride: false,
+	granted: [],
 	streak: emptyStreak,
 	settings: { timedDrills: false, eraFollowsPokedex: true, versionGroup: null },
 };
@@ -68,10 +78,11 @@ export const SchoolProgressStore = signalStore(
 	withState(initialState),
 	withComputed((store) => ({
 		masteredIds: computed(() => masteredLessonIds(store.mastery())),
+		grantedIds: computed(() => new Set(store.granted())),
 	})),
 	withComputed((store) => ({
-		/** Lessons currently open — every prereq mastered, or the learner opted out. */
-		available: computed(() => unlockedLessons(curriculum, store.masteredIds(), store.unlockOverride())),
+		/** Lessons currently open — prereqs mastered, granted by placement, or opted out of. */
+		available: computed(() => unlockedLessons(curriculum, store.masteredIds(), store.unlockOverride(), store.grantedIds())),
 		masteredCount: computed(() => store.masteredIds().size),
 	})),
 	withMethods((store) => ({
@@ -95,6 +106,21 @@ export const SchoolProgressStore = signalStore(
 		},
 		setUnlockOverride(unlockOverride: boolean): void {
 			patchState(store, { unlockOverride });
+		},
+		/** Open what a placement test demonstrated. Additive: a later test never takes access away. */
+		applyPlacement(lessonIds: Iterable<LessonId>): void {
+			patchState(store, { granted: [...new Set([...store.granted(), ...lessonIds])] });
+		},
+		clearPlacement(): void {
+			patchState(store, { granted: [] });
+		},
+		/** Lessons ordered by how much they need practice; drives adaptive drilling. */
+		practiceOrder(nowISO = new Date().toISOString()) {
+			return weakestFirst(
+				store.available().map((lesson) => lesson.id),
+				store.mastery(),
+				nowISO,
+			);
 		},
 		updateSettings(settings: Partial<SchoolSettings>): void {
 			patchState(store, { settings: { ...store.settings(), ...settings } });

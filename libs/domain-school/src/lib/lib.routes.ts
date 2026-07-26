@@ -9,6 +9,7 @@ export const domainSchoolRoutes: Route[] = [
 			{ path: 'lesson/:lessonId', loadComponent: () => import('./features/lesson/lesson.component') },
 			{ path: 'simulation/:lessonId', loadComponent: () => import('./features/simulation/simulation.component') },
 			{ path: 'drill', loadComponent: () => import('./features/drill/drill.component') },
+			{ path: 'placement', loadComponent: () => import('./features/placement/placement.component') },
 		],
 	},
 ];

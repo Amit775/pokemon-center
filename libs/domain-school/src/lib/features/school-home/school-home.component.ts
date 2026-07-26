@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { curriculum, isLessonPlayable, lessonKind } from '@pokemon-center/domain-school-engine';
+import { curriculum, findLesson, isLessonPlayable, lessonKind } from '@pokemon-center/domain-school-engine';
 import { SchoolProgressStore } from '../../school-progress.store';
 import { SchoolReference } from '../../school-reference';
 
@@ -32,11 +32,17 @@ import { SchoolReference } from '../../school-reference';
 
 		<div class="bar">
 			<a class="btn primary" routerLink="/school/drill">Start a drill</a>
+			<a class="btn" routerLink="/school/drill" [queryParams]="{ adaptive: 1 }">Practise weak spots</a>
+			<a class="btn" routerLink="/school/placement">Placement test</a>
 			<label class="toggle">
 				<input type="checkbox" [checked]="progress.unlockOverride()" (change)="toggleUnlockAll($event)" />
-				Unlock everything (I know this already)
+				Unlock everything
 			</label>
 		</div>
+
+		@if (weakest(); as weakest) {
+			<p class="note">Most in need of practice right now: <b>{{ weakest }}</b></p>
+		}
 
 		@for (module of modules(); track module.id) {
 			<section class="module">
@@ -230,6 +236,13 @@ export default class SchoolHomeComponent {
 	protected readonly reference = inject(SchoolReference);
 
 	protected readonly eraLabel = computed(() => this.reference.versionGroup() ?? 'all games (modern rules)');
+
+	/** Only worth surfacing once there is history to rank; before that everything is equally new. */
+	protected readonly weakest = computed(() => {
+		if (this.progress.mastery().length === 0) return null;
+		const top = this.progress.practiceOrder()[0];
+		return top ? (findLesson(curriculum, top.lessonId)?.title ?? null) : null;
+	});
 
 	protected readonly modules = computed(() => {
 		const open = new Set(this.progress.available().map((l) => l.id));

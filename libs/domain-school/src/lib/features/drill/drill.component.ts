@@ -25,7 +25,10 @@ const randomSeed = (): number => Math.floor(Math.random() * 0x7fffffff);
 	template: `
 		<header class="head">
 			<a class="back" routerLink="/school">← School</a>
-			<h1>Drill</h1>
+			<h1>{{ adaptive() ? 'Weak-spot practice' : 'Drill' }}</h1>
+			@if (adaptive()) {
+				<p class="sub">Weighted toward what you know least and have seen least recently, so this run is personal to you.</p>
+			}
 		</header>
 
 		@if (lessonIds().length === 0) {
@@ -161,7 +164,11 @@ export default class DrillComponent {
 	private readonly route = inject(ActivatedRoute);
 
 	private readonly seedParam = toSignal(this.route.queryParamMap.pipe(map((params) => params.get('seed'))), { initialValue: null });
+	private readonly adaptiveParam = toSignal(this.route.queryParamMap.pipe(map((params) => params.get('adaptive'))), { initialValue: null });
 	private readonly ownSeed = signal(randomSeed());
+
+	/** Adaptive runs bias toward weak and overdue lessons — and stop being reproducible by seed. */
+	protected readonly adaptive = computed(() => this.adaptiveParam() === '1');
 
 	/** A valid `?seed` wins; anything else falls back to a fresh one rather than erroring. */
 	protected readonly seed = computed(() => {
@@ -184,8 +191,15 @@ export default class DrillComponent {
 	protected readonly exercises = computed(() => {
 		const ref = this.reference.reference();
 		const ids = this.lessonIds();
-		if (!ref || ids.length === 0) return [];
-		return generateDrill(ids, this.seed(), DRILL_LENGTH, ref, this.reference.context());
+		if (ids.length === 0) return [];
+		return generateDrill(
+			ids,
+			this.seed(),
+			DRILL_LENGTH,
+			ref,
+			this.reference.context(),
+			this.adaptive() ? { records: this.progress.mastery() } : {},
+		);
 	});
 
 	protected readonly current = computed(() => this.exercises()[this.index()]);
