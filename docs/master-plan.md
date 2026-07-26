@@ -1,6 +1,6 @@
 # Pokemon Center — Master Plan
 
-_Last updated: 2026-07-25 · Status: **Phases 1–3 complete** (database, GraphQL API, typed consumption) and the **Pokedex domain has shipped R1–R5**. Stack modernization (pnpm / Nx 23 / Angular 22 / TS 6.0 bridge / NestJS 11 / Prisma 7) done. **Next up: Phase 4 — School.**_
+_Last updated: 2026-07-26 · Status: **Phases 1–4 complete** — database, GraphQL API, typed consumption, the **Pokedex** domain (R1–R5) and the **School** domain (S0–S5). Stack modernization (pnpm / Nx 23 / Angular 22 / TS 6.0 bridge / NestJS 11 / Prisma 7) done. **Next up: Phase 5 — Arena.**_
 
 ## 1. What we are building
 
@@ -9,7 +9,7 @@ _Last updated: 2026-07-25 · Status: **Phases 1–3 complete** (database, GraphQ
 | Domain | Mission | Status |
 |---|---|---|
 | **Pokedex** | Interconnected knowledge base: Pokemon, moves, items, abilities, types. Advanced search/filtering, bi-directional linking ([plan](pokedex-product-plan.md)) | **Done** — R1–R5 shipped on a live GraphQL API |
-| **School** | Interactive training ground: lessons + simulations generated from the mechanics data ([plan](school-plan.md)) | **Next** — Phase 4, planned |
+| **School** | Interactive training ground: lessons + simulations generated from the mechanics data ([plan](school-plan.md)) | **Done** — S0–S5 shipped; seven modules, four modes |
 | **Arena** | Mechanically accurate turn-based battle engine over WebSockets, engine-first ([plan](arena-plan.md)) | Stub — Phase 5, planned |
 
 The strategic bet: **every domain and every sibling project is a projection of the same relational dataset.** Get the dataset and its API right once, and everything downstream gets cheaper.
@@ -179,9 +179,10 @@ record of what was built and why. Phase 4 (School) is the active frontier._
 (matchup analyzer / coverage / compare), and the `ui-pokedex` design-system pass. Full detail in
 [pokedex-product-plan.md](pokedex-product-plan.md).
 
-**Phase 4 — School MVP** ⬅️ **NEXT** (curriculum from mechanics data; lessons/simulations) — see
-[school-plan.md](school-plan.md)
-**Phase 5 — Arena MVP** (pure-TS battle engine lib → WebSocket gateway → minimal UI) — see
+**Phase 4 — School MVP** ✅ **DONE** — `libs/domain-school-engine` (framework-free) + `libs/domain-school`;
+seven modules across Lesson, Drill, Simulation and Placement modes, with spaced repetition and
+weak-spot targeting. Remaining gaps listed in [school-plan.md §11](school-plan.md).
+**Phase 5 — Arena MVP** ⬅️ **NEXT** (pure-TS battle engine lib → WebSocket gateway → minimal UI) — see
 [arena-plan.md](arena-plan.md)
 
 **Known follow-up on shipped work:** R4's matchup analyzer is now era-correct — a shared era-overlay SQL

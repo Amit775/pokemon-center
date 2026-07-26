@@ -1,6 +1,6 @@
 # School — Domain Plan
 
-_Last updated: 2026-07-25 · Owner: Amit · Status: proposed · Execution: Phase 4 (after Pokedex R1–R5)_
+_Last updated: 2026-07-26 · Owner: Amit · Status: **S0–S5 shipped** — all seven modules live across Lesson, Drill, Simulation and Placement modes. Remaining: i18n (see §11)._
 
 > Supersedes the stub reconciled from Project Ruleset v1.0. Stack reasoning lives in
 > [master-plan.md](master-plan.md); the sibling product plan is [pokedex-product-plan.md](pokedex-product-plan.md).
@@ -233,7 +233,7 @@ math and not just learnsets and dex membership. `TypeChart` is in
 [operations.graphql](../libs/data-access-pokedex/src/lib/operations.graphql) with typed documents
 generated, matching the `TypeChart` shape the engine's `ReferenceData` already expects (§3.5).
 
-### S1 — Curriculum spine + Type Chart, end to end 🎯
+### S1 — Curriculum spine + Type Chart, end to end 🎯 ✅
 
 The vertical slice that proves the architecture. `libs/domain-school-engine` scaffolded (graph, generator
 interface, scoring); `SchoolProgressStore`; the lesson DAG with unlock logic and the blunt opt-out
@@ -241,24 +241,24 @@ toggle; **M1 complete** in Lesson + Drill modes with all four hint tiers; School
 `/school` (already in the nav) rebuilt on the `ui-pokedex` kit. One module, fully finished, rather than
 seven half-built.
 
-### S2 — Engine generalized + M2, M3, M4
+### S2 — Engine generalized + M2, M3, M4 ✅
 
 Prove the generator abstraction by adding three modules that reuse it without changing it — if S1's
 interface was wrong, this is where it shows, cheaply. Mastery model lands here. The "What Changed" lens
 rides along on M2/M4.
 
-### S3 — Simulation Mode + M5, M6
+### S3 — Simulation Mode + M5, M6 ✅
 
 Wire the R4 resolvers (`matchupAnalysis`, `coverage`) into scenario UIs. Reuses `MatchupGridComponent`
 and `ChipToggleComponent` from `ui-pokedex`; new shared components go there, not into `domain-school`.
 
-### S4 — Adaptive
+### S4 — Adaptive ✅
 
 Placement test (the smart opt-out), spaced repetition over decayed lessons, weak-spot targeting that
 biases drill sampling toward low-mastery lessons. Deliberately last among the functional releases: every
 part needs real mastery data to tune against.
 
-### S5 — Polish, a11y, i18n, M7
+### S5 — Polish, a11y, i18n, M7 ⚠️ (i18n outstanding)
 
 Design-system pass on the token architecture; keyboard-first drilling (answering without a mouse is the
 whole point of rapid-fire); localized entity names via the existing language store; M7 Progression.
@@ -266,11 +266,11 @@ whole point of rapid-fire); localized entity names via the existing language sto
 | Release | Focus | Effort (sessions) | Depends on |
 |---|---|---|---|
 | S0 ✅ | Era-correct `typeChart` resolver | 0.5–1 | — (Pokedex layer, independent) |
-| S1 | Spine + M1 end-to-end | 3–4 | S0 *for era-correct lessons only* |
-| S2 | Generalize + M2/M3/M4 | 3–4 | S1 |
-| S3 | Simulation + M5/M6 | 2–3 | S1 (R4 resolvers exist) |
-| S4 | Adaptive, placement, SRS | 2 | S2 (needs mastery data) |
-| S5 | Polish, a11y, i18n, M7 | 2 | continuous, finalized last |
+| S1 ✅ | Spine + M1 end-to-end | 3–4 | S0 *for era-correct lessons only* |
+| S2 ✅ | Generalize + M2/M3/M4 | 3–4 | S1 |
+| S3 ✅ | Simulation + M5/M6 | 2–3 | S1 (R4 resolvers exist) |
+| S4 ✅ | Adaptive, placement, SRS | 2 | S2 (needs mastery data) |
+| S5 ⚠️ | Polish, a11y, M7 done; i18n outstanding | 2 | continuous, finalized last |
 
 S3 can interleave with S2 — it depends on S1's shell and the *already-built* R4 resolvers, not on S2.
 
@@ -316,3 +316,29 @@ S3 can interleave with S2 — it depends on S1's shell and the *already-built* R
    School owns the *drilling*, Pokedex owns the *reference*, and M7's exercises deep-link into R3 pages.
 5. **Should Simulation Mode wait for Arena's engine?** Proposed: no — S3's decision-only scenarios need
    no turn resolution, and blocking School on Phase 5 would invert the ruleset's own ordering.
+
+**Settled during the build:** (1) era follows the Pokedex with a School-local override; (2) decay
+changes sampling weight only and never re-locks, asserted by test; (3) `assertUnambiguous` runs inside
+every generator, so an ambiguous question is a thrown error rather than a bad grade; (4) M7 drills,
+Pokedex references; (5) Simulation Mode shipped in S3 without Arena.
+
+## 11. Remaining work
+
+Three known gaps, all deliberate rather than forgotten.
+
+- **i18n — localized entity names.** The one unfinished S5 item. Names come from `humanize(slug)`
+  today, so localizing means the API serving localized move/type/nature/species names *and* generators
+  taking display names as data rather than deriving them from slugs. The translation tables are already
+  seeded and few competitors do this well, so the value is real; the cost is that every generator's
+  label construction changes.
+- **Deep links bypass the curriculum graph.** `/school/lesson/:id` and `/school/simulation/:id` render
+  regardless of lock state. Consistent, and arguably harmless in a single-player tool that already ships
+  an unlock opt-out — but it is not what the dependency graph implies. A route guard would close it.
+- **`move_changelog` is unapplied.** `moveMechanics` scopes moves by generation, so a gen-1 context
+  cannot offer a gen-9 move, but per-era *stat* changes (gen-1 Blizzard at 90% accuracy) are not
+  reflected. This is the remainder of the era-correctness work §3.5 tracks: the type chart is era-exact,
+  move stats are not yet.
+
+**Testing note.** The engine is heavily covered (239 tests); the Angular layer is not. Both bugs found
+after S1 shipped were component-level — CDK state surviving an input change — and both passed a fully
+green engine suite. Component specs are the place to invest next.
