@@ -15,10 +15,14 @@ export default [
 					style: 'camelCase',
 				},
 			],
+			// Components are elements by default, but a few must attach to an existing native
+			// element instead — pkd-button applies to a real <button> or <a routerLink> rather
+			// than wrapping one, which would nest interactive elements and break routing. The
+			// prefix stays enforced either way; only the selector form is relaxed.
 			'@angular-eslint/component-selector': [
 				'error',
 				{
-					type: 'element',
+					type: ['element', 'attribute'],
 					prefix: 'pkd',
 					style: 'kebab-case',
 				},

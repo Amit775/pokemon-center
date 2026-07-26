@@ -3,13 +3,14 @@ import { RouterLink } from '@angular/router';
 import { curriculum, findLesson, isLessonPlayable, lessonKind } from '@pokemon-center/domain-school-engine';
 import { SchoolProgressStore } from '../../school-progress.store';
 import { SchoolReference } from '../../school-reference';
+import { ButtonComponent } from '@pokemon-center/ui-pokedex';
 
 /** The curriculum map: what is open, what is mastered, and where to start. */
 @Component({
 	selector: 'school-home',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [RouterLink],
+	imports: [RouterLink, ButtonComponent],
 	template: `
 		<header class="head">
 			<div>
@@ -31,9 +32,9 @@ import { SchoolReference } from '../../school-reference';
 		</p>
 
 		<div class="bar">
-			<a class="btn primary" routerLink="/school/drill">Start a drill</a>
-			<a class="btn" routerLink="/school/drill" [queryParams]="{ adaptive: 1 }">Practise weak spots</a>
-			<a class="btn" routerLink="/school/placement">Placement test</a>
+			<a pkd-button="primary" routerLink="/school/drill">Start a drill</a>
+			<a pkd-button routerLink="/school/drill" [queryParams]="{ adaptive: 1 }">Practise weak spots</a>
+			<a pkd-button routerLink="/school/placement">Placement test</a>
 			<label class="toggle">
 				<input type="checkbox" [checked]="progress.unlockOverride()" (change)="toggleUnlockAll($event)" />
 				Unlock everything
@@ -210,24 +211,6 @@ import { SchoolReference } from '../../school-reference';
 			display: block;
 			height: 100%;
 			background: var(--accent);
-		}
-		.btn {
-			padding: var(--s-2) var(--s-4);
-			border: 1px solid var(--line);
-			border-radius: var(--r-pill);
-			background: var(--surface);
-			color: var(--ink);
-			font: inherit;
-			cursor: pointer;
-		}
-		.btn.primary {
-			background: var(--accent);
-			color: var(--accent-ink);
-			border-color: var(--accent);
-		}
-		.btn:focus-visible {
-			outline: 2px solid var(--accent);
-			outline-offset: 2px;
 		}
 	`,
 })

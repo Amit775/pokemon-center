@@ -1,6 +1,7 @@
 import { CdkListbox, CdkOption } from '@angular/cdk/listbox';
-import { ChangeDetectionStrategy, Component, computed, input, linkedSignal, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, computed, effect, inject, input, linkedSignal, output, viewChild } from '@angular/core';
 import type { Attempt, Exercise, HintTier } from '@pokemon-center/domain-school-engine';
+import { ButtonComponent } from '@pokemon-center/ui-pokedex';
 
 /**
  * Renders one generated exercise and reports how it was answered.
@@ -14,13 +15,19 @@ import type { Attempt, Exercise, HintTier } from '@pokemon-center/domain-school-
 	selector: 'school-exercise-player',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CdkListbox, CdkOption],
-	host: { '(keydown)': 'onKeydown($event)' },
+	imports: [CdkListbox, CdkOption, ButtonComponent],
 	template: `
 		<article class="exercise">
 			<p class="prompt">{{ exercise().prompt }}</p>
 
-			<ul class="options" cdkListbox [cdkListboxDisabled]="isAnswered()" (cdkListboxValueChange)="selectFrom($event.value)">
+			<ul
+				class="options"
+				cdkListbox
+				#listbox
+				[attr.aria-label]="exercise().prompt"
+				[cdkListboxDisabled]="isAnswered()"
+				(cdkListboxValueChange)="selectFrom($event.value)"
+			>
 				@for (candidate of exercise().candidates; track candidate.id; let i = $index) {
 					<li
 						class="option"
@@ -53,13 +60,17 @@ import type { Attempt, Exercise, HintTier } from '@pokemon-center/domain-school-
 					<p class="verdict" [class.is-good]="wasCorrect()" role="status" aria-live="polite">
 						<b>{{ wasCorrect() ? 'Correct.' : 'Not quite.' }}</b> {{ exercise().explanation }}
 					</p>
-					<button type="button" class="btn primary" (click)="next.emit()">Next</button>
+					<button type="button" pkd-button="primary" (click)="next.emit()">Next</button>
 				} @else {
-					<button type="button" class="btn" (click)="revealHint()" [disabled]="!canHint()">
+					<button type="button" pkd-button (click)="revealHint()" [disabled]="!canHint()">
 						{{ hintsLeft() === 4 ? 'Need a hint?' : hintsLeft() + ' hint(s) left' }}
 					</button>
 				}
 			</div>
+
+			<p class="shortcuts">
+				<kbd>1</kbd>–<kbd>{{ exercise().candidates.length }}</kbd> answer · <kbd>H</kbd> hint · <kbd>Enter</kbd> next
+			</p>
 		</article>
 	`,
 	styles: `
@@ -160,30 +171,17 @@ import type { Attempt, Exercise, HintTier } from '@pokemon-center/domain-school-
 		.verdict.is-good {
 			color: var(--ink);
 		}
-		.btn {
-			padding: var(--s-2) var(--s-4);
+		.shortcuts {
+			margin: 0;
+			color: var(--ink-faint);
+			font-size: var(--fs-xs);
+		}
+		kbd {
+			font-family: var(--font-mono);
+			padding: 0 0.3em;
 			border: 1px solid var(--line);
-			border-radius: var(--r-pill);
-			background: var(--surface);
-			color: var(--ink);
-			font: inherit;
-			cursor: pointer;
-		}
-		.btn:hover:not(:disabled) {
-			background: var(--surface-raised);
-		}
-		.btn:focus-visible {
-			outline: 2px solid var(--accent);
-			outline-offset: 2px;
-		}
-		.btn:disabled {
-			opacity: 0.5;
-			cursor: not-allowed;
-		}
-		.btn.primary {
-			background: var(--accent);
-			color: var(--accent-ink);
-			border-color: var(--accent);
+			border-radius: var(--r-sm);
+			background: var(--surface-sunken);
 		}
 		@media (prefers-reduced-motion: reduce) {
 			.option {
@@ -194,6 +192,30 @@ import type { Attempt, Exercise, HintTier } from '@pokemon-center/domain-school-
 })
 export class ExercisePlayerComponent {
 	readonly exercise = input.required<Exercise>();
+
+	private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly destroyRef = inject(DestroyRef);
+
+	private readonly listbox = viewChild<ElementRef<HTMLElement>>('listbox');
+
+	constructor() {
+		// Move focus to the options whenever a new question arrives, so a drill can be answered
+		// entirely from the keyboard. Without this the number-key shortcuts silently do nothing
+		// until the learner clicks — which defeats the point of rapid-fire practice.
+		effect(() => {
+			this.exercise();
+			this.listbox()?.nativeElement.focus();
+		});
+
+		// Capture phase, deliberately: CdkListbox runs typeahead on keydown, and because these
+		// labels *start* with digits ("2× — super effective") a plain bubbling handler loses the
+		// race — pressing 2 moved focus by typeahead instead of answering. Taking digits before
+		// the listbox sees them keeps ordinal shortcuts working while letters still typeahead.
+		const element = this.hostElement.nativeElement;
+		const onKeydown = (event: KeyboardEvent): void => this.handleKey(event);
+		element.addEventListener('keydown', onKeydown, true);
+		this.destroyRef.onDestroy(() => element.removeEventListener('keydown', onKeydown, true));
+	}
 
 	readonly answered = output<Attempt>();
 	readonly next = output<void>();
@@ -237,18 +259,23 @@ export class ExercisePlayerComponent {
 	}
 
 	/** Answering without reaching for the mouse is the whole point of rapid-fire drilling. */
-	protected onKeydown(event: KeyboardEvent): void {
+	private handleKey(event: KeyboardEvent): void {
+		const claim = (): void => {
+			event.preventDefault();
+			event.stopPropagation();
+		};
+
 		if (this.isAnswered()) {
 			if (event.key === 'Enter') {
 				this.next.emit();
-				event.preventDefault();
+				claim();
 			}
 			return;
 		}
 
 		if (event.key.toLowerCase() === 'h') {
 			this.revealHint();
-			event.preventDefault();
+			claim();
 			return;
 		}
 
@@ -256,7 +283,7 @@ export class ExercisePlayerComponent {
 		const candidates = this.exercise().candidates;
 		if (Number.isInteger(index) && index >= 0 && index < candidates.length) {
 			this.select(candidates[index].id);
-			event.preventDefault();
+			claim();
 		}
 	}
 }

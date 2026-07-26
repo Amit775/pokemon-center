@@ -1,6 +1,7 @@
 import { CdkListbox, CdkOption } from '@angular/cdk/listbox';
-import { ChangeDetectionStrategy, Component, computed, input, linkedSignal, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, computed, effect, inject, input, linkedSignal, output, viewChild } from '@angular/core';
 import type { Attempt, HintTier, Scenario, ScenarioResult } from '@pokemon-center/domain-school-engine';
+import { ButtonComponent } from '@pokemon-center/ui-pokedex';
 
 /**
  * Renders one simulation and reports how well it was answered.
@@ -14,7 +15,7 @@ import type { Attempt, HintTier, Scenario, ScenarioResult } from '@pokemon-cente
 	selector: 'school-scenario-player',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CdkListbox, CdkOption],
+	imports: [CdkListbox, CdkOption, ButtonComponent],
 	template: `
 		<article class="scenario">
 			<p class="prompt">{{ scenario().prompt }}</p>
@@ -22,6 +23,8 @@ import type { Attempt, HintTier, Scenario, ScenarioResult } from '@pokemon-cente
 			<ul
 				class="options"
 				cdkListbox
+				#listbox
+				[attr.aria-label]="scenario().prompt"
 				[cdkListboxMultiple]="scenario().pick > 1"
 				[cdkListboxValue]="selected()"
 				[cdkListboxDisabled]="submitted()"
@@ -67,14 +70,19 @@ import type { Attempt, HintTier, Scenario, ScenarioResult } from '@pokemon-cente
 					<p class="verdict" [class.is-good]="result()!.quality === 1" role="status" aria-live="polite">
 						<b>{{ verdictLabel() }}</b> {{ result()!.summary }}
 					</p>
-					<button type="button" class="btn primary" (click)="next.emit()">Next</button>
+					<button type="button" pkd-button="primary" (click)="next.emit()">Next</button>
 				} @else {
-					<button type="button" class="btn primary" (click)="submit()" [disabled]="!canSubmit()">Lock it in</button>
-					<button type="button" class="btn" (click)="revealHint()" [disabled]="!canHint()">
+					<button type="button" pkd-button="primary" (click)="submit()" [disabled]="!canSubmit()">Lock it in</button>
+					<button type="button" pkd-button (click)="revealHint()" [disabled]="!canHint()">
 						{{ hintsLeft() === 4 ? 'Need a hint?' : hintsLeft() + ' hint(s) left' }}
 					</button>
 				}
 			</div>
+
+			<p class="shortcuts">
+				<kbd>1</kbd>–<kbd>{{ scenario().options.length }}</kbd> choose · <kbd>H</kbd> hint · <kbd>Enter</kbd>
+				{{ submitted() ? 'next' : 'lock it in' }}
+			</p>
 		</article>
 	`,
 	styles: `
@@ -168,30 +176,17 @@ import type { Attempt, HintTier, Scenario, ScenarioResult } from '@pokemon-cente
 		.verdict.is-good {
 			color: var(--ink);
 		}
-		.btn {
-			padding: var(--s-2) var(--s-4);
+		.shortcuts {
+			margin: 0;
+			color: var(--ink-faint);
+			font-size: var(--fs-xs);
+		}
+		kbd {
+			font-family: var(--font-mono);
+			padding: 0 0.3em;
 			border: 1px solid var(--line);
-			border-radius: var(--r-pill);
-			background: var(--surface);
-			color: var(--ink);
-			font: inherit;
-			cursor: pointer;
-		}
-		.btn:hover:not(:disabled) {
-			background: var(--surface-raised);
-		}
-		.btn:focus-visible {
-			outline: 2px solid var(--accent);
-			outline-offset: 2px;
-		}
-		.btn:disabled {
-			opacity: 0.5;
-			cursor: not-allowed;
-		}
-		.btn.primary {
-			background: var(--accent);
-			color: var(--accent-ink);
-			border-color: var(--accent);
+			border-radius: var(--r-sm);
+			background: var(--surface-sunken);
 		}
 		@media (prefers-reduced-motion: reduce) {
 			.option {
@@ -202,6 +197,23 @@ import type { Attempt, HintTier, Scenario, ScenarioResult } from '@pokemon-cente
 })
 export class ScenarioPlayerComponent {
 	readonly scenario = input.required<Scenario>();
+
+	private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly destroyRef = inject(DestroyRef);
+	private readonly listbox = viewChild<ElementRef<HTMLElement>>('listbox');
+
+	constructor() {
+		effect(() => {
+			this.scenario();
+			this.listbox()?.nativeElement.focus();
+		});
+
+		// Capture phase so digit shortcuts beat CdkListbox's typeahead — see ExercisePlayer.
+		const element = this.hostElement.nativeElement;
+		const onKeydown = (event: KeyboardEvent): void => this.handleKey(event);
+		element.addEventListener('keydown', onKeydown, true);
+		this.destroyRef.onDestroy(() => element.removeEventListener('keydown', onKeydown, true));
+	}
 
 	readonly answered = output<Attempt>();
 	readonly next = output<void>();
@@ -251,5 +263,41 @@ export class ScenarioPlayerComponent {
 
 	protected revealHint(): void {
 		if (this.canHint()) this.revealedTier.update((tier) => tier + 1);
+	}
+
+	/**
+	 * Number keys toggle an option, which matters more here than in an exercise: a four-pick
+	 * scenario is a lot of mousing otherwise, and comparing combinations is the actual work.
+	 */
+	private handleKey(event: KeyboardEvent): void {
+		const claim = (): void => {
+			event.preventDefault();
+			event.stopPropagation();
+		};
+
+		if (event.key === 'Enter') {
+			if (this.submitted()) this.next.emit();
+			else this.submit();
+			claim();
+			return;
+		}
+
+		if (this.submitted()) return;
+
+		if (event.key.toLowerCase() === 'h') {
+			this.revealHint();
+			claim();
+			return;
+		}
+
+		const index = Number(event.key) - 1;
+		const options = this.scenario().options;
+		if (!Number.isInteger(index) || index < 0 || index >= options.length) return;
+
+		const id = options[index].id;
+		const current = this.selected();
+		if (current.includes(id)) this.selected.set(current.filter((chosen) => chosen !== id));
+		else if (current.length < this.scenario().pick) this.selected.set([...current, id]);
+		claim();
 	}
 }

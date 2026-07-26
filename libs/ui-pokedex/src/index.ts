@@ -3,6 +3,7 @@ export * from './lib/type-chip/type-chip.component';
 export * from './lib/entity-portrait/entity-portrait.component';
 export * from './lib/stat-bar/stat-bar.component';
 export * from './lib/pokemon-card/pokemon-card.component';
+export * from './lib/ui-button/ui-button.component';
 export * from './lib/ui-card/ui-card.component';
 export * from './lib/section-heading/section-heading.component';
 export * from './lib/ui-skeleton/ui-skeleton.component';

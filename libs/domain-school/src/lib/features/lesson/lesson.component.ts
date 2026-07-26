@@ -6,6 +6,7 @@ import { map } from 'rxjs';
 import { SchoolProgressStore } from '../../school-progress.store';
 import { SchoolReference } from '../../school-reference';
 import { ExercisePlayerComponent } from '../exercise-player/exercise-player.component';
+import { ButtonComponent } from '@pokemon-center/ui-pokedex';
 
 /** How many generated checks a single pass through a lesson asks for. */
 const CHECKS_PER_LESSON = 5;
@@ -20,7 +21,7 @@ const CHECKS_PER_LESSON = 5;
 	selector: 'school-lesson',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [RouterLink, ExercisePlayerComponent],
+	imports: [RouterLink, ExercisePlayerComponent, ButtonComponent],
 	template: `
 		@if (lesson(); as lesson) {
 			<header class="head">
@@ -47,9 +48,9 @@ const CHECKS_PER_LESSON = 5;
 					<h2>Done — {{ correct() }} of {{ exercises().length }} unaided or hinted correctly</h2>
 					<p class="sub">Mastery for this lesson is now {{ percent() }}%.</p>
 					<div class="bar">
-						<button type="button" class="btn primary" (click)="again()">Go again</button>
-						<a class="btn" routerLink="/school">Back to School</a>
-						<a class="btn" routerLink="/school/drill">Drill everything</a>
+						<button type="button" pkd-button="primary" (click)="again()">Go again</button>
+						<a pkd-button routerLink="/school">Back to School</a>
+						<a pkd-button routerLink="/school/drill">Drill everything</a>
 					</div>
 				</section>
 			}
@@ -109,24 +110,6 @@ const CHECKS_PER_LESSON = 5;
 			display: flex;
 			flex-wrap: wrap;
 			gap: var(--s-3);
-		}
-		.btn {
-			padding: var(--s-2) var(--s-4);
-			border: 1px solid var(--line);
-			border-radius: var(--r-pill);
-			background: var(--surface);
-			color: var(--ink);
-			font: inherit;
-			cursor: pointer;
-		}
-		.btn.primary {
-			background: var(--accent);
-			color: var(--accent-ink);
-			border-color: var(--accent);
-		}
-		.btn:focus-visible {
-			outline: 2px solid var(--accent);
-			outline-offset: 2px;
 		}
 	`,
 })

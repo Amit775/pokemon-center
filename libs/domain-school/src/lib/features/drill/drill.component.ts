@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal, untracked } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { generateDrill, isLessonPlayable, type Attempt } from '@pokemon-center/domain-school-engine';
@@ -6,6 +6,7 @@ import { map } from 'rxjs';
 import { SchoolProgressStore } from '../../school-progress.store';
 import { SchoolReference } from '../../school-reference';
 import { ExercisePlayerComponent } from '../exercise-player/exercise-player.component';
+import { ButtonComponent } from '@pokemon-center/ui-pokedex';
 
 const DRILL_LENGTH = 10;
 
@@ -21,7 +22,7 @@ const randomSeed = (): number => Math.floor(Math.random() * 0x7fffffff);
 	selector: 'school-drill',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [RouterLink, ExercisePlayerComponent],
+	imports: [RouterLink, ExercisePlayerComponent, ButtonComponent],
 	template: `
 		<header class="head">
 			<a class="back" routerLink="/school">← School</a>
@@ -55,8 +56,8 @@ const randomSeed = (): number => Math.floor(Math.random() * 0x7fffffff);
 				<p class="sub">Streak: {{ progress.streak().current }} day(s) — best {{ progress.streak().best }}.</p>
 				<p class="note">Replay this exact drill: <code>?seed={{ seed() }}</code></p>
 				<div class="bar">
-					<button type="button" class="btn primary" (click)="again()">New drill</button>
-					<a class="btn" routerLink="/school">Back to School</a>
+					<button type="button" pkd-button="primary" (click)="again()">New drill</button>
+					<a pkd-button routerLink="/school">Back to School</a>
 				</div>
 			</section>
 		}
@@ -138,24 +139,6 @@ const randomSeed = (): number => Math.floor(Math.random() * 0x7fffffff);
 			flex-wrap: wrap;
 			gap: var(--s-3);
 		}
-		.btn {
-			padding: var(--s-2) var(--s-4);
-			border: 1px solid var(--line);
-			border-radius: var(--r-pill);
-			background: var(--surface);
-			color: var(--ink);
-			font: inherit;
-			cursor: pointer;
-		}
-		.btn.primary {
-			background: var(--accent);
-			color: var(--accent-ink);
-			border-color: var(--accent);
-		}
-		.btn:focus-visible {
-			outline: 2px solid var(--accent);
-			outline-offset: 2px;
-		}
 	`,
 })
 export default class DrillComponent {
@@ -188,18 +171,25 @@ export default class DrillComponent {
 	protected readonly index = signal(0);
 	protected readonly correct = signal(0);
 
+	/**
+	 * The question list is fixed the moment a drill starts.
+	 *
+	 * Everything progress-derived is read untracked on purpose. Answering records an attempt,
+	 * which changes the store, which recomputes `available()` — and if that fed back in here the
+	 * drill would regenerate mid-run, handing the player brand-new Exercise objects and wiping
+	 * the answer the learner just gave before they could read the verdict.
+	 */
 	protected readonly exercises = computed(() => {
 		const ref = this.reference.reference();
-		const ids = this.lessonIds();
-		if (ids.length === 0) return [];
-		return generateDrill(
-			ids,
-			this.seed(),
-			DRILL_LENGTH,
-			ref,
-			this.reference.context(),
-			this.adaptive() ? { records: this.progress.mastery() } : {},
-		);
+		const seed = this.seed();
+		const adaptive = this.adaptive();
+		const context = this.reference.context();
+
+		return untracked(() => {
+			const ids = this.lessonIds();
+			if (ids.length === 0) return [];
+			return generateDrill(ids, seed, DRILL_LENGTH, ref, context, adaptive ? { records: this.progress.mastery() } : {});
+		});
 	});
 
 	protected readonly current = computed(() => this.exercises()[this.index()]);

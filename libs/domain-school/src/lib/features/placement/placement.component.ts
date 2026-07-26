@@ -4,6 +4,7 @@ import { buildPlacementTest, findLesson, curriculum, placementUnlocks, type Atte
 import { SchoolProgressStore } from '../../school-progress.store';
 import { SchoolReference } from '../../school-reference';
 import { ExercisePlayerComponent } from '../exercise-player/exercise-player.component';
+import { ButtonComponent } from '@pokemon-center/ui-pokedex';
 
 /**
  * The placement test — the smart version of the ruleset's opt-out.
@@ -17,7 +18,7 @@ import { ExercisePlayerComponent } from '../exercise-player/exercise-player.comp
 	selector: 'school-placement',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [RouterLink, ExercisePlayerComponent],
+	imports: [RouterLink, ExercisePlayerComponent, ButtonComponent],
 	template: `
 		<header class="head">
 			<a class="back" routerLink="/school">← School</a>
@@ -46,8 +47,8 @@ import { ExercisePlayerComponent } from '../exercise-player/exercise-player.comp
 				}
 				<p class="note">These answers decide what is open to you; they are not counted as practice.</p>
 				<div class="bar">
-					<a class="btn primary" routerLink="/school">Back to School</a>
-					<button type="button" class="btn" (click)="again()">Retake</button>
+					<a pkd-button="primary" routerLink="/school">Back to School</a>
+					<button type="button" pkd-button (click)="again()">Retake</button>
 				</div>
 			</section>
 		}
@@ -109,24 +110,6 @@ import { ExercisePlayerComponent } from '../exercise-player/exercise-player.comp
 			display: flex;
 			flex-wrap: wrap;
 			gap: var(--s-3);
-		}
-		.btn {
-			padding: var(--s-2) var(--s-4);
-			border: 1px solid var(--line);
-			border-radius: var(--r-pill);
-			background: var(--surface);
-			color: var(--ink);
-			font: inherit;
-			cursor: pointer;
-		}
-		.btn.primary {
-			background: var(--accent);
-			color: var(--accent-ink);
-			border-color: var(--accent);
-		}
-		.btn:focus-visible {
-			outline: 2px solid var(--accent);
-			outline-offset: 2px;
 		}
 	`,
 })

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {
+	ButtonComponent,
 	EntityPortraitComponent,
 	POKEMON_TYPES,
 	PokemonCardComponent,
@@ -16,10 +17,28 @@ import {
 	standalone: true,
 	selector: 'pokedex-kit',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [TypeChipComponent, StatBarComponent, PokemonCardComponent, EntityPortraitComponent, UiCardComponent, SectionHeadingComponent, UiSkeletonComponent, UiTabsComponent],
+	imports: [
+		TypeChipComponent,
+		StatBarComponent,
+		PokemonCardComponent,
+		EntityPortraitComponent,
+		UiCardComponent,
+		SectionHeadingComponent,
+		UiSkeletonComponent,
+		UiTabsComponent,
+		ButtonComponent,
+	],
 	template: `
 		<div class="kit">
 			<h1>ui-pokedex kit</h1>
+
+			<pkd-section-heading label="Buttons" />
+			<div class="row">
+				<button pkd-button type="button">Default</button>
+				<button pkd-button="primary" type="button">Primary</button>
+				<button pkd-button type="button" disabled>Disabled</button>
+				<a pkd-button href="#buttons">Anchor</a>
+			</div>
 
 			<pkd-section-heading label="Type chips" />
 			<div class="row">
