@@ -18,3 +18,4 @@ export * from './lib/modules/status';
 export * from './lib/modules/stats';
 export * from './lib/modules/matchup';
 export * from './lib/modules/coverage';
+export * from './lib/modules/progression';

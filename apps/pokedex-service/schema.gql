@@ -1291,6 +1291,20 @@ type EvolutionChainsSumAggregate {
   id: Int
 }
 
+type EvolutionStep {
+  from: String!
+  heldItem: String
+  knownMove: String
+  location: String
+  minHappiness: Int
+  minLevel: Int
+  timeOfDay: String
+  to: String!
+  tradeSpecies: String
+  trigger: String!
+  triggerItem: String
+}
+
 type EvolutionTriggerProse {
   evolutionTrigger: EvolutionTriggers!
   evolution_trigger_id: Int!
@@ -1544,6 +1558,11 @@ type GenerationsMinAggregate {
 type GenerationsSumAggregate {
   id: Int
   main_region_id: Int
+}
+
+type GrowthRate {
+  experienceToLevel100: Int!
+  slug: String!
 }
 
 type GrowthRateProse {
@@ -2731,6 +2750,12 @@ type LocationsMinAggregate {
 type LocationsSumAggregate {
   id: Int
   region_id: Int
+}
+
+type Machine {
+  move: String!
+  number: Int!
+  versionGroup: String!
 }
 
 """@@TypeGraphQL.type(name: "Machine")"""
@@ -6122,6 +6147,16 @@ type Query {
   Every species in the pokemon evolution chain, with evolution conditions
   """
   evolutionChain(idOrSlug: String!): [PokemonSpecies!]!
+
+  """
+  Evolution steps with their conditions, from pokemon_evolution. Only steps with a known pre-evolution are returned
+  """
+  evolutionList(take: Int! = 600): [EvolutionStep!]!
+
+  """
+  The experience curves and the total experience each needs to reach level 100
+  """
+  growthRateList: [GrowthRate!]!
   item(idOrSlug: String!, language: String): Items
   itemList(search: String, skip: Int! = 0, take: Int! = 50): [Items!]!
 
@@ -6129,6 +6164,11 @@ type Query {
   Official game languages, each with its own name (autonym), for the display-language selector
   """
   languages: [LanguageOption!]!
+
+  """
+  TM/HM numbers for a version group. TM numbering only means anything within one game, so when versionGroup is omitted the most recent group that has machines is used and named on every row
+  """
+  machineList(versionGroup: String): [Machine!]!
 
   """
   Best offensive counters against a defender with the given types, honoring STAB, the attacker offensive stat, and (optionally) a version group regional dex + learnset

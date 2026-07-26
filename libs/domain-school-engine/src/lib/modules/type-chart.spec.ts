@@ -83,9 +83,12 @@ describe.each(typeChartGenerators.map((g) => [g.id, g] as const))('%s', (_id, ge
 	it('never eliminates the right answer in the T2 narrowing hint', () => {
 		for (const seed of SEEDS) {
 			const exercise = generator.generate(seed, modernRef, modernCtx);
-			const answer = exercise.candidates.find((c) => c.correct);
-			const t2 = exercise.hints.find((h) => h.tier === 2);
-			expect(t2?.text).not.toContain(answer?.label);
+			// Quoted labels, not substrings: one label is often a prefix of another.
+			const quoted = [...(exercise.hints.find((h) => h.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+			expect(quoted.length).toBeGreaterThan(0);
+			for (const label of quoted) {
+				expect(exercise.candidates.find((c) => c.label === label)?.correct).toBe(false);
+			}
 		}
 	});
 

@@ -1,6 +1,25 @@
 import { Injectable, computed, inject } from '@angular/core';
-import { MoveMechanicsDocument, NatureListDocument, PokedexContextStore, TypeChartDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
-import type { DamageClass, GameContext, MoveRef, NatureRef, ReferenceData, TypeChart } from '@pokemon-center/domain-school-engine';
+import {
+	EvolutionListDocument,
+	GrowthRateListDocument,
+	MachineListDocument,
+	MoveMechanicsDocument,
+	NatureListDocument,
+	PokedexContextStore,
+	TypeChartDocument,
+	gqlResource,
+} from '@pokemon-center/data-access-pokedex';
+import type {
+	DamageClass,
+	EvolutionRef,
+	GameContext,
+	GrowthRateRef,
+	MachineRef,
+	MoveRef,
+	NatureRef,
+	ReferenceData,
+	TypeChart,
+} from '@pokemon-center/domain-school-engine';
 import { SchoolProgressStore } from './school-progress.store';
 
 /**
@@ -26,8 +45,12 @@ export class SchoolReference {
 
 	private readonly query = gqlResource(TypeChartDocument, () => ({ versionGroup: this.versionGroup() }));
 	private readonly movesQuery = gqlResource(MoveMechanicsDocument, () => ({ versionGroup: this.versionGroup(), take: 500 }));
-	// Natures are era-independent: the same 25 in every generation that has them.
+	// Natures, evolutions and growth curves are era-independent; machines emphatically are not,
+	// since TM numbering is renumbered game to game.
 	private readonly naturesQuery = gqlResource(NatureListDocument, () => ({}));
+	private readonly evolutionsQuery = gqlResource(EvolutionListDocument, () => ({ take: 600 }));
+	private readonly machinesQuery = gqlResource(MachineListDocument, () => ({ versionGroup: this.versionGroup() }));
+	private readonly growthRatesQuery = gqlResource(GrowthRateListDocument, () => ({}));
 
 	readonly isLoading = computed(() => this.query.isLoading() || this.movesQuery.isLoading() || this.naturesQuery.isLoading());
 	readonly hasError = computed(
@@ -82,6 +105,36 @@ export class SchoolReference {
 		return rows.map((row) => ({ slug: row.slug, increased: row.increased, decreased: row.decreased }));
 	});
 
+	readonly evolutions = computed<readonly EvolutionRef[] | undefined>(() => {
+		const rows = this.evolutionsQuery.hasValue() ? this.evolutionsQuery.value()?.evolutionList : undefined;
+		if (!rows || rows.length === 0) return undefined;
+		return rows.map((row) => ({
+			from: row.from,
+			to: row.to,
+			trigger: row.trigger,
+			minLevel: row.minLevel ?? null,
+			minHappiness: row.minHappiness ?? null,
+			timeOfDay: row.timeOfDay ?? null,
+			triggerItem: row.triggerItem ?? null,
+			heldItem: row.heldItem ?? null,
+			knownMove: row.knownMove ?? null,
+			tradeSpecies: row.tradeSpecies ?? null,
+			location: row.location ?? null,
+		}));
+	});
+
+	readonly machines = computed<readonly MachineRef[] | undefined>(() => {
+		const rows = this.machinesQuery.hasValue() ? this.machinesQuery.value()?.machineList : undefined;
+		if (!rows || rows.length === 0) return undefined;
+		return rows.map((row) => ({ number: row.number, move: row.move, versionGroup: row.versionGroup }));
+	});
+
+	readonly growthRates = computed<readonly GrowthRateRef[] | undefined>(() => {
+		const rows = this.growthRatesQuery.hasValue() ? this.growthRatesQuery.value()?.growthRateList : undefined;
+		if (!rows || rows.length === 0) return undefined;
+		return rows.map((row) => ({ slug: row.slug, experienceToLevel100: row.experienceToLevel100 }));
+	});
+
 	/**
 	 * Always an object, and each section is omitted until it genuinely arrives — sections load
 	 * independently, so a missing move table should leave type-chart lessons perfectly playable.
@@ -92,10 +145,16 @@ export class SchoolReference {
 		const typeChart = this.typeChart();
 		const moves = this.moves();
 		const natures = this.natures();
+		const evolutions = this.evolutions();
+		const machines = this.machines();
+		const growthRates = this.growthRates();
 
 		if (typeChart) reference.typeChart = typeChart;
 		if (moves) reference.moves = moves;
 		if (natures) reference.natures = natures;
+		if (evolutions) reference.evolutions = evolutions;
+		if (machines) reference.machines = machines;
+		if (growthRates) reference.growthRates = growthRates;
 		return reference;
 	});
 

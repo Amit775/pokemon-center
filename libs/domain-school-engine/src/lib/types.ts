@@ -114,6 +114,33 @@ export interface StatRef {
 	isBattleOnly: boolean;
 }
 
+export interface EvolutionRef {
+	from: string;
+	to: string;
+	/** `level-up`, `trade`, `use-item`, `shed`, … */
+	trigger: string;
+	minLevel: number | null;
+	minHappiness: number | null;
+	timeOfDay: string | null;
+	triggerItem: string | null;
+	heldItem: string | null;
+	knownMove: string | null;
+	tradeSpecies: string | null;
+	location: string | null;
+}
+
+export interface MachineRef {
+	number: number;
+	move: string;
+	/** Carried on every row because a TM number only means something within one game. */
+	versionGroup: string;
+}
+
+export interface GrowthRateRef {
+	slug: string;
+	experienceToLevel100: number;
+}
+
 /**
  * Whatever reference data has been loaded so far.
  *
@@ -129,6 +156,9 @@ export interface ReferenceData {
 	natures?: readonly NatureRef[];
 	ailments?: readonly AilmentRef[];
 	stats?: readonly StatRef[];
+	evolutions?: readonly EvolutionRef[];
+	machines?: readonly MachineRef[];
+	growthRates?: readonly GrowthRateRef[];
 }
 
 export type ReferenceKey = keyof ReferenceData;

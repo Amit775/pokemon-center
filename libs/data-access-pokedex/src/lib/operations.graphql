@@ -440,3 +440,34 @@ query NatureList {
 		decreased
 	}
 }
+
+query EvolutionList($take: Int) {
+	evolutionList(take: $take) {
+		from
+		to
+		trigger
+		minLevel
+		minHappiness
+		timeOfDay
+		triggerItem
+		heldItem
+		knownMove
+		tradeSpecies
+		location
+	}
+}
+
+query MachineList($versionGroup: String) {
+	machineList(versionGroup: $versionGroup) {
+		number
+		move
+		versionGroup
+	}
+}
+
+query GrowthRateList {
+	growthRateList {
+		slug
+		experienceToLevel100
+	}
+}

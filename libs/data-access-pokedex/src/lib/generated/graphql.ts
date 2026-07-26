@@ -183,6 +183,25 @@ export type NatureListQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type NatureListQuery = { natureList: Array<{ slug: string, increased: string, decreased: string }> };
 
+export type EvolutionListQueryVariables = Exact<{
+  take?: number | null | undefined;
+}>;
+
+
+export type EvolutionListQuery = { evolutionList: Array<{ from: string, to: string, trigger: string, minLevel: number | null, minHappiness: number | null, timeOfDay: string | null, triggerItem: string | null, heldItem: string | null, knownMove: string | null, tradeSpecies: string | null, location: string | null }> };
+
+export type MachineListQueryVariables = Exact<{
+  versionGroup?: string | null | undefined;
+}>;
+
+
+export type MachineListQuery = { machineList: Array<{ number: number, move: string, versionGroup: string }> };
+
+export type GrowthRateListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GrowthRateListQuery = { growthRateList: Array<{ slug: string, experienceToLevel100: number }> };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -676,3 +695,37 @@ export const NatureListDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<NatureListQuery, NatureListQueryVariables>;
+export const EvolutionListDocument = new TypedDocumentString(`
+    query EvolutionList($take: Int) {
+  evolutionList(take: $take) {
+    from
+    to
+    trigger
+    minLevel
+    minHappiness
+    timeOfDay
+    triggerItem
+    heldItem
+    knownMove
+    tradeSpecies
+    location
+  }
+}
+    `) as unknown as TypedDocumentString<EvolutionListQuery, EvolutionListQueryVariables>;
+export const MachineListDocument = new TypedDocumentString(`
+    query MachineList($versionGroup: String) {
+  machineList(versionGroup: $versionGroup) {
+    number
+    move
+    versionGroup
+  }
+}
+    `) as unknown as TypedDocumentString<MachineListQuery, MachineListQueryVariables>;
+export const GrowthRateListDocument = new TypedDocumentString(`
+    query GrowthRateList {
+  growthRateList {
+    slug
+    experienceToLevel100
+  }
+}
+    `) as unknown as TypedDocumentString<GrowthRateListQuery, GrowthRateListQueryVariables>;

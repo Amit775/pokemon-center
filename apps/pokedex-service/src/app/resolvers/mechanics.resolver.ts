@@ -90,6 +90,66 @@ export class NatureEffect {
 	decreased!: string;
 }
 
+@ObjectType()
+export class EvolutionStep {
+	@Field(() => String)
+	from!: string;
+
+	@Field(() => String)
+	to!: string;
+
+	/** `level-up`, `trade`, `use-item`, `shed`, … */
+	@Field(() => String)
+	trigger!: string;
+
+	@Field(() => Int, { nullable: true })
+	minLevel!: number | null;
+
+	@Field(() => Int, { nullable: true })
+	minHappiness!: number | null;
+
+	@Field(() => String, { nullable: true })
+	timeOfDay!: string | null;
+
+	@Field(() => String, { nullable: true })
+	triggerItem!: string | null;
+
+	@Field(() => String, { nullable: true })
+	heldItem!: string | null;
+
+	@Field(() => String, { nullable: true })
+	knownMove!: string | null;
+
+	@Field(() => String, { nullable: true })
+	tradeSpecies!: string | null;
+
+	@Field(() => String, { nullable: true })
+	location!: string | null;
+}
+
+@ObjectType()
+export class Machine {
+	@Field(() => Int)
+	number!: number;
+
+	@Field(() => String)
+	move!: string;
+
+	/** Named explicitly because TM numbering is only meaningful within one version group. */
+	@Field(() => String)
+	versionGroup!: string;
+}
+
+@ObjectType()
+export class GrowthRate {
+	@Field(() => String)
+	slug!: string;
+
+	/** Total experience required to reach level 100 on this curve. */
+	@Field(() => Int)
+	experienceToLevel100!: number;
+}
+
 interface RawMove {
 	slug: string;
 	type: string;
@@ -191,6 +251,79 @@ export class MechanicsResolver {
 			statChance: row.stat_chance,
 			statChanges: bySlug.get(row.slug) ?? [],
 		}));
+	}
+
+	@Query(() => [EvolutionStep], {
+		description: 'Evolution steps with their conditions, from pokemon_evolution. Only steps with a known pre-evolution are returned',
+	})
+	async evolutionList(@Args('take', { type: () => Int, defaultValue: 600 }) take = 600): Promise<EvolutionStep[]> {
+		return this.prisma.$queryRaw<EvolutionStep[]>`
+			SELECT pre.identifier   AS "from",
+			       s.identifier     AS "to",
+			       t.identifier     AS trigger,
+			       pe.minimum_level     AS "minLevel",
+			       pe.minimum_happiness AS "minHappiness",
+			       NULLIF(pe.time_of_day, '') AS "timeOfDay",
+			       ti.identifier    AS "triggerItem",
+			       hi.identifier    AS "heldItem",
+			       km.identifier    AS "knownMove",
+			       ts.identifier    AS "tradeSpecies",
+			       loc.identifier   AS location
+			FROM pokemon_evolution pe
+			JOIN pokemon_species s   ON s.id = pe.evolved_species_id
+			JOIN pokemon_species pre ON pre.id = s.evolves_from_species_id
+			JOIN evolution_triggers t ON t.id = pe.evolution_trigger_id
+			LEFT JOIN items ti          ON ti.id = pe.trigger_item_id
+			LEFT JOIN items hi          ON hi.id = pe.held_item_id
+			LEFT JOIN moves km          ON km.id = pe.known_move_id
+			LEFT JOIN pokemon_species ts ON ts.id = pe.trade_species_id
+			LEFT JOIN locations loc     ON loc.id = pe.location_id
+			ORDER BY pe.id
+			LIMIT ${take}`;
+	}
+
+	@Query(() => [Machine], {
+		description:
+			'TM/HM numbers for a version group. TM numbering only means anything within one game, so when versionGroup is omitted the most recent group that has machines is used and named on every row',
+	})
+	async machineList(@Args('versionGroup', { type: () => String, nullable: true }) versionGroup?: string): Promise<Machine[]> {
+		let versionGroupId: number | null = null;
+
+		if (versionGroup) {
+			const group = await this.prisma.versionGroups.findFirst({ where: { identifier: versionGroup }, select: { id: true } });
+			versionGroupId = group?.id ?? null;
+		} else {
+			// Fullest list rather than newest: the highest version_group_id is a DLC group with a
+			// handful of machines, which makes for a thin and unrepresentative TM set.
+			const [fullest] = await this.prisma.$queryRaw<{ version_group_id: number }[]>`
+				SELECT version_group_id
+				FROM machines
+				GROUP BY version_group_id
+				ORDER BY count(*) DESC, version_group_id DESC
+				LIMIT 1`;
+			versionGroupId = fullest?.version_group_id ?? null;
+		}
+
+		if (versionGroupId === null) return [];
+
+		return this.prisma.$queryRaw<Machine[]>`
+			SELECT m.machine_number AS number,
+			       mv.identifier    AS move,
+			       vg.identifier    AS "versionGroup"
+			FROM machines m
+			JOIN moves mv          ON mv.id = m.move_id
+			JOIN version_groups vg ON vg.id = m.version_group_id
+			WHERE m.version_group_id = ${versionGroupId}
+			ORDER BY m.machine_number`;
+	}
+
+	@Query(() => [GrowthRate], { description: 'The experience curves and the total experience each needs to reach level 100' })
+	async growthRateList(): Promise<GrowthRate[]> {
+		return this.prisma.$queryRaw<GrowthRate[]>`
+			SELECT g.identifier AS slug, e.experience AS "experienceToLevel100"
+			FROM growth_rates g
+			JOIN experience e ON e.growth_rate_id = g.id AND e.level = 100
+			ORDER BY e.experience`;
 	}
 
 	@Query(() => [NatureEffect], {

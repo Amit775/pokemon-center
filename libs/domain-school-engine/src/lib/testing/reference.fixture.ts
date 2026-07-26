@@ -1,4 +1,4 @@
-import type { MoveRef, NatureRef, ReferenceData } from '../types';
+import type { EvolutionRef, GrowthRateRef, MachineRef, MoveRef, NatureRef, ReferenceData } from '../types';
 
 /**
  * Shared test data. Excluded from the library build via tsconfig.lib.json — it exists to
@@ -105,6 +105,48 @@ export const NATURES: readonly NatureRef[] = [
 	{ slug: 'quirky', increased: 'special-defense', decreased: 'special-defense' },
 ];
 
+/** Real evolution data, chosen to cover every condition shape the describer handles. */
+export const EVOLUTIONS: readonly EvolutionRef[] = [
+	{ from: 'charmeleon', to: 'charizard', trigger: 'level-up', minLevel: 36, minHappiness: null, timeOfDay: null, triggerItem: null, heldItem: null, knownMove: null, tradeSpecies: null, location: null },
+	{ from: 'eevee', to: 'vaporeon', trigger: 'use-item', minLevel: null, minHappiness: null, timeOfDay: null, triggerItem: 'water-stone', heldItem: null, knownMove: null, tradeSpecies: null, location: null },
+	{ from: 'eevee', to: 'espeon', trigger: 'level-up', minLevel: null, minHappiness: 160, timeOfDay: 'day', triggerItem: null, heldItem: null, knownMove: null, tradeSpecies: null, location: null },
+	{ from: 'machoke', to: 'machamp', trigger: 'trade', minLevel: null, minHappiness: null, timeOfDay: null, triggerItem: null, heldItem: null, knownMove: null, tradeSpecies: null, location: null },
+	{ from: 'onix', to: 'steelix', trigger: 'trade', minLevel: null, minHappiness: null, timeOfDay: null, triggerItem: null, heldItem: 'metal-coat', knownMove: null, tradeSpecies: null, location: null },
+	{ from: 'golbat', to: 'crobat', trigger: 'level-up', minLevel: null, minHappiness: 160, timeOfDay: null, triggerItem: null, heldItem: null, knownMove: null, tradeSpecies: null, location: null },
+	{ from: 'nincada', to: 'shedinja', trigger: 'shed', minLevel: 20, minHappiness: null, timeOfDay: null, triggerItem: null, heldItem: null, knownMove: null, tradeSpecies: null, location: null },
+	{ from: 'sylveon', to: 'sylveon', trigger: 'level-up', minLevel: null, minHappiness: null, timeOfDay: null, triggerItem: null, heldItem: null, knownMove: 'baby-doll-eyes', tradeSpecies: null, location: null },
+	{ from: 'magneton', to: 'magnezone', trigger: 'level-up', minLevel: null, minHappiness: null, timeOfDay: null, triggerItem: null, heldItem: null, knownMove: null, tradeSpecies: null, location: 'mt-coronet' },
+	{ from: 'karrablast', to: 'escavalier', trigger: 'trade', minLevel: null, minHappiness: null, timeOfDay: null, triggerItem: null, heldItem: null, knownMove: null, tradeSpecies: 'shelmet', location: null },
+];
+
+export const MACHINES: readonly MachineRef[] = [
+	{ number: 1, move: 'focus-punch', versionGroup: 'firered-leafgreen' },
+	{ number: 24, move: 'thunderbolt', versionGroup: 'firered-leafgreen' },
+	{ number: 26, move: 'earthquake', versionGroup: 'firered-leafgreen' },
+	{ number: 35, move: 'flamethrower', versionGroup: 'firered-leafgreen' },
+	{ number: 13, move: 'ice-beam', versionGroup: 'firered-leafgreen' },
+	{ number: 6, move: 'toxic', versionGroup: 'firered-leafgreen' },
+	{ number: 45, move: 'attract', versionGroup: 'firered-leafgreen' },
+	{ number: 3, move: 'water-pulse', versionGroup: 'firered-leafgreen' },
+];
+
+/** The six curves and their real level-100 costs. */
+export const GROWTH_RATES: readonly GrowthRateRef[] = [
+	{ slug: 'slow-then-very-fast', experienceToLevel100: 600_000 },
+	{ slug: 'fast', experienceToLevel100: 800_000 },
+	{ slug: 'medium', experienceToLevel100: 1_000_000 },
+	{ slug: 'medium-slow', experienceToLevel100: 1_059_860 },
+	{ slug: 'slow', experienceToLevel100: 1_250_000 },
+	{ slug: 'fast-then-very-slow', experienceToLevel100: 1_640_000 },
+];
+
 export const moveReference: ReferenceData = { moves: MOVES };
+export const progressionReference: ReferenceData = { evolutions: EVOLUTIONS, machines: MACHINES, growthRates: GROWTH_RATES };
 export const natureReference: ReferenceData = { natures: NATURES };
-export const fullReference: ReferenceData = { moves: MOVES, natures: NATURES };
+export const fullReference: ReferenceData = {
+	moves: MOVES,
+	natures: NATURES,
+	evolutions: EVOLUTIONS,
+	machines: MACHINES,
+	growthRates: GROWTH_RATES,
+};

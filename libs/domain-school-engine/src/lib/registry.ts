@@ -2,6 +2,7 @@ import { findLesson, lessonKind, type Curriculum } from './curriculum';
 import { buildCoverageScenario, coverageModule } from './modules/coverage';
 import { damageGenerators, damageModule } from './modules/damage';
 import { MATCHUP_LESSON_ID, matchupModule } from './modules/matchup';
+import { progressionGenerators, progressionModule } from './modules/progression';
 import { statsGenerators, statsModule } from './modules/stats';
 import { statusGenerators, statusModule } from './modules/status';
 import { typeChartGenerators, typeChartModule } from './modules/type-chart';
@@ -13,10 +14,21 @@ import type { Scenario } from './scenario';
 import type { Exercise, ExerciseGenerator, GameContext, LessonId, ReferenceData, ReferenceKey } from './types';
 
 /** The whole curriculum. Further modules (M7 per docs/school-plan.md 4) are appended here. */
-export const curriculum: Curriculum = [typeChartModule, damageModule, statusModule, statsModule, matchupModule, coverageModule];
+export const curriculum: Curriculum = [
+	typeChartModule,
+	damageModule,
+	statusModule,
+	statsModule,
+	matchupModule,
+	coverageModule,
+	progressionModule,
+];
 
 const generators = new Map<string, ExerciseGenerator>(
-	[...typeChartGenerators, ...damageGenerators, ...statusGenerators, ...statsGenerators].map((generator) => [generator.id, generator]),
+	[...typeChartGenerators, ...damageGenerators, ...statusGenerators, ...statsGenerators, ...progressionGenerators].map((generator) => [
+		generator.id,
+		generator,
+	]),
 );
 
 /**
