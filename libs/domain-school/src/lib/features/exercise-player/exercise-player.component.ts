@@ -25,6 +25,7 @@ import { ButtonComponent } from '@pokemon-center/ui-pokedex';
 				cdkListbox
 				#listbox
 				[attr.aria-label]="exercise().prompt"
+				[cdkListboxValue]="selectedValues()"
 				[cdkListboxDisabled]="isAnswered()"
 				(cdkListboxValueChange)="selectFrom($event.value)"
 			>
@@ -228,6 +229,19 @@ export class ExercisePlayerComponent {
 	protected readonly revealedTier = linkedSignal<Exercise, number>({
 		source: this.exercise,
 		computation: () => 0,
+	});
+
+	/**
+	 * Drives the listbox's own selection, rather than letting it keep its own.
+	 *
+	 * Without this the listbox is uncontrolled: it remembers the previous question's selection,
+	 * and since candidate ids repeat between questions of a lesson ("x1", "x2", …) answering the
+	 * next question the *same way* is not a value change, so cdkListboxValueChange never fires
+	 * and the click appears to do nothing. Binding the value means a new exercise clears it.
+	 */
+	protected readonly selectedValues = computed<string[]>(() => {
+		const chosen = this.chosenId();
+		return chosen === null ? [] : [chosen];
 	});
 
 	protected readonly isAnswered = computed(() => this.chosenId() !== null);
