@@ -126,6 +126,31 @@ query ChampRoster($type: String, $search: String, $includeMegas: Boolean, $take:
 	champRosterCount(type: $type, search: $search, includeMegas: $includeMegas)
 }
 
+query ChampDex {
+	champDex {
+		id
+		slug
+		name
+		nationalDexNo
+		types
+		isMega
+		hasMega
+		megaOfSlug
+		abilitySlugs
+		abilityNames
+		learnsetIsApproximate
+		baseStats {
+			hp
+			attack
+			defense
+			specialAttack
+			specialDefense
+			speed
+			total
+		}
+	}
+}
+
 query ChampTypes {
 	champTypes {
 		id

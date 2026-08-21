@@ -98,6 +98,34 @@ export class ChampPokemonDetail extends ChampPokemonSummary {
 	@Field() learnsetIsApproximate!: boolean;
 }
 
+/**
+ * One roster row, carrying everything the Pokédex filters need.
+ *
+ * Deliberately fat compared with `ChampPokemonSummary`: the whole legal roster is fetched in
+ * a single call and every filter then runs in the browser. ~316 rows is nothing over the
+ * wire, and it buys instant, freely combinable filtering — which a round trip per keystroke
+ * could never do.
+ */
+@ObjectType()
+export class ChampDexEntry {
+	@Field(() => Int) id!: number;
+	@Field() slug!: string;
+	@Field() name!: string;
+	@Field(() => Int) nationalDexNo!: number;
+	@Field(() => [String]) types!: string[];
+	@Field(() => BaseStats) baseStats!: BaseStats;
+	@Field() isMega!: boolean;
+	/** Slug of the base form, when this row is a Mega. */
+	@Field(() => String, { nullable: true }) megaOfSlug!: string | null;
+	/** True when this base form has at least one Mega legal in the regulation. */
+	@Field() hasMega!: boolean;
+	/** Ability slugs, for the ability filter. */
+	@Field(() => [String]) abilitySlugs!: string[];
+	/** Ability display names, so the filter can offer readable options. */
+	@Field(() => [String]) abilityNames!: string[];
+	@Field() learnsetIsApproximate!: boolean;
+}
+
 @ObjectType()
 export class TypeEfficacyEntry {
 	@Field() attacking!: string;

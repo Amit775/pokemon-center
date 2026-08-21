@@ -54,6 +54,11 @@ export type ChampRosterQueryVariables = Exact<{
 
 export type ChampRosterQuery = { champRosterCount: number, champRoster: Array<{ id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
 
+export type ChampDexQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ChampDexQuery = { champDex: Array<{ id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, hasMega: boolean, megaOfSlug: string | null, abilitySlugs: Array<string>, abilityNames: Array<string>, learnsetIsApproximate: boolean, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
+
 export type ChampTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -295,6 +300,32 @@ export const ChampRosterDocument = new TypedDocumentString(`
     total
   }
 }`) as unknown as TypedDocumentString<ChampRosterQuery, ChampRosterQueryVariables>;
+export const ChampDexDocument = new TypedDocumentString(`
+    query ChampDex {
+  champDex {
+    id
+    slug
+    name
+    nationalDexNo
+    types
+    isMega
+    hasMega
+    megaOfSlug
+    abilitySlugs
+    abilityNames
+    learnsetIsApproximate
+    baseStats {
+      hp
+      attack
+      defense
+      specialAttack
+      specialDefense
+      speed
+      total
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ChampDexQuery, ChampDexQueryVariables>;
 export const ChampTypesDocument = new TypedDocumentString(`
     query ChampTypes {
   champTypes {

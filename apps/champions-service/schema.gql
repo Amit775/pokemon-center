@@ -20,6 +20,21 @@ type ChampAbility {
   slug: String!
 }
 
+type ChampDexEntry {
+  abilityNames: [String!]!
+  abilitySlugs: [String!]!
+  baseStats: BaseStats!
+  hasMega: Boolean!
+  id: Int!
+  isMega: Boolean!
+  learnsetIsApproximate: Boolean!
+  megaOfSlug: String
+  name: String!
+  nationalDexNo: Int!
+  slug: String!
+  types: [String!]!
+}
+
 type ChampMove {
   accuracy: Int
   damageClass: DamageClass!
@@ -91,6 +106,7 @@ type PokemonAbilitySlot {
 
 type Query {
   champChangedMoves: [ChampMove!]!
+  champDex(regulation: String): [ChampDexEntry!]!
   champRoster(includeMegas: Boolean = false, regulation: String, search: String, skip: Int = 0, take: Int = 60, type: String): [ChampPokemonSummary!]!
   champRosterCount(includeMegas: Boolean = false, regulation: String, search: String, type: String): Int!
   champSearch(query: String!, regulation: String, take: Int = 12): [ChampPokemonSummary!]!

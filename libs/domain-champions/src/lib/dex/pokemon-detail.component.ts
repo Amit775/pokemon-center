@@ -1,8 +1,17 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CHAMPIONS_LEVEL, SP_PER_STAT_CAP, statAt50 } from '@pokemon-center/champions-engine';
-import { ChampTeamDocument, champResource } from '@pokemon-center/data-access-champions';
-import { SectionHeadingComponent, StatBarComponent, TypeChipComponent, UiCardComponent, UiSkeletonComponent } from '@pokemon-center/ui-pokedex';
+import { CHAMPIONS_LEVEL, SP_PER_STAT_CAP, defensiveProfile, statAt50 } from '@pokemon-center/champions-engine';
+import { ChampTeamDocument, TypeChartDocument, champResource } from '@pokemon-center/data-access-champions';
+import {
+	EntityPortraitComponent,
+	SectionHeadingComponent,
+	StatBarComponent,
+	TypeChipComponent,
+	UiCardComponent,
+	UiSkeletonComponent,
+	spriteSources,
+} from '@pokemon-center/ui-pokedex';
+import { toTypeChart } from '../advisor/build-inference';
 
 /**
  * One Pokémon, as Champions has it.
@@ -15,21 +24,84 @@ import { SectionHeadingComponent, StatBarComponent, TypeChipComponent, UiCardCom
 @Component({
 	selector: 'champions-pokemon-detail',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [RouterLink, SectionHeadingComponent, StatBarComponent, TypeChipComponent, UiCardComponent, UiSkeletonComponent],
+	imports: [
+		EntityPortraitComponent,
+		RouterLink,
+		SectionHeadingComponent,
+		StatBarComponent,
+		TypeChipComponent,
+		UiCardComponent,
+		UiSkeletonComponent,
+	],
 	template: `
 		@if (query.isLoading()) {
 			<pkd-skeleton height="16rem" />
 		} @else if (mon(); as pokemon) {
+			<a routerLink="/champions/dex" class="back">← Pokédex</a>
+
 			<header class="masthead">
-				<a routerLink="/champions/dex" class="back">← Roster</a>
-				<h1>{{ pokemon.name }}</h1>
-				<div class="chips">
-					@for (t of pokemon.types; track t) {
-						<pkd-type-chip [type]="t" />
-					}
-					<span class="dex">#{{ pokemon.nationalDexNo }}</span>
+				<pkd-entity-portrait
+					[type]="pokemon.types[0]"
+					[src]="sprite().src"
+					[fallbackSrc]="sprite().fallbackSrc"
+					[alt]="pokemon.name"
+					[size]="112"
+				/>
+				<div>
+					<h1>{{ pokemon.name }}</h1>
+					<div class="chips">
+						@for (t of pokemon.types; track t) {
+							<pkd-type-chip [type]="t" />
+						}
+						<span class="dex">#{{ pokemon.nationalDexNo }}</span>
+					</div>
 				</div>
 			</header>
+
+			<!-- The defensive read, up front: what this thing folds to, and what it shrugs off. -->
+			<pkd-section-heading label="Defensively" />
+			<pkd-card>
+				<div class="panel">
+					<div class="matchups">
+						<div>
+							<h3>Weak to</h3>
+							<div class="chips">
+								@for (entry of profile().weaknesses; track entry.type) {
+									<span class="mult">
+										<pkd-type-chip [type]="entry.type" size="sm" />
+										<span class="x">{{ entry.multiplier }}×</span>
+									</span>
+								} @empty {
+									<span class="none">Nothing.</span>
+								}
+							</div>
+						</div>
+						<div>
+							<h3>Resists</h3>
+							<div class="chips">
+								@for (entry of profile().resistances; track entry.type) {
+									<span class="mult">
+										<pkd-type-chip [type]="entry.type" size="sm" />
+										<span class="x">{{ entry.multiplier }}×</span>
+									</span>
+								} @empty {
+									<span class="none">Nothing.</span>
+								}
+							</div>
+						</div>
+						@if (profile().immunities.length > 0) {
+							<div>
+								<h3>Immune to</h3>
+								<div class="chips">
+									@for (type of profile().immunities; track type) {
+										<pkd-type-chip [type]="type" size="sm" />
+									}
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</pkd-card>
 
 			<pkd-section-heading label="Stats at level {{ level }}" />
 			<pkd-card>
@@ -168,6 +240,44 @@ import { SectionHeadingComponent, StatBarComponent, TypeChipComponent, UiCardCom
 			color: var(--ink-muted);
 			text-decoration: none;
 			font-size: var(--fs-sm, 0.875rem);
+		}
+
+		.masthead {
+			display: flex;
+			align-items: center;
+			gap: var(--s-4, 1rem);
+			flex-wrap: wrap;
+		}
+
+		.matchups {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+			gap: var(--s-4, 1rem);
+		}
+
+		.matchups h3 {
+			margin: 0 0 var(--s-2, 0.5rem);
+			font-size: var(--fs-xs, 0.75rem);
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
+			color: var(--ink-muted);
+		}
+
+		.mult {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.2rem;
+		}
+
+		.mult .x {
+			font-size: var(--fs-xs, 0.75rem);
+			font-variant-numeric: tabular-nums;
+			color: var(--ink-muted);
+		}
+
+		.none {
+			font-size: var(--fs-sm, 0.875rem);
+			color: var(--ink-muted);
 		}
 
 		h1 {
@@ -323,6 +433,21 @@ export default class PokemonDetailComponent {
 
 	protected readonly query = champResource(ChampTeamDocument, () => ({ slugs: [this.slug()] }));
 	protected readonly mon = computed(() => this.query.value()?.champTeam[0] ?? null);
+
+	private readonly chartQuery = champResource(TypeChartDocument, () => ({}));
+
+	/** Artwork lives at the form id, so a Mega gets its own picture. */
+	protected readonly sprite = computed(() => spriteSources(this.mon()?.id ?? 0));
+
+	/** Weaknesses, resistances and immunities, sharpest first. */
+	protected readonly profile = computed(() => {
+		const types = this.mon()?.types ?? [];
+		const chart = toTypeChart(this.chartQuery.value()?.typeChart ?? []);
+		if (types.length === 0 || Object.keys(chart).length === 0) {
+			return { weaknesses: [], resistances: [], immunities: [] };
+		}
+		return defensiveProfile(types, chart);
+	});
 
 	protected readonly changedMoves = computed(() => this.mon()?.moves.filter((m) => m.isOverridden) ?? []);
 

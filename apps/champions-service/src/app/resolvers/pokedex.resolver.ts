@@ -2,6 +2,7 @@ import { Args, Int, Query, Resolver } from '@nestjs/graphql';
 import {
 	BaseStats,
 	ChampAbility,
+	ChampDexEntry,
 	ChampMove,
 	ChampPokemonDetail,
 	ChampPokemonSummary,
@@ -233,6 +234,49 @@ export class PokedexResolver {
 				...(search ? { name: { contains: search, mode: 'insensitive' } } : {}),
 				...(type ? { OR: [{ type1: { slug: type } }, { type2: { slug: type } }] } : {}),
 			},
+		});
+	}
+
+	/**
+	 * The entire legal roster in one call.
+	 *
+	 * This is the query the Pokédex is built on. Sending ~316 rows once and filtering in the
+	 * browser is what makes the filters instant and freely combinable; paginating it would
+	 * mean a round trip per keystroke and a much weaker product.
+	 */
+	@Query(() => [ChampDexEntry], { name: 'champDex' })
+	async champDex(@Args('regulation', { nullable: true }) regulation?: string): Promise<ChampDexEntry[]> {
+		const legal = await this.legalIds(regulation);
+		if (legal.length === 0) return [];
+
+		const rows = await this.prisma.champPokemon.findMany({
+			where: { id: { in: legal } },
+			select: {
+				...summarySelect,
+				learnset_is_approximate: true,
+				abilities: { select: { ability: { select: { slug: true, name: true } } }, orderBy: { slot: 'asc' } },
+				// Only Megas that are themselves legal count — a Mega filter must not promise a
+				// form the current regulation has removed.
+				megaForms: { where: { id: { in: legal } }, select: { id: true } },
+			},
+			orderBy: [{ national_dex_no: 'asc' }, { is_mega: 'asc' }],
+		});
+
+		return rows.map((row) => {
+			const typed = row as unknown as PokemonRow & {
+				learnset_is_approximate: boolean;
+				abilities: { ability: { slug: string; name: string } }[];
+				megaForms: { id: number }[];
+			};
+			const summary = toSummary(typed);
+
+			return {
+				...summary,
+				hasMega: typed.megaForms.length > 0,
+				abilitySlugs: typed.abilities.map((a) => a.ability.slug),
+				abilityNames: typed.abilities.map((a) => a.ability.name),
+				learnsetIsApproximate: typed.learnset_is_approximate,
+			};
 		});
 	}
 

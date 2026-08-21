@@ -1,85 +1,99 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ChampRosterDocument, ChampTypesDocument, champResource } from '@pokemon-center/data-access-champions';
-import { ChipToggleComponent, SectionHeadingComponent, TypeChipComponent, UiSkeletonComponent } from '@pokemon-center/ui-pokedex';
+import { PokemonCardComponent, UiSkeletonComponent, spriteSources } from '@pokemon-center/ui-pokedex';
+import { DexFiltersComponent } from './dex-filters.component';
+import { DexStore } from './dex.store';
+import type { DexEntry } from './dex-filter';
 
 /**
- * The Champions roster.
+ * The Champions Pokédex.
  *
- * Every row here is legal in the current regulation — that is the whole reason this dex
- * exists separately from the mainline one. Megas are hidden by default because a list that
- * interleaves Charizard with Mega Charizard X and Y reads as three Pokémon when it is one
- * line of thinking.
+ * Two things make it worth opening twice: the data is Champions' own rather than the main
+ * series', and the filters answer questions other dexes cannot — above all "what walls this
+ * threat?". Everything filters instantly because the whole roster is already in memory.
  */
 @Component({
 	selector: 'champions-roster',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [ChipToggleComponent, RouterLink, SectionHeadingComponent, TypeChipComponent, UiSkeletonComponent],
+	imports: [DexFiltersComponent, PokemonCardComponent, RouterLink, UiSkeletonComponent],
 	template: `
 		<header class="masthead">
-			<h1>Roster</h1>
-			<p class="tagline">
-				Everything legal right now — with Champions' own stats and typings, not the mainline's.
-			</p>
+			<div>
+				<h1>Pokédex</h1>
+				<p class="tagline">Champions' own stats, typings and Mega abilities — not the main series'.</p>
+			</div>
+			<a class="changes-link" routerLink="/champions/dex/changes">What Champions changed →</a>
 		</header>
 
-		<div class="controls">
-			<input
-				type="search"
-				class="search"
-				[value]="search()"
-				(input)="onSearch($event)"
-				placeholder="Search the roster…"
-				aria-label="Search the roster"
-			/>
-			<pkd-chip-toggle label="Show Megas" [active]="showMegas()" (toggled)="showMegas.update((v) => !v)" />
-		</div>
+		<div class="layout">
+			<aside class="filters" aria-label="Filters">
+				<champions-dex-filters />
+			</aside>
 
-		<div class="types">
-			<button type="button" class="type-filter" [class.active]="type() === null" (click)="type.set(null)">All</button>
-			@for (t of types(); track t.slug) {
-				<button
-					type="button"
-					class="type-filter"
-					[class.active]="type() === t.slug"
-					(click)="type.set(type() === t.slug ? null : t.slug)"
-				>
-					<pkd-type-chip [type]="t.slug" size="sm" />
-				</button>
-			}
-		</div>
+			<section class="results" aria-live="polite">
+				@if (store.isLoading()) {
+					<pkd-skeleton height="18rem" />
+				} @else if (store.error()) {
+					<p class="empty">
+						The Champions API is not answering on <code>:3001</code>. Start it with
+						<code>nx serve champions-service</code>.
+					</p>
+				} @else {
+					<p class="count">
+						<strong>{{ store.results().length }}</strong>
+						@if (store.results().length !== store.totalShowing()) {
+							of {{ store.totalShowing() }}
+						}
+						legal
+					</p>
 
-		@if (roster.isLoading()) {
-			<pkd-skeleton height="12rem" />
-		} @else {
-			<pkd-section-heading [label]="countLabel()" />
-
-			<ul class="grid">
-				@for (mon of entries(); track mon.slug) {
-					<li>
-						<a [routerLink]="['/champions/dex', mon.slug]">
-							<span class="dex">#{{ mon.nationalDexNo }}</span>
-							<span class="name">{{ mon.name }}</span>
-							<span class="chips">
-								@for (t of mon.types; track t) {
-									<pkd-type-chip [type]="t" size="sm" />
+					<ul class="grid">
+						@for (mon of store.results(); track mon.slug) {
+							<li>
+								<a [routerLink]="['/champions/dex', mon.slug]" [attr.aria-label]="mon.name">
+									<pkd-pokemon-card
+										[dexNumber]="mon.nationalDexNo"
+										[name]="mon.name"
+										[types]="mon.types"
+										[src]="sprite(mon).src"
+										[fallbackSrc]="sprite(mon).fallbackSrc"
+									/>
+									<span class="meta">
+										<span class="bst">{{ mon.baseStats.total }}</span>
+										@if (mon.hasMega && !mon.isMega) {
+											<span class="badge">Mega</span>
+										}
+									</span>
+								</a>
+							</li>
+						} @empty {
+							<li class="empty">
+								Nothing legal matches those filters.
+								@if (store.hasActiveFilters()) {
+									<button type="button" (click)="store.clear()">Clear them</button>
 								}
-							</span>
-							<span class="bst">{{ mon.baseStats.total }}</span>
-						</a>
-					</li>
-				} @empty {
-					<li class="none">Nothing legal matches those filters.</li>
+							</li>
+						}
+					</ul>
 				}
-			</ul>
-		}
+			</section>
+		</div>
 	`,
 	styles: `
 		:host {
 			display: block;
 			padding: var(--s-5, 1.5rem);
-			max-width: 68rem;
+			max-width: 78rem;
 			margin-inline: auto;
+		}
+
+		.masthead {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			gap: var(--s-4, 1rem);
+			flex-wrap: wrap;
+			margin-bottom: var(--s-4, 1rem);
 		}
 
 		h1 {
@@ -89,51 +103,54 @@ import { ChipToggleComponent, SectionHeadingComponent, TypeChipComponent, UiSkel
 		}
 
 		.tagline {
-			margin: var(--s-1, 0.25rem) 0 var(--s-4, 1rem);
+			margin: var(--s-1, 0.25rem) 0 0;
 			color: var(--ink-muted);
 		}
 
-		.controls {
-			display: flex;
-			gap: var(--s-3, 0.75rem);
-			align-items: center;
-			flex-wrap: wrap;
-			margin-bottom: var(--s-3, 0.75rem);
-		}
-
-		.search {
-			flex: 1 1 14rem;
-			font: inherit;
-			padding: 0.5rem 0.7rem;
-			border-radius: var(--r-md, 8px);
-			border: 1.5px solid var(--line);
-			background: var(--surface);
-			color: inherit;
-		}
-
-		.types {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 0.3rem;
-			margin-bottom: var(--s-2, 0.5rem);
-		}
-
-		.type-filter {
-			font: inherit;
+		.changes-link {
 			font-size: var(--fs-sm, 0.875rem);
-			cursor: pointer;
-			padding: 0.2rem 0.4rem;
-			border-radius: var(--r-sm, 4px);
-			border: 1.5px solid transparent;
-			background: transparent;
-			color: inherit;
-			opacity: 0.55;
+			color: var(--accent, #4f6df5);
+			text-decoration: none;
+			padding: 0.35rem 0.7rem;
+			border: 1.5px solid var(--line);
+			border-radius: var(--r-md, 8px);
+			white-space: nowrap;
 		}
 
-		.type-filter.active,
-		.type-filter:hover {
-			opacity: 1;
-			border-color: var(--line);
+		.changes-link:hover {
+			border-color: var(--accent, #4f6df5);
+		}
+
+		/* Sidebar on a desktop, stacked on a phone — the filters are worth the space. */
+		.layout {
+			display: grid;
+			grid-template-columns: minmax(0, 17rem) minmax(0, 1fr);
+			gap: var(--s-5, 1.5rem);
+			align-items: start;
+		}
+
+		@media (max-width: 52rem) {
+			.layout {
+				grid-template-columns: minmax(0, 1fr);
+			}
+		}
+
+		.filters {
+			position: sticky;
+			top: var(--s-3, 0.75rem);
+		}
+
+		@media (max-width: 52rem) {
+			.filters {
+				position: static;
+			}
+		}
+
+		.count {
+			margin: 0 0 var(--s-3, 0.75rem);
+			font-size: var(--fs-sm, 0.875rem);
+			color: var(--ink-muted);
+			font-variant-numeric: tabular-nums;
 		}
 
 		.grid {
@@ -141,84 +158,74 @@ import { ChipToggleComponent, SectionHeadingComponent, TypeChipComponent, UiSkel
 			margin: 0;
 			padding: 0;
 			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
-			gap: var(--s-2, 0.5rem);
+			grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+			gap: var(--s-3, 0.75rem);
 		}
 
 		.grid a {
-			display: grid;
-			grid-template-columns: auto 1fr auto;
-			grid-template-areas: 'dex name bst' 'dex chips chips';
-			align-items: center;
-			gap: 0.15rem var(--s-2, 0.5rem);
-			padding: var(--s-2, 0.5rem) var(--s-3, 0.75rem);
-			border: 1.5px solid var(--line);
-			border-radius: var(--r-md, 8px);
-			background: var(--surface);
+			display: block;
 			text-decoration: none;
 			color: inherit;
+			position: relative;
 		}
 
-		.grid a:hover {
-			border-color: var(--accent, #4f6df5);
-		}
-
-		.dex {
-			grid-area: dex;
-			font-variant-numeric: tabular-nums;
+		.meta {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 0.4rem;
+			margin-top: 0.3rem;
+			padding: 0 0.15rem;
 			font-size: var(--fs-xs, 0.75rem);
 			color: var(--ink-muted);
 		}
 
-		.name {
-			grid-area: name;
-			font-weight: 600;
-		}
-
-		.chips {
-			grid-area: chips;
-			display: flex;
-			gap: 0.2rem;
-		}
-
 		.bst {
-			grid-area: bst;
 			font-variant-numeric: tabular-nums;
-			color: var(--ink-muted);
-			font-size: var(--fs-sm, 0.875rem);
 		}
 
-		.none {
+		.badge {
+			border: 1px solid var(--accent, #4f6df5);
+			color: var(--accent, #4f6df5);
+			border-radius: var(--r-pill, 999px);
+			padding: 0 0.4rem;
+			font-size: 0.65rem;
+			text-transform: uppercase;
+			letter-spacing: 0.06em;
+		}
+
+		.empty {
 			color: var(--ink-muted);
+			grid-column: 1 / -1;
+			line-height: 1.6;
+		}
+
+		.empty button {
+			font: inherit;
+			font-size: var(--fs-sm, 0.875rem);
+			margin-left: 0.4rem;
+			cursor: pointer;
+			padding: 0.25rem 0.6rem;
+			border-radius: var(--r-md, 8px);
+			border: 1.5px solid var(--line);
+			background: var(--surface);
+			color: inherit;
+		}
+
+		code {
+			font-family: ui-monospace, monospace;
+			font-size: 0.9em;
+			background: var(--surface-sunken, rgba(128, 128, 128, 0.12));
+			padding: 0.1em 0.35em;
+			border-radius: var(--r-sm, 4px);
 		}
 	`,
 })
 export default class RosterComponent {
-	protected readonly search = signal('');
-	protected readonly type = signal<string | null>(null);
-	protected readonly showMegas = signal(false);
+	protected readonly store = inject(DexStore);
 
-	private readonly typesQuery = champResource(ChampTypesDocument, () => ({}));
-	protected readonly types = computed(() => this.typesQuery.value()?.champTypes ?? []);
-
-	protected readonly roster = champResource(ChampRosterDocument, () => ({
-		search: this.search() || null,
-		type: this.type(),
-		includeMegas: this.showMegas(),
-		take: 300,
-		skip: 0,
-	}));
-
-	protected readonly entries = computed(() => this.roster.value()?.champRoster ?? []);
-	protected readonly total = computed(() => this.roster.value()?.champRosterCount ?? 0);
-
-	protected readonly countLabel = computed(() => {
-		const shown = this.entries().length;
-		const total = this.total();
-		return shown === total ? `${total} legal` : `Showing ${shown} of ${total} legal`;
-	});
-
-	protected onSearch(event: Event): void {
-		this.search.set((event.target as HTMLInputElement).value);
+	/** Artwork lives at the form id, so Megas get their own picture rather than the base form's. */
+	protected sprite(mon: DexEntry) {
+		return spriteSources(mon.id);
 	}
 }
