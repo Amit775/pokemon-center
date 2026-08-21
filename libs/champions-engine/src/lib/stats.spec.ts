@@ -24,9 +24,17 @@ describe('statAt50', () => {
 		expect(statAt50(108, 'hp', 0, natures.jolly)).toBe(statAt50(108, 'hp', 0, natures.serious));
 	});
 
-	it('applies nature after the SP is added', () => {
-		// Jolly max-Speed Garchomp: floor((117 + 5 + 32) · 1.1) = floor(169.4) = 169.
+	it('multiplies by nature *after* adding SP, not before', () => {
+		// The confirmed ordering is (stat + SP) × nature.
+		// Jolly max-Speed Garchomp: floor((117 + 5 + 32) × 1.1) = floor(169.4) = 169.
 		expect(statAt50(102, 'speed', 32, natures.jolly)).toBe(169);
+
+		// The other ordering — nature first, then SP — would give floor(122 × 1.1) + 32 = 166.
+		// Three points apart is the difference between winning and losing a speed tie, which
+		// is why this is pinned rather than left to read naturally.
+		const natureBeforeSp = Math.floor(statAt50(102, 'speed', 0, natures.jolly)) + 32;
+		expect(natureBeforeSp).toBe(166);
+		expect(statAt50(102, 'speed', 32, natures.jolly)).not.toBe(natureBeforeSp);
 	});
 
 	it('conserves mainline power levels, which is why the formula is credible', () => {

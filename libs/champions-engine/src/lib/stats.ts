@@ -28,10 +28,10 @@ import {
  * 252 EVs yielded floor(252/4)/2 = +31.5, and the 66-point budget lines up with 510 EVs the
  * same way. A formula that quietly halved everyone's investment would not.
  *
- * The one genuinely uncertain detail is whether SP lands inside or outside the nature
- * multiplier. It is inside here, so a boosting nature scales the invested points too. That
- * choice is isolated in `statAt50` and is worth confirming against one real in-game number
- * before trusting a close speed tie.
+ * Ordering is **(stat + SP) × nature** — SP is added first and the nature multiplier applies
+ * to the total, so a boosting nature scales the invested points too. Confirmed by the project
+ * owner against the game; published write-ups phrase it ambiguously, which is why it is
+ * spelled out here rather than left to be re-derived.
  */
 
 /** Every Pokémon in Champions is treated as having a perfect IV in each stat. */
@@ -48,8 +48,10 @@ export function natureMultiplier(nature: Nature, stat: StatKey): number {
 /**
  * One stat at Champions' fixed level 50.
  *
- *   HP:    floor((2·Base + 31) · 50 / 100) + 50 + 10 + SP
+ *   HP:    floor((2·Base + 31) · 50 / 100) + 50 + 10 + SP        (nature never applies)
  *   other: floor((floor((2·Base + 31) · 50 / 100) + 5 + SP) · nature)
+ *
+ * Note the parenthesisation: SP goes inside, nature multiplies the sum.
  *
  * Shedinja is not a special case here — no Champions roster entry has 1 base HP — so the
  * usual "HP 1" exception is deliberately absent.
