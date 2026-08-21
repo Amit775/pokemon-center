@@ -15,6 +15,8 @@ export const domainChampionsRoutes: Route[] = [
 	// After `dex/changes`, so the literal segment wins over the parameter.
 	{ path: 'dex/:slug', loadComponent: () => import('./dex/pokemon-detail.component') },
 
+	{ path: 'box', loadComponent: () => import('./box/box.component') },
+
 	{ path: 'companion', loadComponent: () => import('./advisor/team-preview.component') },
 	{ path: 'companion/live', loadComponent: () => import('./battle/battle-tracker.component') },
 

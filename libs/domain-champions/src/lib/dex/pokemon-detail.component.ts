@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CHAMPIONS_LEVEL, SP_PER_STAT_CAP, defensiveProfile, statAt50 } from '@pokemon-center/champions-engine';
 import { ChampTeamDocument, TypeChartDocument, champResource } from '@pokemon-center/data-access-champions';
@@ -468,3 +468,4 @@ export default class PokemonDetailComponent {
 		).map((row) => ({ ...row, invested: statAt50(row.base, row.key, SP_PER_STAT_CAP) }));
 	});
 }
+

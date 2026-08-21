@@ -261,8 +261,8 @@ export type BattleSessionWhereInput = {
   result?: Prisma.EnumBattleResultFilter<"BattleSession"> | $Enums.BattleResult
   notes?: Prisma.StringNullableFilter<"BattleSession"> | string | null
   regulation?: Prisma.XOR<Prisma.RegulationScalarRelationFilter, Prisma.RegulationWhereInput>
-  myTeam?: Prisma.XOR<Prisma.ScoutedTeamNullableScalarRelationFilter, Prisma.ScoutedTeamWhereInput> | null
-  theirTeam?: Prisma.XOR<Prisma.ScoutedTeamNullableScalarRelationFilter, Prisma.ScoutedTeamWhereInput> | null
+  myTeam?: Prisma.XOR<Prisma.TeamNullableScalarRelationFilter, Prisma.TeamWhereInput> | null
+  theirTeam?: Prisma.XOR<Prisma.TeamNullableScalarRelationFilter, Prisma.TeamWhereInput> | null
   turns?: Prisma.BattleTurnListRelationFilter
 }
 
@@ -277,8 +277,8 @@ export type BattleSessionOrderByWithRelationInput = {
   result?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   regulation?: Prisma.RegulationOrderByWithRelationInput
-  myTeam?: Prisma.ScoutedTeamOrderByWithRelationInput
-  theirTeam?: Prisma.ScoutedTeamOrderByWithRelationInput
+  myTeam?: Prisma.TeamOrderByWithRelationInput
+  theirTeam?: Prisma.TeamOrderByWithRelationInput
   turns?: Prisma.BattleTurnOrderByRelationAggregateInput
 }
 
@@ -296,8 +296,8 @@ export type BattleSessionWhereUniqueInput = Prisma.AtLeast<{
   result?: Prisma.EnumBattleResultFilter<"BattleSession"> | $Enums.BattleResult
   notes?: Prisma.StringNullableFilter<"BattleSession"> | string | null
   regulation?: Prisma.XOR<Prisma.RegulationScalarRelationFilter, Prisma.RegulationWhereInput>
-  myTeam?: Prisma.XOR<Prisma.ScoutedTeamNullableScalarRelationFilter, Prisma.ScoutedTeamWhereInput> | null
-  theirTeam?: Prisma.XOR<Prisma.ScoutedTeamNullableScalarRelationFilter, Prisma.ScoutedTeamWhereInput> | null
+  myTeam?: Prisma.XOR<Prisma.TeamNullableScalarRelationFilter, Prisma.TeamWhereInput> | null
+  theirTeam?: Prisma.XOR<Prisma.TeamNullableScalarRelationFilter, Prisma.TeamWhereInput> | null
   turns?: Prisma.BattleTurnListRelationFilter
 }, "id">
 
@@ -340,8 +340,8 @@ export type BattleSessionCreateInput = {
   result?: $Enums.BattleResult
   notes?: string | null
   regulation: Prisma.RegulationCreateNestedOneWithoutSessionsInput
-  myTeam?: Prisma.ScoutedTeamCreateNestedOneWithoutSessionsAsMineInput
-  theirTeam?: Prisma.ScoutedTeamCreateNestedOneWithoutSessionsAsTheirsInput
+  myTeam?: Prisma.TeamCreateNestedOneWithoutSessionsAsMineInput
+  theirTeam?: Prisma.TeamCreateNestedOneWithoutSessionsAsTheirsInput
   turns?: Prisma.BattleTurnCreateNestedManyWithoutSessionInput
 }
 
@@ -365,8 +365,8 @@ export type BattleSessionUpdateInput = {
   result?: Prisma.EnumBattleResultFieldUpdateOperationsInput | $Enums.BattleResult
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   regulation?: Prisma.RegulationUpdateOneRequiredWithoutSessionsNestedInput
-  myTeam?: Prisma.ScoutedTeamUpdateOneWithoutSessionsAsMineNestedInput
-  theirTeam?: Prisma.ScoutedTeamUpdateOneWithoutSessionsAsTheirsNestedInput
+  myTeam?: Prisma.TeamUpdateOneWithoutSessionsAsMineNestedInput
+  theirTeam?: Prisma.TeamUpdateOneWithoutSessionsAsTheirsNestedInput
   turns?: Prisma.BattleTurnUpdateManyWithoutSessionNestedInput
 }
 
@@ -638,8 +638,8 @@ export type BattleSessionCreateWithoutRegulationInput = {
   ended_at?: Date | string | null
   result?: $Enums.BattleResult
   notes?: string | null
-  myTeam?: Prisma.ScoutedTeamCreateNestedOneWithoutSessionsAsMineInput
-  theirTeam?: Prisma.ScoutedTeamCreateNestedOneWithoutSessionsAsTheirsInput
+  myTeam?: Prisma.TeamCreateNestedOneWithoutSessionsAsMineInput
+  theirTeam?: Prisma.TeamCreateNestedOneWithoutSessionsAsTheirsInput
   turns?: Prisma.BattleTurnCreateNestedManyWithoutSessionInput
 }
 
@@ -703,7 +703,7 @@ export type BattleSessionCreateWithoutMyTeamInput = {
   result?: $Enums.BattleResult
   notes?: string | null
   regulation: Prisma.RegulationCreateNestedOneWithoutSessionsInput
-  theirTeam?: Prisma.ScoutedTeamCreateNestedOneWithoutSessionsAsTheirsInput
+  theirTeam?: Prisma.TeamCreateNestedOneWithoutSessionsAsTheirsInput
   turns?: Prisma.BattleTurnCreateNestedManyWithoutSessionInput
 }
 
@@ -736,7 +736,7 @@ export type BattleSessionCreateWithoutTheirTeamInput = {
   result?: $Enums.BattleResult
   notes?: string | null
   regulation: Prisma.RegulationCreateNestedOneWithoutSessionsInput
-  myTeam?: Prisma.ScoutedTeamCreateNestedOneWithoutSessionsAsMineInput
+  myTeam?: Prisma.TeamCreateNestedOneWithoutSessionsAsMineInput
   turns?: Prisma.BattleTurnCreateNestedManyWithoutSessionInput
 }
 
@@ -801,8 +801,8 @@ export type BattleSessionCreateWithoutTurnsInput = {
   result?: $Enums.BattleResult
   notes?: string | null
   regulation: Prisma.RegulationCreateNestedOneWithoutSessionsInput
-  myTeam?: Prisma.ScoutedTeamCreateNestedOneWithoutSessionsAsMineInput
-  theirTeam?: Prisma.ScoutedTeamCreateNestedOneWithoutSessionsAsTheirsInput
+  myTeam?: Prisma.TeamCreateNestedOneWithoutSessionsAsMineInput
+  theirTeam?: Prisma.TeamCreateNestedOneWithoutSessionsAsTheirsInput
 }
 
 export type BattleSessionUncheckedCreateWithoutTurnsInput = {
@@ -840,8 +840,8 @@ export type BattleSessionUpdateWithoutTurnsInput = {
   result?: Prisma.EnumBattleResultFieldUpdateOperationsInput | $Enums.BattleResult
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   regulation?: Prisma.RegulationUpdateOneRequiredWithoutSessionsNestedInput
-  myTeam?: Prisma.ScoutedTeamUpdateOneWithoutSessionsAsMineNestedInput
-  theirTeam?: Prisma.ScoutedTeamUpdateOneWithoutSessionsAsTheirsNestedInput
+  myTeam?: Prisma.TeamUpdateOneWithoutSessionsAsMineNestedInput
+  theirTeam?: Prisma.TeamUpdateOneWithoutSessionsAsTheirsNestedInput
 }
 
 export type BattleSessionUncheckedUpdateWithoutTurnsInput = {
@@ -873,8 +873,8 @@ export type BattleSessionUpdateWithoutRegulationInput = {
   ended_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   result?: Prisma.EnumBattleResultFieldUpdateOperationsInput | $Enums.BattleResult
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  myTeam?: Prisma.ScoutedTeamUpdateOneWithoutSessionsAsMineNestedInput
-  theirTeam?: Prisma.ScoutedTeamUpdateOneWithoutSessionsAsTheirsNestedInput
+  myTeam?: Prisma.TeamUpdateOneWithoutSessionsAsMineNestedInput
+  theirTeam?: Prisma.TeamUpdateOneWithoutSessionsAsTheirsNestedInput
   turns?: Prisma.BattleTurnUpdateManyWithoutSessionNestedInput
 }
 
@@ -930,7 +930,7 @@ export type BattleSessionUpdateWithoutMyTeamInput = {
   result?: Prisma.EnumBattleResultFieldUpdateOperationsInput | $Enums.BattleResult
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   regulation?: Prisma.RegulationUpdateOneRequiredWithoutSessionsNestedInput
-  theirTeam?: Prisma.ScoutedTeamUpdateOneWithoutSessionsAsTheirsNestedInput
+  theirTeam?: Prisma.TeamUpdateOneWithoutSessionsAsTheirsNestedInput
   turns?: Prisma.BattleTurnUpdateManyWithoutSessionNestedInput
 }
 
@@ -964,7 +964,7 @@ export type BattleSessionUpdateWithoutTheirTeamInput = {
   result?: Prisma.EnumBattleResultFieldUpdateOperationsInput | $Enums.BattleResult
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   regulation?: Prisma.RegulationUpdateOneRequiredWithoutSessionsNestedInput
-  myTeam?: Prisma.ScoutedTeamUpdateOneWithoutSessionsAsMineNestedInput
+  myTeam?: Prisma.TeamUpdateOneWithoutSessionsAsMineNestedInput
   turns?: Prisma.BattleTurnUpdateManyWithoutSessionNestedInput
 }
 
@@ -1104,8 +1104,8 @@ export type $BattleSessionPayload<ExtArgs extends runtime.Types.Extensions.Inter
   name: "BattleSession"
   objects: {
     regulation: Prisma.$RegulationPayload<ExtArgs>
-    myTeam: Prisma.$ScoutedTeamPayload<ExtArgs> | null
-    theirTeam: Prisma.$ScoutedTeamPayload<ExtArgs> | null
+    myTeam: Prisma.$TeamPayload<ExtArgs> | null
+    theirTeam: Prisma.$TeamPayload<ExtArgs> | null
     turns: Prisma.$BattleTurnPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1513,8 +1513,8 @@ readonly fields: BattleSessionFieldRefs;
 export interface Prisma__BattleSessionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   regulation<T extends Prisma.RegulationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RegulationDefaultArgs<ExtArgs>>): Prisma.Prisma__RegulationClient<runtime.Types.Result.GetResult<Prisma.$RegulationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  myTeam<T extends Prisma.BattleSession$myTeamArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BattleSession$myTeamArgs<ExtArgs>>): Prisma.Prisma__ScoutedTeamClient<runtime.Types.Result.GetResult<Prisma.$ScoutedTeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  theirTeam<T extends Prisma.BattleSession$theirTeamArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BattleSession$theirTeamArgs<ExtArgs>>): Prisma.Prisma__ScoutedTeamClient<runtime.Types.Result.GetResult<Prisma.$ScoutedTeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  myTeam<T extends Prisma.BattleSession$myTeamArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BattleSession$myTeamArgs<ExtArgs>>): Prisma.Prisma__TeamClient<runtime.Types.Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  theirTeam<T extends Prisma.BattleSession$theirTeamArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BattleSession$theirTeamArgs<ExtArgs>>): Prisma.Prisma__TeamClient<runtime.Types.Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   turns<T extends Prisma.BattleSession$turnsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BattleSession$turnsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BattleTurnPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1959,18 +1959,18 @@ export type BattleSessionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
  */
 export type BattleSession$myTeamArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ScoutedTeam
+   * Select specific fields to fetch from the Team
    */
-  select?: Prisma.ScoutedTeamSelect<ExtArgs> | null
+  select?: Prisma.TeamSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ScoutedTeam
+   * Omit specific fields from the Team
    */
-  omit?: Prisma.ScoutedTeamOmit<ExtArgs> | null
+  omit?: Prisma.TeamOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ScoutedTeamInclude<ExtArgs> | null
-  where?: Prisma.ScoutedTeamWhereInput
+  include?: Prisma.TeamInclude<ExtArgs> | null
+  where?: Prisma.TeamWhereInput
 }
 
 /**
@@ -1978,18 +1978,18 @@ export type BattleSession$myTeamArgs<ExtArgs extends runtime.Types.Extensions.In
  */
 export type BattleSession$theirTeamArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ScoutedTeam
+   * Select specific fields to fetch from the Team
    */
-  select?: Prisma.ScoutedTeamSelect<ExtArgs> | null
+  select?: Prisma.TeamSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ScoutedTeam
+   * Omit specific fields from the Team
    */
-  omit?: Prisma.ScoutedTeamOmit<ExtArgs> | null
+  omit?: Prisma.TeamOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ScoutedTeamInclude<ExtArgs> | null
-  where?: Prisma.ScoutedTeamWhereInput
+  include?: Prisma.TeamInclude<ExtArgs> | null
+  where?: Prisma.TeamWhereInput
 }
 
 /**

@@ -236,7 +236,7 @@ export type RegulationWhereInput = {
   notes?: Prisma.StringNullableFilter<"Regulation"> | string | null
   legality?: Prisma.RegulationLegalityListRelationFilter
   sessions?: Prisma.BattleSessionListRelationFilter
-  teams?: Prisma.ScoutedTeamListRelationFilter
+  teams?: Prisma.TeamListRelationFilter
 }
 
 export type RegulationOrderByWithRelationInput = {
@@ -249,7 +249,7 @@ export type RegulationOrderByWithRelationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   legality?: Prisma.RegulationLegalityOrderByRelationAggregateInput
   sessions?: Prisma.BattleSessionOrderByRelationAggregateInput
-  teams?: Prisma.ScoutedTeamOrderByRelationAggregateInput
+  teams?: Prisma.TeamOrderByRelationAggregateInput
 }
 
 export type RegulationWhereUniqueInput = Prisma.AtLeast<{
@@ -265,7 +265,7 @@ export type RegulationWhereUniqueInput = Prisma.AtLeast<{
   notes?: Prisma.StringNullableFilter<"Regulation"> | string | null
   legality?: Prisma.RegulationLegalityListRelationFilter
   sessions?: Prisma.BattleSessionListRelationFilter
-  teams?: Prisma.ScoutedTeamListRelationFilter
+  teams?: Prisma.TeamListRelationFilter
 }, "id" | "code">
 
 export type RegulationOrderByWithAggregationInput = {
@@ -305,7 +305,7 @@ export type RegulationCreateInput = {
   notes?: string | null
   legality?: Prisma.RegulationLegalityCreateNestedManyWithoutRegulationInput
   sessions?: Prisma.BattleSessionCreateNestedManyWithoutRegulationInput
-  teams?: Prisma.ScoutedTeamCreateNestedManyWithoutRegulationInput
+  teams?: Prisma.TeamCreateNestedManyWithoutRegulationInput
 }
 
 export type RegulationUncheckedCreateInput = {
@@ -318,7 +318,7 @@ export type RegulationUncheckedCreateInput = {
   notes?: string | null
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutRegulationInput
   sessions?: Prisma.BattleSessionUncheckedCreateNestedManyWithoutRegulationInput
-  teams?: Prisma.ScoutedTeamUncheckedCreateNestedManyWithoutRegulationInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutRegulationInput
 }
 
 export type RegulationUpdateInput = {
@@ -330,7 +330,7 @@ export type RegulationUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   legality?: Prisma.RegulationLegalityUpdateManyWithoutRegulationNestedInput
   sessions?: Prisma.BattleSessionUpdateManyWithoutRegulationNestedInput
-  teams?: Prisma.ScoutedTeamUpdateManyWithoutRegulationNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutRegulationNestedInput
 }
 
 export type RegulationUncheckedUpdateInput = {
@@ -343,7 +343,7 @@ export type RegulationUncheckedUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutRegulationNestedInput
   sessions?: Prisma.BattleSessionUncheckedUpdateManyWithoutRegulationNestedInput
-  teams?: Prisma.ScoutedTeamUncheckedUpdateManyWithoutRegulationNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutRegulationNestedInput
 }
 
 export type RegulationCreateManyInput = {
@@ -472,7 +472,7 @@ export type RegulationCreateWithoutLegalityInput = {
   is_current?: boolean
   notes?: string | null
   sessions?: Prisma.BattleSessionCreateNestedManyWithoutRegulationInput
-  teams?: Prisma.ScoutedTeamCreateNestedManyWithoutRegulationInput
+  teams?: Prisma.TeamCreateNestedManyWithoutRegulationInput
 }
 
 export type RegulationUncheckedCreateWithoutLegalityInput = {
@@ -484,7 +484,7 @@ export type RegulationUncheckedCreateWithoutLegalityInput = {
   is_current?: boolean
   notes?: string | null
   sessions?: Prisma.BattleSessionUncheckedCreateNestedManyWithoutRegulationInput
-  teams?: Prisma.ScoutedTeamUncheckedCreateNestedManyWithoutRegulationInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutRegulationInput
 }
 
 export type RegulationCreateOrConnectWithoutLegalityInput = {
@@ -511,7 +511,7 @@ export type RegulationUpdateWithoutLegalityInput = {
   is_current?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.BattleSessionUpdateManyWithoutRegulationNestedInput
-  teams?: Prisma.ScoutedTeamUpdateManyWithoutRegulationNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutRegulationNestedInput
 }
 
 export type RegulationUncheckedUpdateWithoutLegalityInput = {
@@ -523,7 +523,7 @@ export type RegulationUncheckedUpdateWithoutLegalityInput = {
   is_current?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.BattleSessionUncheckedUpdateManyWithoutRegulationNestedInput
-  teams?: Prisma.ScoutedTeamUncheckedUpdateManyWithoutRegulationNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutRegulationNestedInput
 }
 
 export type RegulationCreateWithoutTeamsInput = {
@@ -596,7 +596,7 @@ export type RegulationCreateWithoutSessionsInput = {
   is_current?: boolean
   notes?: string | null
   legality?: Prisma.RegulationLegalityCreateNestedManyWithoutRegulationInput
-  teams?: Prisma.ScoutedTeamCreateNestedManyWithoutRegulationInput
+  teams?: Prisma.TeamCreateNestedManyWithoutRegulationInput
 }
 
 export type RegulationUncheckedCreateWithoutSessionsInput = {
@@ -608,7 +608,7 @@ export type RegulationUncheckedCreateWithoutSessionsInput = {
   is_current?: boolean
   notes?: string | null
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutRegulationInput
-  teams?: Prisma.ScoutedTeamUncheckedCreateNestedManyWithoutRegulationInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutRegulationInput
 }
 
 export type RegulationCreateOrConnectWithoutSessionsInput = {
@@ -635,7 +635,7 @@ export type RegulationUpdateWithoutSessionsInput = {
   is_current?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   legality?: Prisma.RegulationLegalityUpdateManyWithoutRegulationNestedInput
-  teams?: Prisma.ScoutedTeamUpdateManyWithoutRegulationNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutRegulationNestedInput
 }
 
 export type RegulationUncheckedUpdateWithoutSessionsInput = {
@@ -647,7 +647,7 @@ export type RegulationUncheckedUpdateWithoutSessionsInput = {
   is_current?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutRegulationNestedInput
-  teams?: Prisma.ScoutedTeamUncheckedUpdateManyWithoutRegulationNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutRegulationNestedInput
 }
 
 
@@ -695,7 +695,7 @@ export type RegulationCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.T
  * RegulationCountOutputType without action
  */
 export type RegulationCountOutputTypeCountTeamsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ScoutedTeamWhereInput
+  where?: Prisma.TeamWhereInput
 }
 
 
@@ -758,7 +758,7 @@ export type $RegulationPayload<ExtArgs extends runtime.Types.Extensions.Internal
   objects: {
     legality: Prisma.$RegulationLegalityPayload<ExtArgs>[]
     sessions: Prisma.$BattleSessionPayload<ExtArgs>[]
-    teams: Prisma.$ScoutedTeamPayload<ExtArgs>[]
+    teams: Prisma.$TeamPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1167,7 +1167,7 @@ export interface Prisma__RegulationClient<T, Null = never, ExtArgs extends runti
   readonly [Symbol.toStringTag]: "PrismaPromise"
   legality<T extends Prisma.Regulation$legalityArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Regulation$legalityArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RegulationLegalityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.Regulation$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Regulation$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BattleSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  teams<T extends Prisma.Regulation$teamsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Regulation$teamsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScoutedTeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  teams<T extends Prisma.Regulation$teamsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Regulation$teamsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1649,23 +1649,23 @@ export type Regulation$sessionsArgs<ExtArgs extends runtime.Types.Extensions.Int
  */
 export type Regulation$teamsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ScoutedTeam
+   * Select specific fields to fetch from the Team
    */
-  select?: Prisma.ScoutedTeamSelect<ExtArgs> | null
+  select?: Prisma.TeamSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ScoutedTeam
+   * Omit specific fields from the Team
    */
-  omit?: Prisma.ScoutedTeamOmit<ExtArgs> | null
+  omit?: Prisma.TeamOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ScoutedTeamInclude<ExtArgs> | null
-  where?: Prisma.ScoutedTeamWhereInput
-  orderBy?: Prisma.ScoutedTeamOrderByWithRelationInput | Prisma.ScoutedTeamOrderByWithRelationInput[]
-  cursor?: Prisma.ScoutedTeamWhereUniqueInput
+  include?: Prisma.TeamInclude<ExtArgs> | null
+  where?: Prisma.TeamWhereInput
+  orderBy?: Prisma.TeamOrderByWithRelationInput | Prisma.TeamOrderByWithRelationInput[]
+  cursor?: Prisma.TeamWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.ScoutedTeamScalarFieldEnum | Prisma.ScoutedTeamScalarFieldEnum[]
+  distinct?: Prisma.TeamScalarFieldEnum | Prisma.TeamScalarFieldEnum[]
 }
 
 /**

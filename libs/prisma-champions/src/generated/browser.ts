@@ -76,15 +76,36 @@ export type KnownSet = Prisma.KnownSetModel
  */
 export type KnownSetMove = Prisma.KnownSetMoveModel
 /**
- * Model ScoutedTeam
- * An opponent's six, captured at team preview. Also used to store your own teams.
+ * Model BoxPokemon
+ * A Pokémon you actually own, with the choices you actually made.
+ * 
+ * This is what lets the Companion stop guessing about your own side. Before the Box existed
+ * it assumed maximum investment for both teams, which is the honest default for an opponent
+ * and nonsense for yourself — you know your own spread.
+ * 
+ * The SP fields are validated against the 66-total / 32-per-stat budget by `validateSpread`
+ * in champions-engine before anything is written.
  */
-export type ScoutedTeam = Prisma.ScoutedTeamModel
+export type BoxPokemon = Prisma.BoxPokemonModel
 /**
- * Model ScoutedTeamMember
+ * Model BoxPokemonMove
  * 
  */
-export type ScoutedTeamMember = Prisma.ScoutedTeamMemberModel
+export type BoxPokemonMove = Prisma.BoxPokemonMoveModel
+/**
+ * Model Team
+ * A team of six — yours, or an opponent's captured at preview.
+ * 
+ * One model covers both because the only real difference is where a member's details come
+ * from: your members point at a Box entry with a known spread, theirs point at a species
+ * plus an optional inferred `KnownSet`.
+ */
+export type Team = Prisma.TeamModel
+/**
+ * Model TeamMember
+ * 
+ */
+export type TeamMember = Prisma.TeamMemberModel
 /**
  * Model BattleSession
  * 

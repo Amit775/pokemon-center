@@ -79,6 +79,7 @@ model ChampAbility {
   pokemonAbilities ChampPokemonAbility[]
   megaOf           ChampPokemon[]        @relation("MegaAbility")
   knownSets        KnownSet[]
+  boxPokemon       BoxPokemon[]
 
   @@index([slug(ops: raw("gin_trgm_ops"))], type: Gin)
   @@map("champ_ability")
@@ -106,9 +107,10 @@ model ChampMove {
   /// Human-readable note describing what changed, shown next to the badge.
   override_note   String?
 
-  type      ChampType       @relation(fields: [type_id], references: [id])
+  type      ChampType        @relation(fields: [type_id], references: [id])
   learnedBy ChampLearnset[]
   inSets    KnownSetMove[]
+  inBoxSets BoxPokemonMove[]
 
   @@index([slug(ops: raw("gin_trgm_ops"))], type: Gin)
   @@map("champ_move")
@@ -152,8 +154,9 @@ model ChampPokemon {
   abilities  ChampPokemonAbility[]
   learnset   ChampLearnset[]
   legality   RegulationLegality[]
-  knownSets  KnownSet[]
-  scoutedIn  ScoutedTeamMember[]
+  knownSets   KnownSet[]
+  teamMembers TeamMember[]
+  boxEntries  BoxPokemon[]
 
   @@index([slug(ops: raw("gin_trgm_ops"))], type: Gin)
   @@index([is_mega])
@@ -203,7 +206,7 @@ model Regulation {
 
   legality RegulationLegality[]
   sessions BattleSession[]
-  teams    ScoutedTeam[]
+  teams    Team[]
 
   @@index([is_current])
   @@map("regulation")
@@ -249,7 +252,7 @@ model KnownSet {
   pokemon ChampPokemon   @relation(fields: [pokemon_id], references: [id], onDelete: Cascade)
   ability ChampAbility?  @relation(fields: [ability_id], references: [id])
   moves   KnownSetMove[]
-  members ScoutedTeamMember[]
+  members TeamMember[]
 
   @@index([pokemon_id, source])
   @@map("known_set")
@@ -268,39 +271,100 @@ model KnownSetMove {
 }
 
 // ===========================================
-// ADVISOR — mutable, user-owned
+// BOX AND TEAMS — mutable, user-owned
 // ===========================================
 
-/// An opponent's six, captured at team preview. Also used to store your own teams.
-model ScoutedTeam {
+/// A Pokémon you actually own, with the choices you actually made.
+///
+/// This is what lets the Companion stop guessing about your own side. Before the Box existed
+/// it assumed maximum investment for both teams, which is the honest default for an opponent
+/// and nonsense for yourself — you know your own spread.
+///
+/// The SP fields are validated against the 66-total / 32-per-stat budget by `validateSpread`
+/// in champions-engine before anything is written.
+model BoxPokemon {
+  id         Int     @id @default(autoincrement())
+  pokemon_id Int
+  /// Optional; falls back to the species name in the UI.
+  nickname   String?
+  /// Nature name as the games spell it, e.g. `Jolly`. Null means neutral.
+  nature     String?
+  ability_id Int?
+  /// Held item slug, e.g. `choice-scarf`.
+  item       String?
+
+  sp_hp              Int @default(0)
+  sp_attack          Int @default(0)
+  sp_defense         Int @default(0)
+  sp_special_attack  Int @default(0)
+  sp_special_defense Int @default(0)
+  sp_speed           Int @default(0)
+
+  notes      String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  pokemon     ChampPokemon     @relation(fields: [pokemon_id], references: [id])
+  ability     ChampAbility?    @relation(fields: [ability_id], references: [id])
+  moves       BoxPokemonMove[]
+  memberships TeamMember[]
+
+  @@index([pokemon_id])
+  @@map("box_pokemon")
+}
+
+model BoxPokemonMove {
+  box_pokemon_id Int
+  move_id        Int
+  slot           Int
+
+  boxPokemon BoxPokemon @relation(fields: [box_pokemon_id], references: [id], onDelete: Cascade)
+  move       ChampMove  @relation(fields: [move_id], references: [id])
+
+  @@id([box_pokemon_id, move_id])
+  @@map("box_pokemon_move")
+}
+
+/// A team of six — yours, or an opponent's captured at preview.
+///
+/// One model covers both because the only real difference is where a member's details come
+/// from: your members point at a Box entry with a known spread, theirs point at a species
+/// plus an optional inferred `KnownSet`.
+model Team {
   id            Int      @id @default(autoincrement())
   regulation_id Int
   label         String
   is_mine       Boolean  @default(false)
   notes         String?
   created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
 
-  regulation      Regulation      @relation(fields: [regulation_id], references: [id])
-  members         ScoutedTeamMember[]
-  sessionsAsMine  BattleSession[] @relation("MyTeam")
+  regulation       Regulation      @relation(fields: [regulation_id], references: [id])
+  members          TeamMember[]
+  sessionsAsMine   BattleSession[] @relation("MyTeam")
   sessionsAsTheirs BattleSession[] @relation("TheirTeam")
 
-  @@map("scouted_team")
+  @@index([is_mine])
+  @@map("team")
 }
 
-model ScoutedTeamMember {
-  id           Int  @id @default(autoincrement())
-  team_id      Int
-  pokemon_id   Int
-  slot         Int
-  known_set_id Int?
+model TeamMember {
+  id             Int  @id @default(autoincrement())
+  team_id        Int
+  pokemon_id     Int
+  slot           Int
+  /// Set on your own teams: the exact Pokémon from your Box.
+  box_pokemon_id Int?
+  /// Set when scouting: the set you believe the opponent is running.
+  known_set_id   Int?
 
-  team     ScoutedTeam  @relation(fields: [team_id], references: [id], onDelete: Cascade)
-  pokemon  ChampPokemon @relation(fields: [pokemon_id], references: [id])
-  knownSet KnownSet?    @relation(fields: [known_set_id], references: [id])
+  team       Team         @relation(fields: [team_id], references: [id], onDelete: Cascade)
+  pokemon    ChampPokemon @relation(fields: [pokemon_id], references: [id])
+  boxPokemon BoxPokemon?  @relation(fields: [box_pokemon_id], references: [id], onDelete: SetNull)
+  knownSet   KnownSet?    @relation(fields: [known_set_id], references: [id])
 
   @@unique([team_id, slot])
-  @@map("scouted_team_member")
+  @@map("team_member")
 }
 
 model BattleSession {
@@ -315,8 +379,8 @@ model BattleSession {
   notes         String?
 
   regulation Regulation   @relation(fields: [regulation_id], references: [id])
-  myTeam     ScoutedTeam? @relation("MyTeam", fields: [my_team_id], references: [id])
-  theirTeam  ScoutedTeam? @relation("TheirTeam", fields: [their_team_id], references: [id])
+  myTeam     Team?        @relation("MyTeam", fields: [my_team_id], references: [id])
+  theirTeam  Team?        @relation("TheirTeam", fields: [their_team_id], references: [id])
   turns      BattleTurn[]
 
   @@index([result, started_at])
@@ -368,3 +432,5 @@ enum BattleResult {
   DRAW
   ABANDONED
 }
+
+

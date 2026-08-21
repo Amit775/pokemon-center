@@ -365,7 +365,8 @@ export type ChampPokemonWhereInput = {
   learnset?: Prisma.ChampLearnsetListRelationFilter
   legality?: Prisma.RegulationLegalityListRelationFilter
   knownSets?: Prisma.KnownSetListRelationFilter
-  scoutedIn?: Prisma.ScoutedTeamMemberListRelationFilter
+  teamMembers?: Prisma.TeamMemberListRelationFilter
+  boxEntries?: Prisma.BoxPokemonListRelationFilter
 }
 
 export type ChampPokemonOrderByWithRelationInput = {
@@ -395,7 +396,8 @@ export type ChampPokemonOrderByWithRelationInput = {
   learnset?: Prisma.ChampLearnsetOrderByRelationAggregateInput
   legality?: Prisma.RegulationLegalityOrderByRelationAggregateInput
   knownSets?: Prisma.KnownSetOrderByRelationAggregateInput
-  scoutedIn?: Prisma.ScoutedTeamMemberOrderByRelationAggregateInput
+  teamMembers?: Prisma.TeamMemberOrderByRelationAggregateInput
+  boxEntries?: Prisma.BoxPokemonOrderByRelationAggregateInput
 }
 
 export type ChampPokemonWhereUniqueInput = Prisma.AtLeast<{
@@ -428,7 +430,8 @@ export type ChampPokemonWhereUniqueInput = Prisma.AtLeast<{
   learnset?: Prisma.ChampLearnsetListRelationFilter
   legality?: Prisma.RegulationLegalityListRelationFilter
   knownSets?: Prisma.KnownSetListRelationFilter
-  scoutedIn?: Prisma.ScoutedTeamMemberListRelationFilter
+  teamMembers?: Prisma.TeamMemberListRelationFilter
+  boxEntries?: Prisma.BoxPokemonListRelationFilter
 }, "id" | "slug">
 
 export type ChampPokemonOrderByWithAggregationInput = {
@@ -502,7 +505,8 @@ export type ChampPokemonCreateInput = {
   learnset?: Prisma.ChampLearnsetCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonUncheckedCreateInput = {
@@ -528,7 +532,8 @@ export type ChampPokemonUncheckedCreateInput = {
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetUncheckedCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonUncheckedCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonUpdateInput = {
@@ -554,7 +559,8 @@ export type ChampPokemonUpdateInput = {
   learnset?: Prisma.ChampLearnsetUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUncheckedUpdateInput = {
@@ -580,7 +586,8 @@ export type ChampPokemonUncheckedUpdateInput = {
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUncheckedUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUncheckedUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonCreateManyInput = {
@@ -989,18 +996,32 @@ export type ChampPokemonUpdateOneRequiredWithoutKnownSetsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ChampPokemonUpdateToOneWithWhereWithoutKnownSetsInput, Prisma.ChampPokemonUpdateWithoutKnownSetsInput>, Prisma.ChampPokemonUncheckedUpdateWithoutKnownSetsInput>
 }
 
-export type ChampPokemonCreateNestedOneWithoutScoutedInInput = {
-  create?: Prisma.XOR<Prisma.ChampPokemonCreateWithoutScoutedInInput, Prisma.ChampPokemonUncheckedCreateWithoutScoutedInInput>
-  connectOrCreate?: Prisma.ChampPokemonCreateOrConnectWithoutScoutedInInput
+export type ChampPokemonCreateNestedOneWithoutBoxEntriesInput = {
+  create?: Prisma.XOR<Prisma.ChampPokemonCreateWithoutBoxEntriesInput, Prisma.ChampPokemonUncheckedCreateWithoutBoxEntriesInput>
+  connectOrCreate?: Prisma.ChampPokemonCreateOrConnectWithoutBoxEntriesInput
   connect?: Prisma.ChampPokemonWhereUniqueInput
 }
 
-export type ChampPokemonUpdateOneRequiredWithoutScoutedInNestedInput = {
-  create?: Prisma.XOR<Prisma.ChampPokemonCreateWithoutScoutedInInput, Prisma.ChampPokemonUncheckedCreateWithoutScoutedInInput>
-  connectOrCreate?: Prisma.ChampPokemonCreateOrConnectWithoutScoutedInInput
-  upsert?: Prisma.ChampPokemonUpsertWithoutScoutedInInput
+export type ChampPokemonUpdateOneRequiredWithoutBoxEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.ChampPokemonCreateWithoutBoxEntriesInput, Prisma.ChampPokemonUncheckedCreateWithoutBoxEntriesInput>
+  connectOrCreate?: Prisma.ChampPokemonCreateOrConnectWithoutBoxEntriesInput
+  upsert?: Prisma.ChampPokemonUpsertWithoutBoxEntriesInput
   connect?: Prisma.ChampPokemonWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ChampPokemonUpdateToOneWithWhereWithoutScoutedInInput, Prisma.ChampPokemonUpdateWithoutScoutedInInput>, Prisma.ChampPokemonUncheckedUpdateWithoutScoutedInInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ChampPokemonUpdateToOneWithWhereWithoutBoxEntriesInput, Prisma.ChampPokemonUpdateWithoutBoxEntriesInput>, Prisma.ChampPokemonUncheckedUpdateWithoutBoxEntriesInput>
+}
+
+export type ChampPokemonCreateNestedOneWithoutTeamMembersInput = {
+  create?: Prisma.XOR<Prisma.ChampPokemonCreateWithoutTeamMembersInput, Prisma.ChampPokemonUncheckedCreateWithoutTeamMembersInput>
+  connectOrCreate?: Prisma.ChampPokemonCreateOrConnectWithoutTeamMembersInput
+  connect?: Prisma.ChampPokemonWhereUniqueInput
+}
+
+export type ChampPokemonUpdateOneRequiredWithoutTeamMembersNestedInput = {
+  create?: Prisma.XOR<Prisma.ChampPokemonCreateWithoutTeamMembersInput, Prisma.ChampPokemonUncheckedCreateWithoutTeamMembersInput>
+  connectOrCreate?: Prisma.ChampPokemonCreateOrConnectWithoutTeamMembersInput
+  upsert?: Prisma.ChampPokemonUpsertWithoutTeamMembersInput
+  connect?: Prisma.ChampPokemonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ChampPokemonUpdateToOneWithWhereWithoutTeamMembersInput, Prisma.ChampPokemonUpdateWithoutTeamMembersInput>, Prisma.ChampPokemonUncheckedUpdateWithoutTeamMembersInput>
 }
 
 export type ChampPokemonCreateWithoutType1Input = {
@@ -1025,7 +1046,8 @@ export type ChampPokemonCreateWithoutType1Input = {
   learnset?: Prisma.ChampLearnsetCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonUncheckedCreateWithoutType1Input = {
@@ -1050,7 +1072,8 @@ export type ChampPokemonUncheckedCreateWithoutType1Input = {
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetUncheckedCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonUncheckedCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonCreateOrConnectWithoutType1Input = {
@@ -1085,7 +1108,8 @@ export type ChampPokemonCreateWithoutType2Input = {
   learnset?: Prisma.ChampLearnsetCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonUncheckedCreateWithoutType2Input = {
@@ -1110,7 +1134,8 @@ export type ChampPokemonUncheckedCreateWithoutType2Input = {
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetUncheckedCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonUncheckedCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonCreateOrConnectWithoutType2Input = {
@@ -1200,7 +1225,8 @@ export type ChampPokemonCreateWithoutMegaAbilityInput = {
   learnset?: Prisma.ChampLearnsetCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonUncheckedCreateWithoutMegaAbilityInput = {
@@ -1225,7 +1251,8 @@ export type ChampPokemonUncheckedCreateWithoutMegaAbilityInput = {
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetUncheckedCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonUncheckedCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonCreateOrConnectWithoutMegaAbilityInput = {
@@ -1276,7 +1303,8 @@ export type ChampPokemonCreateWithoutMegaFormsInput = {
   learnset?: Prisma.ChampLearnsetCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonUncheckedCreateWithoutMegaFormsInput = {
@@ -1301,7 +1329,8 @@ export type ChampPokemonUncheckedCreateWithoutMegaFormsInput = {
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetUncheckedCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonUncheckedCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonCreateOrConnectWithoutMegaFormsInput = {
@@ -1331,7 +1360,8 @@ export type ChampPokemonCreateWithoutMegaOfInput = {
   learnset?: Prisma.ChampLearnsetCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonUncheckedCreateWithoutMegaOfInput = {
@@ -1356,7 +1386,8 @@ export type ChampPokemonUncheckedCreateWithoutMegaOfInput = {
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetUncheckedCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonUncheckedCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonCreateOrConnectWithoutMegaOfInput = {
@@ -1402,7 +1433,8 @@ export type ChampPokemonUpdateWithoutMegaFormsInput = {
   learnset?: Prisma.ChampLearnsetUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUncheckedUpdateWithoutMegaFormsInput = {
@@ -1427,7 +1459,8 @@ export type ChampPokemonUncheckedUpdateWithoutMegaFormsInput = {
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUncheckedUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUncheckedUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUpsertWithWhereUniqueWithoutMegaOfInput = {
@@ -1468,7 +1501,8 @@ export type ChampPokemonCreateWithoutAbilitiesInput = {
   learnset?: Prisma.ChampLearnsetCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonUncheckedCreateWithoutAbilitiesInput = {
@@ -1493,7 +1527,8 @@ export type ChampPokemonUncheckedCreateWithoutAbilitiesInput = {
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetUncheckedCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonUncheckedCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonCreateOrConnectWithoutAbilitiesInput = {
@@ -1534,7 +1569,8 @@ export type ChampPokemonUpdateWithoutAbilitiesInput = {
   learnset?: Prisma.ChampLearnsetUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUncheckedUpdateWithoutAbilitiesInput = {
@@ -1559,7 +1595,8 @@ export type ChampPokemonUncheckedUpdateWithoutAbilitiesInput = {
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUncheckedUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUncheckedUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonCreateWithoutLearnsetInput = {
@@ -1584,7 +1621,8 @@ export type ChampPokemonCreateWithoutLearnsetInput = {
   abilities?: Prisma.ChampPokemonAbilityCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonUncheckedCreateWithoutLearnsetInput = {
@@ -1609,7 +1647,8 @@ export type ChampPokemonUncheckedCreateWithoutLearnsetInput = {
   abilities?: Prisma.ChampPokemonAbilityUncheckedCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetUncheckedCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonUncheckedCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonCreateOrConnectWithoutLearnsetInput = {
@@ -1650,7 +1689,8 @@ export type ChampPokemonUpdateWithoutLearnsetInput = {
   abilities?: Prisma.ChampPokemonAbilityUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUncheckedUpdateWithoutLearnsetInput = {
@@ -1675,7 +1715,8 @@ export type ChampPokemonUncheckedUpdateWithoutLearnsetInput = {
   abilities?: Prisma.ChampPokemonAbilityUncheckedUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUncheckedUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUncheckedUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonCreateWithoutLegalityInput = {
@@ -1700,7 +1741,8 @@ export type ChampPokemonCreateWithoutLegalityInput = {
   abilities?: Prisma.ChampPokemonAbilityCreateNestedManyWithoutPokemonInput
   learnset?: Prisma.ChampLearnsetCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonUncheckedCreateWithoutLegalityInput = {
@@ -1725,7 +1767,8 @@ export type ChampPokemonUncheckedCreateWithoutLegalityInput = {
   abilities?: Prisma.ChampPokemonAbilityUncheckedCreateNestedManyWithoutPokemonInput
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetUncheckedCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonUncheckedCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonCreateOrConnectWithoutLegalityInput = {
@@ -1766,7 +1809,8 @@ export type ChampPokemonUpdateWithoutLegalityInput = {
   abilities?: Prisma.ChampPokemonAbilityUpdateManyWithoutPokemonNestedInput
   learnset?: Prisma.ChampLearnsetUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUncheckedUpdateWithoutLegalityInput = {
@@ -1791,7 +1835,8 @@ export type ChampPokemonUncheckedUpdateWithoutLegalityInput = {
   abilities?: Prisma.ChampPokemonAbilityUncheckedUpdateManyWithoutPokemonNestedInput
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUncheckedUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUncheckedUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonCreateWithoutKnownSetsInput = {
@@ -1816,7 +1861,8 @@ export type ChampPokemonCreateWithoutKnownSetsInput = {
   abilities?: Prisma.ChampPokemonAbilityCreateNestedManyWithoutPokemonInput
   learnset?: Prisma.ChampLearnsetCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonUncheckedCreateWithoutKnownSetsInput = {
@@ -1841,7 +1887,8 @@ export type ChampPokemonUncheckedCreateWithoutKnownSetsInput = {
   abilities?: Prisma.ChampPokemonAbilityUncheckedCreateNestedManyWithoutPokemonInput
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutPokemonInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonUncheckedCreateNestedManyWithoutPokemonInput
 }
 
 export type ChampPokemonCreateOrConnectWithoutKnownSetsInput = {
@@ -1882,7 +1929,8 @@ export type ChampPokemonUpdateWithoutKnownSetsInput = {
   abilities?: Prisma.ChampPokemonAbilityUpdateManyWithoutPokemonNestedInput
   learnset?: Prisma.ChampLearnsetUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUncheckedUpdateWithoutKnownSetsInput = {
@@ -1907,10 +1955,11 @@ export type ChampPokemonUncheckedUpdateWithoutKnownSetsInput = {
   abilities?: Prisma.ChampPokemonAbilityUncheckedUpdateManyWithoutPokemonNestedInput
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUncheckedUpdateManyWithoutPokemonNestedInput
 }
 
-export type ChampPokemonCreateWithoutScoutedInInput = {
+export type ChampPokemonCreateWithoutBoxEntriesInput = {
   id: number
   slug: string
   name: string
@@ -1933,9 +1982,10 @@ export type ChampPokemonCreateWithoutScoutedInInput = {
   learnset?: Prisma.ChampLearnsetCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberCreateNestedManyWithoutPokemonInput
 }
 
-export type ChampPokemonUncheckedCreateWithoutScoutedInInput = {
+export type ChampPokemonUncheckedCreateWithoutBoxEntriesInput = {
   id: number
   slug: string
   name: string
@@ -1958,25 +2008,26 @@ export type ChampPokemonUncheckedCreateWithoutScoutedInInput = {
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutPokemonInput
   knownSets?: Prisma.KnownSetUncheckedCreateNestedManyWithoutPokemonInput
+  teamMembers?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutPokemonInput
 }
 
-export type ChampPokemonCreateOrConnectWithoutScoutedInInput = {
+export type ChampPokemonCreateOrConnectWithoutBoxEntriesInput = {
   where: Prisma.ChampPokemonWhereUniqueInput
-  create: Prisma.XOR<Prisma.ChampPokemonCreateWithoutScoutedInInput, Prisma.ChampPokemonUncheckedCreateWithoutScoutedInInput>
+  create: Prisma.XOR<Prisma.ChampPokemonCreateWithoutBoxEntriesInput, Prisma.ChampPokemonUncheckedCreateWithoutBoxEntriesInput>
 }
 
-export type ChampPokemonUpsertWithoutScoutedInInput = {
-  update: Prisma.XOR<Prisma.ChampPokemonUpdateWithoutScoutedInInput, Prisma.ChampPokemonUncheckedUpdateWithoutScoutedInInput>
-  create: Prisma.XOR<Prisma.ChampPokemonCreateWithoutScoutedInInput, Prisma.ChampPokemonUncheckedCreateWithoutScoutedInInput>
+export type ChampPokemonUpsertWithoutBoxEntriesInput = {
+  update: Prisma.XOR<Prisma.ChampPokemonUpdateWithoutBoxEntriesInput, Prisma.ChampPokemonUncheckedUpdateWithoutBoxEntriesInput>
+  create: Prisma.XOR<Prisma.ChampPokemonCreateWithoutBoxEntriesInput, Prisma.ChampPokemonUncheckedCreateWithoutBoxEntriesInput>
   where?: Prisma.ChampPokemonWhereInput
 }
 
-export type ChampPokemonUpdateToOneWithWhereWithoutScoutedInInput = {
+export type ChampPokemonUpdateToOneWithWhereWithoutBoxEntriesInput = {
   where?: Prisma.ChampPokemonWhereInput
-  data: Prisma.XOR<Prisma.ChampPokemonUpdateWithoutScoutedInInput, Prisma.ChampPokemonUncheckedUpdateWithoutScoutedInInput>
+  data: Prisma.XOR<Prisma.ChampPokemonUpdateWithoutBoxEntriesInput, Prisma.ChampPokemonUncheckedUpdateWithoutBoxEntriesInput>
 }
 
-export type ChampPokemonUpdateWithoutScoutedInInput = {
+export type ChampPokemonUpdateWithoutBoxEntriesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1999,9 +2050,10 @@ export type ChampPokemonUpdateWithoutScoutedInInput = {
   learnset?: Prisma.ChampLearnsetUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutPokemonNestedInput
 }
 
-export type ChampPokemonUncheckedUpdateWithoutScoutedInInput = {
+export type ChampPokemonUncheckedUpdateWithoutBoxEntriesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2024,6 +2076,127 @@ export type ChampPokemonUncheckedUpdateWithoutScoutedInInput = {
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUncheckedUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+}
+
+export type ChampPokemonCreateWithoutTeamMembersInput = {
+  id: number
+  slug: string
+  name: string
+  national_dex_no: number
+  base_hp: number
+  base_attack: number
+  base_defense: number
+  base_special_attack: number
+  base_special_defense: number
+  base_speed: number
+  is_mega?: boolean
+  sprite_key?: string | null
+  learnset_is_approximate?: boolean
+  type1: Prisma.ChampTypeCreateNestedOneWithoutPokemonPrimaryInput
+  type2?: Prisma.ChampTypeCreateNestedOneWithoutPokemonSecondaryInput
+  megaOf?: Prisma.ChampPokemonCreateNestedOneWithoutMegaFormsInput
+  megaForms?: Prisma.ChampPokemonCreateNestedManyWithoutMegaOfInput
+  megaAbility?: Prisma.ChampAbilityCreateNestedOneWithoutMegaOfInput
+  abilities?: Prisma.ChampPokemonAbilityCreateNestedManyWithoutPokemonInput
+  learnset?: Prisma.ChampLearnsetCreateNestedManyWithoutPokemonInput
+  legality?: Prisma.RegulationLegalityCreateNestedManyWithoutPokemonInput
+  knownSets?: Prisma.KnownSetCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonCreateNestedManyWithoutPokemonInput
+}
+
+export type ChampPokemonUncheckedCreateWithoutTeamMembersInput = {
+  id: number
+  slug: string
+  name: string
+  national_dex_no: number
+  type1_id: number
+  type2_id?: number | null
+  base_hp: number
+  base_attack: number
+  base_defense: number
+  base_special_attack: number
+  base_special_defense: number
+  base_speed: number
+  is_mega?: boolean
+  mega_of_id?: number | null
+  mega_ability_id?: number | null
+  sprite_key?: string | null
+  learnset_is_approximate?: boolean
+  megaForms?: Prisma.ChampPokemonUncheckedCreateNestedManyWithoutMegaOfInput
+  abilities?: Prisma.ChampPokemonAbilityUncheckedCreateNestedManyWithoutPokemonInput
+  learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
+  legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutPokemonInput
+  knownSets?: Prisma.KnownSetUncheckedCreateNestedManyWithoutPokemonInput
+  boxEntries?: Prisma.BoxPokemonUncheckedCreateNestedManyWithoutPokemonInput
+}
+
+export type ChampPokemonCreateOrConnectWithoutTeamMembersInput = {
+  where: Prisma.ChampPokemonWhereUniqueInput
+  create: Prisma.XOR<Prisma.ChampPokemonCreateWithoutTeamMembersInput, Prisma.ChampPokemonUncheckedCreateWithoutTeamMembersInput>
+}
+
+export type ChampPokemonUpsertWithoutTeamMembersInput = {
+  update: Prisma.XOR<Prisma.ChampPokemonUpdateWithoutTeamMembersInput, Prisma.ChampPokemonUncheckedUpdateWithoutTeamMembersInput>
+  create: Prisma.XOR<Prisma.ChampPokemonCreateWithoutTeamMembersInput, Prisma.ChampPokemonUncheckedCreateWithoutTeamMembersInput>
+  where?: Prisma.ChampPokemonWhereInput
+}
+
+export type ChampPokemonUpdateToOneWithWhereWithoutTeamMembersInput = {
+  where?: Prisma.ChampPokemonWhereInput
+  data: Prisma.XOR<Prisma.ChampPokemonUpdateWithoutTeamMembersInput, Prisma.ChampPokemonUncheckedUpdateWithoutTeamMembersInput>
+}
+
+export type ChampPokemonUpdateWithoutTeamMembersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  national_dex_no?: Prisma.IntFieldUpdateOperationsInput | number
+  base_hp?: Prisma.IntFieldUpdateOperationsInput | number
+  base_attack?: Prisma.IntFieldUpdateOperationsInput | number
+  base_defense?: Prisma.IntFieldUpdateOperationsInput | number
+  base_special_attack?: Prisma.IntFieldUpdateOperationsInput | number
+  base_special_defense?: Prisma.IntFieldUpdateOperationsInput | number
+  base_speed?: Prisma.IntFieldUpdateOperationsInput | number
+  is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  type1?: Prisma.ChampTypeUpdateOneRequiredWithoutPokemonPrimaryNestedInput
+  type2?: Prisma.ChampTypeUpdateOneWithoutPokemonSecondaryNestedInput
+  megaOf?: Prisma.ChampPokemonUpdateOneWithoutMegaFormsNestedInput
+  megaForms?: Prisma.ChampPokemonUpdateManyWithoutMegaOfNestedInput
+  megaAbility?: Prisma.ChampAbilityUpdateOneWithoutMegaOfNestedInput
+  abilities?: Prisma.ChampPokemonAbilityUpdateManyWithoutPokemonNestedInput
+  learnset?: Prisma.ChampLearnsetUpdateManyWithoutPokemonNestedInput
+  legality?: Prisma.RegulationLegalityUpdateManyWithoutPokemonNestedInput
+  knownSets?: Prisma.KnownSetUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUpdateManyWithoutPokemonNestedInput
+}
+
+export type ChampPokemonUncheckedUpdateWithoutTeamMembersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  national_dex_no?: Prisma.IntFieldUpdateOperationsInput | number
+  type1_id?: Prisma.IntFieldUpdateOperationsInput | number
+  type2_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  base_hp?: Prisma.IntFieldUpdateOperationsInput | number
+  base_attack?: Prisma.IntFieldUpdateOperationsInput | number
+  base_defense?: Prisma.IntFieldUpdateOperationsInput | number
+  base_special_attack?: Prisma.IntFieldUpdateOperationsInput | number
+  base_special_defense?: Prisma.IntFieldUpdateOperationsInput | number
+  base_speed?: Prisma.IntFieldUpdateOperationsInput | number
+  is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  megaForms?: Prisma.ChampPokemonUncheckedUpdateManyWithoutMegaOfNestedInput
+  abilities?: Prisma.ChampPokemonAbilityUncheckedUpdateManyWithoutPokemonNestedInput
+  learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
+  legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutPokemonNestedInput
+  knownSets?: Prisma.KnownSetUncheckedUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUncheckedUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonCreateManyType1Input = {
@@ -2086,7 +2259,8 @@ export type ChampPokemonUpdateWithoutType1Input = {
   learnset?: Prisma.ChampLearnsetUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUncheckedUpdateWithoutType1Input = {
@@ -2111,7 +2285,8 @@ export type ChampPokemonUncheckedUpdateWithoutType1Input = {
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUncheckedUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUncheckedUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUncheckedUpdateManyWithoutType1Input = {
@@ -2155,7 +2330,8 @@ export type ChampPokemonUpdateWithoutType2Input = {
   learnset?: Prisma.ChampLearnsetUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUncheckedUpdateWithoutType2Input = {
@@ -2180,7 +2356,8 @@ export type ChampPokemonUncheckedUpdateWithoutType2Input = {
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUncheckedUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUncheckedUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUncheckedUpdateManyWithoutType2Input = {
@@ -2243,7 +2420,8 @@ export type ChampPokemonUpdateWithoutMegaAbilityInput = {
   learnset?: Prisma.ChampLearnsetUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUncheckedUpdateWithoutMegaAbilityInput = {
@@ -2268,7 +2446,8 @@ export type ChampPokemonUncheckedUpdateWithoutMegaAbilityInput = {
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUncheckedUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUncheckedUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUncheckedUpdateManyWithoutMegaAbilityInput = {
@@ -2331,7 +2510,8 @@ export type ChampPokemonUpdateWithoutMegaOfInput = {
   learnset?: Prisma.ChampLearnsetUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUncheckedUpdateWithoutMegaOfInput = {
@@ -2356,7 +2536,8 @@ export type ChampPokemonUncheckedUpdateWithoutMegaOfInput = {
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutPokemonNestedInput
   knownSets?: Prisma.KnownSetUncheckedUpdateManyWithoutPokemonNestedInput
-  scoutedIn?: Prisma.ScoutedTeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  teamMembers?: Prisma.TeamMemberUncheckedUpdateManyWithoutPokemonNestedInput
+  boxEntries?: Prisma.BoxPokemonUncheckedUpdateManyWithoutPokemonNestedInput
 }
 
 export type ChampPokemonUncheckedUpdateManyWithoutMegaOfInput = {
@@ -2389,7 +2570,8 @@ export type ChampPokemonCountOutputType = {
   learnset: number
   legality: number
   knownSets: number
-  scoutedIn: number
+  teamMembers: number
+  boxEntries: number
 }
 
 export type ChampPokemonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2398,7 +2580,8 @@ export type ChampPokemonCountOutputTypeSelect<ExtArgs extends runtime.Types.Exte
   learnset?: boolean | ChampPokemonCountOutputTypeCountLearnsetArgs
   legality?: boolean | ChampPokemonCountOutputTypeCountLegalityArgs
   knownSets?: boolean | ChampPokemonCountOutputTypeCountKnownSetsArgs
-  scoutedIn?: boolean | ChampPokemonCountOutputTypeCountScoutedInArgs
+  teamMembers?: boolean | ChampPokemonCountOutputTypeCountTeamMembersArgs
+  boxEntries?: boolean | ChampPokemonCountOutputTypeCountBoxEntriesArgs
 }
 
 /**
@@ -2449,8 +2632,15 @@ export type ChampPokemonCountOutputTypeCountKnownSetsArgs<ExtArgs extends runtim
 /**
  * ChampPokemonCountOutputType without action
  */
-export type ChampPokemonCountOutputTypeCountScoutedInArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ScoutedTeamMemberWhereInput
+export type ChampPokemonCountOutputTypeCountTeamMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TeamMemberWhereInput
+}
+
+/**
+ * ChampPokemonCountOutputType without action
+ */
+export type ChampPokemonCountOutputTypeCountBoxEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BoxPokemonWhereInput
 }
 
 
@@ -2481,7 +2671,8 @@ export type ChampPokemonSelect<ExtArgs extends runtime.Types.Extensions.Internal
   learnset?: boolean | Prisma.ChampPokemon$learnsetArgs<ExtArgs>
   legality?: boolean | Prisma.ChampPokemon$legalityArgs<ExtArgs>
   knownSets?: boolean | Prisma.ChampPokemon$knownSetsArgs<ExtArgs>
-  scoutedIn?: boolean | Prisma.ChampPokemon$scoutedInArgs<ExtArgs>
+  teamMembers?: boolean | Prisma.ChampPokemon$teamMembersArgs<ExtArgs>
+  boxEntries?: boolean | Prisma.ChampPokemon$boxEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.ChampPokemonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["champPokemon"]>
 
@@ -2564,7 +2755,8 @@ export type ChampPokemonInclude<ExtArgs extends runtime.Types.Extensions.Interna
   learnset?: boolean | Prisma.ChampPokemon$learnsetArgs<ExtArgs>
   legality?: boolean | Prisma.ChampPokemon$legalityArgs<ExtArgs>
   knownSets?: boolean | Prisma.ChampPokemon$knownSetsArgs<ExtArgs>
-  scoutedIn?: boolean | Prisma.ChampPokemon$scoutedInArgs<ExtArgs>
+  teamMembers?: boolean | Prisma.ChampPokemon$teamMembersArgs<ExtArgs>
+  boxEntries?: boolean | Prisma.ChampPokemon$boxEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.ChampPokemonCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ChampPokemonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2592,7 +2784,8 @@ export type $ChampPokemonPayload<ExtArgs extends runtime.Types.Extensions.Intern
     learnset: Prisma.$ChampLearnsetPayload<ExtArgs>[]
     legality: Prisma.$RegulationLegalityPayload<ExtArgs>[]
     knownSets: Prisma.$KnownSetPayload<ExtArgs>[]
-    scoutedIn: Prisma.$ScoutedTeamMemberPayload<ExtArgs>[]
+    teamMembers: Prisma.$TeamMemberPayload<ExtArgs>[]
+    boxEntries: Prisma.$BoxPokemonPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -3032,7 +3225,8 @@ export interface Prisma__ChampPokemonClient<T, Null = never, ExtArgs extends run
   learnset<T extends Prisma.ChampPokemon$learnsetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampPokemon$learnsetArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChampLearnsetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   legality<T extends Prisma.ChampPokemon$legalityArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampPokemon$legalityArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RegulationLegalityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   knownSets<T extends Prisma.ChampPokemon$knownSetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampPokemon$knownSetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnownSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  scoutedIn<T extends Prisma.ChampPokemon$scoutedInArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampPokemon$scoutedInArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScoutedTeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  teamMembers<T extends Prisma.ChampPokemon$teamMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampPokemon$teamMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  boxEntries<T extends Prisma.ChampPokemon$boxEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampPokemon$boxEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BoxPokemonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3657,27 +3851,51 @@ export type ChampPokemon$knownSetsArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
- * ChampPokemon.scoutedIn
+ * ChampPokemon.teamMembers
  */
-export type ChampPokemon$scoutedInArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ChampPokemon$teamMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ScoutedTeamMember
+   * Select specific fields to fetch from the TeamMember
    */
-  select?: Prisma.ScoutedTeamMemberSelect<ExtArgs> | null
+  select?: Prisma.TeamMemberSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ScoutedTeamMember
+   * Omit specific fields from the TeamMember
    */
-  omit?: Prisma.ScoutedTeamMemberOmit<ExtArgs> | null
+  omit?: Prisma.TeamMemberOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ScoutedTeamMemberInclude<ExtArgs> | null
-  where?: Prisma.ScoutedTeamMemberWhereInput
-  orderBy?: Prisma.ScoutedTeamMemberOrderByWithRelationInput | Prisma.ScoutedTeamMemberOrderByWithRelationInput[]
-  cursor?: Prisma.ScoutedTeamMemberWhereUniqueInput
+  include?: Prisma.TeamMemberInclude<ExtArgs> | null
+  where?: Prisma.TeamMemberWhereInput
+  orderBy?: Prisma.TeamMemberOrderByWithRelationInput | Prisma.TeamMemberOrderByWithRelationInput[]
+  cursor?: Prisma.TeamMemberWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.ScoutedTeamMemberScalarFieldEnum | Prisma.ScoutedTeamMemberScalarFieldEnum[]
+  distinct?: Prisma.TeamMemberScalarFieldEnum | Prisma.TeamMemberScalarFieldEnum[]
+}
+
+/**
+ * ChampPokemon.boxEntries
+ */
+export type ChampPokemon$boxEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BoxPokemon
+   */
+  select?: Prisma.BoxPokemonSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BoxPokemon
+   */
+  omit?: Prisma.BoxPokemonOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BoxPokemonInclude<ExtArgs> | null
+  where?: Prisma.BoxPokemonWhereInput
+  orderBy?: Prisma.BoxPokemonOrderByWithRelationInput | Prisma.BoxPokemonOrderByWithRelationInput[]
+  cursor?: Prisma.BoxPokemonWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BoxPokemonScalarFieldEnum | Prisma.BoxPokemonScalarFieldEnum[]
 }
 
 /**

@@ -12,6 +12,30 @@ type BaseStats {
   total: Int!
 }
 
+type BoxPokemon {
+  ability: ChampAbility
+  id: Int!
+  item: String
+  moves: [ChampMove!]!
+  nature: String
+  nickname: String
+  notes: String
+  pokemon: ChampPokemonSummary!
+  statPoints: StatPointSpread!
+}
+
+input BoxPokemonInput {
+  abilityId: Int
+  id: Int
+  item: String
+  moveIds: [Int!]! = []
+  nature: String
+  nickname: String
+  notes: String
+  pokemonId: Int!
+  statPoints: StatPointSpreadInput!
+}
+
 type ChampAbility {
   effectText: String
   id: Int!
@@ -98,6 +122,13 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Mutation {
+  deleteBoxPokemon(id: Int!): Boolean!
+  deleteTeam(id: Int!): Boolean!
+  saveBoxPokemon(input: BoxPokemonInput!): BoxPokemon!
+  saveTeam(input: TeamInput!): Team!
+}
+
 type PokemonAbilitySlot {
   ability: ChampAbility!
   isHidden: Boolean!
@@ -105,6 +136,7 @@ type PokemonAbilitySlot {
 }
 
 type Query {
+  box: [BoxPokemon!]!
   champChangedMoves: [ChampMove!]!
   champDex(regulation: String): [ChampDexEntry!]!
   champRoster(includeMegas: Boolean = false, regulation: String, search: String, skip: Int = 0, take: Int = 60, type: String): [ChampPokemonSummary!]!
@@ -115,6 +147,7 @@ type Query {
   currentRegulation: Regulation
   regulation(code: String!): Regulation
   regulations: [Regulation!]!
+  teams(isMine: Boolean = true): [Team!]!
   typeChart: [TypeEfficacyEntry!]!
 }
 
@@ -127,6 +160,53 @@ type Regulation {
   name: String!
   notes: String
   startsOn: DateTime!
+}
+
+type StatPointSpread {
+  attack: Int!
+  defense: Int!
+  hp: Int!
+  specialAttack: Int!
+  specialDefense: Int!
+  speed: Int!
+  total: Int!
+}
+
+input StatPointSpreadInput {
+  attack: Int! = 0
+  defense: Int! = 0
+  hp: Int! = 0
+  specialAttack: Int! = 0
+  specialDefense: Int! = 0
+  speed: Int! = 0
+}
+
+type Team {
+  id: Int!
+  isMine: Boolean!
+  label: String!
+  members: [TeamMember!]!
+  notes: String
+}
+
+input TeamInput {
+  id: Int
+  isMine: Boolean! = true
+  label: String!
+  members: [TeamMemberInput!]! = []
+  notes: String
+}
+
+type TeamMember {
+  boxPokemon: BoxPokemon
+  pokemon: ChampPokemonSummary!
+  slot: Int!
+}
+
+input TeamMemberInput {
+  boxPokemonId: Int
+  pokemonId: Int!
+  slot: Int!
 }
 
 type TypeEfficacyEntry {

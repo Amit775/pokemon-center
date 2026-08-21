@@ -79,6 +79,7 @@ query ChampTeam($slugs: [String!]!) {
 			slot
 			isHidden
 			ability {
+				id
 				slug
 				name
 				effectText
@@ -86,6 +87,7 @@ query ChampTeam($slugs: [String!]!) {
 			}
 		}
 		megaAbility {
+			id
 			slug
 			name
 			effectText
@@ -149,6 +151,89 @@ query ChampDex {
 			total
 		}
 	}
+}
+
+fragment BoxEntry on BoxPokemon {
+	id
+	nickname
+	nature
+	item
+	notes
+	pokemon {
+		...PokemonSummary
+	}
+	ability {
+		slug
+		name
+	}
+	statPoints {
+		hp
+		attack
+		defense
+		specialAttack
+		specialDefense
+		speed
+		total
+	}
+	moves {
+		id
+		slug
+		name
+		type
+		damageClass
+		power
+		pp
+		accuracy
+		priority
+		flags
+		isOverridden
+	}
+}
+
+query Box {
+	box {
+		...BoxEntry
+	}
+}
+
+query Teams($isMine: Boolean) {
+	teams(isMine: $isMine) {
+		id
+		label
+		isMine
+		notes
+		members {
+			slot
+			pokemon {
+				...PokemonSummary
+			}
+			boxPokemon {
+				...BoxEntry
+			}
+		}
+	}
+}
+
+mutation SaveBoxPokemon($input: BoxPokemonInput!) {
+	saveBoxPokemon(input: $input) {
+		...BoxEntry
+	}
+}
+
+mutation DeleteBoxPokemon($id: Int!) {
+	deleteBoxPokemon(id: $id)
+}
+
+mutation SaveTeam($input: TeamInput!) {
+	saveTeam(input: $input) {
+		id
+		label
+		isMine
+	}
+}
+
+mutation DeleteTeam($id: Int!) {
+	deleteTeam(id: $id)
 }
 
 query ChampTypes {

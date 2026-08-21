@@ -311,6 +311,7 @@ export type ChampMoveWhereInput = {
   type?: Prisma.XOR<Prisma.ChampTypeScalarRelationFilter, Prisma.ChampTypeWhereInput>
   learnedBy?: Prisma.ChampLearnsetListRelationFilter
   inSets?: Prisma.KnownSetMoveListRelationFilter
+  inBoxSets?: Prisma.BoxPokemonMoveListRelationFilter
 }
 
 export type ChampMoveOrderByWithRelationInput = {
@@ -331,6 +332,7 @@ export type ChampMoveOrderByWithRelationInput = {
   type?: Prisma.ChampTypeOrderByWithRelationInput
   learnedBy?: Prisma.ChampLearnsetOrderByRelationAggregateInput
   inSets?: Prisma.KnownSetMoveOrderByRelationAggregateInput
+  inBoxSets?: Prisma.BoxPokemonMoveOrderByRelationAggregateInput
 }
 
 export type ChampMoveWhereUniqueInput = Prisma.AtLeast<{
@@ -354,6 +356,7 @@ export type ChampMoveWhereUniqueInput = Prisma.AtLeast<{
   type?: Prisma.XOR<Prisma.ChampTypeScalarRelationFilter, Prisma.ChampTypeWhereInput>
   learnedBy?: Prisma.ChampLearnsetListRelationFilter
   inSets?: Prisma.KnownSetMoveListRelationFilter
+  inBoxSets?: Prisma.BoxPokemonMoveListRelationFilter
 }, "id" | "slug">
 
 export type ChampMoveOrderByWithAggregationInput = {
@@ -415,6 +418,7 @@ export type ChampMoveCreateInput = {
   type: Prisma.ChampTypeCreateNestedOneWithoutMovesInput
   learnedBy?: Prisma.ChampLearnsetCreateNestedManyWithoutMoveInput
   inSets?: Prisma.KnownSetMoveCreateNestedManyWithoutMoveInput
+  inBoxSets?: Prisma.BoxPokemonMoveCreateNestedManyWithoutMoveInput
 }
 
 export type ChampMoveUncheckedCreateInput = {
@@ -434,6 +438,7 @@ export type ChampMoveUncheckedCreateInput = {
   override_note?: string | null
   learnedBy?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutMoveInput
   inSets?: Prisma.KnownSetMoveUncheckedCreateNestedManyWithoutMoveInput
+  inBoxSets?: Prisma.BoxPokemonMoveUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type ChampMoveUpdateInput = {
@@ -453,6 +458,7 @@ export type ChampMoveUpdateInput = {
   type?: Prisma.ChampTypeUpdateOneRequiredWithoutMovesNestedInput
   learnedBy?: Prisma.ChampLearnsetUpdateManyWithoutMoveNestedInput
   inSets?: Prisma.KnownSetMoveUpdateManyWithoutMoveNestedInput
+  inBoxSets?: Prisma.BoxPokemonMoveUpdateManyWithoutMoveNestedInput
 }
 
 export type ChampMoveUncheckedUpdateInput = {
@@ -472,6 +478,7 @@ export type ChampMoveUncheckedUpdateInput = {
   override_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   learnedBy?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutMoveNestedInput
   inSets?: Prisma.KnownSetMoveUncheckedUpdateManyWithoutMoveNestedInput
+  inBoxSets?: Prisma.BoxPokemonMoveUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type ChampMoveCreateManyInput = {
@@ -707,6 +714,20 @@ export type ChampMoveUpdateOneRequiredWithoutInSetsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ChampMoveUpdateToOneWithWhereWithoutInSetsInput, Prisma.ChampMoveUpdateWithoutInSetsInput>, Prisma.ChampMoveUncheckedUpdateWithoutInSetsInput>
 }
 
+export type ChampMoveCreateNestedOneWithoutInBoxSetsInput = {
+  create?: Prisma.XOR<Prisma.ChampMoveCreateWithoutInBoxSetsInput, Prisma.ChampMoveUncheckedCreateWithoutInBoxSetsInput>
+  connectOrCreate?: Prisma.ChampMoveCreateOrConnectWithoutInBoxSetsInput
+  connect?: Prisma.ChampMoveWhereUniqueInput
+}
+
+export type ChampMoveUpdateOneRequiredWithoutInBoxSetsNestedInput = {
+  create?: Prisma.XOR<Prisma.ChampMoveCreateWithoutInBoxSetsInput, Prisma.ChampMoveUncheckedCreateWithoutInBoxSetsInput>
+  connectOrCreate?: Prisma.ChampMoveCreateOrConnectWithoutInBoxSetsInput
+  upsert?: Prisma.ChampMoveUpsertWithoutInBoxSetsInput
+  connect?: Prisma.ChampMoveWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ChampMoveUpdateToOneWithWhereWithoutInBoxSetsInput, Prisma.ChampMoveUpdateWithoutInBoxSetsInput>, Prisma.ChampMoveUncheckedUpdateWithoutInBoxSetsInput>
+}
+
 export type ChampMoveCreateWithoutTypeInput = {
   id: number
   slug: string
@@ -723,6 +744,7 @@ export type ChampMoveCreateWithoutTypeInput = {
   override_note?: string | null
   learnedBy?: Prisma.ChampLearnsetCreateNestedManyWithoutMoveInput
   inSets?: Prisma.KnownSetMoveCreateNestedManyWithoutMoveInput
+  inBoxSets?: Prisma.BoxPokemonMoveCreateNestedManyWithoutMoveInput
 }
 
 export type ChampMoveUncheckedCreateWithoutTypeInput = {
@@ -741,6 +763,7 @@ export type ChampMoveUncheckedCreateWithoutTypeInput = {
   override_note?: string | null
   learnedBy?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutMoveInput
   inSets?: Prisma.KnownSetMoveUncheckedCreateNestedManyWithoutMoveInput
+  inBoxSets?: Prisma.BoxPokemonMoveUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type ChampMoveCreateOrConnectWithoutTypeInput = {
@@ -805,6 +828,7 @@ export type ChampMoveCreateWithoutLearnedByInput = {
   override_note?: string | null
   type: Prisma.ChampTypeCreateNestedOneWithoutMovesInput
   inSets?: Prisma.KnownSetMoveCreateNestedManyWithoutMoveInput
+  inBoxSets?: Prisma.BoxPokemonMoveCreateNestedManyWithoutMoveInput
 }
 
 export type ChampMoveUncheckedCreateWithoutLearnedByInput = {
@@ -823,6 +847,7 @@ export type ChampMoveUncheckedCreateWithoutLearnedByInput = {
   is_overridden?: boolean
   override_note?: string | null
   inSets?: Prisma.KnownSetMoveUncheckedCreateNestedManyWithoutMoveInput
+  inBoxSets?: Prisma.BoxPokemonMoveUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type ChampMoveCreateOrConnectWithoutLearnedByInput = {
@@ -857,6 +882,7 @@ export type ChampMoveUpdateWithoutLearnedByInput = {
   override_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.ChampTypeUpdateOneRequiredWithoutMovesNestedInput
   inSets?: Prisma.KnownSetMoveUpdateManyWithoutMoveNestedInput
+  inBoxSets?: Prisma.BoxPokemonMoveUpdateManyWithoutMoveNestedInput
 }
 
 export type ChampMoveUncheckedUpdateWithoutLearnedByInput = {
@@ -875,6 +901,7 @@ export type ChampMoveUncheckedUpdateWithoutLearnedByInput = {
   is_overridden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   override_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   inSets?: Prisma.KnownSetMoveUncheckedUpdateManyWithoutMoveNestedInput
+  inBoxSets?: Prisma.BoxPokemonMoveUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type ChampMoveCreateWithoutInSetsInput = {
@@ -893,6 +920,7 @@ export type ChampMoveCreateWithoutInSetsInput = {
   override_note?: string | null
   type: Prisma.ChampTypeCreateNestedOneWithoutMovesInput
   learnedBy?: Prisma.ChampLearnsetCreateNestedManyWithoutMoveInput
+  inBoxSets?: Prisma.BoxPokemonMoveCreateNestedManyWithoutMoveInput
 }
 
 export type ChampMoveUncheckedCreateWithoutInSetsInput = {
@@ -911,6 +939,7 @@ export type ChampMoveUncheckedCreateWithoutInSetsInput = {
   is_overridden?: boolean
   override_note?: string | null
   learnedBy?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutMoveInput
+  inBoxSets?: Prisma.BoxPokemonMoveUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type ChampMoveCreateOrConnectWithoutInSetsInput = {
@@ -945,6 +974,7 @@ export type ChampMoveUpdateWithoutInSetsInput = {
   override_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.ChampTypeUpdateOneRequiredWithoutMovesNestedInput
   learnedBy?: Prisma.ChampLearnsetUpdateManyWithoutMoveNestedInput
+  inBoxSets?: Prisma.BoxPokemonMoveUpdateManyWithoutMoveNestedInput
 }
 
 export type ChampMoveUncheckedUpdateWithoutInSetsInput = {
@@ -963,6 +993,99 @@ export type ChampMoveUncheckedUpdateWithoutInSetsInput = {
   is_overridden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   override_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   learnedBy?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutMoveNestedInput
+  inBoxSets?: Prisma.BoxPokemonMoveUncheckedUpdateManyWithoutMoveNestedInput
+}
+
+export type ChampMoveCreateWithoutInBoxSetsInput = {
+  id: number
+  slug: string
+  name: string
+  damage_class: $Enums.DamageClass
+  power?: number | null
+  pp?: number | null
+  accuracy?: number | null
+  priority?: number
+  effect_text?: string | null
+  effect_chance?: number | null
+  flags?: Prisma.ChampMoveCreateflagsInput | string[]
+  is_overridden?: boolean
+  override_note?: string | null
+  type: Prisma.ChampTypeCreateNestedOneWithoutMovesInput
+  learnedBy?: Prisma.ChampLearnsetCreateNestedManyWithoutMoveInput
+  inSets?: Prisma.KnownSetMoveCreateNestedManyWithoutMoveInput
+}
+
+export type ChampMoveUncheckedCreateWithoutInBoxSetsInput = {
+  id: number
+  slug: string
+  name: string
+  type_id: number
+  damage_class: $Enums.DamageClass
+  power?: number | null
+  pp?: number | null
+  accuracy?: number | null
+  priority?: number
+  effect_text?: string | null
+  effect_chance?: number | null
+  flags?: Prisma.ChampMoveCreateflagsInput | string[]
+  is_overridden?: boolean
+  override_note?: string | null
+  learnedBy?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutMoveInput
+  inSets?: Prisma.KnownSetMoveUncheckedCreateNestedManyWithoutMoveInput
+}
+
+export type ChampMoveCreateOrConnectWithoutInBoxSetsInput = {
+  where: Prisma.ChampMoveWhereUniqueInput
+  create: Prisma.XOR<Prisma.ChampMoveCreateWithoutInBoxSetsInput, Prisma.ChampMoveUncheckedCreateWithoutInBoxSetsInput>
+}
+
+export type ChampMoveUpsertWithoutInBoxSetsInput = {
+  update: Prisma.XOR<Prisma.ChampMoveUpdateWithoutInBoxSetsInput, Prisma.ChampMoveUncheckedUpdateWithoutInBoxSetsInput>
+  create: Prisma.XOR<Prisma.ChampMoveCreateWithoutInBoxSetsInput, Prisma.ChampMoveUncheckedCreateWithoutInBoxSetsInput>
+  where?: Prisma.ChampMoveWhereInput
+}
+
+export type ChampMoveUpdateToOneWithWhereWithoutInBoxSetsInput = {
+  where?: Prisma.ChampMoveWhereInput
+  data: Prisma.XOR<Prisma.ChampMoveUpdateWithoutInBoxSetsInput, Prisma.ChampMoveUncheckedUpdateWithoutInBoxSetsInput>
+}
+
+export type ChampMoveUpdateWithoutInBoxSetsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  damage_class?: Prisma.EnumDamageClassFieldUpdateOperationsInput | $Enums.DamageClass
+  power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  effect_text?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  flags?: Prisma.ChampMoveUpdateflagsInput | string[]
+  is_overridden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  override_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.ChampTypeUpdateOneRequiredWithoutMovesNestedInput
+  learnedBy?: Prisma.ChampLearnsetUpdateManyWithoutMoveNestedInput
+  inSets?: Prisma.KnownSetMoveUpdateManyWithoutMoveNestedInput
+}
+
+export type ChampMoveUncheckedUpdateWithoutInBoxSetsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type_id?: Prisma.IntFieldUpdateOperationsInput | number
+  damage_class?: Prisma.EnumDamageClassFieldUpdateOperationsInput | $Enums.DamageClass
+  power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  effect_text?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  flags?: Prisma.ChampMoveUpdateflagsInput | string[]
+  is_overridden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  override_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnedBy?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutMoveNestedInput
+  inSets?: Prisma.KnownSetMoveUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type ChampMoveCreateManyTypeInput = {
@@ -997,6 +1120,7 @@ export type ChampMoveUpdateWithoutTypeInput = {
   override_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   learnedBy?: Prisma.ChampLearnsetUpdateManyWithoutMoveNestedInput
   inSets?: Prisma.KnownSetMoveUpdateManyWithoutMoveNestedInput
+  inBoxSets?: Prisma.BoxPokemonMoveUpdateManyWithoutMoveNestedInput
 }
 
 export type ChampMoveUncheckedUpdateWithoutTypeInput = {
@@ -1015,6 +1139,7 @@ export type ChampMoveUncheckedUpdateWithoutTypeInput = {
   override_note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   learnedBy?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutMoveNestedInput
   inSets?: Prisma.KnownSetMoveUncheckedUpdateManyWithoutMoveNestedInput
+  inBoxSets?: Prisma.BoxPokemonMoveUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type ChampMoveUncheckedUpdateManyWithoutTypeInput = {
@@ -1041,11 +1166,13 @@ export type ChampMoveUncheckedUpdateManyWithoutTypeInput = {
 export type ChampMoveCountOutputType = {
   learnedBy: number
   inSets: number
+  inBoxSets: number
 }
 
 export type ChampMoveCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   learnedBy?: boolean | ChampMoveCountOutputTypeCountLearnedByArgs
   inSets?: boolean | ChampMoveCountOutputTypeCountInSetsArgs
+  inBoxSets?: boolean | ChampMoveCountOutputTypeCountInBoxSetsArgs
 }
 
 /**
@@ -1072,6 +1199,13 @@ export type ChampMoveCountOutputTypeCountInSetsArgs<ExtArgs extends runtime.Type
   where?: Prisma.KnownSetMoveWhereInput
 }
 
+/**
+ * ChampMoveCountOutputType without action
+ */
+export type ChampMoveCountOutputTypeCountInBoxSetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BoxPokemonMoveWhereInput
+}
+
 
 export type ChampMoveSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1091,6 +1225,7 @@ export type ChampMoveSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   type?: boolean | Prisma.ChampTypeDefaultArgs<ExtArgs>
   learnedBy?: boolean | Prisma.ChampMove$learnedByArgs<ExtArgs>
   inSets?: boolean | Prisma.ChampMove$inSetsArgs<ExtArgs>
+  inBoxSets?: boolean | Prisma.ChampMove$inBoxSetsArgs<ExtArgs>
   _count?: boolean | Prisma.ChampMoveCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["champMove"]>
 
@@ -1152,6 +1287,7 @@ export type ChampMoveInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   type?: boolean | Prisma.ChampTypeDefaultArgs<ExtArgs>
   learnedBy?: boolean | Prisma.ChampMove$learnedByArgs<ExtArgs>
   inSets?: boolean | Prisma.ChampMove$inSetsArgs<ExtArgs>
+  inBoxSets?: boolean | Prisma.ChampMove$inBoxSetsArgs<ExtArgs>
   _count?: boolean | Prisma.ChampMoveCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ChampMoveIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1167,6 +1303,7 @@ export type $ChampMovePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     type: Prisma.$ChampTypePayload<ExtArgs>
     learnedBy: Prisma.$ChampLearnsetPayload<ExtArgs>[]
     inSets: Prisma.$KnownSetMovePayload<ExtArgs>[]
+    inBoxSets: Prisma.$BoxPokemonMovePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1592,6 +1729,7 @@ export interface Prisma__ChampMoveClient<T, Null = never, ExtArgs extends runtim
   type<T extends Prisma.ChampTypeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampTypeDefaultArgs<ExtArgs>>): Prisma.Prisma__ChampTypeClient<runtime.Types.Result.GetResult<Prisma.$ChampTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   learnedBy<T extends Prisma.ChampMove$learnedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampMove$learnedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChampLearnsetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   inSets<T extends Prisma.ChampMove$inSetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampMove$inSetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnownSetMovePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  inBoxSets<T extends Prisma.ChampMove$inBoxSetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampMove$inBoxSetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BoxPokemonMovePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2081,6 +2219,30 @@ export type ChampMove$inSetsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.KnownSetMoveScalarFieldEnum | Prisma.KnownSetMoveScalarFieldEnum[]
+}
+
+/**
+ * ChampMove.inBoxSets
+ */
+export type ChampMove$inBoxSetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BoxPokemonMove
+   */
+  select?: Prisma.BoxPokemonMoveSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BoxPokemonMove
+   */
+  omit?: Prisma.BoxPokemonMoveOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BoxPokemonMoveInclude<ExtArgs> | null
+  where?: Prisma.BoxPokemonMoveWhereInput
+  orderBy?: Prisma.BoxPokemonMoveOrderByWithRelationInput | Prisma.BoxPokemonMoveOrderByWithRelationInput[]
+  cursor?: Prisma.BoxPokemonMoveWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BoxPokemonMoveScalarFieldEnum | Prisma.BoxPokemonMoveScalarFieldEnum[]
 }
 
 /**

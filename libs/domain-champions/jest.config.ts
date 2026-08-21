@@ -1,4 +1,3 @@
-/* eslint-disable */
 module.exports = {
 	displayName: 'domain-champions',
 	preset: '../../jest.preset.js',

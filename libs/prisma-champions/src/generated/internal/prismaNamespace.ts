@@ -395,8 +395,10 @@ export const ModelName = {
   RegulationLegality: 'RegulationLegality',
   KnownSet: 'KnownSet',
   KnownSetMove: 'KnownSetMove',
-  ScoutedTeam: 'ScoutedTeam',
-  ScoutedTeamMember: 'ScoutedTeamMember',
+  BoxPokemon: 'BoxPokemon',
+  BoxPokemonMove: 'BoxPokemonMove',
+  Team: 'Team',
+  TeamMember: 'TeamMember',
   BattleSession: 'BattleSession',
   BattleTurn: 'BattleTurn'
 } as const
@@ -414,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "champType" | "champTypeEfficacy" | "champAbility" | "champMove" | "champPokemon" | "champPokemonAbility" | "champLearnset" | "regulation" | "regulationLegality" | "knownSet" | "knownSetMove" | "scoutedTeam" | "scoutedTeamMember" | "battleSession" | "battleTurn"
+    modelProps: "champType" | "champTypeEfficacy" | "champAbility" | "champMove" | "champPokemon" | "champPokemonAbility" | "champLearnset" | "regulation" | "regulationLegality" | "knownSet" | "knownSetMove" | "boxPokemon" | "boxPokemonMove" | "team" | "teamMember" | "battleSession" | "battleTurn"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1232,151 +1234,299 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    ScoutedTeam: {
-      payload: Prisma.$ScoutedTeamPayload<ExtArgs>
-      fields: Prisma.ScoutedTeamFieldRefs
+    BoxPokemon: {
+      payload: Prisma.$BoxPokemonPayload<ExtArgs>
+      fields: Prisma.BoxPokemonFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ScoutedTeamFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamPayload> | null
+          args: Prisma.BoxPokemonFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ScoutedTeamFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamPayload>
+          args: Prisma.BoxPokemonFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonPayload>
         }
         findFirst: {
-          args: Prisma.ScoutedTeamFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamPayload> | null
+          args: Prisma.BoxPokemonFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ScoutedTeamFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamPayload>
+          args: Prisma.BoxPokemonFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonPayload>
         }
         findMany: {
-          args: Prisma.ScoutedTeamFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamPayload>[]
+          args: Prisma.BoxPokemonFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonPayload>[]
         }
         create: {
-          args: Prisma.ScoutedTeamCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamPayload>
+          args: Prisma.BoxPokemonCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonPayload>
         }
         createMany: {
-          args: Prisma.ScoutedTeamCreateManyArgs<ExtArgs>
+          args: Prisma.BoxPokemonCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ScoutedTeamCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamPayload>[]
+          args: Prisma.BoxPokemonCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonPayload>[]
         }
         delete: {
-          args: Prisma.ScoutedTeamDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamPayload>
+          args: Prisma.BoxPokemonDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonPayload>
         }
         update: {
-          args: Prisma.ScoutedTeamUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamPayload>
+          args: Prisma.BoxPokemonUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonPayload>
         }
         deleteMany: {
-          args: Prisma.ScoutedTeamDeleteManyArgs<ExtArgs>
+          args: Prisma.BoxPokemonDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ScoutedTeamUpdateManyArgs<ExtArgs>
+          args: Prisma.BoxPokemonUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ScoutedTeamUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamPayload>[]
+          args: Prisma.BoxPokemonUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonPayload>[]
         }
         upsert: {
-          args: Prisma.ScoutedTeamUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamPayload>
+          args: Prisma.BoxPokemonUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonPayload>
         }
         aggregate: {
-          args: Prisma.ScoutedTeamAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateScoutedTeam>
+          args: Prisma.BoxPokemonAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBoxPokemon>
         }
         groupBy: {
-          args: Prisma.ScoutedTeamGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ScoutedTeamGroupByOutputType>[]
+          args: Prisma.BoxPokemonGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BoxPokemonGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ScoutedTeamCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ScoutedTeamCountAggregateOutputType> | number
+          args: Prisma.BoxPokemonCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BoxPokemonCountAggregateOutputType> | number
         }
       }
     }
-    ScoutedTeamMember: {
-      payload: Prisma.$ScoutedTeamMemberPayload<ExtArgs>
-      fields: Prisma.ScoutedTeamMemberFieldRefs
+    BoxPokemonMove: {
+      payload: Prisma.$BoxPokemonMovePayload<ExtArgs>
+      fields: Prisma.BoxPokemonMoveFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ScoutedTeamMemberFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamMemberPayload> | null
+          args: Prisma.BoxPokemonMoveFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonMovePayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ScoutedTeamMemberFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamMemberPayload>
+          args: Prisma.BoxPokemonMoveFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonMovePayload>
         }
         findFirst: {
-          args: Prisma.ScoutedTeamMemberFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamMemberPayload> | null
+          args: Prisma.BoxPokemonMoveFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonMovePayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ScoutedTeamMemberFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamMemberPayload>
+          args: Prisma.BoxPokemonMoveFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonMovePayload>
         }
         findMany: {
-          args: Prisma.ScoutedTeamMemberFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamMemberPayload>[]
+          args: Prisma.BoxPokemonMoveFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonMovePayload>[]
         }
         create: {
-          args: Prisma.ScoutedTeamMemberCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamMemberPayload>
+          args: Prisma.BoxPokemonMoveCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonMovePayload>
         }
         createMany: {
-          args: Prisma.ScoutedTeamMemberCreateManyArgs<ExtArgs>
+          args: Prisma.BoxPokemonMoveCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ScoutedTeamMemberCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamMemberPayload>[]
+          args: Prisma.BoxPokemonMoveCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonMovePayload>[]
         }
         delete: {
-          args: Prisma.ScoutedTeamMemberDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamMemberPayload>
+          args: Prisma.BoxPokemonMoveDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonMovePayload>
         }
         update: {
-          args: Prisma.ScoutedTeamMemberUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamMemberPayload>
+          args: Prisma.BoxPokemonMoveUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonMovePayload>
         }
         deleteMany: {
-          args: Prisma.ScoutedTeamMemberDeleteManyArgs<ExtArgs>
+          args: Prisma.BoxPokemonMoveDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ScoutedTeamMemberUpdateManyArgs<ExtArgs>
+          args: Prisma.BoxPokemonMoveUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ScoutedTeamMemberUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamMemberPayload>[]
+          args: Prisma.BoxPokemonMoveUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonMovePayload>[]
         }
         upsert: {
-          args: Prisma.ScoutedTeamMemberUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScoutedTeamMemberPayload>
+          args: Prisma.BoxPokemonMoveUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BoxPokemonMovePayload>
         }
         aggregate: {
-          args: Prisma.ScoutedTeamMemberAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateScoutedTeamMember>
+          args: Prisma.BoxPokemonMoveAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBoxPokemonMove>
         }
         groupBy: {
-          args: Prisma.ScoutedTeamMemberGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ScoutedTeamMemberGroupByOutputType>[]
+          args: Prisma.BoxPokemonMoveGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BoxPokemonMoveGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ScoutedTeamMemberCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ScoutedTeamMemberCountAggregateOutputType> | number
+          args: Prisma.BoxPokemonMoveCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BoxPokemonMoveCountAggregateOutputType> | number
+        }
+      }
+    }
+    Team: {
+      payload: Prisma.$TeamPayload<ExtArgs>
+      fields: Prisma.TeamFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TeamFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TeamFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>
+        }
+        findFirst: {
+          args: Prisma.TeamFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TeamFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>
+        }
+        findMany: {
+          args: Prisma.TeamFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>[]
+        }
+        create: {
+          args: Prisma.TeamCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>
+        }
+        createMany: {
+          args: Prisma.TeamCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TeamCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>[]
+        }
+        delete: {
+          args: Prisma.TeamDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>
+        }
+        update: {
+          args: Prisma.TeamUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>
+        }
+        deleteMany: {
+          args: Prisma.TeamDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TeamUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TeamUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>[]
+        }
+        upsert: {
+          args: Prisma.TeamUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>
+        }
+        aggregate: {
+          args: Prisma.TeamAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTeam>
+        }
+        groupBy: {
+          args: Prisma.TeamGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TeamCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamCountAggregateOutputType> | number
+        }
+      }
+    }
+    TeamMember: {
+      payload: Prisma.$TeamMemberPayload<ExtArgs>
+      fields: Prisma.TeamMemberFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TeamMemberFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TeamMemberFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        findFirst: {
+          args: Prisma.TeamMemberFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TeamMemberFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        findMany: {
+          args: Prisma.TeamMemberFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>[]
+        }
+        create: {
+          args: Prisma.TeamMemberCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        createMany: {
+          args: Prisma.TeamMemberCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TeamMemberCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>[]
+        }
+        delete: {
+          args: Prisma.TeamMemberDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        update: {
+          args: Prisma.TeamMemberUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        deleteMany: {
+          args: Prisma.TeamMemberDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TeamMemberUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TeamMemberUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>[]
+        }
+        upsert: {
+          args: Prisma.TeamMemberUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        aggregate: {
+          args: Prisma.TeamMemberAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTeamMember>
+        }
+        groupBy: {
+          args: Prisma.TeamMemberGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamMemberGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TeamMemberCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamMemberCountAggregateOutputType> | number
         }
       }
     }
@@ -1708,27 +1858,59 @@ export const KnownSetMoveScalarFieldEnum = {
 export type KnownSetMoveScalarFieldEnum = (typeof KnownSetMoveScalarFieldEnum)[keyof typeof KnownSetMoveScalarFieldEnum]
 
 
-export const ScoutedTeamScalarFieldEnum = {
+export const BoxPokemonScalarFieldEnum = {
+  id: 'id',
+  pokemon_id: 'pokemon_id',
+  nickname: 'nickname',
+  nature: 'nature',
+  ability_id: 'ability_id',
+  item: 'item',
+  sp_hp: 'sp_hp',
+  sp_attack: 'sp_attack',
+  sp_defense: 'sp_defense',
+  sp_special_attack: 'sp_special_attack',
+  sp_special_defense: 'sp_special_defense',
+  sp_speed: 'sp_speed',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type BoxPokemonScalarFieldEnum = (typeof BoxPokemonScalarFieldEnum)[keyof typeof BoxPokemonScalarFieldEnum]
+
+
+export const BoxPokemonMoveScalarFieldEnum = {
+  box_pokemon_id: 'box_pokemon_id',
+  move_id: 'move_id',
+  slot: 'slot'
+} as const
+
+export type BoxPokemonMoveScalarFieldEnum = (typeof BoxPokemonMoveScalarFieldEnum)[keyof typeof BoxPokemonMoveScalarFieldEnum]
+
+
+export const TeamScalarFieldEnum = {
   id: 'id',
   regulation_id: 'regulation_id',
   label: 'label',
   is_mine: 'is_mine',
   notes: 'notes',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 } as const
 
-export type ScoutedTeamScalarFieldEnum = (typeof ScoutedTeamScalarFieldEnum)[keyof typeof ScoutedTeamScalarFieldEnum]
+export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum]
 
 
-export const ScoutedTeamMemberScalarFieldEnum = {
+export const TeamMemberScalarFieldEnum = {
   id: 'id',
   team_id: 'team_id',
   pokemon_id: 'pokemon_id',
   slot: 'slot',
+  box_pokemon_id: 'box_pokemon_id',
   known_set_id: 'known_set_id'
 } as const
 
-export type ScoutedTeamMemberScalarFieldEnum = (typeof ScoutedTeamMemberScalarFieldEnum)[keyof typeof ScoutedTeamMemberScalarFieldEnum]
+export type TeamMemberScalarFieldEnum = (typeof TeamMemberScalarFieldEnum)[keyof typeof TeamMemberScalarFieldEnum]
 
 
 export const BattleSessionScalarFieldEnum = {
@@ -2056,8 +2238,10 @@ export type GlobalOmitConfig = {
   regulationLegality?: Prisma.RegulationLegalityOmit
   knownSet?: Prisma.KnownSetOmit
   knownSetMove?: Prisma.KnownSetMoveOmit
-  scoutedTeam?: Prisma.ScoutedTeamOmit
-  scoutedTeamMember?: Prisma.ScoutedTeamMemberOmit
+  boxPokemon?: Prisma.BoxPokemonOmit
+  boxPokemonMove?: Prisma.BoxPokemonMoveOmit
+  team?: Prisma.TeamOmit
+  teamMember?: Prisma.TeamMemberOmit
   battleSession?: Prisma.BattleSessionOmit
   battleTurn?: Prisma.BattleTurnOmit
 }

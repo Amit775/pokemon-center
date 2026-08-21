@@ -62,8 +62,10 @@ export const ModelName = {
   RegulationLegality: 'RegulationLegality',
   KnownSet: 'KnownSet',
   KnownSetMove: 'KnownSetMove',
-  ScoutedTeam: 'ScoutedTeam',
-  ScoutedTeamMember: 'ScoutedTeamMember',
+  BoxPokemon: 'BoxPokemon',
+  BoxPokemonMove: 'BoxPokemonMove',
+  Team: 'Team',
+  TeamMember: 'TeamMember',
   BattleSession: 'BattleSession',
   BattleTurn: 'BattleTurn'
 } as const
@@ -225,27 +227,59 @@ export const KnownSetMoveScalarFieldEnum = {
 export type KnownSetMoveScalarFieldEnum = (typeof KnownSetMoveScalarFieldEnum)[keyof typeof KnownSetMoveScalarFieldEnum]
 
 
-export const ScoutedTeamScalarFieldEnum = {
+export const BoxPokemonScalarFieldEnum = {
+  id: 'id',
+  pokemon_id: 'pokemon_id',
+  nickname: 'nickname',
+  nature: 'nature',
+  ability_id: 'ability_id',
+  item: 'item',
+  sp_hp: 'sp_hp',
+  sp_attack: 'sp_attack',
+  sp_defense: 'sp_defense',
+  sp_special_attack: 'sp_special_attack',
+  sp_special_defense: 'sp_special_defense',
+  sp_speed: 'sp_speed',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type BoxPokemonScalarFieldEnum = (typeof BoxPokemonScalarFieldEnum)[keyof typeof BoxPokemonScalarFieldEnum]
+
+
+export const BoxPokemonMoveScalarFieldEnum = {
+  box_pokemon_id: 'box_pokemon_id',
+  move_id: 'move_id',
+  slot: 'slot'
+} as const
+
+export type BoxPokemonMoveScalarFieldEnum = (typeof BoxPokemonMoveScalarFieldEnum)[keyof typeof BoxPokemonMoveScalarFieldEnum]
+
+
+export const TeamScalarFieldEnum = {
   id: 'id',
   regulation_id: 'regulation_id',
   label: 'label',
   is_mine: 'is_mine',
   notes: 'notes',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 } as const
 
-export type ScoutedTeamScalarFieldEnum = (typeof ScoutedTeamScalarFieldEnum)[keyof typeof ScoutedTeamScalarFieldEnum]
+export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum]
 
 
-export const ScoutedTeamMemberScalarFieldEnum = {
+export const TeamMemberScalarFieldEnum = {
   id: 'id',
   team_id: 'team_id',
   pokemon_id: 'pokemon_id',
   slot: 'slot',
+  box_pokemon_id: 'box_pokemon_id',
   known_set_id: 'known_set_id'
 } as const
 
-export type ScoutedTeamMemberScalarFieldEnum = (typeof ScoutedTeamMemberScalarFieldEnum)[keyof typeof ScoutedTeamMemberScalarFieldEnum]
+export type TeamMemberScalarFieldEnum = (typeof TeamMemberScalarFieldEnum)[keyof typeof TeamMemberScalarFieldEnum]
 
 
 export const BattleSessionScalarFieldEnum = {
