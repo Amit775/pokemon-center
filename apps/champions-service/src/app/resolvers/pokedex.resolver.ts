@@ -1,0 +1,278 @@
+import { Args, Int, Query, Resolver } from '@nestjs/graphql';
+import {
+	BaseStats,
+	ChampAbility,
+	ChampMove,
+	ChampPokemonDetail,
+	ChampPokemonSummary,
+	DamageClass,
+	TypeEfficacyEntry,
+} from '../models/pokemon.model';
+import { PrismaService } from '../prisma.service';
+
+/**
+ * Read side of the Champions API.
+ *
+ * Every query is scoped to a regulation. Champions has no fixed dex, so "is this Pokémon
+ * legal?" is meaningless without one — the default is whatever regulation is current, and
+ * callers can pin an older code to see what a past roster looked like.
+ */
+
+/** Prisma shapes, kept local so the mapping stays explicit rather than structural. */
+type TypeRow = { slug: string; name: string };
+type AbilityRow = { id: number; slug: string; name: string; effect_text: string | null; is_mega: boolean };
+type MoveRow = {
+	id: number;
+	slug: string;
+	name: string;
+	damage_class: string;
+	power: number | null;
+	pp: number | null;
+	accuracy: number | null;
+	priority: number;
+	flags: string[];
+	effect_text: string | null;
+	effect_chance: number | null;
+	is_overridden: boolean;
+	override_note: string | null;
+	type: TypeRow;
+};
+type PokemonRow = {
+	id: number;
+	slug: string;
+	name: string;
+	national_dex_no: number;
+	base_hp: number;
+	base_attack: number;
+	base_defense: number;
+	base_special_attack: number;
+	base_special_defense: number;
+	base_speed: number;
+	is_mega: boolean;
+	sprite_key: string | null;
+	type1: TypeRow;
+	type2: TypeRow | null;
+	megaOf?: { slug: string } | null;
+};
+
+const summarySelect = {
+	id: true,
+	slug: true,
+	name: true,
+	national_dex_no: true,
+	base_hp: true,
+	base_attack: true,
+	base_defense: true,
+	base_special_attack: true,
+	base_special_defense: true,
+	base_speed: true,
+	is_mega: true,
+	sprite_key: true,
+	type1: { select: { slug: true, name: true } },
+	type2: { select: { slug: true, name: true } },
+	megaOf: { select: { slug: true } },
+} as const;
+
+function toBaseStats(row: PokemonRow): BaseStats {
+	const total =
+		row.base_hp + row.base_attack + row.base_defense + row.base_special_attack + row.base_special_defense + row.base_speed;
+	return {
+		hp: row.base_hp,
+		attack: row.base_attack,
+		defense: row.base_defense,
+		specialAttack: row.base_special_attack,
+		specialDefense: row.base_special_defense,
+		speed: row.base_speed,
+		total,
+	};
+}
+
+function toSummary(row: PokemonRow): ChampPokemonSummary {
+	return {
+		id: row.id,
+		slug: row.slug,
+		name: row.name,
+		nationalDexNo: row.national_dex_no,
+		types: [row.type1.slug, ...(row.type2 ? [row.type2.slug] : [])],
+		baseStats: toBaseStats(row),
+		isMega: row.is_mega,
+		spriteKey: row.sprite_key,
+		megaOfSlug: row.megaOf?.slug ?? null,
+	};
+}
+
+function toAbility(row: AbilityRow): ChampAbility {
+	return { id: row.id, slug: row.slug, name: row.name, effectText: row.effect_text, isMega: row.is_mega };
+}
+
+function toMove(row: MoveRow): ChampMove {
+	return {
+		id: row.id,
+		slug: row.slug,
+		name: row.name,
+		type: row.type.slug,
+		damageClass: row.damage_class as DamageClass,
+		power: row.power,
+		pp: row.pp,
+		accuracy: row.accuracy,
+		priority: row.priority,
+		flags: row.flags,
+		effectText: row.effect_text,
+		effectChance: row.effect_chance,
+		isOverridden: row.is_overridden,
+		overrideNote: row.override_note,
+	};
+}
+
+@Resolver()
+export class PokedexResolver {
+	constructor(private readonly prisma: PrismaService) {}
+
+	/** Ids of every Pokémon legal in a regulation; defaults to the current one. */
+	private async legalIds(regulationCode?: string): Promise<number[]> {
+		const regulation = regulationCode
+			? await this.prisma.regulation.findUnique({ where: { code: regulationCode }, select: { id: true } })
+			: ((await this.prisma.regulation.findFirst({ where: { is_current: true }, select: { id: true } })) ??
+				(await this.prisma.regulation.findFirst({ orderBy: { starts_on: 'desc' }, select: { id: true } })));
+
+		if (!regulation) return [];
+
+		const rows = await this.prisma.regulationLegality.findMany({
+			where: { regulation_id: regulation.id },
+			select: { pokemon_id: true },
+		});
+		return rows.map((r) => r.pokemon_id);
+	}
+
+	/**
+	 * Name search for the team-preview slots.
+	 *
+	 * Prefix matches are ranked above substring matches: typing "gar" should offer Garchomp
+	 * before Gyarados, because the slot picker has a two-second budget and the first result
+	 * is the one that gets taken.
+	 */
+	@Query(() => [ChampPokemonSummary], { name: 'champSearch' })
+	async champSearch(
+		@Args('query') query: string,
+		@Args('take', { type: () => Int, nullable: true, defaultValue: 12 }) take: number,
+		@Args('regulation', { nullable: true }) regulation?: string,
+	): Promise<ChampPokemonSummary[]> {
+		const term = query.trim();
+		const legal = await this.legalIds(regulation);
+		if (legal.length === 0) return [];
+
+		const rows = (await this.prisma.champPokemon.findMany({
+			where: { id: { in: legal }, ...(term ? { name: { contains: term, mode: 'insensitive' } } : {}) },
+			select: summarySelect,
+			// A generous slice so ranking below has something to work with.
+			take: Math.max(take * 4, 48),
+			orderBy: { national_dex_no: 'asc' },
+		})) as PokemonRow[];
+
+		const lower = term.toLowerCase();
+		const ranked = rows.sort((a, b) => {
+			const aStarts = a.name.toLowerCase().startsWith(lower) ? 0 : 1;
+			const bStarts = b.name.toLowerCase().startsWith(lower) ? 0 : 1;
+			// Base forms before Megas: you pick Charizard, then decide about the stone.
+			return aStarts - bStarts || Number(a.is_mega) - Number(b.is_mega) || a.national_dex_no - b.national_dex_no;
+		});
+
+		return ranked.slice(0, take).map(toSummary);
+	}
+
+	/** Full detail for a set of slugs — what the advisor needs to calculate with a team. */
+	@Query(() => [ChampPokemonDetail], { name: 'champTeam' })
+	async champTeam(@Args('slugs', { type: () => [String] }) slugs: string[]): Promise<ChampPokemonDetail[]> {
+		if (slugs.length === 0) return [];
+
+		const rows = await this.prisma.champPokemon.findMany({
+			where: { slug: { in: slugs } },
+			select: {
+				...summarySelect,
+				learnset_is_approximate: true,
+				megaAbility: { select: { id: true, slug: true, name: true, effect_text: true, is_mega: true } },
+				abilities: {
+					select: {
+						slot: true,
+						is_hidden: true,
+						ability: { select: { id: true, slug: true, name: true, effect_text: true, is_mega: true } },
+					},
+					orderBy: { slot: 'asc' },
+				},
+				megaForms: { select: summarySelect },
+				learnset: {
+					select: {
+						move: {
+							select: {
+								id: true,
+								slug: true,
+								name: true,
+								damage_class: true,
+								power: true,
+								pp: true,
+								accuracy: true,
+								priority: true,
+								flags: true,
+								effect_text: true,
+								effect_chance: true,
+								is_overridden: true,
+								override_note: true,
+								type: { select: { slug: true, name: true } },
+							},
+						},
+					},
+				},
+			},
+		});
+
+		const details = rows.map((row) => {
+			const typed = row as unknown as PokemonRow & {
+				learnset_is_approximate: boolean;
+				megaAbility: AbilityRow | null;
+				abilities: { slot: number; is_hidden: boolean; ability: AbilityRow }[];
+				megaForms: PokemonRow[];
+				learnset: { move: MoveRow }[];
+			};
+
+			return {
+				...toSummary(typed),
+				learnsetIsApproximate: typed.learnset_is_approximate,
+				megaAbility: typed.megaAbility ? toAbility(typed.megaAbility) : null,
+				abilities: typed.abilities.map((a) => ({ ability: toAbility(a.ability), slot: a.slot, isHidden: a.is_hidden })),
+				megaForms: typed.megaForms.map(toSummary),
+				// Strongest first: the advisor and the UI both want the damaging moves at the top.
+				moves: typed.learnset
+					.map((l) => toMove(l.move))
+					.sort((a, b) => (b.power ?? 0) - (a.power ?? 0) || a.name.localeCompare(b.name)),
+			};
+		});
+
+		// Preserve the order the caller asked for, so team slots do not shuffle.
+		const bySlug = new Map(details.map((d) => [d.slug, d]));
+		return slugs.map((slug) => bySlug.get(slug)).filter((d): d is ChampPokemonDetail => d !== undefined);
+	}
+
+	/**
+	 * The full type chart.
+	 *
+	 * 324 rows, fetched once and then driving unlimited client-side calculation — the same
+	 * trade the School domain makes, and the reason the advisor can answer instantly.
+	 */
+	@Query(() => [TypeEfficacyEntry], { name: 'typeChart' })
+	async typeChart(): Promise<TypeEfficacyEntry[]> {
+		const rows = await this.prisma.champTypeEfficacy.findMany({
+			select: {
+				damage_factor: true,
+				attackingType: { select: { slug: true } },
+				defendingType: { select: { slug: true } },
+			},
+		});
+
+		return rows.map((row) => ({
+			attacking: row.attackingType.slug,
+			defending: row.defendingType.slug,
+			// Stored as a percentage upstream (0, 50, 100, 200); the engine wants a multiplier.
+			factor: row.damage_factor / 100,
+		}));
+	}
+}

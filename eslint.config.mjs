@@ -16,6 +16,7 @@ export default [
 			'libs/infra-pokedex-data/src/prisma-client/**',
 			'libs/infra-pokedex-data/src/entities/**',
 			'libs/prisma-champions/src/generated/**',
+			'libs/data-access-champions/src/lib/generated/**',
 		],
 	},
 	...nx.configs['flat/base'],

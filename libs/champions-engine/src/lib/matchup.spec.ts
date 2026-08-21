@@ -102,6 +102,24 @@ describe('matchup', () => {
 
 		expect(result.yourBest?.moveName).toBe('Dragon Claw');
 	});
+
+	it('calls a mirror match close rather than a loss', () => {
+		// A speed tie must penalise neither side; treating "not faster" as "slower" made every
+		// identical matchup report as a loss.
+		const mirror = build({ species: species.dragapult, moves: [moves.dragonClaw] });
+
+		expect(matchup(mirror, { ...mirror }, typeChart).verdict).toBe('close');
+	});
+
+	it('lets moving first decide an otherwise even matchup', () => {
+		// Same species, same moves, one with a Choice Scarf. If both need the same number of
+		// hits, the faster side wins outright — reporting that as "close" is not advice.
+		const slow = build({ species: species.dragapult, moves: [moves.dragonClaw] });
+		const fast = { ...slow, item: 'choice-scarf' };
+
+		expect(matchup(fast, slow, typeChart).verdict).toBe('you-win');
+		expect(matchup(slow, fast, typeChart).verdict).toBe('they-win');
+	});
 });
 
 describe('threatMatrix', () => {

@@ -129,8 +129,17 @@ export function matchup(yours: ChampionsBuild, theirs: ChampionsBuild, chart: Ty
 	const theirTurns = KO_SPEED[theirKo];
 
 	// The slower side needs to survive one extra turn, so it is effectively half a turn worse.
-	const yourEffective = yourTurns + (youOutspeed ? 0 : 0.5);
-	const theirEffective = theirTurns + (youOutspeed ? 0.5 : 0);
+	//
+	// The comparison is strict rather than requiring a full turn of margin, because moving
+	// first *is* the margin: if both sides need two hits and you outspeed, you hit, they hit,
+	// you hit — and they faint before their second. Demanding another whole turn on top of
+	// that reported almost every even matchup as "close", which is not advice.
+	// A speed tie penalises neither side. Folding a tie into "not outspeeding" made every
+	// mirror match report as a loss, which is obviously wrong and was visible the moment the
+	// grid rendered two identical teams.
+	const speedTie = yourSpeed === theirSpeed;
+	const yourEffective = yourTurns + (!speedTie && !youOutspeed ? 0.5 : 0);
+	const theirEffective = theirTurns + (!speedTie && youOutspeed ? 0.5 : 0);
 
 	let verdict: MatchupVerdict;
 	let reason: string;
@@ -138,12 +147,12 @@ export function matchup(yours: ChampionsBuild, theirs: ChampionsBuild, chart: Ty
 	if (yourTurns === Infinity && theirTurns === Infinity) {
 		verdict = 'stall';
 		reason = 'Neither side can damage the other.';
-	} else if (yourEffective < theirEffective - 0.5) {
+	} else if (yourEffective < theirEffective) {
 		verdict = 'you-win';
-		reason = `${yours.species.name} ${yourKo.replace('-', ' ')}s${youOutspeed ? ' and outspeeds' : ''}.`;
-	} else if (theirEffective < yourEffective - 0.5) {
+		reason = `${yours.species.name} ${yourKo.replace(/-/g, ' ')}s${youOutspeed ? ' and outspeeds' : ''}.`;
+	} else if (theirEffective < yourEffective) {
 		verdict = 'they-win';
-		reason = `${theirs.species.name} ${theirKo.replace('-', ' ')}s${youOutspeed ? '' : ' and outspeeds'}.`;
+		reason = `${theirs.species.name} ${theirKo.replace(/-/g, ' ')}s${youOutspeed ? '' : ' and outspeeds'}.`;
 	} else {
 		verdict = 'close';
 		reason = youOutspeed ? 'Close — you move first.' : 'Close — they move first.';

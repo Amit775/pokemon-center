@@ -1,6 +1,7 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { PokedexResolver } from './resolvers/pokedex.resolver';
 import { PrismaService } from './prisma.service';
 import { RegulationResolver } from './resolvers/regulation.resolver';
 
@@ -20,6 +21,6 @@ import { RegulationResolver } from './resolvers/regulation.resolver';
 			path: '/graphql',
 		}),
 	],
-	providers: [PrismaService, RegulationResolver],
+	providers: [PrismaService, RegulationResolver, PokedexResolver],
 })
 export class AppModule {}

@@ -22,3 +22,99 @@ query RegulationList {
 		legalCount
 	}
 }
+
+fragment PokemonSummary on ChampPokemonSummary {
+	id
+	slug
+	name
+	nationalDexNo
+	types
+	isMega
+	spriteKey
+	megaOfSlug
+	baseStats {
+		hp
+		attack
+		defense
+		specialAttack
+		specialDefense
+		speed
+		total
+	}
+}
+
+query ChampSearch($query: String!, $take: Int) {
+	champSearch(query: $query, take: $take) {
+		...PokemonSummary
+	}
+}
+
+# ChampPokemonDetail is a separate GraphQL object type rather than an implementation of an
+# interface, so it needs its own fragment — the summary fields are repeated here on purpose.
+fragment PokemonDetail on ChampPokemonDetail {
+	id
+	slug
+	name
+	nationalDexNo
+	types
+	isMega
+	spriteKey
+	megaOfSlug
+	baseStats {
+		hp
+		attack
+		defense
+		specialAttack
+		specialDefense
+		speed
+		total
+	}
+}
+
+query ChampTeam($slugs: [String!]!) {
+	champTeam(slugs: $slugs) {
+		...PokemonDetail
+		learnsetIsApproximate
+		abilities {
+			slot
+			isHidden
+			ability {
+				slug
+				name
+				effectText
+				isMega
+			}
+		}
+		megaAbility {
+			slug
+			name
+			effectText
+		}
+		megaForms {
+			...PokemonSummary
+		}
+		moves {
+			id
+			slug
+			name
+			type
+			damageClass
+			power
+			pp
+			accuracy
+			priority
+			flags
+			effectChance
+			isOverridden
+			overrideNote
+		}
+	}
+}
+
+query TypeChart {
+	typeChart {
+		attacking
+		defending
+		factor
+	}
+}

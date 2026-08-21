@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { SectionHeadingComponent, UiCardComponent, UiSkeletonComponent } from '@pokemon-center/ui-pokedex';
 import { RegulationStore } from '../../regulation.store';
 
@@ -13,7 +14,7 @@ import { RegulationStore } from '../../regulation.store';
 @Component({
 	selector: 'champions-home',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [DatePipe, SectionHeadingComponent, UiCardComponent, UiSkeletonComponent],
+	imports: [DatePipe, RouterLink, SectionHeadingComponent, UiCardComponent, UiSkeletonComponent],
 	template: `
 		<header class="masthead">
 			<h1>Champions</h1>
@@ -73,10 +74,18 @@ import { RegulationStore } from '../../regulation.store';
 						<h2>Roster not seeded</h2>
 						<p>
 							The regulation is known but its roster is not loaded. Run the derive pipeline to
-							populate the ~208 species and ~75 Mega Evolutions legal in {{ regulation.code }}.
+							populate the species and Mega Evolutions legal in {{ regulation.code }}.
 						</p>
 					</div>
 				</pkd-card>
+			} @else {
+				<pkd-section-heading label="Tools" />
+				<a class="tool" routerLink="preview">
+					<span class="tool-name">Team preview advisor</span>
+					<span class="tool-blurb">
+						Enter their six — get type pressure, speed order and the matchup grid before you lead.
+					</span>
+				</a>
 			}
 		} @else {
 			<pkd-card>
@@ -171,6 +180,35 @@ import { RegulationStore } from '../../regulation.store';
 		.next,
 		.error {
 			border-top: 1.5px solid var(--line);
+		}
+
+		.tool {
+			display: block;
+			padding: var(--s-4, 1rem) var(--s-5, 1.5rem);
+			background: var(--surface);
+			border: 1.5px solid var(--line);
+			border-radius: var(--r-xl, 14px);
+			box-shadow: var(--shadow-md);
+			text-decoration: none;
+			color: inherit;
+		}
+
+		.tool:hover {
+			border-color: var(--accent, #4f6df5);
+		}
+
+		.tool-name {
+			display: block;
+			font-weight: 600;
+			font-size: var(--fs-lg, 1.125rem);
+		}
+
+		.tool-blurb {
+			display: block;
+			margin-top: var(--s-1, 0.25rem);
+			color: var(--ink-muted);
+			font-size: var(--fs-sm, 0.875rem);
+			line-height: 1.5;
 		}
 
 		code {
