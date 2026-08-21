@@ -1,53 +1,87 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { SectionHeadingComponent, TypeChipComponent, UiCardComponent } from '@pokemon-center/ui-pokedex';
+import { RouterLink } from '@angular/router';
+import { EntityPortraitComponent, SectionHeadingComponent, TypeChipComponent, UiCardComponent, spriteSources } from '@pokemon-center/ui-pokedex';
 import { AdvisorStore, TEAM_SIZE } from './advisor.store';
 import { SlotPickerComponent } from './slot-picker.component';
 import { SpeedTiersComponent } from './speed-tiers.component';
 import { ThreatGridComponent } from './threat-grid.component';
 
 /**
- * The team preview advisor — the first thing worth opening mid-ladder.
+ * The Companion — what to do about the six in front of you.
  *
- * You get 90 seconds and their six. This page answers the three questions that actually
- * decide the lead: what hits their team hardest, who is faster, and which of theirs must
- * come off the field. Everything is computed locally from a type chart fetched once, so
- * answers land instantly and survive a dropped connection.
+ * You get 90 seconds and their team. This answers the three questions that decide the lead:
+ * what hits them hardest, who is faster, and which of theirs has to come off the field.
+ *
+ * Your side is now a saved team from the Box, so its numbers are the ones you built. Only the
+ * opponent is inferred, and the disclosure at the bottom says exactly that.
  */
 @Component({
 	selector: 'champions-team-preview',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [SectionHeadingComponent, SlotPickerComponent, SpeedTiersComponent, ThreatGridComponent, TypeChipComponent, UiCardComponent],
+	imports: [
+		EntityPortraitComponent,
+		RouterLink,
+		SectionHeadingComponent,
+		SlotPickerComponent,
+		SpeedTiersComponent,
+		ThreatGridComponent,
+		TypeChipComponent,
+		UiCardComponent,
+	],
 	template: `
 		<header class="masthead">
 			<div>
-				<h1>Team preview</h1>
-				<p class="tagline">Enter their six. Get the lead.</p>
+				<h1>Companion</h1>
+				<p class="tagline">Their six in, the lead out.</p>
 			</div>
-			@if (store.theirSlugs().length > 0 || store.mySlugs().length > 0) {
-				<button type="button" class="reset" (click)="store.clearAll()">Clear both</button>
-			}
+			<div class="header-actions">
+				@if (store.theirSlugs().length > 0) {
+					<button type="button" (click)="store.clearOpponent()">Clear opponent</button>
+				}
+				<a class="live" routerLink="/champions/companion/live">Battle mode →</a>
+			</div>
 		</header>
+
+		<pkd-section-heading label="Your team" />
+		@if (store.availableTeams().length === 0) {
+			<pkd-card>
+				<div class="panel">
+					<h2>No teams yet</h2>
+					<p>
+						Build one in the <a routerLink="/champions/box">Box</a>. The Companion reads your real
+						spreads and moves from there, so its numbers about your side are exact rather than assumed.
+					</p>
+				</div>
+			</pkd-card>
+		} @else {
+			<div class="teams">
+				@for (team of store.availableTeams(); track team.id) {
+					<button type="button" class="team" [class.on]="store.myTeam()?.id === team.id" (click)="pick(team.id)">
+						<span class="team-name">{{ team.label }}</span>
+						<span class="team-mons">
+							@for (member of team.members; track member.slot) {
+								<pkd-entity-portrait
+									[type]="member.pokemon.types[0]"
+									[src]="sprite(member.pokemon.id).src"
+									[fallbackSrc]="sprite(member.pokemon.id).fallbackSrc"
+									[alt]="member.pokemon.name"
+									[size]="26"
+								/>
+							}
+						</span>
+					</button>
+				}
+			</div>
+		}
 
 		<pkd-section-heading label="Their team" />
 		<div class="slots">
 			@for (slot of slots; track slot) {
 				<champions-slot-picker
 					[index]="slot"
-					[selected]="member(store.theirs()[slot])"
-					(picked)="store.setSlot('theirs', slot, $event)"
-					(clear)="store.setSlot('theirs', slot, null)"
-				/>
-			}
-		</div>
-
-		<pkd-section-heading label="Your team" />
-		<div class="slots">
-			@for (slot of slots; track slot) {
-				<champions-slot-picker
-					[index]="slot"
-					[selected]="member(store.mine()[slot])"
-					(picked)="store.setSlot('mine', slot, $event)"
-					(clear)="store.setSlot('mine', slot, null)"
+					[selected]="opponent(store.theirs()[slot])"
+					(picked)="store.setOpponentSlot(slot, $event)"
+					(clear)="store.setOpponentSlot(slot, null)"
 				/>
 			}
 		</div>
@@ -63,10 +97,7 @@ import { ThreatGridComponent } from './threat-grid.component';
 			<pkd-card>
 				<div class="panel">
 					<h2>Add their six</h2>
-					<p>
-						Type three letters and press Enter. Advice appears as soon as one opponent is on the board —
-						you do not have to fill every slot first.
-					</p>
+					<p>Type three letters and press Enter. Advice appears from the first opponent — no need to fill every slot.</p>
 				</div>
 			</pkd-card>
 		} @else {
@@ -84,10 +115,7 @@ import { ThreatGridComponent } from './threat-grid.component';
 							}
 						</ol>
 						@if (weaknesses.covered.length > 0) {
-							<p class="covered">
-								<strong>They resist:</strong>
-								{{ weaknesses.covered.join(', ') }}
-							</p>
+							<p class="covered"><strong>They resist:</strong> {{ weaknesses.covered.join(', ') }}</p>
 						}
 					</div>
 				</pkd-card>
@@ -98,8 +126,8 @@ import { ThreatGridComponent } from './threat-grid.component';
 				<div class="panel">
 					<champions-speed-tiers [tiers]="store.tiers()" />
 					<p class="caveat">
-						Opponent speeds are a range: uninvested to fully invested, with the Choice Scarf figure
-						alongside. Their real number is somewhere in that band until they reveal it.
+						Your speeds are exact — they come from your Box. Theirs are a range, from uninvested to
+						fully invested, with the Choice Scarf figure alongside.
 					</p>
 				</div>
 			</pkd-card>
@@ -107,25 +135,25 @@ import { ThreatGridComponent } from './threat-grid.component';
 			@if (store.threats(); as threats) {
 				<pkd-section-heading label="Matchups" />
 				<pkd-card>
-					<div class="panel">
-						<champions-threat-grid [assessment]="threats" />
-					</div>
+					<div class="panel"><champions-threat-grid [assessment]="threats" /></div>
 				</pkd-card>
-			} @else if (store.mySlugs().length === 0) {
+			} @else if (!store.hasMyTeam()) {
 				<pkd-card>
 					<div class="panel">
-						<h2>Add your team for matchups</h2>
-						<p>Speed and type pressure only need their six. The grid needs yours too.</p>
+						<h2>Pick your team for matchups</h2>
+						<p>Type pressure and speed only need their six. The grid needs yours too.</p>
 					</div>
 				</pkd-card>
 			}
 
 			<p class="disclosure">
-				Movesets are <strong>computed</strong>, not observed — strongest STAB plus coverage from each
-				Pokémon's legal learnset. Investment is assumed maximal in the stats that threaten you, because an
-				advisor that assumes the best about an opponent loses games.
+				<strong>Your side is exact</strong> — spreads, natures, items and moves come from your Box.
+				<strong>Theirs is inferred</strong>: strongest STAB plus coverage from each Pokémon's legal
+				learnset, with investment assumed maximal in the stats that threaten you, because an advisor
+				that assumes the best about an opponent loses games.
 				@if (store.hasApproximateData()) {
-					Some learnsets were supplemented from recent mainline games where the Champions data had gaps.
+					Some opponent learnsets were supplemented from recent main-series games where the Champions
+					data had gaps.
 				}
 			</p>
 		}
@@ -157,7 +185,14 @@ import { ThreatGridComponent } from './threat-grid.component';
 			color: var(--ink-muted);
 		}
 
-		.reset {
+		.header-actions {
+			display: flex;
+			gap: var(--s-2, 0.5rem);
+			align-items: center;
+		}
+
+		button,
+		.live {
 			font: inherit;
 			font-size: var(--fs-sm, 0.875rem);
 			cursor: pointer;
@@ -166,9 +201,44 @@ import { ThreatGridComponent } from './threat-grid.component';
 			border: 1.5px solid var(--line);
 			background: var(--surface);
 			color: var(--ink-muted);
+			text-decoration: none;
+			white-space: nowrap;
 		}
 
-		/* Two columns on a phone, six on a desktop — the same page works in both hands. */
+		.live {
+			color: var(--accent, #4f6df5);
+			border-color: var(--accent, #4f6df5);
+		}
+
+		.teams {
+			display: flex;
+			flex-wrap: wrap;
+			gap: var(--s-2, 0.5rem);
+			margin-bottom: var(--s-4, 1rem);
+		}
+
+		.team {
+			display: grid;
+			gap: 0.3rem;
+			padding: var(--s-2, 0.5rem) var(--s-3, 0.75rem);
+			text-align: left;
+			color: inherit;
+		}
+
+		.team.on {
+			border-color: var(--accent, #4f6df5);
+			background: var(--accent-soft, rgba(79, 109, 245, 0.1));
+		}
+
+		.team-name {
+			font-weight: 600;
+		}
+
+		.team-mons {
+			display: flex;
+			gap: 0.15rem;
+		}
+
 		.slots {
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
@@ -246,12 +316,20 @@ export default class TeamPreviewComponent {
 	protected readonly store = inject(AdvisorStore);
 	protected readonly slots = Array.from({ length: TEAM_SIZE }, (_, index) => index);
 
-	/** The five types that pressure the most of their team — beyond that it is noise. */
 	protected readonly topPressure = computed(() => this.store.theirWeaknesses()?.pressure.slice(0, 5) ?? []);
 
-	protected member(slug: string | null): { name: string; types: string[] } | null {
+	protected sprite(id: number) {
+		return spriteSources(id);
+	}
+
+	/** Toggle: tapping the selected team clears it, so there is always a way back out. */
+	protected pick(teamId: number): void {
+		this.store.selectTeam(this.store.myTeam()?.id === teamId ? null : teamId);
+	}
+
+	protected opponent(slug: string | null): { name: string; types: string[] } | null {
 		if (!slug) return null;
-		const found = this.store.members().find((m) => m.slug === slug);
+		const found = this.store.theirMembers().find((member) => member.slug === slug);
 		return found ? { name: found.name, types: found.types } : null;
 	}
 }

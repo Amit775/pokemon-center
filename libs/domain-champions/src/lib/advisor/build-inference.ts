@@ -10,11 +10,11 @@ import {
 import type { ChampTeamQuery, TypeChartQuery } from '@pokemon-center/data-access-champions';
 
 /**
- * Turns what the dex knows into what the engine needs.
+ * Turns what the dex knows into what the engine needs — **for opponents only**.
  *
- * At team preview you know an opponent's species and nothing else — not their spread, not
- * their item, not their four moves. Every advisor has to fill that gap somehow, and *how*
- * is a correctness decision, not a detail:
+ * Your own six comes from the Box, where the spread and moves are facts rather than guesses
+ * (see `boxEntryToBuild`). This file exists for the other side of the field, where you know
+ * a species and nothing else. How that gap is filled is a correctness decision, not a detail:
  *
  *  - Investment is assumed **maximal** in the stats that threaten you. Assuming zero would
  *    make every opponent look slower and frailer than they are, and an advisor that
