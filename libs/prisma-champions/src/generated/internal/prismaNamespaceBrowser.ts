@@ -149,7 +149,8 @@ export const ChampPokemonScalarFieldEnum = {
   is_mega: 'is_mega',
   mega_of_id: 'mega_of_id',
   mega_ability_id: 'mega_ability_id',
-  sprite_key: 'sprite_key'
+  sprite_key: 'sprite_key',
+  learnset_is_approximate: 'learnset_is_approximate'
 } as const
 
 export type ChampPokemonScalarFieldEnum = (typeof ChampPokemonScalarFieldEnum)[keyof typeof ChampPokemonScalarFieldEnum]

@@ -73,6 +73,7 @@ export type ChampPokemonMinAggregateOutputType = {
   mega_of_id: number | null
   mega_ability_id: number | null
   sprite_key: string | null
+  learnset_is_approximate: boolean | null
 }
 
 export type ChampPokemonMaxAggregateOutputType = {
@@ -92,6 +93,7 @@ export type ChampPokemonMaxAggregateOutputType = {
   mega_of_id: number | null
   mega_ability_id: number | null
   sprite_key: string | null
+  learnset_is_approximate: boolean | null
 }
 
 export type ChampPokemonCountAggregateOutputType = {
@@ -111,6 +113,7 @@ export type ChampPokemonCountAggregateOutputType = {
   mega_of_id: number
   mega_ability_id: number
   sprite_key: number
+  learnset_is_approximate: number
   _all: number
 }
 
@@ -162,6 +165,7 @@ export type ChampPokemonMinAggregateInputType = {
   mega_of_id?: true
   mega_ability_id?: true
   sprite_key?: true
+  learnset_is_approximate?: true
 }
 
 export type ChampPokemonMaxAggregateInputType = {
@@ -181,6 +185,7 @@ export type ChampPokemonMaxAggregateInputType = {
   mega_of_id?: true
   mega_ability_id?: true
   sprite_key?: true
+  learnset_is_approximate?: true
 }
 
 export type ChampPokemonCountAggregateInputType = {
@@ -200,6 +205,7 @@ export type ChampPokemonCountAggregateInputType = {
   mega_of_id?: true
   mega_ability_id?: true
   sprite_key?: true
+  learnset_is_approximate?: true
   _all?: true
 }
 
@@ -306,6 +312,7 @@ export type ChampPokemonGroupByOutputType = {
   mega_of_id: number | null
   mega_ability_id: number | null
   sprite_key: string | null
+  learnset_is_approximate: boolean
   _count: ChampPokemonCountAggregateOutputType | null
   _avg: ChampPokemonAvgAggregateOutputType | null
   _sum: ChampPokemonSumAggregateOutputType | null
@@ -348,6 +355,7 @@ export type ChampPokemonWhereInput = {
   mega_of_id?: Prisma.IntNullableFilter<"ChampPokemon"> | number | null
   mega_ability_id?: Prisma.IntNullableFilter<"ChampPokemon"> | number | null
   sprite_key?: Prisma.StringNullableFilter<"ChampPokemon"> | string | null
+  learnset_is_approximate?: Prisma.BoolFilter<"ChampPokemon"> | boolean
   type1?: Prisma.XOR<Prisma.ChampTypeScalarRelationFilter, Prisma.ChampTypeWhereInput>
   type2?: Prisma.XOR<Prisma.ChampTypeNullableScalarRelationFilter, Prisma.ChampTypeWhereInput> | null
   megaOf?: Prisma.XOR<Prisma.ChampPokemonNullableScalarRelationFilter, Prisma.ChampPokemonWhereInput> | null
@@ -377,6 +385,7 @@ export type ChampPokemonOrderByWithRelationInput = {
   mega_of_id?: Prisma.SortOrderInput | Prisma.SortOrder
   mega_ability_id?: Prisma.SortOrderInput | Prisma.SortOrder
   sprite_key?: Prisma.SortOrderInput | Prisma.SortOrder
+  learnset_is_approximate?: Prisma.SortOrder
   type1?: Prisma.ChampTypeOrderByWithRelationInput
   type2?: Prisma.ChampTypeOrderByWithRelationInput
   megaOf?: Prisma.ChampPokemonOrderByWithRelationInput
@@ -409,6 +418,7 @@ export type ChampPokemonWhereUniqueInput = Prisma.AtLeast<{
   mega_of_id?: Prisma.IntNullableFilter<"ChampPokemon"> | number | null
   mega_ability_id?: Prisma.IntNullableFilter<"ChampPokemon"> | number | null
   sprite_key?: Prisma.StringNullableFilter<"ChampPokemon"> | string | null
+  learnset_is_approximate?: Prisma.BoolFilter<"ChampPokemon"> | boolean
   type1?: Prisma.XOR<Prisma.ChampTypeScalarRelationFilter, Prisma.ChampTypeWhereInput>
   type2?: Prisma.XOR<Prisma.ChampTypeNullableScalarRelationFilter, Prisma.ChampTypeWhereInput> | null
   megaOf?: Prisma.XOR<Prisma.ChampPokemonNullableScalarRelationFilter, Prisma.ChampPokemonWhereInput> | null
@@ -438,6 +448,7 @@ export type ChampPokemonOrderByWithAggregationInput = {
   mega_of_id?: Prisma.SortOrderInput | Prisma.SortOrder
   mega_ability_id?: Prisma.SortOrderInput | Prisma.SortOrder
   sprite_key?: Prisma.SortOrderInput | Prisma.SortOrder
+  learnset_is_approximate?: Prisma.SortOrder
   _count?: Prisma.ChampPokemonCountOrderByAggregateInput
   _avg?: Prisma.ChampPokemonAvgOrderByAggregateInput
   _max?: Prisma.ChampPokemonMaxOrderByAggregateInput
@@ -465,6 +476,7 @@ export type ChampPokemonScalarWhereWithAggregatesInput = {
   mega_of_id?: Prisma.IntNullableWithAggregatesFilter<"ChampPokemon"> | number | null
   mega_ability_id?: Prisma.IntNullableWithAggregatesFilter<"ChampPokemon"> | number | null
   sprite_key?: Prisma.StringNullableWithAggregatesFilter<"ChampPokemon"> | string | null
+  learnset_is_approximate?: Prisma.BoolWithAggregatesFilter<"ChampPokemon"> | boolean
 }
 
 export type ChampPokemonCreateInput = {
@@ -480,6 +492,7 @@ export type ChampPokemonCreateInput = {
   base_speed: number
   is_mega?: boolean
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   type1: Prisma.ChampTypeCreateNestedOneWithoutPokemonPrimaryInput
   type2?: Prisma.ChampTypeCreateNestedOneWithoutPokemonSecondaryInput
   megaOf?: Prisma.ChampPokemonCreateNestedOneWithoutMegaFormsInput
@@ -509,6 +522,7 @@ export type ChampPokemonUncheckedCreateInput = {
   mega_of_id?: number | null
   mega_ability_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   megaForms?: Prisma.ChampPokemonUncheckedCreateNestedManyWithoutMegaOfInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedCreateNestedManyWithoutPokemonInput
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
@@ -530,6 +544,7 @@ export type ChampPokemonUpdateInput = {
   base_speed?: Prisma.IntFieldUpdateOperationsInput | number
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type1?: Prisma.ChampTypeUpdateOneRequiredWithoutPokemonPrimaryNestedInput
   type2?: Prisma.ChampTypeUpdateOneWithoutPokemonSecondaryNestedInput
   megaOf?: Prisma.ChampPokemonUpdateOneWithoutMegaFormsNestedInput
@@ -559,6 +574,7 @@ export type ChampPokemonUncheckedUpdateInput = {
   mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   megaForms?: Prisma.ChampPokemonUncheckedUpdateManyWithoutMegaOfNestedInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedUpdateManyWithoutPokemonNestedInput
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
@@ -584,6 +600,7 @@ export type ChampPokemonCreateManyInput = {
   mega_of_id?: number | null
   mega_ability_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
 }
 
 export type ChampPokemonUpdateManyMutationInput = {
@@ -599,6 +616,7 @@ export type ChampPokemonUpdateManyMutationInput = {
   base_speed?: Prisma.IntFieldUpdateOperationsInput | number
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ChampPokemonUncheckedUpdateManyInput = {
@@ -618,6 +636,7 @@ export type ChampPokemonUncheckedUpdateManyInput = {
   mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ChampPokemonListRelationFilter = {
@@ -652,6 +671,7 @@ export type ChampPokemonCountOrderByAggregateInput = {
   mega_of_id?: Prisma.SortOrder
   mega_ability_id?: Prisma.SortOrder
   sprite_key?: Prisma.SortOrder
+  learnset_is_approximate?: Prisma.SortOrder
 }
 
 export type ChampPokemonAvgOrderByAggregateInput = {
@@ -686,6 +706,7 @@ export type ChampPokemonMaxOrderByAggregateInput = {
   mega_of_id?: Prisma.SortOrder
   mega_ability_id?: Prisma.SortOrder
   sprite_key?: Prisma.SortOrder
+  learnset_is_approximate?: Prisma.SortOrder
 }
 
 export type ChampPokemonMinOrderByAggregateInput = {
@@ -705,6 +726,7 @@ export type ChampPokemonMinOrderByAggregateInput = {
   mega_of_id?: Prisma.SortOrder
   mega_ability_id?: Prisma.SortOrder
   sprite_key?: Prisma.SortOrder
+  learnset_is_approximate?: Prisma.SortOrder
 }
 
 export type ChampPokemonSumOrderByAggregateInput = {
@@ -994,6 +1016,7 @@ export type ChampPokemonCreateWithoutType1Input = {
   base_speed: number
   is_mega?: boolean
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   type2?: Prisma.ChampTypeCreateNestedOneWithoutPokemonSecondaryInput
   megaOf?: Prisma.ChampPokemonCreateNestedOneWithoutMegaFormsInput
   megaForms?: Prisma.ChampPokemonCreateNestedManyWithoutMegaOfInput
@@ -1021,6 +1044,7 @@ export type ChampPokemonUncheckedCreateWithoutType1Input = {
   mega_of_id?: number | null
   mega_ability_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   megaForms?: Prisma.ChampPokemonUncheckedCreateNestedManyWithoutMegaOfInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedCreateNestedManyWithoutPokemonInput
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
@@ -1052,6 +1076,7 @@ export type ChampPokemonCreateWithoutType2Input = {
   base_speed: number
   is_mega?: boolean
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   type1: Prisma.ChampTypeCreateNestedOneWithoutPokemonPrimaryInput
   megaOf?: Prisma.ChampPokemonCreateNestedOneWithoutMegaFormsInput
   megaForms?: Prisma.ChampPokemonCreateNestedManyWithoutMegaOfInput
@@ -1079,6 +1104,7 @@ export type ChampPokemonUncheckedCreateWithoutType2Input = {
   mega_of_id?: number | null
   mega_ability_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   megaForms?: Prisma.ChampPokemonUncheckedCreateNestedManyWithoutMegaOfInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedCreateNestedManyWithoutPokemonInput
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
@@ -1133,6 +1159,7 @@ export type ChampPokemonScalarWhereInput = {
   mega_of_id?: Prisma.IntNullableFilter<"ChampPokemon"> | number | null
   mega_ability_id?: Prisma.IntNullableFilter<"ChampPokemon"> | number | null
   sprite_key?: Prisma.StringNullableFilter<"ChampPokemon"> | string | null
+  learnset_is_approximate?: Prisma.BoolFilter<"ChampPokemon"> | boolean
 }
 
 export type ChampPokemonUpsertWithWhereUniqueWithoutType2Input = {
@@ -1164,6 +1191,7 @@ export type ChampPokemonCreateWithoutMegaAbilityInput = {
   base_speed: number
   is_mega?: boolean
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   type1: Prisma.ChampTypeCreateNestedOneWithoutPokemonPrimaryInput
   type2?: Prisma.ChampTypeCreateNestedOneWithoutPokemonSecondaryInput
   megaOf?: Prisma.ChampPokemonCreateNestedOneWithoutMegaFormsInput
@@ -1191,6 +1219,7 @@ export type ChampPokemonUncheckedCreateWithoutMegaAbilityInput = {
   is_mega?: boolean
   mega_of_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   megaForms?: Prisma.ChampPokemonUncheckedCreateNestedManyWithoutMegaOfInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedCreateNestedManyWithoutPokemonInput
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
@@ -1238,6 +1267,7 @@ export type ChampPokemonCreateWithoutMegaFormsInput = {
   base_speed: number
   is_mega?: boolean
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   type1: Prisma.ChampTypeCreateNestedOneWithoutPokemonPrimaryInput
   type2?: Prisma.ChampTypeCreateNestedOneWithoutPokemonSecondaryInput
   megaOf?: Prisma.ChampPokemonCreateNestedOneWithoutMegaFormsInput
@@ -1266,6 +1296,7 @@ export type ChampPokemonUncheckedCreateWithoutMegaFormsInput = {
   mega_of_id?: number | null
   mega_ability_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   abilities?: Prisma.ChampPokemonAbilityUncheckedCreateNestedManyWithoutPokemonInput
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutPokemonInput
@@ -1291,6 +1322,7 @@ export type ChampPokemonCreateWithoutMegaOfInput = {
   base_speed: number
   is_mega?: boolean
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   type1: Prisma.ChampTypeCreateNestedOneWithoutPokemonPrimaryInput
   type2?: Prisma.ChampTypeCreateNestedOneWithoutPokemonSecondaryInput
   megaForms?: Prisma.ChampPokemonCreateNestedManyWithoutMegaOfInput
@@ -1318,6 +1350,7 @@ export type ChampPokemonUncheckedCreateWithoutMegaOfInput = {
   is_mega?: boolean
   mega_ability_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   megaForms?: Prisma.ChampPokemonUncheckedCreateNestedManyWithoutMegaOfInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedCreateNestedManyWithoutPokemonInput
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
@@ -1360,6 +1393,7 @@ export type ChampPokemonUpdateWithoutMegaFormsInput = {
   base_speed?: Prisma.IntFieldUpdateOperationsInput | number
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type1?: Prisma.ChampTypeUpdateOneRequiredWithoutPokemonPrimaryNestedInput
   type2?: Prisma.ChampTypeUpdateOneWithoutPokemonSecondaryNestedInput
   megaOf?: Prisma.ChampPokemonUpdateOneWithoutMegaFormsNestedInput
@@ -1388,6 +1422,7 @@ export type ChampPokemonUncheckedUpdateWithoutMegaFormsInput = {
   mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   abilities?: Prisma.ChampPokemonAbilityUncheckedUpdateManyWithoutPokemonNestedInput
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutPokemonNestedInput
@@ -1424,6 +1459,7 @@ export type ChampPokemonCreateWithoutAbilitiesInput = {
   base_speed: number
   is_mega?: boolean
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   type1: Prisma.ChampTypeCreateNestedOneWithoutPokemonPrimaryInput
   type2?: Prisma.ChampTypeCreateNestedOneWithoutPokemonSecondaryInput
   megaOf?: Prisma.ChampPokemonCreateNestedOneWithoutMegaFormsInput
@@ -1452,6 +1488,7 @@ export type ChampPokemonUncheckedCreateWithoutAbilitiesInput = {
   mega_of_id?: number | null
   mega_ability_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   megaForms?: Prisma.ChampPokemonUncheckedCreateNestedManyWithoutMegaOfInput
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutPokemonInput
@@ -1488,6 +1525,7 @@ export type ChampPokemonUpdateWithoutAbilitiesInput = {
   base_speed?: Prisma.IntFieldUpdateOperationsInput | number
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type1?: Prisma.ChampTypeUpdateOneRequiredWithoutPokemonPrimaryNestedInput
   type2?: Prisma.ChampTypeUpdateOneWithoutPokemonSecondaryNestedInput
   megaOf?: Prisma.ChampPokemonUpdateOneWithoutMegaFormsNestedInput
@@ -1516,6 +1554,7 @@ export type ChampPokemonUncheckedUpdateWithoutAbilitiesInput = {
   mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   megaForms?: Prisma.ChampPokemonUncheckedUpdateManyWithoutMegaOfNestedInput
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutPokemonNestedInput
@@ -1536,6 +1575,7 @@ export type ChampPokemonCreateWithoutLearnsetInput = {
   base_speed: number
   is_mega?: boolean
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   type1: Prisma.ChampTypeCreateNestedOneWithoutPokemonPrimaryInput
   type2?: Prisma.ChampTypeCreateNestedOneWithoutPokemonSecondaryInput
   megaOf?: Prisma.ChampPokemonCreateNestedOneWithoutMegaFormsInput
@@ -1564,6 +1604,7 @@ export type ChampPokemonUncheckedCreateWithoutLearnsetInput = {
   mega_of_id?: number | null
   mega_ability_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   megaForms?: Prisma.ChampPokemonUncheckedCreateNestedManyWithoutMegaOfInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedCreateNestedManyWithoutPokemonInput
   legality?: Prisma.RegulationLegalityUncheckedCreateNestedManyWithoutPokemonInput
@@ -1600,6 +1641,7 @@ export type ChampPokemonUpdateWithoutLearnsetInput = {
   base_speed?: Prisma.IntFieldUpdateOperationsInput | number
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type1?: Prisma.ChampTypeUpdateOneRequiredWithoutPokemonPrimaryNestedInput
   type2?: Prisma.ChampTypeUpdateOneWithoutPokemonSecondaryNestedInput
   megaOf?: Prisma.ChampPokemonUpdateOneWithoutMegaFormsNestedInput
@@ -1628,6 +1670,7 @@ export type ChampPokemonUncheckedUpdateWithoutLearnsetInput = {
   mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   megaForms?: Prisma.ChampPokemonUncheckedUpdateManyWithoutMegaOfNestedInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedUpdateManyWithoutPokemonNestedInput
   legality?: Prisma.RegulationLegalityUncheckedUpdateManyWithoutPokemonNestedInput
@@ -1648,6 +1691,7 @@ export type ChampPokemonCreateWithoutLegalityInput = {
   base_speed: number
   is_mega?: boolean
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   type1: Prisma.ChampTypeCreateNestedOneWithoutPokemonPrimaryInput
   type2?: Prisma.ChampTypeCreateNestedOneWithoutPokemonSecondaryInput
   megaOf?: Prisma.ChampPokemonCreateNestedOneWithoutMegaFormsInput
@@ -1676,6 +1720,7 @@ export type ChampPokemonUncheckedCreateWithoutLegalityInput = {
   mega_of_id?: number | null
   mega_ability_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   megaForms?: Prisma.ChampPokemonUncheckedCreateNestedManyWithoutMegaOfInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedCreateNestedManyWithoutPokemonInput
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
@@ -1712,6 +1757,7 @@ export type ChampPokemonUpdateWithoutLegalityInput = {
   base_speed?: Prisma.IntFieldUpdateOperationsInput | number
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type1?: Prisma.ChampTypeUpdateOneRequiredWithoutPokemonPrimaryNestedInput
   type2?: Prisma.ChampTypeUpdateOneWithoutPokemonSecondaryNestedInput
   megaOf?: Prisma.ChampPokemonUpdateOneWithoutMegaFormsNestedInput
@@ -1740,6 +1786,7 @@ export type ChampPokemonUncheckedUpdateWithoutLegalityInput = {
   mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   megaForms?: Prisma.ChampPokemonUncheckedUpdateManyWithoutMegaOfNestedInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedUpdateManyWithoutPokemonNestedInput
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
@@ -1760,6 +1807,7 @@ export type ChampPokemonCreateWithoutKnownSetsInput = {
   base_speed: number
   is_mega?: boolean
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   type1: Prisma.ChampTypeCreateNestedOneWithoutPokemonPrimaryInput
   type2?: Prisma.ChampTypeCreateNestedOneWithoutPokemonSecondaryInput
   megaOf?: Prisma.ChampPokemonCreateNestedOneWithoutMegaFormsInput
@@ -1788,6 +1836,7 @@ export type ChampPokemonUncheckedCreateWithoutKnownSetsInput = {
   mega_of_id?: number | null
   mega_ability_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   megaForms?: Prisma.ChampPokemonUncheckedCreateNestedManyWithoutMegaOfInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedCreateNestedManyWithoutPokemonInput
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
@@ -1824,6 +1873,7 @@ export type ChampPokemonUpdateWithoutKnownSetsInput = {
   base_speed?: Prisma.IntFieldUpdateOperationsInput | number
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type1?: Prisma.ChampTypeUpdateOneRequiredWithoutPokemonPrimaryNestedInput
   type2?: Prisma.ChampTypeUpdateOneWithoutPokemonSecondaryNestedInput
   megaOf?: Prisma.ChampPokemonUpdateOneWithoutMegaFormsNestedInput
@@ -1852,6 +1902,7 @@ export type ChampPokemonUncheckedUpdateWithoutKnownSetsInput = {
   mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   megaForms?: Prisma.ChampPokemonUncheckedUpdateManyWithoutMegaOfNestedInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedUpdateManyWithoutPokemonNestedInput
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
@@ -1872,6 +1923,7 @@ export type ChampPokemonCreateWithoutScoutedInInput = {
   base_speed: number
   is_mega?: boolean
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   type1: Prisma.ChampTypeCreateNestedOneWithoutPokemonPrimaryInput
   type2?: Prisma.ChampTypeCreateNestedOneWithoutPokemonSecondaryInput
   megaOf?: Prisma.ChampPokemonCreateNestedOneWithoutMegaFormsInput
@@ -1900,6 +1952,7 @@ export type ChampPokemonUncheckedCreateWithoutScoutedInInput = {
   mega_of_id?: number | null
   mega_ability_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
   megaForms?: Prisma.ChampPokemonUncheckedCreateNestedManyWithoutMegaOfInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedCreateNestedManyWithoutPokemonInput
   learnset?: Prisma.ChampLearnsetUncheckedCreateNestedManyWithoutPokemonInput
@@ -1936,6 +1989,7 @@ export type ChampPokemonUpdateWithoutScoutedInInput = {
   base_speed?: Prisma.IntFieldUpdateOperationsInput | number
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type1?: Prisma.ChampTypeUpdateOneRequiredWithoutPokemonPrimaryNestedInput
   type2?: Prisma.ChampTypeUpdateOneWithoutPokemonSecondaryNestedInput
   megaOf?: Prisma.ChampPokemonUpdateOneWithoutMegaFormsNestedInput
@@ -1964,6 +2018,7 @@ export type ChampPokemonUncheckedUpdateWithoutScoutedInInput = {
   mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   megaForms?: Prisma.ChampPokemonUncheckedUpdateManyWithoutMegaOfNestedInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedUpdateManyWithoutPokemonNestedInput
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
@@ -1987,6 +2042,7 @@ export type ChampPokemonCreateManyType1Input = {
   mega_of_id?: number | null
   mega_ability_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
 }
 
 export type ChampPokemonCreateManyType2Input = {
@@ -2005,6 +2061,7 @@ export type ChampPokemonCreateManyType2Input = {
   mega_of_id?: number | null
   mega_ability_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
 }
 
 export type ChampPokemonUpdateWithoutType1Input = {
@@ -2020,6 +2077,7 @@ export type ChampPokemonUpdateWithoutType1Input = {
   base_speed?: Prisma.IntFieldUpdateOperationsInput | number
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type2?: Prisma.ChampTypeUpdateOneWithoutPokemonSecondaryNestedInput
   megaOf?: Prisma.ChampPokemonUpdateOneWithoutMegaFormsNestedInput
   megaForms?: Prisma.ChampPokemonUpdateManyWithoutMegaOfNestedInput
@@ -2047,6 +2105,7 @@ export type ChampPokemonUncheckedUpdateWithoutType1Input = {
   mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   megaForms?: Prisma.ChampPokemonUncheckedUpdateManyWithoutMegaOfNestedInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedUpdateManyWithoutPokemonNestedInput
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
@@ -2071,6 +2130,7 @@ export type ChampPokemonUncheckedUpdateManyWithoutType1Input = {
   mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ChampPokemonUpdateWithoutType2Input = {
@@ -2086,6 +2146,7 @@ export type ChampPokemonUpdateWithoutType2Input = {
   base_speed?: Prisma.IntFieldUpdateOperationsInput | number
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type1?: Prisma.ChampTypeUpdateOneRequiredWithoutPokemonPrimaryNestedInput
   megaOf?: Prisma.ChampPokemonUpdateOneWithoutMegaFormsNestedInput
   megaForms?: Prisma.ChampPokemonUpdateManyWithoutMegaOfNestedInput
@@ -2113,6 +2174,7 @@ export type ChampPokemonUncheckedUpdateWithoutType2Input = {
   mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   megaForms?: Prisma.ChampPokemonUncheckedUpdateManyWithoutMegaOfNestedInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedUpdateManyWithoutPokemonNestedInput
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
@@ -2137,6 +2199,7 @@ export type ChampPokemonUncheckedUpdateManyWithoutType2Input = {
   mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ChampPokemonCreateManyMegaAbilityInput = {
@@ -2155,6 +2218,7 @@ export type ChampPokemonCreateManyMegaAbilityInput = {
   is_mega?: boolean
   mega_of_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
 }
 
 export type ChampPokemonUpdateWithoutMegaAbilityInput = {
@@ -2170,6 +2234,7 @@ export type ChampPokemonUpdateWithoutMegaAbilityInput = {
   base_speed?: Prisma.IntFieldUpdateOperationsInput | number
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type1?: Prisma.ChampTypeUpdateOneRequiredWithoutPokemonPrimaryNestedInput
   type2?: Prisma.ChampTypeUpdateOneWithoutPokemonSecondaryNestedInput
   megaOf?: Prisma.ChampPokemonUpdateOneWithoutMegaFormsNestedInput
@@ -2197,6 +2262,7 @@ export type ChampPokemonUncheckedUpdateWithoutMegaAbilityInput = {
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   megaForms?: Prisma.ChampPokemonUncheckedUpdateManyWithoutMegaOfNestedInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedUpdateManyWithoutPokemonNestedInput
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
@@ -2221,6 +2287,7 @@ export type ChampPokemonUncheckedUpdateManyWithoutMegaAbilityInput = {
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mega_of_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type ChampPokemonCreateManyMegaOfInput = {
@@ -2239,6 +2306,7 @@ export type ChampPokemonCreateManyMegaOfInput = {
   is_mega?: boolean
   mega_ability_id?: number | null
   sprite_key?: string | null
+  learnset_is_approximate?: boolean
 }
 
 export type ChampPokemonUpdateWithoutMegaOfInput = {
@@ -2254,6 +2322,7 @@ export type ChampPokemonUpdateWithoutMegaOfInput = {
   base_speed?: Prisma.IntFieldUpdateOperationsInput | number
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   type1?: Prisma.ChampTypeUpdateOneRequiredWithoutPokemonPrimaryNestedInput
   type2?: Prisma.ChampTypeUpdateOneWithoutPokemonSecondaryNestedInput
   megaForms?: Prisma.ChampPokemonUpdateManyWithoutMegaOfNestedInput
@@ -2281,6 +2350,7 @@ export type ChampPokemonUncheckedUpdateWithoutMegaOfInput = {
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   megaForms?: Prisma.ChampPokemonUncheckedUpdateManyWithoutMegaOfNestedInput
   abilities?: Prisma.ChampPokemonAbilityUncheckedUpdateManyWithoutPokemonNestedInput
   learnset?: Prisma.ChampLearnsetUncheckedUpdateManyWithoutPokemonNestedInput
@@ -2305,6 +2375,7 @@ export type ChampPokemonUncheckedUpdateManyWithoutMegaOfInput = {
   is_mega?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mega_ability_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sprite_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  learnset_is_approximate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -2400,6 +2471,7 @@ export type ChampPokemonSelect<ExtArgs extends runtime.Types.Extensions.Internal
   mega_of_id?: boolean
   mega_ability_id?: boolean
   sprite_key?: boolean
+  learnset_is_approximate?: boolean
   type1?: boolean | Prisma.ChampTypeDefaultArgs<ExtArgs>
   type2?: boolean | Prisma.ChampPokemon$type2Args<ExtArgs>
   megaOf?: boolean | Prisma.ChampPokemon$megaOfArgs<ExtArgs>
@@ -2430,6 +2502,7 @@ export type ChampPokemonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   mega_of_id?: boolean
   mega_ability_id?: boolean
   sprite_key?: boolean
+  learnset_is_approximate?: boolean
   type1?: boolean | Prisma.ChampTypeDefaultArgs<ExtArgs>
   type2?: boolean | Prisma.ChampPokemon$type2Args<ExtArgs>
   megaOf?: boolean | Prisma.ChampPokemon$megaOfArgs<ExtArgs>
@@ -2453,6 +2526,7 @@ export type ChampPokemonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   mega_of_id?: boolean
   mega_ability_id?: boolean
   sprite_key?: boolean
+  learnset_is_approximate?: boolean
   type1?: boolean | Prisma.ChampTypeDefaultArgs<ExtArgs>
   type2?: boolean | Prisma.ChampPokemon$type2Args<ExtArgs>
   megaOf?: boolean | Prisma.ChampPokemon$megaOfArgs<ExtArgs>
@@ -2476,9 +2550,10 @@ export type ChampPokemonSelectScalar = {
   mega_of_id?: boolean
   mega_ability_id?: boolean
   sprite_key?: boolean
+  learnset_is_approximate?: boolean
 }
 
-export type ChampPokemonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "national_dex_no" | "type1_id" | "type2_id" | "base_hp" | "base_attack" | "base_defense" | "base_special_attack" | "base_special_defense" | "base_speed" | "is_mega" | "mega_of_id" | "mega_ability_id" | "sprite_key", ExtArgs["result"]["champPokemon"]>
+export type ChampPokemonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "national_dex_no" | "type1_id" | "type2_id" | "base_hp" | "base_attack" | "base_defense" | "base_special_attack" | "base_special_defense" | "base_speed" | "is_mega" | "mega_of_id" | "mega_ability_id" | "sprite_key" | "learnset_is_approximate", ExtArgs["result"]["champPokemon"]>
 export type ChampPokemonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   type1?: boolean | Prisma.ChampTypeDefaultArgs<ExtArgs>
   type2?: boolean | Prisma.ChampPokemon$type2Args<ExtArgs>
@@ -2548,6 +2623,12 @@ export type $ChampPokemonPayload<ExtArgs extends runtime.Types.Extensions.Intern
      * Key into the mirrored sprite assets (see tools/mirror-sprites.mjs).
      */
     sprite_key: string | null
+    /**
+     * True when the learnset was supplemented from recent mainline games because the dataset's
+     * `champions` version group had gaps. Drives an "approximate" badge — a slightly generous
+     * move list is safer than a missing one, but it has to be labelled as such.
+     */
+    learnset_is_approximate: boolean
   }, ExtArgs["result"]["champPokemon"]>
   composites: {}
 }
@@ -2997,6 +3078,7 @@ export interface ChampPokemonFieldRefs {
   readonly mega_of_id: Prisma.FieldRef<"ChampPokemon", 'Int'>
   readonly mega_ability_id: Prisma.FieldRef<"ChampPokemon", 'Int'>
   readonly sprite_key: Prisma.FieldRef<"ChampPokemon", 'String'>
+  readonly learnset_is_approximate: Prisma.FieldRef<"ChampPokemon", 'Boolean'>
 }
     
 

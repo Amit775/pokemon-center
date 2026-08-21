@@ -138,6 +138,10 @@ model ChampPokemon {
   mega_ability_id Int?
   /// Key into the mirrored sprite assets (see tools/mirror-sprites.mjs).
   sprite_key      String?
+  /// True when the learnset was supplemented from recent mainline games because the dataset's
+  /// `champions` version group had gaps. Drives an "approximate" badge — a slightly generous
+  /// move list is safer than a missing one, but it has to be labelled as such.
+  learnset_is_approximate Boolean @default(false)
 
   type1       ChampType     @relation("PrimaryType", fields: [type1_id], references: [id])
   type2       ChampType?    @relation("SecondaryType", fields: [type2_id], references: [id])

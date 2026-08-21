@@ -1,0 +1,19 @@
+{
+	"fetchedAt": "2026-08-21T19:14:13.788Z",
+	"pages": [
+		{
+			"key": "roster",
+			"title": "List of Pokémon in Pokémon Champions",
+			"url": "https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_in_Pok%C3%A9mon_Champions",
+			"revisionId": 4594982,
+			"why": "legal species and Mega Evolutions, with their Champions typing"
+		},
+		{
+			"key": "changes",
+			"title": "Pokémon Champions",
+			"url": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Champions",
+			"revisionId": 4616002,
+			"why": "move, ability and status changes relative to the mainline games"
+		}
+	]
+}
