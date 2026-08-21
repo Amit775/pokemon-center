@@ -1,0 +1,33 @@
+{
+	"name": "prisma-champions",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/prisma-champions/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"build": {
+			"executor": "@nx/js:tsc",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/libs/prisma-champions",
+				"tsConfig": "libs/prisma-champions/tsconfig.lib.json",
+				"packageJson": "libs/prisma-champions/package.json",
+				"main": "libs/prisma-champions/src/index.ts",
+				"assets": []
+			}
+		},
+		"generate": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "prisma generate --config prisma.champions.config.ts"
+			},
+			"outputs": ["{projectRoot}/src/generated"]
+		},
+		"migrate": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "prisma migrate dev --config prisma.champions.config.ts"
+			}
+		}
+	}
+}

@@ -12,7 +12,11 @@ const compat = new FlatCompat({
 export default [
 	{
 		// generated code (prisma-client generator + prisma-nestjs-graphql entities)
-		ignores: ['libs/infra-pokedex-data/src/prisma-client/**', 'libs/infra-pokedex-data/src/entities/**'],
+		ignores: [
+			'libs/infra-pokedex-data/src/prisma-client/**',
+			'libs/infra-pokedex-data/src/entities/**',
+			'libs/prisma-champions/src/generated/**',
+		],
 	},
 	...nx.configs['flat/base'],
 	{

@@ -14,6 +14,12 @@
       "port": 3000
     },
     {
+      "name": "champions-service",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["nx", "run", "champions-service:serve"],
+      "port": 3001
+    },
+    {
       "name": "pokemon-center",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["nx", "run", "pokemon-center:serve"],

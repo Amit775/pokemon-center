@@ -1,0 +1,9 @@
+{
+	"name": "@pokemon-center/domain-champions",
+	"version": "0.0.1",
+	"peerDependencies": {
+		"@angular/core": "^20.0.0",
+		"@angular/router": "^20.0.0"
+	},
+	"sideEffects": false
+}

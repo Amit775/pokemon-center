@@ -14,6 +14,12 @@ export const routes: (Route | NavRoute)[] = [
 	},
 	{
 		type: 'nav',
+		display: 'Champions',
+		path: 'champions',
+		loadChildren: () => import('@pokemon-center/domain-champions'),
+	},
+	{
+		type: 'nav',
 		display: 'Pokedex',
 		path: 'pokedex',
 		loadChildren: () => import('@pokemon-center/domain-pokedex'),

@@ -1,0 +1,366 @@
+// Pokémon Champions — projection database.
+//
+// This is deliberately NOT the mainline schema (prisma/schema.prisma). Champions diverges
+// mechanically: no IVs, SP replaces EVs (66 total / 32 cap / 1 SP = 1 stat point), a fixed
+// level of 50, rebalanced move data, and a roster that rotates by regulation set. Projecting
+// mainline rows into a Champions view would produce confidently wrong answers mid-ladder.
+//
+// Two conventions differ from the mainline schema on purpose:
+//
+//  1. **Ids are the mainline ids.** `ChampPokemon.id` is the same integer as
+//     `pokemon.id` upstream, so the derive pipeline is idempotent (upsert by id) and the
+//     provenance of every row stays traceable back to `data/csv/`.
+//  2. **Stats are denormalized to columns**, not a `pokemon_stats` join table. This is a
+//     read-optimized projection feeding a calculator that runs on every keystroke; six
+//     joins per Pokémon to rebuild a stat spread would be pure cost.
+//
+// Unlike the mainline API this database is *mutable* — the advisor writes battle sessions,
+// scouted teams and observed sets. Do not wire `tools/pokedex:cleanup` into champions-service.
+
+generator client {
+  provider        = "prisma-client"
+  output          = "../../libs/prisma-champions/src/generated"
+  moduleFormat    = "cjs"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+// No `prisma-nestjs-graphql` generator here, unlike the mainline. That generator earns its
+// keep across 77 models; across ~15 it would hand us exactly the generated CRUD surface
+// (createMany/deleteMany/upsert on everything) that we do not want exposed. The Champions
+// GraphQL types are written by hand so the mutation surface stays deliberate.
+
+datasource db {
+  provider   = "postgresql"
+  extensions = [pg_trgm]
+}
+
+// ===========================================
+// REFERENCE — projected from mainline, then overridden
+// ===========================================
+
+model ChampType {
+  id   Int    @id
+  slug String @unique
+  name String
+
+  pokemonPrimary   ChampPokemon[]      @relation("PrimaryType")
+  pokemonSecondary ChampPokemon[]      @relation("SecondaryType")
+  moves            ChampMove[]
+  attacking        ChampTypeEfficacy[] @relation("AttackingType")
+  defending        ChampTypeEfficacy[] @relation("DefendingType")
+
+  @@map("champ_type")
+}
+
+/// Champions' own type chart. Currently identical to Gen 9, but stored rather than assumed
+/// so a future regulation that tweaks it is a data change, not a code change.
+model ChampTypeEfficacy {
+  attacking_type_id Int
+  defending_type_id Int
+  /// Percent, matching upstream `type_efficacy.damage_factor`: 0, 50, 100, 200.
+  damage_factor     Int
+
+  attackingType ChampType @relation("AttackingType", fields: [attacking_type_id], references: [id])
+  defendingType ChampType @relation("DefendingType", fields: [defending_type_id], references: [id])
+
+  @@id([attacking_type_id, defending_type_id])
+  @@map("champ_type_efficacy")
+}
+
+model ChampAbility {
+  id          Int     @id
+  slug        String  @unique
+  name        String
+  effect_text String?
+  /// True for abilities that only exist on a Mega form (`mega-sol`, `dragonize`,
+  /// `piercing-drill`, `eelevate`, `fire-mane`, `spicy-spray`, ...).
+  is_mega     Boolean @default(false)
+
+  pokemonAbilities ChampPokemonAbility[]
+  megaOf           ChampPokemon[]        @relation("MegaAbility")
+  knownSets        KnownSet[]
+
+  @@index([slug(ops: raw("gin_trgm_ops"))], type: Gin)
+  @@map("champ_ability")
+}
+
+model ChampMove {
+  id              Int         @id
+  slug            String      @unique
+  name            String
+  type_id         Int
+  damage_class    DamageClass
+  power           Int?
+  pp              Int?
+  accuracy        Int?
+  priority        Int         @default(0)
+  effect_text     String?
+  effect_chance   Int?
+  /// Move flags Champions cares about: contact, sound, slicing, punch, bite, bullet,
+  /// powder, wind, protect, substitute-bypassing.
+  flags           String[]    @default([])
+  /// True when Champions changed this move from its mainline values. Drives the "differs
+  /// from mainline" badge in the dex — Snap Trap (Grass→Steel), Beak Blast (100→120 BP),
+  /// Dragon Cheer (now Sound), Toxic Thread (now −2 Speed), Rage Fist (resets on switch).
+  is_overridden   Boolean     @default(false)
+  /// Human-readable note describing what changed, shown next to the badge.
+  override_note   String?
+
+  type      ChampType       @relation(fields: [type_id], references: [id])
+  learnedBy ChampLearnset[]
+  inSets    KnownSetMove[]
+
+  @@index([slug(ops: raw("gin_trgm_ops"))], type: Gin)
+  @@map("champ_move")
+}
+
+model ChampPokemon {
+  id               Int     @id
+  slug             String  @unique
+  name             String
+  /// National dex number. Megas share their base form's number.
+  national_dex_no  Int
+  type1_id         Int
+  type2_id         Int?
+
+  // Base stats, denormalized (see header note).
+  base_hp              Int
+  base_attack          Int
+  base_defense         Int
+  base_special_attack  Int
+  base_special_defense Int
+  base_speed           Int
+
+  is_mega         Boolean @default(false)
+  /// The base form this Mega evolves from. Null for non-Megas.
+  mega_of_id      Int?
+  /// A Mega's fixed ability. Null for non-Megas.
+  mega_ability_id Int?
+  /// Key into the mirrored sprite assets (see tools/mirror-sprites.mjs).
+  sprite_key      String?
+
+  type1       ChampType     @relation("PrimaryType", fields: [type1_id], references: [id])
+  type2       ChampType?    @relation("SecondaryType", fields: [type2_id], references: [id])
+  megaOf      ChampPokemon? @relation("MegaForm", fields: [mega_of_id], references: [id])
+  megaForms   ChampPokemon[] @relation("MegaForm")
+  megaAbility ChampAbility? @relation("MegaAbility", fields: [mega_ability_id], references: [id])
+
+  abilities  ChampPokemonAbility[]
+  learnset   ChampLearnset[]
+  legality   RegulationLegality[]
+  knownSets  KnownSet[]
+  scoutedIn  ScoutedTeamMember[]
+
+  @@index([slug(ops: raw("gin_trgm_ops"))], type: Gin)
+  @@index([is_mega])
+  @@map("champ_pokemon")
+}
+
+model ChampPokemonAbility {
+  pokemon_id Int
+  ability_id Int
+  slot       Int
+  is_hidden  Boolean @default(false)
+
+  pokemon ChampPokemon @relation(fields: [pokemon_id], references: [id], onDelete: Cascade)
+  ability ChampAbility @relation(fields: [ability_id], references: [id])
+
+  @@id([pokemon_id, ability_id])
+  @@map("champ_pokemon_ability")
+}
+
+model ChampLearnset {
+  pokemon_id Int
+  move_id    Int
+
+  pokemon ChampPokemon @relation(fields: [pokemon_id], references: [id], onDelete: Cascade)
+  move    ChampMove    @relation(fields: [move_id], references: [id])
+
+  @@id([pokemon_id, move_id])
+  @@map("champ_learnset")
+}
+
+// ===========================================
+// REGULATIONS — legality rotates; history is kept
+// ===========================================
+
+/// A Champions regulation set. M-B ran 17 Jun 2026 → 2 Sep 2026 with ~208 species and
+/// ~75 Megas. Rows are never overwritten when a new set lands, so "what changed this
+/// regulation" stays queryable.
+model Regulation {
+  id         Int      @id @default(autoincrement())
+  code       String   @unique
+  name       String
+  starts_on  DateTime @db.Date
+  ends_on    DateTime @db.Date
+  is_current Boolean  @default(false)
+  /// Restrictions and format parameters that are not per-Pokémon.
+  notes      String?
+
+  legality RegulationLegality[]
+  sessions BattleSession[]
+  teams    ScoutedTeam[]
+
+  @@index([is_current])
+  @@map("regulation")
+}
+
+model RegulationLegality {
+  regulation_id Int
+  pokemon_id    Int
+
+  regulation Regulation   @relation(fields: [regulation_id], references: [id], onDelete: Cascade)
+  pokemon    ChampPokemon @relation(fields: [pokemon_id], references: [id], onDelete: Cascade)
+
+  @@id([regulation_id, pokemon_id])
+  @@map("regulation_legality")
+}
+
+// ===========================================
+// SETS — curated now, harvested from real battles later
+// ===========================================
+
+model KnownSet {
+  id         Int       @id @default(autoincrement())
+  pokemon_id Int
+  label      String
+  item       String?
+  ability_id Int?
+  nature     String?
+
+  // SP spread: 66 points total, 32 per stat maximum.
+  sp_hp              Int @default(0)
+  sp_attack          Int @default(0)
+  sp_defense         Int @default(0)
+  sp_special_attack  Int @default(0)
+  sp_special_defense Int @default(0)
+  sp_speed           Int @default(0)
+
+  source     SetSource @default(CURATED)
+  /// How many times this set has actually been seen in a logged battle. The whole point of
+  /// the battle tracker: usage data nobody else has, because it is yours.
+  seen_count Int       @default(0)
+  updated_at DateTime  @updatedAt
+
+  pokemon ChampPokemon   @relation(fields: [pokemon_id], references: [id], onDelete: Cascade)
+  ability ChampAbility?  @relation(fields: [ability_id], references: [id])
+  moves   KnownSetMove[]
+  members ScoutedTeamMember[]
+
+  @@index([pokemon_id, source])
+  @@map("known_set")
+}
+
+model KnownSetMove {
+  known_set_id Int
+  move_id      Int
+  slot         Int
+
+  knownSet KnownSet  @relation(fields: [known_set_id], references: [id], onDelete: Cascade)
+  move     ChampMove @relation(fields: [move_id], references: [id])
+
+  @@id([known_set_id, move_id])
+  @@map("known_set_move")
+}
+
+// ===========================================
+// ADVISOR — mutable, user-owned
+// ===========================================
+
+/// An opponent's six, captured at team preview. Also used to store your own teams.
+model ScoutedTeam {
+  id            Int      @id @default(autoincrement())
+  regulation_id Int
+  label         String
+  is_mine       Boolean  @default(false)
+  notes         String?
+  created_at    DateTime @default(now())
+
+  regulation      Regulation      @relation(fields: [regulation_id], references: [id])
+  members         ScoutedTeamMember[]
+  sessionsAsMine  BattleSession[] @relation("MyTeam")
+  sessionsAsTheirs BattleSession[] @relation("TheirTeam")
+
+  @@map("scouted_team")
+}
+
+model ScoutedTeamMember {
+  id           Int  @id @default(autoincrement())
+  team_id      Int
+  pokemon_id   Int
+  slot         Int
+  known_set_id Int?
+
+  team     ScoutedTeam  @relation(fields: [team_id], references: [id], onDelete: Cascade)
+  pokemon  ChampPokemon @relation(fields: [pokemon_id], references: [id])
+  knownSet KnownSet?    @relation(fields: [known_set_id], references: [id])
+
+  @@unique([team_id, slot])
+  @@map("scouted_team_member")
+}
+
+model BattleSession {
+  id            Int          @id @default(autoincrement())
+  regulation_id Int
+  my_team_id    Int?
+  their_team_id Int?
+  format        BattleFormat @default(SINGLES)
+  started_at    DateTime     @default(now())
+  ended_at      DateTime?
+  result        BattleResult @default(IN_PROGRESS)
+  notes         String?
+
+  regulation Regulation   @relation(fields: [regulation_id], references: [id])
+  myTeam     ScoutedTeam? @relation("MyTeam", fields: [my_team_id], references: [id])
+  theirTeam  ScoutedTeam? @relation("TheirTeam", fields: [their_team_id], references: [id])
+  turns      BattleTurn[]
+
+  @@index([result, started_at])
+  @@map("battle_session")
+}
+
+/// One logged turn. `state` is Json on purpose: the shape of a turn record will churn
+/// heavily through M5, and pinning it to columns now would guarantee a migration per
+/// iteration. It gets normalized once the tracker's vocabulary settles.
+model BattleTurn {
+  id         Int      @id @default(autoincrement())
+  session_id Int
+  turn_no    Int
+  state      Json
+  created_at DateTime @default(now())
+
+  session BattleSession @relation(fields: [session_id], references: [id], onDelete: Cascade)
+
+  @@unique([session_id, turn_no])
+  @@map("battle_turn")
+}
+
+// ===========================================
+// ENUMS
+// ===========================================
+
+enum DamageClass {
+  PHYSICAL
+  SPECIAL
+  STATUS
+}
+
+enum SetSource {
+  /// Written from a published source or by hand.
+  CURATED
+  /// Harvested from a battle you actually logged.
+  OBSERVED
+}
+
+enum BattleFormat {
+  SINGLES
+  DOUBLES
+}
+
+enum BattleResult {
+  IN_PROGRESS
+  WIN
+  LOSS
+  DRAW
+  ABANDONED
+}

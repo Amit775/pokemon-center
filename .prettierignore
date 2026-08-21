@@ -6,3 +6,5 @@
 .angular
 
 .nx/self-healing
+# generated Prisma client for the Champions database
+libs/prisma-champions/src/generated

@@ -1,0 +1,24 @@
+query CurrentRegulation {
+	currentRegulation {
+		id
+		code
+		name
+		startsOn
+		endsOn
+		isCurrent
+		legalCount
+		notes
+	}
+}
+
+query RegulationList {
+	regulations {
+		id
+		code
+		name
+		startsOn
+		endsOn
+		isCurrent
+		legalCount
+	}
+}
