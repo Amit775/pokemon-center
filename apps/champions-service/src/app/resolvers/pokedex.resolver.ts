@@ -5,6 +5,7 @@ import {
 	ChampMove,
 	ChampPokemonDetail,
 	ChampPokemonSummary,
+	ChampType as ChampTypeModel,
 	DamageClass,
 	TypeEfficacyEntry,
 } from '../models/pokemon.model';
@@ -178,6 +179,99 @@ export class PokedexResolver {
 		});
 
 		return ranked.slice(0, take).map(toSummary);
+	}
+
+	/**
+	 * Browse the legal roster.
+	 *
+	 * Megas are excluded by default: a list that interleaves Charizard with Mega Charizard X
+	 * and Y reads as three Pokémon when it is one line of thinking. They are one toggle away.
+	 */
+	@Query(() => [ChampPokemonSummary], { name: 'champRoster' })
+	async champRoster(
+		@Args('type', { nullable: true }) type?: string,
+		@Args('search', { nullable: true }) search?: string,
+		@Args('includeMegas', { nullable: true, defaultValue: false }) includeMegas?: boolean,
+		@Args('take', { type: () => Int, nullable: true, defaultValue: 60 }) take?: number,
+		@Args('skip', { type: () => Int, nullable: true, defaultValue: 0 }) skip?: number,
+		@Args('regulation', { nullable: true }) regulation?: string,
+	): Promise<ChampPokemonSummary[]> {
+		const legal = await this.legalIds(regulation);
+		if (legal.length === 0) return [];
+
+		const rows = (await this.prisma.champPokemon.findMany({
+			where: {
+				id: { in: legal },
+				...(includeMegas ? {} : { is_mega: false }),
+				...(search ? { name: { contains: search, mode: 'insensitive' } } : {}),
+				...(type ? { OR: [{ type1: { slug: type } }, { type2: { slug: type } }] } : {}),
+			},
+			select: summarySelect,
+			orderBy: [{ national_dex_no: 'asc' }, { is_mega: 'asc' }],
+			take: take ?? 60,
+			skip: skip ?? 0,
+		})) as PokemonRow[];
+
+		return rows.map(toSummary);
+	}
+
+	/** How many entries match a roster filter, for the "showing N of M" line. */
+	@Query(() => Int, { name: 'champRosterCount' })
+	async champRosterCount(
+		@Args('type', { nullable: true }) type?: string,
+		@Args('search', { nullable: true }) search?: string,
+		@Args('includeMegas', { nullable: true, defaultValue: false }) includeMegas?: boolean,
+		@Args('regulation', { nullable: true }) regulation?: string,
+	): Promise<number> {
+		const legal = await this.legalIds(regulation);
+		if (legal.length === 0) return 0;
+
+		return this.prisma.champPokemon.count({
+			where: {
+				id: { in: legal },
+				...(includeMegas ? {} : { is_mega: false }),
+				...(search ? { name: { contains: search, mode: 'insensitive' } } : {}),
+				...(type ? { OR: [{ type1: { slug: type } }, { type2: { slug: type } }] } : {}),
+			},
+		});
+	}
+
+	/** Every type, for the filter row. */
+	@Query(() => [ChampTypeModel], { name: 'champTypes' })
+	async champTypes(): Promise<ChampTypeModel[]> {
+		return this.prisma.champType.findMany({ orderBy: { id: 'asc' }, select: { id: true, slug: true, name: true } });
+	}
+
+	/**
+	 * Moves that Champions changed, newest concern first.
+	 *
+	 * This is the page a mainline player most needs: everything they think they know about
+	 * a move and now do not.
+	 */
+	@Query(() => [ChampMove], { name: 'champChangedMoves' })
+	async champChangedMoves(): Promise<ChampMove[]> {
+		const rows = await this.prisma.champMove.findMany({
+			where: { is_overridden: true },
+			select: {
+				id: true,
+				slug: true,
+				name: true,
+				damage_class: true,
+				power: true,
+				pp: true,
+				accuracy: true,
+				priority: true,
+				flags: true,
+				effect_text: true,
+				effect_chance: true,
+				is_overridden: true,
+				override_note: true,
+				type: { select: { slug: true, name: true } },
+			},
+			orderBy: { name: 'asc' },
+		});
+
+		return (rows as MoveRow[]).map(toMove);
 	}
 
 	/** Full detail for a set of slugs — what the advisor needs to calculate with a team. */

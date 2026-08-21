@@ -43,6 +43,27 @@ export type TypeChartQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type TypeChartQuery = { typeChart: Array<{ attacking: string, defending: string, factor: number }> };
 
+export type ChampRosterQueryVariables = Exact<{
+  type?: string | null | undefined;
+  search?: string | null | undefined;
+  includeMegas?: boolean | null | undefined;
+  take?: number | null | undefined;
+  skip?: number | null | undefined;
+}>;
+
+
+export type ChampRosterQuery = { champRosterCount: number, champRoster: Array<{ id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
+
+export type ChampTypesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ChampTypesQuery = { champTypes: Array<{ id: number, slug: string, name: string }> };
+
+export type ChampChangedMovesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ChampChangedMovesQuery = { champChangedMoves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, effectChance: number | null, overrideNote: string | null }> };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -242,3 +263,62 @@ export const TypeChartDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<TypeChartQuery, TypeChartQueryVariables>;
+export const ChampRosterDocument = new TypedDocumentString(`
+    query ChampRoster($type: String, $search: String, $includeMegas: Boolean, $take: Int, $skip: Int) {
+  champRoster(
+    type: $type
+    search: $search
+    includeMegas: $includeMegas
+    take: $take
+    skip: $skip
+  ) {
+    ...PokemonSummary
+  }
+  champRosterCount(type: $type, search: $search, includeMegas: $includeMegas)
+}
+    fragment PokemonSummary on ChampPokemonSummary {
+  id
+  slug
+  name
+  nationalDexNo
+  types
+  isMega
+  spriteKey
+  megaOfSlug
+  baseStats {
+    hp
+    attack
+    defense
+    specialAttack
+    specialDefense
+    speed
+    total
+  }
+}`) as unknown as TypedDocumentString<ChampRosterQuery, ChampRosterQueryVariables>;
+export const ChampTypesDocument = new TypedDocumentString(`
+    query ChampTypes {
+  champTypes {
+    id
+    slug
+    name
+  }
+}
+    `) as unknown as TypedDocumentString<ChampTypesQuery, ChampTypesQueryVariables>;
+export const ChampChangedMovesDocument = new TypedDocumentString(`
+    query ChampChangedMoves {
+  champChangedMoves {
+    id
+    slug
+    name
+    type
+    damageClass
+    power
+    pp
+    accuracy
+    priority
+    flags
+    effectChance
+    overrideNote
+  }
+}
+    `) as unknown as TypedDocumentString<ChampChangedMovesQuery, ChampChangedMovesQueryVariables>;

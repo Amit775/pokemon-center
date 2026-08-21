@@ -80,12 +80,32 @@ import { RegulationStore } from '../../regulation.store';
 				</pkd-card>
 			} @else {
 				<pkd-section-heading label="Tools" />
-				<a class="tool" routerLink="preview">
-					<span class="tool-name">Team preview advisor</span>
-					<span class="tool-blurb">
-						Enter their six — get type pressure, speed order and the matchup grid before you lead.
-					</span>
-				</a>
+				<div class="tools">
+					<a class="tool" routerLink="preview">
+						<span class="tool-name">Team preview advisor</span>
+						<span class="tool-blurb">
+							Enter their six — get type pressure, speed order and the matchup grid before you lead.
+						</span>
+					</a>
+					<a class="tool" routerLink="battle">
+						<span class="tool-name">Battle tracker</span>
+						<span class="tool-blurb">
+							One tap per event while you play. Live damage, KO odds and who moves first.
+						</span>
+					</a>
+					<a class="tool" routerLink="dex">
+						<span class="tool-name">Roster</span>
+						<span class="tool-blurb">
+							Every legal Pokémon with Champions' own stats, typings and Mega abilities.
+						</span>
+					</a>
+					<a class="tool" routerLink="changes">
+						<span class="tool-name">What Champions changed</span>
+						<span class="tool-blurb">
+							Everything you think you know from the main series that no longer holds.
+						</span>
+					</a>
+				</div>
 			}
 		} @else {
 			<pkd-card>
@@ -180,6 +200,12 @@ import { RegulationStore } from '../../regulation.store';
 		.next,
 		.error {
 			border-top: 1.5px solid var(--line);
+		}
+
+		.tools {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+			gap: var(--s-3, 0.75rem);
 		}
 
 		.tool {

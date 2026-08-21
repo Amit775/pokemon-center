@@ -118,3 +118,35 @@ query TypeChart {
 		factor
 	}
 }
+
+query ChampRoster($type: String, $search: String, $includeMegas: Boolean, $take: Int, $skip: Int) {
+	champRoster(type: $type, search: $search, includeMegas: $includeMegas, take: $take, skip: $skip) {
+		...PokemonSummary
+	}
+	champRosterCount(type: $type, search: $search, includeMegas: $includeMegas)
+}
+
+query ChampTypes {
+	champTypes {
+		id
+		slug
+		name
+	}
+}
+
+query ChampChangedMoves {
+	champChangedMoves {
+		id
+		slug
+		name
+		type
+		damageClass
+		power
+		pp
+		accuracy
+		priority
+		flags
+		effectChance
+		overrideNote
+	}
+}

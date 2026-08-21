@@ -60,6 +60,25 @@ interface ResolvedEntry {
 	identifier: string;
 }
 
+/**
+ * A name a human can pick out of a list.
+ *
+ * Bulbapedia states a form's *qualifier* ("Alolan Form", "Blade Forme"), not its full name,
+ * because the species is already the row's heading. Stored on its own that reads as a list
+ * of twenty Pokémon all called "Alolan Form", so the species is folded back in here.
+ */
+function displayName(entry: RosterEntry, speciesName: string): string {
+	if (!entry.form) return speciesName;
+	// Megas already carry their complete name, e.g. "Mega Charizard X".
+	if (entry.isMega) return entry.form;
+
+	const regional = entry.form.match(/^(Alolan|Galarian|Hisuian|Paldean)\s+Forme?(?:\s*\((.+)\))?$/i);
+	if (regional) return `${regional[1]} ${speciesName}${regional[2] ? ` (${regional[2]})` : ''}`;
+
+	const qualifier = entry.form.replace(/\s*Forme?$/i, '').trim();
+	return `${speciesName} (${qualifier || entry.form})`;
+}
+
 function readRaw(key: string): string {
 	const file = path.join(process.cwd(), RAW_DIR, `${key}.wikitext`);
 	if (!fs.existsSync(file)) {
@@ -94,7 +113,13 @@ function resolveEntry(entry: RosterEntry, bySpecies: Map<number, { id: number; i
 	}
 
 	// Alternate forms carry an in-game suffix: `ig=-Alola` → `raichu-alola`.
-	if (entry.section === 'other-form' && entry.formSuffix) {
+	//
+	// Deliberately not gated on the section. Bulbapedia lists "functionally distinct,
+	// permanent forms (such as regional forms) alongside the base forms" — so Alolan
+	// Ninetales sits in the *species* table, not under "Other forms". Checking the section
+	// here made every regional form resolve to its base and then vanish in the de-duplicate,
+	// quietly losing about twenty genuinely different Pokémon.
+	if (entry.formSuffix) {
 		// The species name, not the default form's identifier: Aegislash's default row is
 		// `aegislash-shield`, but its other form is `aegislash-blade`, not
 		// `aegislash-shield-blade`.
@@ -374,7 +399,7 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 			return {
 				id: pokemonId,
 				slug: identifier,
-				name: entry.form ?? speciesNameById.get(entry.dexNumber) ?? entry.species,
+				name: displayName(entry, speciesNameById.get(entry.dexNumber) ?? entry.species),
 				nationalDexNo: entry.dexNumber,
 				type1Id: typeIds[0] ?? 1,
 				type2Id: typeIds[1] ?? null,
