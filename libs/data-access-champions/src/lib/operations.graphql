@@ -244,6 +244,35 @@ query ChampTypes {
 	}
 }
 
+# Keyed by slug in the browser and joined onto the roster's `abilitySlugs`, so the effect text
+# is sent once per ability rather than once per Pokémon that has it.
+query ChampAbilities {
+	champAbilities {
+		id
+		slug
+		name
+		effectText
+		isMega
+	}
+}
+
+# Names only — enough for the move filter's autocomplete, without the learnsets behind them.
+query ChampMoveIndex {
+	champMoveIndex {
+		id
+		slug
+		name
+		type
+		damageClass
+	}
+}
+
+# Fetched only once a move is actually picked. Ids, because the Pokédex already has the roster
+# and just needs to know which of it to keep.
+query ChampMoveLearners($moveSlug: String!) {
+	champMoveLearners(moveSlug: $moveSlug)
+}
+
 query ChampChangedMoves {
 	champChangedMoves {
 		id

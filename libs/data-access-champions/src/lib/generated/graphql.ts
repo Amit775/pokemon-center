@@ -141,6 +141,23 @@ export type ChampTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ChampTypesQuery = { champTypes: Array<{ id: number, slug: string, name: string }> };
 
+export type ChampAbilitiesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ChampAbilitiesQuery = { champAbilities: Array<{ id: number, slug: string, name: string, effectText: string | null, isMega: boolean }> };
+
+export type ChampMoveIndexQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ChampMoveIndexQuery = { champMoveIndex: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass }> };
+
+export type ChampMoveLearnersQueryVariables = Exact<{
+  moveSlug: string;
+}>;
+
+
+export type ChampMoveLearnersQuery = { champMoveLearners: Array<number> };
+
 export type ChampChangedMovesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -684,6 +701,33 @@ export const ChampTypesDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ChampTypesQuery, ChampTypesQueryVariables>;
+export const ChampAbilitiesDocument = new TypedDocumentString(`
+    query ChampAbilities {
+  champAbilities {
+    id
+    slug
+    name
+    effectText
+    isMega
+  }
+}
+    `) as unknown as TypedDocumentString<ChampAbilitiesQuery, ChampAbilitiesQueryVariables>;
+export const ChampMoveIndexDocument = new TypedDocumentString(`
+    query ChampMoveIndex {
+  champMoveIndex {
+    id
+    slug
+    name
+    type
+    damageClass
+  }
+}
+    `) as unknown as TypedDocumentString<ChampMoveIndexQuery, ChampMoveIndexQueryVariables>;
+export const ChampMoveLearnersDocument = new TypedDocumentString(`
+    query ChampMoveLearners($moveSlug: String!) {
+  champMoveLearners(moveSlug: $moveSlug)
+}
+    `) as unknown as TypedDocumentString<ChampMoveLearnersQuery, ChampMoveLearnersQueryVariables>;
 export const ChampChangedMovesDocument = new TypedDocumentString(`
     query ChampChangedMoves {
   champChangedMoves {

@@ -280,6 +280,52 @@ export class PokedexResolver {
 		});
 	}
 
+	/**
+	 * Every ability with its effect text.
+	 *
+	 * A separate query rather than more fields on `champDex`: an ability is shared across many
+	 * Pokémon, so sending them once keyed by slug is a fraction of the size of repeating the
+	 * effect text on all ~316 roster rows. The Pokédex joins the two in the browser.
+	 */
+	@Query(() => [ChampAbility], { name: 'champAbilities' })
+	async champAbilities(): Promise<ChampAbility[]> {
+		const rows = await this.prisma.champAbility.findMany({
+			select: { id: true, slug: true, name: true, effect_text: true, is_mega: true },
+			orderBy: { name: 'asc' },
+		});
+
+		return rows.map(toAbility);
+	}
+
+	/**
+	 * Ids of every Pokémon that learns a move — "who learns Fake Out".
+	 *
+	 * Ids rather than whole rows, because the Pokédex already holds the roster in memory and
+	 * only needs to know which of it to keep. And a query per move rather than learnsets on
+	 * `champDex`, because the full learnset table is orders of magnitude larger than the roster
+	 * and most visits never touch this filter. One round trip, the first time a move is picked.
+	 */
+	@Query(() => [Int], { name: 'champMoveLearners' })
+	async champMoveLearners(@Args('moveSlug') moveSlug: string): Promise<number[]> {
+		const rows = await this.prisma.champLearnset.findMany({
+			where: { move: { slug: moveSlug } },
+			select: { pokemon_id: true },
+		});
+
+		return rows.map((row) => row.pokemon_id);
+	}
+
+	/** Every move on the roster, for the move filter's autocomplete. */
+	@Query(() => [ChampMove], { name: 'champMoveIndex' })
+	async champMoveIndex(): Promise<ChampMove[]> {
+		const rows = await this.prisma.champMove.findMany({
+			include: { type: true },
+			orderBy: { name: 'asc' },
+		});
+
+		return rows.map(toMove);
+	}
+
 	/** Every type, for the filter row. */
 	@Query(() => [ChampTypeModel], { name: 'champTypes' })
 	async champTypes(): Promise<ChampTypeModel[]> {

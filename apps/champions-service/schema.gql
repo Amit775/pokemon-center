@@ -137,8 +137,11 @@ type PokemonAbilitySlot {
 
 type Query {
   box: [BoxPokemon!]!
+  champAbilities: [ChampAbility!]!
   champChangedMoves: [ChampMove!]!
   champDex(regulation: String): [ChampDexEntry!]!
+  champMoveIndex: [ChampMove!]!
+  champMoveLearners(moveSlug: String!): [Int!]!
   champRoster(includeMegas: Boolean = false, regulation: String, search: String, skip: Int = 0, take: Int = 60, type: String): [ChampPokemonSummary!]!
   champRosterCount(includeMegas: Boolean = false, regulation: String, search: String, type: String): Int!
   champSearch(query: String!, regulation: String, take: Int = 12): [ChampPokemonSummary!]!

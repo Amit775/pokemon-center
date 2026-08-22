@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, ElementRef, computed, inject, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, signal, untracked, viewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { statAt50 } from '@pokemon-center/champions-engine';
 import { ChampSearchDocument, champResource, type BoxPokemonInput } from '@pokemon-center/data-access-champions';
 import { EntityPortraitComponent, SectionHeadingComponent, TypeChipComponent, UiCardComponent, spriteSources } from '@pokemon-center/ui-pokedex';
@@ -351,6 +353,27 @@ export default class BoxComponent {
 	protected readonly pickedSlug = signal<string | null>(null);
 	protected readonly pickerTerm = signal('');
 	protected readonly editing = signal<(typeof this.store.entries extends () => (infer T)[] ? T : never) | null>(null);
+
+	private readonly queryParams = toSignal(inject(ActivatedRoute).queryParamMap);
+
+	/**
+	 * `?add=garchomp` opens the build editor straight on that species.
+	 *
+	 * This is how the Pokédex hands something over: you found it, you want one, and the
+	 * species picker you would otherwise have to retype through is a step with no content.
+	 * Seeding only — reopening the editor every time the router re-emits would fight the user.
+	 */
+	private readonly seedFromUrl = effect(() => {
+		const slug = this.queryParams()?.get('add');
+		if (!slug) return;
+
+		untracked(() => {
+			if (this.adding() || this.editing()) return;
+			this.pickerTerm.set('');
+			this.pickedSlug.set(slug);
+			this.adding.set(true);
+		});
+	});
 
 	private readonly pickerInput = viewChild<ElementRef<HTMLInputElement>>('picker');
 	private readonly picker = champResource(ChampSearchDocument, () => ({ query: this.pickerTerm(), take: 10 }));

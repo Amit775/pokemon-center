@@ -27,18 +27,33 @@ const unwrap = <TData>(raw: unknown): TData => {
  * but pointed at the Champions API.
  *
  *   regulation = champResource(CurrentRegulationDocument, () => ({}));
+ *
+ * Returning `undefined` from the variables function leaves the resource **idle** — no request
+ * is made until it returns variables. That is how a query stays genuinely lazy rather than
+ * merely conditional: the Pokédex's move-learners query has no sensible argument until someone
+ * picks a move, and firing it with an undefined argument would be a guaranteed server error.
+ *
+ *   learners = champResource(ChampMoveLearnersDocument, () => {
+ *     const move = store.filters().move;
+ *     return move ? { moveSlug: move } : undefined;
+ *   });
  */
 export function champResource<TData, TVariables>(
 	document: TypedDocumentString<TData, TVariables>,
-	variables: () => TVariables,
+	variables: () => TVariables | undefined,
 ): HttpResourceRef<TData | undefined> {
 	const url = inject(CHAMPIONS_API_URL);
 	return httpResource<TData>(
-		() => ({
-			url,
-			method: 'POST',
-			body: { query: document.toString(), variables: variables() },
-		}),
+		() => {
+			const vars = variables();
+			if (vars === undefined) return undefined;
+
+			return {
+				url,
+				method: 'POST',
+				body: { query: document.toString(), variables: vars },
+			};
+		},
 		{ parse: (raw) => unwrap<TData>(raw) },
 	);
 }

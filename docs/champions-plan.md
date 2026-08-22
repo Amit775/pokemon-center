@@ -60,9 +60,10 @@ Database `pokemon-champions` on the existing Postgres container (:5433), env
 
 ## Load-bearing decisions
 
-1. **The Pokédex loads the whole roster once and filters in the browser.** 316 rows + a
-   324-row chart. Verified zero network requests while filtering. This is what makes the
-   filters instant and freely combinable — and it is why the matchup filter is affordable.
+1. **The Pokédex loads the whole roster once and filters in the browser.** 316 rows (241 base
+   forms + 75 Megas) + a 324-row chart. Verified zero network requests while filtering. This is
+   what makes the filters instant and freely combinable — and it is why the matchup filter, the
+   counter ranking and the counter filter are all affordable without a single extra query.
 2. **The Box is the source of truth for your own side.** `boxEntryToBuild` uses your real
    spread, nature, item and moves. `inferBuild` (assume maximum investment, compute a moveset)
    is now **opponents only**.
@@ -74,10 +75,32 @@ Database `pokemon-champions` on the existing Postgres container (:5433), env
 
 ## The five sections
 
-### Pokédex — `/champions/dex`
-Roster grid with sprites; filters for name, type (any/both), Mega (has / hasn't / list Mega
-forms), **matchup with a direction toggle**, minimum stats as real level-50 numbers, ability,
-sort. Detail pages lead with a defensive profile. "What Champions changed" at `/dex/changes`.
+### Pokédex — `/champions/pokedex`
+A **table** of the 241 base forms: `image | #dex name / types | abilities | stat cells |
+actions`. Abilities explain themselves on hover or focus; Megas are indented sub-rows carrying
+their ability, typing and stats with the movement coloured. Actions are Box, Sim and Compare,
+the last filling a docked comparison tray (up to four, best value in each row marked).
+
+Filters, all visible: search, type, matchup, Mega, base-stat ranges, ability, **move**, what you
+own, answers to a given Pokémon, sort. **Filter state is the URL** — a view is a link you can
+paste — and can be named and saved locally. **Type and matchup chips have two readings chosen by how you
+click** — single is strict (the typing must *be* the selection; one chip means mono-types),
+double is loose (any of them, no cap). Solid border versus dashed is the whole explanation. The
+matchup also takes a Pokémon by autocomplete, which just fills the chips with its typing. Mega
+is a three-state checkbox. Stat filters are two-ended sliders over **base stats**, and name a
+landmark Pokémon as you drag — "faster than Jolteon" rather than "Speed ≥ 130". An empty result
+names which filter to drop and what dropping it would return.
+
+Detail pages lead with a defensive profile, then base stats with an **on-demand SP and nature
+calculator**, then the Mega form in full, and finally **what beats this and what this beats** —
+collapsed and deferred at the bottom. "What Champions changed" at `/pokedex/changes`.
+`/champions/dex/*` redirects, so old links keep working.
+
+**A Mega is not a separate Pokémon.** It never gets its own row, its own counter-list entry, or
+its own page — `/dex/garchomp-mega` redirects to `/dex/garchomp`. It is a state a Pokémon can
+enter, marked with a badge on the base form and shown there in full: artwork, typing, every
+stat, and the deltas the stone buys. A grid interleaving Garchomp with Mega Garchomp reads as
+two threats when it is one line of thinking.
 
 ### Box — `/champions/box`
 Pokémon you own, with nature/ability/item/four moves/SP. The build editor shows every
@@ -113,10 +136,16 @@ does not reliably regenerate.
 
 Honest backlog for the next phase. None of these are broken; all are shallow.
 
-**Pokédex**
-- No saved filter sets yet, though the mainline `FilterSet` pattern is there to copy.
-- Detail pages do not show which Pokémon counter *this* one; the matchup query exists.
-- No usage or tier context anywhere — the real game's Battle Data menu has it.
+**Pokédex** — see `docs/champions-pokedex-plan.md`; P0–P3 of that plan are done.
+- ~~Detail pages do not show which Pokémon counter *this* one.~~ Both directions now render from
+  the in-memory roster, ranked and explained, with no new query.
+- ~~No saved filter sets; filter state is not shareable as a URL.~~ Both shipped, sharing one codec.
+- ~~No filter by move.~~ Shipped on a lazy `champMoveLearners` query.
+- The move table on a detail page is still an unfiltered wall, and there is no Speed-tier
+  percentile or nature toggle — that is P4.
+- No usage or tier context anywhere. Deliberately still open: there is no source, and deriving a
+  tier list from base stat totals would be exactly the confidently-wrong answer this database
+  exists to avoid. It gets cheap once the Companion starts writing `KnownSet`.
 
 **Box**
 - Item is a free-text slug; there is no item list, so no autocomplete and no validation.
@@ -156,8 +185,21 @@ See `champions-open-questions` in memory. The material one:
 
 ## Hard-won gotchas
 
+- **The 4 kB component-style budget is a hard error, and it is the signal to extract a
+  component.** It has fired three times in the Pokédex work, and each time the right fix was the
+  one the budget was pointing at: the counter lists, the stat panel and the saved-set manager all
+  became their own components rather than more CSS in a page. Treat it as a design review, not an
+  obstacle. (The 2 kB warning is noise — a dozen components sit above it.)
 - **Never put a backtick inside a component's template literal.** Cost three debug cycles — a
-  comment mentioning a method in backticks silently ends the template string.
+  comment mentioning a method in backticks silently ends the template string. It has since cost
+  two more, both times in an HTML comment inside `template:`. The failure is loud but the error
+  points at `styles:`, dozens of lines below the real culprit. Grep the file for backticks and
+  check which fall between the template's own delimiters.
+- **`html, body { height: 100%; overflow: hidden }` was in `styles.scss` with no inner scroll
+  container**, so every route was pinned to one viewport and everything below the fold was
+  unreachable. It is `min-height: 100%` and nothing else now. If horizontal overflow ever needs
+  suppressing that is `overflow-x`, never both axes — and nothing in either app chains a
+  percentage height off `body`, so there is nothing to restore.
 - Prisma commands need `--config prisma.champions.config.ts` or they hit the mainline DB.
 - Codegen needs `scalars: { DateTime: 'string' }`; export from `./lib/generated/graphql`, not
   the generated barrel. Re-run it after the service restarts or it races the `schema.gql` write.
@@ -169,6 +211,8 @@ See `champions-open-questions` in memory. The material one:
 
 ## Verification baseline
 
-- 143 tests across the Champions projects; 274 on the untouched Nuzlocke side.
+- 171 tests across the Champions projects — `champions-engine` 87, `domain-champions` 58,
+  `champions` (the pipeline) 26 — and 274 on the untouched Nuzlocke side. The Pokédex pass added
+  26 of those (engine 76 → 87, domain 43 → 58).
 - Zero content changes to the mainline pokedex, school, its schema, its client, or `data/csv`.
 - No horizontal overflow on any route in either app at 375px.

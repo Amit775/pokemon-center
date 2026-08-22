@@ -8,12 +8,12 @@ import { Route } from '@angular/router';
  * a tab bar makes a "home" tab redundant.
  */
 export const domainChampionsRoutes: Route[] = [
-	{ path: '', pathMatch: 'full', redirectTo: 'dex' },
+	{ path: '', pathMatch: 'full', redirectTo: 'pokedex' },
 
-	{ path: 'dex', loadComponent: () => import('./dex/roster.component') },
-	{ path: 'dex/changes', loadComponent: () => import('./dex/changes.component') },
-	// After `dex/changes`, so the literal segment wins over the parameter.
-	{ path: 'dex/:slug', loadComponent: () => import('./dex/pokemon-detail.component') },
+	{ path: 'pokedex', loadComponent: () => import('./dex/roster.component') },
+	{ path: 'pokedex/changes', loadComponent: () => import('./dex/changes.component') },
+	// After `pokedex/changes`, so the literal segment wins over the parameter.
+	{ path: 'pokedex/:slug', loadComponent: () => import('./dex/pokemon-detail.component') },
 
 	{ path: 'box', loadComponent: () => import('./box/box.component') },
 
@@ -26,5 +26,8 @@ export const domainChampionsRoutes: Route[] = [
 	// Paths from before the split, kept so existing links and bookmarks still resolve.
 	{ path: 'preview', redirectTo: 'companion' },
 	{ path: 'battle', redirectTo: 'companion/live' },
-	{ path: 'changes', redirectTo: 'dex/changes' },
+	{ path: 'changes', redirectTo: 'pokedex/changes' },
+	// `dex` was the section's path until it was renamed to what everyone calls it. A prefix
+	// redirect, so `/dex/garchomp` keeps its tail.
+	{ path: 'dex', redirectTo: 'pokedex' },
 ];

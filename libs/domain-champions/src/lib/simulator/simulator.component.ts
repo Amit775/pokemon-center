@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, untracked } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 import {
 	CLEAR_FIELD,
 	ChampionsBuild,
@@ -341,6 +342,28 @@ export default class SimulatorComponent {
 	/** `box:<id>` or `dex:<slug>`. */
 	protected readonly leftKey = signal<string | null>(null);
 	protected readonly rightKey = signal<string | null>(null);
+
+	private readonly queryParams = toSignal(inject(ActivatedRoute).queryParamMap);
+
+	/**
+	 * `?left=garchomp&right=dragonite` preselects either side, so the Pokédex can hand a
+	 * Pokémon straight to the calculator.
+	 *
+	 * Seeding only, never writing: the URL sets where you start, and picking something else
+	 * afterwards is a decision, not a navigation. Reading the params untracked keeps a later
+	 * pick from being stomped when the router re-emits.
+	 */
+	private readonly seedFromUrl = effect(() => {
+		const params = this.queryParams();
+		if (!params) return;
+
+		untracked(() => {
+			const left = params.get('left');
+			const right = params.get('right');
+			if (left && !this.leftKey()) this.leftKey.set(`dex:${left}`);
+			if (right && !this.rightKey()) this.rightKey.set(`dex:${right}`);
+		});
+	});
 
 	protected readonly field = signal<FieldState>(CLEAR_FIELD);
 	protected readonly boosts = signal<Record<'left' | 'right', Record<'attack' | 'defense' | 'speed', StatStage>>>({
