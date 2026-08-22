@@ -33,6 +33,20 @@ export type MatchupDirection = 'resists' | 'weak-to';
 
 export type MegaFilter = 'any' | 'has-mega' | 'no-mega';
 
+/**
+ * How Mega forms take part in the list.
+ *
+ * Not a cosmetic choice — it decides what the filters are allowed to *find*.
+ *
+ * - `show` — Megas appear beneath their base form, **and a Mega can qualify its base form**.
+ *   Asking for base Speed 125+ surfaces Beedrill, because Mega Beedrill hits 145. This is the
+ *   default because it is the only reading that never hides a threat.
+ * - `separate` — every Mega is its own row, matched on its own merits. For when you want the
+ *   Megas themselves ranked, not the species that can become them.
+ * - `hide` — Megas are ignored completely, for the matchups where the stone is not in play.
+ */
+export type MegaDisplay = 'show' | 'separate' | 'hide';
+
 export type SortKey = 'dex' | 'name' | 'total' | StatKey;
 
 /**
@@ -58,6 +72,8 @@ export interface DexFilters {
 	types: string[];
 	typeMode: SelectMode;
 	mega: MegaFilter;
+	/** How Mega forms take part — see `MegaDisplay`. Presentation, so a clear preserves it. */
+	megaDisplay: MegaDisplay;
 	/** Type slugs for the matchup filter. */
 	matchupTypes: string[];
 	matchupMode: SelectMode;
@@ -90,6 +106,7 @@ export const EMPTY_FILTERS: DexFilters = {
 	types: [],
 	typeMode: 'exact',
 	mega: 'any',
+	megaDisplay: 'show',
 	matchupTypes: [],
 	matchupMode: 'exact',
 	matchupDirection: 'resists',
@@ -236,6 +253,56 @@ function matchesSearch(entry: DexEntry, search: string): boolean {
 	);
 }
 
+/** Everything `matchesFilters` needs that is derived once per call rather than per row. */
+interface MatchContext {
+	owned: ReadonlySet<string>;
+	learners: ReadonlySet<number> | null | undefined;
+	search: string;
+	target: ReturnType<typeof toCounterSubject> | null;
+	chart: TypeChart;
+}
+
+/**
+ * Does one entry pass, on its own merits?
+ *
+ * Exported because two questions need it: which rows to show, and — for a base form that only
+ * qualified because of its Mega — whether to say so.
+ */
+export function matchesFilters(entry: DexEntry, filters: DexFilters, context: MatchContext): boolean {
+	const { owned, learners, search, target, chart } = context;
+
+	if (search && !matchesSearch(entry, search)) return false;
+	if (!passesTypes(entry, filters)) return false;
+
+	// Asked of the base form even for a Mega, since "has a Mega" is a fact about the species.
+	if (filters.mega === 'has-mega' && !entry.hasMega && !entry.isMega) return false;
+	if (filters.mega === 'no-mega' && (entry.hasMega || entry.isMega)) return false;
+
+	if (filters.ability && !entry.abilitySlugs.includes(filters.ability)) return false;
+	if (filters.move && learners && !learners.has(entry.id)) return false;
+	if (filters.ownedOnly && !owned.has(entry.megaOfSlug ?? entry.slug)) return false;
+	if (!passesStats(entry, filters)) return false;
+	if (!passesMatchup(entry, filters, chart)) return false;
+
+	if (target) {
+		// Never offer something as its own answer.
+		if (entry.slug === filters.counterOf) return false;
+		if (!isAnswer(counterScore(target, toCounterSubject(entry), chart))) return false;
+	}
+
+	return true;
+}
+
+/** Base slug → its Mega forms. */
+function megasByBase(entries: readonly DexEntry[]): Map<string, DexEntry[]> {
+	const map = new Map<string, DexEntry[]>();
+	for (const entry of entries) {
+		if (!entry.isMega || !entry.megaOfSlug) continue;
+		map.set(entry.megaOfSlug, [...(map.get(entry.megaOfSlug) ?? []), entry]);
+	}
+	return map;
+}
+
 /** Apply every filter, then sort. */
 export function applyFilters(
 	entries: readonly DexEntry[],
@@ -243,40 +310,36 @@ export function applyFilters(
 	chart: TypeChart,
 	context: FilterContext = {},
 ): DexEntry[] {
-	const owned = context.owned ?? NOTHING_OWNED;
-	const learners = context.learners;
-	const search = filters.search.trim().toLowerCase();
-
 	// Resolved once rather than per row: the target is a lookup into the same array being
 	// filtered, and doing it inside the predicate would be 316 scans instead of one.
 	const counterTarget = filters.counterOf ? (entries.find((entry) => entry.slug === filters.counterOf) ?? null) : null;
-	const target = counterTarget ? toCounterSubject(counterTarget) : null;
+
+	const match: MatchContext = {
+		owned: context.owned ?? NOTHING_OWNED,
+		learners: context.learners,
+		search: filters.search.trim().toLowerCase(),
+		target: counterTarget ? toCounterSubject(counterTarget) : null,
+		chart,
+	};
+
+	const megas = megasByBase(entries);
 
 	const matched = entries.filter((entry) => {
-		// A Mega is never its own row. It is a state Garchomp can enter, not a second Pokémon,
-		// and a list that shows both reads as two threats when it is one line of thinking. The
-		// Mega's artwork, typing and stats appear beneath its base form instead.
-		if (entry.isMega) return false;
-
-		if (search && !matchesSearch(entry, search)) return false;
-		if (!passesTypes(entry, filters)) return false;
-
-		if (filters.mega === 'has-mega' && !entry.hasMega) return false;
-		if (filters.mega === 'no-mega' && entry.hasMega) return false;
-
-		if (filters.ability && !entry.abilitySlugs.includes(filters.ability)) return false;
-		if (filters.move && learners && !learners.has(entry.id)) return false;
-		if (filters.ownedOnly && !owned.has(entry.slug)) return false;
-		if (!passesStats(entry, filters)) return false;
-		if (!passesMatchup(entry, filters, chart)) return false;
-
-		if (target) {
-			// Never offer something as its own answer.
-			if (entry.slug === filters.counterOf) return false;
-			if (!isAnswer(counterScore(target, toCounterSubject(entry), chart))) return false;
+		if (entry.isMega) {
+			// A Mega is a row of its own only when asked for. Otherwise it appears beneath its
+			// base form, because it is a state that Pokémon can enter rather than a second one.
+			return filters.megaDisplay === 'separate' && matchesFilters(entry, filters, match);
 		}
 
-		return true;
+		if (matchesFilters(entry, filters, match)) return true;
+
+		/*
+		 * The Mega qualifies even though the base form does not — and that is an answer, not a
+		 * near miss. Asking for base Speed 125+ has to surface Beedrill, whose Mega hits 145
+		 * from a base of 75: something that outspeeds you after Mega Evolving outspeeds you.
+		 * Dropping it was the filter quietly lying about the roster.
+		 */
+		return filters.megaDisplay === 'show' && (megas.get(entry.slug) ?? []).some((mega) => matchesFilters(mega, filters, match));
 	});
 
 	const sorted = [...matched].sort(SORTERS[filters.sortBy]);
@@ -284,7 +347,8 @@ export function applyFilters(
 
 	// Asking "what beats this" is asking for a ranking, so the answer quality outranks whatever
 	// sort was left selected — the same precedence the search prefix takes below.
-	if (target) {
+	if (match.target) {
+		const target = match.target;
 		sorted.sort((a, b) =>
 			compareCounters(counterScore(target, toCounterSubject(a), chart), counterScore(target, toCounterSubject(b), chart)),
 		);
@@ -292,11 +356,40 @@ export function applyFilters(
 
 	// A prefix match is what someone typing three letters means, so it floats to the top
 	// regardless of the chosen sort.
-	if (search) {
+	if (match.search) {
+		const search = match.search;
 		sorted.sort((a, b) => Number(b.name.toLowerCase().startsWith(search)) - Number(a.name.toLowerCase().startsWith(search)));
 	}
 
 	return sorted;
+}
+
+/**
+ * Base slugs that are in the results **only** because one of their Megas qualified.
+ *
+ * Worth marking on the row: "Beedrill matched a Speed 125+ search" is confusing until you see
+ * that it is Mega Beedrill doing the outspeeding. Computed over the results rather than the
+ * roster, so it costs one pass over what is already on screen.
+ */
+export function megaOnlyMatches(
+	results: readonly DexEntry[],
+	filters: DexFilters,
+	chart: TypeChart,
+	context: FilterContext = {},
+): ReadonlySet<string> {
+	if (filters.megaDisplay !== 'show' || !isFiltered(filters)) return new Set();
+
+	const match: MatchContext = {
+		owned: context.owned ?? NOTHING_OWNED,
+		learners: context.learners,
+		search: filters.search.trim().toLowerCase(),
+		target: null,
+		chart,
+	};
+
+	// The counter target is deliberately left out: a row that only its Mega answers with is
+	// still an answer, and re-deriving the ranking here would double the work for a badge.
+	return new Set(results.filter((entry) => !entry.isMega && !matchesFilters(entry, filters, match)).map((entry) => entry.slug));
 }
 
 /** One filter group that could be dropped, and what dropping it would show. */

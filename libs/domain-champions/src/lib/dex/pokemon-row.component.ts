@@ -58,6 +58,11 @@ const STATS: { key: StatKey; label: string }[] = [
 					@if (owned()) {
 						<span class="flag owned-flag">Owned</span>
 					}
+					@if (viaMega()) {
+						<span class="flag mega-flag" title="Matched your filters as its Mega form, not as its base form">
+							Matches as Mega
+						</span>
+					}
 				</div>
 			</div>
 
@@ -292,6 +297,11 @@ const STATS: { key: StatKey; label: string }[] = [
 			color: var(--success, #2e7d52);
 		}
 
+		.mega-flag {
+			color: var(--accent, #4f6df5);
+			cursor: help;
+		}
+
 		.abilities {
 			list-style: none;
 			margin: 0;
@@ -453,7 +463,18 @@ export class PokemonRowComponent {
 
 	protected readonly owned = computed(() => this.store.isOwned(this.mon()));
 	protected readonly comparing = computed(() => this.store.isComparing(this.mon().slug));
-	protected readonly megas = computed(() => this.store.megasOf(this.mon().slug));
+	/** Sub-rows only when Megas are shown beneath their base; otherwise they are their own rows. */
+	protected readonly megas = computed(() =>
+		this.store.filters().megaDisplay === 'show' ? this.store.megasOf(this.mon().slug) : [],
+	);
+
+	/**
+	 * This row is in the results only because one of its Megas matched.
+	 *
+	 * Said out loud, because a Beedrill in a "base Speed 125+" list reads as a bug until you see
+	 * that Mega Beedrill is the one doing 145.
+	 */
+	protected readonly viaMega = computed(() => this.store.megaOnly().has(this.mon().slug));
 	protected readonly link = computed(() => ['/champions/pokedex', this.mon().slug]);
 
 	protected readonly abilities = computed(() => this.describe(this.mon()));

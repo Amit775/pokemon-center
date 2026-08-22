@@ -20,6 +20,7 @@ import {
 	TOTAL_BOUNDS,
 	applyFilters,
 	diagnoseEmpty,
+	megaOnlyMatches,
 	isFiltered,
 } from './dex-filter';
 import { fromQueryString, toQueryString } from './dex-url';
@@ -174,6 +175,14 @@ export const DexStore = signalStore(
 
 			savedSets: computed(() => sets()),
 
+			/**
+			 * Rows that are here only because one of their Megas qualified.
+			 *
+			 * Marked on the row, because "Beedrill matched a Speed 125+ search" reads as a bug
+			 * until you see it is Mega Beedrill doing the outspeeding.
+			 */
+			megaOnly: computed(() => megaOnlyMatches(results(), filters(), typeChart(), context())),
+
 			/** Every ability on the roster, for the ability filter's options. */
 			abilities: computed(() => {
 				const seen = new Map<string, string>();
@@ -282,8 +291,8 @@ export const DexStore = signalStore(
 
 		clear(): void {
 			// Presentation choices survive a clear; only actual filters reset.
-			const { sortBy, sortDesc } = store.filters();
-			patchState(store, { filters: { ...EMPTY_FILTERS, sortBy, sortDesc, totalRange: TOTAL_BOUNDS } });
+			const { sortBy, sortDesc, megaDisplay } = store.filters();
+			patchState(store, { filters: { ...EMPTY_FILTERS, sortBy, sortDesc, megaDisplay, totalRange: TOTAL_BOUNDS } });
 		},
 
 		/** Do you have this species in the Box? `owned` is already normalized to base forms. */

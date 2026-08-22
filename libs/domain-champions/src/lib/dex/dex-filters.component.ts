@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, injec
 import { STAT_KEYS, StatKey } from '@pokemon-center/champions-engine';
 import { EntityPortraitComponent, spriteSources } from '@pokemon-center/ui-pokedex';
 import { DexStore } from './dex.store';
-import { STAT_BOUNDS, TOTAL_BOUNDS, type DexEntry, type Range, type SortKey } from './dex-filter';
+import { STAT_BOUNDS, TOTAL_BOUNDS, type DexEntry, type MegaDisplay, type Range, type SortKey } from './dex-filter';
 import { SavedSetsComponent } from './saved-sets.component';
 import { StatRangeComponent, type RangeLandmark } from './stat-range.component';
 import { TypePickerComponent } from './type-picker.component';
@@ -176,6 +176,24 @@ const STAT_LABELS: { key: StatKey; label: string }[] = [
 				</span>
 				{{ megaLabel() }}
 			</button>
+
+			<!--
+				Not cosmetic: it decides what the filters can find. In "With base" a Mega qualifies
+				its base form, so a Speed 125+ search surfaces Beedrill — whose Mega hits 145 from
+				a base of 75. Hiding that was the filter lying about the roster.
+			-->
+			<div class="seg">
+				@for (option of megaViews; track option.value) {
+					<button
+						type="button"
+						[class.on]="store.filters().megaDisplay === option.value"
+						[title]="option.title"
+						(click)="store.patch({ megaDisplay: option.value })"
+					>
+						{{ option.label }}
+					</button>
+				}
+			</div>
 		</fieldset>
 
 		<fieldset>
@@ -547,6 +565,12 @@ export class DexFiltersComponent {
 			.sort((a, b) => Number(b.name.toLowerCase().startsWith(term)) - Number(a.name.toLowerCase().startsWith(term)))
 			.slice(0, 8);
 	});
+
+	protected readonly megaViews: { value: MegaDisplay; label: string; title: string }[] = [
+		{ value: 'show', label: 'With base', title: 'Megas listed under their base form, and a Mega can qualify its base form' },
+		{ value: 'separate', label: 'Separate', title: 'Every Mega is its own row, matched on its own stats' },
+		{ value: 'hide', label: 'Hidden', title: 'Ignore Mega forms entirely' },
+	];
 
 	protected readonly sortOptions: { key: SortKey; label: string }[] = [
 		{ key: 'dex', label: 'Dex number' },

@@ -1,5 +1,15 @@
 import type { TypeChart } from '@pokemon-center/champions-engine';
-import { DexEntry, DexFilters, EMPTY_FILTERS, STAT_BOUNDS, applyFilters, diagnoseEmpty, isFiltered, passesMatchup } from './dex-filter';
+import {
+	DexEntry,
+	DexFilters,
+	EMPTY_FILTERS,
+	STAT_BOUNDS,
+	applyFilters,
+	diagnoseEmpty,
+	isFiltered,
+	megaOnlyMatches,
+	passesMatchup,
+} from './dex-filter';
 
 /** Only the rows these tests need; `typeEffectiveness` treats a missing pairing as neutral. */
 const chart: TypeChart = {
@@ -138,6 +148,82 @@ describe('type filter', () => {
 		const result = applyFilters(roster, filters({ types: ['steel', 'fairy', 'dragon'], typeMode: 'any' }), chart);
 
 		expect(slugs(result).sort()).toEqual(['azumarill', 'corviknight', 'garchomp']);
+	});
+});
+
+describe('mega display', () => {
+	// The bug this exists to prevent: Beedrill's base Speed is 75, its Mega's is 145. A search
+	// for base Speed 125+ that drops Beedrill is hiding something that outspeeds you.
+	const beedrill = entry({ slug: 'beedrill', name: 'Beedrill', types: ['bug', 'poison'], nationalDexNo: 15, hasMega: true });
+	const beedrillMega = entry({
+		slug: 'beedrill-mega',
+		name: 'Mega Beedrill',
+		types: ['bug', 'poison'],
+		nationalDexNo: 15,
+		isMega: true,
+		megaOfSlug: 'beedrill',
+		baseStats: { hp: 65, attack: 150, defense: 40, specialAttack: 15, specialDefense: 80, speed: 145, total: 495 },
+	});
+	const withBeedrill = [...roster, beedrill, beedrillMega];
+	const fast = { statRanges: { speed: [125, 260] as [number, number] } };
+
+	it('surfaces a base form whose Mega qualifies, in the default view', () => {
+		const result = applyFilters(withBeedrill, filters(fast), chart);
+
+		expect(slugs(result)).toContain('beedrill');
+	});
+
+	it('lists the Mega on its own in separate mode, and not its base', () => {
+		const result = applyFilters(withBeedrill, filters({ ...fast, megaDisplay: 'separate' }), chart);
+
+		expect(slugs(result)).toEqual(['beedrill-mega']);
+	});
+
+	it('ignores Megas entirely in hidden mode', () => {
+		// The honest reading when the stone is not in play — and the one that used to be the
+		// only reading available.
+		expect(applyFilters(withBeedrill, filters({ ...fast, megaDisplay: 'hide' }), chart)).toEqual([]);
+	});
+
+	it('still matches a base form on its own merits, whatever the mode', () => {
+		const slow = { statRanges: { speed: [70, 80] as [number, number] } };
+
+		for (const megaDisplay of ['show', 'separate', 'hide'] as const) {
+			expect(slugs(applyFilters(withBeedrill, filters({ ...slow, megaDisplay }), chart))).toContain('beedrill');
+		}
+	});
+
+	it('never lists a Mega as its own row unless asked', () => {
+		for (const megaDisplay of ['show', 'hide'] as const) {
+			expect(slugs(applyFilters(withBeedrill, filters({ megaDisplay }), chart))).not.toContain('beedrill-mega');
+		}
+	});
+});
+
+describe('megaOnlyMatches', () => {
+	const beedrill = entry({ slug: 'beedrill', name: 'Beedrill', types: ['bug'], nationalDexNo: 15, hasMega: true });
+	const beedrillMega = entry({
+		slug: 'beedrill-mega',
+		name: 'Mega Beedrill',
+		types: ['bug'],
+		nationalDexNo: 15,
+		isMega: true,
+		megaOfSlug: 'beedrill',
+		baseStats: { hp: 65, attack: 150, defense: 40, specialAttack: 15, specialDefense: 80, speed: 145, total: 495 },
+	});
+	const all = [...roster, beedrill, beedrillMega];
+	const fast = filters({ statRanges: { speed: [125, 260] } });
+
+	it('names the rows that are only there because of their Mega', () => {
+		const results = applyFilters(all, fast, chart);
+
+		expect([...megaOnlyMatches(results, fast, chart)]).toEqual(['beedrill']);
+	});
+
+	it('says nothing when no filter is active', () => {
+		const results = applyFilters(all, filters(), chart);
+
+		expect(megaOnlyMatches(results, filters(), chart).size).toBe(0);
 	});
 });
 

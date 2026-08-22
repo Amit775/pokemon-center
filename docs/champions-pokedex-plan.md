@@ -5,6 +5,31 @@ _Written 2026-08-22 · Section 1 of 5 · Base is complete; this is the pass that
 _**Status: P0–P3 and two review rounds shipped** (2026-08-22, unmerged on
 `feat/champions-shell-split`). P4 next; P5 still deliberately blocked._
 
+## Review round 6 — Megas were being filtered out of the answer (2026-08-22)
+
+Reported as a missing toggle; it was a **correctness bug**. Megas were excluded from the list
+unconditionally, so a filter could only ever match a base form's own stats. Searching base
+Speed 125+ returned five Pokémon. The true answer is fifteen — **ten of them qualify only as
+their Mega**, including Greninja, Alakazam, Gengar and Beedrill, whose base is 75 and whose Mega
+is 145. The dex was hiding two-thirds of the things that outspeed you, silently, in the section
+whose entire purpose is not giving confidently wrong answers mid-ladder.
+
+`megaDisplay` now has three readings, and it decides what the filters can *find*, not just what
+is drawn:
+
+- **With base** (default) — Megas sit under their base form, **and a Mega qualifies its base
+  form**. The only reading that never hides a threat, which is why it is the default.
+- **Separate** — every Mega is its own row, matched on its own stats. For ranking the Megas
+  themselves rather than the species that can become them.
+- **Hidden** — Megas ignored entirely. The old behaviour, now an explicit choice for matchups
+  where the stone is not in play.
+
+A row that qualified only through its Mega says so — `Matches as Mega` — because a Beedrill in a
+"base Speed 125+" list reads as a bug until you see which form is doing the outspeeding.
+
+The filter predicate was extracted as `matchesFilters` so one rule serves three callers: which
+rows to show, whether a Mega rescues its base, and which rows to mark.
+
 ## Review round 5 — move tags (2026-08-22)
 
 Move tags in Champions' own vocabulary — Ball & Bomb, Punch, Contact, Sound, Priority +1 — on

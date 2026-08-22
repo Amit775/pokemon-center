@@ -96,11 +96,14 @@ calculator**, then the Mega form in full, and finally **what beats this and what
 collapsed and deferred at the bottom. "What Champions changed" at `/pokedex/changes`.
 `/champions/dex/*` redirects, so old links keep working.
 
-**A Mega is not a separate Pokémon.** It never gets its own row, its own counter-list entry, or
-its own page — `/dex/garchomp-mega` redirects to `/dex/garchomp`. It is a state a Pokémon can
-enter, marked with a badge on the base form and shown there in full: artwork, typing, every
-stat, and the deltas the stone buys. A grid interleaving Garchomp with Mega Garchomp reads as
-two threats when it is one line of thinking.
+**A Mega is not a separate Pokémon — but it is still an answer.** By default it sits under its
+base form rather than beside it, and `/dex/garchomp-mega` redirects to `/dex/garchomp`: a list
+interleaving Garchomp with Mega Garchomp reads as two threats when it is one line of thinking.
+
+**A Mega does, however, qualify its base form for a filter.** Base Speed 125+ has to surface
+Beedrill, whose Mega hits 145 from a base of 75 — anything else hides something that outspeeds
+you, and such rows are marked `Matches as Mega`. `megaDisplay` switches between that reading,
+one row per Mega (`separate`), and ignoring them (`hidden`).
 
 ### Box — `/champions/box`
 Pokémon you own, with nature/ability/item/four moves/SP. The build editor shows every

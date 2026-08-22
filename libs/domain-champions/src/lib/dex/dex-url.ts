@@ -3,6 +3,7 @@ import {
 	DexFilters,
 	EMPTY_FILTERS,
 	MatchupDirection,
+	MegaDisplay,
 	MegaFilter,
 	Range,
 	STAT_BOUNDS,
@@ -38,6 +39,7 @@ const PARAM = {
 	types: 't',
 	typeMode: 'tm',
 	mega: 'mega',
+	megaDisplay: 'megaview',
 	matchupTypes: 'mu',
 	matchupMode: 'mum',
 	matchupDirection: 'mud',
@@ -56,6 +58,7 @@ const PARAM = {
 export const DEX_PARAMS: readonly string[] = Object.values(PARAM);
 
 const MEGA_VALUES: MegaFilter[] = ['any', 'has-mega', 'no-mega'];
+const MEGA_DISPLAY_VALUES: MegaDisplay[] = ['show', 'separate', 'hide'];
 const MODE_VALUES: SelectMode[] = ['exact', 'any'];
 const DIRECTION_VALUES: MatchupDirection[] = ['resists', 'weak-to'];
 const SORT_VALUES: SortKey[] = ['dex', 'name', 'total', ...STAT_KEYS];
@@ -108,6 +111,7 @@ export function encodeFilters(filters: DexFilters): Record<string, string> {
 	}
 
 	if (filters.mega !== 'any') set(PARAM.mega, filters.mega);
+	if (filters.megaDisplay !== EMPTY_FILTERS.megaDisplay) set(PARAM.megaDisplay, filters.megaDisplay);
 	if (filters.ability) set(PARAM.ability, filters.ability);
 	if (filters.move) set(PARAM.move, filters.move);
 	if (filters.ownedOnly) set(PARAM.ownedOnly, '1');
@@ -154,6 +158,7 @@ export function decodeFilters(read: (key: string) => string | null): DexFilters 
 		types: list(PARAM.types),
 		typeMode: oneOf(PARAM.typeMode, MODE_VALUES, EMPTY_FILTERS.typeMode),
 		mega: oneOf(PARAM.mega, MEGA_VALUES, 'any'),
+		megaDisplay: oneOf(PARAM.megaDisplay, MEGA_DISPLAY_VALUES, EMPTY_FILTERS.megaDisplay),
 		matchupTypes: list(PARAM.matchupTypes),
 		matchupMode: oneOf(PARAM.matchupMode, MODE_VALUES, EMPTY_FILTERS.matchupMode),
 		matchupDirection: oneOf(PARAM.matchupDirection, DIRECTION_VALUES, EMPTY_FILTERS.matchupDirection),
