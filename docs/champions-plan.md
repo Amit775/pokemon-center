@@ -204,11 +204,16 @@ See `champions-open-questions` in memory. The material one:
   one the budget was pointing at: the counter lists, the stat panel and the saved-set manager all
   became their own components rather than more CSS in a page. Treat it as a design review, not an
   obstacle. (The 2 kB warning is noise — a dozen components sit above it.)
-- **Never put a backtick inside a component's template literal.** Cost three debug cycles — a
-  comment mentioning a method in backticks silently ends the template string. It has since cost
-  two more, both times in an HTML comment inside `template:`. The failure is loud but the error
-  points at `styles:`, dozens of lines below the real culprit. Grep the file for backticks and
-  check which fall between the template's own delimiters.
+- **Never put a backtick inside a component's template literal.** Five broken builds and
+  counting — a comment mentioning a method in backticks silently ends the string, and the error
+  points at `styles:` or the closing `})`, never at the comment. **This is now enforced by
+  `template-literals.spec.ts`**, which scans every component in `domain-champions` and fails
+  with the file and line. Copy that test into any lib that grows components.
+- **A clipped element still reports itself as visible.** `getComputedStyle` says `display:
+  block`, `getBoundingClientRect` gives sensible coordinates, and the thing is invisible because
+  an ancestor has `overflow: hidden`. The ability tooltip shipped broken twice behind exactly
+  that reading. Use `document.elementFromPoint` at the element's own centre and check the result
+  is the element — that is the only assertion that tracks what a person can see.
 - **`html, body { height: 100%; overflow: hidden }` was in `styles.scss` with no inner scroll
   container**, so every route was pinned to one viewport and everything below the fold was
   unreachable. It is `min-height: 100%` and nothing else now. If horizontal overflow ever needs

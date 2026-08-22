@@ -5,6 +5,28 @@ _Written 2026-08-22 · Section 1 of 5 · Base is complete; this is the pass that
 _**Status: P0–P3 and two review rounds shipped** (2026-08-22, unmerged on
 `feat/champions-shell-split`). P4 next; P5 still deliberately blocked._
 
+## Review round 7 — the ability tooltip, actually fixed (2026-08-22)
+
+Reported as still not working, and it was. Round 4 removed `overflow: hidden` from the row card
+and declared it fixed; **a second clipper survived** on the ability `<li>` itself, added in the
+original implementation to truncate long names with an ellipsis. The tooltip is a child of that
+item and sits outside its box, so it was clipped away — while rendering, positioning correctly,
+and reporting `display: block` the entire time.
+
+Two lessons, both now written down rather than remembered:
+
+- **A clipped element still reports itself as visible.** The check that actually tracks what a
+  person sees is `document.elementFromPoint` at the element's own centre, asserting the result
+  *is* the element. That is what finally located this: the hit test returned the sibling `UL`,
+  proving the tip was not painted where its own geometry said it was.
+- **The backtick trap is now enforced, not documented.** `template-literals.spec.ts` scans every
+  component for backticks inside a `template:` or `styles:` literal and fails with file and
+  line. It cost five broken builds to stop trusting memory here — including one reported as
+  passing, and two during this very fix.
+
+The ellipsis moved to a span around the name, leaving the item unclipped; the truncation still
+works. Verified by hit test and by screenshot: `elementAtCentre: SPAN.tip`.
+
 ## Review round 6 — Megas were being filtered out of the answer (2026-08-22)
 
 Reported as a missing toggle; it was a **correctness bug**. Megas were excluded from the list

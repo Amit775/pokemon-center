@@ -175,6 +175,21 @@ const PAGE_SIZE = 20;
 			gap: var(--s-2, 0.5rem);
 		}
 
+		/*
+			The lift has to be on the grid item, not on the row inside it.
+
+			An ability tooltip overflows its row and lands on top of the next one. Raising the row
+			component itself does nothing about that: it is a child of the list item, and a child's
+			z-index cannot lift a static parent above its later siblings - the following item
+			simply paints after it. So the tooltip rendered, sat in the right place, reported
+			itself visible, and was covered by the row below the whole time.
+		*/
+		.list li:hover,
+		.list li:focus-within {
+			position: relative;
+			z-index: 5;
+		}
+
 		.sentinel {
 			height: 1px;
 		}

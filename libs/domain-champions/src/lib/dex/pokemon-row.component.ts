@@ -73,7 +73,7 @@ const STATS: { key: StatKey; label: string }[] = [
 						can hold real text, appear on keyboard focus, and be read out.
 					-->
 					<li tabindex="0">
-						{{ ability.name }}
+						<span class="ability-name">{{ ability.name }}</span>
 						@if (ability.effectText) {
 							<span class="tip">{{ ability.effectText }}</span>
 						}
@@ -141,7 +141,11 @@ const STATS: { key: StatKey; label: string }[] = [
 				<ul class="abilities">
 					@for (ability of megaAbilities(mega); track ability.slug) {
 						<li tabindex="0">
-							{{ ability.name }}
+							<!--
+								The name truncates; the item must not. Putting the ellipsis on the
+								list item clips the tooltip, which is a child of it.
+							-->
+							<span class="ability-name">{{ ability.name }}</span>
 							@if (ability.effectText) {
 								<span class="tip">{{ ability.effectText }}</span>
 							}
@@ -311,6 +315,14 @@ const STATS: { key: StatKey; label: string }[] = [
 			min-width: 0;
 		}
 
+		/*
+			overflow:hidden must never come near this element.
+
+			The tooltip is a child of it, positioned outside its box, so clipping the item to
+			truncate a long name also clips the description away — it renders, reports itself
+			visible, sits at the right coordinates, and is invisible. The ellipsis lives on the
+			name span instead.
+		*/
 		.abilities li {
 			position: relative;
 			font-size: var(--fs-sm, 0.875rem);
@@ -318,10 +330,14 @@ const STATS: { key: StatKey; label: string }[] = [
 			cursor: help;
 			width: fit-content;
 			max-width: 100%;
+			border-bottom: 1px dotted var(--line);
+		}
+
+		.ability-name {
+			display: block;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
-			border-bottom: 1px dotted var(--line);
 		}
 
 		.abilities li:focus-visible {
