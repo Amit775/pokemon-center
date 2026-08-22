@@ -218,6 +218,20 @@ import { StatPanelComponent } from './stat-panel.component';
 												@if (move.isOverridden) {
 													<span class="badge changed-badge" [title]="move.overrideNote ?? ''">changed</span>
 												}
+												<!--
+													Always visible, never a tooltip. This is read mid-battle to decide
+													what a move actually does, and hovering a target to find out is
+													exactly what nobody has time for.
+												-->
+												@if (move.effectText) {
+													<span class="effect">
+														{{ move.effectText }}
+														<!-- Only when it is a gamble; a 100% chance restates the sentence above it. -->
+										@if (move.effectChance && move.effectChance < 100) {
+															<span class="chance">{{ move.effectChance }}% chance</span>
+														}
+													</span>
+												}
 												@if (move.isOverridden && move.overrideNote) {
 													<span class="note">{{ move.overrideNote }}</span>
 												}
@@ -573,6 +587,22 @@ import { StatPanelComponent } from './stat-panel.component';
 			font-size: var(--fs-xs, 0.75rem);
 			color: var(--ink-muted);
 			margin-top: 0.1rem;
+		}
+
+		/* Wide enough to read as a sentence, narrow enough to keep the numbers on screen. */
+		.effect {
+			display: block;
+			max-width: 46ch;
+			font-size: var(--fs-xs, 0.75rem);
+			color: var(--ink-muted);
+			line-height: 1.45;
+			margin-top: 0.15rem;
+		}
+
+		.chance {
+			white-space: nowrap;
+			font-weight: 600;
+			color: var(--accent, #4f6df5);
 		}
 
 		.changed-lead {

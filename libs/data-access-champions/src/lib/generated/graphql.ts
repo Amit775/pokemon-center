@@ -71,7 +71,7 @@ export type ChampTeamQueryVariables = Exact<{
 }>;
 
 
-export type ChampTeamQuery = { champTeam: Array<{ learnsetIsApproximate: boolean, id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, abilities: Array<{ slot: number, isHidden: boolean, ability: { id: number, slug: string, name: string, effectText: string | null, isMega: boolean } }>, megaAbility: { id: number, slug: string, name: string, effectText: string | null } | null, megaForms: Array<{ id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }>, moves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, effectChance: number | null, isOverridden: boolean, overrideNote: string | null }>, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
+export type ChampTeamQuery = { champTeam: Array<{ learnsetIsApproximate: boolean, id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, abilities: Array<{ slot: number, isHidden: boolean, ability: { id: number, slug: string, name: string, effectText: string | null, isMega: boolean } }>, megaAbility: { id: number, slug: string, name: string, effectText: string | null } | null, megaForms: Array<{ id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }>, moves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, effectText: string | null, effectChance: number | null, isOverridden: boolean, overrideNote: string | null }>, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
 
 export type TypeChartQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -367,6 +367,7 @@ export const ChampTeamDocument = new TypedDocumentString(`
       accuracy
       priority
       flags
+      effectText
       effectChance
       isOverridden
       overrideNote

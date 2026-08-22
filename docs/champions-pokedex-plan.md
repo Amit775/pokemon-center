@@ -5,6 +5,23 @@ _Written 2026-08-22 · Section 1 of 5 · Base is complete; this is the pass that
 _**Status: P0–P3 and two review rounds shipped** (2026-08-22, unmerged on
 `feat/champions-shell-split`). P4 next; P5 still deliberately blocked._
 
+## Review round 4 — descriptions, mid-battle (2026-08-22)
+
+**Move descriptions** on the detail page. `effectText` was already on the API and already
+populated (65 of Garchomp's 67 moves); the client query simply never asked for it. Rendered
+**inline under each move name, not as a tooltip** — this is read while deciding what to click,
+and hovering a target to find out what a move does is exactly what nobody has time for. The
+effect chance rides along only when it is a gamble; "100% chance" next to a sentence that
+already says what the move does is noise.
+
+**The ability tooltip in the list was broken**, not missing. It rendered, positioned itself, and
+was then clipped away by its own row: the card carried `overflow: hidden` for tidy corners, and
+the tip was placed *above* the ability, which for the first row in the list put it off the top of
+the window as well. Now: no clipping (the corners are rounded on the edge cells instead), the
+tip opens downward, and the hovered row lifts above its neighbours so the tip is never covered.
+Verified with a real pointer, not a synthetic event — `:hover` does not fire for dispatched
+`mouseover`, which is why this passed an earlier check while being invisible in practice.
+
 ## Review round 3 — making it usable mid-match (2026-08-22)
 
 Two reports: search "slow as hell", and the Mega sub-row not lining up with its base form.

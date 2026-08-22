@@ -181,11 +181,29 @@ const STATS: { key: StatKey; label: string }[] = [
 			border: 1.5px solid var(--line);
 			border-radius: var(--r-lg, 12px);
 			background: var(--surface);
-			overflow: hidden;
 		}
 
-		:host(:hover) {
+		/*
+			No overflow:hidden here, however tidy it would make the corners.
+
+			It clipped the ability tooltip — the one thing on this row somebody needs *during a
+			battle* — so the description was rendered, positioned, and then cut off by its own
+			card. The corners are rounded on the edge cells instead, below.
+		*/
+		:host(:hover),
+		:host(:focus-within) {
 			border-color: var(--accent, #4f6df5);
+			/* Lift the hovered row so its tooltip covers the rows beneath rather than the reverse. */
+			position: relative;
+			z-index: 5;
+		}
+
+		.row:last-child > *:first-child {
+			border-end-start-radius: var(--r-lg, 12px);
+		}
+
+		.row:last-child > *:last-child {
+			border-end-end-radius: var(--r-lg, 12px);
 		}
 
 		:host(.owned) {
@@ -301,9 +319,13 @@ const STATS: { key: StatKey; label: string }[] = [
 			outline-offset: 2px;
 		}
 
+		/*
+			Below the ability, not above. Above put the tooltip off the top of the window for the
+			first row in the list, which is exactly the row most likely to be read.
+		*/
 		.tip {
 			position: absolute;
-			bottom: calc(100% + 0.3rem);
+			top: calc(100% + 0.3rem);
 			left: 0;
 			z-index: 5;
 			display: none;

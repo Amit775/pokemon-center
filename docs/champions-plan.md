@@ -185,6 +185,9 @@ See `champions-open-questions` in memory. The material one:
 
 ## Hard-won gotchas
 
+- **A dispatched `mouseover` does not trigger CSS `:hover`.** An ability tooltip passed a check
+  that asserted its computed `display`, while being clipped and invisible to an actual user.
+  Verify hover states by moving a real pointer.
 - **Rendering a whole list is the expensive thing, not filtering it.** `applyFilters` over 316
   rows is microseconds; building 241 row components took 4.4 seconds. Any list here renders a
   page at a time, and any input that drives one is debounced. Measure before optimising — the
