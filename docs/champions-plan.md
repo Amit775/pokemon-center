@@ -185,6 +185,14 @@ See `champions-open-questions` in memory. The material one:
 
 ## Hard-won gotchas
 
+- **Rendering a whole list is the expensive thing, not filtering it.** `applyFilters` over 316
+  rows is microseconds; building 241 row components took 4.4 seconds. Any list here renders a
+  page at a time, and any input that drives one is debounced. Measure before optimising — the
+  router write, the sprite images and the CSS gradients were all suspected here and all three
+  were nearly free.
+- **A CSS grid per row cannot align with the grid in the row above it.** Columns size to their
+  own row's content, so an empty cell in one collapses and shifts everything before it. Rows
+  that must line up share one grid, with the wrappers set to `display: contents`.
 - **The 4 kB component-style budget is a hard error, and it is the signal to extract a
   component.** It has fired three times in the Pokédex work, and each time the right fix was the
   one the budget was pointing at: the counter lists, the stat panel and the saved-set manager all

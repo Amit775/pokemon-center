@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, signal, untracked, viewChild } from '@angular/core';
 import { STAT_KEYS, StatKey } from '@pokemon-center/champions-engine';
 import { EntityPortraitComponent, spriteSources } from '@pokemon-center/ui-pokedex';
 import { DexStore } from './dex.store';
@@ -28,6 +28,9 @@ function pickLandmarks(entries: readonly DexEntry[], valueOf: (entry: DexEntry) 
 	return [...best.values()].sort((a, b) => a.value - b.value);
 }
 
+/** Long enough to cover ordinary typing, short enough to feel immediate. */
+const SEARCH_DEBOUNCE_MS = 140;
+
 const STAT_LABELS: { key: StatKey; label: string }[] = [
 	{ key: 'hp', label: 'HP' },
 	{ key: 'attack', label: 'Attack' },
@@ -55,14 +58,12 @@ const STAT_LABELS: { key: StatKey; label: string }[] = [
 	imports: [EntityPortraitComponent, SavedSetsComponent, StatRangeComponent, TypePickerComponent],
 	template: `
 		<div class="row">
-			<input
-				type="search"
-				class="search"
-				[value]="store.filters().search"
-				(input)="onSearch($event)"
-				placeholder="Search…"
-				aria-label="Search"
-			/>
+			<!--
+				Deliberately no [value] binding: it would re-apply the store's value on every
+				change-detection pass and fight the debounce, snapping the caret back mid-word.
+				The box owns its text while focused; the sync effect pushes external changes in.
+			-->
+			<input #searchBox type="search" class="search" (input)="onSearch($event)" placeholder="Search…" aria-label="Search" />
 			@if (store.hasActiveFilters()) {
 				<button type="button" class="clear" (click)="store.clear()">Clear</button>
 			}
@@ -517,6 +518,24 @@ export class DexFiltersComponent {
 	protected readonly monTerm = signal('');
 	protected readonly moveTerm = signal('');
 
+	private searchTimer: ReturnType<typeof setTimeout> | undefined;
+	private readonly searchBox = viewChild<ElementRef<HTMLInputElement>>('searchBox');
+
+	/**
+	 * Push the store's search text into the box when it changes from somewhere else — a saved
+	 * set, a shared URL, the Clear button.
+	 *
+	 * Never while the box has focus: that is the user typing, and the store is only catching up.
+	 */
+	private readonly syncSearchBox = effect(() => {
+		const search = this.store.filters().search;
+
+		untracked(() => {
+			const element = this.searchBox()?.nativeElement;
+			if (element && element !== document.activeElement && element.value !== search) element.value = search;
+		});
+	});
+
 	/** Move-name search for the autocomplete, prefix matches first. */
 	protected readonly moveResults = computed(() => {
 		const term = this.moveTerm().trim().toLowerCase();
@@ -611,8 +630,21 @@ export class DexFiltersComponent {
 	}
 
 
+	/**
+	 * Typing is instant; searching waits for a pause.
+	 *
+	 * A keystroke that changes the result set replaces every row, and building rows is the
+	 * expensive part — so "gar" used to render three complete result sets on the way to the one
+	 * anybody wanted to read. Debouncing collapses a burst of typing into a single render, which
+	 * is the difference between a list that stutters and one that just appears.
+	 *
+	 * The delay is short enough to feel immediate and long enough to cover ordinary typing.
+	 */
 	protected onSearch(event: Event): void {
-		this.store.patch({ search: (event.target as HTMLInputElement).value });
+		const value = (event.target as HTMLInputElement).value;
+
+		clearTimeout(this.searchTimer);
+		this.searchTimer = setTimeout(() => this.store.patch({ search: value }), SEARCH_DEBOUNCE_MS);
 	}
 
 	protected onAbility(event: Event): void {

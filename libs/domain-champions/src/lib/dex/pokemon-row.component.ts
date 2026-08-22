@@ -162,8 +162,22 @@ const STATS: { key: StatKey; label: string }[] = [
 		}
 	`,
 	styles: `
+		/*
+			**One grid for the whole card**, not one per row.
+
+			Each row used to be its own grid, so its columns sized to its own content — and
+			because a Mega row has no action buttons, its empty last column collapsed and let
+			every column before it stretch. The result was a Mega whose abilities and stats sat
+			70-140px right of the ones they belong under.
+
+			Setting display:contents dissolves the row wrappers so all their cells become items of
+			this single grid, which is what actually guarantees the columns line up. The cost is
+			that per-row styling has to move to the cells, below.
+		*/
 		:host {
-			display: block;
+			display: grid;
+			grid-template-columns: 3.5rem minmax(9rem, 1.1fr) minmax(7rem, 1fr) auto auto;
+			align-items: center;
 			border: 1.5px solid var(--line);
 			border-radius: var(--r-lg, 12px);
 			background: var(--surface);
@@ -179,18 +193,31 @@ const STATS: { key: StatKey; label: string }[] = [
 		}
 
 		.row {
-			display: grid;
-			grid-template-columns: 3.5rem minmax(9rem, 1.1fr) minmax(7rem, 1fr) auto auto;
-			align-items: center;
-			gap: var(--s-3, 0.75rem);
-			padding: var(--s-2, 0.5rem) var(--s-3, 0.75rem);
+			display: contents;
 		}
 
-		/* Indented and quieter — a state of the row above, not a sibling of it. */
-		.row.mega {
+		/* Padding and gaps live on the cells now, since the wrappers no longer draw a box. */
+		.row > * {
+			padding-block: var(--s-2, 0.5rem);
+			padding-inline-end: var(--s-3, 0.75rem);
+		}
+
+		.row > *:first-child {
+			padding-inline-start: var(--s-3, 0.75rem);
+		}
+
+		/*
+			Quieter than the row above, and marked as belonging to it. The inset bar on the first
+			cell says "child of" without moving anything — the columns stay exactly where the
+			base row put them, which is the whole point.
+		*/
+		.row.mega > * {
 			border-top: 1px dashed var(--line);
 			background: var(--surface-sunken, rgba(128, 128, 128, 0.06));
-			padding-left: calc(var(--s-3, 0.75rem) + 1rem);
+		}
+
+		.row.mega > *:first-child {
+			box-shadow: inset 3px 0 0 var(--accent, #4f6df5);
 		}
 
 		.portrait {
@@ -380,21 +407,19 @@ const STATS: { key: StatKey; label: string }[] = [
 
 		/* Below a phone-and-a-half the five columns stop fitting; stats and actions wrap under. */
 		@media (max-width: 46rem) {
-			.row {
-				grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+			:host {
+				grid-template-columns: 3.5rem minmax(0, 1fr);
 			}
 
-			.abilities {
-				grid-column: 2 / -1;
+			.abilities,
+			.stats,
+			.actions {
+				grid-column: 1 / -1;
+				padding-inline-start: var(--s-3, 0.75rem);
 			}
 
 			.stats {
-				grid-column: 1 / -1;
 				flex-wrap: wrap;
-			}
-
-			.actions {
-				grid-column: 1 / -1;
 			}
 		}
 	`,

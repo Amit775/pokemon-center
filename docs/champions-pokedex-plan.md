@@ -5,6 +5,40 @@ _Written 2026-08-22 · Section 1 of 5 · Base is complete; this is the pass that
 _**Status: P0–P3 and two review rounds shipped** (2026-08-22, unmerged on
 `feat/champions-shell-split`). P4 next; P5 still deliberately blocked._
 
+## Review round 3 — making it usable mid-match (2026-08-22)
+
+Two reports: search "slow as hell", and the Mega sub-row not lining up with its base form.
+
+**The search was rendering the entire result set on every keystroke.** Measured before touching
+anything: 241 rows is 13,075 DOM nodes and ~240 component instances, and a full re-render took
+**4,369ms**. Three things were ruled out by measurement rather than guessed at — the router
+write was 7ms of 3,482ms, sprite images were fully cached and cost nothing, and stripping every
+`color-mix` gradient and box-shadow saved only ~19%. The cost was Angular *instantiating* the
+rows: reusing 30 rows took 54ms, building 30 fresh ones took ~400ms.
+
+So the fix is to build fewer rows, and to build them less often:
+
+- **Paged rendering.** Ten rows first, then twenty more as a sentinel comes into view 400px
+  below the fold. Deliberately not CDK virtual scrolling: row height varies with ability count
+  *and* Mega count (measured at 70/75/84px with no Mega, 128/133 with one, 185 with two), and a
+  fixed `itemSize` would put the scrollbar and every offset wrong.
+- **A 140ms search debounce**, with the input left unbound. A `[value]` binding would re-apply
+  the store's stale text on every change-detection pass and snap the caret back mid-word; an
+  effect pushes external changes in instead, and never while the box has focus.
+
+| | before | after |
+|---|---|---|
+| Per keystroke while typing | blocks for hundreds of ms | **0–1ms** |
+| First results readable | 4,369ms | **224ms** (140 of it the debounce) |
+| Full first page | 4,369ms | 473ms |
+
+**The Mega row did not align** because each row was its own CSS grid, so its columns sized to
+its own content — and a Mega row has no action buttons, so its empty last column collapsed and
+let every column before it stretch, pushing abilities and stats 70–140px right. The row
+wrappers are now `display: contents`, dissolving them into a single grid per card, which is
+what actually guarantees alignment. Verified: base and both Mega rows report identical column
+offsets.
+
 ## Review round 2 — the list redesign (2026-08-22)
 
 Thirteen items from the project owner. The through-line: **the card grid was decoration**. A
