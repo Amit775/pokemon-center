@@ -1,29 +1,32 @@
 {
-  "version": "0.0.1",
-  "configurations": [
-    {
-      "name": "postgres",
-      "runtimeExecutable": "docker",
-      "runtimeArgs": ["compose", "up", "postgres"],
-      "port": 5433
-    },
-    {
-      "name": "pokedex-service",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["nx", "run", "pokedex-service:serve"],
-      "port": 3000
-    },
-    {
-      "name": "champions-service",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["nx", "run", "champions-service:serve"],
-      "port": 3001
-    },
-    {
-      "name": "pokemon-center",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["nx", "run", "pokemon-center:serve"],
-      "port": 4200
-    }
-  ]
+	"version": "0.0.1",
+	"configurations": [
+		{
+			"name": "postgres",
+			"runtimeExecutable": "docker",
+			"runtimeArgs": ["compose", "up", "postgres"],
+			"port": 5433,
+			"autoPort": false
+		},
+		{
+			"name": "pokedex-service",
+			"runtimeExecutable": "pnpm",
+			"runtimeArgs": ["nx", "run", "pokedex-service:serve"],
+			"port": 3000,
+			"autoPort": false
+		},
+		{
+			"name": "champions-service",
+			"runtimeExecutable": "pnpm",
+			"runtimeArgs": ["nx", "run", "champions-service:serve"],
+			"port": 3001,
+			"autoPort": false
+		},
+		{
+			"name": "pokemon-center",
+			"runtimeExecutable": "pnpm",
+			"runtimeArgs": ["nx", "run", "pokemon-center:serve"],
+			"port": 4200
+		}
+	]
 }

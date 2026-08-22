@@ -14,6 +14,7 @@ import { CounterListComponent } from './counter-list.component';
 import { answeredBy, answersTo } from './counters';
 import { DexStore } from './dex.store';
 import { MegaPanelComponent } from './mega-panel.component';
+import { MovesTableComponent } from './moves-table.component';
 import { StatPanelComponent } from './stat-panel.component';
 
 /**
@@ -41,6 +42,7 @@ import { StatPanelComponent } from './stat-panel.component';
 		CounterListComponent,
 		EntityPortraitComponent,
 		MegaPanelComponent,
+		MovesTableComponent,
 		RouterLink,
 		SectionHeadingComponent,
 		StatPanelComponent,
@@ -193,66 +195,7 @@ import { StatPanelComponent } from './stat-panel.component';
 
 				<pkd-section-heading label="Moves ({{ detail.moves.length }})" />
 				<pkd-card>
-					<div class="panel">
-						@if (changedMoves().length > 0) {
-							<p class="changed-lead">
-								<strong>{{ changedMoves().length }}</strong> of these differ from the main series.
-							</p>
-						}
-						<div class="scroller">
-							<table>
-								<thead>
-									<tr>
-										<th scope="col">Move</th>
-										<th scope="col">Type</th>
-										<th scope="col">Pow</th>
-										<th scope="col">Acc</th>
-										<th scope="col">PP</th>
-									</tr>
-								</thead>
-								<tbody>
-									@for (move of detail.moves; track move.id) {
-										<tr [class.changed]="move.isOverridden">
-											<td>
-												{{ move.name }}
-												@if (move.isOverridden) {
-													<span class="badge changed-badge" [title]="move.overrideNote ?? ''">changed</span>
-												}
-												<!--
-													Always visible, never a tooltip. This is read mid-battle to decide
-													what a move actually does, and hovering a target to find out is
-													exactly what nobody has time for.
-												-->
-												@if (move.effectText) {
-													<span class="effect">
-														{{ move.effectText }}
-														<!-- Only when it is a gamble; a 100% chance restates the sentence above it. -->
-										@if (move.effectChance && move.effectChance < 100) {
-															<span class="chance">{{ move.effectChance }}% chance</span>
-														}
-													</span>
-												}
-												@if (move.isOverridden && move.overrideNote) {
-													<span class="note">{{ move.overrideNote }}</span>
-												}
-											</td>
-											<td><pkd-type-chip [type]="move.type" size="sm" /></td>
-											<td class="num">{{ move.power ?? '—' }}</td>
-											<td class="num">{{ move.accuracy ?? '—' }}</td>
-											<td class="num">{{ move.pp ?? '—' }}</td>
-										</tr>
-									}
-								</tbody>
-							</table>
-						</div>
-
-						@if (detail.learnsetIsApproximate) {
-							<p class="caveat">
-								This learnset was supplemented from recent main-series games where the Champions data had
-								gaps, so it may be slightly generous. Moves shown as changed are still accurate.
-							</p>
-						}
-					</div>
+					<champions-moves-table [moves]="detail.moves" [isApproximate]="detail.learnsetIsApproximate" />
 				</pkd-card>
 			} @else {
 				<pkd-section-heading label="Abilities and moves" />
@@ -539,77 +482,9 @@ import { StatPanelComponent } from './stat-panel.component';
 			color: var(--accent, #4f6df5);
 		}
 
-		.scroller {
-			overflow-x: auto;
-		}
-
-		table {
-			border-collapse: collapse;
-			width: 100%;
-			font-size: var(--fs-sm, 0.875rem);
-		}
-
-		th,
-		td {
-			text-align: left;
-			padding: 0.35rem 0.5rem;
-			border-bottom: 1px solid var(--line);
-			vertical-align: top;
-		}
-
-		thead th {
-			font-size: var(--fs-xs, 0.75rem);
-			text-transform: uppercase;
-			letter-spacing: 0.08em;
-			color: var(--ink-muted);
-		}
-
-		.num {
-			font-variant-numeric: tabular-nums;
-			text-align: right;
-		}
-
-		tr.changed {
-			background: var(--surface-sunken, rgba(128, 128, 128, 0.09));
-		}
-
-		.changed-badge {
-			display: inline-block;
-			margin-left: 0.4rem;
-			border: none;
-			background: var(--accent, #4f6df5);
-			color: #fff;
-			vertical-align: middle;
-		}
-
-		.note {
-			display: block;
-			font-size: var(--fs-xs, 0.75rem);
-			color: var(--ink-muted);
-			margin-top: 0.1rem;
-		}
-
 		/* Wide enough to read as a sentence, narrow enough to keep the numbers on screen. */
-		.effect {
-			display: block;
-			max-width: 46ch;
-			font-size: var(--fs-xs, 0.75rem);
-			color: var(--ink-muted);
-			line-height: 1.45;
-			margin-top: 0.15rem;
-		}
-
-		.chance {
-			white-space: nowrap;
-			font-weight: 600;
-			color: var(--accent, #4f6df5);
-		}
-
-		.changed-lead {
-			margin: 0 0 var(--s-3, 0.75rem);
-			font-size: var(--fs-sm, 0.875rem);
-		}
-
+		/* Quiet outlines: they are a reference layer, read when an ability raises the question. */
+		/* Except priority, which changes the turn order and is read first. */
 		.caveat {
 			margin-top: var(--s-3, 0.75rem);
 			font-size: var(--fs-xs, 0.75rem);
@@ -704,5 +579,4 @@ export default class PokemonDetailComponent {
 		void this.router.navigate(['/champions/pokedex']);
 	}
 
-	protected readonly changedMoves = computed(() => this.mon()?.moves.filter((m) => m.isOverridden) ?? []);
 }

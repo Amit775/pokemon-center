@@ -145,13 +145,24 @@ function writeLaunchConfig(dir, ports) {
 	const config = {
 		version: '0.0.1',
 		configurations: [
-			{ name: 'postgres', runtimeExecutable: 'docker', runtimeArgs: ['compose', 'up', 'postgres'], port: 5433 },
-			...Object.entries(ports).map(([name, port]) => ({
-				name,
-				runtimeExecutable: 'pnpm',
-				runtimeArgs: ['nx', 'run', `${name}:serve`, '--port', String(port)],
-				port,
-			})),
+			// Shared across every worktree, and its port is pinned by .env and docker-compose alike,
+			// so it must never be reassigned.
+			{ name: 'postgres', runtimeExecutable: 'docker', runtimeArgs: ['compose', 'up', 'postgres'], port: 5433, autoPort: false },
+			...Object.entries(ports).map(([name, port]) => {
+				// Only the Angular dev server takes a --port flag; both NestJS services read
+				// theirs from PORT / CHAMPIONS_PORT in this worktree's .env.
+				const isFrontend = name === 'pokemon-center';
+
+				return {
+					name,
+					runtimeExecutable: 'pnpm',
+					runtimeArgs: isFrontend ? ['nx', 'run', `${name}:serve`, '--port', String(port)] : ['nx', 'run', `${name}:serve`],
+					port,
+					// The proxy targets the backends by port, so reassigning one silently breaks
+					// the app. The frontend's own port is load-bearing for nobody.
+					autoPort: isFrontend,
+				};
+			}),
 		],
 	};
 

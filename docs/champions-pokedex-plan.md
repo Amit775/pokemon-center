@@ -5,6 +5,30 @@ _Written 2026-08-22 · Section 1 of 5 · Base is complete; this is the pass that
 _**Status: P0–P3 and two review rounds shipped** (2026-08-22, unmerged on
 `feat/champions-shell-split`). P4 next; P5 still deliberately blocked._
 
+## Review round 5 — move tags (2026-08-22)
+
+Move tags in Champions' own vocabulary — Ball & Bomb, Punch, Contact, Sound, Priority +1 — on
+every row of the moves table, because *"which moves does this ability work on"* is not a
+question a move name answers.
+
+The data already carried them: 21 flag slugs inherited from the mainline dataset, plus
+`priority`. The work was deciding what **not** to show. 266 moves are `protect`-able and 265
+`mirror`-able, so printing every flag would bury the handful that decide something under chips
+that every move shares. `move-tags.ts` keeps the set that governs an ability interaction and
+names the ignored ones explicitly, so the omission reads as a decision rather than an oversight.
+
+Each tag carries what it governs, on hover: Ball & Bomb says "Blocked entirely by Bulletproof",
+Contact lists Rough Skin, Iron Barbs, Static, Flame Body, Poison Point and Tough Claws. That is
+the actual payoff — the tag answers *which ability*, not just *which flag*.
+
+Priority is a tag rather than a column, signed and first in the row, since turn order is the
+most time-critical thing on the line. Verified against the game's own logic: Bullet Punch reads
+`Priority +1 · Contact · Punch`, Focus Blast reads `Ball & Bomb`, and Rock Slide — whose only
+flags are the ignored ones — correctly shows none.
+
+The style budget fired again and again pointed at the right seam: the moves table is now
+`moves-table.component.ts`, which is also where P4's filtering will go.
+
 ## Review round 4 — descriptions, mid-battle (2026-08-22)
 
 **Move descriptions** on the detail page. `effectText` was already on the API and already
