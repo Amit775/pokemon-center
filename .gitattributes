@@ -1,0 +1,29 @@
+# Line endings.
+#
+# Without this, a fresh checkout on Windows writes CRLF while every blob in the repo is LF, so
+# `git status` reports hundreds of modified files the moment a worktree is created — which makes
+# the one tool for seeing your actual changes useless, and makes committing a few thousand lines
+# of pure line-ending churn a single careless `git add -A` away.
+#
+# `eol=lf` pins the working tree to match the blobs on every platform. Existing checkouts stay as
+# they are until refreshed; `git add --renormalize .` fixes one in place if it is already dirty.
+* text=auto eol=lf
+
+# Binary, and never to be diffed or converted.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.pdf binary
+
+# Generated, and noisy in review. Still committed — see AGENTS.md — but collapsed by default.
+libs/*/src/lib/generated/** linguist-generated=true
+libs/prisma-*/src/generated/** linguist-generated=true
+apps/*/schema.gql linguist-generated=true
+pnpm-lock.yaml linguist-generated=true

@@ -3,10 +3,18 @@ import { InjectionToken, inject } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import type { TypedDocumentString } from './generated/graphql';
 
-/** GraphQL endpoint of champions-service. Runs on 3001 so it can sit beside pokedex-service. */
+/**
+ * GraphQL endpoint of champions-service.
+ *
+ * A **relative** path, proxied by the dev server (`apps/pokemon-center/proxy.conf.json`) to
+ * wherever the service is actually listening. The absolute `http://localhost:3001` this used to
+ * hardcode meant the frontend could only ever talk to one backend, which made it impossible to
+ * run two checkouts side by side — a git worktree gets its own ports, and the proxy is the one
+ * place that has to know them.
+ */
 export const CHAMPIONS_API_URL = new InjectionToken<string>('CHAMPIONS_API_URL', {
 	providedIn: 'root',
-	factory: () => 'http://localhost:3001/graphql',
+	factory: () => '/api/champions/graphql',
 });
 
 interface GraphQLResponse<TData> {

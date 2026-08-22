@@ -53,6 +53,9 @@
 			"executor": "@angular/build:dev-server",
 			"defaultConfiguration": "development",
 			"continuous": true,
+			"options": {
+				"proxyConfig": "apps/pokemon-center/proxy.conf.mjs"
+			},
 			"configurations": {
 				"production": {
 					"buildTarget": "pokemon-center:build:production"
