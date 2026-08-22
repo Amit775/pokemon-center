@@ -20,6 +20,9 @@ export const domainChampionsRoutes: Route[] = [
 	{ path: 'companion', loadComponent: () => import('./advisor/team-preview.component') },
 	{ path: 'companion/live', loadComponent: () => import('./battle/battle-tracker.component') },
 
+	{ path: 'simulator', loadComponent: () => import('./simulator/simulator.component') },
+	{ path: 'school', loadComponent: () => import('./school/school.component') },
+
 	// Paths from before the split, kept so existing links and bookmarks still resolve.
 	{ path: 'preview', redirectTo: 'companion' },
 	{ path: 'battle', redirectTo: 'companion/live' },

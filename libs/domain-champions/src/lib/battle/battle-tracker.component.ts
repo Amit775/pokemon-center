@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { formatKoVerdict } from '@pokemon-center/champions-engine';
 import { RouterLink } from '@angular/router';
 import { SectionHeadingComponent, TypeChipComponent, UiCardComponent } from '@pokemon-center/ui-pokedex';
 import { AdvisorStore } from '../advisor/advisor.store';
@@ -501,13 +502,12 @@ export default class BattleTrackerComponent {
 		return stage > 0 ? `+${stage}` : `${stage}`;
 	}
 
-	/** `3hko-or-worse` → `3HKO or worse`. A template cannot take a regex, hence a method. */
-	protected koLabel(verdict: string): string {
-		return verdict.replace(/-/g, ' ').replace(/\bh?ko\b/gi, (match) => match.toUpperCase());
-	}
+	protected readonly koLabel = formatKoVerdict;
 
 	/** Newest first, because mid-battle you only read the last line or two. */
 	protected reversedLog(): string[] {
 		return [...this.battle.log()].reverse();
 	}
 }
+
+

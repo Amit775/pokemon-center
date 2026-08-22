@@ -6,6 +6,7 @@ import {
 	StatStage,
 	bestMoveAgainst,
 	damageRoll,
+	formatKoVerdict,
 	koVerdict,
 	turnOrder,
 } from '@pokemon-center/champions-engine';
@@ -82,8 +83,8 @@ function hydrate(): BattleState {
 
 const clampStage = (stage: number): StatStage => Math.max(-6, Math.min(6, stage)) as StatStage;
 
-/** `guaranteed-2hko` → `guaranteed 2HKO`, so the headline reads as a sentence. */
-const koLabel = (verdict: string): string => verdict.replace(/-/g, ' ').replace(/\bh?ko\b/gi, (match) => match.toUpperCase());
+/** Shared with every other surface that shows a verdict; see `formatKoVerdict`. */
+const koLabel = formatKoVerdict;
 
 export const BattleStore = signalStore(
 	{ providedIn: 'root' },

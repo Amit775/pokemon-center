@@ -280,6 +280,17 @@ export function koVerdict(result: DamageResult, defenderHpFraction = 1): KoVerdi
 	return '3hko-or-worse';
 }
 
+/**
+ * A KO verdict written for a human: `guaranteed-2hko` → `guaranteed 2HKO`.
+ *
+ * Lives beside `koVerdict` because every surface that shows a verdict needs the same wording,
+ * and three hand-rolled copies had already drifted — the earlier ones left "ohko" lowercase
+ * because their pattern only matched a leading digit.
+ */
+export function formatKoVerdict(verdict: KoVerdict | string): string {
+	return verdict.replace(/-/g, ' ').replace(/\b\d?o?hko\b/gi, (match) => match.toUpperCase());
+}
+
 /** Best damaging move against a target, by worst-case damage — the roll you can rely on. */
 export function bestMoveAgainst(
 	attacker: ChampionsBuild,

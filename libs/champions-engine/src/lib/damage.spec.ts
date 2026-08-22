@@ -1,4 +1,4 @@
-import { bestMoveAgainst, damageRoll, koVerdict } from './damage';
+import { bestMoveAgainst, damageRoll, formatKoVerdict, koVerdict } from './damage';
 import { build, moves, natures, species, spread, typeChart } from './testing/fixtures';
 import { CLEAR_FIELD } from './types';
 
@@ -169,6 +169,21 @@ describe('koVerdict', () => {
 
 	it('reports no damage when the move cannot hurt', () => {
 		expect(koVerdict({ min: 0, max: 0, defenderMaxHp: 200 } as never)).toBe('no-damage');
+	});
+});
+
+describe('formatKoVerdict', () => {
+	it('uppercases the KO abbreviation in every verdict', () => {
+		// The bug this guards: a pattern matching only a leading digit left "ohko" lowercase,
+		// so the two most important verdicts were the two that read wrong.
+		expect(formatKoVerdict('guaranteed-ohko')).toBe('guaranteed OHKO');
+		expect(formatKoVerdict('possible-ohko')).toBe('possible OHKO');
+		expect(formatKoVerdict('guaranteed-2hko')).toBe('guaranteed 2HKO');
+		expect(formatKoVerdict('3hko-or-worse')).toBe('3HKO or worse');
+	});
+
+	it('leaves a verdict with no abbreviation alone', () => {
+		expect(formatKoVerdict('no-damage')).toBe('no damage');
 	});
 });
 

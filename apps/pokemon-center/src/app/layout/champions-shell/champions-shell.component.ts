@@ -98,8 +98,8 @@ export default class ChampionsShellComponent {
 		{ path: '/champions/dex', label: 'Pokédex', enabled: true },
 		{ path: '/champions/box', label: 'Box', enabled: true },
 		{ path: '/champions/companion', label: 'Companion', enabled: true },
-		{ path: '/champions/simulator', label: 'Simulator', enabled: false },
-		{ path: '/champions/school', label: 'School', enabled: false },
+		{ path: '/champions/simulator', label: 'Simulator', enabled: true },
+		{ path: '/champions/school', label: 'School', enabled: true },
 	];
 
 	protected readonly visibleTabs = computed(() => this.tabs.filter((tab) => tab.enabled));
