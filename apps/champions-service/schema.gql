@@ -1,0 +1,219 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type BaseStats {
+  attack: Int!
+  defense: Int!
+  hp: Int!
+  specialAttack: Int!
+  specialDefense: Int!
+  speed: Int!
+  total: Int!
+}
+
+type BoxPokemon {
+  ability: ChampAbility
+  id: Int!
+  item: String
+  moves: [ChampMove!]!
+  nature: String
+  nickname: String
+  notes: String
+  pokemon: ChampPokemonSummary!
+  statPoints: StatPointSpread!
+}
+
+input BoxPokemonInput {
+  abilityId: Int
+  id: Int
+  item: String
+  moveIds: [Int!]! = []
+  nature: String
+  nickname: String
+  notes: String
+  pokemonId: Int!
+  statPoints: StatPointSpreadInput!
+}
+
+type ChampAbility {
+  effectText: String
+  id: Int!
+  isMega: Boolean!
+  name: String!
+  slug: String!
+}
+
+type ChampDexEntry {
+  abilityNames: [String!]!
+  abilitySlugs: [String!]!
+  baseStats: BaseStats!
+  hasMega: Boolean!
+  id: Int!
+  isMega: Boolean!
+  learnsetIsApproximate: Boolean!
+  megaOfSlug: String
+  name: String!
+  nationalDexNo: Int!
+  slug: String!
+  types: [String!]!
+}
+
+type ChampMove {
+  accuracy: Int
+  damageClass: DamageClass!
+  effectChance: Int
+  effectText: String
+  flags: [String!]!
+  id: Int!
+  isOverridden: Boolean!
+  name: String!
+  overrideNote: String
+  power: Int
+  pp: Int
+  priority: Int!
+  slug: String!
+  type: String!
+}
+
+type ChampPokemonDetail {
+  abilities: [PokemonAbilitySlot!]!
+  baseStats: BaseStats!
+  id: Int!
+  isMega: Boolean!
+  learnsetIsApproximate: Boolean!
+  megaAbility: ChampAbility
+  megaForms: [ChampPokemonSummary!]!
+  megaOfSlug: String
+  moves: [ChampMove!]!
+  name: String!
+  nationalDexNo: Int!
+  slug: String!
+  spriteKey: String
+  types: [String!]!
+}
+
+type ChampPokemonSummary {
+  baseStats: BaseStats!
+  id: Int!
+  isMega: Boolean!
+  megaOfSlug: String
+  name: String!
+  nationalDexNo: Int!
+  slug: String!
+  spriteKey: String
+  types: [String!]!
+}
+
+type ChampType {
+  id: Int!
+  name: String!
+  slug: String!
+}
+
+enum DamageClass {
+  PHYSICAL
+  SPECIAL
+  STATUS
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  deleteBoxPokemon(id: Int!): Boolean!
+  deleteTeam(id: Int!): Boolean!
+  saveBoxPokemon(input: BoxPokemonInput!): BoxPokemon!
+  saveTeam(input: TeamInput!): Team!
+}
+
+type PokemonAbilitySlot {
+  ability: ChampAbility!
+  isHidden: Boolean!
+  slot: Int!
+}
+
+type Query {
+  box: [BoxPokemon!]!
+  champAbilities: [ChampAbility!]!
+  champChangedMoves: [ChampMove!]!
+  champDex(regulation: String): [ChampDexEntry!]!
+  champMoveIndex: [ChampMove!]!
+  champMoveLearners(moveSlug: String!): [Int!]!
+  champRoster(includeMegas: Boolean = false, regulation: String, search: String, skip: Int = 0, take: Int = 60, type: String): [ChampPokemonSummary!]!
+  champRosterCount(includeMegas: Boolean = false, regulation: String, search: String, type: String): Int!
+  champSearch(query: String!, regulation: String, take: Int = 12): [ChampPokemonSummary!]!
+  champTeam(slugs: [String!]!): [ChampPokemonDetail!]!
+  champTypes: [ChampType!]!
+  currentRegulation: Regulation
+  regulation(code: String!): Regulation
+  regulations: [Regulation!]!
+  teams(isMine: Boolean = true): [Team!]!
+  typeChart: [TypeEfficacyEntry!]!
+}
+
+type Regulation {
+  code: String!
+  endsOn: DateTime!
+  id: Int!
+  isCurrent: Boolean!
+  legalCount: Int!
+  name: String!
+  notes: String
+  startsOn: DateTime!
+}
+
+type StatPointSpread {
+  attack: Int!
+  defense: Int!
+  hp: Int!
+  specialAttack: Int!
+  specialDefense: Int!
+  speed: Int!
+  total: Int!
+}
+
+input StatPointSpreadInput {
+  attack: Int! = 0
+  defense: Int! = 0
+  hp: Int! = 0
+  specialAttack: Int! = 0
+  specialDefense: Int! = 0
+  speed: Int! = 0
+}
+
+type Team {
+  id: Int!
+  isMine: Boolean!
+  label: String!
+  members: [TeamMember!]!
+  notes: String
+}
+
+input TeamInput {
+  id: Int
+  isMine: Boolean! = true
+  label: String!
+  members: [TeamMemberInput!]! = []
+  notes: String
+}
+
+type TeamMember {
+  boxPokemon: BoxPokemon
+  pokemon: ChampPokemonSummary!
+  slot: Int!
+}
+
+input TeamMemberInput {
+  boxPokemonId: Int
+  pokemonId: Int!
+  slot: Int!
+}
+
+type TypeEfficacyEntry {
+  attacking: String!
+  defending: String!
+  factor: Float!
+}

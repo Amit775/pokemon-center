@@ -1,0 +1,17 @@
+{
+	"name": "data-access-champions",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/data-access-champions/src",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"codegen": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "graphql-codegen --config libs/data-access-champions/codegen.ts"
+			},
+			"inputs": ["{workspaceRoot}/apps/champions-service/schema.gql", "{projectRoot}/src/lib/operations.graphql"],
+			"outputs": ["{projectRoot}/src/lib/generated"]
+		}
+	}
+}

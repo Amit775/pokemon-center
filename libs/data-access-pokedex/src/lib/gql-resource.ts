@@ -2,10 +2,16 @@ import { HttpResourceRef, httpResource } from '@angular/common/http';
 import { InjectionToken, inject } from '@angular/core';
 import type { TypedDocumentString } from './generated/graphql';
 
-/** GraphQL endpoint of the pokedex-service. Override in app providers to point elsewhere. */
+/**
+ * GraphQL endpoint of the pokedex-service. Override in app providers to point elsewhere.
+ *
+ * Relative and proxied by the dev server, for the same reason as the Champions endpoint: a
+ * hardcoded port ties the frontend to exactly one backend, which stops two checkouts running
+ * side by side. See `apps/pokemon-center/proxy.conf.json`.
+ */
 export const POKEDEX_API_URL = new InjectionToken<string>('POKEDEX_API_URL', {
 	providedIn: 'root',
-	factory: () => 'http://localhost:3000/graphql',
+	factory: () => '/api/pokedex/graphql',
 });
 
 interface GraphQLResponse<TData> {

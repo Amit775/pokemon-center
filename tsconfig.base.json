@@ -15,8 +15,11 @@
 		"skipDefaultLibCheck": true,
 		"ignoreDeprecations": "6.0",
 		"paths": {
+			"@pokemon-center/champions-engine": ["./libs/champions-engine/src/index.ts"],
+			"@pokemon-center/data-access-champions": ["./libs/data-access-champions/src/index.ts"],
 			"@pokemon-center/data-access-pokedex": ["./libs/data-access-pokedex/src/index.ts"],
 			"@pokemon-center/domain-arena": ["./libs/domain-arena/src/index.ts"],
+			"@pokemon-center/domain-champions": ["./libs/domain-champions/src/index.ts"],
 			"@pokemon-center/domain-pokedex": ["./libs/domain-pokedex/src/index.ts"],
 			"@pokemon-center/domain-school": ["./libs/domain-school/src/index.ts"],
 			"@pokemon-center/domain-school-engine": ["./libs/domain-school-engine/src/index.ts"],
@@ -24,6 +27,7 @@
 			"@pokemon-center/infra-pokedex-index": ["./libs/infra-pokedex-index/src/index.ts"],
 			"@pokemon-center/pokedex": ["./tools/pokedex/src/index.ts"],
 			"@pokemon-center/prisma": ["./libs/prisma-client/src/index.ts"],
+			"@pokemon-center/prisma-champions": ["./libs/prisma-champions/src/index.ts"],
 			"@pokemon-center/ui-list": ["./libs/ui-list/src/index.ts"],
 			"@pokemon-center/ui-pokedex": ["./libs/ui-pokedex/src/index.ts"]
 		}

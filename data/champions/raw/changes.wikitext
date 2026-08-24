@@ -1,0 +1,362 @@
+{{search|game|the type of Trainer|Pokémon Champion}}
+----
+{{Infobox game
+|colorscheme=champions
+|bordercolorscheme=champions
+|name=Pokémon Champions
+|jname={{Ruby|Pokémon|ポケモン}} {{Ruby|Champions|チャンピオンズ}}
+|boxart=Pokémon Champions eShop.jpg
+|caption=Pokémon Champions eShop banner
+|platform=[[Nintendo Switch]]{{tt|*|(enhanced for the Nintendo Switch 2 via version update)}} , {{wp|iOS}}, {{wp|iPadOS}}, {{wp|Android (operating system)|Android}}
+|category=Battle simulation
+|players=1-2
+|link_method=N/A
+|gen_series=[[Generation IX]] [[side series]]
+|developer=[[The Pokémon Works]]
+|publisher=[[Nintendo]]/[[The Pokémon Company]]
+|release_date_ja=April 8, 2026 <small>(Nintendo Switch)</small><br>June 17, 2026 <small>(iOS, iPadOS, Android)</small>
+|release_date_na=April 7, 2026<ref group="note" name="release"/> <small>(Nintendo Switch)</small><br>June 17, 2026 <small>(iOS, iPadOS, Android)</small>
+|release_date_au=April 8, 2026 <small>(Nintendo Switch)</small><br>June 17, 2026 <small>(iOS, iPadOS, Android)</small>
+|release_date_eu=April 8, 2026 <small>(Nintendo Switch)</small><br>June 17, 2026 <small>(iOS, iPadOS, Android)</small>
+|release_date_kr=April 8, 2026 <small>(Nintendo Switch)</small><br>June 17, 2026 <small>(iOS, iPadOS, Android)</small>
+|release_date_hk=April 8, 2026 <small>(Nintendo Switch)</small><br>June 17, 2026 <small>(iOS, iPadOS, Android)</small>
+|release_date_tw=April 8, 2026 <small>(Nintendo Switch)</small><br>June 17, 2026 <small>(iOS, iPadOS, Android)</small>
+|cero=A
+|esrb=E
+|acb=PG
+|oflc=PG
+|pegi=7
+|grb=ALL
+|gsrr=6+
+|website_ja=[https://www.pokemonchampions.jp Official site]
+|website_en=[https://champions.pokemon.com Official site]<br>[https://pokemon.com/us/pokemon-video-games/pokemon-champions Pokémon.com]
+}}
+'''Pokémon Champions''' (Japanese: '''{{Ruby|Pokémon|ポケモン}} {{Ruby|Champions|チャンピオンズ}}''') is a {{wp|Freemium|free-to-start}} online-only [[side series]] Pokémon game for the [[Nintendo Switch]], {{wp|iOS}}, {{wp|iPadOS}}, and {{wp|Android}}. It allows players to {{pkmn|battle}} using the same mechanics as the [[core series]] games, including [[type]]s, {{Abilities}}, and [[move]]s. The game was released worldwide on April 8, 2026 on the Nintendo Switch<ref group="note" name="release">Due to time zones, the game was released on April 7, 2026 in North America, even though it was released at the same time as the rest of the world.</ref> and June 17, 2026 for mobile devices.
+
+The game was announced worldwide on [[Pokémon Day#2025|Pokémon Day]], February 27, 2025, at 11 P.M. JST via a [[Pokémon Presents#February 27, 2025|Pokémon Presents]]. It is playable in ten languages: Japanese, English, German, European and Latin American Spanish, French, Italian, Korean, and Simplified and Traditional Chinese.
+
+On the Nintendo Switch, both a free-to-start version and a paid '''Pokémon Champions + Starter Pack''' (Japanese: '''『Pokémon Champions』 + スターターパック''' ''Pokémon Champions + Starter Pack'') bundle are available. Because Pokémon Champions was rated for ages 12 and above by the {{wp|Unterhaltungssoftware Selbstkontrolle|USK}} in Germany and for ages 14 and above by {{wp|Brazilian advisory rating system|ClassInd}} in Brazil, younger competitors are currently ineligible to participate in VGC events in these regions.<ref>[https://championships.pokemon.com/en-us/about/2027-season-changes#age-eligibility Age Eligibility for Pokémon Champions Competitive Play in Germany and Brazil - What’s New in the 2027 Championship Series Season - Pokémon Championship Series]</ref> These players will be required to use the '''Junior version of Pokémon Champions''' following its release for Nintendo Switch on September 9, 2026.<ref>[https://www.trainerchampionships.com/event/frankfurt-2027/ Frankfurt 2027 - Pokémon Championships Events]</ref><ref>[https://www.trainerchampionships.com/event/recife-2027/ Recife 2027 - Pokémon Championships Events]</ref>
+
+==Gameplay==
+{{main|Regulation Sets in Pokémon Champions}}
+===Features===
+* Like in the [[Battle Stadium]] in the Nintendo Switch core series games, the game features both a Ranked Battle and a Casual Battle mode. It also features a Private Battle mode for battles with family and friends.
+* Players can [[Mega Evolution|Mega Evolve]] their Pokémon through the use of a new item called the [[Omni Ring]]. Artwork of this item and the Pokémon Champions website suggest that other techniques, such as [[Z-Move]]s, [[Dynamax]]/[[Gigantamax]], and {{Tera}}stallization, will also be supported in the future.<ref>[https://champions.pokemon.com/en-us/ Pokémon Champions | The Omni Ring—A Battle Essential!] "Other special features may be added to the Omni Ring in the future! Research is being conducted to make the Omni Ring capable of drawing out a variety of Pokémon capabilities."</ref>
+* New Abilities are introduced for some of the Mega Evolutions introduced in {{g|Legends: Z-A}}: {{a|Dragonize}}, {{a|Mega Sol}}, {{a|Piercing Drill}}, {{a|Spicy Spray}}, {{a|Eelevate}}, and {{a|Fire Mane}}.
+* Only a select pool of Pokémon, moves, and held items was made available at the release.
+* Players are capable of seeing in-game how often certain held items, moves, and the like are used on specific Pokémon.
+* The game is online-only; even the in-game tutorials and the Private Battle mode require an online connection as all damage calculations etc. are done server-side.
+* For private lobbies, spectator mode is now integrated to allow grassroots tournaments to stream players without revealing one side's move selection screen.
+* For tournaments officially sanctioned by The Pokémon Company, there is a Competition Mode accessible by pressing the minus (-) button on the left Joy-Con. It allows players to only find their specifically assigned opponent by entering a unique ID code generated by the game after registration, and it completely locks the player's battle team so that no changes can be made. It also has a spectator mode for official livestreams.
+
+===Changes from Scarlet and Violet and Generation VIII=== <!--some moves like Snap Trap were not present in Scarlet and Violet -->
+* Players can now forfeit in the middle of a turn, as opposed to just in between turns. This is done by pressing the - button on the left Joy-Con or tapping the "run away" button on mobile. However, during online competitions, forfeiting can only be done while the move selection menu is available.
+* If a player is disconnected from the server during a battle, they do not automatically lose the game, instead having a substantial amount of time to reconnect before the connectivity issues result in a loss. If a player was disconnected during a battle, proceeding from the title screen will automatically resume that battle. The turn timer decreases as normal while waiting for that player to reconnect, potentially resulting in the game automatically selecting their moves if the server does not receive a response in time.
+* Moves that the target Pokémon is vulnerable to (4×) or heavily resists ({{frac|1|4}}×) are now listed as "extremely effective" and "mostly ineffective", respectively, and have their own icons for such as well, rather than being grouped with regular "super effective" and "not very effective" modifiers.
+* A Pokémon's [[level]] is not displayed, and its [[stat]]s are calculated as if it was level 50.
+* [[Individual values]] cannot be modified in-game,<ref>https://www.gamespot.com/articles/pokemon-champions-will-take-a-key-stat-out-of-its-battle-equation/1100-6538998/?ftag=CAD-01-10abi2f</ref> with the Pokémon stats being calculated as if they had 31 IVs in all stats.
+* [[Effort values]] are replaced by the new [[stat point]]s system. In certain circumstances, <!--e.g. when only investing EVs in three stats--> it is possible to increase stats by one point more than the effort values allow.
+* Items triggering an effect now causes a pop-up banner to show up (like with Abilities), displaying the item's sprite.
+* Stat alterations (such as {{a|Intimidate}}'s {{stat|Attack}} reduction) are now resolved on both opposing Pokémon at once, rather than one by one.
+** If the final effect is different between the two opposing Pokémon (for example, one of the opposing Pokémon has {{a|Contrary}}), the effect is still resolved separately for each Pokémon.
+* Effects that raise or lower multiple stats at once (such as {{m|Parting Shot}}) now only display one message for all the raised or lowered stats, rather than an individual one for each stat.
+* Several status conditions were made weaker:
+** {{status|Freeze|Frozen}} Pokémon now have a 25% chance to naturally thaw out each turn instead of 20%, and will always thaw out after three turns.
+** {{status|Paralysis}} now has only 12.5% chance to prevent affected Pokémon from acting, rather than 25%.
+** {{status|Sleep}} now lasts 2-3 turns instead of 2-4, with a ~66.7% chance to last three turns and a ~33.3% chance to last two turns.
+* Some Abilities were modified:
+** {{a|Healer}} now triggers 50% of the time instead of 30%.
+** {{a|Unseen Fist}} now deals only 25% damage on protecting targets instead of 100%.
+* Several moves were modified:
+** {{m|Snap Trap}} had its type changed from Grass to Steel.
+** {{m|Toxic Thread}} now lowers Speed by two stages rather than one.
+** {{m|Trop Kick}} and {{m|Psyshield Bash}} had their base power increased from 70 to 85 and 90, respectively.
+** {{m|Apple Acid}}, {{m|Fire Lash}}, {{m|Grav Apple}}, and {{m|Spirit Shackle}} had their base power increased from 80 to 90.
+** {{m|First Impression}} had its base power increased from 90 to 100.
+** {{m|Beak Blast}} and {{m|Mountain Gale}} had their base power increased from 100 to 120.
+** {{m|Bone Rush}}, {{m|Infernal Parade}}, and {{m|Night Daze}} had their base power increased by 5 each, totaling 30, 65, and 90, respectively.
+** {{m|Crabhammer}} and {{m|Syrup Bomb}} had their accuracy increased by 5 each, totaling 95% and 90%, respectively.
+** {{m|Make It Rain}} had its accuracy reduced from 100% to 95%. It now reduces the user's {{stat|Sp. Atk}} by two stages, instead of one.
+** {{m|Iron Head}} and {{m|Moonblast}}'s secondary effect chances were lowered from 30% to 20% and 10%, respectively.
+** {{m|Dire Claw}}'s secondary effect chance was lowered from 50% to 30%. It is also now considered a [[slicing move]].
+** {{m|Crush Claw}}, {{m|Dragon Claw}}, and {{m|Shadow Claw}} are now considered to be slicing moves.
+** {{m|Dragon Cheer}} is now considered a [[sound-based move]].
+** {{m|Fake Out}} and {{m|First Impression}} can no longer be used after the turn the user switches into the battle; if the user is forced to use them when ineligible via effects such as {{m|Encore}}, it will instead use {{m|Struggle}}.
+** {{m|Freeze-Dry}} can no longer inflict {{status|freeze}}.
+** {{m|Salt Cure}}'s passive damage was halved, dealing 6.25% of target's maximum HP per turn normally, and 12.5% against Water and Steel types.
+** {{m|Rage Fist}}'s power now resets if the user is switched out of battle.
+* If a Pokémon is forced to use a different move than selected due to Encore, it will now perform that move at its usual priority, rather than of the move that was selected.
+* [[PP]] of moves is now set to fixed values of 8, 12, 16, and 20, if their base PP values in Scarlet and Violet (or Generation VIII) were 5, 10, 15, or at least 20, respectively (although the [https://www.youtube.com/watch?v=pOfW-qdsvpU pre-release overview trailer] showcases moves with their previous PP values). However, certain moves appear to have those base values modified, causing values different than expected in Champions:
+** {{m|Baneful Bunker}}, {{m|King's Shield}}, {{m|Protect}}, and {{m|Spiky Shield}} have 8 PP instead of 12, matching {{m|Detect}}.
+** {{m|Beak Blast}} has 8 PP instead of 16.
+** {{m|Night Slash}} has 20 PP instead of 16.
+** {{m|Sandstorm}} and {{m|Snowscape}} have 8 PP instead of 12, matching {{m|Sunny Day}} and {{m|Rain Dance}}.
+<!--- 
+other moves found to be rebalanced, that aren't in the game yet:
+Gear Grind: 50->60 power AND 85->90% accuracy
+Anchor Shot: 80->90 power
+Revelation Dance and Dragon Hammer: 90->100 power
+Snipe Shot: 80->85 power
+Bolt Beak and Fishious Rend: 85->80 power
+Astral Barrage: 120->110 power
+Triple Dive: 30->35 power
+Hyper Drill: 100->120 power
+Blood Moon: 140->130 power
+Purify: 20->8PP (to match other healing moves, as it wasn't in SV)
+Obstruct: 12->8PP
+Spin Out and Shell Trap: 8->12PP
+Nihil Light: 12->8PP
+Metal Claw: Now considered a slicing move
+!--->
+
+==Connectivity==
+[[File:CP Connectivity demo.jpg|300px|thumb|left|News banner detailing connectivity to Pokémon Champions]]
+Pokémon Champions can connect with [[Pokémon HOME]], allowing for use of Pokémon from the [[core series]] games and {{g|GO}}, though this is limited to Pokémon that appear in Pokémon Champions. Pokémon originally obtained in Pokémon Champions cannot be deposited in Pokémon HOME. A Pokémon sent to Champions from HOME is referred to as "visiting" Pokémon Champions, and must be received through the Recruit menu in order to be used in the game. The Recruit menu is also used to send Pokémon back to HOME.
+
+When a Pokémon is sent to visit Champions for the first time, [[effort values]] (converted to the new [[stat point]] system), stat alignment (from either its [[Nature]] or [[Mint]]), and the moveset of the most recently visited game are carried over. Any changes in Champions are not reflected when the Pokémon is sent back to HOME, and any subsequent changes in another game will not affect the data in Champions. However, if the Pokémon that previously visited Champions is sent to visit in a different form than the last time they visited Champions, any training undergone in Champions will be undone. This includes evolving Pokémon that have previously visited Champions, such as {{p|Pikachu}}, and sending it to visit again. The way effort values are converted to stat points matches how EV training works at level 50 with an odd [[Individual values|IV]]: 4 EVs for the first stat point in a stat and 8 EVs for each additional stat point. Therefore a Pokémon fully EV trained in 3 or 4 stats will have a maximum of 65 stat points when transferred and be able to earn on additional stat point in Champions. Pokémon EV trained in 5 or 6 stats will already be able to be transferred with 66 stat points.
+
+Movesets are carried over even though certain moves and certain Pokémon/move combinations cannot be used in Champions. For example, no Pokémon in Champions can use {{m|Psybeam}}, and {{p|Incineroar}} cannot use {{m|Knock Off}}. If a Pokémon with a disallowed move is in storage in Champions, its minisprite and the move will be displayed with the [[wikipedia:no symbol|no symbol]], and the Pokémon cannot be placed on a team until the move is replaced using the Training menu in-game.
+{{-}}
+
+==Downloadable content==
+In addition to [[Shop (Champions)#Premium Shop|certain in-app purchases]], the game offers the '''Pokémon Champions + Starter Pack''' bundle as downloadable content which provides the player with certain in-game benefits.
+
+<div style="overflow-x: auto;">
+{| class="roundtable" style="background:#{{champions color}}; border:3px solid #{{champions color dark}}"
+! rowspan="2" style="background:#{{champions color light}}" | Banner
+! rowspan="2" style="background:#{{champions color light}}" | Name
+! colspan="26" style="background:#{{champions color light}}" | Price
+|- style="background:#{{champions color light}}"
+! {{wp|Argentine peso|ARS}}
+! {{wp|Australian dollar|AUD}}
+! {{wp|Brazilian real|BRL}}
+! {{wp|Canadian dollar|CAD}}
+! {{wp|Swiss franc|CHF}}
+! {{wp|Chilean peso|CLP}}
+! {{wp|Colombian peso|COP}}
+! {{wp|Czech koruna|CZK}}
+! {{wp|Danish krone|DKK}}
+! {{wp|Euro|EUR}}
+! {{wp|Pound sterling|GBP}}
+! {{wp|Hong Kong dollar|HKD}}
+! {{wp|Japanese yen|JPY}}
+! {{wp|South Korean won|KRW}}
+! {{wp|Mexican peso|MXN}}
+! {{wp|Malaysian ringgit|MYR}}
+! {{wp|Norwegian krone|NOK}}
+! {{wp|New Zealand dollar|NZD}}
+! {{wp|Peruvian sol|PEN}}
+! {{wp|Polish złoty|PLN}}
+! {{wp|Swedish krona|SEK}}
+! {{wp|Singapore dollar|SGD}}
+! {{wp|Thai baht|THB}}
+! {{wp|New Taiwan dollar|TWD}}
+! {{wp|United States dollar|USD}}
+! {{wp|South African rand|ZAR}}
+|- class="r"
+| class="c" | [[File:Pokémon Champions + Starter Pack eShop.jpg|170px]]
+| class="l" | Pokémon Champions + Starter Pack
+| $9,899 || $10.50 || R$38.90 || $9.99 || 6.90&nbsp;CHF || $7,230 || $32,300 || 175.00&nbsp;Kč || 52.00&nbsp;kr || €6.99 || £5.99 || $49 || ¥980 || ₩10,000 || $144.00 || RM31.90 || 83.00&nbsp;kr || $11.55 || S/28.00 || 30.00&nbsp;zł || 78.00&nbsp;kr || $9.78 || ฿279 || $200 || $6.99 || R146.00
+|}
+</div>
+===Starter Pack===
+This pack includes the following extras:
+
+* 50 additional Pokémon Storage spaces which allows the player to permanently store 80 Pokémon by default instead of 30 (or 100 spots instead of 50 if the player has progressed to Masters Rank).
+* The [[File:CP Battle Song Icon.png|20px]] '''Battle! (Trainer Battle)''' song from [[Pokémon: Let's Go, Pikachu! and Let's Go, Eevee!]] as background music.
+* 30 {{bag/s|Teammate Ticket|CP|size=24px}} [[Teammate Ticket]]s, used to permanently recruit Pokémon from [[Roster Ranch]] (1 ticket per recruitment).
+* 50 {{bag/s|Training Ticket|CP|size=24px}} [[Training Ticket]]s, used to waive [[VP]] costs when training Pokémon (1 ticket per training session, regardless of the sessions cost in VP).
+{{-}}
+
+==Supported Pokémon==
+{{main|List of Pokémon in Pokémon Champions}}
+Not all Pokémon available in Pokémon HOME are present in the game.<ref>[https://press.pokemon.com/en/releases/POKEMON-EXPANDS-ENTERTAINMENT-OFFERINGS-WITH-NEW-WAYS-TO-PLAY-IN-THE-P#_ftn1 February 27, 2025 Press Release &mdash; ''POKÉMON EXPANDS ENTERTAINMENT OFFERINGS WITH NEW WAYS TO PLAY IN THE POKÉMON LEGENDS: Z-A VIDEO GAME AND THE REVEAL OF POKÉMON CHAMPIONS'']</ref> More Pokémon are added in batches alongside new regulations.<ref>[https://champions.pokemon.com/en-us/gameplay/ Pokémon Champions | Seasons and Regulations!] "The Pokémon you can use and other parameters will change with each new set of regulations. You never know—new Pokémon just might become eligible."</ref>
+
+==Shop==
+{{main|Shop (Champions)}}
+The Shop screen is divided into two sections: the {{DL|Shop (Champions)|Premium Shop}}, where memberships and Premium Battle Passes can be purchased with real-world currency, and the {{DL|Shop (Champions)|Frontier Shop}}, where [[Victory Point|VP]] can be exchanged for [[held item]]s and clothing.
+
+==Reception==
+On July 8, 2026, it was announced that Pokémon Champions surpassed 10 million downloads across the Nintendo Switch and mobile versions.<ref>[https://www.nintendolife.com/news/2026/07/pokemon-champions-has-now-surpassed-10-million-downloads-worldwide]</ref> On August 2, 2026, it was announced that Pokémon Champions surpassed 20 million downloads across the Nintendo Switch and mobile versions.<ref>[https://www.invenglobal.com/articles/24414/pok%C3%A9mon-champions-surpasses-20-million-cumulative-downloads-worldwide]</ref>
+
+==Staff==
+{{main|Staff of Pokémon Champions}}
+
+==Version history==
+===Nintendo Switch===
+{| class="roundtable" style="background:#{{Champions color}}; border:3px solid #{{Champions color dark}}"
+! style="background:#{{Champions color light}}" | Version
+! style="background:#{{Champions color light}}" | Release date
+! style="background:#{{Champions color light}}" | Official note
+! style="background:#{{Champions color light}}"|More information
+|-
+| style="text-align:center" | 1.0.2
+| April 8, 2026
+| N/A
+| Initial version when downloading from the eShop.
+|-
+| style="text-align:center" | 1.0.3<ref>[https://web.archive.org/web/20260423060908/https://champions-news.pokemon-home.com/ja/page/764.html 『Pokémon Champions』更新データ（Ver.1.0.3）配信のお知らせ] (Japanese; archived)</ref>
+| April 22, 2026
+|
+The following issues have been fixed:
+* The explanation for Leech Seed is incorrect.
+* The gender listed for certain Pokémon in the tutorial is listed incorrectly.
+* The player is unable to select a move when they move the cursor over Mega Evolution while viewing move details and then press the B Button.
+* The Unnerve ability doesn’t work on Pokémon with certain abilities, and they are able to eat Berries.
+* The changes in speed caused by held items are not reflected in the order in which abilities activate.
+* Certain other issues related to networking and visual appearance during battles.
+|
+* The [[Mystery Gift]] code redemption website was also updated to allow [[Nintendo Account]] login requests.
+|-
+| style="text-align:center" | 1.1.0<ref>[https://champions-news.pokemon-home.com/en/page/775.html Maintenance Completion Notice]</ref>
+| June 17, 2026
+|
+The following updates have been made to the game.
+* Pokémon and held items added for Regulation Set M-B.
+* Other fixes to the visuals during battles and certain network-related issues.
+|
+|-
+| style="text-align:center" | 1.1.4<ref>[https://champions-news.pokemon-home.com/en/page/801.html Maintenance Completion Notice]</ref>
+| July 8, 2026
+|
+The following updates have been made to the game.
+* Some bugs have been fixed.
+|
+|-
+| style="text-align:center" | 1.1.5<ref>[https://champions-news.pokemon-home.com/en/page/812.html Maintenance Completion Notice]</ref>
+| August 5, 2026
+|
+The following updates have been made to the game.
+* Some bugs have been fixed.
+|
+|}
+
+===iOS and iPadOS===
+{| class="roundtable" style="background:#{{Champions color}}; border:3px solid #{{Champions color dark}}"
+! style="background:#{{Champions color light}}" | Version
+! style="background:#{{Champions color light}}" | Release date
+! style="background:#{{Champions color light}}" | Official note
+|-
+| style="text-align:center" | 1.1.0
+| June 3, 2026
+| N/A
+|-
+| style="text-align:center" | 1.1.1
+| June 11, 2026
+| Certain issues have been addressed in order to ensure a user-friendly experience.
+|-
+| style="text-align:center" | 1.1.2
+| June 15, 2026
+| Certain issues have been addressed in order to ensure a user-friendly experience.
+|-
+| style="text-align:center" | 1.1.3
+| June 24, 2026
+| Certain issues have been addressed in order to ensure a user-friendly experience.
+|-
+| style="text-align:center" | 1.1.5
+| August 5, 2026
+| Certain issues have been addressed in order to ensure a user-friendly experience.
+|}
+
+===Android===
+{| class="roundtable" style="background:#{{Champions color}}; border:3px solid #{{Champions color dark}}"
+! style="background:#{{Champions color light}}" | Version
+! style="background:#{{Champions color light}}" | Release date
+! style="background:#{{Champions color light}}" | Official note
+|-
+| style="text-align:center" | 1.1.1
+| {{tt|June 17, 2026|June 16, 2026 on the Play Store}}
+| N/A
+|-
+| style="text-align:center" | 1.1.3
+| {{tt|June 24, 2026|June 23, 2026 on the Play Store}}
+| N/A
+|-
+| style="text-align:center" | 1.1.4
+| {{tt|July 8, 2026|July 3, 2026 on the Play Store}}
+| N/A
+|-
+| style="text-align:center" | 1.1.5
+| {{tt|August 5, 2026|July 31, 2026 on the Play Store}}
+| N/A
+|}
+
+==Compatibility==
+Pokémon Champions can be played on:<ref>[https://app-pcs.pokemon-support.com/hc/en-us/articles/58913939782425-What-are-the-mobile-device-compatibility-requirements What are the mobile device compatibility requirements? – Pokémon Champions]</ref>
+* iOS and iPadOS devices: {{wp|iOS 26|iOS 26.0}}/{{wp|iPadOS 26|iPadOS 26.0}} or later, 4GB of {{wp|Random-access memory|RAM}} or more
+* Android devices: {{wp|Android 13|Android 13.0}} or later, 4GB of {{wp|Random-access memory|RAM}} or more
+
+==Release==
+Pokémon Champions was made available for pre-order on the App Store and pre-registration on Google Play beginning on June 3, 2026. Although {{pmin|Latin America|Bolivia}}, {{pmin|mainland China|China}}, and {{pmin|Latin America|Paraguay}} are listed in the app's region select, the app has not been made available for download in those regions. Like [[Pokémon HOME]], it is available in {{pmin|Russia}}, even though all other Pokémon games and apps since [[Pokémon Sleep]] have not been released there.
+
+{| class="roundtable" style="background:#{{champions color}}; border:3px solid #{{champions color dark}}"
+! style="background:#{{champions color light}}" | Date
+! style="background:#{{champions color light}}" | Locations
+|-
+| style="white-space:nowrap" | April 7, 2026<ref group="note" name="release"/><br>April 8, 2026
+| '''Nintendo eShop''': {{pmin|Latin America|Argentina}}, {{pmin|Australia}}, Austria, {{pmin|Belgium}}, {{pmin|Brazil}}, {{pmin|Bulgaria}}, {{pmin|Canada}}, {{pmin|Latin America|Chile}}, {{pmin|Latin America|Colombia}}, {{pmin|Croatia}}, Cyprus, {{pmin|the Czech Republic|Czech Republic}}, {{pmin|Denmark}}, Estonia, {{pmin|Finland}}, {{pmin|France}}, {{pmin|Germany}}, {{pmin|Greece}}, {{pmin|Hong Kong}}, {{pmin|Hungary}}, {{pmin|Ireland}}, {{pmin|Italy}}, {{pmin|Japan}}, {{pmin|Latvia}}, {{pmin|Lithuania}}, Luxembourg, {{pmin|Malaysia}}, Malta, {{pmin|Latin America|Mexico}}, {{pmin|the Netherlands|Netherlands}}, {{pmin|New Zealand}}, {{pmin|Norway}}, {{pmin|Latin America|Peru}}, {{pmin|Poland}}, {{pmin|Portugal}}, {{pmin|Romania}}, {{pmin|Singapore}}, {{pmin|Slovakia}}, Slovenia, {{pmin|South Africa}}, {{pmin|South Korea}}, {{pmin|Spain}}, {{pmin|Sweden}}, Switzerland, {{pmin|Taiwan}}, {{pmin|Thailand}}, {{pmin|the United Kingdom|United Kingdom}}, {{pmin|the United States|United States}}
+|-
+| style="white-space:nowrap" | June 17, 2026
+| '''Mobile version''': All locations listed above (except South Africa), Belarus, Brunei, {{pmin|Latin America|Ecuador}}, {{pmin|the Arab world|Egypt}}, {{pmin|Iceland}}, {{pmin|South Asia|India}}, {{pmin|Indonesia}}, {{pmin|Israel}}, Kazakhstan, {{pmin|the Arab world|Kuwait}}, {{pmin|Hong Kong|Macau}}, {{pmin|the Arab world|Morocco}}, Nigeria, {{pmin|the Arab world|Oman}}, {{pmin|South Asia|Pakistan}}, {{pmin|Latin America|Panama}}, {{pmin|the Philippines|Philippines}}, {{pmin|the Arab world|Qatar}}, {{pmin|Russia}}, {{pmin|the Arab world|Saudi Arabia}}, {{pmin|Serbia}}, {{pmin|Turkey}}, Turkmenistan, {{pmin|Ukraine}}, {{pmin|the Arab world|United Arab Emirates}}, {{pmin|Latin America|Venezuela}}
+|}
+
+==Gallery==
+<gallery>
+Champions Icon.jpg|Switch game icon
+Pokémon Champions icon iOS.png|iOS and iPadOS app icon
+Pokémon Champions icon Android.png|Android app icon
+Pokémon Champions logo.png|Game logo in all languages
+Pokémon Champions key art.png|Key art
+Pokémon Champions key art 2.png|Second key art
+Champions player male.png|[[Willem]], the male player character
+Champions player female.png|[[Becca]], the female player character
+Champions Omni Ring.png|[[Omni Ring]]
+Champions Tatora.png|[[Tatora]]
+Champions Kitt.png|[[Kitt]]
+Champions Cordy.png|[[Cordy]]
+Champions Caraway.png|[[Caraway]]
+Champions Kajima.png|[[Kajima]]
+</gallery>
+
+==In other languages==
+{{langtable|color={{champions color}}|bordercolor={{champions color dark}}
+|zh_yue=Pokémon Champions
+|zh_cmn=Pokémon Champions
+|fr=Pokémon Champions
+|de=Pokémon Champions
+|it=Pokémon Champions
+|ko={{tt|Pokémon Champions|포켓몬 챔피언스}}
+|es_la=Pokémon Champions
+|es_eu=Pokémon Champions
+|th={{tt|Pokémon Champions|โปเกมอนแชมเปี้ยนส์}}
+}}
+
+==Notes==
+{{reflist|group=note}}
+
+==References==
+{{reflist}}
+
+==External links==
+* [https://apps.apple.com/us/app/pok%C3%A9mon-champions/id6741503079 Pokémon Champions on the App Store]
+* [https://play.google.com/store/apps/details?id=jp.pokemon.pokemonchampions Pokémon Champions on Google Play]
+* [https://en-americas-support.nintendo.com/app/answers/detail/a_id/71525/~/how-to-update-pok%C3%A9mon-champions How to Update Pokémon Champions | Nintendo Support] (US)
+* [https://www.nintendo.com/en-gb/Support/Purchases-Subscriptions/Games/How-to-Update-Pokemon-Champions-3079895.html How to Update Pokémon Champions | Nintendo Support] (UK)
+
+==Related articles==
+{{Side series}}
+{{DLC}}
+{{Project Games notice}}
+
+[[Category:Nintendo Switch games]]
+[[Category:Live service games]]
+[[Category:Mobile games]]
+[[Category:Unity games]]
+[[Category:Pokémon Champions|*]]
+
+[[de:Pokémon Champions]]
+[[es:Pokémon Champions]]
+[[fr:Pokémon Champions]]
+[[it:Pokémon Champions]]
+[[ja:Pokémon Champions]]
+[[zh:Pokémon Champions]]

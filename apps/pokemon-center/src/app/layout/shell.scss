@@ -1,0 +1,132 @@
+// Chrome shared by both app shells.
+//
+// Imported rather than duplicated so Nuzlocke and Champions stay visually consistent while
+// their navigation stays completely independent. Anything app-specific belongs in that
+// shell's own stylesheet, not here.
+
+.app-bar {
+	display: flex;
+	align-items: center;
+	gap: var(--s-3);
+	padding: 0 var(--s-4);
+	min-height: 60px;
+	background: var(--surface);
+	border-bottom: 1px solid var(--line);
+	color: var(--ink);
+	// Wraps instead of overflowing: the old single-row bar pushed every page sideways on a
+	// phone, which made the whole app scroll horizontally.
+	flex-wrap: wrap;
+}
+
+.brand {
+	font-weight: 800;
+	font-size: var(--fs-lg);
+	letter-spacing: -0.02em;
+	display: flex;
+	align-items: baseline;
+	gap: 0.4rem;
+	text-decoration: none;
+	color: inherit;
+}
+
+.nav {
+	display: flex;
+	gap: var(--s-1);
+	flex-wrap: wrap;
+
+	a {
+		color: var(--ink-muted);
+		text-decoration: none;
+		font-weight: 600;
+		font-size: var(--fs-sm);
+		padding: 0.4rem 0.7rem;
+		border-radius: var(--r-sm);
+		white-space: nowrap;
+		transition:
+			color var(--dur) var(--ease),
+			background var(--dur) var(--ease);
+
+		&:hover {
+			color: var(--ink);
+			background: var(--surface-sunken);
+		}
+
+		&.active {
+			color: var(--accent);
+			background: var(--accent-soft);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
+		}
+	}
+}
+
+.spacer {
+	flex: 1;
+}
+
+.tools {
+	display: flex;
+	align-items: center;
+	gap: var(--s-2);
+	flex-wrap: wrap;
+}
+
+.icon-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	border-radius: var(--r-pill);
+	border: 1px solid var(--line);
+	background: var(--surface);
+	color: var(--ink-muted);
+	cursor: pointer;
+	transition:
+		color var(--dur) var(--ease),
+		background var(--dur) var(--ease);
+
+	&:hover {
+		color: var(--ink);
+		background: var(--surface-sunken);
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+	}
+}
+
+// The quiet link to the other app. Deliberately understated — it is an escape hatch, not a tab.
+.switch {
+	font-size: var(--fs-xs);
+	color: var(--ink-muted);
+	text-decoration: none;
+	padding: 0.3rem 0.6rem;
+	border: 1px solid var(--line);
+	border-radius: var(--r-pill);
+	white-space: nowrap;
+
+	&:hover {
+		color: var(--ink);
+		background: var(--surface-sunken);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.nav a,
+	.icon-btn {
+		transition: none;
+	}
+}
+
+// The app's own name, sitting quieter than the "Pokémon" wordmark beside it.
+.app-name {
+	font-weight: 600;
+	font-size: var(--fs-sm);
+	color: var(--ink-muted);
+	letter-spacing: 0.02em;
+}

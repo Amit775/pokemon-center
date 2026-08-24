@@ -1,12 +1,25 @@
 // Mirror PokeAPI official-artwork PNGs into the app's public/ dir so the pokedex
-// can run offline. Usage: node tools/mirror-sprites.mjs [from] [to]   (default 1..1025)
+// can run offline.
+//
+//   node tools/mirror-sprites.mjs              → species 1..1025
+//   node tools/mirror-sprites.mjs 1 1025       → an explicit species range
+//   node tools/mirror-sprites.mjs --forms      → alternate forms (Megas, regionals): 10001..10400
+//
+// Champions leans heavily on Mega forms, whose artwork lives at *form* ids in the 10000s
+// rather than at their species number — without --forms every Mega falls back to its base
+// form's picture, or to a coloured orb.
+//
 // The output dir is git-ignored; the app falls back to the remote source when a
 // sprite is absent, so mirroring is an optional local optimization.
 import { mkdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 
-const from = Number(process.argv[2] ?? 1);
-const to = Number(process.argv[3] ?? 1025);
+const args = process.argv.slice(2);
+const forms = args.includes('--forms');
+const positional = args.filter((arg) => !arg.startsWith('--'));
+
+const from = Number(positional[0] ?? (forms ? 10001 : 1));
+const to = Number(positional[1] ?? (forms ? 10400 : 1025));
 const dir = 'apps/pokemon-center/public/sprites';
 await mkdir(dir, { recursive: true });
 

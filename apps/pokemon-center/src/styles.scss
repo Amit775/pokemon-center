@@ -46,8 +46,17 @@ $pokemon-center-theme: mat.define-theme(
 
 html,
 body {
-	height: 100%;
-	overflow: hidden;
+	// `min-height`, not `height` — and no `overflow: hidden`.
+	//
+	// The pair together is the full-height-app pattern, which needs an inner element that
+	// scrolls. Neither shell has one: both just stack a header above the routed page. So the
+	// document was pinned to exactly one viewport with everything below the fold clipped and
+	// unreachable — the Pokédex grid, every detail page past the stat table, all of it.
+	//
+	// If horizontal overflow ever needs suppressing, that is `overflow-x` and only `overflow-x`.
+	// Hiding both axes to stop sideways scrolling also stops downward scrolling, and hiding the
+	// horizontal axis would mask the 375px regressions the layout is actually checked for.
+	min-height: 100%;
 }
 
 body {

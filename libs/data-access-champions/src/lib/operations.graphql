@@ -1,0 +1,292 @@
+query CurrentRegulation {
+	currentRegulation {
+		id
+		code
+		name
+		startsOn
+		endsOn
+		isCurrent
+		legalCount
+		notes
+	}
+}
+
+query RegulationList {
+	regulations {
+		id
+		code
+		name
+		startsOn
+		endsOn
+		isCurrent
+		legalCount
+	}
+}
+
+fragment PokemonSummary on ChampPokemonSummary {
+	id
+	slug
+	name
+	nationalDexNo
+	types
+	isMega
+	spriteKey
+	megaOfSlug
+	baseStats {
+		hp
+		attack
+		defense
+		specialAttack
+		specialDefense
+		speed
+		total
+	}
+}
+
+query ChampSearch($query: String!, $take: Int) {
+	champSearch(query: $query, take: $take) {
+		...PokemonSummary
+	}
+}
+
+# ChampPokemonDetail is a separate GraphQL object type rather than an implementation of an
+# interface, so it needs its own fragment — the summary fields are repeated here on purpose.
+fragment PokemonDetail on ChampPokemonDetail {
+	id
+	slug
+	name
+	nationalDexNo
+	types
+	isMega
+	spriteKey
+	megaOfSlug
+	baseStats {
+		hp
+		attack
+		defense
+		specialAttack
+		specialDefense
+		speed
+		total
+	}
+}
+
+query ChampTeam($slugs: [String!]!) {
+	champTeam(slugs: $slugs) {
+		...PokemonDetail
+		learnsetIsApproximate
+		abilities {
+			slot
+			isHidden
+			ability {
+				id
+				slug
+				name
+				effectText
+				isMega
+			}
+		}
+		megaAbility {
+			id
+			slug
+			name
+			effectText
+		}
+		megaForms {
+			...PokemonSummary
+		}
+		moves {
+			id
+			slug
+			name
+			type
+			damageClass
+			power
+			pp
+			accuracy
+			priority
+			flags
+			effectText
+			effectChance
+			isOverridden
+			overrideNote
+		}
+	}
+}
+
+query TypeChart {
+	typeChart {
+		attacking
+		defending
+		factor
+	}
+}
+
+query ChampRoster($type: String, $search: String, $includeMegas: Boolean, $take: Int, $skip: Int) {
+	champRoster(type: $type, search: $search, includeMegas: $includeMegas, take: $take, skip: $skip) {
+		...PokemonSummary
+	}
+	champRosterCount(type: $type, search: $search, includeMegas: $includeMegas)
+}
+
+query ChampDex {
+	champDex {
+		id
+		slug
+		name
+		nationalDexNo
+		types
+		isMega
+		hasMega
+		megaOfSlug
+		abilitySlugs
+		abilityNames
+		learnsetIsApproximate
+		baseStats {
+			hp
+			attack
+			defense
+			specialAttack
+			specialDefense
+			speed
+			total
+		}
+	}
+}
+
+fragment BoxEntry on BoxPokemon {
+	id
+	nickname
+	nature
+	item
+	notes
+	pokemon {
+		...PokemonSummary
+	}
+	ability {
+		slug
+		name
+	}
+	statPoints {
+		hp
+		attack
+		defense
+		specialAttack
+		specialDefense
+		speed
+		total
+	}
+	moves {
+		id
+		slug
+		name
+		type
+		damageClass
+		power
+		pp
+		accuracy
+		priority
+		flags
+		isOverridden
+	}
+}
+
+query Box {
+	box {
+		...BoxEntry
+	}
+}
+
+query Teams($isMine: Boolean) {
+	teams(isMine: $isMine) {
+		id
+		label
+		isMine
+		notes
+		members {
+			slot
+			pokemon {
+				...PokemonSummary
+			}
+			boxPokemon {
+				...BoxEntry
+			}
+		}
+	}
+}
+
+mutation SaveBoxPokemon($input: BoxPokemonInput!) {
+	saveBoxPokemon(input: $input) {
+		...BoxEntry
+	}
+}
+
+mutation DeleteBoxPokemon($id: Int!) {
+	deleteBoxPokemon(id: $id)
+}
+
+mutation SaveTeam($input: TeamInput!) {
+	saveTeam(input: $input) {
+		id
+		label
+		isMine
+	}
+}
+
+mutation DeleteTeam($id: Int!) {
+	deleteTeam(id: $id)
+}
+
+query ChampTypes {
+	champTypes {
+		id
+		slug
+		name
+	}
+}
+
+# Keyed by slug in the browser and joined onto the roster's `abilitySlugs`, so the effect text
+# is sent once per ability rather than once per Pokémon that has it.
+query ChampAbilities {
+	champAbilities {
+		id
+		slug
+		name
+		effectText
+		isMega
+	}
+}
+
+# Names only — enough for the move filter's autocomplete, without the learnsets behind them.
+query ChampMoveIndex {
+	champMoveIndex {
+		id
+		slug
+		name
+		type
+		damageClass
+	}
+}
+
+# Fetched only once a move is actually picked. Ids, because the Pokédex already has the roster
+# and just needs to know which of it to keep.
+query ChampMoveLearners($moveSlug: String!) {
+	champMoveLearners(moveSlug: $moveSlug)
+}
+
+query ChampChangedMoves {
+	champChangedMoves {
+		id
+		slug
+		name
+		type
+		damageClass
+		power
+		pp
+		accuracy
+		priority
+		flags
+		effectChance
+		overrideNote
+	}
+}

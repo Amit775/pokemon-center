@@ -1,0 +1,51 @@
+{
+	"name": "champions-service",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/champions-service/src",
+	"projectType": "application",
+	"tags": [],
+	"targets": {
+		"build": {
+			"executor": "@nx/js:tsc",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/apps/champions-service",
+				"main": "apps/champions-service/src/main.ts",
+				"tsConfig": "apps/champions-service/tsconfig.app.json",
+				"assets": ["apps/champions-service/src/assets"]
+			},
+			"configurations": {
+				"development": {
+					"outputPath": "dist/apps/champions-service"
+				},
+				"production": {
+					"outputPath": "dist/apps/champions-service"
+				}
+			}
+		},
+		"serve": {
+			"executor": "@nx/js:node",
+			"defaultConfiguration": "development",
+			"dependsOn": ["build"],
+			"options": {
+				"buildTarget": "champions-service:build",
+				"runBuildTargetDependencies": false
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "champions-service:build:development"
+				},
+				"production": {
+					"buildTarget": "champions-service:build:production"
+				}
+			}
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "apps/champions-service/jest.config.ts"
+			}
+		}
+	}
+}

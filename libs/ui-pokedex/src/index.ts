@@ -1,4 +1,5 @@
 export * from './lib/type-colors';
+export * from './lib/sprites';
 export * from './lib/type-chip/type-chip.component';
 export * from './lib/entity-portrait/entity-portrait.component';
 export * from './lib/stat-bar/stat-bar.component';

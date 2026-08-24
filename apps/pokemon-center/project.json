@@ -53,12 +53,20 @@
 			"executor": "@angular/build:dev-server",
 			"defaultConfiguration": "development",
 			"continuous": true,
+			"options": {
+				"proxyConfig": "apps/pokemon-center/proxy.conf.mjs"
+			},
 			"configurations": {
 				"production": {
 					"buildTarget": "pokemon-center:build:production"
 				},
 				"development": {
 					"buildTarget": "pokemon-center:build:development"
+				},
+				"remote": {
+					"buildTarget": "pokemon-center:build:development",
+					"host": "0.0.0.0",
+					"allowedHosts": [".devtunnels.ms", ".ngrok-free.app", ".trycloudflare.com"]
 				}
 			}
 		},

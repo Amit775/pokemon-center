@@ -1,16 +1,26 @@
 # Pokemon Center — Master Plan
 
-_Last updated: 2026-07-26 · Status: **Phases 1–4 complete** — database, GraphQL API, typed consumption, the **Pokedex** domain (R1–R5) and the **School** domain (S0–S5). Stack modernization (pnpm / Nx 23 / Angular 22 / TS 6.0 bridge / NestJS 11 / Prisma 7) done. **Next up: Phase 5 — Arena.**_
+_Last updated: 2026-08-22 · Status: **the workspace is now two apps.** Everything below describes
+**Nuzlocke** (`/nuzlocke`), which is complete and unchanged. Active development has moved to
+**Champions** (`/champions`) — see **[champions-plan.md](champions-plan.md)**. Arena is deferred._
+
+> **Read this first if you are new to the repo.** `/nuzlocke` and `/champions` are separate
+> apps sharing one build, one `ui-pokedex` design system and one Postgres instance — but
+> **different databases**, different GraphQL services and different shells. Champions has its
+> own database because it diverges mechanically (no IVs, SP instead of EVs, fixed level 50,
+> rebalanced moves, rotating regulation rosters) and because it needs writes, which the
+> mainline read-only decree forbids.
 
 ## 1. What we are building
 
-**Pokemon Center** is the data and services hub of the pokemon-verse. One canonical Pokemon database, exposed through one read-only GraphQL API, consumed by every sibling project (`pokedex`, `pokemon-duel`, `nuzlocke`, `pokeday`, `pokedata`, `pinball`) and by Pokemon Center's own three domains:
+**Pokemon Center** is the data and services hub of the pokemon-verse. One canonical Pokemon database, exposed through one read-only GraphQL API, consumed by every sibling project (`pokedex`, `pokemon-duel`, `nuzlocke`, `pokeday`, `pokedata`, `pinball`) and by Pokemon Center's own domains:
 
 | Domain | Mission | Status |
 |---|---|---|
 | **Pokedex** | Interconnected knowledge base: Pokemon, moves, items, abilities, types. Advanced search/filtering, bi-directional linking ([plan](pokedex-product-plan.md)) | **Done** — R1–R5 shipped on a live GraphQL API |
 | **School** | Interactive training ground: lessons + simulations generated from the mechanics data ([plan](school-plan.md)) | **Done** — S0–S5 shipped; seven modules, four modes |
-| **Arena** | Mechanically accurate turn-based battle engine over WebSockets, engine-first ([plan](arena-plan.md)) | Stub — Phase 5, planned |
+| **Champions** | Separate app and database for Pokémon Champions: Pokédex, Box, Companion, Simulator, School ([plan](champions-plan.md)) | **Base complete** — all five sections live; deepening next |
+| **Arena** | Mechanically accurate turn-based battle engine over WebSockets, engine-first ([plan](arena-plan.md)) | Stub — **deferred** in favour of Champions |
 
 The strategic bet: **every domain and every sibling project is a projection of the same relational dataset.** Get the dataset and its API right once, and everything downstream gets cheaper.
 

@@ -62,3 +62,8 @@ apps/pokemon-center/public/sprites/
 .cursor/rules/*.exe
 *.msi
 *.exe
+
+# Per-worktree local config, written by tools/worktree.mjs.
+# Both encode ports, which differ per checkout - see docs/worktrees.md.
+.worktree-slot
+.claude/launch.json

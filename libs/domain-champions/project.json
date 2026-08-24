@@ -1,0 +1,21 @@
+{
+	"name": "domain-champions",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/domain-champions/src",
+	"prefix": "champions",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/domain-champions/jest.config.ts",
+				"tsConfig": "libs/domain-champions/tsconfig.spec.json"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint"
+		}
+	}
+}
