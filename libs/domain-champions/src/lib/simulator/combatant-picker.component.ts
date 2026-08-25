@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
-import { ChampSearchDocument, champResource } from '@pokemon-center/data-access-champions';
+import { ChampionsSearchDocument, championsResource } from '@pokemon-center/data-access-champions';
 import { EntityPortraitComponent, TypeChipComponent, spriteSources } from '@pokemon-center/ui-pokedex';
 import { BoxStore } from '../box/box.store';
 import { PokedexStore } from '../pokedex/pokedex.store';
@@ -216,7 +216,7 @@ export class CombatantPickerComponent {
 	private readonly pokedex = inject(PokedexStore);
 	protected readonly term = signal('');
 
-	private readonly search = champResource(ChampSearchDocument, () => ({ query: this.term(), take: 8 }));
+	private readonly search = championsResource(ChampionsSearchDocument, () => ({ query: this.term(), take: 8 }));
 	protected readonly results = computed(() => (this.term().trim() === '' ? [] : (this.search.value()?.champSearch ?? [])));
 
 	/**

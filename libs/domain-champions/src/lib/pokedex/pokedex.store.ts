@@ -1,12 +1,12 @@
 import { computed, effect, inject } from '@angular/core';
 import {
-	ChampAbilitiesDocument,
-	ChampDexDocument,
-	ChampMoveIndexDocument,
-	ChampMoveLearnersDocument,
-	ChampTypesDocument,
+	ChampionsAbilitiesDocument,
+	ChampionsPokedexDocument,
+	ChampionsMoveIndexDocument,
+	ChampionsMoveLearnersDocument,
+	ChampionsTypesDocument,
 	TypeChartDocument,
-	champResource,
+	championsResource,
 } from '@pokemon-center/data-access-champions';
 import { getState, patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
 import type { StatKey } from '@pokemon-center/champions-engine';
@@ -85,14 +85,14 @@ export const PokedexStore = signalStore(
 	{ providedIn: 'root' },
 	withState<PokedexState>({ filters: EMPTY_FILTERS, compare: [], sets: [] }),
 	withProps((store) => ({
-		_pokedexQuery: champResource(ChampDexDocument, () => ({})),
-		_chartQuery: champResource(TypeChartDocument, () => ({})),
-		_typesQuery: champResource(ChampTypesDocument, () => ({})),
-		_abilityQuery: champResource(ChampAbilitiesDocument, () => ({})),
-		_moveIndexQuery: champResource(ChampMoveIndexDocument, () => ({})),
+		_pokedexQuery: championsResource(ChampionsPokedexDocument, () => ({})),
+		_chartQuery: championsResource(TypeChartDocument, () => ({})),
+		_typesQuery: championsResource(ChampionsTypesDocument, () => ({})),
+		_abilityQuery: championsResource(ChampionsAbilitiesDocument, () => ({})),
+		_moveIndexQuery: championsResource(ChampionsMoveIndexDocument, () => ({})),
 		// The one lazy query in the section. Its parameter is undefined until a move is picked,
 		// so nothing is fetched on a visit that never touches the move filter.
-		_learnersQuery: champResource(ChampMoveLearnersDocument, () => {
+		_learnersQuery: championsResource(ChampionsMoveLearnersDocument, () => {
 			const move = store.filters().move;
 			return move ? { moveSlug: move } : undefined;
 		}),

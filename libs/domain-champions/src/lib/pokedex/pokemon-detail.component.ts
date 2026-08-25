@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal, untracked } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { defensiveProfile } from '@pokemon-center/champions-engine';
-import { ChampTeamDocument, champResource } from '@pokemon-center/data-access-champions';
+import { ChampionsTeamDocument, championsResource } from '@pokemon-center/data-access-champions';
 import {
 	EntityPortraitComponent,
 	SectionHeadingComponent,
@@ -501,7 +501,7 @@ export default class PokemonDetailComponent {
 	protected readonly pokedex = inject(PokedexStore);
 	private readonly router = inject(Router);
 
-	protected readonly query = champResource(ChampTeamDocument, () => ({ slugs: [this.slug()] }));
+	protected readonly query = championsResource(ChampionsTeamDocument, () => ({ slugs: [this.slug()] }));
 
 	/** The learnset, abilities and Mega forms — the only part of this page that waits. */
 	protected readonly mon = computed(() => this.query.value()?.champTeam[0] ?? null);

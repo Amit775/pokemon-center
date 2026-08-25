@@ -46,7 +46,7 @@ apps/
   pokemon-center/           Both shells: layout/{nuzlocke,champions}-shell/
 libs/
   champions-engine/         Framework-free, data-free battle maths. 75 tests.
-  data-access-champions/    Codegen'd documents + champResource + injectChampMutate
+  data-access-champions/    Codegen'd documents + championsResource + injectChampionsMutate
   domain-champions/         pokedex/ box/ advisor/ battle/ simulator/ school/
   prisma-champions/         Generated client for the Champions DB
   ui-pokedex/               Shared design system — zero cross-lib imports

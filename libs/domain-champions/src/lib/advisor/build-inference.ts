@@ -7,7 +7,7 @@ import {
 	StatKey,
 	TypeChart,
 } from '@pokemon-center/champions-engine';
-import type { ChampTeamQuery, TypeChartQuery } from '@pokemon-center/data-access-champions';
+import type { ChampionsTeamQuery, TypeChartQuery } from '@pokemon-center/data-access-champions';
 
 /**
  * Turns what the dex knows into what the engine needs — **for opponents only**.
@@ -27,7 +27,7 @@ import type { ChampTeamQuery, TypeChartQuery } from '@pokemon-center/data-access
  *    harvesting real sets, an inferred moveset is a hypothesis.
  */
 
-type TeamMember = ChampTeamQuery['champTeam'][number];
+type TeamMember = ChampionsTeamQuery['champTeam'][number];
 
 /** Build the engine's nested type chart from the flat rows the API returns. */
 export function toTypeChart(rows: TypeChartQuery['typeChart']): TypeChart {

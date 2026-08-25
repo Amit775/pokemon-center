@@ -1,6 +1,6 @@
 import { computed, effect, inject } from '@angular/core';
 import { speedTiers, teamWeaknesses, threatMatrix } from '@pokemon-center/champions-engine';
-import { ChampTeamDocument, TypeChartDocument, champResource } from '@pokemon-center/data-access-champions';
+import { ChampionsTeamDocument, TypeChartDocument, championsResource } from '@pokemon-center/data-access-champions';
 import { getState, patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
 import { BoxStore } from '../box/box.store';
 import { boxEntryToBuild } from '../box/box-build';
@@ -54,8 +54,8 @@ export const AdvisorStore = signalStore(
 	withProps(({ theirSlugs }) => ({
 		_box: inject(BoxStore),
 		// Only the opponent needs fetching; your side is already in the Box.
-		_theirQuery: champResource(ChampTeamDocument, () => ({ slugs: theirSlugs() })),
-		_chartQuery: champResource(TypeChartDocument, () => ({})),
+		_theirQuery: championsResource(ChampionsTeamDocument, () => ({ slugs: theirSlugs() })),
+		_chartQuery: championsResource(TypeChartDocument, () => ({})),
 	})),
 	withComputed(({ _box, _theirQuery, _chartQuery, theirSlugs, myTeamId }) => {
 		const typeChart = computed(() => toTypeChart(_chartQuery.value()?.typeChart ?? []));

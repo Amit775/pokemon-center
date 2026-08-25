@@ -43,7 +43,7 @@ fragment PokemonSummary on ChampPokemonSummary {
 	}
 }
 
-query ChampSearch($query: String!, $take: Int) {
+query ChampionsSearch($query: String!, $take: Int) {
 	champSearch(query: $query, take: $take) {
 		...PokemonSummary
 	}
@@ -71,7 +71,7 @@ fragment PokemonDetail on ChampPokemonDetail {
 	}
 }
 
-query ChampTeam($slugs: [String!]!) {
+query ChampionsTeam($slugs: [String!]!) {
 	champTeam(slugs: $slugs) {
 		...PokemonDetail
 		learnsetIsApproximate
@@ -122,14 +122,14 @@ query TypeChart {
 	}
 }
 
-query ChampRoster($type: String, $search: String, $includeMegas: Boolean, $take: Int, $skip: Int) {
+query ChampionsRoster($type: String, $search: String, $includeMegas: Boolean, $take: Int, $skip: Int) {
 	champRoster(type: $type, search: $search, includeMegas: $includeMegas, take: $take, skip: $skip) {
 		...PokemonSummary
 	}
 	champRosterCount(type: $type, search: $search, includeMegas: $includeMegas)
 }
 
-query ChampDex {
+query ChampionsPokedex {
 	champDex {
 		id
 		slug
@@ -237,7 +237,7 @@ mutation DeleteTeam($id: Int!) {
 	deleteTeam(id: $id)
 }
 
-query ChampTypes {
+query ChampionsTypes {
 	champTypes {
 		id
 		slug
@@ -247,7 +247,7 @@ query ChampTypes {
 
 # Keyed by slug in the browser and joined onto the roster's `abilitySlugs`, so the effect text
 # is sent once per ability rather than once per Pokémon that has it.
-query ChampAbilities {
+query ChampionsAbilities {
 	champAbilities {
 		id
 		slug
@@ -258,7 +258,7 @@ query ChampAbilities {
 }
 
 # Names only — enough for the move filter's autocomplete, without the learnsets behind them.
-query ChampMoveIndex {
+query ChampionsMoveIndex {
 	champMoveIndex {
 		id
 		slug
@@ -270,11 +270,11 @@ query ChampMoveIndex {
 
 # Fetched only once a move is actually picked. Ids, because the Pokédex already has the roster
 # and just needs to know which of it to keep.
-query ChampMoveLearners($moveSlug: String!) {
+query ChampionsMoveLearners($moveSlug: String!) {
 	champMoveLearners(moveSlug: $moveSlug)
 }
 
-query ChampChangedMoves {
+query ChampionsChangedMoves {
 	champChangedMoves {
 		id
 		slug

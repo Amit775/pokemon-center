@@ -372,7 +372,7 @@ instead of at a *type*.
 - **Search widened** to ability names, ability slugs and type names. Slugs because that is what a
   shared URL carries. Species-name prefixes still float to the top, so the common case is
   unchanged.
-- **Filter by move**, on the lazy query as planned — plus one supporting change: `champResource`
+- **Filter by move**, on the lazy query as planned — plus one supporting change: `championsResource`
   now treats `undefined` variables as *idle* rather than firing a request with a missing
   argument, which is what makes a genuinely lazy query possible. While the learners are in
   flight the filter is **skipped rather than applied**: narrowing a full list reads as loading,

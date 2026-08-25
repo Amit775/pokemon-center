@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
-import { ChampChangedMovesDocument, champResource } from '@pokemon-center/data-access-champions';
+import { ChampionsChangedMovesDocument, championsResource } from '@pokemon-center/data-access-champions';
 import { SectionHeadingComponent, TypeChipComponent, UiCardComponent, UiSkeletonComponent } from '@pokemon-center/ui-pokedex';
 
 /**
@@ -166,7 +166,7 @@ import { SectionHeadingComponent, TypeChipComponent, UiCardComponent, UiSkeleton
 	`,
 })
 export default class ChangesComponent {
-	protected readonly query = champResource(ChampChangedMovesDocument, () => ({}));
+	protected readonly query = championsResource(ChampionsChangedMovesDocument, () => ({}));
 	protected readonly moves = computed(() => this.query.value()?.champChangedMoves ?? []);
 
 	/**

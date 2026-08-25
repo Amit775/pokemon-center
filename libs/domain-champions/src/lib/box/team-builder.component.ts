@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { teamWeaknesses } from '@pokemon-center/champions-engine';
-import { TypeChartDocument, champResource, type TeamInput } from '@pokemon-center/data-access-champions';
+import { TypeChartDocument, championsResource, type TeamInput } from '@pokemon-center/data-access-champions';
 import { EntityPortraitComponent, SectionHeadingComponent, TypeChipComponent, UiCardComponent, spriteSources } from '@pokemon-center/ui-pokedex';
 import { toTypeChart } from '../advisor/build-inference';
 import { boxEntryToBuild } from './box-build';
@@ -362,7 +362,7 @@ export class TeamBuilderComponent {
 	/** Box entry ids by slot; sparse. */
 	protected readonly slotIds = signal<(number | null)[]>([null, null, null, null, null, null]);
 
-	private readonly chartQuery = champResource(TypeChartDocument, () => ({}));
+	private readonly chartQuery = championsResource(TypeChartDocument, () => ({}));
 
 	protected readonly chosen = computed(() =>
 		this.slotIds().map((id) => (id === null ? null : (this.store.entries().find((entry) => entry.id === id) ?? null))),

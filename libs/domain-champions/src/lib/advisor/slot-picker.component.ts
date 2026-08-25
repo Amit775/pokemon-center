@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, input, output, signal, viewChild } from '@angular/core';
-import { ChampSearchDocument, champResource } from '@pokemon-center/data-access-champions';
+import { ChampionsSearchDocument, championsResource } from '@pokemon-center/data-access-champions';
 import { TypeChipComponent } from '@pokemon-center/ui-pokedex';
 
 /**
@@ -217,7 +217,7 @@ export class SlotPickerComponent {
 
 	private readonly searchInput = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
-	protected readonly search = champResource(ChampSearchDocument, () => ({ query: this.term(), take: 8 }));
+	protected readonly search = championsResource(ChampionsSearchDocument, () => ({ query: this.term(), take: 8 }));
 
 	protected readonly results = computed(() => (this.term().trim().length === 0 ? [] : (this.search.value()?.champSearch ?? [])));
 

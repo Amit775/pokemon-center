@@ -8,7 +8,7 @@ import {
 	statAt50,
 	validateSpread,
 } from '@pokemon-center/champions-engine';
-import { BoxPokemonInput, ChampTeamDocument, champResource } from '@pokemon-center/data-access-champions';
+import { BoxPokemonInput, ChampionsTeamDocument, championsResource } from '@pokemon-center/data-access-champions';
 import { EntityPortraitComponent, TypeChipComponent, UiSkeletonComponent, spriteSources } from '@pokemon-center/ui-pokedex';
 import { NATURES } from './natures';
 
@@ -433,7 +433,7 @@ export class BuildEditorComponent {
 	protected readonly saving = signal(false);
 	protected readonly moveSearch = signal('');
 
-	private readonly query = champResource(ChampTeamDocument, () => ({ slugs: [this.slug()] }));
+	private readonly query = championsResource(ChampionsTeamDocument, () => ({ slugs: [this.slug()] }));
 	protected readonly detail = computed(() => this.query.value()?.champTeam[0] ?? null);
 	protected readonly sprite = computed(() => spriteSources(this.detail()?.id ?? 0));
 

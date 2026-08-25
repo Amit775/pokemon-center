@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, injec
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { statAt50 } from '@pokemon-center/champions-engine';
-import { ChampSearchDocument, champResource, type BoxPokemonInput } from '@pokemon-center/data-access-champions';
+import { ChampionsSearchDocument, championsResource, type BoxPokemonInput } from '@pokemon-center/data-access-champions';
 import { EntityPortraitComponent, SectionHeadingComponent, TypeChipComponent, UiCardComponent, spriteSources } from '@pokemon-center/ui-pokedex';
 import { BoxStore } from './box.store';
 import { BuildEditorComponent } from './build-editor.component';
@@ -376,7 +376,7 @@ export default class BoxComponent {
 	});
 
 	private readonly pickerInput = viewChild<ElementRef<HTMLInputElement>>('picker');
-	private readonly picker = champResource(ChampSearchDocument, () => ({ query: this.pickerTerm(), take: 10 }));
+	private readonly picker = championsResource(ChampionsSearchDocument, () => ({ query: this.pickerTerm(), take: 10 }));
 	protected readonly pickerResults = computed(() => (this.pickerTerm().trim() === '' ? [] : (this.picker.value()?.champSearch ?? [])));
 
 	protected sprite(id: number) {

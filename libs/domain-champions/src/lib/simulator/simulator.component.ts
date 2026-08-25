@@ -12,7 +12,7 @@ import {
 	koVerdict,
 	turnOrder,
 } from '@pokemon-center/champions-engine';
-import { ChampTeamDocument, TypeChartDocument, champResource } from '@pokemon-center/data-access-champions';
+import { ChampionsTeamDocument, TypeChartDocument, championsResource } from '@pokemon-center/data-access-champions';
 import { EntityPortraitComponent, SectionHeadingComponent, TypeChipComponent, UiCardComponent, spriteSources } from '@pokemon-center/ui-pokedex';
 import { toTypeChart, inferBuild } from '../advisor/build-inference';
 import { boxEntryToBuild } from '../box/box-build';
@@ -389,8 +389,8 @@ export default class SimulatorComponent {
 			.map((key) => key.slice(POKEDEX_PREFIX.length)),
 	);
 
-	private readonly pokedexQuery = champResource(ChampTeamDocument, () => ({ slugs: this.pokedexSlugs() }));
-	private readonly chartQuery = champResource(TypeChartDocument, () => ({}));
+	private readonly pokedexQuery = championsResource(ChampionsTeamDocument, () => ({ slugs: this.pokedexSlugs() }));
+	private readonly chartQuery = championsResource(TypeChartDocument, () => ({}));
 
 	protected readonly typeChart = computed(() => toTypeChart(this.chartQuery.value()?.typeChart ?? []));
 
