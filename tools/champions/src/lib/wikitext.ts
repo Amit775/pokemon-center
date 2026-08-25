@@ -124,9 +124,9 @@ export function parseRoster(wikitext: string): RosterEntry[] {
 			else positional.push(field);
 		}
 
-		const [dex, species, typeCountRaw, ...rest] = positional;
+		const [rawPokedexNumber, species, typeCountRaw, ...rest] = positional;
 		const typeCount = Number(typeCountRaw);
-		if (!dex || !species || !Number.isFinite(typeCount)) continue;
+		if (!rawPokedexNumber || !species || !Number.isFinite(typeCount)) continue;
 
 		const types = rest.slice(0, typeCount).map(plain);
 		// Whatever follows the types is the availability cell, which sometimes carries a
@@ -136,7 +136,7 @@ export function parseRoster(wikitext: string): RosterEntry[] {
 		const section = sectionAt(wikitext, match.index);
 
 		entries.push({
-			pokedexNumber: Number(dex),
+			pokedexNumber: Number(rawPokedexNumber),
 			species: plain(species),
 			types,
 			...(named['form'] ? { form: plain(named['form']) } : {}),
