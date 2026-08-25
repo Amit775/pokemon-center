@@ -33,7 +33,7 @@ export const expectedDamageGenerator: ExerciseGenerator = {
 	id: 'damage.expected',
 	lessonId: 'damage.expected-damage',
 	requires: ['moves'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const moves = requireRef(ref, 'moves', this.lessonId);
 		const pool = moves.filter((move) => isAttacking(move) && move.accuracy !== null);
@@ -64,7 +64,7 @@ export const expectedDamageGenerator: ExerciseGenerator = {
 			hints,
 			explanation: `${drawn
 				.map((move) => `${humanize(move.slug)} ${move.power}x${(move.accuracy ?? 100) / 100} = ${expectedDamage(move).toFixed(1)}`)
-				.join('; ')}${eraNote(ctx.versionGroup)}.`,
+				.join('; ')}${eraNote(context.versionGroup)}.`,
 		};
 	},
 };
@@ -73,7 +73,7 @@ export const priorityGenerator: ExerciseGenerator = {
 	id: 'damage.priority',
 	lessonId: 'damage.priority',
 	requires: ['moves'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const moves = requireRef(ref, 'moves', this.lessonId);
 
@@ -107,7 +107,7 @@ export const priorityGenerator: ExerciseGenerator = {
 			explanation: `${humanize(answer.slug)} has priority ${answer.priority > 0 ? '+' : ''}${answer.priority}; the others are at ${drawn
 				.filter((move) => move.slug !== answer.slug)
 				.map((move) => move.priority)
-				.join(', ')}${eraNote(ctx.versionGroup)}.`,
+				.join(', ')}${eraNote(context.versionGroup)}.`,
 		};
 	},
 };
@@ -116,7 +116,7 @@ export const stabGenerator: ExerciseGenerator = {
 	id: 'damage.stab',
 	lessonId: 'damage.stab',
 	requires: ['moves'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const moves = requireRef(ref, 'moves', this.lessonId);
 		const pool = moves.filter(isAttacking);
@@ -148,7 +148,7 @@ export const stabGenerator: ExerciseGenerator = {
 			hints,
 			explanation: `${humanize(answer.slug)} is ${title(answer.type)}-type, so ${article(answer.type)} ${title(
 				answer.type,
-			)}-type user deals 1.5x with it${eraNote(ctx.versionGroup)}.`,
+			)}-type user deals 1.5x with it${eraNote(context.versionGroup)}.`,
 		};
 	},
 };

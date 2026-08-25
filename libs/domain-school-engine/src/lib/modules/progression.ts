@@ -57,7 +57,7 @@ export const evolutionMethodGenerator: ExerciseGenerator = {
 	id: 'progression.evolution-method',
 	lessonId: 'progression.evolution-methods',
 	requires: ['evolutions'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const evolutions = requireRef(ref, 'evolutions', this.lessonId);
 		if (evolutions.length < 4) throw new Error(`[${this.lessonId}] need at least 4 evolution steps`);
@@ -94,7 +94,7 @@ export const evolutionMethodGenerator: ExerciseGenerator = {
 			prompt: `How does ${humanize(answer.from)} evolve into ${humanize(answer.to)}?`,
 			candidates,
 			hints,
-			explanation: `${humanize(answer.from)} → ${humanize(answer.to)}: ${describeEvolution(answer)}${eraNote(ctx.versionGroup)}.`,
+			explanation: `${humanize(answer.from)} → ${humanize(answer.to)}: ${describeEvolution(answer)}${eraNote(context.versionGroup)}.`,
 		};
 	},
 };
@@ -103,7 +103,7 @@ export const machineNumberGenerator: ExerciseGenerator = {
 	id: 'progression.machine-number',
 	lessonId: 'progression.tm-numbers',
 	requires: ['machines'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const machines = requireRef(ref, 'machines', this.lessonId);
 		if (machines.length < 4) throw new Error(`[${this.lessonId}] need at least 4 machines`);
@@ -147,7 +147,7 @@ export const growthRateGenerator: ExerciseGenerator = {
 	id: 'progression.growth-rate',
 	lessonId: 'progression.growth-curves',
 	requires: ['growthRates'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const rates = requireRef(ref, 'growthRates', this.lessonId);
 		if (rates.length < 4) throw new Error(`[${this.lessonId}] need at least 4 growth rates`);

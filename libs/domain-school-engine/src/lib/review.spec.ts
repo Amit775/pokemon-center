@@ -137,7 +137,7 @@ describe('rng.pickWeighted', () => {
 /* ---------------------------------------------- placement */
 
 const ref: ReferenceData = { typeChart: MODERN_CHART, moves: MOVES, natures: NATURES };
-const ctx: GameContext = { versionGroup: null, generation: null };
+const context: GameContext = { versionGroup: null, generation: null };
 
 describe('ancestorsOf', () => {
 	it('collects prerequisites transitively', () => {
@@ -151,25 +151,25 @@ describe('ancestorsOf', () => {
 
 describe('buildPlacementTest', () => {
 	it('is deterministic', () => {
-		const a = buildPlacementTest(42, ref, ctx).map((q) => q.exercise.id);
-		expect(buildPlacementTest(42, ref, ctx).map((q) => q.exercise.id)).toEqual(a);
+		const a = buildPlacementTest(42, ref, context).map((q) => q.exercise.id);
+		expect(buildPlacementTest(42, ref, context).map((q) => q.exercise.id)).toEqual(a);
 	});
 
 	it('asks about every playable exercise lesson exactly once', () => {
-		const test = buildPlacementTest(42, ref, ctx);
+		const test = buildPlacementTest(42, ref, context);
 		const ids = test.map((q) => q.lessonId);
 		expect(new Set(ids).size).toBe(ids.length);
 		expect(ids.length).toBeGreaterThanOrEqual(10);
 	});
 
 	it('excludes simulations, which grade on a scale rather than yes/no', () => {
-		const ids = buildPlacementTest(42, ref, ctx).map((q) => q.lessonId);
+		const ids = buildPlacementTest(42, ref, context).map((q) => q.lessonId);
 		expect(ids).not.toContain('coverage.four-move-coverage');
 		expect(ids).not.toContain('matchup.best-counter');
 	});
 
 	it('offers only lessons whose reference data is present', () => {
-		const chartOnly = buildPlacementTest(42, { typeChart: MODERN_CHART }, ctx);
+		const chartOnly = buildPlacementTest(42, { typeChart: MODERN_CHART }, context);
 		expect(chartOnly.every((q) => q.lessonId.startsWith('type-chart.'))).toBe(true);
 	});
 });

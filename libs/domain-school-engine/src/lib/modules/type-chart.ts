@@ -72,7 +72,7 @@ export const singleTypeEffectivenessGenerator: ExerciseGenerator = {
 	id: 'type-chart.single',
 	lessonId: 'type-chart.single-type-effectiveness',
 	requires: ['typeChart'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const chart = requireRef(ref, 'typeChart', this.lessonId);
 		const attacking = rng.pick(chart.types);
@@ -97,7 +97,7 @@ export const singleTypeEffectivenessGenerator: ExerciseGenerator = {
 			prompt: `How effective is ${article(attacking)} ${title(attacking)}-type move against ${article(defending)} ${title(defending)}-type Pokémon?`,
 			candidates,
 			hints,
-			explanation: `${title(attacking)} → ${title(defending)} = ${multiplierLabel(answer)}${eraNote(ctx.versionGroup)}.`,
+			explanation: `${title(attacking)} → ${title(defending)} = ${multiplierLabel(answer)}${eraNote(context.versionGroup)}.`,
 		};
 	},
 };
@@ -106,7 +106,7 @@ export const dualTypeMultipliersGenerator: ExerciseGenerator = {
 	id: 'type-chart.dual',
 	lessonId: 'type-chart.dual-type-multipliers',
 	requires: ['typeChart'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const chart = requireRef(ref, 'typeChart', this.lessonId);
 		const attacking = rng.pick(chart.types);
@@ -137,7 +137,7 @@ export const dualTypeMultipliersGenerator: ExerciseGenerator = {
 			prompt: `How effective is ${article(attacking)} ${title(attacking)}-type move against ${article(first)} ${title(first)}/${title(second)} Pokémon?`,
 			candidates,
 			hints,
-			explanation: `${firstFactor}× × ${secondFactor}× = ${answer}× — ${multiplierLabel(answer)}${eraNote(ctx.versionGroup)}.`,
+			explanation: `${firstFactor}× × ${secondFactor}× = ${answer}× — ${multiplierLabel(answer)}${eraNote(context.versionGroup)}.`,
 		};
 	},
 };
@@ -146,7 +146,7 @@ export const immunitiesGenerator: ExerciseGenerator = {
 	id: 'type-chart.immunity',
 	lessonId: 'type-chart.immunities',
 	requires: ['typeChart'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const chart = requireRef(ref, 'typeChart', this.lessonId);
 
@@ -192,7 +192,7 @@ export const immunitiesGenerator: ExerciseGenerator = {
 			prompt: `Which of these types is completely immune to ${title(attacking)}-type moves?`,
 			candidates,
 			hints,
-			explanation: `${title(attacking)} → ${title(defending)} = 0×${eraNote(ctx.versionGroup)}.`,
+			explanation: `${title(attacking)} → ${title(defending)} = 0×${eraNote(context.versionGroup)}.`,
 		};
 	},
 };

@@ -24,14 +24,14 @@ export interface PlacementQuestion {
  * Simulations are excluded: they are a considered decision graded on a scale, which is the
  * wrong instrument for "do you already know this?".
  */
-export function buildPlacementTest(seed: number, ref: ReferenceData, ctx: GameContext): PlacementQuestion[] {
+export function buildPlacementTest(seed: number, ref: ReferenceData, context: GameContext): PlacementQuestion[] {
 	const rng = createRng(seed);
 
 	const candidates = allLessons(curriculum).filter((lesson) => lessonKind(lesson) === 'exercise' && isLessonPlayable(lesson.id, ref));
 
 	return rng.shuffle(candidates).map((lesson) => ({
 		lessonId: lesson.id,
-		exercise: generateForLesson(lesson.id, rng.int(0x7fffffff), ref, ctx),
+		exercise: generateForLesson(lesson.id, rng.int(0x7fffffff), ref, context),
 	}));
 }
 

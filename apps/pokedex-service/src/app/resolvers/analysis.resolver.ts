@@ -144,13 +144,13 @@ export class AnalysisResolver {
 				GROUP BY te.damage_type_id
 				HAVING min(te.damage_factor) > 0
 			),
-			ctx AS (
+			version_group_context AS (
 				SELECT vg.id FROM version_groups vg WHERE ${vg}::text IS NULL OR vg.identifier = ${vg}
 			),
 			candidate_moves AS (
 				SELECT DISTINCT pm.pokemon_id, pm.move_id
 				FROM pokemon_moves pm
-				WHERE ${vg}::text IS NULL OR pm.version_group_id IN (SELECT id FROM ctx)
+				WHERE ${vg}::text IS NULL OR pm.version_group_id IN (SELECT id FROM version_group_context)
 			),
 			scored AS (
 				SELECT p.id AS pokemon_id,
@@ -174,7 +174,7 @@ export class AnalysisResolver {
 				WHERE (${vg}::text IS NULL OR EXISTS (
 					SELECT 1 FROM pokemon_dex_numbers pdn
 					JOIN pokedex_version_groups pvg ON pvg.pokedex_id = pdn.pokedex_id
-					JOIN ctx ON ctx.id = pvg.version_group_id
+					JOIN version_group_context ON version_group_context.id = pvg.version_group_id
 					WHERE pdn.species_id = p.species_id
 				))
 			),

@@ -5,7 +5,7 @@ import { damageGenerators, expectedDamage, expectedDamageGenerator, priorityGene
 import { statsGenerators, natureByEffectGenerator, natureEffectGenerator, statChangeGenerator } from './stats';
 import { ailmentChanceGenerator, ailmentSourceGenerator, recoilGenerator, statusGenerators } from './status';
 
-const ctx: GameContext = { versionGroup: null, generation: null };
+const context: GameContext = { versionGroup: null, generation: null };
 const SEEDS = Array.from({ length: 150 }, (_, i) => i * 6151 + 29);
 
 const bySlug = new Map(MOVES.map((move) => [move.slug, move]));
@@ -24,18 +24,18 @@ describe.each(allNew.map((g) => [g.id, g] as const))('%s', (_id, generator: Exer
 	it('refuses to run when its reference data is absent', () => {
 		// A generator quietly producing a malformed question from missing data is the failure
 		// mode worth being loud about.
-		expect(() => generator.generate(1, {}, ctx)).toThrow(/missing reference data/);
+		expect(() => generator.generate(1, {}, context)).toThrow(/missing reference data/);
 	});
 
 	it('is deterministic — the same seed reproduces the exercise exactly', () => {
 		for (const seed of SEEDS.slice(0, 25)) {
-			expect(generator.generate(seed, fullReference, ctx)).toEqual(generator.generate(seed, fullReference, ctx));
+			expect(generator.generate(seed, fullReference, context)).toEqual(generator.generate(seed, fullReference, context));
 		}
 	});
 
 	it('never generates an ambiguous question', () => {
 		for (const seed of SEEDS) {
-			const exercise = generator.generate(seed, fullReference, ctx);
+			const exercise = generator.generate(seed, fullReference, context);
 			const correct = exercise.candidates.filter((c) => c.correct);
 			expect(correct).toHaveLength(1);
 
@@ -46,7 +46,7 @@ describe.each(allNew.map((g) => [g.id, g] as const))('%s', (_id, generator: Exer
 
 	it('offers all four hint tiers in order', () => {
 		for (const seed of SEEDS.slice(0, 40)) {
-			const { hints } = generator.generate(seed, fullReference, ctx);
+			const { hints } = generator.generate(seed, fullReference, context);
 			expect(hints.map((h) => h.tier)).toEqual([1, 2, 3, 4]);
 			expect(hints.every((h) => h.text.trim().length > 0)).toBe(true);
 		}
@@ -54,7 +54,7 @@ describe.each(allNew.map((g) => [g.id, g] as const))('%s', (_id, generator: Exer
 
 	it('never eliminates the right answer in the T2 narrowing hint', () => {
 		for (const seed of SEEDS) {
-			const exercise = generator.generate(seed, fullReference, ctx);
+			const exercise = generator.generate(seed, fullReference, context);
 			// Quoted labels, not substrings: one label is often a prefix of another.
 			const quoted = [...(exercise.hints.find((h) => h.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((m) => m[1]);
 			expect(quoted.length).toBeGreaterThan(0);
@@ -66,7 +66,7 @@ describe.each(allNew.map((g) => [g.id, g] as const))('%s', (_id, generator: Exer
 
 	it('produces a real prompt, four options and a stable id', () => {
 		for (const seed of SEEDS.slice(0, 40)) {
-			const exercise = generator.generate(seed, fullReference, ctx);
+			const exercise = generator.generate(seed, fullReference, context);
 			expect(exercise.prompt.length).toBeGreaterThan(10);
 			expect(exercise.candidates).toHaveLength(4);
 			expect(exercise.id).toBe(`${generator.lessonId}:${seed}`);
@@ -91,7 +91,7 @@ describe('expectedDamage', () => {
 describe('expectedDamageGenerator', () => {
 	it('the marked answer really does have the highest expected damage', () => {
 		for (const seed of SEEDS) {
-			const exercise = expectedDamageGenerator.generate(seed, fullReference, ctx);
+			const exercise = expectedDamageGenerator.generate(seed, fullReference, context);
 			const scores = exercise.candidates.map((c) => expectedDamage(moveOf(c.value as string)));
 			const answerScore = expectedDamage(moveOf(exercise.candidates.find((c) => c.correct)?.value as string));
 			expect(answerScore).toBe(Math.max(...scores));
@@ -102,7 +102,7 @@ describe('expectedDamageGenerator', () => {
 
 	it('teaches the method on a non-answer in its T3 hint', () => {
 		for (const seed of SEEDS.slice(0, 40)) {
-			const exercise = expectedDamageGenerator.generate(seed, fullReference, ctx);
+			const exercise = expectedDamageGenerator.generate(seed, fullReference, context);
 			const answerLabel = exercise.candidates.find((c) => c.correct)?.label ?? '';
 			expect(exercise.hints[2].text).not.toContain(answerLabel);
 		}
@@ -112,7 +112,7 @@ describe('expectedDamageGenerator', () => {
 describe('priorityGenerator', () => {
 	it('the answer is the only move above priority 0', () => {
 		for (const seed of SEEDS) {
-			const exercise = priorityGenerator.generate(seed, fullReference, ctx);
+			const exercise = priorityGenerator.generate(seed, fullReference, context);
 			const answer = moveOf(exercise.candidates.find((c) => c.correct)?.value as string);
 			const others = exercise.candidates.filter((c) => !c.correct).map((c) => moveOf(c.value as string));
 			expect(answer.priority).toBeGreaterThan(0);
@@ -124,7 +124,7 @@ describe('priorityGenerator', () => {
 describe('stabGenerator', () => {
 	it('exactly one option shares the type named in the prompt', () => {
 		for (const seed of SEEDS) {
-			const exercise = stabGenerator.generate(seed, fullReference, ctx);
+			const exercise = stabGenerator.generate(seed, fullReference, context);
 			const askedType = /for an? (\w+)-type/.exec(exercise.prompt)?.[1]?.toLowerCase();
 			expect(askedType).toBeDefined();
 
@@ -140,7 +140,7 @@ describe('stabGenerator', () => {
 describe('ailmentSourceGenerator', () => {
 	it('the answer inflicts the named ailment and no distractor does', () => {
 		for (const seed of SEEDS) {
-			const exercise = ailmentSourceGenerator.generate(seed, fullReference, ctx);
+			const exercise = ailmentSourceGenerator.generate(seed, fullReference, context);
 			const answer = moveOf(exercise.candidates.find((c) => c.correct)?.value as string);
 			expect(answer.ailment).toBeTruthy();
 
@@ -155,7 +155,7 @@ describe('ailmentChanceGenerator', () => {
 	it('asks only about moves whose ailment is genuinely chance-based', () => {
 		// chance 0 means "always" in this dataset; asking "how often?" about those is nonsense.
 		for (const seed of SEEDS) {
-			const exercise = ailmentChanceGenerator.generate(seed, fullReference, ctx);
+			const exercise = ailmentChanceGenerator.generate(seed, fullReference, context);
 			const answer = exercise.candidates.find((c) => c.correct)?.value as number;
 			expect(answer).toBeGreaterThan(0);
 			expect(MOVES.some((m) => m.ailmentChance === answer)).toBe(true);
@@ -166,7 +166,7 @@ describe('ailmentChanceGenerator', () => {
 describe('recoilGenerator', () => {
 	it('only the answer costs its user HP', () => {
 		for (const seed of SEEDS) {
-			const exercise = recoilGenerator.generate(seed, fullReference, ctx);
+			const exercise = recoilGenerator.generate(seed, fullReference, context);
 			const answer = moveOf(exercise.candidates.find((c) => c.correct)?.value as string);
 			expect(answer.drain).toBeLessThan(0);
 
@@ -189,7 +189,7 @@ describe('nature generators', () => {
 
 		for (const seed of SEEDS) {
 			for (const generator of [natureEffectGenerator, natureByEffectGenerator]) {
-				const exercise = generator.generate(seed, fullReference, ctx);
+				const exercise = generator.generate(seed, fullReference, context);
 				for (const candidate of exercise.candidates) {
 					expect(NEUTRAL).not.toContain(candidate.id);
 				}
@@ -200,7 +200,7 @@ describe('nature generators', () => {
 
 	it('natureByEffect names a stat pair that exactly one nature satisfies', () => {
 		for (const seed of SEEDS) {
-			const exercise = natureByEffectGenerator.generate(seed, fullReference, ctx);
+			const exercise = natureByEffectGenerator.generate(seed, fullReference, context);
 			const answer = NATURES.find((n) => n.slug === exercise.candidates.find((c) => c.correct)?.value);
 			const sameEffect = NATURES.filter((n) => n.increased === answer?.increased && n.decreased === answer?.decreased);
 			expect(sameEffect).toHaveLength(1);
@@ -211,7 +211,7 @@ describe('nature generators', () => {
 describe('statChangeGenerator', () => {
 	it('offers four genuinely different stat changes', () => {
 		for (const seed of SEEDS) {
-			const exercise = statChangeGenerator.generate(seed, fullReference, ctx);
+			const exercise = statChangeGenerator.generate(seed, fullReference, context);
 			const signatures = new Set(exercise.candidates.map((c) => c.value as string));
 			expect(signatures.size).toBe(4);
 		}
@@ -219,7 +219,7 @@ describe('statChangeGenerator', () => {
 
 	it('the answer matches the move named in the prompt', () => {
 		for (const seed of SEEDS) {
-			const exercise = statChangeGenerator.generate(seed, fullReference, ctx);
+			const exercise = statChangeGenerator.generate(seed, fullReference, context);
 			const answerSlug = exercise.candidates.find((c) => c.correct)?.id as string;
 			const [change] = moveOf(answerSlug).statChanges;
 			expect(exercise.candidates.find((c) => c.correct)?.value).toBe(`${change.stat}:${change.change}`);

@@ -6,7 +6,7 @@ export const options = <T>() => ({ read: TemplateRef<Context<T>> });
 @Directive({ selector: '[listItem]' })
 export class ListItemDirective<T> {
 	listItem = input.required<T>();
-	static ngTemplateContextGuard<T>(_directive: ListItemDirective<T>, ctx: unknown): ctx is { $implicit: T } {
+	static ngTemplateContextGuard<T>(_directive: ListItemDirective<T>, context: unknown): context is { $implicit: T } {
 		return true;
 	}
 }

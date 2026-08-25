@@ -56,7 +56,7 @@ test is the difference between a quiz that is trustworthy and one that quietly t
 Every generator has the shape:
 
 ```ts
-generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise
+generate(seed: number, ref: ReferenceData, context: GameContext): Exercise
 ```
 
 **Deterministic on the seed** — the same seed always yields the same exercise. This buys replayable

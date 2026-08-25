@@ -42,7 +42,7 @@ export interface ScenarioSpec {
 	id: string;
 	lessonId: LessonId;
 	requires: readonly ReferenceKey[];
-	build?: (seed: number, ref: ReferenceData, ctx: GameContext) => Scenario;
+	build?: (seed: number, ref: ReferenceData, context: GameContext) => Scenario;
 }
 
 const scenarioSpecs = new Map<string, ScenarioSpec>([
@@ -82,20 +82,20 @@ export function isLessonPlayable(lessonId: LessonId, ref: ReferenceData): boolea
 	return consumer !== undefined && hasRequired(ref, consumer);
 }
 
-export function generateForLesson(lessonId: LessonId, seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+export function generateForLesson(lessonId: LessonId, seed: number, ref: ReferenceData, context: GameContext): Exercise {
 	const lesson = findLesson(curriculum, lessonId);
 	if (!lesson) throw new Error(`Unknown lesson: ${lessonId}`);
-	return getGenerator(lesson.generatorId).generate(seed, ref, ctx);
+	return getGenerator(lesson.generatorId).generate(seed, ref, context);
 }
 
 /** Build a simulation that needs no fetched data. Throws for scenarios that do (matchup). */
-export function buildLocalScenario(lessonId: LessonId, seed: number, ref: ReferenceData, ctx: GameContext): Scenario {
+export function buildLocalScenario(lessonId: LessonId, seed: number, ref: ReferenceData, context: GameContext): Scenario {
 	const lesson = findLesson(curriculum, lessonId);
 	if (!lesson) throw new Error(`Unknown lesson: ${lessonId}`);
 
 	const spec = getScenarioSpec(lesson.generatorId);
 	if (!spec.build) throw new Error(`Scenario ${spec.id} needs fetched data and must be built by the caller`);
-	return spec.build(seed, ref, ctx);
+	return spec.build(seed, ref, context);
 }
 
 export interface DrillOptions {
@@ -123,7 +123,7 @@ export function generateDrill(
 	seed: number,
 	count: number,
 	ref: ReferenceData,
-	ctx: GameContext,
+	context: GameContext,
 	options: DrillOptions = {},
 ): Exercise[] {
 	const playable = lessonIds.filter((id) => !isScenarioLesson(id) && isLessonPlayable(id, ref));
@@ -137,6 +137,6 @@ export function generateDrill(
 		const lessonId = byLesson
 			? rng.pickWeighted(playable, (id) => reviewWeight(byLesson.get(id), nowISO))
 			: rng.pick(playable);
-		return generateForLesson(lessonId, rng.int(0x7fffffff), ref, ctx);
+		return generateForLesson(lessonId, rng.int(0x7fffffff), ref, context);
 	});
 }

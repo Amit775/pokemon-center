@@ -38,7 +38,7 @@ export function buildMatchupScenario(
 	seed: number,
 	defenderTypes: readonly string[],
 	candidates: readonly MatchupCandidate[],
-	ctx: GameContext,
+	context: GameContext,
 ): Scenario {
 	if (candidates.length < OPTIONS_OFFERED) {
 		throw new Error(`[${MATCHUP_LESSON_ID}] only ${candidates.length} counters returned, need ${OPTIONS_OFFERED}`);
@@ -100,10 +100,10 @@ export function buildMatchupScenario(
 					chosen === undefined
 						? 'No counter chosen.'
 						: rank === 1
-							? `${humanize(chosen.slug)} is the best of these, scoring ${achieved}${eraNote(ctx.versionGroup)}.`
+							? `${humanize(chosen.slug)} is the best of these, scoring ${achieved}${eraNote(context.versionGroup)}.`
 							: `${humanize(chosen.slug)} ranks ${rank} of ${offeredRanked.length} (${achieved} vs ${optimal.score}). ${humanize(
 									optimal.slug,
-								)} wins because ${humanize(optimal.bestMove)} is ${optimal.effectiveness}x here${eraNote(ctx.versionGroup)}.`,
+								)} wins because ${humanize(optimal.bestMove)} is ${optimal.effectiveness}x here${eraNote(context.versionGroup)}.`,
 			};
 		},
 	};

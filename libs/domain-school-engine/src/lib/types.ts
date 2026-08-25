@@ -173,5 +173,5 @@ export interface ExerciseGenerator {
 	lessonId: LessonId;
 	/** Reference sections that must be loaded before this generator can run. */
 	requires: readonly ReferenceKey[];
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise;
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise;
 }
