@@ -16,7 +16,7 @@
 		@for (pokemon of pokemons(); track pokemon.id) {
 			<a class="card-link" [routerLink]="[pokemon.id]">
 				<pokedex-pokemon-card
-					[dexNumber]="pokemon.id"
+					[pokedexNumber]="pokemon.id"
 					[name]="pokemon.identifier"
 					[types]="pokemon.types | pokemonTypes"
 					[src]="spriteUrl(pokemon.id)"

@@ -28,7 +28,8 @@ project's first naming rule and applies to selectors as much as to identifiers.
 ## Hard rules (non-negotiable)
 
 0. **No abbreviations, anywhere.** Selector, class name, inputs, outputs, locals, CSS class names.
-   `pokedex`, never `pkd` or `dex`; `context`, never `ctx`; `dexNumber` is `pokedexNumber`. Only
+   `pokedex`, never `pkd` or `dex`; `context`, never `ctx`; a Pokedex number input is
+   `pokedexNumber`, never `dexNumber`. Only
    terms the game itself abbreviates are exempt (HP, PP, SP, STAB, IV, EV). This is the project's
    first naming rule; it outranks brevity every time.
 1. **`standalone: true`, `changeDetection: ChangeDetectionStrategy.OnPush`.** Always.

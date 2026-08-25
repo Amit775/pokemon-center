@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { RouterLink } from '@angular/router';
 import { StatKey } from '@pokemon-center/champions-engine';
 import { EntityPortraitComponent, TypeChipComponent, spriteSources } from '@pokemon-center/ui-pokedex';
-import { DexStore } from './dex.store';
+import { PokedexStore } from './pokedex.store';
 
 const STATS: { key: StatKey; label: string }[] = [
 	{ key: 'hp', label: 'HP' },
@@ -247,7 +247,7 @@ const STATS: { key: StatKey; label: string }[] = [
 	`,
 })
 export class CompareTrayComponent {
-	protected readonly store = inject(DexStore);
+	protected readonly store = inject(PokedexStore);
 	protected readonly open = signal(false);
 
 	protected readonly entries = computed(() => this.store.compareEntries());

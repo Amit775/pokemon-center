@@ -50,7 +50,7 @@ Three product pillars, in priority order:
 - **Shareable URLs**: every filter/context serializes to query params. Paste a link, get my exact view.
 - **Recently viewed + favorites** (⭐ on any entity), surfaced on the pokedex home.
 
-_API work_: `regionalDex(versionGroup)` membership on `pokemonList`, version-scoped
+_API work_: `regionalPokedex(versionGroup)` membership on `pokemonList`, version-scoped
 flavor/learnset/machine args on existing queries.
 
 ### R2 — Findability

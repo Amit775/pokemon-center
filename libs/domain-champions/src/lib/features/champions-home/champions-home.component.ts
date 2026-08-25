@@ -93,7 +93,7 @@ import { RegulationStore } from '../../regulation.store';
 							One tap per event while you play. Live damage, KO odds and who moves first.
 						</span>
 					</a>
-					<a class="tool" routerLink="dex">
+					<a class="tool" routerLink="pokedex">
 						<span class="tool-name">Roster</span>
 						<span class="tool-blurb">
 							Every legal Pokémon with Champions' own stats, typings and Mega abilities.

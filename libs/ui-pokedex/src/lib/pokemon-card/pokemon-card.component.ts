@@ -10,7 +10,7 @@ import { TypeChipComponent } from '../type-chip/type-chip.component';
 	imports: [EntityPortraitComponent, TypeChipComponent],
 	template: `
 		<div class="hd">
-			<span class="no">#{{ dexNumber() }}</span>
+			<span class="no">#{{ pokedexNumber() }}</span>
 			<pokedex-entity-portrait [type]="primaryType()" [src]="src()" [fallbackSrc]="fallbackSrc()" [alt]="name()" [size]="72" />
 		</div>
 		<div class="bd">
@@ -95,7 +95,7 @@ import { TypeChipComponent } from '../type-chip/type-chip.component';
 	`,
 })
 export class PokemonCardComponent {
-	readonly dexNumber = input.required<string | number>();
+	readonly pokedexNumber = input.required<string | number>();
 	readonly name = input.required<string>();
 	readonly types = input.required<readonly string[]>();
 	readonly src = input<string | null>(null);

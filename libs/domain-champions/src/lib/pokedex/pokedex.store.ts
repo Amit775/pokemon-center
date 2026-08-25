@@ -13,8 +13,8 @@ import type { StatKey } from '@pokemon-center/champions-engine';
 import { toTypeChart } from '../advisor/build-inference';
 import { BoxStore } from '../box/box.store';
 import {
-	DexEntry,
-	DexFilters,
+	PokedexEntry,
+	PokedexFilters,
 	EMPTY_FILTERS,
 	Range,
 	TOTAL_BOUNDS,
@@ -22,8 +22,8 @@ import {
 	diagnoseEmpty,
 	megaOnlyMatches,
 	isFiltered,
-} from './dex-filter';
-import { fromQueryString, toQueryString } from './dex-url';
+} from './pokedex-filter';
+import { fromQueryString, toQueryString } from './pokedex-url';
 
 /**
  * The Pokédex.
@@ -55,17 +55,17 @@ export interface FilterSet {
 	query: string;
 }
 
-interface DexState {
-	filters: DexFilters;
+interface PokedexState {
+	filters: PokedexFilters;
 	compare: string[];
 	sets: FilterSet[];
 }
 
-function hydrate(): DexFilters {
+function hydrate(): PokedexFilters {
 	try {
 		const raw = localStorage.getItem(STORAGE_KEY);
 		// Merged over the defaults so a filter added later does not arrive undefined.
-		return raw ? { ...EMPTY_FILTERS, ...(JSON.parse(raw) as DexFilters) } : EMPTY_FILTERS;
+		return raw ? { ...EMPTY_FILTERS, ...(JSON.parse(raw) as PokedexFilters) } : EMPTY_FILTERS;
 	} catch {
 		return EMPTY_FILTERS;
 	}
@@ -81,11 +81,11 @@ function hydrateSets(): FilterSet[] {
 	}
 }
 
-export const DexStore = signalStore(
+export const PokedexStore = signalStore(
 	{ providedIn: 'root' },
-	withState<DexState>({ filters: EMPTY_FILTERS, compare: [], sets: [] }),
+	withState<PokedexState>({ filters: EMPTY_FILTERS, compare: [], sets: [] }),
 	withProps((store) => ({
-		_dexQuery: champResource(ChampDexDocument, () => ({})),
+		_pokedexQuery: champResource(ChampDexDocument, () => ({})),
 		_chartQuery: champResource(TypeChartDocument, () => ({})),
 		_typesQuery: champResource(ChampTypesDocument, () => ({})),
 		_abilityQuery: champResource(ChampAbilitiesDocument, () => ({})),
@@ -101,8 +101,8 @@ export const DexStore = signalStore(
 		// not the roster.
 		_box: inject(BoxStore),
 	})),
-	withComputed(({ _dexQuery, _chartQuery, _typesQuery, _abilityQuery, _moveIndexQuery, _learnersQuery, _box, filters, compare, sets }) => {
-		const entries = computed<DexEntry[]>(() => (_dexQuery.value()?.champDex ?? []) as DexEntry[]);
+	withComputed(({ _pokedexQuery, _chartQuery, _typesQuery, _abilityQuery, _moveIndexQuery, _learnersQuery, _box, filters, compare, sets }) => {
+		const entries = computed<PokedexEntry[]>(() => (_pokedexQuery.value()?.champDex ?? []) as PokedexEntry[]);
 		const typeChart = computed(() => toTypeChart(_chartQuery.value()?.typeChart ?? []));
 		// Normalized to base forms, because a Mega is not a separate Pokémon here: boxing a
 		// Mega Garchomp means you own Garchomp, and the list only ever shows the base form.
@@ -122,7 +122,7 @@ export const DexStore = signalStore(
 
 		/** Base slug → its Mega forms, so a row can show them beneath it without a second query. */
 		const megaForms = computed(() => {
-			const byBase = new Map<string, DexEntry[]>();
+			const byBase = new Map<string, PokedexEntry[]>();
 			for (const entry of entries()) {
 				if (!entry.isMega || !entry.megaOfSlug) continue;
 				byBase.set(entry.megaOfSlug, [...(byBase.get(entry.megaOfSlug) ?? []), entry]);
@@ -139,8 +139,8 @@ export const DexStore = signalStore(
 
 			types: computed(() => _typesQuery.value()?.champTypes ?? []),
 
-			isLoading: computed(() => _dexQuery.isLoading() || _chartQuery.isLoading()),
-			error: computed(() => _dexQuery.error() ?? _chartQuery.error()),
+			isLoading: computed(() => _pokedexQuery.isLoading() || _chartQuery.isLoading()),
+			error: computed(() => _pokedexQuery.error() ?? _chartQuery.error()),
 
 			/**
 			 * Ability slug → its name and effect text.
@@ -215,12 +215,12 @@ export const DexStore = signalStore(
 				const roster = entries();
 				return compare()
 					.map((slug) => roster.find((entry) => entry.slug === slug))
-					.filter((entry): entry is DexEntry => entry !== undefined);
+					.filter((entry): entry is PokedexEntry => entry !== undefined);
 			}),
 		};
 	}),
 	withMethods((store) => ({
-		patch(patch: Partial<DexFilters>): void {
+		patch(patch: Partial<PokedexFilters>): void {
 			patchState(store, { filters: { ...store.filters(), ...patch } });
 		},
 
@@ -270,7 +270,7 @@ export const DexStore = signalStore(
 		 * Garchomp is picking Dragon and Ground, so the direction toggle keeps meaning exactly
 		 * what it meant, and the result stays explainable.
 		 */
-		setMatchupPokemon(entry: DexEntry | null): void {
+		setMatchupPokemon(entry: PokedexEntry | null): void {
 			if (!entry) return this.patch({ matchupTypes: [], matchupSlug: null });
 			this.patch({ matchupTypes: [...entry.types], matchupMode: 'exact', matchupSlug: entry.slug });
 		},
@@ -296,7 +296,7 @@ export const DexStore = signalStore(
 		},
 
 		/** Do you have this species in the Box? `owned` is already normalized to base forms. */
-		isOwned(entry: Pick<DexEntry, 'slug' | 'megaOfSlug'>): boolean {
+		isOwned(entry: Pick<PokedexEntry, 'slug' | 'megaOfSlug'>): boolean {
 			return store.owned().has(entry.megaOfSlug ?? entry.slug);
 		},
 
@@ -316,7 +316,7 @@ export const DexStore = signalStore(
 		},
 
 		/** Replace the whole filter state — used by the URL and by saved sets alike. */
-		replace(filters: DexFilters): void {
+		replace(filters: PokedexFilters): void {
 			patchState(store, { filters });
 		},
 
@@ -351,7 +351,7 @@ export const DexStore = signalStore(
 		 * should walk the answers. Null on both sides when the slug is not in the results —
 		 * arrows that jump somewhere unrelated are worse than no arrows.
 		 */
-		neighbours(slug: string): { prev: DexEntry | null; next: DexEntry | null } {
+		neighbours(slug: string): { prev: PokedexEntry | null; next: PokedexEntry | null } {
 			const results = store.results();
 			const index = results.findIndex((entry) => entry.slug === slug);
 			if (index === -1) return { prev: null, next: null };
@@ -360,7 +360,7 @@ export const DexStore = signalStore(
 		},
 
 		/** The Mega forms of a base entry, for its sub-row. */
-		megasOf(slug: string): DexEntry[] {
+		megasOf(slug: string): PokedexEntry[] {
 			return store.megaForms().get(slug) ?? [];
 		},
 	})),

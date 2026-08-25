@@ -95,7 +95,7 @@ function readRaw(key: string): string {
  * species number is unambiguous. Megas are then disambiguated by their X/Y suffix.
  */
 function resolveEntry(entry: RosterEntry, bySpecies: Map<number, { id: number; identifier: string; is_default: number }[]>): ResolvedEntry | null {
-	const candidates = bySpecies.get(entry.dexNumber) ?? [];
+	const candidates = bySpecies.get(entry.pokedexNumber) ?? [];
 	if (candidates.length === 0) return null;
 
 	const pick = (row: { id: number; identifier: string }) => ({ entry, pokemonId: row.id, identifier: row.identifier });
@@ -195,7 +195,7 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 					reason:
 						entry.section === 'other-form'
 							? 'cosmetic form with no distinct mainline row (identical stats and typing)'
-							: `no mainline row for dex ${entry.dexNumber}`,
+							: `no mainline row for dex ${entry.pokedexNumber}`,
 				});
 		}
 
@@ -378,8 +378,8 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 		});
 		const speciesNameById = new Map(speciesNames.map((s) => [s.pokemon_species_id, s.name]));
 
-		const megaBaseByDex = new Map<number, number>();
-		for (const r of resolved) if (!r.entry.isMega) megaBaseByDex.set(r.entry.dexNumber, r.pokemonId);
+		const megaBaseByPokedex = new Map<number, number>();
+		for (const r of resolved) if (!r.entry.isMega) megaBaseByPokedex.set(r.entry.pokedexNumber, r.pokemonId);
 
 		const abilitiesByPokemon = new Map<number, { abilityId: number; slot: number; isHidden: boolean }[]>();
 		for (const link of abilityLinks) {
@@ -399,8 +399,8 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 			return {
 				id: pokemonId,
 				slug: identifier,
-				name: displayName(entry, speciesNameById.get(entry.dexNumber) ?? entry.species),
-				nationalDexNo: entry.dexNumber,
+				name: displayName(entry, speciesNameById.get(entry.pokedexNumber) ?? entry.species),
+				nationalDexNo: entry.pokedexNumber,
 				type1Id: typeIds[0] ?? 1,
 				type2Id: typeIds[1] ?? null,
 				baseHp: stats.get(1) ?? 0,
@@ -410,7 +410,7 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 				baseSpecialDefense: stats.get(5) ?? 0,
 				baseSpeed: stats.get(6) ?? 0,
 				isMega: entry.isMega,
-				megaOfId: entry.isMega ? (megaBaseByDex.get(entry.dexNumber) ?? null) : null,
+				megaOfId: entry.isMega ? (megaBaseByPokedex.get(entry.pokedexNumber) ?? null) : null,
 				megaAbilityId: entry.isMega ? (ownAbilities[0]?.abilityId ?? null) : null,
 				spriteKey: identifier,
 				abilities: ownAbilities,

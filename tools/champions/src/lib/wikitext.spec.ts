@@ -67,8 +67,8 @@ describe('parseRoster', () => {
 		const species = entries().filter((e) => e.section === 'species');
 
 		expect(species).toHaveLength(3);
-		expect(species[0]).toMatchObject({ dexNumber: 3, species: 'Venusaur', types: ['Grass', 'Poison'], isMega: false });
-		expect(species[1]).toMatchObject({ dexNumber: 9, species: 'Blastoise', types: ['Water'], isMega: false });
+		expect(species[0]).toMatchObject({ pokedexNumber: 3, species: 'Venusaur', types: ['Grass', 'Poison'], isMega: false });
+		expect(species[1]).toMatchObject({ pokedexNumber: 9, species: 'Blastoise', types: ['Water'], isMega: false });
 	});
 
 	it('keeps availability caveats instead of dropping them', () => {

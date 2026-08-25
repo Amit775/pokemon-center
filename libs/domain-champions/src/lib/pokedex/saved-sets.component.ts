@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { DexStore } from './dex.store';
+import { PokedexStore } from './pokedex.store';
 
 /**
  * Named filter states.
@@ -143,7 +143,7 @@ import { DexStore } from './dex.store';
 	`,
 })
 export class SavedSetsComponent {
-	protected readonly store = inject(DexStore);
+	protected readonly store = inject(PokedexStore);
 	protected readonly name = signal('');
 
 	protected save(): void {

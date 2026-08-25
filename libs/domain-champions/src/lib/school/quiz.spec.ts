@@ -1,5 +1,5 @@
 import type { TypeChart } from '@pokemon-center/champions-engine';
-import type { DexEntry } from '../dex/dex-filter';
+import type { PokedexEntry } from '../pokedex/pokedex-filter';
 import { createRng, effectivenessLabel, generateQuestion, ohkoQuestion, speedTierQuestion, typeMatchupQuestion } from './quiz';
 
 const chart: TypeChart = {
@@ -9,7 +9,7 @@ const chart: TypeChart = {
 	fighting: { steel: 2, flying: 0.5, dark: 2, dragon: 1, water: 1 },
 };
 
-function entry(overrides: Partial<DexEntry> & Pick<DexEntry, 'slug' | 'name' | 'types'>): DexEntry {
+function entry(overrides: Partial<PokedexEntry> & Pick<PokedexEntry, 'slug' | 'name' | 'types'>): PokedexEntry {
 	return {
 		id: 1,
 		nationalDexNo: 1,

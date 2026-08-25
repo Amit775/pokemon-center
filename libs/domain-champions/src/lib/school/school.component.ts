@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { SectionHeadingComponent, UiCardComponent, UiSkeletonComponent } from '@pokemon-center/ui-pokedex';
-import { DexStore } from '../dex/dex.store';
+import { PokedexStore } from '../pokedex/pokedex.store';
 import { DRILLS, DrillKind, Question, generateQuestion } from './quiz';
 
 /**
@@ -42,7 +42,7 @@ import { DRILLS, DrillKind, Question, generateQuestion } from './quiz';
 			}
 		</div>
 
-		@if (dex.isLoading()) {
+		@if (pokedex.isLoading()) {
 			<pokedex-skeleton height="12rem" />
 		} @else if (question(); as current) {
 			<pokedex-section-heading label="Question {{ answered() + 1 }}" />
@@ -232,7 +232,7 @@ import { DRILLS, DrillKind, Question, generateQuestion } from './quiz';
 	`,
 })
 export default class SchoolComponent {
-	protected readonly dex = inject(DexStore);
+	protected readonly pokedex = inject(PokedexStore);
 	protected readonly drills = DRILLS;
 
 	protected readonly kind = signal<DrillKind>('type-matchup');
@@ -252,8 +252,8 @@ export default class SchoolComponent {
 	 * Speeds — so the seed is nudged until one lands rather than showing an empty card.
 	 */
 	protected readonly question = computed<Question | null>(() => {
-		const entries = this.dex.entries();
-		const chart = this.dex.typeChart();
+		const entries = this.pokedex.entries();
+		const chart = this.pokedex.typeChart();
 		if (entries.length === 0 || Object.keys(chart).length === 0) return null;
 
 		for (let attempt = 0; attempt < 25; attempt++) {

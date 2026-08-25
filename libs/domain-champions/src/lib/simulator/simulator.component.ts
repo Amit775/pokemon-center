@@ -17,7 +17,7 @@ import { EntityPortraitComponent, SectionHeadingComponent, TypeChipComponent, Ui
 import { toTypeChart, inferBuild } from '../advisor/build-inference';
 import { boxEntryToBuild } from '../box/box-build';
 import { BoxStore } from '../box/box.store';
-import { CombatantPickerComponent } from './combatant-picker.component';
+import { BOX_PREFIX, CombatantPickerComponent, POKEDEX_PREFIX } from './combatant-picker.component';
 
 /**
  * The Simulator — a what-if lab for two Pokémon.
@@ -339,7 +339,7 @@ import { CombatantPickerComponent } from './combatant-picker.component';
 export default class SimulatorComponent {
 	private readonly box = inject(BoxStore);
 
-	/** `box:<id>` or `dex:<slug>`. */
+	/** `box:<id>` or `pokedex:<slug>`. */
 	protected readonly leftKey = signal<string | null>(null);
 	protected readonly rightKey = signal<string | null>(null);
 
@@ -360,8 +360,8 @@ export default class SimulatorComponent {
 		untracked(() => {
 			const left = params.get('left');
 			const right = params.get('right');
-			if (left && !this.leftKey()) this.leftKey.set(`dex:${left}`);
-			if (right && !this.rightKey()) this.rightKey.set(`dex:${right}`);
+			if (left && !this.leftKey()) this.leftKey.set(`${POKEDEX_PREFIX}${left}`);
+			if (right && !this.rightKey()) this.rightKey.set(`${POKEDEX_PREFIX}${right}`);
 		});
 	});
 
@@ -382,14 +382,14 @@ export default class SimulatorComponent {
 		{ key: 'speed' as const, label: 'Spe' },
 	];
 
-	/** Roster slugs needed for whichever sides are dex picks. */
-	private readonly dexSlugs = computed(() =>
+	/** Roster slugs needed for whichever sides are Pokedex picks. */
+	private readonly pokedexSlugs = computed(() =>
 		[this.leftKey(), this.rightKey()]
-			.filter((key): key is string => key !== null && key.startsWith('dex:'))
-			.map((key) => key.slice(4)),
+			.filter((key): key is string => key !== null && key.startsWith(POKEDEX_PREFIX))
+			.map((key) => key.slice(POKEDEX_PREFIX.length)),
 	);
 
-	private readonly dexQuery = champResource(ChampTeamDocument, () => ({ slugs: this.dexSlugs() }));
+	private readonly pokedexQuery = champResource(ChampTeamDocument, () => ({ slugs: this.pokedexSlugs() }));
 	private readonly chartQuery = champResource(TypeChartDocument, () => ({}));
 
 	protected readonly typeChart = computed(() => toTypeChart(this.chartQuery.value()?.typeChart ?? []));
@@ -397,12 +397,12 @@ export default class SimulatorComponent {
 	private build(key: string | null): ChampionsBuild | null {
 		if (!key) return null;
 
-		if (key.startsWith('box:')) {
-			const entry = this.box.entries().find((e) => e.id === Number(key.slice(4)));
+		if (key.startsWith(BOX_PREFIX)) {
+			const entry = this.box.entries().find((e) => e.id === Number(key.slice(BOX_PREFIX.length)));
 			return entry ? boxEntryToBuild(entry) : null;
 		}
 
-		const member = (this.dexQuery.value()?.champTeam ?? []).find((m) => m.slug === key.slice(4));
+		const member = (this.pokedexQuery.value()?.champTeam ?? []).find((m) => m.slug === key.slice(POKEDEX_PREFIX.length));
 		return member ? inferBuild(member) : null;
 	}
 

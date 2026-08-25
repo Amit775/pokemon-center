@@ -1,7 +1,7 @@
 import type { TypeChart } from '@pokemon-center/champions-engine';
 import {
-	DexEntry,
-	DexFilters,
+	PokedexEntry,
+	PokedexFilters,
 	EMPTY_FILTERS,
 	STAT_BOUNDS,
 	applyFilters,
@@ -9,7 +9,7 @@ import {
 	isFiltered,
 	megaOnlyMatches,
 	passesMatchup,
-} from './dex-filter';
+} from './pokedex-filter';
 
 /** Only the rows these tests need; `typeEffectiveness` treats a missing pairing as neutral. */
 const chart: TypeChart = {
@@ -20,7 +20,7 @@ const chart: TypeChart = {
 	ground: { steel: 2, fire: 2, flying: 0, dragon: 1, fairy: 1, ghost: 1, water: 1 },
 };
 
-function entry(overrides: Partial<DexEntry> & Pick<DexEntry, 'slug' | 'name' | 'types'>): DexEntry {
+function entry(overrides: Partial<PokedexEntry> & Pick<PokedexEntry, 'slug' | 'name' | 'types'>): PokedexEntry {
 	return {
 		id: 1,
 		nationalDexNo: 1,
@@ -77,8 +77,8 @@ const azumarill = entry({
 
 const roster = [azumarill, garchomp, garchompMega, corviknight];
 
-const filters = (overrides: Partial<DexFilters> = {}): DexFilters => ({ ...EMPTY_FILTERS, ...overrides });
-const slugs = (result: DexEntry[]) => result.map((e) => e.slug);
+const filters = (overrides: Partial<PokedexFilters> = {}): PokedexFilters => ({ ...EMPTY_FILTERS, ...overrides });
+const slugs = (result: PokedexEntry[]) => result.map((e) => e.slug);
 
 describe('applyFilters', () => {
 	it('never lists a Mega form as its own entry', () => {
@@ -323,7 +323,7 @@ describe('owned filter', () => {
 	});
 
 	it('matches on base forms, the only rows there are', () => {
-		// `DexStore` normalizes the owned set to base slugs, so boxing a Mega Garchomp marks
+		// `PokedexStore` normalizes the owned set to base slugs, so boxing a Mega Garchomp marks
 		// Garchomp — the row the grid actually shows.
 		const result = applyFilters(roster, filters({ ownedOnly: true }), chart, { owned: new Set(['garchomp']) });
 

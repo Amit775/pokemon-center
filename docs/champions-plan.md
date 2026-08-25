@@ -47,7 +47,7 @@ apps/
 libs/
   champions-engine/         Framework-free, data-free battle maths. 75 tests.
   data-access-champions/    Codegen'd documents + champResource + injectChampMutate
-  domain-champions/         dex/ box/ advisor/ battle/ simulator/ school/
+  domain-champions/         pokedex/ box/ advisor/ battle/ simulator/ school/
   prisma-champions/         Generated client for the Champions DB
   ui-pokedex/               Shared design system — zero cross-lib imports
 tools/champions/            fetch → derive → seed pipeline (a CLI, not Nx executors)
@@ -94,10 +94,10 @@ names which filter to drop and what dropping it would return.
 Detail pages lead with a defensive profile, then base stats with an **on-demand SP and nature
 calculator**, then the Mega form in full, and finally **what beats this and what this beats** —
 collapsed and deferred at the bottom. "What Champions changed" at `/pokedex/changes`.
-`/champions/dex/*` redirects, so old links keep working.
+`/champions/dex/*` still redirects to `/champions/pokedex/*`, so old links keep working.
 
 **A Mega is not a separate Pokémon — but it is still an answer.** By default it sits under its
-base form rather than beside it, and `/dex/garchomp-mega` redirects to `/dex/garchomp`: a list
+base form rather than beside it, and `/pokedex/garchomp-mega` redirects to `/pokedex/garchomp`: a list
 interleaving Garchomp with Mega Garchomp reads as two threats when it is one line of thinking.
 
 **A Mega does, however, qualify its base form for a filter.** Base Speed 125+ has to surface

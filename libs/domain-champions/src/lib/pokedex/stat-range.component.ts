@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
 import { EntityPortraitComponent, spriteSources } from '@pokemon-center/ui-pokedex';
-import type { Range } from './dex-filter';
+import type { Range } from './pokedex-filter';
 
 /** A Pokémon to name at a given value — what makes the number mean something. */
 export interface RangeLandmark {

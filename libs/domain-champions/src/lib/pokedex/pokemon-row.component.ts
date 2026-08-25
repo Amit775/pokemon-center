@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, computed, inject, input } from '@an
 import { RouterLink } from '@angular/router';
 import type { StatKey } from '@pokemon-center/champions-engine';
 import { EntityPortraitComponent, TypeChipComponent, spriteSources } from '@pokemon-center/ui-pokedex';
-import type { DexEntry } from './dex-filter';
-import { DexStore } from './dex.store';
+import type { PokedexEntry } from './pokedex-filter';
+import { PokedexStore } from './pokedex.store';
 
 /** The highest base stat on the roster, near enough — the bar behind each value scales to it. */
 const STAT_CEILING = 200;
@@ -473,9 +473,9 @@ const STATS: { key: StatKey; label: string }[] = [
 	`,
 })
 export class PokemonRowComponent {
-	readonly mon = input.required<DexEntry>();
+	readonly mon = input.required<PokedexEntry>();
 
-	protected readonly store = inject(DexStore);
+	protected readonly store = inject(PokedexStore);
 
 	protected readonly owned = computed(() => this.store.isOwned(this.mon()));
 	protected readonly comparing = computed(() => this.store.isComparing(this.mon().slug));
@@ -507,12 +507,12 @@ export class PokemonRowComponent {
 		return spriteSources(id);
 	}
 
-	protected megaAbilities(mega: DexEntry) {
+	protected megaAbilities(mega: PokedexEntry) {
 		return this.describe(mega);
 	}
 
 	/** Mega stats alongside how far each moved, so the trade-off is visible in place. */
-	protected megaCells(mega: DexEntry) {
+	protected megaCells(mega: PokedexEntry) {
 		const base = this.mon().baseStats;
 
 		return STATS.map((stat) => ({
@@ -524,7 +524,7 @@ export class PokemonRowComponent {
 	}
 
 	/** Ability slugs joined to the effect text the store fetched once for the whole roster. */
-	private describe(entry: DexEntry) {
+	private describe(entry: PokedexEntry) {
 		const text = this.store.abilityText();
 
 		return entry.abilitySlugs.map((slug, index) => ({

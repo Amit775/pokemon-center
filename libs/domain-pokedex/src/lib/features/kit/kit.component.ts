@@ -49,10 +49,10 @@ import {
 
 			<pokedex-section-heading label="Pokemon cards" />
 			<div class="grid">
-				<pokedex-pokemon-card dexNumber="006" name="Charizard" [types]="['fire', 'flying']" [selected]="true" />
-				<pokedex-pokemon-card dexNumber="001" name="Bulbasaur" [types]="['grass', 'poison']" />
-				<pokedex-pokemon-card dexNumber="025" name="Pikachu" [types]="['electric']" />
-				<pokedex-pokemon-card dexNumber="094" name="Gengar" [types]="['ghost', 'poison']" />
+				<pokedex-pokemon-card pokedexNumber="006" name="Charizard" [types]="['fire', 'flying']" [selected]="true" />
+				<pokedex-pokemon-card pokedexNumber="001" name="Bulbasaur" [types]="['grass', 'poison']" />
+				<pokedex-pokemon-card pokedexNumber="025" name="Pikachu" [types]="['electric']" />
+				<pokedex-pokemon-card pokedexNumber="094" name="Gengar" [types]="['ghost', 'poison']" />
 			</div>
 
 			<pokedex-section-heading label="Card + portrait + stat bars" />

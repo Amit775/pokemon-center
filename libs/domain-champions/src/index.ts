@@ -8,5 +8,5 @@ export * from './lib/battle/battle.store';
 export * from './lib/box/box.store';
 export * from './lib/box/box-build';
 export * from './lib/box/natures';
-export * from './lib/dex/dex.store';
-export * from './lib/dex/dex-filter';
+export * from './lib/pokedex/pokedex.store';
+export * from './lib/pokedex/pokedex-filter';

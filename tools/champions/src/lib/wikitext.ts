@@ -20,7 +20,7 @@ export type RosterSection = 'species' | 'mega' | 'other-form' | 'untransferable'
 /** A roster entry as Bulbapedia states it. Names are wiki display names, not slugs. */
 export interface RosterEntry {
 	/** National dex number of the base species. Megas share their base form's number. */
-	dexNumber: number;
+	pokedexNumber: number;
 	/** Base species display name, e.g. `Venusaur`. */
 	species: string;
 	/** Champions' typing for this entry — which is not always the mainline typing. */
@@ -136,7 +136,7 @@ export function parseRoster(wikitext: string): RosterEntry[] {
 		const section = sectionAt(wikitext, match.index);
 
 		entries.push({
-			dexNumber: Number(dex),
+			pokedexNumber: Number(dex),
 			species: plain(species),
 			types,
 			...(named['form'] ? { form: plain(named['form']) } : {}),

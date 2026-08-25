@@ -3,9 +3,9 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { UiSkeletonComponent } from '@pokemon-center/ui-pokedex';
 import { CompareTrayComponent } from './compare-tray.component';
-import { DexFiltersComponent } from './dex-filters.component';
-import { DexStore } from './dex.store';
-import { decodeFilters, encodeFilters, hasFilterParams } from './dex-url';
+import { PokedexFiltersComponent } from './pokedex-filters.component';
+import { PokedexStore } from './pokedex.store';
+import { decodeFilters, encodeFilters, hasFilterParams } from './pokedex-url';
 import { PokemonRowComponent } from './pokemon-row.component';
 
 /**
@@ -37,7 +37,7 @@ const PAGE_SIZE = 20;
 @Component({
 	selector: 'champions-roster',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CompareTrayComponent, DexFiltersComponent, PokemonRowComponent, RouterLink, UiSkeletonComponent],
+	imports: [CompareTrayComponent, PokedexFiltersComponent, PokemonRowComponent, RouterLink, UiSkeletonComponent],
 	template: `
 		<header class="masthead">
 			<h1>Pokédex</h1>
@@ -46,7 +46,7 @@ const PAGE_SIZE = 20;
 
 		<div class="layout">
 			<aside class="filters" aria-label="Filters">
-				<champions-dex-filters />
+				<champions-pokedex-filters />
 			</aside>
 
 			<section class="results">
@@ -247,7 +247,7 @@ const PAGE_SIZE = 20;
 	`,
 })
 export default class RosterComponent {
-	protected readonly store = inject(DexStore);
+	protected readonly store = inject(PokedexStore);
 
 	private readonly router = inject(Router);
 	private readonly route = inject(ActivatedRoute);

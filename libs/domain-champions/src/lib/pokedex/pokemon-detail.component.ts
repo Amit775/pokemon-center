@@ -12,7 +12,7 @@ import {
 } from '@pokemon-center/ui-pokedex';
 import { CounterListComponent } from './counter-list.component';
 import { answeredBy, answersTo } from './counters';
-import { DexStore } from './dex.store';
+import { PokedexStore } from './pokedex.store';
 import { MegaPanelComponent } from './mega-panel.component';
 import { MovesTableComponent } from './moves-table.component';
 import { StatPanelComponent } from './stat-panel.component';
@@ -89,7 +89,7 @@ import { StatPanelComponent } from './stat-panel.component';
 						@for (t of pokemon.types; track t) {
 							<pokedex-type-chip [type]="t" />
 						}
-						<span class="dex">#{{ pokemon.nationalDexNo }}</span>
+						<span class="pokedex-number">#{{ pokemon.nationalDexNo }}</span>
 						@if (canMega()) {
 							<span class="badge mega-badge">Can Mega Evolve</span>
 						}
@@ -254,7 +254,7 @@ import { StatPanelComponent } from './stat-panel.component';
 					}
 				</div>
 			</pokedex-card>
-		} @else if (dex.isLoading() || query.isLoading()) {
+		} @else if (pokedex.isLoading() || query.isLoading()) {
 			<pokedex-skeleton height="16rem" />
 		} @else if (notFound()) {
 			<pokedex-card>
@@ -335,7 +335,7 @@ import { StatPanelComponent } from './stat-panel.component';
 			margin-top: var(--s-1, 0.25rem);
 		}
 
-		.dex {
+		.pokedex-number {
 			color: var(--ink-muted);
 			font-variant-numeric: tabular-nums;
 			font-size: var(--fs-sm, 0.875rem);
@@ -498,7 +498,7 @@ export default class PokemonDetailComponent {
 	/** Bound from the route parameter via `withComponentInputBinding`. */
 	readonly slug = input.required<string>();
 
-	protected readonly dex = inject(DexStore);
+	protected readonly pokedex = inject(PokedexStore);
 	private readonly router = inject(Router);
 
 	protected readonly query = champResource(ChampTeamDocument, () => ({ slugs: [this.slug()] }));
@@ -507,7 +507,7 @@ export default class PokemonDetailComponent {
 	protected readonly mon = computed(() => this.query.value()?.champTeam[0] ?? null);
 
 	/** The same Pokémon as the grid already knows it. Present the moment the roster has loaded. */
-	private readonly seed = computed(() => this.dex.entries().find((entry) => entry.slug === this.slug()) ?? null);
+	private readonly seed = computed(() => this.pokedex.entries().find((entry) => entry.slug === this.slug()) ?? null);
 
 	/**
 	 * What the masthead, defensive profile and stat panel render from.
@@ -537,19 +537,19 @@ export default class PokemonDetailComponent {
 	protected readonly sprite = computed(() => spriteSources(this.head()?.id ?? 0));
 
 	/** The entries either side of this one in the filter you were browsing. */
-	protected readonly neighbours = computed(() => this.dex.neighbours(this.slug()));
+	protected readonly neighbours = computed(() => this.pokedex.neighbours(this.slug()));
 
 	protected readonly canMega = computed(() => this.seed()?.hasMega ?? (this.mon()?.megaForms.length ?? 0) > 0);
 
 	protected readonly isOwned = computed(() => {
 		const head = this.head();
-		return head ? this.dex.isOwned({ slug: head.slug, megaOfSlug: head.megaOfSlug ?? null }) : false;
+		return head ? this.pokedex.isOwned({ slug: head.slug, megaOfSlug: head.megaOfSlug ?? null }) : false;
 	});
 
 	/** Weaknesses, resistances and immunities, sharpest first. */
 	protected readonly profile = computed(() => {
 		const types = this.head()?.types ?? [];
-		const chart = this.dex.typeChart();
+		const chart = this.pokedex.typeChart();
 		if (types.length === 0 || Object.keys(chart).length === 0) {
 			return { weaknesses: [], resistances: [], immunities: [] };
 		}
@@ -561,21 +561,21 @@ export default class PokemonDetailComponent {
 
 	/**
 	 * Both counter lists, over the roster the store already holds. Neither makes a request —
-	 * see `dex/counters.ts` for why that is the whole point.
+	 * see `pokedex/counters.ts` for why that is the whole point.
 	 */
 	protected readonly beatenBy = computed(() => {
 		const entry = this.seed();
-		return entry ? answersTo(entry, this.dex.entries(), this.dex.typeChart()) : [];
+		return entry ? answersTo(entry, this.pokedex.entries(), this.pokedex.typeChart()) : [];
 	});
 
 	protected readonly beats = computed(() => {
 		const entry = this.seed();
-		return entry ? answeredBy(entry, this.dex.entries(), this.dex.typeChart()) : [];
+		return entry ? answeredBy(entry, this.pokedex.entries(), this.pokedex.typeChart()) : [];
 	});
 
 	/** Hand the ranking to the grid, where it can be filtered and sorted further. */
 	protected showAllCounters(slug: string): void {
-		this.dex.patch({ counterOf: slug });
+		this.pokedex.patch({ counterOf: slug });
 		void this.router.navigate(['/champions/pokedex']);
 	}
 

@@ -1,6 +1,6 @@
 import { STAT_KEYS, StatKey } from '@pokemon-center/champions-engine';
 import {
-	DexFilters,
+	PokedexFilters,
 	EMPTY_FILTERS,
 	MatchupDirection,
 	MegaDisplay,
@@ -11,7 +11,7 @@ import {
 	SortKey,
 	TOTAL_BOUNDS,
 	isFullRange,
-} from './dex-filter';
+} from './pokedex-filter';
 
 /**
  * Filters as a URL, and back.
@@ -55,7 +55,7 @@ const PARAM = {
 } as const;
 
 /** Every parameter this codec owns, so callers can tell "no filters" from "cleared filters". */
-export const DEX_PARAMS: readonly string[] = Object.values(PARAM);
+export const POKEDEX_PARAMS: readonly string[] = Object.values(PARAM);
 
 const MEGA_VALUES: MegaFilter[] = ['any', 'has-mega', 'no-mega'];
 const MEGA_DISPLAY_VALUES: MegaDisplay[] = ['show', 'separate', 'hide'];
@@ -89,7 +89,7 @@ function decodeRange(raw: string | null, bounds: Range): Range | null {
 }
 
 /** The filters as `{param: value}`, carrying only what differs from the defaults. */
-export function encodeFilters(filters: DexFilters): Record<string, string> {
+export function encodeFilters(filters: PokedexFilters): Record<string, string> {
 	const params: Record<string, string> = {};
 	const set = (key: string, value: string) => {
 		params[key] = value;
@@ -131,7 +131,7 @@ export function encodeFilters(filters: DexFilters): Record<string, string> {
 }
 
 /** Anything readable is read; anything else falls back to the default for that field. */
-export function decodeFilters(read: (key: string) => string | null): DexFilters {
+export function decodeFilters(read: (key: string) => string | null): PokedexFilters {
 	const oneOf = <T extends string>(key: string, allowed: T[], fallback: T): T => {
 		const value = read(key);
 		return allowed.includes(value as T) ? (value as T) : fallback;
@@ -176,16 +176,16 @@ export function decodeFilters(read: (key: string) => string | null): DexFilters 
 
 /** True when a URL is carrying filter state at all, as opposed to being a bare visit. */
 export function hasFilterParams(read: (key: string) => string | null): boolean {
-	return DEX_PARAMS.some((key) => read(key) !== null);
+	return POKEDEX_PARAMS.some((key) => read(key) !== null);
 }
 
 /** The query string alone, for storing a saved set compactly. */
-export function toQueryString(filters: DexFilters): string {
+export function toQueryString(filters: PokedexFilters): string {
 	return new URLSearchParams(encodeFilters(filters)).toString();
 }
 
 /** The inverse, for restoring one. */
-export function fromQueryString(query: string): DexFilters {
+export function fromQueryString(query: string): PokedexFilters {
 	const params = new URLSearchParams(query);
 	return decodeFilters((key) => params.get(key));
 }

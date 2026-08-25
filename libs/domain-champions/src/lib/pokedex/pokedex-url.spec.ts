@@ -1,7 +1,7 @@
-import { EMPTY_FILTERS, type DexFilters } from './dex-filter';
-import { decodeFilters, encodeFilters, fromQueryString, hasFilterParams, toQueryString } from './dex-url';
+import { EMPTY_FILTERS, type PokedexFilters } from './pokedex-filter';
+import { decodeFilters, encodeFilters, fromQueryString, hasFilterParams, toQueryString } from './pokedex-url';
 
-const filters = (overrides: Partial<DexFilters> = {}): DexFilters => ({ ...EMPTY_FILTERS, ...overrides });
+const filters = (overrides: Partial<PokedexFilters> = {}): PokedexFilters => ({ ...EMPTY_FILTERS, ...overrides });
 
 /** Read a `{key: value}` map the way the router hands params over. */
 const reader = (params: Record<string, string>) => (key: string) => params[key] ?? null;
