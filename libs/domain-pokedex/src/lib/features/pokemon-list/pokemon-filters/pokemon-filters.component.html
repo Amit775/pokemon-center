@@ -36,6 +36,6 @@
 
 <div class="type-facets">
 	@for (type of allTypes(); track type.id) {
-		<pkd-chip-toggle [label]="type.identifier" [type]="type.identifier" [active]="types().includes(type.identifier)" (toggled)="toggleType(type.identifier)" />
+		<pokedex-chip-toggle [label]="type.identifier" [type]="type.identifier" [active]="types().includes(type.identifier)" (toggled)="toggleType(type.identifier)" />
 	}
 </div>

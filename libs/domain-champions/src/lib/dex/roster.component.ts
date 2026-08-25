@@ -54,7 +54,7 @@ const PAGE_SIZE = 20;
 				<p class="sr-only" aria-live="polite">{{ store.results().length }} results</p>
 
 				@if (store.isLoading()) {
-					<pkd-skeleton height="18rem" />
+					<pokedex-skeleton height="18rem" />
 				} @else if (store.error()) {
 					<p class="empty">
 						The Champions API is not answering on <code>:3001</code>. Start it with

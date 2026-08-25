@@ -32,9 +32,9 @@ import { ButtonComponent } from '@pokemon-center/ui-pokedex';
 		</p>
 
 		<div class="bar">
-			<a pkd-button="primary" routerLink="/school/drill">Start a drill</a>
-			<a pkd-button routerLink="/school/drill" [queryParams]="{ adaptive: 1 }">Practise weak spots</a>
-			<a pkd-button routerLink="/school/placement">Placement test</a>
+			<a pokedex-button="primary" routerLink="/school/drill">Start a drill</a>
+			<a pokedex-button routerLink="/school/drill" [queryParams]="{ adaptive: 1 }">Practise weak spots</a>
+			<a pokedex-button routerLink="/school/placement">Placement test</a>
 			<label class="toggle">
 				<input type="checkbox" [checked]="progress.unlockOverride()" (change)="toggleUnlockAll($event)" />
 				Unlock everything

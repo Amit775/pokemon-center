@@ -8,10 +8,10 @@ import { MatchupCell, MatchupGridComponent, SectionHeadingComponent } from '@pok
 	template: `
 		@if (type(); as type) {
 			<h2>{{ type.identifier }}</h2>
-			<pkd-section-heading [label]="type.identifier + ' attacks (offense)'" />
-			<pkd-matchup-grid [cells]="offense()" />
-			<pkd-section-heading [label]="'attacks ' + type.identifier + ' (defense)'" />
-			<pkd-matchup-grid [cells]="defense()" />
+			<pokedex-section-heading [label]="type.identifier + ' attacks (offense)'" />
+			<pokedex-matchup-grid [cells]="offense()" />
+			<pokedex-section-heading [label]="'attacks ' + type.identifier + ' (defense)'" />
+			<pokedex-matchup-grid [cells]="defense()" />
 		}
 	`,
 	styles: `

@@ -10,12 +10,12 @@
 <div class="grid">
 	@if (loading() && !pokemons().length) {
 		@for (s of skeletons; track $index) {
-			<pkd-skeleton height="190px" radius="var(--r-lg)" />
+			<pokedex-skeleton height="190px" radius="var(--r-lg)" />
 		}
 	} @else {
 		@for (pokemon of pokemons(); track pokemon.id) {
 			<a class="card-link" [routerLink]="[pokemon.id]">
-				<pkd-pokemon-card
+				<pokedex-pokemon-card
 					[dexNumber]="pokemon.id"
 					[name]="pokemon.identifier"
 					[types]="pokemon.types | pokemonTypes"

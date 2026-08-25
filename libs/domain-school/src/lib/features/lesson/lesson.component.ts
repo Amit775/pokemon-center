@@ -48,9 +48,9 @@ const CHECKS_PER_LESSON = 5;
 					<h2>Done — {{ correct() }} of {{ exercises().length }} unaided or hinted correctly</h2>
 					<p class="sub">Mastery for this lesson is now {{ percent() }}%.</p>
 					<div class="bar">
-						<button type="button" pkd-button="primary" (click)="again()">Go again</button>
-						<a pkd-button routerLink="/school">Back to School</a>
-						<a pkd-button routerLink="/school/drill">Drill everything</a>
+						<button type="button" pokedex-button="primary" (click)="again()">Go again</button>
+						<a pokedex-button routerLink="/school">Back to School</a>
+						<a pokedex-button routerLink="/school/drill">Drill everything</a>
 					</div>
 				</section>
 			}

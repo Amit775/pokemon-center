@@ -39,7 +39,7 @@ const STATS: { key: StatKey; label: string }[] = [
 					<ul class="picked">
 						@for (entry of entries(); track entry.slug) {
 							<li>
-								<pkd-entity-portrait
+								<pokedex-entity-portrait
 									[type]="entry.types[0]"
 									[src]="sprite(entry.id).src"
 									[fallbackSrc]="sprite(entry.id).fallbackSrc"
@@ -67,7 +67,7 @@ const STATS: { key: StatKey; label: string }[] = [
 											<a [routerLink]="['/champions/pokedex', entry.slug]">{{ entry.name }}</a>
 											<span class="chips">
 												@for (type of entry.types; track type) {
-													<pkd-type-chip [type]="type" size="sm" />
+													<pokedex-type-chip [type]="type" size="sm" />
 												}
 											</span>
 										</th>

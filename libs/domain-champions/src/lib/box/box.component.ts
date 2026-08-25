@@ -39,7 +39,7 @@ import { natureByName } from './natures';
 		</header>
 
 		@if (adding()) {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel">
 					@if (pickedSlug()) {
 						<champions-build-editor
@@ -67,7 +67,7 @@ import { natureByName } from './natures';
 							@for (result of pickerResults(); track result.slug) {
 								<li>
 									<button type="button" (click)="pickedSlug.set(result.slug)">
-										<pkd-entity-portrait
+										<pokedex-entity-portrait
 											[type]="result.types[0]"
 											[src]="sprite(result.id).src"
 											[fallbackSrc]="sprite(result.id).fallbackSrc"
@@ -77,7 +77,7 @@ import { natureByName } from './natures';
 										<span class="pick-name">{{ result.name }}</span>
 										<span class="chips">
 											@for (type of result.types; track type) {
-												<pkd-type-chip [type]="type" size="sm" />
+												<pokedex-type-chip [type]="type" size="sm" />
 											}
 										</span>
 									</button>
@@ -87,9 +87,9 @@ import { natureByName } from './natures';
 						<button type="button" (click)="cancelEditing()">Cancel</button>
 					}
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		} @else if (editing(); as entry) {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel">
 					<champions-build-editor
 						[slug]="entry.pokemon.slug"
@@ -99,13 +99,13 @@ import { natureByName } from './natures';
 						(cancelled)="cancelEditing()"
 					/>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		}
 
-		<pkd-section-heading [label]="'Your Pokémon (' + store.entries().length + ')'" />
+		<pokedex-section-heading [label]="'Your Pokémon (' + store.entries().length + ')'" />
 
 		@if (store.isEmpty()) {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel empty">
 					<h2>Your Box is empty</h2>
 					<p>
@@ -114,14 +114,14 @@ import { natureByName } from './natures';
 						about your own side.
 					</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		} @else {
 			<ul class="grid">
 				@for (entry of store.entries(); track entry.id) {
 					<li>
 						<article class="mon">
 							<button type="button" class="mon-main" (click)="editing.set(entry)" [attr.aria-label]="'Edit ' + displayName(entry)">
-								<pkd-entity-portrait
+								<pokedex-entity-portrait
 									[type]="entry.pokemon.types[0]"
 									[src]="sprite(entry.pokemon.id).src"
 									[fallbackSrc]="sprite(entry.pokemon.id).fallbackSrc"
@@ -135,7 +135,7 @@ import { natureByName } from './natures';
 									}
 									<span class="chips">
 										@for (type of entry.pokemon.types; track type) {
-											<pkd-type-chip [type]="type" size="sm" />
+											<pokedex-type-chip [type]="type" size="sm" />
 										}
 									</span>
 									<span class="detail">

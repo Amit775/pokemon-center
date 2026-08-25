@@ -76,7 +76,7 @@ import { StatPanelComponent } from './stat-panel.component';
 			</nav>
 
 			<header class="masthead">
-				<pkd-entity-portrait
+				<pokedex-entity-portrait
 					[type]="pokemon.types[0]"
 					[src]="sprite().src"
 					[fallbackSrc]="sprite().fallbackSrc"
@@ -87,7 +87,7 @@ import { StatPanelComponent } from './stat-panel.component';
 					<h1>{{ pokemon.name }}</h1>
 					<div class="chips">
 						@for (t of pokemon.types; track t) {
-							<pkd-type-chip [type]="t" />
+							<pokedex-type-chip [type]="t" />
 						}
 						<span class="dex">#{{ pokemon.nationalDexNo }}</span>
 						@if (canMega()) {
@@ -107,8 +107,8 @@ import { StatPanelComponent } from './stat-panel.component';
 			</header>
 
 			<!-- The defensive read, up front: what this thing folds to, and what it shrugs off. -->
-			<pkd-section-heading label="Defensively" />
-			<pkd-card>
+			<pokedex-section-heading label="Defensively" />
+			<pokedex-card>
 				<div class="panel">
 					<div class="matchups">
 						<div>
@@ -116,7 +116,7 @@ import { StatPanelComponent } from './stat-panel.component';
 							<div class="chips">
 								@for (entry of profile().weaknesses; track entry.type) {
 									<span class="mult">
-										<pkd-type-chip [type]="entry.type" size="sm" />
+										<pokedex-type-chip [type]="entry.type" size="sm" />
 										<span class="x">{{ entry.multiplier }}×</span>
 									</span>
 								} @empty {
@@ -129,7 +129,7 @@ import { StatPanelComponent } from './stat-panel.component';
 							<div class="chips">
 								@for (entry of profile().resistances; track entry.type) {
 									<span class="mult">
-										<pkd-type-chip [type]="entry.type" size="sm" />
+										<pokedex-type-chip [type]="entry.type" size="sm" />
 										<span class="x">{{ entry.multiplier }}×</span>
 									</span>
 								} @empty {
@@ -142,35 +142,35 @@ import { StatPanelComponent } from './stat-panel.component';
 								<h3>Immune to</h3>
 								<div class="chips">
 									@for (type of profile().immunities; track type) {
-										<pkd-type-chip [type]="type" size="sm" />
+										<pokedex-type-chip [type]="type" size="sm" />
 									}
 								</div>
 							</div>
 						}
 					</div>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 
 			<!-- Base stats: the species fact. The level-50 numbers are one click away, not assumed. -->
-			<pkd-section-heading label="Base stats" />
-			<pkd-card>
+			<pokedex-section-heading label="Base stats" />
+			<pokedex-card>
 				<div class="panel">
 					<champions-stat-panel [base]="pokemon.baseStats" [type]="pokemon.types[0]" />
 				</div>
-			</pkd-card>
+			</pokedex-card>
 
 			@if (mon(); as detail) {
 				@if (detail.megaForms.length > 0) {
-					<pkd-section-heading label="Mega Evolution" />
+					<pokedex-section-heading label="Mega Evolution" />
 					@for (mega of detail.megaForms; track mega.slug) {
-						<pkd-card>
+						<pokedex-card>
 							<champions-mega-panel [mega]="mega" [baseStats]="pokemon.baseStats" [baseTypes]="pokemon.types" />
-						</pkd-card>
+						</pokedex-card>
 					}
 				}
 
-				<pkd-section-heading label="Abilities" />
-				<pkd-card>
+				<pokedex-section-heading label="Abilities" />
+				<pokedex-card>
 					<div class="panel">
 						<ul class="abilities">
 							@for (slot of detail.abilities; track slot.ability.slug) {
@@ -191,15 +191,15 @@ import { StatPanelComponent } from './stat-panel.component';
 							}
 						</ul>
 					</div>
-				</pkd-card>
+				</pokedex-card>
 
-				<pkd-section-heading label="Moves ({{ detail.moves.length }})" />
-				<pkd-card>
+				<pokedex-section-heading label="Moves ({{ detail.moves.length }})" />
+				<pokedex-card>
 					<champions-moves-table [moves]="detail.moves" [isApproximate]="detail.learnsetIsApproximate" />
-				</pkd-card>
+				</pokedex-card>
 			} @else {
-				<pkd-section-heading label="Abilities and moves" />
-				<pkd-skeleton height="14rem" />
+				<pokedex-section-heading label="Abilities and moves" />
+				<pokedex-skeleton height="14rem" />
 			}
 
 			<!--
@@ -207,8 +207,8 @@ import { StatPanelComponent } from './stat-panel.component';
 				are not computed until someone asks, because a signal nobody reads is a signal
 				nobody pays for.
 			-->
-			<pkd-section-heading label="Matchups" />
-			<pkd-card>
+			<pokedex-section-heading label="Matchups" />
+			<pokedex-card>
 				<div class="panel">
 					<button
 						type="button"
@@ -250,21 +250,21 @@ import { StatPanelComponent } from './stat-panel.component';
 							A typing-level shortlist of what answers it and what it answers, ranked and explained.
 						</p>
 					} @loading {
-						<pkd-skeleton height="10rem" />
+						<pokedex-skeleton height="10rem" />
 					}
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		} @else if (dex.isLoading() || query.isLoading()) {
-			<pkd-skeleton height="16rem" />
+			<pokedex-skeleton height="16rem" />
 		} @else if (notFound()) {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel">
 					<h2>Not in this regulation</h2>
 					<p>
 						<a routerLink="/champions/pokedex">Back to the roster</a>
 					</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		}
 	`,
 	styles: `

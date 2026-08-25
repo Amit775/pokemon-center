@@ -22,8 +22,8 @@ import { SectionHeadingComponent, TypeChipComponent, UiCardComponent, UiSkeleton
 			</p>
 		</header>
 
-		<pkd-section-heading label="Battle mechanics" />
-		<pkd-card>
+		<pokedex-section-heading label="Battle mechanics" />
+		<pokedex-card>
 			<div class="panel">
 				<dl class="mechanics">
 					@for (item of mechanics; track item.what) {
@@ -34,20 +34,20 @@ import { SectionHeadingComponent, TypeChipComponent, UiCardComponent, UiSkeleton
 					}
 				</dl>
 			</div>
-		</pkd-card>
+		</pokedex-card>
 
 		@if (query.isLoading()) {
-			<pkd-skeleton height="12rem" />
+			<pokedex-skeleton height="12rem" />
 		} @else {
-			<pkd-section-heading label="Moves ({{ moves().length }})" />
-			<pkd-card>
+			<pokedex-section-heading label="Moves ({{ moves().length }})" />
+			<pokedex-card>
 				<div class="panel">
 					<ul class="moves">
 						@for (move of moves(); track move.id) {
 							<li>
 								<span class="head">
 									<span class="name">{{ move.name }}</span>
-									<pkd-type-chip [type]="move.type" size="sm" />
+									<pokedex-type-chip [type]="move.type" size="sm" />
 								</span>
 								<span class="note">{{ move.overrideNote }}</span>
 								<span class="numbers">
@@ -65,7 +65,7 @@ import { SectionHeadingComponent, TypeChipComponent, UiCardComponent, UiSkeleton
 						}
 					</ul>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		}
 
 		<p class="source">

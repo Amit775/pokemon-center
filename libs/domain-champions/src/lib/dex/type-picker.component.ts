@@ -32,7 +32,7 @@ import type { SelectMode } from './dex-filter';
 				(dblclick)="onDoubleClick(type.slug)"
 				(keydown.shift.enter)="onDoubleClick(type.slug)"
 			>
-				<pkd-type-chip [type]="type.slug" size="sm" />
+				<pokedex-type-chip [type]="type.slug" size="sm" />
 			</button>
 		}
 	`,

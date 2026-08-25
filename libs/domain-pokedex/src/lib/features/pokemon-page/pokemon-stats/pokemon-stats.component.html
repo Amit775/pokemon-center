@@ -1,6 +1,6 @@
 <div class="stats">
 	@for (stat of stats(); track stat.stat.id) {
-		<pkd-stat-bar [label]="label(stat.stat.identifier)" [value]="stat.base_stat" [type]="primaryType()" />
+		<pokedex-stat-bar [label]="label(stat.stat.identifier)" [value]="stat.base_stat" [type]="primaryType()" />
 	}
 	@if (stats().length) {
 		<div class="total">

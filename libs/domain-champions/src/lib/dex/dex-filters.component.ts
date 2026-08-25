@@ -119,7 +119,7 @@ const STAT_LABELS: { key: StatKey; label: string }[] = [
 			-->
 			@if (store.matchupPokemon(); as picked) {
 				<div class="picked">
-					<pkd-entity-portrait
+					<pokedex-entity-portrait
 						[type]="picked.types[0]"
 						[src]="sprite(picked.id).src"
 						[fallbackSrc]="sprite(picked.id).fallbackSrc"
@@ -147,7 +147,7 @@ const STAT_LABELS: { key: StatKey; label: string }[] = [
 							@for (result of monResults(); track result.slug) {
 								<li role="option" [attr.aria-selected]="false">
 									<button type="button" (click)="pick(result)">
-										<pkd-entity-portrait
+										<pokedex-entity-portrait
 											[type]="result.types[0]"
 											[src]="sprite(result.id).src"
 											[fallbackSrc]="sprite(result.id).fallbackSrc"

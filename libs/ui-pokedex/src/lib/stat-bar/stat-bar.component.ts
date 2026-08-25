@@ -3,7 +3,7 @@ import { typeColorVar } from '../type-colors';
 
 /** One base-stat row: label, value, and a type-gradient track. */
 @Component({
-	selector: 'pkd-stat-bar',
+	selector: 'pokedex-stat-bar',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<span class="label">{{ label() }}</span>

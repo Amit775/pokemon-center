@@ -1,13 +1,13 @@
 @if (pokemon(); as pokemon) {
 	<header class="hero" [style.--pt]="'var(--t-' + primaryType() + ')'">
 		<button type="button" class="back" (click)="goBack()" aria-label="Back to pokedex"><mat-icon>arrow_back</mat-icon></button>
-		<pkd-entity-portrait [type]="primaryType()" [src]="spriteUrl(pokemon.id)" [fallbackSrc]="fallbackUrl(pokemon.id)" [alt]="pokemon.identifier" [size]="120" />
+		<pokedex-entity-portrait [type]="primaryType()" [src]="spriteUrl(pokemon.id)" [fallbackSrc]="fallbackUrl(pokemon.id)" [alt]="pokemon.identifier" [size]="120" />
 		<div class="id">
 			<span class="no">#{{ pokemon.id }}</span>
 			<h1>{{ pokemon.identifier }}</h1>
 			<div class="chips">
 				@for (t of types(); track t) {
-					<pkd-type-chip [type]="t" />
+					<pokedex-type-chip [type]="t" />
 				}
 			</div>
 		</div>

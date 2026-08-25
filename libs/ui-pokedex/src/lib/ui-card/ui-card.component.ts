@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 /** The rounded surface panel — the neutral container for detail and tool content. */
 @Component({
-	selector: 'pkd-card',
+	selector: 'pokedex-card',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<ng-content />`,
 	styles: `

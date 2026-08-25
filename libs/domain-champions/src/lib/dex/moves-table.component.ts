@@ -84,7 +84,7 @@ export interface DetailMove {
 									<span class="note">{{ move.overrideNote }}</span>
 								}
 							</td>
-							<td><pkd-type-chip [type]="move.type" size="sm" /></td>
+							<td><pokedex-type-chip [type]="move.type" size="sm" /></td>
 							<td class="num">{{ move.power ?? '—' }}</td>
 							<td class="num">{{ move.accuracy ?? '—' }}</td>
 							<td class="num">{{ move.pp ?? '—' }}</td>

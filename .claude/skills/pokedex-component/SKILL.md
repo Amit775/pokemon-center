@@ -17,10 +17,20 @@ libs/ui-pokedex/src/index.ts                          ← export it
 libs/ui-pokedex/src/styles/tokens.scss                ← the ONLY place color/space/radius values live
 ```
 
-Selector prefix is **`pkd`** (`pkd-type-chip`, `pkd-stat-bar`, …). Kebab-case, element selector.
+Selector prefix is **`pokedex`** (`pokedex-type-chip`, `pokedex-stat-bar`, …). Kebab-case, element
+selector. Spelled out, never `pkd` — see the no-abbreviations rule in `AGENTS.md`, which is the
+project's first naming rule and applies to selectors as much as to identifiers.
+
+> The whole kit has been migrated off the old `pkd-` prefix — every component and every consuming
+> template uses `pokedex-`. The lint rule (`libs/ui-pokedex/eslint.config.mjs`) enforces it, so a
+> stray `pkd-` selector now fails the build rather than sliding through review.
 
 ## Hard rules (non-negotiable)
 
+0. **No abbreviations, anywhere.** Selector, class name, inputs, outputs, locals, CSS class names.
+   `pokedex`, never `pkd` or `dex`; `context`, never `ctx`; `dexNumber` is `pokedexNumber`. Only
+   terms the game itself abbreviates are exempt (HP, PP, SP, STAB, IV, EV). This is the project's
+   first naming rule; it outranks brevity every time.
 1. **`standalone: true`, `changeDetection: ChangeDetectionStrategy.OnPush`.** Always.
 2. **Inputs are signal `input()` / `input.required()`**, outputs are `output()`. No `@Input`/`@Output` decorators. Two-way state uses `model()`.
 3. **Styling reads ONLY design tokens** — `var(--surface)`, `var(--ink)`, `var(--accent)`, `var(--t-<type>)`, `var(--r-md)`, `var(--s-3)`, `var(--shadow-md)`, etc. **Never** a raw hex, never a Material internal (`--mat-*`), never a hardcoded px for color-bearing spacing. This is what keeps the single-dial theme promise true.
@@ -44,7 +54,7 @@ Selector prefix is **`pkd`** (`pkd-type-chip`, `pkd-stat-bar`, …). Kebab-case,
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
-	selector: 'pkd-thing',
+	selector: 'pokedex-thing',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<!-- token-driven markup -->`,
 	styles: `
@@ -59,6 +69,7 @@ export class ThingComponent {
 
 ## Review checklist (self-check before committing)
 
+- [ ] no abbreviations — selector is `pokedex-*`, no `pkd`/`dex`/`ctx` in any name
 - [ ] standalone + OnPush
 - [ ] all inputs/outputs are signal-based
 - [ ] zero raw hex / zero `--mat-*` / zero hardcoded color in styles — tokens only

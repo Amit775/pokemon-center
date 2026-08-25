@@ -54,7 +54,7 @@ import { CombatantPickerComponent } from './combatant-picker.component';
 		</div>
 
 		@if (!left() || !right()) {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel">
 					<h2>Pick two Pokémon</h2>
 					<p>
@@ -62,10 +62,10 @@ import { CombatantPickerComponent } from './combatant-picker.component';
 						on the roster to try something you do not own.
 					</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		} @else {
-			<pkd-section-heading label="Conditions" />
-			<pkd-card>
+			<pokedex-section-heading label="Conditions" />
+			<pokedex-card>
 				<div class="panel conditions">
 					<div class="field-row">
 						<button type="button" [class.on]="field().tailwind" (click)="toggleField('tailwind')">Tailwind</button>
@@ -109,21 +109,21 @@ import { CombatantPickerComponent } from './combatant-picker.component';
 						}
 					</div>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 
-			<pkd-section-heading label="Speed" />
-			<pkd-card>
+			<pokedex-section-heading label="Speed" />
+			<pokedex-card>
 				<div class="panel">
 					<p class="verdict">{{ speedVerdict() }}</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 
 			@for (direction of directions(); track direction.label) {
-				<pkd-section-heading [label]="direction.label" />
-				<pkd-card>
+				<pokedex-section-heading [label]="direction.label" />
+				<pokedex-card>
 					<div class="panel">
 						<div class="who-row">
-							<pkd-entity-portrait
+							<pokedex-entity-portrait
 								[type]="direction.attacker.species.types[0]"
 								[src]="sprite(direction.attacker).src"
 								[fallbackSrc]="sprite(direction.attacker).fallbackSrc"
@@ -132,7 +132,7 @@ import { CombatantPickerComponent } from './combatant-picker.component';
 							/>
 							<span class="who-name">{{ direction.attacker.species.name }}</span>
 							@for (type of direction.attacker.species.types; track type) {
-								<pkd-type-chip [type]="type" size="sm" />
+								<pokedex-type-chip [type]="type" size="sm" />
 							}
 						</div>
 
@@ -140,7 +140,7 @@ import { CombatantPickerComponent } from './combatant-picker.component';
 							@for (option of direction.options; track option.move.id) {
 								<li>
 									<span class="move-name">{{ option.move.name }}</span>
-									<pkd-type-chip [type]="option.move.type" size="sm" />
+									<pokedex-type-chip [type]="option.move.type" size="sm" />
 									<span class="damage">{{ pct(option.result.minFraction) }}–{{ pct(option.result.maxFraction) }}%</span>
 									<span class="ko" [class.kill]="option.ko.startsWith('guaranteed')">{{ koLabel(option.ko) }}</span>
 								</li>
@@ -149,7 +149,7 @@ import { CombatantPickerComponent } from './combatant-picker.component';
 							}
 						</ul>
 					</div>
-				</pkd-card>
+				</pokedex-card>
 			}
 
 			<p class="disclosure">

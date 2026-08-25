@@ -27,7 +27,7 @@ import { NATURES } from './natures';
 	template: `
 		@if (detail(); as mon) {
 			<div class="head">
-				<pkd-entity-portrait [type]="mon.types[0]" [src]="sprite().src" [fallbackSrc]="sprite().fallbackSrc" [alt]="mon.name" [size]="72" />
+				<pokedex-entity-portrait [type]="mon.types[0]" [src]="sprite().src" [fallbackSrc]="sprite().fallbackSrc" [alt]="mon.name" [size]="72" />
 				<div>
 					<input
 						class="nickname"
@@ -39,7 +39,7 @@ import { NATURES } from './natures';
 					/>
 					<div class="chips">
 						@for (type of mon.types; track type) {
-							<pkd-type-chip [type]="type" size="sm" />
+							<pokedex-type-chip [type]="type" size="sm" />
 						}
 						@if (mon.isMega) {
 							<span class="tag">Mega</span>
@@ -152,7 +152,7 @@ import { NATURES } from './natures';
 				<button type="button" (click)="cancelled.emit()">Cancel</button>
 			</div>
 		} @else {
-			<pkd-skeleton height="20rem" />
+			<pokedex-skeleton height="20rem" />
 		}
 	`,
 	styles: `

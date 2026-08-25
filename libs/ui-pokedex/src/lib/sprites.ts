@@ -2,7 +2,7 @@
  * Where artwork comes from.
  *
  * Two sources on purpose: a locally mirrored PNG (see `tools/mirror-sprites.mjs`) and the
- * upstream PokéAPI artwork. `pkd-entity-portrait` tries them in that order and falls back to
+ * upstream PokéAPI artwork. `pokedex-entity-portrait` tries them in that order and falls back to
  * a type-tinted orb, so a partial mirror is never broken and the app still works offline for
  * whatever has been mirrored.
  *
@@ -21,7 +21,7 @@ export function officialArtworkUrl(formId: number): string {
 	return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${formId}.png`;
 }
 
-/** The pair `pkd-entity-portrait` expects: try local, then remote. */
+/** The pair `pokedex-entity-portrait` expects: try local, then remote. */
 export function spriteSources(formId: number): { src: string; fallbackSrc: string } {
 	return { src: localSpriteUrl(formId), fallbackSrc: officialArtworkUrl(formId) };
 }

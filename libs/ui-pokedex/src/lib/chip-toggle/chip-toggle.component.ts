@@ -3,7 +3,7 @@ import { typeColorVar } from '../type-colors';
 
 /** A selectable pill — outline when off, filled with its (optional type) color when on. */
 @Component({
-	selector: 'pkd-chip-toggle',
+	selector: 'pokedex-chip-toggle',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<button type="button" [class.active]="active()" [attr.aria-pressed]="active()" [disabled]="disabled()" (click)="toggled.emit()">

@@ -7,7 +7,7 @@ import { typeColorVar } from '../type-colors';
  * placeholder. Decorative unless an alt is supplied.
  */
 @Component({
-	selector: 'pkd-entity-portrait',
+	selector: 'pokedex-entity-portrait',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (currentSrc(); as source) {

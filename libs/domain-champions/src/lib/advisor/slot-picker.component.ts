@@ -58,7 +58,7 @@ import { TypeChipComponent } from '@pokemon-center/ui-pokedex';
 								<span class="name">{{ result.name }}</span>
 								<span class="chips">
 									@for (type of result.types; track type) {
-										<pkd-type-chip [type]="type" />
+										<pokedex-type-chip [type]="type" />
 									}
 								</span>
 								<span class="bst">{{ result.baseStats.total }}</span>
@@ -74,7 +74,7 @@ import { TypeChipComponent } from '@pokemon-center/ui-pokedex';
 				<span class="name">{{ mon.name }}</span>
 				<span class="chips">
 					@for (type of mon.types; track type) {
-						<pkd-type-chip [type]="type" />
+						<pokedex-type-chip [type]="type" />
 					}
 				</span>
 			</button>

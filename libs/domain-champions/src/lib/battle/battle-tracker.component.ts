@@ -31,7 +31,7 @@ import { BattleStore } from './battle.store';
 		</header>
 
 		@if (!battle.isReady()) {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel">
 					<h2>No teams loaded</h2>
 					<p>
@@ -39,7 +39,7 @@ import { BattleStore } from './battle.store';
 						uses those six so there is nothing to re-enter here.
 					</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		} @else {
 			@if (battle.headline(); as headline) {
 				<p class="headline">{{ headline }}</p>
@@ -48,14 +48,14 @@ import { BattleStore } from './battle.store';
 			<div class="sides">
 				<!-- Opponent first: their state is what you are tracking, yours you already know. -->
 				<section class="side them">
-					<pkd-section-heading label="Them" />
+					<pokedex-section-heading label="Them" />
 					@if (battle.theirActive(); as active) {
-						<pkd-card>
+						<pokedex-card>
 							<div class="panel">
 								<div class="who">
 									<span class="name">{{ active.species.name }}</span>
 									@for (t of active.species.types; track t) {
-										<pkd-type-chip [type]="t" size="sm" />
+										<pokedex-type-chip [type]="t" size="sm" />
 									}
 								</div>
 
@@ -105,19 +105,19 @@ import { BattleStore } from './battle.store';
 									}
 								</div>
 							</div>
-						</pkd-card>
+						</pokedex-card>
 					}
 				</section>
 
 				<section class="side you">
-					<pkd-section-heading label="You" />
+					<pokedex-section-heading label="You" />
 					@if (battle.yourActive(); as active) {
-						<pkd-card>
+						<pokedex-card>
 							<div class="panel">
 								<div class="who">
 									<span class="name">{{ active.species.name }}</span>
 									@for (t of active.species.types; track t) {
-										<pkd-type-chip [type]="t" size="sm" />
+										<pokedex-type-chip [type]="t" size="sm" />
 									}
 								</div>
 
@@ -159,13 +159,13 @@ import { BattleStore } from './battle.store';
 									}
 								</div>
 							</div>
-						</pkd-card>
+						</pokedex-card>
 					}
 				</section>
 			</div>
 
-			<pkd-section-heading label="Your options" />
-			<pkd-card>
+			<pokedex-section-heading label="Your options" />
+			<pokedex-card>
 				<div class="panel">
 					<ul class="options">
 						@for (option of battle.yourOptions(); track option.move.id) {
@@ -173,7 +173,7 @@ import { BattleStore } from './battle.store';
 								<button type="button" class="option" (click)="battle.revealMove('you', option.move.slug, option.move.name)">
 									<span class="option-head">
 										<span class="move-name">{{ option.move.name }}</span>
-										<pkd-type-chip [type]="option.move.type" size="sm" />
+										<pokedex-type-chip [type]="option.move.type" size="sm" />
 									</span>
 									<span class="damage">
 										{{ round(option.result.minFraction * 100) }}–{{ round(option.result.maxFraction * 100) }}%
@@ -190,10 +190,10 @@ import { BattleStore } from './battle.store';
 						the pessimistic read, deliberately.
 					</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 
-			<pkd-section-heading label="Field" />
-			<pkd-card>
+			<pokedex-section-heading label="Field" />
+			<pokedex-card>
 				<div class="panel">
 					<div class="field">
 						<button type="button" [class.on]="battle.field().tailwind" (click)="battle.setField({ tailwind: !battle.field().tailwind })">
@@ -214,11 +214,11 @@ import { BattleStore } from './battle.store';
 						</button>
 					</div>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 
 			@if (battle.log().length > 0) {
-				<pkd-section-heading label="Log" />
-				<pkd-card>
+				<pokedex-section-heading label="Log" />
+				<pokedex-card>
 					<div class="panel">
 						<ol class="log">
 							@for (line of reversedLog(); track $index) {
@@ -226,7 +226,7 @@ import { BattleStore } from './battle.store';
 							}
 						</ol>
 					</div>
-				</pkd-card>
+				</pokedex-card>
 			}
 		}
 	`,

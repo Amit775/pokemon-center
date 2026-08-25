@@ -2,7 +2,7 @@
 	"name": "ui-pokedex",
 	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "libs/ui-pokedex/src",
-	"prefix": "pkd",
+	"prefix": "pokedex",
 	"projectType": "library",
 	"tags": [],
 	"targets": {

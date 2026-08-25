@@ -21,7 +21,7 @@ import { DexStore } from '../dex/dex.store';
 
 			@if (chosen(); as choice) {
 				<button type="button" class="chosen" (click)="reset()">
-					<pkd-entity-portrait
+					<pokedex-entity-portrait
 						[type]="choice.types[0]"
 						[src]="sprite(choice.id).src"
 						[fallbackSrc]="sprite(choice.id).fallbackSrc"
@@ -32,7 +32,7 @@ import { DexStore } from '../dex/dex.store';
 						<span class="chosen-name">{{ choice.name }}</span>
 						<span class="chips">
 							@for (type of choice.types; track type) {
-								<pkd-type-chip [type]="type" size="sm" />
+								<pokedex-type-chip [type]="type" size="sm" />
 							}
 						</span>
 						<span class="source" [class.exact]="choice.exact">{{ choice.exact ? 'Your build' : 'Inferred' }}</span>
@@ -43,7 +43,7 @@ import { DexStore } from '../dex/dex.store';
 					<div class="box-row">
 						@for (entry of box.entries(); track entry.id) {
 							<button type="button" class="box-chip" (click)="picked.emit('box:' + entry.id)">
-								<pkd-entity-portrait
+								<pokedex-entity-portrait
 									[type]="entry.pokemon.types[0]"
 									[src]="sprite(entry.pokemon.id).src"
 									[fallbackSrc]="sprite(entry.pokemon.id).fallbackSrc"
@@ -69,7 +69,7 @@ import { DexStore } from '../dex/dex.store';
 						@for (result of results(); track result.slug) {
 							<li>
 								<button type="button" (click)="picked.emit('dex:' + result.slug)">
-									<pkd-entity-portrait
+									<pokedex-entity-portrait
 										[type]="result.types[0]"
 										[src]="sprite(result.id).src"
 										[fallbackSrc]="sprite(result.id).fallbackSrc"

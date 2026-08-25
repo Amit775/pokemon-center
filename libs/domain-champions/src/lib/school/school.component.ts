@@ -43,10 +43,10 @@ import { DRILLS, DrillKind, Question, generateQuestion } from './quiz';
 		</div>
 
 		@if (dex.isLoading()) {
-			<pkd-skeleton height="12rem" />
+			<pokedex-skeleton height="12rem" />
 		} @else if (question(); as current) {
-			<pkd-section-heading label="Question {{ answered() + 1 }}" />
-			<pkd-card>
+			<pokedex-section-heading label="Question {{ answered() + 1 }}" />
+			<pokedex-card>
 				<div class="panel">
 					<p class="prompt">{{ current.prompt }}</p>
 
@@ -73,13 +73,13 @@ import { DRILLS, DrillKind, Question, generateQuestion } from './quiz';
 						<button type="button" class="primary" (click)="next()">Next question</button>
 					}
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		} @else {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel">
 					<p>The roster has not loaded yet, so there is nothing to drill on.</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		}
 	`,
 	styles: `

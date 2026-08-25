@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 /** Small uppercase eyebrow that gives every section a consistent rhythm. */
 @Component({
-	selector: 'pkd-section-heading',
+	selector: 'pokedex-section-heading',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `{{ label() }}`,
 	styles: `

@@ -39,7 +39,7 @@ export interface RangeLandmark {
 		<div class="track-wrap">
 			@if (landmark(); as mark) {
 				<span class="landmark" [style.left.%]="landmarkOffset()">
-					<pkd-entity-portrait
+					<pokedex-entity-portrait
 						[type]="mark.types[0]"
 						[src]="sprite(mark.id).src"
 						[fallbackSrc]="sprite(mark.id).fallbackSrc"

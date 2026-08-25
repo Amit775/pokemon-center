@@ -7,7 +7,7 @@ export interface UiTab {
 
 /** Controlled pill tab bar. Roving focus + arrow keys via native buttons in a tablist. */
 @Component({
-	selector: 'pkd-tabs',
+	selector: 'pokedex-tabs',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div role="tablist">

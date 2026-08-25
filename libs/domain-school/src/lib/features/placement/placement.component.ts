@@ -47,8 +47,8 @@ import { ButtonComponent } from '@pokemon-center/ui-pokedex';
 				}
 				<p class="note">These answers decide what is open to you; they are not counted as practice.</p>
 				<div class="bar">
-					<a pkd-button="primary" routerLink="/school">Back to School</a>
-					<button type="button" pkd-button (click)="again()">Retake</button>
+					<a pokedex-button="primary" routerLink="/school">Back to School</a>
+					<button type="button" pokedex-button (click)="again()">Retake</button>
 				</div>
 			</section>
 		}
