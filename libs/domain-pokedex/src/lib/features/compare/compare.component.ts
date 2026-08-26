@@ -20,7 +20,7 @@ export class CompareComponent {
 	private readonly router = inject(Router);
 	private readonly route = inject(ActivatedRoute);
 
-	private readonly initial = (this.route.snapshot.queryParamMap.get('p') ?? '').split(',');
+	private readonly initial = (this.route.snapshot.queryParamMap.get('pokemon') ?? '').split(',');
 	protected readonly slots = [signal(this.initial[0] ?? ''), signal(this.initial[1] ?? ''), signal(this.initial[2] ?? ''), signal(this.initial[3] ?? '')];
 
 	private readonly resources = this.slots.map((slot) => gqlResource(ComparePokemonDocument, () => (slot() ? { idOrSlug: slot() } : { idOrSlug: '__none__' })));
@@ -57,7 +57,7 @@ export class CompareComponent {
 	}
 
 	private syncUrl(): void {
-		const p = this.slots.map((slot) => slot()).filter(Boolean).join(',');
-		this.router.navigate([], { relativeTo: this.route, queryParams: { p: p || null }, replaceUrl: true });
+		const pokemon = this.slots.map((slot) => slot()).filter(Boolean).join(',');
+		this.router.navigate([], { relativeTo: this.route, queryParams: { pokemon: pokemon || null }, replaceUrl: true });
 	}
 }

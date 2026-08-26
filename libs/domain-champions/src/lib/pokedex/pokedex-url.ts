@@ -33,25 +33,36 @@ import {
  *     whatever the recipient happened to leave switched on.
  */
 
-/** Short keys, because these end up in something a person pastes into a message. */
+/**
+ * Each key is the name of the filter it carries.
+ *
+ * These were once shortened (`q`, `tm`, `mud`, `bst`) on the theory that a pasted link should be
+ * compact. That traded a property nobody asked for against one people use constantly: a URL you
+ * can read. `mud=resists` is a puzzle; `matchupDirection=resists` is a sentence, and the filters
+ * this codec exists to make shareable are the elaborate ones — the ones worth explaining in the
+ * link itself.
+ *
+ * Keeping the key identical to the field name also removes the mapping a reader used to hold in
+ * their head, and makes a missing entry here obvious rather than silent.
+ */
 const PARAM = {
-	search: 'q',
-	types: 't',
-	typeMode: 'tm',
+	search: 'search',
+	types: 'types',
+	typeMode: 'typeMode',
 	mega: 'mega',
-	megaDisplay: 'megaview',
-	matchupTypes: 'mu',
-	matchupMode: 'mum',
-	matchupDirection: 'mud',
-	matchupSlug: 'mus',
-	stats: 's',
-	total: 'bst',
-	ability: 'ab',
-	move: 'mv',
-	ownedOnly: 'own',
-	counterOf: 'vs',
-	sortBy: 'sort',
-	sortDesc: 'desc',
+	megaDisplay: 'megaDisplay',
+	matchupTypes: 'matchupTypes',
+	matchupMode: 'matchupMode',
+	matchupDirection: 'matchupDirection',
+	matchupSlug: 'matchupSlug',
+	stats: 'stats',
+	total: 'total',
+	ability: 'ability',
+	move: 'move',
+	ownedOnly: 'ownedOnly',
+	counterOf: 'counterOf',
+	sortBy: 'sortBy',
+	sortDesc: 'sortDescending',
 } as const;
 
 /** Every parameter this codec owns, so callers can tell "no filters" from "cleared filters". */

@@ -12,20 +12,20 @@ describe('encodeFilters', () => {
 	});
 
 	it('writes only what differs from the default', () => {
-		expect(encodeFilters(filters({ search: 'garchomp' }))).toEqual({ q: 'garchomp' });
+		expect(encodeFilters(filters({ search: 'garchomp' }))).toEqual({ search: 'garchomp' });
 	});
 
 	it('omits a selection mode when nothing is selected', () => {
 		// The mode is meaningless without chips, and a URL carrying it would imply a filter
 		// that is not actually on.
 		expect(encodeFilters(filters({ typeMode: 'any' }))).toEqual({});
-		expect(encodeFilters(filters({ types: ['fire'], typeMode: 'any' }))).toEqual({ t: 'fire', tm: 'any' });
+		expect(encodeFilters(filters({ types: ['fire'], typeMode: 'any' }))).toEqual({ types: 'fire', typeMode: 'any' });
 	});
 
 	it('writes only the stat ranges that are actually narrowed', () => {
 		const params = encodeFilters(filters({ statRanges: { speed: [130, 260], attack: [0, 260] } }));
 
-		expect(params['s']).toBe('speed:130-260');
+		expect(params['stats']).toBe('speed:130-260');
 	});
 
 	it('trims whitespace-only searches away entirely', () => {
@@ -58,7 +58,7 @@ describe('decodeFilters', () => {
 
 	it('falls back to the default for a value that is not allowed', () => {
 		// A URL is user input and half of them arrive truncated or hand-edited.
-		const decoded = decodeFilters(reader({ mega: 'sometimes', sort: 'vibes', tm: 'maybe', mud: 'sideways' }));
+		const decoded = decodeFilters(reader({ mega: 'sometimes', sortBy: 'vibes', typeMode: 'maybe', matchupDirection: 'sideways' }));
 
 		expect(decoded.mega).toBe('any');
 		expect(decoded.sortBy).toBe('pokedex');
@@ -67,7 +67,7 @@ describe('decodeFilters', () => {
 	});
 
 	it('drops a stat range whose bounds are inverted or unparseable', () => {
-		const decoded = decodeFilters(reader({ s: 'speed:200-100,attack:abc,nonsense:0-50,defense:20-90' }));
+		const decoded = decodeFilters(reader({ stats: 'speed:200-100,attack:abc,nonsense:0-50,defense:20-90' }));
 
 		expect(decoded.statRanges.speed).toBeUndefined();
 		expect(decoded.statRanges.attack).toBeUndefined();
@@ -75,7 +75,7 @@ describe('decodeFilters', () => {
 	});
 
 	it('clamps a range to the axis rather than trusting it', () => {
-		expect(decodeFilters(reader({ s: 'speed:-50-9999' })).statRanges.speed).toEqual([0, 260]);
+		expect(decodeFilters(reader({ stats: 'speed:-50-9999' })).statRanges.speed).toEqual([0, 260]);
 	});
 
 	it('reads an empty query as the default state', () => {
@@ -83,7 +83,7 @@ describe('decodeFilters', () => {
 	});
 
 	it('ignores empty entries in a comma list', () => {
-		expect(decodeFilters(reader({ t: 'fire,,  ,water' })).types).toEqual(['fire', 'water']);
+		expect(decodeFilters(reader({ types: 'fire,,  ,water' })).types).toEqual(['fire', 'water']);
 	});
 });
 
@@ -93,6 +93,6 @@ describe('hasFilterParams', () => {
 		// the stored filters are kept.
 		expect(hasFilterParams(reader({}))).toBe(false);
 		expect(hasFilterParams(reader({ utm_source: 'discord' }))).toBe(false);
-		expect(hasFilterParams(reader({ q: 'garchomp' }))).toBe(true);
+		expect(hasFilterParams(reader({ search: 'garchomp' }))).toBe(true);
 	});
 });

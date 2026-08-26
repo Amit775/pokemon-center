@@ -17,13 +17,13 @@ export class PokemonListComponent {
 	private readonly route = inject(ActivatedRoute);
 	protected readonly store = inject(PokedexContextStore);
 
-	public search = signal(this.route.snapshot.queryParamMap.get('q') ?? '');
-	public types = signal<string[]>(this.route.snapshot.queryParamMap.get('t')?.split(',').filter(Boolean) ?? []);
+	public search = signal(this.route.snapshot.queryParamMap.get('search') ?? '');
+	public types = signal<string[]>(this.route.snapshot.queryParamMap.get('types')?.split(',').filter(Boolean) ?? []);
 	public generation = signal<number | null>(
 		this.route.snapshot.queryParamMap.get('generation') ? Number(this.route.snapshot.queryParamMap.get('generation')) : null,
 	);
-	public sortBy = signal(this.route.snapshot.queryParamMap.get('sort') ?? 'id');
-	public sortDesc = signal(this.route.snapshot.queryParamMap.get('desc') === '1');
+	public sortBy = signal(this.route.snapshot.queryParamMap.get('sortBy') ?? 'id');
+	public sortDesc = signal(this.route.snapshot.queryParamMap.get('sortDescending') === '1');
 
 	private readonly list = gqlResource(PokemonListDocument, () => ({
 		take: 500,
@@ -53,15 +53,16 @@ export class PokemonListComponent {
 		const versionGroup = this.route.snapshot.queryParamMap.get('versionGroup');
 		if (versionGroup !== null) this.store.setActiveVersionGroup(versionGroup || null);
 
-		// keep the URL shareable: ?q=&versionGroup=&t=&generation=&sort=&desc=
+		// keep the URL shareable. Each key is named for the state it carries, so the query string
+		// reads as the filter panel does: ?search=&versionGroup=&types=&generation=&sortBy=&sortDescending=
 		effect(() => {
 			const queryParams = {
-				q: this.search() || null,
+				search: this.search() || null,
 				versionGroup: this.store.activeVersionGroup(),
-				t: this.types().length ? this.types().join(',') : null,
+				types: this.types().length ? this.types().join(',') : null,
 				generation: this.generation(),
-				sort: this.sortBy() !== 'id' ? this.sortBy() : null,
-				desc: this.sortDesc() ? '1' : null,
+				sortBy: this.sortBy() !== 'id' ? this.sortBy() : null,
+				sortDescending: this.sortDesc() ? '1' : null,
 			};
 			untracked(() => this.router.navigate([], { relativeTo: this.route, queryParams, replaceUrl: true }));
 		});
