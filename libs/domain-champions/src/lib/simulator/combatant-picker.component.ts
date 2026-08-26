@@ -217,7 +217,7 @@ export class CombatantPickerComponent {
 	protected readonly term = signal('');
 
 	private readonly search = championsResource(ChampionsSearchDocument, () => ({ query: this.term(), take: 8 }));
-	protected readonly results = computed(() => (this.term().trim() === '' ? [] : (this.search.value()?.champSearch ?? [])));
+	protected readonly results = computed(() => (this.term().trim() === '' ? [] : (this.search.value()?.championsSearch ?? [])));
 
 	/**
 	 * What is currently selected, and whether its numbers are exact or inferred.

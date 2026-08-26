@@ -18,7 +18,7 @@ export interface PokedexEntry {
 	id: number;
 	slug: string;
 	name: string;
-	nationalDexNo: number;
+	nationalPokedexNumber: number;
 	types: string[];
 	baseStats: Record<StatKey, number> & { total: number };
 	isMega: boolean;
@@ -201,7 +201,7 @@ function passesStats(entry: PokedexEntry, filters: PokedexFilters): boolean {
  * change, which reads as the list flickering for no reason. A tie is broken the same way twice.
  */
 function byPokedex(a: PokedexEntry, b: PokedexEntry): number {
-	return a.nationalDexNo - b.nationalDexNo || Number(a.isMega) - Number(b.isMega);
+	return a.nationalPokedexNumber - b.nationalPokedexNumber || Number(a.isMega) - Number(b.isMega);
 }
 
 const SORTERS: Record<SortKey, (a: PokedexEntry, b: PokedexEntry) => number> = {

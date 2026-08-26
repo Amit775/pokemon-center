@@ -400,7 +400,7 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 				id: pokemonId,
 				slug: identifier,
 				name: displayName(entry, speciesNameById.get(entry.pokedexNumber) ?? entry.species),
-				nationalDexNo: entry.pokedexNumber,
+				nationalPokedexNumber: entry.pokedexNumber,
 				type1Id: typeIds[0] ?? 1,
 				type2Id: typeIds[1] ?? null,
 				baseHp: stats.get(1) ?? 0,

@@ -48,7 +48,7 @@ export interface DerivedPokemon {
 	id: number;
 	slug: string;
 	name: string;
-	nationalDexNo: number;
+	nationalPokedexNumber: number;
 	type1Id: number;
 	type2Id: number | null;
 	baseHp: number;

@@ -48,7 +48,7 @@ const STATS: { key: StatKey; label: string }[] = [
 
 			<div class="identity">
 				<a class="name" [routerLink]="link()">
-					<span class="no">#{{ mon().nationalDexNo }}</span>
+					<span class="no">#{{ mon().nationalPokedexNumber }}</span>
 					{{ mon().name }}
 				</a>
 				<div class="chips">

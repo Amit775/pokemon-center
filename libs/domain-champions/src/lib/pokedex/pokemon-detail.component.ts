@@ -89,7 +89,7 @@ import { StatPanelComponent } from './stat-panel.component';
 						@for (t of pokemon.types; track t) {
 							<pokedex-type-chip [type]="t" />
 						}
-						<span class="pokedex-number">#{{ pokemon.nationalDexNo }}</span>
+						<span class="pokedex-number">#{{ pokemon.nationalPokedexNumber }}</span>
 						@if (canMega()) {
 							<span class="badge mega-badge">Can Mega Evolve</span>
 						}
@@ -504,7 +504,7 @@ export default class PokemonDetailComponent {
 	protected readonly query = championsResource(ChampionsTeamDocument, () => ({ slugs: [this.slug()] }));
 
 	/** The learnset, abilities and Mega forms — the only part of this page that waits. */
-	protected readonly mon = computed(() => this.query.value()?.champTeam[0] ?? null);
+	protected readonly mon = computed(() => this.query.value()?.championsTeam[0] ?? null);
 
 	/** The same Pokémon as the grid already knows it. Present the moment the roster has loaded. */
 	private readonly seed = computed(() => this.pokedex.entries().find((entry) => entry.slug === this.slug()) ?? null);

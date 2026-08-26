@@ -12,7 +12,7 @@ const chart: TypeChart = {
 function entry(overrides: Partial<PokedexEntry> & Pick<PokedexEntry, 'slug' | 'name' | 'types'>): PokedexEntry {
 	return {
 		id: 1,
-		nationalDexNo: 1,
+		nationalPokedexNumber: 1,
 		baseStats: { hp: 80, attack: 80, defense: 80, specialAttack: 80, specialDefense: 80, speed: 80, total: 480 },
 		isMega: false,
 		hasMega: false,

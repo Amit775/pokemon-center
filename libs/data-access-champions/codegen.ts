@@ -6,7 +6,7 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
  * Deliberately a second codegen project rather than extra documents on
  * `data-access-pokedex`: the two schemas describe different games with different mechanics,
  * and sharing a generated namespace would make it easy to pass a mainline `Move` where a
- * Champions `ChampMove` is meant — the exact class of mistake the database split prevents.
+ * Champions `ChampionsMove` is meant — the exact class of mistake the database split prevents.
  */
 const config: CodegenConfig = {
 	schema: 'apps/champions-service/schema.gql',

@@ -167,7 +167,7 @@ import { SectionHeadingComponent, TypeChipComponent, UiCardComponent, UiSkeleton
 })
 export default class ChangesComponent {
 	protected readonly query = championsResource(ChampionsChangedMovesDocument, () => ({}));
-	protected readonly moves = computed(() => this.query.value()?.champChangedMoves ?? []);
+	protected readonly moves = computed(() => this.query.value()?.championsChangedMoves ?? []);
 
 	/**
 	 * Mechanical changes that are not per-move.

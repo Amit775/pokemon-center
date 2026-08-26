@@ -92,7 +92,7 @@ export async function runSeed(file?: string): Promise<void> {
 			const fields = {
 				slug: p.slug,
 				name: p.name,
-				national_dex_no: p.nationalDexNo,
+				national_dex_no: p.nationalPokedexNumber,
 				type1_id: p.type1Id,
 				type2_id: p.type2Id,
 				base_hp: p.baseHp,

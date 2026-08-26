@@ -10,14 +10,14 @@ export enum DamageClass {
 registerEnumType(DamageClass, { name: 'DamageClass' });
 
 @ObjectType()
-export class ChampType {
+export class ChampionsType {
 	@Field(() => Int) id!: number;
 	@Field() slug!: string;
 	@Field() name!: string;
 }
 
 @ObjectType()
-export class ChampAbility {
+export class ChampionsAbility {
 	@Field(() => Int) id!: number;
 	@Field() slug!: string;
 	@Field() name!: string;
@@ -27,7 +27,7 @@ export class ChampAbility {
 }
 
 @ObjectType()
-export class ChampMove {
+export class ChampionsMove {
 	@Field(() => Int) id!: number;
 	@Field() slug!: string;
 	@Field() name!: string;
@@ -62,18 +62,18 @@ export class BaseStats {
 
 @ObjectType()
 export class PokemonAbilitySlot {
-	@Field(() => ChampAbility) ability!: ChampAbility;
+	@Field(() => ChampionsAbility) ability!: ChampionsAbility;
 	@Field(() => Int) slot!: number;
 	@Field() isHidden!: boolean;
 }
 
 /** Enough to render a search result or a team slot without fetching a learnset. */
 @ObjectType()
-export class ChampPokemonSummary {
+export class ChampionsPokemonSummary {
 	@Field(() => Int) id!: number;
 	@Field() slug!: string;
 	@Field() name!: string;
-	@Field(() => Int) nationalDexNo!: number;
+	@Field(() => Int) nationalPokedexNumber!: number;
 	@Field(() => [String]) types!: string[];
 	@Field(() => BaseStats) baseStats!: BaseStats;
 	@Field() isMega!: boolean;
@@ -84,12 +84,12 @@ export class ChampPokemonSummary {
 
 /** Everything the advisor needs to build and calculate with a Pokémon. */
 @ObjectType()
-export class ChampPokemonDetail extends ChampPokemonSummary {
+export class ChampionsPokemonDetail extends ChampionsPokemonSummary {
 	@Field(() => [PokemonAbilitySlot]) abilities!: PokemonAbilitySlot[];
-	@Field(() => ChampAbility, { nullable: true }) megaAbility!: ChampAbility | null;
-	@Field(() => [ChampMove]) moves!: ChampMove[];
+	@Field(() => ChampionsAbility, { nullable: true }) megaAbility!: ChampionsAbility | null;
+	@Field(() => [ChampionsMove]) moves!: ChampionsMove[];
 	/** Megas legal in the current regulation that this Pokémon can become. */
-	@Field(() => [ChampPokemonSummary]) megaForms!: ChampPokemonSummary[];
+	@Field(() => [ChampionsPokemonSummary]) megaForms!: ChampionsPokemonSummary[];
 	/**
 	 * True when the learnset was supplemented from recent mainline games because the
 	 * dataset's Champions version group had gaps. Surfaced so a slightly generous move list
@@ -101,17 +101,17 @@ export class ChampPokemonDetail extends ChampPokemonSummary {
 /**
  * One roster row, carrying everything the Pokédex filters need.
  *
- * Deliberately fat compared with `ChampPokemonSummary`: the whole legal roster is fetched in
+ * Deliberately fat compared with `ChampionsPokemonSummary`: the whole legal roster is fetched in
  * a single call and every filter then runs in the browser. ~316 rows is nothing over the
  * wire, and it buys instant, freely combinable filtering — which a round trip per keystroke
  * could never do.
  */
 @ObjectType()
-export class ChampDexEntry {
+export class ChampionsPokedexEntry {
 	@Field(() => Int) id!: number;
 	@Field() slug!: string;
 	@Field() name!: string;
-	@Field(() => Int) nationalDexNo!: number;
+	@Field(() => Int) nationalPokedexNumber!: number;
 	@Field(() => [String]) types!: string[];
 	@Field(() => BaseStats) baseStats!: BaseStats;
 	@Field() isMega!: boolean;

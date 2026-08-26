@@ -20,8 +20,8 @@ function pickLandmarks(entries: readonly PokedexEntry[], valueOf: (entry: Pokede
 	for (const entry of entries) {
 		const value = valueOf(entry);
 		const existing = best.get(value);
-		if (!existing || entry.nationalDexNo < existing.pokedexNumber) {
-			best.set(value, { value, id: entry.id, name: entry.name, types: entry.types, pokedexNumber: entry.nationalDexNo });
+		if (!existing || entry.nationalPokedexNumber < existing.pokedexNumber) {
+			best.set(value, { value, id: entry.id, name: entry.name, types: entry.types, pokedexNumber: entry.nationalPokedexNumber });
 		}
 	}
 
@@ -615,7 +615,7 @@ export class PokedexFiltersComponent {
 			.sort(
 				(first, second) =>
 					Number(second.name.toLowerCase().startsWith(term)) - Number(first.name.toLowerCase().startsWith(term)) ||
-					first.nationalDexNo - second.nationalDexNo,
+					first.nationalPokedexNumber - second.nationalPokedexNumber,
 			)
 			.slice(0, 8);
 	});

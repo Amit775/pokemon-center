@@ -67,7 +67,7 @@ export const AdvisorStore = signalStore(
 			(myTeam()?.members ?? []).flatMap((member) => (member.boxPokemon ? [boxEntryToBuild(member.boxPokemon)] : [])),
 		);
 
-		const theirMembers = computed(() => _theirQuery.value()?.champTeam ?? []);
+		const theirMembers = computed(() => _theirQuery.value()?.championsTeam ?? []);
 		const theirBuilds = computed(() => {
 			const bySlug = new Map(theirMembers().map((theirMember) => [theirMember.slug, theirMember]));
 			return theirSlugs().flatMap((slug) => {

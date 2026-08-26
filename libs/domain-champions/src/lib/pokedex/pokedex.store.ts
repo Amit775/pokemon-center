@@ -102,7 +102,7 @@ export const PokedexStore = signalStore(
 		_box: inject(BoxStore),
 	})),
 	withComputed(({ _pokedexQuery, _chartQuery, _typesQuery, _abilityQuery, _moveIndexQuery, _learnersQuery, _box, filters, compare, sets }) => {
-		const entries = computed<PokedexEntry[]>(() => (_pokedexQuery.value()?.champDex ?? []) as PokedexEntry[]);
+		const entries = computed<PokedexEntry[]>(() => (_pokedexQuery.value()?.championsPokedex ?? []) as PokedexEntry[]);
 		const typeChart = computed(() => toTypeChart(_chartQuery.value()?.typeChart ?? []));
 		// Normalized to base forms, because a Mega is not a separate Pokémon here: boxing a
 		// Mega Garchomp means you own Garchomp, and the list only ever shows the base form.
@@ -113,7 +113,7 @@ export const PokedexStore = signalStore(
 		/** Null while a picked move's learners are still in flight — see `FilterContext`. */
 		const learners = computed<ReadonlySet<number> | null>(() => {
 			if (!filters().move) return null;
-			const ids = _learnersQuery.value()?.champMoveLearners;
+			const ids = _learnersQuery.value()?.championsMoveLearners;
 			return ids ? new Set(ids) : null;
 		});
 
@@ -137,7 +137,7 @@ export const PokedexStore = signalStore(
 			results,
 			megaForms,
 
-			types: computed(() => _typesQuery.value()?.champTypes ?? []),
+			types: computed(() => _typesQuery.value()?.championsTypes ?? []),
 
 			isLoading: computed(() => _pokedexQuery.isLoading() || _chartQuery.isLoading()),
 			error: computed(() => _pokedexQuery.error() ?? _chartQuery.error()),
@@ -150,7 +150,7 @@ export const PokedexStore = signalStore(
 			 */
 			abilityText: computed(() => {
 				const map = new Map<string, { name: string; effectText: string | null }>();
-				for (const ability of _abilityQuery.value()?.champAbilities ?? []) {
+				for (const ability of _abilityQuery.value()?.championsAbilities ?? []) {
 					map.set(ability.slug, { name: ability.name, effectText: ability.effectText ?? null });
 				}
 				return map;
@@ -163,12 +163,12 @@ export const PokedexStore = signalStore(
 			relaxations: computed(() => (results().length > 0 ? [] : diagnoseEmpty(entries(), filters(), typeChart(), context()))),
 
 			/** Every move, for the move filter's autocomplete. Names only — no learnsets. */
-			moveIndex: computed(() => _moveIndexQuery.value()?.champMoveIndex ?? []),
+			moveIndex: computed(() => _moveIndexQuery.value()?.championsMoveIndex ?? []),
 
 			/** The picked move, and whether its learners have arrived yet. */
 			pickedMove: computed(() => {
 				const slug = filters().move;
-				return slug ? ((_moveIndexQuery.value()?.champMoveIndex ?? []).find((move) => move.slug === slug) ?? null) : null;
+				return slug ? ((_moveIndexQuery.value()?.championsMoveIndex ?? []).find((move) => move.slug === slug) ?? null) : null;
 			}),
 
 			isLoadingLearners: computed(() => filters().move !== null && learners() === null),

@@ -13,14 +13,14 @@ type BaseStats {
 }
 
 type BoxPokemon {
-  ability: ChampAbility
+  ability: ChampionsAbility
   id: Int!
   item: String
-  moves: [ChampMove!]!
+  moves: [ChampionsMove!]!
   nature: String
   nickname: String
   notes: String
-  pokemon: ChampPokemonSummary!
+  pokemon: ChampionsPokemonSummary!
   statPoints: StatPointSpread!
 }
 
@@ -36,7 +36,7 @@ input BoxPokemonInput {
   statPoints: StatPointSpreadInput!
 }
 
-type ChampAbility {
+type ChampionsAbility {
   effectText: String
   id: Int!
   isMega: Boolean!
@@ -44,22 +44,7 @@ type ChampAbility {
   slug: String!
 }
 
-type ChampDexEntry {
-  abilityNames: [String!]!
-  abilitySlugs: [String!]!
-  baseStats: BaseStats!
-  hasMega: Boolean!
-  id: Int!
-  isMega: Boolean!
-  learnsetIsApproximate: Boolean!
-  megaOfSlug: String
-  name: String!
-  nationalDexNo: Int!
-  slug: String!
-  types: [String!]!
-}
-
-type ChampMove {
+type ChampionsMove {
   accuracy: Int
   damageClass: DamageClass!
   effectChance: Int
@@ -76,36 +61,51 @@ type ChampMove {
   type: String!
 }
 
-type ChampPokemonDetail {
+type ChampionsPokedexEntry {
+  abilityNames: [String!]!
+  abilitySlugs: [String!]!
+  baseStats: BaseStats!
+  hasMega: Boolean!
+  id: Int!
+  isMega: Boolean!
+  learnsetIsApproximate: Boolean!
+  megaOfSlug: String
+  name: String!
+  nationalPokedexNumber: Int!
+  slug: String!
+  types: [String!]!
+}
+
+type ChampionsPokemonDetail {
   abilities: [PokemonAbilitySlot!]!
   baseStats: BaseStats!
   id: Int!
   isMega: Boolean!
   learnsetIsApproximate: Boolean!
-  megaAbility: ChampAbility
-  megaForms: [ChampPokemonSummary!]!
+  megaAbility: ChampionsAbility
+  megaForms: [ChampionsPokemonSummary!]!
   megaOfSlug: String
-  moves: [ChampMove!]!
+  moves: [ChampionsMove!]!
   name: String!
-  nationalDexNo: Int!
+  nationalPokedexNumber: Int!
   slug: String!
   spriteKey: String
   types: [String!]!
 }
 
-type ChampPokemonSummary {
+type ChampionsPokemonSummary {
   baseStats: BaseStats!
   id: Int!
   isMega: Boolean!
   megaOfSlug: String
   name: String!
-  nationalDexNo: Int!
+  nationalPokedexNumber: Int!
   slug: String!
   spriteKey: String
   types: [String!]!
 }
 
-type ChampType {
+type ChampionsType {
   id: Int!
   name: String!
   slug: String!
@@ -130,23 +130,23 @@ type Mutation {
 }
 
 type PokemonAbilitySlot {
-  ability: ChampAbility!
+  ability: ChampionsAbility!
   isHidden: Boolean!
   slot: Int!
 }
 
 type Query {
   box: [BoxPokemon!]!
-  champAbilities: [ChampAbility!]!
-  champChangedMoves: [ChampMove!]!
-  champDex(regulation: String): [ChampDexEntry!]!
-  champMoveIndex: [ChampMove!]!
-  champMoveLearners(moveSlug: String!): [Int!]!
-  champRoster(includeMegas: Boolean = false, regulation: String, search: String, skip: Int = 0, take: Int = 60, type: String): [ChampPokemonSummary!]!
-  champRosterCount(includeMegas: Boolean = false, regulation: String, search: String, type: String): Int!
-  champSearch(query: String!, regulation: String, take: Int = 12): [ChampPokemonSummary!]!
-  champTeam(slugs: [String!]!): [ChampPokemonDetail!]!
-  champTypes: [ChampType!]!
+  championsAbilities: [ChampionsAbility!]!
+  championsChangedMoves: [ChampionsMove!]!
+  championsMoveIndex: [ChampionsMove!]!
+  championsMoveLearners(moveSlug: String!): [Int!]!
+  championsPokedex(regulation: String): [ChampionsPokedexEntry!]!
+  championsRoster(includeMegas: Boolean = false, regulation: String, search: String, skip: Int = 0, take: Int = 60, type: String): [ChampionsPokemonSummary!]!
+  championsRosterCount(includeMegas: Boolean = false, regulation: String, search: String, type: String): Int!
+  championsSearch(query: String!, regulation: String, take: Int = 12): [ChampionsPokemonSummary!]!
+  championsTeam(slugs: [String!]!): [ChampionsPokemonDetail!]!
+  championsTypes: [ChampionsType!]!
   currentRegulation: Regulation
   regulation(code: String!): Regulation
   regulations: [Regulation!]!
@@ -202,7 +202,7 @@ input TeamInput {
 
 type TeamMember {
   boxPokemon: BoxPokemon
-  pokemon: ChampPokemonSummary!
+  pokemon: ChampionsPokemonSummary!
   slot: Int!
 }
 

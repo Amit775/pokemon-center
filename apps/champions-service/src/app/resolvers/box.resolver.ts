@@ -86,7 +86,7 @@ function toSummary(row: any) {
 		id: row.id,
 		slug: row.slug,
 		name: row.name,
-		nationalDexNo: row.national_dex_no,
+		nationalPokedexNumber: row.national_dex_no,
 		types: [row.type1.slug, ...(row.type2 ? [row.type2.slug] : [])],
 		baseStats: {
 			hp: row.base_hp,

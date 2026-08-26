@@ -23,7 +23,7 @@ const chart: TypeChart = {
 function entry(overrides: Partial<PokedexEntry> & Pick<PokedexEntry, 'slug' | 'name' | 'types'>): PokedexEntry {
 	return {
 		id: 1,
-		nationalDexNo: 1,
+		nationalPokedexNumber: 1,
 		baseStats: { hp: 80, attack: 80, defense: 80, specialAttack: 80, specialDefense: 80, speed: 80, total: 480 },
 		isMega: false,
 		hasMega: false,
@@ -38,7 +38,7 @@ const garchomp = entry({
 	slug: 'garchomp',
 	name: 'Garchomp',
 	types: ['dragon', 'ground'],
-	nationalDexNo: 445,
+	nationalPokedexNumber: 445,
 	hasMega: true,
 	abilitySlugs: ['rough-skin'],
 	abilityNames: ['Rough Skin'],
@@ -49,7 +49,7 @@ const garchompMega = entry({
 	slug: 'garchomp-mega',
 	name: 'Mega Garchomp',
 	types: ['dragon', 'ground'],
-	nationalDexNo: 445,
+	nationalPokedexNumber: 445,
 	isMega: true,
 	megaOfSlug: 'garchomp',
 	baseStats: { hp: 108, attack: 170, defense: 115, specialAttack: 120, specialDefense: 95, speed: 92, total: 700 },
@@ -59,7 +59,7 @@ const corviknight = entry({
 	slug: 'corviknight',
 	name: 'Corviknight',
 	types: ['flying', 'steel'],
-	nationalDexNo: 823,
+	nationalPokedexNumber: 823,
 	abilitySlugs: ['pressure'],
 	abilityNames: ['Pressure'],
 	baseStats: { hp: 98, attack: 87, defense: 105, specialAttack: 53, specialDefense: 85, speed: 67, total: 495 },
@@ -69,7 +69,7 @@ const azumarill = entry({
 	slug: 'azumarill',
 	name: 'Azumarill',
 	types: ['water', 'fairy'],
-	nationalDexNo: 184,
+	nationalPokedexNumber: 184,
 	abilitySlugs: ['huge-power'],
 	abilityNames: ['Huge Power'],
 	baseStats: { hp: 100, attack: 50, defense: 80, specialAttack: 60, specialDefense: 80, speed: 50, total: 420 },
@@ -139,7 +139,7 @@ describe('type filter', () => {
 	it('returns mono-types only when exact mode has one chip', () => {
 		// Garchomp is Dragon/Ground, so it is not "a Dragon type" under the strict reading —
 		// it is a Dragon/Ground type. This is the whole difference between the two modes.
-		const mono = entry({ slug: 'druddigon', name: 'Druddigon', types: ['dragon'], nationalDexNo: 621 });
+		const mono = entry({ slug: 'druddigon', name: 'Druddigon', types: ['dragon'], nationalPokedexNumber: 621 });
 
 		expect(slugs(applyFilters([...roster, mono], filters({ types: ['dragon'], typeMode: 'exact' }), chart))).toEqual(['druddigon']);
 	});
@@ -154,12 +154,12 @@ describe('type filter', () => {
 describe('mega display', () => {
 	// The bug this exists to prevent: Beedrill's base Speed is 75, its Mega's is 145. A search
 	// for base Speed 125+ that drops Beedrill is hiding something that outspeeds you.
-	const beedrill = entry({ slug: 'beedrill', name: 'Beedrill', types: ['bug', 'poison'], nationalDexNo: 15, hasMega: true });
+	const beedrill = entry({ slug: 'beedrill', name: 'Beedrill', types: ['bug', 'poison'], nationalPokedexNumber: 15, hasMega: true });
 	const beedrillMega = entry({
 		slug: 'beedrill-mega',
 		name: 'Mega Beedrill',
 		types: ['bug', 'poison'],
-		nationalDexNo: 15,
+		nationalPokedexNumber: 15,
 		isMega: true,
 		megaOfSlug: 'beedrill',
 		baseStats: { hp: 65, attack: 150, defense: 40, specialAttack: 15, specialDefense: 80, speed: 145, total: 495 },
@@ -201,12 +201,12 @@ describe('mega display', () => {
 });
 
 describe('megaOnlyMatches', () => {
-	const beedrill = entry({ slug: 'beedrill', name: 'Beedrill', types: ['bug'], nationalDexNo: 15, hasMega: true });
+	const beedrill = entry({ slug: 'beedrill', name: 'Beedrill', types: ['bug'], nationalPokedexNumber: 15, hasMega: true });
 	const beedrillMega = entry({
 		slug: 'beedrill-mega',
 		name: 'Mega Beedrill',
 		types: ['bug'],
-		nationalDexNo: 15,
+		nationalPokedexNumber: 15,
 		isMega: true,
 		megaOfSlug: 'beedrill',
 		baseStats: { hp: 65, attack: 150, defense: 40, specialAttack: 15, specialDefense: 80, speed: 145, total: 495 },
@@ -380,8 +380,8 @@ describe('sorting', () => {
 	it('breaks stat ties by dex number rather than leaving them to input order', () => {
 		// Two entries with identical Speed, fed in reverse dex order. Without the tiebreak the
 		// result depends on the array it arrived in, so the grid reshuffles on unrelated changes.
-		const fast = entry({ slug: 'fast-b', name: 'Fast B', types: ['fire'], nationalDexNo: 900 });
-		const alsoFast = entry({ slug: 'fast-a', name: 'Fast A', types: ['fire'], nationalDexNo: 100 });
+		const fast = entry({ slug: 'fast-b', name: 'Fast B', types: ['fire'], nationalPokedexNumber: 900 });
+		const alsoFast = entry({ slug: 'fast-a', name: 'Fast A', types: ['fire'], nationalPokedexNumber: 100 });
 
 		expect(slugs(applyFilters([fast, alsoFast], filters({ sortBy: 'speed' }), chart))).toEqual(['fast-a', 'fast-b']);
 	});

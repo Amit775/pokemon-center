@@ -219,7 +219,7 @@ export class SlotPickerComponent {
 
 	protected readonly search = championsResource(ChampionsSearchDocument, () => ({ query: this.term(), take: 8 }));
 
-	protected readonly results = computed(() => (this.term().trim().length === 0 ? [] : (this.search.value()?.champSearch ?? [])));
+	protected readonly results = computed(() => (this.term().trim().length === 0 ? [] : (this.search.value()?.championsSearch ?? [])));
 
 	constructor() {
 		// Focus the field the moment it appears — one click should be enough to start typing.

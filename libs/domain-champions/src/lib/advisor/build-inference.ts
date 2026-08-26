@@ -27,7 +27,7 @@ import type { ChampionsTeamQuery, TypeChartQuery } from '@pokemon-center/data-ac
  *    harvesting real sets, an inferred moveset is a hypothesis.
  */
 
-type TeamMember = ChampionsTeamQuery['champTeam'][number];
+type TeamMember = ChampionsTeamQuery['championsTeam'][number];
 
 /** Build the engine's nested type chart from the flat rows the API returns. */
 export function toTypeChart(rows: TypeChartQuery['typeChart']): TypeChart {

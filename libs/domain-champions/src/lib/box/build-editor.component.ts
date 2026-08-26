@@ -434,7 +434,7 @@ export class BuildEditorComponent {
 	protected readonly moveSearch = signal('');
 
 	private readonly query = championsResource(ChampionsTeamDocument, () => ({ slugs: [this.slug()] }));
-	protected readonly detail = computed(() => this.query.value()?.champTeam[0] ?? null);
+	protected readonly detail = computed(() => this.query.value()?.championsTeam[0] ?? null);
 	protected readonly sprite = computed(() => spriteSources(this.detail()?.id ?? 0));
 
 	protected readonly nickname = signal('');

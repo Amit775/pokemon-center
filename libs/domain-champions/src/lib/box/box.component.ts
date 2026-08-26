@@ -377,7 +377,7 @@ export default class BoxComponent {
 
 	private readonly pickerInput = viewChild<ElementRef<HTMLInputElement>>('picker');
 	private readonly picker = championsResource(ChampionsSearchDocument, () => ({ query: this.pickerTerm(), take: 10 }));
-	protected readonly pickerResults = computed(() => (this.pickerTerm().trim() === '' ? [] : (this.picker.value()?.champSearch ?? [])));
+	protected readonly pickerResults = computed(() => (this.pickerTerm().trim() === '' ? [] : (this.picker.value()?.championsSearch ?? [])));
 
 	protected sprite(id: number) {
 		return spriteSources(id);

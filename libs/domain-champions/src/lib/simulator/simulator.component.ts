@@ -402,7 +402,7 @@ export default class SimulatorComponent {
 			return entry ? boxEntryToBuild(entry) : null;
 		}
 
-		const member = (this.pokedexQuery.value()?.champTeam ?? []).find((teamMember) => teamMember.slug === key.slice(POKEDEX_PREFIX.length));
+		const member = (this.pokedexQuery.value()?.championsTeam ?? []).find((teamMember) => teamMember.slug === key.slice(POKEDEX_PREFIX.length));
 		return member ? inferBuild(member) : null;
 	}
 
