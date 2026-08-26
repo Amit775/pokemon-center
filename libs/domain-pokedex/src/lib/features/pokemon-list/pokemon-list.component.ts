@@ -20,7 +20,7 @@ export class PokemonListComponent {
 	public search = signal(this.route.snapshot.queryParamMap.get('q') ?? '');
 	public types = signal<string[]>(this.route.snapshot.queryParamMap.get('t')?.split(',').filter(Boolean) ?? []);
 	public generation = signal<number | null>(
-		this.route.snapshot.queryParamMap.get('gen') ? Number(this.route.snapshot.queryParamMap.get('gen')) : null,
+		this.route.snapshot.queryParamMap.get('generation') ? Number(this.route.snapshot.queryParamMap.get('generation')) : null,
 	);
 	public sortBy = signal(this.route.snapshot.queryParamMap.get('sort') ?? 'id');
 	public sortDesc = signal(this.route.snapshot.queryParamMap.get('desc') === '1');
@@ -49,17 +49,17 @@ export class PokemonListComponent {
 	}
 
 	constructor() {
-		// deep-linked game context (?vg=) wins over the persisted one
-		const vg = this.route.snapshot.queryParamMap.get('vg');
-		if (vg !== null) this.store.setActiveVersionGroup(vg || null);
+		// deep-linked game context (?versionGroup=) wins over the persisted one
+		const versionGroup = this.route.snapshot.queryParamMap.get('versionGroup');
+		if (versionGroup !== null) this.store.setActiveVersionGroup(versionGroup || null);
 
-		// keep the URL shareable: ?q=&vg=&t=&gen=&sort=&desc=
+		// keep the URL shareable: ?q=&versionGroup=&t=&generation=&sort=&desc=
 		effect(() => {
 			const queryParams = {
 				q: this.search() || null,
-				vg: this.store.activeVersionGroup(),
+				versionGroup: this.store.activeVersionGroup(),
 				t: this.types().length ? this.types().join(',') : null,
-				gen: this.generation(),
+				generation: this.generation(),
 				sort: this.sortBy() !== 'id' ? this.sortBy() : null,
 				desc: this.sortDesc() ? '1' : null,
 			};

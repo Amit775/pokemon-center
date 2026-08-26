@@ -5,8 +5,8 @@
 		Gen
 		<select (change)="onGeneration($event)">
 			<option value="" [selected]="generation() === null">All</option>
-			@for (gen of generations; track gen) {
-				<option [value]="gen" [selected]="generation() === gen">{{ gen }}</option>
+			@for (generationNumber of generations; track generationNumber) {
+				<option [value]="generationNumber" [selected]="generation() === generationNumber">{{ generationNumber }}</option>
 			}
 		</select>
 	</label>

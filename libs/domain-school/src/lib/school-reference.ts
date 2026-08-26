@@ -36,7 +36,7 @@ export class SchoolReference {
 
 	/**
 	 * School follows the Pokedex's active game by default, but can pin its own era — drilling
-	 * gen-1 mechanics while browsing gen-9 is a legitimate thing to want (open question 1).
+	 * generation-1 mechanics while browsing generation-9 is a legitimate thing to want (open question 1).
 	 */
 	readonly versionGroup = computed(() => {
 		const settings = this.progress.settings();

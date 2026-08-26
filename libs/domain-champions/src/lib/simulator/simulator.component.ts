@@ -141,7 +141,7 @@ import { BOX_PREFIX, CombatantPickerComponent, POKEDEX_PREFIX } from './combatan
 								<li>
 									<span class="move-name">{{ option.move.name }}</span>
 									<pokedex-type-chip [type]="option.move.type" size="sm" />
-									<span class="damage">{{ pct(option.result.minFraction) }}–{{ pct(option.result.maxFraction) }}%</span>
+									<span class="damage">{{ percent(option.result.minFraction) }}–{{ percent(option.result.maxFraction) }}%</span>
 									<span class="ko" [class.kill]="option.ko.startsWith('guaranteed')">{{ koLabel(option.ko) }}</span>
 								</li>
 							} @empty {
@@ -474,7 +474,7 @@ export default class SimulatorComponent {
 		return (side === 'left' ? this.left() : this.right())?.species.name ?? side;
 	}
 
-	protected pct(fraction: number): number {
+	protected percent(fraction: number): number {
 		return Math.round(fraction * 100);
 	}
 

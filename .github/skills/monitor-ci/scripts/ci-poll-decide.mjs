@@ -4,7 +4,7 @@
  * CI Poll Decision Script
  *
  * Deterministic decision engine for CI monitoring.
- * Takes ci_information JSON + state args, outputs a single JSON action line.
+ * Takes ci_information JSON + state commandLineArguments, outputs a single JSON action line.
  *
  * Architecture:
  *   classify()    — pure decision tree, returns { action, code, extra? }
@@ -12,41 +12,41 @@
  *
  * Usage:
  *   node ci-poll-decide.mjs '<ci_info_json>' <poll_count> <verbosity> \
- *     [--wait-mode] [--prev-cipe-url <url>] [--expected-sha <sha>] \
- *     [--prev-status <status>] [--timeout <seconds>] [--new-cipe-timeout <seconds>] \
+ *     [--wait-mode] [--previous-cipe-url <url>] [--expected-sha <sha>] \
+ *     [--previous-status <status>] [--timeout <seconds>] [--new-cipe-timeout <seconds>] \
  *     [--env-rerun-count <n>] [--no-progress-count <n>] \
- *     [--prev-cipe-status <status>] [--prev-sh-status <status>] \
- *     [--prev-verification-status <status>] [--prev-failure-classification <status>]
+ *     [--previous-cipe-status <status>] [--previous-sh-status <status>] \
+ *     [--previous-verification-status <status>] [--previous-failure-classification <status>]
  */
 
 // --- Arg parsing ---
 
-const args = process.argv.slice(2);
-const ciInfoJson = args[0];
-const pollCount = parseInt(args[1], 10) || 0;
-const verbosity = args[2] || 'medium';
+const commandLineArguments = process.argv.slice(2);
+const ciInfoJson = commandLineArguments[0];
+const pollCount = parseInt(commandLineArguments[1], 10) || 0;
+const verbosity = commandLineArguments[2] || 'medium';
 
 function getFlag(name) {
-	return args.includes(name);
+	return commandLineArguments.includes(name);
 }
 
-function getArg(name) {
-	const idx = args.indexOf(name);
-	return idx !== -1 && idx + 1 < args.length ? args[idx + 1] : null;
+function getArgument(name) {
+	const index = commandLineArguments.indexOf(name);
+	return index !== -1 && index + 1 < commandLineArguments.length ? commandLineArguments[index + 1] : null;
 }
 
 const waitMode = getFlag('--wait-mode');
-const prevCipeUrl = getArg('--prev-cipe-url');
-const expectedSha = getArg('--expected-sha');
-const prevStatus = getArg('--prev-status');
-const timeoutSeconds = parseInt(getArg('--timeout') || '0', 10);
-const newCipeTimeoutSeconds = parseInt(getArg('--new-cipe-timeout') || '0', 10);
-const envRerunCount = parseInt(getArg('--env-rerun-count') || '0', 10);
-const inputNoProgressCount = parseInt(getArg('--no-progress-count') || '0', 10);
-const prevCipeStatus = getArg('--prev-cipe-status');
-const prevShStatus = getArg('--prev-sh-status');
-const prevVerificationStatus = getArg('--prev-verification-status');
-const prevFailureClassification = getArg('--prev-failure-classification');
+const previousCipeUrl = getArgument('--previous-cipe-url');
+const expectedSha = getArgument('--expected-sha');
+const previousStatus = getArgument('--previous-status');
+const timeoutSeconds = parseInt(getArgument('--timeout') || '0', 10);
+const newCipeTimeoutSeconds = parseInt(getArgument('--new-cipe-timeout') || '0', 10);
+const envRerunCount = parseInt(getArgument('--env-rerun-count') || '0', 10);
+const inputNoProgressCount = parseInt(getArgument('--no-progress-count') || '0', 10);
+const previousCipeStatus = getArgument('--previous-cipe-status');
+const previousShStatus = getArgument('--previous-sh-status');
+const previousVerificationStatus = getArgument('--previous-verification-status');
+const previousFailureClassification = getArgument('--previous-failure-classification');
 
 // --- Parse CI info ---
 
@@ -111,10 +111,10 @@ function backoff(count) {
 }
 
 function hasStateChanged() {
-	if (prevCipeStatus && cipeStatus !== prevCipeStatus) return true;
-	if (prevShStatus && selfHealingStatus !== prevShStatus) return true;
-	if (prevVerificationStatus && verificationStatus !== prevVerificationStatus) return true;
-	if (prevFailureClassification && failureClassification !== prevFailureClassification) return true;
+	if (previousCipeStatus && cipeStatus !== previousCipeStatus) return true;
+	if (previousShStatus && selfHealingStatus !== previousShStatus) return true;
+	if (previousVerificationStatus && verificationStatus !== previousVerificationStatus) return true;
+	if (previousFailureClassification && failureClassification !== previousFailureClassification) return true;
 	return false;
 }
 
@@ -130,7 +130,7 @@ function isWaitTimedOut() {
 }
 
 function isNewCipe() {
-	return (prevCipeUrl && cipeUrl && cipeUrl !== prevCipeUrl) || (expectedSha && commitSha && commitSha === expectedSha);
+	return (previousCipeUrl && cipeUrl && cipeUrl !== previousCipeUrl) || (expectedSha && commitSha && commitSha === expectedSha);
 }
 
 // ============================================================
@@ -309,21 +309,21 @@ const resetProgressCodes = new Set([
 	'fix_needs_local_verify',
 ]);
 
-function formatMessage(msg) {
+function formatMessage(message) {
 	if (verbosity === 'minimal') {
 		const currentStatus = `${cipeStatus}|${selfHealingStatus}|${verificationStatus}`;
-		if (currentStatus === (prevStatus || '')) return null;
-		return msg;
+		if (currentStatus === (previousStatus || '')) return null;
+		return message;
 	}
 	if (verbosity === 'verbose') {
 		return [
 			`Poll #${pollCount + 1} | CI: ${cipeStatus || 'N/A'} | Self-healing: ${
 				selfHealingStatus || 'N/A'
 			} | Verification: ${verificationStatus || 'N/A'}`,
-			msg,
+			message,
 		].join('\n');
 	}
-	return `Poll #${pollCount + 1} | ${msg}`;
+	return `Poll #${pollCount + 1} | ${message}`;
 }
 
 function buildOutput(decision) {
@@ -332,9 +332,9 @@ function buildOutput(decision) {
 	// noProgressCount is already computed before classify() was called.
 	// Here we only handle the reset for "genuine progress" done-codes.
 
-	const msgFn = messages[code];
-	const rawMsg = msgFn ? msgFn(extra) : `Unknown: ${code}`;
-	const message = formatMessage(rawMsg);
+	const messageFunction = messages[code];
+	const rawMessage = messageFunction ? messageFunction(extra) : `Unknown: ${code}`;
+	const message = formatMessage(rawMessage);
 
 	const result = {
 		action,

@@ -54,7 +54,7 @@ export class TypeChart {
 	@Field(() => Int, { nullable: true })
 	generationId!: number | null;
 
-	/** Type slugs present in this era, in national type order - 15 for gen 1, 18 today */
+	/** Type slugs present in this era, in national type order - 15 for generation 1, 18 today */
 	@Field(() => [String])
 	types!: string[];
 
@@ -77,11 +77,11 @@ export class AnalysisResolver {
 
 	/** `type_efficacy_past` is keyed by generation, so an era request has to be resolved through the version group first. */
 	private async generationOf(versionGroup: string): Promise<number | null> {
-		const vg = await this.prisma.versionGroups.findFirst({
+		const versionGroupRow = await this.prisma.versionGroups.findFirst({
 			where: { identifier: versionGroup },
 			select: { generation_id: true },
 		});
-		return vg?.generation_id ?? null;
+		return versionGroupRow?.generation_id ?? null;
 	}
 
 	@Query(() => TypeChart, {
@@ -123,9 +123,9 @@ export class AnalysisResolver {
 	): Promise<MatchupCounter[]> {
 		if (defenderTypes.length === 0) return [];
 
-		const vg = versionGroup ?? null;
-		const generationId = vg ? await this.generationOf(vg) : null;
-		if (vg && generationId === null) return [];
+		const versionGroupFilter = versionGroup ?? null;
+		const generationId = versionGroupFilter ? await this.generationOf(versionGroupFilter) : null;
+		if (versionGroupFilter && generationId === null) return [];
 
 		const rows = await this.prisma.$queryRaw<RawCounter[]>`
 			WITH efficacy AS (${eraEfficacySql(generationId)}),
@@ -145,12 +145,12 @@ export class AnalysisResolver {
 				HAVING min(te.damage_factor) > 0
 			),
 			version_group_context AS (
-				SELECT vg.id FROM version_groups vg WHERE ${vg}::text IS NULL OR vg.identifier = ${vg}
+				SELECT vg.id FROM version_groups vg WHERE ${versionGroupFilter}::text IS NULL OR vg.identifier = ${versionGroupFilter}
 			),
 			candidate_moves AS (
 				SELECT DISTINCT pm.pokemon_id, pm.move_id
 				FROM pokemon_moves pm
-				WHERE ${vg}::text IS NULL OR pm.version_group_id IN (SELECT id FROM version_group_context)
+				WHERE ${versionGroupFilter}::text IS NULL OR pm.version_group_id IN (SELECT id FROM version_group_context)
 			),
 			scored AS (
 				SELECT p.id AS pokemon_id,
@@ -171,7 +171,7 @@ export class AnalysisResolver {
 				LEFT JOIN pokemon_stats st
 				  ON st.pokemon_id = p.id
 				 AND st.stat_id = CASE WHEN dc.identifier = 'physical' THEN 2 WHEN dc.identifier = 'special' THEN 4 ELSE NULL END
-				WHERE (${vg}::text IS NULL OR EXISTS (
+				WHERE (${versionGroupFilter}::text IS NULL OR EXISTS (
 					SELECT 1 FROM pokemon_dex_numbers pdn
 					JOIN pokedex_version_groups pvg ON pvg.pokedex_id = pdn.pokedex_id
 					JOIN version_group_context ON version_group_context.id = pvg.version_group_id

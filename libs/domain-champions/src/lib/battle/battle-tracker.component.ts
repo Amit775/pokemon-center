@@ -61,7 +61,7 @@ import { BattleStore } from './battle.store';
 
 								<div class="hp">
 									<div class="bar"><span [style.width.%]="battle.them().hpFraction * 100"></span></div>
-									<span class="pct">{{ round(battle.them().hpFraction * 100) }}%</span>
+									<span class="percent">{{ round(battle.them().hpFraction * 100) }}%</span>
 								</div>
 
 								<div class="taps">
@@ -123,7 +123,7 @@ import { BattleStore } from './battle.store';
 
 								<div class="hp">
 									<div class="bar"><span [style.width.%]="battle.you().hpFraction * 100"></span></div>
-									<span class="pct">{{ round(battle.you().hpFraction * 100) }}%</span>
+									<span class="percent">{{ round(battle.you().hpFraction * 100) }}%</span>
 								</div>
 
 								<div class="taps">
@@ -354,7 +354,7 @@ import { BattleStore } from './battle.store';
 			transition: width 120ms ease-out;
 		}
 
-		.pct {
+		.percent {
 			font-variant-numeric: tabular-nums;
 			font-size: var(--fs-sm, 0.875rem);
 			min-width: 2.6rem;

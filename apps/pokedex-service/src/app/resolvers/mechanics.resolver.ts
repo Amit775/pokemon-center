@@ -174,11 +174,11 @@ export class MechanicsResolver {
 	constructor(private readonly prisma: PrismaService) {}
 
 	private async generationOf(versionGroup: string): Promise<number | null> {
-		const vg = await this.prisma.versionGroups.findFirst({
+		const versionGroupRow = await this.prisma.versionGroups.findFirst({
 			where: { identifier: versionGroup },
 			select: { generation_id: true },
 		});
-		return vg?.generation_id ?? null;
+		return versionGroupRow?.generation_id ?? null;
 	}
 
 	@Query(() => [MoveMechanics], {

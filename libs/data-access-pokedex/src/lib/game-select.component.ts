@@ -11,9 +11,9 @@ import { PokedexContextStore } from './pokedex-context.store';
 			<span>Playing:</span>
 			<select (change)="onChange($event)">
 				<option value="" [selected]="store.activeVersionGroup() === null">All games</option>
-				@for (vg of versionGroups(); track vg.id) {
-					<option [value]="vg.identifier" [selected]="vg.identifier === store.activeVersionGroup()">
-						{{ vg.identifier }} (gen {{ vg.generation.id }})
+				@for (versionGroup of versionGroups(); track versionGroup.id) {
+					<option [value]="versionGroup.identifier" [selected]="versionGroup.identifier === store.activeVersionGroup()">
+						{{ versionGroup.identifier }} (generation {{ versionGroup.generation.id }})
 					</option>
 				}
 			</select>

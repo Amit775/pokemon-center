@@ -177,17 +177,17 @@ Call the `ci_information` tool with the determined `select` fields for the curre
 ```bash
 node <skill_dir>/scripts/ci-poll-decide.mjs '<subagent_result_json>' <poll_count> <verbosity> \
   [--wait-mode] \
-  [--prev-cipe-url <last_cipe_url>] \
+  [--previous-cipe-url <last_cipe_url>] \
   [--expected-sha <expected_commit_sha>] \
-  [--prev-status <prev_status>] \
+  [--previous-status <prev_status>] \
   [--timeout <timeout_seconds>] \
   [--new-cipe-timeout <new_cipe_timeout_seconds>] \
   [--env-rerun-count <env_rerun_count>] \
   [--no-progress-count <no_progress_count>] \
-  [--prev-cipe-status <prev_cipe_status>] \
-  [--prev-sh-status <prev_sh_status>] \
-  [--prev-verification-status <prev_verification_status>] \
-  [--prev-failure-classification <prev_failure_classification>]
+  [--previous-cipe-status <prev_cipe_status>] \
+  [--previous-sh-status <prev_sh_status>] \
+  [--previous-verification-status <prev_verification_status>] \
+  [--previous-failure-classification <prev_failure_classification>]
 ```
 
 The script outputs a single JSON line: `{ action, code, message, delay?, noProgressCount, envRerunCount, fields?, newCipeDetected?, verifiableTaskIds? }`

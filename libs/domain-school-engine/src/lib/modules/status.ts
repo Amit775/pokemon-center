@@ -87,14 +87,14 @@ export const ailmentChanceGenerator: ExerciseGenerator = {
 		if (chancy.length === 0) throw new Error(`[${this.lessonId}] no move in this set has a chance-based ailment`);
 
 		const answer = rng.pick(chancy);
-		const plausible = [10, 20, 30, 50, 100].filter((pct) => pct !== answer.ailmentChance);
+		const plausible = [10, 20, 30, 50, 100].filter((percent) => percent !== answer.ailmentChance);
 		const options = rng.shuffle([answer.ailmentChance, ...rng.sample(plausible, 3)]);
 
-		const candidates: Candidate<number>[] = options.map((pct) => ({
-			id: `p${pct}`,
-			label: `${pct}%`,
-			value: pct,
-			correct: pct === answer.ailmentChance,
+		const candidates: Candidate<number>[] = options.map((percent) => ({
+			id: `p${percent}`,
+			label: `${percent}%`,
+			value: percent,
+			correct: percent === answer.ailmentChance,
 		}));
 		assertUnambiguous(this.lessonId, candidates);
 

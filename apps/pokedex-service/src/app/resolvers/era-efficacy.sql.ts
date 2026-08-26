@@ -6,11 +6,11 @@ import { Prisma } from '@pokemon-center/prisma';
  * Two things make an era chart differ from the modern one:
  *
  * 1. **Types that did not exist yet are dropped.** `types.generation_id` gates this — Steel and Dark
- *    arrive in gen 2, Fairy in gen 6 — so a gen-1 chart is 15x15, not 18x18.
+ *    arrive in generation 2, Fairy in generation 6 — so a generation-1 chart is 15x15, not 18x18.
  * 2. **Changed cells are overlaid from `type_efficacy_past`.** Following the veekun convention, a past
  *    row records the factor that applied *through* its `generation_id`, so the row governing generation
  *    G is the one with the smallest `generation_id >= G` (there may be several for one pair). That is
- *    what gives gen 1 its Ghost -> Psychic 0x bug, Poison <-> Bug 2x, and Ice -> Fire 1x.
+ *    what gives generation 1 its Ghost -> Psychic 0x bug, Poison <-> Bug 2x, and Ice -> Fire 1x.
  *
  * Passing `null` yields the modern chart untouched: no type filter (the base table is exactly the 18
  * current types) and no overlay.

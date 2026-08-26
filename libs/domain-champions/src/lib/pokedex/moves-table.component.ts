@@ -41,8 +41,8 @@ export interface DetailMove {
 					<tr>
 						<th scope="col">Move</th>
 						<th scope="col">Type</th>
-						<th scope="col">Pow</th>
-						<th scope="col">Acc</th>
+						<th scope="col">Power</th>
+						<th scope="col">Accuracy</th>
 						<th scope="col">PP</th>
 					</tr>
 				</thead>

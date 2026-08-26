@@ -111,7 +111,7 @@ describe.each(typeChartGenerators.map((g) => [g.id, g] as const))('%s', (_id, ge
 	});
 
 	it('confines itself to the era it was given', () => {
-		// The whole point: with a gen-1 chart, types that did not exist yet cannot appear —
+		// The whole point: with a generation-1 chart, types that did not exist yet cannot appear —
 		// not by filtering, but because they are simply absent from the data.
 		for (const seed of SEEDS) {
 			const exercise = generator.generate(seed, gen1Ref, gen1Ctx);
@@ -170,7 +170,7 @@ describe('immunitiesGenerator', () => {
 		}
 	});
 
-	it('surfaces the gen-1 Ghost/Psychic bug when handed a gen-1 chart', () => {
+	it('surfaces the generation-1 Ghost/Psychic bug when handed a generation-1 chart', () => {
 		expect(effectiveness(GEN1_CHART, 'ghost', 'psychic')).toBe(0);
 		expect(effectiveness(MODERN_CHART, 'ghost', 'psychic')).toBe(2);
 	});

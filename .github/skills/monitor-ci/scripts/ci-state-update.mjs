@@ -7,23 +7,23 @@
  * Three commands: gate, post-action, cycle-check.
  *
  * Usage:
- *   node ci-state-update.mjs gate --gate-type <local-fix|env-rerun> [counter args]
+ *   node ci-state-update.mjs gate --gate-type <local-fix|env-rerun> [counter commandLineArguments]
  *   node ci-state-update.mjs post-action --action <type> [--cipe-url <url>] [--commit-sha <sha>]
- *   node ci-state-update.mjs cycle-check --code <code> [--agent-triggered] [counter args]
+ *   node ci-state-update.mjs cycle-check --code <code> [--agent-triggered] [counter commandLineArguments]
  */
 
 // --- Arg parsing ---
 
-const args = process.argv.slice(2);
-const command = args[0];
+const commandLineArguments = process.argv.slice(2);
+const command = commandLineArguments[0];
 
 function getFlag(name) {
-	return args.includes(name);
+	return commandLineArguments.includes(name);
 }
 
-function getArg(name) {
-	const idx = args.indexOf(name);
-	return idx !== -1 && idx + 1 < args.length ? args[idx + 1] : null;
+function getArgument(name) {
+	const index = commandLineArguments.indexOf(name);
+	return index !== -1 && index + 1 < commandLineArguments.length ? commandLineArguments[index + 1] : null;
 }
 
 function output(result) {
@@ -35,11 +35,11 @@ function output(result) {
 // Called before any local fix attempt or environment rerun.
 
 function gate() {
-	const gateType = getArg('--gate-type');
+	const gateType = getArgument('--gate-type');
 
 	if (gateType === 'local-fix') {
-		const count = parseInt(getArg('--local-verify-count') || '0', 10);
-		const max = parseInt(getArg('--local-verify-attempts') || '3', 10);
+		const count = parseInt(getArgument('--local-verify-count') || '0', 10);
+		const max = parseInt(getArgument('--local-verify-attempts') || '3', 10);
 		if (count >= max) {
 			return output({
 				allowed: false,
@@ -55,7 +55,7 @@ function gate() {
 	}
 
 	if (gateType === 'env-rerun') {
-		const count = parseInt(getArg('--env-rerun-count') || '0', 10);
+		const count = parseInt(getArgument('--env-rerun-count') || '0', 10);
 		if (count >= 2) {
 			return output({
 				allowed: false,
@@ -78,9 +78,9 @@ function gate() {
 // Returns wait mode params and whether the action was agent-triggered.
 
 function postAction() {
-	const action = getArg('--action');
-	const cipeUrl = getArg('--cipe-url');
-	const commitSha = getArg('--commit-sha');
+	const action = getArgument('--action');
+	const cipeUrl = getArgument('--cipe-url');
+	const commitSha = getArgument('--commit-sha');
 
 	// MCP-triggered or auto-applied: track by cipeUrl
 	const cipeUrlActions = ['fix-auto-applying', 'apply-mcp', 'env-rerun'];
@@ -111,11 +111,11 @@ function postAction() {
 // Called at the start of handling each actionable code.
 
 function cycleCheck() {
-	const status = getArg('--code');
+	const status = getArgument('--code');
 	const wasAgentTriggered = getFlag('--agent-triggered');
-	let cycleCount = parseInt(getArg('--cycle-count') || '0', 10);
-	const maxCycles = parseInt(getArg('--max-cycles') || '10', 10);
-	let envRerunCount = parseInt(getArg('--env-rerun-count') || '0', 10);
+	let cycleCount = parseInt(getArgument('--cycle-count') || '0', 10);
+	const maxCycles = parseInt(getArgument('--max-cycles') || '10', 10);
+	let envRerunCount = parseInt(getArgument('--env-rerun-count') || '0', 10);
 
 	// Cycle classification: if previous cycle was agent-triggered, count it
 	if (wasAgentTriggered) cycleCount++;

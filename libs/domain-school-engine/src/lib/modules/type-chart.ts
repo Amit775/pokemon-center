@@ -10,7 +10,7 @@ import type { Candidate, Exercise, ExerciseGenerator, GameContext, Hint, Referen
  * M1 — Type Chart.
  *
  * Every question here is derived from the era-resolved chart passed in, which is what makes
- * "learn the gen-1 type chart" work: with a gen-1 chart, Dark and Steel simply are not in
+ * "learn the generation-1 type chart" work: with a generation-1 chart, Dark and Steel simply are not in
  * `types`, so they can never be generated as an option or an answer. No filtering needed.
  */
 
