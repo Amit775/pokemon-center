@@ -6,7 +6,7 @@ import { statsGenerators, natureByEffectGenerator, natureEffectGenerator, statCh
 import { ailmentChanceGenerator, ailmentSourceGenerator, recoilGenerator, statusGenerators } from './status';
 
 const context: GameContext = { versionGroup: null, generation: null };
-const SEEDS = Array.from({ length: 150 }, (_, i) => i * 6151 + 29);
+const SEEDS = Array.from({ length: 150 }, (_, index) => index * 6151 + 29);
 
 const bySlug = new Map(MOVES.map((move) => [move.slug, move]));
 const moveOf = (slug: string): MoveRef => bySlug.get(slug) as MoveRef;
@@ -15,7 +15,7 @@ const allNew: ExerciseGenerator[] = [...damageGenerators, ...statusGenerators, .
 
 /* ---------------------------------------------- invariants every generator must hold */
 
-describe.each(allNew.map((g) => [g.id, g] as const))('%s', (_id, generator: ExerciseGenerator) => {
+describe.each(allNew.map((generator) => [generator.id, generator] as const))('%s', (_id, generator: ExerciseGenerator) => {
 	it('declares the reference sections it reads', () => {
 		expect(generator.requires.length).toBeGreaterThan(0);
 		expect(hasRequired(fullReference, generator)).toBe(true);
@@ -56,7 +56,7 @@ describe.each(allNew.map((g) => [g.id, g] as const))('%s', (_id, generator: Exer
 		for (const seed of SEEDS) {
 			const exercise = generator.generate(seed, fullReference, context);
 			// Quoted labels, not substrings: one label is often a prefix of another.
-			const quoted = [...(exercise.hints.find((hint) => hint.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+			const quoted = [...(exercise.hints.find((hint) => hint.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((entry) => entry[1]);
 			expect(quoted.length).toBeGreaterThan(0);
 			for (const label of quoted) {
 				expect(exercise.candidates.find((candidate) => candidate.label === label)?.correct).toBe(false);
@@ -158,7 +158,7 @@ describe('ailmentChanceGenerator', () => {
 			const exercise = ailmentChanceGenerator.generate(seed, fullReference, context);
 			const answer = exercise.candidates.find((candidate) => candidate.correct)?.value as number;
 			expect(answer).toBeGreaterThan(0);
-			expect(MOVES.some((m) => m.ailmentChance === answer)).toBe(true);
+			expect(MOVES.some((move) => move.ailmentChance === answer)).toBe(true);
 		}
 	});
 });
@@ -179,7 +179,7 @@ describe('recoilGenerator', () => {
 
 /* ---------------------------------------------- M4 Stats & Natures */
 
-const NEUTRAL = NATURES.filter((n) => n.increased === n.decreased).map((n) => n.slug);
+const NEUTRAL = NATURES.filter((nature) => nature.increased === nature.decreased).map((nature) => nature.slug);
 
 describe('nature generators', () => {
 	it('never offer a neutral nature, in either direction', () => {
@@ -201,8 +201,8 @@ describe('nature generators', () => {
 	it('natureByEffect names a stat pair that exactly one nature satisfies', () => {
 		for (const seed of SEEDS) {
 			const exercise = natureByEffectGenerator.generate(seed, fullReference, context);
-			const answer = NATURES.find((n) => n.slug === exercise.candidates.find((candidate) => candidate.correct)?.value);
-			const sameEffect = NATURES.filter((n) => n.increased === answer?.increased && n.decreased === answer?.decreased);
+			const answer = NATURES.find((nature) => nature.slug === exercise.candidates.find((candidate) => candidate.correct)?.value);
+			const sameEffect = NATURES.filter((nature) => nature.increased === answer?.increased && nature.decreased === answer?.decreased);
 			expect(sameEffect).toHaveLength(1);
 		}
 	});

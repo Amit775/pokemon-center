@@ -19,7 +19,7 @@ export class AnalyzerComponent {
 
 	private readonly typesQuery = gqlResource(TypesListDocument, () => ({}));
 	protected readonly allTypes = computed(() =>
-		(this.typesQuery.hasValue() ? (this.typesQuery.value()?.typeList ?? []) : []).filter((t) => Number(t.id) < 10000),
+		(this.typesQuery.hasValue() ? (this.typesQuery.value()?.typeList ?? []) : []).filter((typeOption) => Number(typeOption.id) < 10000),
 	);
 
 	private readonly analysis = gqlResource(MatchupAnalysisDocument, () => ({
@@ -36,7 +36,7 @@ export class AnalyzerComponent {
 	protected toggleType(identifier: string): void {
 		const current = this.defenderTypes();
 		if (current.includes(identifier)) {
-			this.defenderTypes.set(current.filter((t) => t !== identifier));
+			this.defenderTypes.set(current.filter((selectedType) => selectedType !== identifier));
 		} else if (current.length < 2) {
 			this.defenderTypes.set([...current, identifier]);
 		}

@@ -92,14 +92,14 @@ function categorizeTasks() {
 	const unverified = failedTaskIds.filter((failedTaskId) => !verifiedSet.has(failedTaskId));
 	if (unverified.length === 0) return { category: 'all_verified' };
 
-	const e2e = unverified.filter((t) => {
-		const parts = t.split(':');
+	const e2e = unverified.filter((taskId) => {
+		const parts = taskId.split(':');
 		return parts.length >= 2 && parts[1].includes('e2e');
 	});
 	if (e2e.length === unverified.length) return { category: 'e2e_only' };
 
-	const verifiable = unverified.filter((t) => {
-		const parts = t.split(':');
+	const verifiable = unverified.filter((taskId) => {
+		const parts = taskId.split(':');
 		return !(parts.length >= 2 && parts[1].includes('e2e'));
 	});
 	return { category: 'needs_local_verify', verifiableTaskIds: verifiable };

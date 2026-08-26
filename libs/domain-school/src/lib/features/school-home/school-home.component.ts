@@ -228,8 +228,8 @@ export default class SchoolHomeComponent {
 	});
 
 	protected readonly modules = computed(() => {
-		const open = new Set(this.progress.available().map((l) => l.id));
-		const titles = new Map(curriculum.flatMap((m) => m.lessons).map((l) => [l.id, l.title]));
+		const open = new Set(this.progress.available().map((lesson) => lesson.id));
+		const titles = new Map(curriculum.flatMap((module) => module.lessons).map((lesson) => [lesson.id, lesson.title]));
 		const ref = this.reference.reference();
 
 		return curriculum.map((module) => ({

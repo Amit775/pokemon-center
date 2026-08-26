@@ -40,7 +40,7 @@ describe('validateCurriculum', () => {
 	});
 
 	it('every lesson is reachable from a root', () => {
-		const roots = allLessons(curriculum).filter((l) => l.prereqs.length === 0);
+		const roots = allLessons(curriculum).filter((curriculumLesson) => curriculumLesson.prereqs.length === 0);
 		expect(roots.length).toBeGreaterThan(0);
 	});
 
@@ -55,7 +55,7 @@ describe('validateCurriculum', () => {
 
 	it('every generatorId referenced by a lesson resolves', () => {
 		// Guards against renaming a generator and forgetting the lesson that points at it.
-		const ids = new Set(allLessons(curriculum).map((l) => l.generatorId));
+		const ids = new Set(allLessons(curriculum).map((curriculumLesson) => curriculumLesson.generatorId));
 		expect(ids.size).toBeGreaterThan(0);
 	});
 });
@@ -80,7 +80,7 @@ describe('isUnlocked', () => {
 describe('unlockedLessons', () => {
 	it('starts with only the roots, and opens up as mastery lands', () => {
 		const atStart = unlockedLessons(curriculum, new Set());
-		expect(atStart.every((l) => l.prereqs.length === 0)).toBe(true);
+		expect(atStart.every((curriculumLesson) => curriculumLesson.prereqs.length === 0)).toBe(true);
 
 		const everything = unlockedLessons(curriculum, new Set(), true);
 		expect(everything).toHaveLength(allLessons(curriculum).length);

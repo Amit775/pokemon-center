@@ -426,7 +426,7 @@ export class PokedexResolver {
 				megaForms: typed.megaForms.map(toSummary),
 				// Strongest first: the advisor and the UI both want the damaging moves at the top.
 				moves: typed.learnset
-					.map((l) => toMove(l.move))
+					.map((learnsetEntry) => toMove(learnsetEntry.move))
 					.sort((first, second) => (second.power ?? 0) - (first.power ?? 0) || first.name.localeCompare(second.name)),
 			};
 		});

@@ -19,7 +19,7 @@ export class CoverageComponent {
 
 	protected readonly cells = computed<MatchupCell[]>(() => {
 		if (!this.moves().length || !this.query.hasValue()) return [];
-		return (this.query.value()?.coverage ?? []).map((c) => ({ type: c.defendingType, factor: c.bestFactor, note: c.viaMove ? 'via ' + c.viaMove : null }));
+		return (this.query.value()?.coverage ?? []).map((cell) => ({ type: cell.defendingType, factor: cell.bestFactor, note: cell.viaMove ? 'via ' + cell.viaMove : null }));
 	});
 
 	protected onInput(event: Event): void {

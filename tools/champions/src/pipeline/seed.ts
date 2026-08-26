@@ -20,7 +20,7 @@ import { DERIVED_DIR, DerivedDataset } from '../lib/champions-data';
 
 function loadDataset(file?: string): { dataset: DerivedDataset; path: string } {
 	const dir = path.join(process.cwd(), DERIVED_DIR);
-	const candidates = file ? [path.join(process.cwd(), file)] : fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => path.join(dir, f)) : [];
+	const candidates = file ? [path.join(process.cwd(), file)] : fs.existsSync(dir) ? fs.readdirSync(dir).filter((fileName) => fileName.endsWith('.json')).map((fileName) => path.join(dir, fileName)) : [];
 
 	if (candidates.length === 0) {
 		throw new Error(`No derived dataset found in ${DERIVED_DIR}. Run "nx run champions:derive" first.`);
@@ -41,18 +41,18 @@ export async function runSeed(file?: string): Promise<void> {
 	try {
 		// ---- reference data, parents before children ------------------------------------
 		await prisma.$transaction(
-			dataset.types.map((t) =>
-				prisma.champType.upsert({ where: { id: t.id }, create: { id: t.id, slug: t.slug, name: t.name }, update: { slug: t.slug, name: t.name } }),
+			dataset.types.map((datasetType) =>
+				prisma.champType.upsert({ where: { id: datasetType.id }, create: { id: datasetType.id, slug: datasetType.slug, name: datasetType.name }, update: { slug: datasetType.slug, name: datasetType.name } }),
 			),
 		);
 		console.log(`  types: ${dataset.types.length}`);
 
 		await prisma.champTypeEfficacy.deleteMany({});
 		await prisma.champTypeEfficacy.createMany({
-			data: dataset.typeEfficacy.map((e) => ({
-				attacking_type_id: e.attackingTypeId,
-				defending_type_id: e.defendingTypeId,
-				damage_factor: e.damageFactor,
+			data: dataset.typeEfficacy.map((entry) => ({
+				attacking_type_id: entry.attackingTypeId,
+				defending_type_id: entry.defendingTypeId,
+				damage_factor: entry.damageFactor,
 			})),
 		});
 		console.log(`  type efficacy: ${dataset.typeEfficacy.length}`);

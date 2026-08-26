@@ -283,7 +283,7 @@ export class BoxResolver {
 			});
 		}
 
-		return (await this.teams(input.isMine)).find((t) => t.id === team.id) as Team;
+		return (await this.teams(input.isMine)).find((existingTeam) => existingTeam.id === team.id) as Team;
 	}
 
 	@Mutation(() => Boolean, { name: 'deleteTeam' })

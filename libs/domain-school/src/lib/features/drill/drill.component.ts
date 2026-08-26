@@ -197,7 +197,7 @@ export default class DrillComponent {
 	protected onAnswered(attempt: Attempt): void {
 		const exercise = this.current();
 		if (exercise) this.progress.recordFor(exercise.lessonId, attempt);
-		if (attempt.correct) this.correct.update((n) => n + 1);
+		if (attempt.correct) this.correct.update((count) => count + 1);
 	}
 
 	protected onNext(): void {

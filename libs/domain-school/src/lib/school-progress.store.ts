@@ -87,22 +87,22 @@ export const SchoolProgressStore = signalStore(
 	})),
 	withMethods((store) => ({
 		recordFor(lessonId: LessonId, attempt: Attempt): void {
-			const existing = store.mastery().find((r) => r.lessonId === lessonId) ?? emptyRecord(lessonId);
+			const existing = store.mastery().find((record) => record.lessonId === lessonId) ?? emptyRecord(lessonId);
 			patchState(store, {
-				mastery: [...store.mastery().filter((r) => r.lessonId !== lessonId), recordAttempt(existing, attempt)],
+				mastery: [...store.mastery().filter((record) => record.lessonId !== lessonId), recordAttempt(existing, attempt)],
 			});
 		},
 		scoreFor(lessonId: LessonId): number {
-			const record = store.mastery().find((r) => r.lessonId === lessonId);
+			const record = store.mastery().find((masteryRecord) => masteryRecord.lessonId === lessonId);
 			return record ? masteryScore(record) : 0;
 		},
 		hasMastered(lessonId: LessonId): boolean {
-			const record = store.mastery().find((r) => r.lessonId === lessonId);
+			const record = store.mastery().find((masteryRecord) => masteryRecord.lessonId === lessonId);
 			return record ? isMastered(record) : false;
 		},
 		/** Wipe one lesson's history — for a learner who wants an honest re-run. */
 		resetLesson(lessonId: LessonId): void {
-			patchState(store, { mastery: store.mastery().filter((r) => r.lessonId !== lessonId) });
+			patchState(store, { mastery: store.mastery().filter((record) => record.lessonId !== lessonId) });
 		},
 		setUnlockOverride(unlockOverride: boolean): void {
 			patchState(store, { unlockOverride });

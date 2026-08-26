@@ -83,7 +83,7 @@ class CsvProcessorService {
 		const ordered: string[] = [];
 		const remaining = new Map([...deps].map(([t, d]) => [t, new Set(d)] as const));
 		while (remaining.size > 0) {
-			const ready = [...remaining.keys()].filter((t) => [...(remaining.get(t) as Set<string>)].every((d) => !remaining.has(d)));
+			const ready = [...remaining.keys()].filter((table) => [...(remaining.get(table) as Set<string>)].every((dependency) => !remaining.has(dependency)));
 			if (ready.length === 0) {
 				logger.warn(`Circular dependency among: ${[...remaining.keys()].join(', ')} - appending as-is`);
 				ordered.push(...remaining.keys());
@@ -99,13 +99,13 @@ class CsvProcessorService {
 		let tables = ordered;
 		if (this.tables) {
 			const wanted = new Set<string>();
-			const visit = (t: string): void => {
-				if (wanted.has(t)) return;
-				wanted.add(t);
-				for (const d of deps.get(t) ?? []) visit(d);
+			const visit = (table: string): void => {
+				if (wanted.has(table)) return;
+				wanted.add(table);
+				for (const d of deps.get(table) ?? []) visit(d);
 			};
 			for (const t of this.tables) visit(t);
-			tables = ordered.filter((t) => wanted.has(t));
+			tables = ordered.filter((table) => wanted.has(table));
 		}
 
 		return tables.map((table) => `${table}.csv`).filter((table) => fs.existsSync(path.join(csvDir, table)));

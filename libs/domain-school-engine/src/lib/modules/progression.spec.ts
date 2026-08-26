@@ -10,9 +10,9 @@ import {
 } from './progression';
 
 const context: GameContext = { versionGroup: null, generation: null };
-const SEEDS = Array.from({ length: 120 }, (_, i) => i * 5231 + 17);
+const SEEDS = Array.from({ length: 120 }, (_, index) => index * 5231 + 17);
 
-const evolutionTo = (species: string): EvolutionRef => EVOLUTIONS.find((e) => e.to === species) as EvolutionRef;
+const evolutionTo = (species: string): EvolutionRef => EVOLUTIONS.find((evolution) => evolution.to === species) as EvolutionRef;
 
 describe('describeEvolution', () => {
 	it('describes a plain level-up', () => {
@@ -96,7 +96,7 @@ describe.each(progressionGenerators.map((progressionGenerator) => [progressionGe
 			// Compare the *quoted* labels rather than substrings: one option's label is often a
 			// prefix of another ("Level up with high friendship" vs "…during the day"), so a
 			// substring check reports eliminations that never happened.
-			const quoted = [...(exercise.hints.find((hint) => hint.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+			const quoted = [...(exercise.hints.find((hint) => hint.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((entry) => entry[1]);
 			expect(quoted.length).toBeGreaterThan(0);
 			for (const label of quoted) {
 				expect(exercise.candidates.find((candidate) => candidate.label === label)?.correct).toBe(false);
@@ -121,7 +121,7 @@ describe('evolutionMethodGenerator', () => {
 			expect(pair).not.toBeNull();
 
 			const answerLabel = exercise.candidates.find((candidate) => candidate.correct)?.label;
-			const match = EVOLUTIONS.filter((e) => describeEvolution(e) === answerLabel);
+			const match = EVOLUTIONS.filter((evolution) => describeEvolution(evolution) === answerLabel);
 			expect(match.length).toBeGreaterThan(0);
 		}
 	});
@@ -140,7 +140,7 @@ describe('machineNumberGenerator', () => {
 			const exercise = machineNumberGenerator.generate(seed, fullReference, context);
 			const number = Number(/TM(\d+)/.exec(exercise.prompt)?.[1]);
 			const answer = exercise.candidates.find((candidate) => candidate.correct)?.value;
-			expect(MACHINES.find((m) => m.number === number)?.move).toBe(answer);
+			expect(MACHINES.find((machine) => machine.number === number)?.move).toBe(answer);
 		}
 	});
 
@@ -156,7 +156,7 @@ describe('growthRateGenerator', () => {
 	it('the marked answer really is the most expensive curve offered', () => {
 		for (const seed of SEEDS) {
 			const exercise = growthRateGenerator.generate(seed, fullReference, context);
-			const costOf = (slug: unknown) => GROWTH_RATES.find((r) => r.slug === slug)?.experienceToLevel100 ?? 0;
+			const costOf = (slug: unknown) => GROWTH_RATES.find((growthRate) => growthRate.slug === slug)?.experienceToLevel100 ?? 0;
 			const costs = exercise.candidates.map((candidate) => costOf(candidate.value));
 			const answerCost = costOf(exercise.candidates.find((candidate) => candidate.correct)?.value);
 

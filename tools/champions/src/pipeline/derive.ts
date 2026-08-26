@@ -211,7 +211,7 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 			select: { id: true, identifier: true, typeNames: { where: { local_language_id: ENGLISH }, select: { name: true } } },
 		});
 		const types: DerivedType[] = typeRows.map((typeRow) => ({ id: typeRow.id, slug: typeRow.identifier, name: typeRow.typeNames[0]?.name ?? typeRow.identifier }));
-		const typeBySlug = new Map(types.map((t) => [t.slug, t.id]));
+		const typeBySlug = new Map(types.map((derivedType) => [derivedType.slug, derivedType.id]));
 
 		const efficacyRows = await prisma.typeEfficacy.findMany({
 			where: { damage_type_id: { lte: 18 }, target_type_id: { lte: 18 } },
@@ -394,7 +394,7 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 
 			// Champions' typing wins over the mainline's — Mega Clefable is Fairy/Flying here,
 			// and reading that from mainline data would be quietly wrong.
-			const typeIds = entry.types.map((t) => typeBySlug.get(toSlug(t))).filter((id): id is number => id !== undefined);
+			const typeIds = entry.types.map((typeName) => typeBySlug.get(toSlug(typeName))).filter((id): id is number => id !== undefined);
 
 			return {
 				id: pokemonId,

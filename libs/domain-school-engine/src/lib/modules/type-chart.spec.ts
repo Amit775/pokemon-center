@@ -16,7 +16,7 @@ const gen1Ref: ReferenceData = { typeChart: GEN1_CHART };
 const modernCtx: GameContext = { versionGroup: null, generation: null };
 const gen1Ctx: GameContext = { versionGroup: 'red-blue', generation: 1 };
 
-const SEEDS = Array.from({ length: 200 }, (_, i) => i * 7919 + 13);
+const SEEDS = Array.from({ length: 200 }, (_, index) => index * 7919 + 13);
 
 /* ------------------------------------------------------------------ lookups */
 
@@ -84,7 +84,7 @@ describe.each(typeChartGenerators.map((typeChartGenerator) => [typeChartGenerato
 		for (const seed of SEEDS) {
 			const exercise = generator.generate(seed, modernRef, modernCtx);
 			// Quoted labels, not substrings: one label is often a prefix of another.
-			const quoted = [...(exercise.hints.find((hint) => hint.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+			const quoted = [...(exercise.hints.find((hint) => hint.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((entry) => entry[1]);
 			expect(quoted.length).toBeGreaterThan(0);
 			for (const label of quoted) {
 				expect(exercise.candidates.find((candidate) => candidate.label === label)?.correct).toBe(false);

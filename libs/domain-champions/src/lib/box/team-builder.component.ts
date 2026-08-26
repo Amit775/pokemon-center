@@ -404,7 +404,7 @@ export class TeamBuilderComponent {
 	}
 
 	protected load(teamId: number): void {
-		const team = this.store.teams().find((t) => t.id === teamId);
+		const team = this.store.teams().find((candidateTeam) => candidateTeam.id === teamId);
 		if (!team) return;
 
 		this.editingId.set(team.id);

@@ -251,11 +251,11 @@ export class SlotPickerComponent {
 		switch (event.key) {
 			case 'ArrowDown':
 				event.preventDefault();
-				this.highlighted.update((i) => Math.min(i + 1, results.length - 1));
+				this.highlighted.update((highlightedIndex) => Math.min(highlightedIndex + 1, results.length - 1));
 				break;
 			case 'ArrowUp':
 				event.preventDefault();
-				this.highlighted.update((i) => Math.max(i - 1, 0));
+				this.highlighted.update((highlightedIndex) => Math.max(highlightedIndex - 1, 0));
 				break;
 			case 'Enter':
 				event.preventDefault();

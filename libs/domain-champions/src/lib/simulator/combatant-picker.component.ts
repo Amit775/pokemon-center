@@ -236,7 +236,7 @@ export class CombatantPickerComponent {
 		if (!key) return null;
 
 		if (key.startsWith(BOX_PREFIX)) {
-			const entry = this.box.entries().find((e) => e.id === Number(key.slice(BOX_PREFIX.length)));
+			const entry = this.box.entries().find((boxEntry) => boxEntry.id === Number(key.slice(BOX_PREFIX.length)));
 			return entry
 				? { id: entry.pokemon.id, name: entry.nickname || entry.pokemon.name, types: entry.pokemon.types, exact: true }
 				: null;

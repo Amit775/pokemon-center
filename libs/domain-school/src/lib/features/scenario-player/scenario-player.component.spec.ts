@@ -55,8 +55,8 @@ describe('ScenarioPlayerComponent', () => {
 	const options = (): HTMLElement[] => Array.from(fixture.nativeElement.querySelectorAll('.option'));
 	const optionAt = (index: number): HTMLElement => options()[index];
 	const buttonLabelled = (text: string): HTMLButtonElement | undefined =>
-		Array.from(fixture.nativeElement.querySelectorAll<HTMLButtonElement>('.actions button')).find((b) =>
-			(b.textContent ?? '').includes(text),
+		Array.from(fixture.nativeElement.querySelectorAll<HTMLButtonElement>('.actions button')).find((button) =>
+			(button.textContent ?? '').includes(text),
 		);
 	const chosenCount = (): number => fixture.nativeElement.querySelectorAll('.option.is-chosen').length;
 

@@ -158,7 +158,7 @@ export function passesMatchup(entry: PokedexEntry, filters: PokedexFilters, char
 	if (filters.matchupTypes.length === 0) return true;
 
 	const multipliers = filters.matchupTypes.map((type) => typeEffectiveness(type, entry.types, chart));
-	const holds = filters.matchupDirection === 'resists' ? (m: number) => m < 1 : (m: number) => m > 1;
+	const holds = filters.matchupDirection === 'resists' ? (multiplier: number) => multiplier < 1 : (multiplier: number) => multiplier > 1;
 
 	return filters.matchupMode === 'exact' ? multipliers.every(holds) : multipliers.some(holds);
 }
@@ -206,14 +206,14 @@ function byPokedex(a: PokedexEntry, b: PokedexEntry): number {
 
 const SORTERS: Record<SortKey, (a: PokedexEntry, b: PokedexEntry) => number> = {
 	dex: byPokedex,
-	name: (a, b) => a.name.localeCompare(b.name) || byPokedex(a, b),
-	total: (a, b) => a.baseStats.total - b.baseStats.total || byPokedex(a, b),
-	hp: (a, b) => a.baseStats.hp - b.baseStats.hp || byPokedex(a, b),
-	attack: (a, b) => a.baseStats.attack - b.baseStats.attack || byPokedex(a, b),
-	defense: (a, b) => a.baseStats.defense - b.baseStats.defense || byPokedex(a, b),
-	specialAttack: (a, b) => a.baseStats.specialAttack - b.baseStats.specialAttack || byPokedex(a, b),
-	specialDefense: (a, b) => a.baseStats.specialDefense - b.baseStats.specialDefense || byPokedex(a, b),
-	speed: (a, b) => a.baseStats.speed - b.baseStats.speed || byPokedex(a, b),
+	name: (first, second) => first.name.localeCompare(second.name) || byPokedex(first, second),
+	total: (first, second) => first.baseStats.total - second.baseStats.total || byPokedex(first, second),
+	hp: (first, second) => first.baseStats.hp - second.baseStats.hp || byPokedex(first, second),
+	attack: (first, second) => first.baseStats.attack - second.baseStats.attack || byPokedex(first, second),
+	defense: (first, second) => first.baseStats.defense - second.baseStats.defense || byPokedex(first, second),
+	specialAttack: (first, second) => first.baseStats.specialAttack - second.baseStats.specialAttack || byPokedex(first, second),
+	specialDefense: (first, second) => first.baseStats.specialDefense - second.baseStats.specialDefense || byPokedex(first, second),
+	speed: (first, second) => first.baseStats.speed - second.baseStats.speed || byPokedex(first, second),
 };
 
 const NOTHING_OWNED: ReadonlySet<string> = new Set();
@@ -404,22 +404,22 @@ export interface Relaxation {
 
 /** Each filter group, as a label and the patch that switches it off. */
 const GROUPS: { label: string; active(f: PokedexFilters): boolean; off: Partial<PokedexFilters> }[] = [
-	{ label: 'the search', active: (f) => f.search.trim().length > 0, off: { search: '' } },
-	{ label: 'the type filter', active: (f) => f.types.length > 0, off: { types: [] } },
+	{ label: 'the search', active: (filters) => filters.search.trim().length > 0, off: { search: '' } },
+	{ label: 'the type filter', active: (filters) => filters.types.length > 0, off: { types: [] } },
 	{
 		label: 'the matchup',
-		active: (f) => f.matchupTypes.length > 0,
+		active: (filters) => filters.matchupTypes.length > 0,
 		off: { matchupTypes: [], matchupSlug: null },
 	},
-	{ label: 'the Mega filter', active: (f) => f.mega !== 'any', off: { mega: 'any' } },
-	{ label: 'the ability', active: (f) => f.ability !== null, off: { ability: null } },
-	{ label: 'the move', active: (f) => f.move !== null, off: { move: null } },
-	{ label: 'what you own', active: (f) => f.ownedOnly, off: { ownedOnly: false } },
-	{ label: 'the counter search', active: (f) => f.counterOf !== null, off: { counterOf: null } },
+	{ label: 'the Mega filter', active: (filters) => filters.mega !== 'any', off: { mega: 'any' } },
+	{ label: 'the ability', active: (filters) => filters.ability !== null, off: { ability: null } },
+	{ label: 'the move', active: (filters) => filters.move !== null, off: { move: null } },
+	{ label: 'what you own', active: (filters) => filters.ownedOnly, off: { ownedOnly: false } },
+	{ label: 'the counter search', active: (filters) => filters.counterOf !== null, off: { counterOf: null } },
 	{
 		label: 'the stat ranges',
-		active: (f) =>
-			!isFullRange(f.totalRange, TOTAL_BOUNDS) || STAT_KEYS.some((key) => !isFullRange(f.statRanges[key], STAT_BOUNDS)),
+		active: (filters) =>
+			!isFullRange(filters.totalRange, TOTAL_BOUNDS) || STAT_KEYS.some((key) => !isFullRange(filters.statRanges[key], STAT_BOUNDS)),
 		off: { statRanges: {}, totalRange: TOTAL_BOUNDS },
 	},
 ];

@@ -2,62 +2,62 @@ import { Route } from '@angular/router';
 
 export const domainPokedexRoutes: Route[] = [
 	{ path: '', redirectTo: 'pokemon', pathMatch: 'full' },
-	{ path: 'pokemon', loadComponent: () => import('./features/pokemon-list/pokemon-list.component').then((m) => m.PokemonListComponent) },
+	{ path: 'pokemon', loadComponent: () => import('./features/pokemon-list/pokemon-list.component').then((module) => module.PokemonListComponent) },
 	{
 		path: 'pokemon/:id',
-		loadComponent: () => import('./features/pokemon-page/pokemon-page.component').then((m) => m.PokemonPageComponent),
+		loadComponent: () => import('./features/pokemon-page/pokemon-page.component').then((module) => module.PokemonPageComponent),
 		children: [
 			{ path: '', redirectTo: 'about', pathMatch: 'full' },
 			{
 				path: 'about',
-				loadComponent: () => import('./features/pokemon-page/pokemon-about/pokemon-about.component').then((m) => m.PokemonAboutComponent),
+				loadComponent: () => import('./features/pokemon-page/pokemon-about/pokemon-about.component').then((module) => module.PokemonAboutComponent),
 			},
 			{
 				path: 'stats',
-				loadComponent: () => import('./features/pokemon-page/pokemon-stats/pokemon-stats.component').then((m) => m.PokemonStatsComponent),
+				loadComponent: () => import('./features/pokemon-page/pokemon-stats/pokemon-stats.component').then((module) => module.PokemonStatsComponent),
 			},
 			{
 				path: 'moves',
-				loadComponent: () => import('./features/pokemon-page/pokemon-moves/pokemon-moves.component').then((m) => m.PokemonMovesComponent),
+				loadComponent: () => import('./features/pokemon-page/pokemon-moves/pokemon-moves.component').then((module) => module.PokemonMovesComponent),
 			},
 			{
 				path: 'locations',
 				loadComponent: () =>
-					import('./features/pokemon-page/pokemon-locations/pokemon-locations.component').then((m) => m.PokemonLocationsComponent),
+					import('./features/pokemon-page/pokemon-locations/pokemon-locations.component').then((module) => module.PokemonLocationsComponent),
 			},
 		],
 	},
-	{ path: 'moves', loadComponent: () => import('./features/moves-list/moves-list.component').then((m) => m.MovesListComponent) },
+	{ path: 'moves', loadComponent: () => import('./features/moves-list/moves-list.component').then((module) => module.MovesListComponent) },
 	{
 		path: 'moves/:id',
-		loadComponent: () => import('./features/move-page/move-page.component').then((m) => m.MovePageComponent),
+		loadComponent: () => import('./features/move-page/move-page.component').then((module) => module.MovePageComponent),
 	},
 	{
 		path: 'abilities/:id',
-		loadComponent: () => import('./features/ability-page/ability-page.component').then((m) => m.AbilityPageComponent),
+		loadComponent: () => import('./features/ability-page/ability-page.component').then((module) => module.AbilityPageComponent),
 	},
 	{
 		path: 'items/:id',
-		loadComponent: () => import('./features/item-page/item-page.component').then((m) => m.ItemPageComponent),
+		loadComponent: () => import('./features/item-page/item-page.component').then((module) => module.ItemPageComponent),
 	},
 	{
 		path: 'types/:id',
-		loadComponent: () => import('./features/type-page/type-page.component').then((m) => m.TypePageComponent),
+		loadComponent: () => import('./features/type-page/type-page.component').then((module) => module.TypePageComponent),
 	},
 	{
 		path: 'analyzer',
-		loadComponent: () => import('./features/analyzer/analyzer.component').then((m) => m.AnalyzerComponent),
+		loadComponent: () => import('./features/analyzer/analyzer.component').then((module) => module.AnalyzerComponent),
 	},
 	{
 		path: 'coverage',
-		loadComponent: () => import('./features/coverage/coverage.component').then((m) => m.CoverageComponent),
+		loadComponent: () => import('./features/coverage/coverage.component').then((module) => module.CoverageComponent),
 	},
 	{
 		path: 'compare',
-		loadComponent: () => import('./features/compare/compare.component').then((m) => m.CompareComponent),
+		loadComponent: () => import('./features/compare/compare.component').then((module) => module.CompareComponent),
 	},
 	{
 		path: 'kit',
-		loadComponent: () => import('./features/kit/kit.component').then((m) => m.KitComponent),
+		loadComponent: () => import('./features/kit/kit.component').then((module) => module.KitComponent),
 	},
 ];

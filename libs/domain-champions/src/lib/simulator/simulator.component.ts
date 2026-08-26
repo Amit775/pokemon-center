@@ -398,11 +398,11 @@ export default class SimulatorComponent {
 		if (!key) return null;
 
 		if (key.startsWith(BOX_PREFIX)) {
-			const entry = this.box.entries().find((e) => e.id === Number(key.slice(BOX_PREFIX.length)));
+			const entry = this.box.entries().find((boxEntry) => boxEntry.id === Number(key.slice(BOX_PREFIX.length)));
 			return entry ? boxEntryToBuild(entry) : null;
 		}
 
-		const member = (this.pokedexQuery.value()?.champTeam ?? []).find((m) => m.slug === key.slice(POKEDEX_PREFIX.length));
+		const member = (this.pokedexQuery.value()?.champTeam ?? []).find((teamMember) => teamMember.slug === key.slice(POKEDEX_PREFIX.length));
 		return member ? inferBuild(member) : null;
 	}
 

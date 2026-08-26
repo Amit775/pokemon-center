@@ -274,11 +274,11 @@ export default class SchoolComponent {
 		this.chosen.set(label);
 		this.wasRight.set(isCorrect);
 		this.revealed.set(true);
-		this.answered.update((n) => n + 1);
+		this.answered.update((count) => count + 1);
 
 		if (isCorrect) {
-			this.correct.update((n) => n + 1);
-			this.streak.update((n) => n + 1);
+			this.correct.update((count) => count + 1);
+			this.streak.update((count) => count + 1);
 		} else {
 			this.streak.set(0);
 		}

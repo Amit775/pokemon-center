@@ -236,7 +236,7 @@ export const PokedexStore = signalStore(
 			const { types, typeMode } = store.filters();
 
 			if (typeMode === 'any') return this.patch({ types: [slug], typeMode: 'exact' });
-			if (types.includes(slug)) return this.patch({ types: types.filter((t) => t !== slug) });
+			if (types.includes(slug)) return this.patch({ types: types.filter((typeSlug) => typeSlug !== slug) });
 
 			this.patch({ types: [...types, slug].slice(-2), typeMode: 'exact' });
 		},
@@ -244,7 +244,7 @@ export const PokedexStore = signalStore(
 		/** Double click: the loose reading. No cap, and the existing selection carries over. */
 		expandType(slug: string): void {
 			const { types } = store.filters();
-			const next = types.includes(slug) ? types.filter((t) => t !== slug) : [...types, slug];
+			const next = types.includes(slug) ? types.filter((typeSlug) => typeSlug !== slug) : [...types, slug];
 			this.patch({ types: next, typeMode: 'any' });
 		},
 
@@ -306,7 +306,7 @@ export const PokedexStore = signalStore(
 
 		toggleCompare(slug: string): void {
 			const current = store.compare();
-			if (current.includes(slug)) return patchState(store, { compare: current.filter((s) => s !== slug) });
+			if (current.includes(slug)) return patchState(store, { compare: current.filter((existingSlug) => existingSlug !== slug) });
 			// Silently dropping the oldest keeps the control from ever being dead.
 			patchState(store, { compare: [...current, slug].slice(-COMPARE_LIMIT) });
 		},

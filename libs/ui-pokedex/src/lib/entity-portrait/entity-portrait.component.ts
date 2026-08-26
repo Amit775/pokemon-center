@@ -58,6 +58,6 @@ export class EntityPortraitComponent {
 	protected readonly colorVar = computed(() => typeColorVar(this.type()));
 
 	protected onError(): void {
-		this.stage.update((s) => (s === 0 && this.fallbackSrc() ? 1 : 2));
+		this.stage.update((stage) => (stage === 0 && this.fallbackSrc() ? 1 : 2));
 	}
 }

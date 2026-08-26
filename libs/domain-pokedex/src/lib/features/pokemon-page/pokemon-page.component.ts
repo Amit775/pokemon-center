@@ -19,7 +19,7 @@ export class PokemonPageComponent {
 	private readonly detail = gqlResource(PokemonDetailDocument, () => ({ idOrSlug: this.id() }));
 
 	public pokemon = computed(() => (this.detail.hasValue() ? this.detail.value()?.pokemon : undefined));
-	public types = computed(() => [...(this.pokemon()?.types ?? [])].sort((first, second) => first.slot - second.slot).map((t) => t.type.identifier));
+	public types = computed(() => [...(this.pokemon()?.types ?? [])].sort((first, second) => first.slot - second.slot).map((pokemonType) => pokemonType.type.identifier));
 	public primaryType = computed(() => this.types()[0] ?? 'normal');
 
 	public tabs = [

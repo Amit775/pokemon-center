@@ -52,7 +52,7 @@ describe('defensiveProfile', () => {
 describe('teamWeaknesses', () => {
 	it('ranks attacking types by how much of the team they hit', () => {
 		const profile = teamWeaknesses([chomp, pult], typeChart);
-		const ice = profile.pressure.find((p) => p.type === 'ice');
+		const ice = profile.pressure.find((pressureEntry) => pressureEntry.type === 'ice');
 
 		// Both are Dragons, so Ice hits the pair — the answer to "what do I click?".
 		expect(ice?.hits).toBe(2);

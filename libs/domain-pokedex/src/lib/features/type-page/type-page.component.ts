@@ -39,12 +39,12 @@ export class TypePageComponent {
 	protected readonly offense = computed<MatchupCell[]>(() =>
 		[...(this.type()?.efficacy ?? [])]
 			.sort((first, second) => first.targetType.id.localeCompare(second.targetType.id))
-			.map((e) => ({ type: e.targetType.identifier, factor: e.damage_factor / 100 })),
+			.map((efficacy) => ({ type: efficacy.targetType.identifier, factor: efficacy.damage_factor / 100 })),
 	);
 
 	protected readonly defense = computed<MatchupCell[]>(() =>
 		[...(this.type()?.efficacyTarget ?? [])]
 			.sort((first, second) => first.damageType.id.localeCompare(second.damageType.id))
-			.map((e) => ({ type: e.damageType.identifier, factor: e.damage_factor / 100 })),
+			.map((efficacy) => ({ type: efficacy.damageType.identifier, factor: efficacy.damage_factor / 100 })),
 	);
 }

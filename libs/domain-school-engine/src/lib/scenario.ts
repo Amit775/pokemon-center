@@ -48,7 +48,7 @@ export function* combinations<T>(items: readonly T[], k: number): Generator<T[]>
 	const n = items.length;
 	if (k > n || k <= 0) return;
 
-	const indices = Array.from({ length: k }, (_, i) => i);
+	const indices = Array.from({ length: k }, (_, index) => index);
 	for (;;) {
 		yield indices.map((indice) => items[indice]);
 

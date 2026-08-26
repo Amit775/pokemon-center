@@ -7,13 +7,13 @@ import type { GameContext, ReferenceData } from './types';
 
 const context: GameContext = { versionGroup: null, generation: null };
 const ref: ReferenceData = { typeChart: MODERN_CHART, moves: MOVES };
-const SEEDS = Array.from({ length: 60 }, (_, i) => i * 4517 + 11);
+const SEEDS = Array.from({ length: 60 }, (_, index) => index * 4517 + 11);
 
 describe('combinations', () => {
 	it('produces every k-subset exactly once', () => {
 		const all = [...combinations([1, 2, 3, 4], 2)];
 		expect(all).toHaveLength(6);
-		expect(new Set(all.map((c) => c.join(','))).size).toBe(6);
+		expect(new Set(all.map((combination) => combination.join(','))).size).toBe(6);
 	});
 
 	it('yields nothing when k exceeds the pool', () => {
@@ -95,7 +95,7 @@ describe('buildCoverageScenario', () => {
 		for (const seed of SEEDS) {
 			const scenario = buildCoverageScenario(seed, ref, context);
 			for (const combo of combinations(scenario.options, COVERAGE_PICK)) {
-				const result = scenario.grade(combo.map((o) => o.id));
+				const result = scenario.grade(combo.map((option) => option.id));
 				expect(result.achieved).toBeLessThanOrEqual(result.optimal);
 				expect(result.quality).toBeLessThanOrEqual(1);
 			}
@@ -125,7 +125,7 @@ const candidate = (slug: string, score: number): MatchupCandidate => ({
 	score,
 });
 
-const CANDIDATES = Array.from({ length: 15 }, (_, i) => candidate(`mon-${i}`, 200 - i * 7));
+const CANDIDATES = Array.from({ length: 15 }, (_, index) => candidate(`mon-${index}`, 200 - index * 7));
 
 describe('pickMatchupDefender', () => {
 	it('is deterministic and always names real types', () => {

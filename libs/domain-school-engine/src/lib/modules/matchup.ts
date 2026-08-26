@@ -87,7 +87,7 @@ export function buildMatchupScenario(
 		grade(selected: readonly string[]): ScenarioResult {
 			const chosen = selected.length > 0 ? byId.get(selected[0]) : undefined;
 			const achieved = chosen?.score ?? 0;
-			const rank = chosen ? offeredRanked.findIndex((c) => c.slug === chosen.slug) + 1 : offeredRanked.length;
+			const rank = chosen ? offeredRanked.findIndex((candidate) => candidate.slug === chosen.slug) + 1 : offeredRanked.length;
 
 			return {
 				quality: qualityOf(achieved, optimal.score),

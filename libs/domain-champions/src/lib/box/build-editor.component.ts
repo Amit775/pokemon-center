@@ -536,7 +536,7 @@ export class BuildEditorComponent {
 	}
 
 	protected toggleMove(id: number): void {
-		this.moveIds.update((current) => (current.includes(id) ? current.filter((m) => m !== id) : [...current, id].slice(0, 4)));
+		this.moveIds.update((current) => (current.includes(id) ? current.filter((moveId) => moveId !== id) : [...current, id].slice(0, 4)));
 	}
 
 	protected onAbility(event: Event): void {

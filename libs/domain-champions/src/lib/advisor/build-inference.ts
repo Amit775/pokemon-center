@@ -106,7 +106,7 @@ export function inferMoveset(member: TeamMember, limit = 4): ChampionsMove[] {
 
 	// A strong priority move changes the turn order and so changes the advice; it earns a
 	// slot even when a bigger neutral option exists.
-	const priority = ranked.find((m) => m.priority > 0 && !chosen.some((c) => c.id === m.id));
+	const priority = ranked.find((move) => move.priority > 0 && !chosen.some((chosenMove) => chosenMove.id === move.id));
 	if (priority && chosen.length === limit) chosen[limit - 1] = priority;
 	else if (priority) chosen.push(priority);
 

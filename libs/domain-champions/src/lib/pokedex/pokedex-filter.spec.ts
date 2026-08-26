@@ -78,7 +78,7 @@ const azumarill = entry({
 const roster = [azumarill, garchomp, garchompMega, corviknight];
 
 const filters = (overrides: Partial<PokedexFilters> = {}): PokedexFilters => ({ ...EMPTY_FILTERS, ...overrides });
-const slugs = (result: PokedexEntry[]) => result.map((e) => e.slug);
+const slugs = (result: PokedexEntry[]) => result.map((resultEntry) => resultEntry.slug);
 
 describe('applyFilters', () => {
 	it('never lists a Mega form as its own entry', () => {
@@ -414,7 +414,7 @@ describe('diagnoseEmpty', () => {
 		// offered; dropping the types leaves Garchomp, so that one is.
 		const both = filters({ types: ['dragon', 'steel'], typeMode: 'exact', ability: 'rough-skin' });
 
-		expect(diagnoseEmpty(roster, both, chart).map((r) => r.label)).toEqual(['the type filter']);
+		expect(diagnoseEmpty(roster, both, chart).map((diagnosis) => diagnosis.label)).toEqual(['the type filter']);
 	});
 });
 
