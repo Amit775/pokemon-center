@@ -61,7 +61,7 @@ describe('decodeFilters', () => {
 		const decoded = decodeFilters(reader({ mega: 'sometimes', sort: 'vibes', tm: 'maybe', mud: 'sideways' }));
 
 		expect(decoded.mega).toBe('any');
-		expect(decoded.sortBy).toBe('dex');
+		expect(decoded.sortBy).toBe('pokedex');
 		expect(decoded.typeMode).toBe(EMPTY_FILTERS.typeMode);
 		expect(decoded.matchupDirection).toBe(EMPTY_FILTERS.matchupDirection);
 	});

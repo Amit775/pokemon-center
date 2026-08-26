@@ -27,7 +27,4 @@ export const domainChampionsRoutes: Route[] = [
 	{ path: 'preview', redirectTo: 'companion' },
 	{ path: 'battle', redirectTo: 'companion/live' },
 	{ path: 'changes', redirectTo: 'pokedex/changes' },
-	// `dex` was the section's path until it was renamed to what everyone calls it. A prefix
-	// redirect, so `/pokedex/garchomp` keeps its tail.
-	{ path: 'dex', redirectTo: 'pokedex' },
 ];

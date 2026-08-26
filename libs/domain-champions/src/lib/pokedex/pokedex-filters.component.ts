@@ -573,7 +573,7 @@ export class PokedexFiltersComponent {
 	];
 
 	protected readonly sortOptions: { key: SortKey; label: string }[] = [
-		{ key: 'dex', label: 'Dex number' },
+		{ key: 'pokedex', label: 'Pokedex number' },
 		{ key: 'name', label: 'Name' },
 		{ key: 'total', label: 'Base stat total' },
 		...STAT_LABELS.map((stat) => ({ key: stat.key as SortKey, label: stat.label })),

@@ -37,8 +37,8 @@ import { fromQueryString, toQueryString } from './pokedex-url';
  * The comparison tray deliberately does not: it is a scratch selection for one sitting.
  */
 
-const STORAGE_KEY = 'pokemon-center.champions-dex.v2';
-const SETS_KEY = 'pokemon-center.champions-dex.sets.v1';
+const STORAGE_KEY = 'pokemon-center.champions-pokedex.v2';
+const SETS_KEY = 'pokemon-center.champions-pokedex.sets.v1';
 
 /** How many can sit in the comparison tray. Beyond four the columns stop being readable. */
 export const COMPARE_LIMIT = 4;

@@ -47,7 +47,7 @@ export type MegaFilter = 'any' | 'has-mega' | 'no-mega';
  */
 export type MegaDisplay = 'show' | 'separate' | 'hide';
 
-export type SortKey = 'dex' | 'name' | 'total' | StatKey;
+export type SortKey = 'pokedex' | 'name' | 'total' | StatKey;
 
 /**
  * How a set of type chips is read.
@@ -117,7 +117,7 @@ export const EMPTY_FILTERS: PokedexFilters = {
 	move: null,
 	ownedOnly: false,
 	counterOf: null,
-	sortBy: 'dex',
+	sortBy: 'pokedex',
 	sortDesc: false,
 };
 
@@ -205,7 +205,7 @@ function byPokedex(a: PokedexEntry, b: PokedexEntry): number {
 }
 
 const SORTERS: Record<SortKey, (a: PokedexEntry, b: PokedexEntry) => number> = {
-	dex: byPokedex,
+	pokedex: byPokedex,
 	name: (first, second) => first.name.localeCompare(second.name) || byPokedex(first, second),
 	total: (first, second) => first.baseStats.total - second.baseStats.total || byPokedex(first, second),
 	hp: (first, second) => first.baseStats.hp - second.baseStats.hp || byPokedex(first, second),

@@ -61,7 +61,7 @@ const MEGA_VALUES: MegaFilter[] = ['any', 'has-mega', 'no-mega'];
 const MEGA_DISPLAY_VALUES: MegaDisplay[] = ['show', 'separate', 'hide'];
 const MODE_VALUES: SelectMode[] = ['exact', 'any'];
 const DIRECTION_VALUES: MatchupDirection[] = ['resists', 'weak-to'];
-const SORT_VALUES: SortKey[] = ['dex', 'name', 'total', ...STAT_KEYS];
+const SORT_VALUES: SortKey[] = ['pokedex', 'name', 'total', ...STAT_KEYS];
 
 function encodeRange(range: Range): string {
 	return `${range[0]}-${range[1]}`;
