@@ -29,7 +29,7 @@ export class CompareComponent {
 		this.slots.map((slot, index) => (slot() ? (this.resources[index].value()?.pokemon ?? null) : null)),
 	);
 
-	protected readonly filled = computed(() => this.columns().filter((thi): thi is ComparedPokemon => thi !== null));
+	protected readonly filled = computed(() => this.columns().filter((column): column is ComparedPokemon => column !== null));
 
 	protected readonly statOrder = STAT_ORDER;
 
@@ -42,12 +42,12 @@ export class CompareComponent {
 	}
 
 	protected isMax(statId: string, value: number): boolean {
-		const values = this.filled().map((thi) => this.baseStat(thi, statId));
+		const values = this.filled().map((pokemon) => this.baseStat(pokemon, statId));
 		return values.length > 1 && value === Math.max(...values) && value > 0;
 	}
 
 	protected isMaxBst(value: number): boolean {
-		const values = this.filled().map((thi) => this.bst(thi));
+		const values = this.filled().map((pokemon) => this.bst(pokemon));
 		return values.length > 1 && value === Math.max(...values);
 	}
 

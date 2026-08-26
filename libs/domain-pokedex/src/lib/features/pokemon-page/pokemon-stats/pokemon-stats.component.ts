@@ -26,7 +26,7 @@ export class PokemonStatsComponent {
 
 	public stats = computed(() => this.pokemon()?.stats ?? []);
 	public primaryType = computed(() => [...(this.pokemon()?.types ?? [])].sort((first, second) => first.slot - second.slot)[0]?.type.identifier ?? 'normal');
-	public total = computed(() => this.stats().reduce((sum, thi) => sum + thi.base_stat, 0));
+	public total = computed(() => this.stats().reduce((sum, stat) => sum + stat.base_stat, 0));
 
 	protected label(identifier: string): string {
 		return STAT_LABELS[identifier] ?? identifier;

@@ -162,8 +162,8 @@ export class OmnisearchComponent {
 
 	protected openFirst(): void {
 		const first = this.groups()
-			.flatMap((thi) => thi.hits)
-			.find((thi) => this.isNavigable(thi.kind));
+			.flatMap((group) => group.hits)
+			.find((hit) => this.isNavigable(hit.kind));
 		if (first) this.go(first.kind, first.id);
 	}
 }
