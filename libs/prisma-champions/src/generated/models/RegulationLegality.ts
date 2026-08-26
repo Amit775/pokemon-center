@@ -197,14 +197,14 @@ export type RegulationLegalityWhereInput = {
   regulation_id?: Prisma.IntFilter<"RegulationLegality"> | number
   pokemon_id?: Prisma.IntFilter<"RegulationLegality"> | number
   regulation?: Prisma.XOR<Prisma.RegulationScalarRelationFilter, Prisma.RegulationWhereInput>
-  pokemon?: Prisma.XOR<Prisma.ChampPokemonScalarRelationFilter, Prisma.ChampPokemonWhereInput>
+  pokemon?: Prisma.XOR<Prisma.ChampionsPokemonScalarRelationFilter, Prisma.ChampionsPokemonWhereInput>
 }
 
 export type RegulationLegalityOrderByWithRelationInput = {
   regulation_id?: Prisma.SortOrder
   pokemon_id?: Prisma.SortOrder
   regulation?: Prisma.RegulationOrderByWithRelationInput
-  pokemon?: Prisma.ChampPokemonOrderByWithRelationInput
+  pokemon?: Prisma.ChampionsPokemonOrderByWithRelationInput
 }
 
 export type RegulationLegalityWhereUniqueInput = Prisma.AtLeast<{
@@ -215,7 +215,7 @@ export type RegulationLegalityWhereUniqueInput = Prisma.AtLeast<{
   regulation_id?: Prisma.IntFilter<"RegulationLegality"> | number
   pokemon_id?: Prisma.IntFilter<"RegulationLegality"> | number
   regulation?: Prisma.XOR<Prisma.RegulationScalarRelationFilter, Prisma.RegulationWhereInput>
-  pokemon?: Prisma.XOR<Prisma.ChampPokemonScalarRelationFilter, Prisma.ChampPokemonWhereInput>
+  pokemon?: Prisma.XOR<Prisma.ChampionsPokemonScalarRelationFilter, Prisma.ChampionsPokemonWhereInput>
 }, "regulation_id_pokemon_id">
 
 export type RegulationLegalityOrderByWithAggregationInput = {
@@ -238,7 +238,7 @@ export type RegulationLegalityScalarWhereWithAggregatesInput = {
 
 export type RegulationLegalityCreateInput = {
   regulation: Prisma.RegulationCreateNestedOneWithoutLegalityInput
-  pokemon: Prisma.ChampPokemonCreateNestedOneWithoutLegalityInput
+  pokemon: Prisma.ChampionsPokemonCreateNestedOneWithoutLegalityInput
 }
 
 export type RegulationLegalityUncheckedCreateInput = {
@@ -248,7 +248,7 @@ export type RegulationLegalityUncheckedCreateInput = {
 
 export type RegulationLegalityUpdateInput = {
   regulation?: Prisma.RegulationUpdateOneRequiredWithoutLegalityNestedInput
-  pokemon?: Prisma.ChampPokemonUpdateOneRequiredWithoutLegalityNestedInput
+  pokemon?: Prisma.ChampionsPokemonUpdateOneRequiredWithoutLegalityNestedInput
 }
 
 export type RegulationLegalityUncheckedUpdateInput = {
@@ -437,7 +437,7 @@ export type RegulationLegalityScalarWhereInput = {
 }
 
 export type RegulationLegalityCreateWithoutRegulationInput = {
-  pokemon: Prisma.ChampPokemonCreateNestedOneWithoutLegalityInput
+  pokemon: Prisma.ChampionsPokemonCreateNestedOneWithoutLegalityInput
 }
 
 export type RegulationLegalityUncheckedCreateWithoutRegulationInput = {
@@ -491,7 +491,7 @@ export type RegulationLegalityCreateManyRegulationInput = {
 }
 
 export type RegulationLegalityUpdateWithoutRegulationInput = {
-  pokemon?: Prisma.ChampPokemonUpdateOneRequiredWithoutLegalityNestedInput
+  pokemon?: Prisma.ChampionsPokemonUpdateOneRequiredWithoutLegalityNestedInput
 }
 
 export type RegulationLegalityUncheckedUpdateWithoutRegulationInput = {
@@ -508,21 +508,21 @@ export type RegulationLegalitySelect<ExtArgs extends runtime.Types.Extensions.In
   regulation_id?: boolean
   pokemon_id?: boolean
   regulation?: boolean | Prisma.RegulationDefaultArgs<ExtArgs>
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["regulationLegality"]>
 
 export type RegulationLegalitySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   regulation_id?: boolean
   pokemon_id?: boolean
   regulation?: boolean | Prisma.RegulationDefaultArgs<ExtArgs>
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["regulationLegality"]>
 
 export type RegulationLegalitySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   regulation_id?: boolean
   pokemon_id?: boolean
   regulation?: boolean | Prisma.RegulationDefaultArgs<ExtArgs>
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["regulationLegality"]>
 
 export type RegulationLegalitySelectScalar = {
@@ -533,22 +533,22 @@ export type RegulationLegalitySelectScalar = {
 export type RegulationLegalityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"regulation_id" | "pokemon_id", ExtArgs["result"]["regulationLegality"]>
 export type RegulationLegalityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   regulation?: boolean | Prisma.RegulationDefaultArgs<ExtArgs>
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
 }
 export type RegulationLegalityIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   regulation?: boolean | Prisma.RegulationDefaultArgs<ExtArgs>
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
 }
 export type RegulationLegalityIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   regulation?: boolean | Prisma.RegulationDefaultArgs<ExtArgs>
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
 }
 
 export type $RegulationLegalityPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "RegulationLegality"
   objects: {
     regulation: Prisma.$RegulationPayload<ExtArgs>
-    pokemon: Prisma.$ChampPokemonPayload<ExtArgs>
+    pokemon: Prisma.$ChampionsPokemonPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     regulation_id: number
@@ -948,7 +948,7 @@ readonly fields: RegulationLegalityFieldRefs;
 export interface Prisma__RegulationLegalityClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   regulation<T extends Prisma.RegulationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RegulationDefaultArgs<ExtArgs>>): Prisma.Prisma__RegulationClient<runtime.Types.Result.GetResult<Prisma.$RegulationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  pokemon<T extends Prisma.ChampPokemonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampPokemonDefaultArgs<ExtArgs>>): Prisma.Prisma__ChampPokemonClient<runtime.Types.Result.GetResult<Prisma.$ChampPokemonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  pokemon<T extends Prisma.ChampionsPokemonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampionsPokemonDefaultArgs<ExtArgs>>): Prisma.Prisma__ChampionsPokemonClient<runtime.Types.Result.GetResult<Prisma.$ChampionsPokemonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

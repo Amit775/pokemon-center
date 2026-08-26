@@ -36,7 +36,7 @@ const boxInclude = {
 			id: true,
 			slug: true,
 			name: true,
-			national_dex_no: true,
+			national_pokedex_number: true,
 			base_hp: true,
 			base_attack: true,
 			base_defense: true,
@@ -86,7 +86,7 @@ function toSummary(row: any) {
 		id: row.id,
 		slug: row.slug,
 		name: row.name,
-		nationalPokedexNumber: row.national_dex_no,
+		nationalPokedexNumber: row.national_pokedex_number,
 		types: [row.type1.slug, ...(row.type2 ? [row.type2.slug] : [])],
 		baseStats: {
 			hp: row.base_hp,

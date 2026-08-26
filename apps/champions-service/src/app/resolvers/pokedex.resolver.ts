@@ -43,7 +43,7 @@ type PokemonRow = {
 	id: number;
 	slug: string;
 	name: string;
-	national_dex_no: number;
+	national_pokedex_number: number;
 	base_hp: number;
 	base_attack: number;
 	base_defense: number;
@@ -61,7 +61,7 @@ const summarySelect = {
 	id: true,
 	slug: true,
 	name: true,
-	national_dex_no: true,
+	national_pokedex_number: true,
 	base_hp: true,
 	base_attack: true,
 	base_defense: true,
@@ -94,7 +94,7 @@ function toSummary(row: PokemonRow): ChampionsPokemonSummary {
 		id: row.id,
 		slug: row.slug,
 		name: row.name,
-		nationalPokedexNumber: row.national_dex_no,
+		nationalPokedexNumber: row.national_pokedex_number,
 		types: [row.type1.slug, ...(row.type2 ? [row.type2.slug] : [])],
 		baseStats: toBaseStats(row),
 		isMega: row.is_mega,
@@ -163,12 +163,12 @@ export class PokedexResolver {
 		const legal = await this.legalIds(regulation);
 		if (legal.length === 0) return [];
 
-		const rows = (await this.prisma.champPokemon.findMany({
+		const rows = (await this.prisma.championsPokemon.findMany({
 			where: { id: { in: legal }, ...(term ? { name: { contains: term, mode: 'insensitive' } } : {}) },
 			select: summarySelect,
 			// A generous slice so ranking below has something to work with.
 			take: Math.max(take * 4, 48),
-			orderBy: { national_dex_no: 'asc' },
+			orderBy: { national_pokedex_number: 'asc' },
 		})) as PokemonRow[];
 
 		const lower = term.toLowerCase();
@@ -176,7 +176,7 @@ export class PokedexResolver {
 			const aStarts = first.name.toLowerCase().startsWith(lower) ? 0 : 1;
 			const bStarts = second.name.toLowerCase().startsWith(lower) ? 0 : 1;
 			// Base forms before Megas: you pick Charizard, then decide about the stone.
-			return aStarts - bStarts || Number(first.is_mega) - Number(second.is_mega) || first.national_dex_no - second.national_dex_no;
+			return aStarts - bStarts || Number(first.is_mega) - Number(second.is_mega) || first.national_pokedex_number - second.national_pokedex_number;
 		});
 
 		return ranked.slice(0, take).map(toSummary);
@@ -200,7 +200,7 @@ export class PokedexResolver {
 		const legal = await this.legalIds(regulation);
 		if (legal.length === 0) return [];
 
-		const rows = (await this.prisma.champPokemon.findMany({
+		const rows = (await this.prisma.championsPokemon.findMany({
 			where: {
 				id: { in: legal },
 				...(includeMegas ? {} : { is_mega: false }),
@@ -208,7 +208,7 @@ export class PokedexResolver {
 				...(type ? { OR: [{ type1: { slug: type } }, { type2: { slug: type } }] } : {}),
 			},
 			select: summarySelect,
-			orderBy: [{ national_dex_no: 'asc' }, { is_mega: 'asc' }],
+			orderBy: [{ national_pokedex_number: 'asc' }, { is_mega: 'asc' }],
 			take: take ?? 60,
 			skip: skip ?? 0,
 		})) as PokemonRow[];
@@ -227,7 +227,7 @@ export class PokedexResolver {
 		const legal = await this.legalIds(regulation);
 		if (legal.length === 0) return 0;
 
-		return this.prisma.champPokemon.count({
+		return this.prisma.championsPokemon.count({
 			where: {
 				id: { in: legal },
 				...(includeMegas ? {} : { is_mega: false }),
@@ -249,7 +249,7 @@ export class PokedexResolver {
 		const legal = await this.legalIds(regulation);
 		if (legal.length === 0) return [];
 
-		const rows = await this.prisma.champPokemon.findMany({
+		const rows = await this.prisma.championsPokemon.findMany({
 			where: { id: { in: legal } },
 			select: {
 				...summarySelect,
@@ -259,7 +259,7 @@ export class PokedexResolver {
 				// form the current regulation has removed.
 				megaForms: { where: { id: { in: legal } }, select: { id: true } },
 			},
-			orderBy: [{ national_dex_no: 'asc' }, { is_mega: 'asc' }],
+			orderBy: [{ national_pokedex_number: 'asc' }, { is_mega: 'asc' }],
 		});
 
 		return rows.map((row) => {
@@ -289,7 +289,7 @@ export class PokedexResolver {
 	 */
 	@Query(() => [ChampionsAbility], { name: 'championsAbilities' })
 	async championsAbilities(): Promise<ChampionsAbility[]> {
-		const rows = await this.prisma.champAbility.findMany({
+		const rows = await this.prisma.championsAbility.findMany({
 			select: { id: true, slug: true, name: true, effect_text: true, is_mega: true },
 			orderBy: { name: 'asc' },
 		});
@@ -307,7 +307,7 @@ export class PokedexResolver {
 	 */
 	@Query(() => [Int], { name: 'championsMoveLearners' })
 	async championsMoveLearners(@Args('moveSlug') moveSlug: string): Promise<number[]> {
-		const rows = await this.prisma.champLearnset.findMany({
+		const rows = await this.prisma.championsLearnset.findMany({
 			where: { move: { slug: moveSlug } },
 			select: { pokemon_id: true },
 		});
@@ -318,7 +318,7 @@ export class PokedexResolver {
 	/** Every move on the roster, for the move filter's autocomplete. */
 	@Query(() => [ChampionsMove], { name: 'championsMoveIndex' })
 	async championsMoveIndex(): Promise<ChampionsMove[]> {
-		const rows = await this.prisma.champMove.findMany({
+		const rows = await this.prisma.championsMove.findMany({
 			include: { type: true },
 			orderBy: { name: 'asc' },
 		});
@@ -329,7 +329,7 @@ export class PokedexResolver {
 	/** Every type, for the filter row. */
 	@Query(() => [ChampionsTypeModel], { name: 'championsTypes' })
 	async championsTypes(): Promise<ChampionsTypeModel[]> {
-		return this.prisma.champType.findMany({ orderBy: { id: 'asc' }, select: { id: true, slug: true, name: true } });
+		return this.prisma.championsType.findMany({ orderBy: { id: 'asc' }, select: { id: true, slug: true, name: true } });
 	}
 
 	/**
@@ -340,7 +340,7 @@ export class PokedexResolver {
 	 */
 	@Query(() => [ChampionsMove], { name: 'championsChangedMoves' })
 	async championsChangedMoves(): Promise<ChampionsMove[]> {
-		const rows = await this.prisma.champMove.findMany({
+		const rows = await this.prisma.championsMove.findMany({
 			where: { is_overridden: true },
 			select: {
 				id: true,
@@ -369,7 +369,7 @@ export class PokedexResolver {
 	async championsTeam(@Args('slugs', { type: () => [String] }) slugs: string[]): Promise<ChampionsPokemonDetail[]> {
 		if (slugs.length === 0) return [];
 
-		const rows = await this.prisma.champPokemon.findMany({
+		const rows = await this.prisma.championsPokemon.findMany({
 			where: { slug: { in: slugs } },
 			select: {
 				...summarySelect,
@@ -444,7 +444,7 @@ export class PokedexResolver {
 	 */
 	@Query(() => [TypeEfficacyEntry], { name: 'typeChart' })
 	async typeChart(): Promise<TypeEfficacyEntry[]> {
-		const rows = await this.prisma.champTypeEfficacy.findMany({
+		const rows = await this.prisma.championsTypeEfficacy.findMany({
 			select: {
 				damage_factor: true,
 				attackingType: { select: { slug: true } },

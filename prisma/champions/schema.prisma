@@ -7,7 +7,7 @@
 //
 // Two conventions differ from the mainline schema on purpose:
 //
-//  1. **Ids are the mainline ids.** `ChampPokemon.id` is the same integer as
+//  1. **Ids are the mainline ids.** `ChampionsPokemon.id` is the same integer as
 //     `pokemon.id` upstream, so the derive pipeline is idempotent (upsert by id) and the
 //     provenance of every row stays traceable back to `data/csv/`.
 //  2. **Stats are denormalized to columns**, not a `pokemon_stats` join table. This is a
@@ -38,36 +38,36 @@ datasource db {
 // REFERENCE — projected from mainline, then overridden
 // ===========================================
 
-model ChampType {
+model ChampionsType {
   id   Int    @id
   slug String @unique
   name String
 
-  pokemonPrimary   ChampPokemon[]      @relation("PrimaryType")
-  pokemonSecondary ChampPokemon[]      @relation("SecondaryType")
-  moves            ChampMove[]
-  attacking        ChampTypeEfficacy[] @relation("AttackingType")
-  defending        ChampTypeEfficacy[] @relation("DefendingType")
+  pokemonPrimary   ChampionsPokemon[]      @relation("PrimaryType")
+  pokemonSecondary ChampionsPokemon[]      @relation("SecondaryType")
+  moves            ChampionsMove[]
+  attacking        ChampionsTypeEfficacy[] @relation("AttackingType")
+  defending        ChampionsTypeEfficacy[] @relation("DefendingType")
 
-  @@map("champ_type")
+  @@map("champions_type")
 }
 
 /// Champions' own type chart. Currently identical to Gen 9, but stored rather than assumed
 /// so a future regulation that tweaks it is a data change, not a code change.
-model ChampTypeEfficacy {
+model ChampionsTypeEfficacy {
   attacking_type_id Int
   defending_type_id Int
   /// Percent, matching upstream `type_efficacy.damage_factor`: 0, 50, 100, 200.
   damage_factor     Int
 
-  attackingType ChampType @relation("AttackingType", fields: [attacking_type_id], references: [id])
-  defendingType ChampType @relation("DefendingType", fields: [defending_type_id], references: [id])
+  attackingType ChampionsType @relation("AttackingType", fields: [attacking_type_id], references: [id])
+  defendingType ChampionsType @relation("DefendingType", fields: [defending_type_id], references: [id])
 
   @@id([attacking_type_id, defending_type_id])
-  @@map("champ_type_efficacy")
+  @@map("champions_type_efficacy")
 }
 
-model ChampAbility {
+model ChampionsAbility {
   id          Int     @id
   slug        String  @unique
   name        String
@@ -76,16 +76,16 @@ model ChampAbility {
   /// `piercing-drill`, `eelevate`, `fire-mane`, `spicy-spray`, ...).
   is_mega     Boolean @default(false)
 
-  pokemonAbilities ChampPokemonAbility[]
-  megaOf           ChampPokemon[]        @relation("MegaAbility")
+  pokemonAbilities ChampionsPokemonAbility[]
+  megaOf           ChampionsPokemon[]        @relation("MegaAbility")
   knownSets        KnownSet[]
   boxPokemon       BoxPokemon[]
 
   @@index([slug(ops: raw("gin_trgm_ops"))], type: Gin)
-  @@map("champ_ability")
+  @@map("champions_ability")
 }
 
-model ChampMove {
+model ChampionsMove {
   id              Int         @id
   slug            String      @unique
   name            String
@@ -107,21 +107,21 @@ model ChampMove {
   /// Human-readable note describing what changed, shown next to the badge.
   override_note   String?
 
-  type      ChampType        @relation(fields: [type_id], references: [id])
-  learnedBy ChampLearnset[]
+  type      ChampionsType        @relation(fields: [type_id], references: [id])
+  learnedBy ChampionsLearnset[]
   inSets    KnownSetMove[]
   inBoxSets BoxPokemonMove[]
 
   @@index([slug(ops: raw("gin_trgm_ops"))], type: Gin)
-  @@map("champ_move")
+  @@map("champions_move")
 }
 
-model ChampPokemon {
+model ChampionsPokemon {
   id               Int     @id
   slug             String  @unique
   name             String
   /// National dex number. Megas share their base form's number.
-  national_dex_no  Int
+  national_pokedex_number  Int
   type1_id         Int
   type2_id         Int?
 
@@ -145,14 +145,14 @@ model ChampPokemon {
   /// move list is safer than a missing one, but it has to be labelled as such.
   learnset_is_approximate Boolean @default(false)
 
-  type1       ChampType     @relation("PrimaryType", fields: [type1_id], references: [id])
-  type2       ChampType?    @relation("SecondaryType", fields: [type2_id], references: [id])
-  megaOf      ChampPokemon? @relation("MegaForm", fields: [mega_of_id], references: [id])
-  megaForms   ChampPokemon[] @relation("MegaForm")
-  megaAbility ChampAbility? @relation("MegaAbility", fields: [mega_ability_id], references: [id])
+  type1       ChampionsType     @relation("PrimaryType", fields: [type1_id], references: [id])
+  type2       ChampionsType?    @relation("SecondaryType", fields: [type2_id], references: [id])
+  megaOf      ChampionsPokemon? @relation("MegaForm", fields: [mega_of_id], references: [id])
+  megaForms   ChampionsPokemon[] @relation("MegaForm")
+  megaAbility ChampionsAbility? @relation("MegaAbility", fields: [mega_ability_id], references: [id])
 
-  abilities  ChampPokemonAbility[]
-  learnset   ChampLearnset[]
+  abilities  ChampionsPokemonAbility[]
+  learnset   ChampionsLearnset[]
   legality   RegulationLegality[]
   knownSets   KnownSet[]
   teamMembers TeamMember[]
@@ -160,31 +160,31 @@ model ChampPokemon {
 
   @@index([slug(ops: raw("gin_trgm_ops"))], type: Gin)
   @@index([is_mega])
-  @@map("champ_pokemon")
+  @@map("champions_pokemon")
 }
 
-model ChampPokemonAbility {
+model ChampionsPokemonAbility {
   pokemon_id Int
   ability_id Int
   slot       Int
   is_hidden  Boolean @default(false)
 
-  pokemon ChampPokemon @relation(fields: [pokemon_id], references: [id], onDelete: Cascade)
-  ability ChampAbility @relation(fields: [ability_id], references: [id])
+  pokemon ChampionsPokemon @relation(fields: [pokemon_id], references: [id], onDelete: Cascade)
+  ability ChampionsAbility @relation(fields: [ability_id], references: [id])
 
   @@id([pokemon_id, ability_id])
-  @@map("champ_pokemon_ability")
+  @@map("champions_pokemon_ability")
 }
 
-model ChampLearnset {
+model ChampionsLearnset {
   pokemon_id Int
   move_id    Int
 
-  pokemon ChampPokemon @relation(fields: [pokemon_id], references: [id], onDelete: Cascade)
-  move    ChampMove    @relation(fields: [move_id], references: [id])
+  pokemon ChampionsPokemon @relation(fields: [pokemon_id], references: [id], onDelete: Cascade)
+  move    ChampionsMove    @relation(fields: [move_id], references: [id])
 
   @@id([pokemon_id, move_id])
-  @@map("champ_learnset")
+  @@map("champions_learnset")
 }
 
 // ===========================================
@@ -217,7 +217,7 @@ model RegulationLegality {
   pokemon_id    Int
 
   regulation Regulation   @relation(fields: [regulation_id], references: [id], onDelete: Cascade)
-  pokemon    ChampPokemon @relation(fields: [pokemon_id], references: [id], onDelete: Cascade)
+  pokemon    ChampionsPokemon @relation(fields: [pokemon_id], references: [id], onDelete: Cascade)
 
   @@id([regulation_id, pokemon_id])
   @@map("regulation_legality")
@@ -249,8 +249,8 @@ model KnownSet {
   seen_count Int       @default(0)
   updated_at DateTime  @updatedAt
 
-  pokemon ChampPokemon   @relation(fields: [pokemon_id], references: [id], onDelete: Cascade)
-  ability ChampAbility?  @relation(fields: [ability_id], references: [id])
+  pokemon ChampionsPokemon   @relation(fields: [pokemon_id], references: [id], onDelete: Cascade)
+  ability ChampionsAbility?  @relation(fields: [ability_id], references: [id])
   moves   KnownSetMove[]
   members TeamMember[]
 
@@ -264,7 +264,7 @@ model KnownSetMove {
   slot         Int
 
   knownSet KnownSet  @relation(fields: [known_set_id], references: [id], onDelete: Cascade)
-  move     ChampMove @relation(fields: [move_id], references: [id])
+  move     ChampionsMove @relation(fields: [move_id], references: [id])
 
   @@id([known_set_id, move_id])
   @@map("known_set_move")
@@ -304,8 +304,8 @@ model BoxPokemon {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  pokemon     ChampPokemon     @relation(fields: [pokemon_id], references: [id])
-  ability     ChampAbility?    @relation(fields: [ability_id], references: [id])
+  pokemon     ChampionsPokemon     @relation(fields: [pokemon_id], references: [id])
+  ability     ChampionsAbility?    @relation(fields: [ability_id], references: [id])
   moves       BoxPokemonMove[]
   memberships TeamMember[]
 
@@ -319,7 +319,7 @@ model BoxPokemonMove {
   slot           Int
 
   boxPokemon BoxPokemon @relation(fields: [box_pokemon_id], references: [id], onDelete: Cascade)
-  move       ChampMove  @relation(fields: [move_id], references: [id])
+  move       ChampionsMove  @relation(fields: [move_id], references: [id])
 
   @@id([box_pokemon_id, move_id])
   @@map("box_pokemon_move")
@@ -359,7 +359,7 @@ model TeamMember {
   known_set_id   Int?
 
   team       Team         @relation(fields: [team_id], references: [id], onDelete: Cascade)
-  pokemon    ChampPokemon @relation(fields: [pokemon_id], references: [id])
+  pokemon    ChampionsPokemon @relation(fields: [pokemon_id], references: [id])
   boxPokemon BoxPokemon?  @relation(fields: [box_pokemon_id], references: [id], onDelete: SetNull)
   knownSet   KnownSet?    @relation(fields: [known_set_id], references: [id])
 

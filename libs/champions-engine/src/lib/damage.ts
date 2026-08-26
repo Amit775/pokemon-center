@@ -21,7 +21,7 @@ import {
  *   damage = floor(base · modifiers · roll)
  *
  * What changes is everything feeding into it — Champions' rebalanced move values arrive via
- * the seeded `champ_move` rows, and the stats come from the SP system. The engine therefore
+ * the seeded `champions_move` rows, and the stats come from the SP system. The engine therefore
  * takes moves and builds as data and never hard-codes a power or a base stat.
  *
  * Damage is returned as the full 16-roll range rather than an average. "84–99%" and "92%"

@@ -209,7 +209,7 @@ export type BoxPokemonMoveWhereInput = {
   move_id?: Prisma.IntFilter<"BoxPokemonMove"> | number
   slot?: Prisma.IntFilter<"BoxPokemonMove"> | number
   boxPokemon?: Prisma.XOR<Prisma.BoxPokemonScalarRelationFilter, Prisma.BoxPokemonWhereInput>
-  move?: Prisma.XOR<Prisma.ChampMoveScalarRelationFilter, Prisma.ChampMoveWhereInput>
+  move?: Prisma.XOR<Prisma.ChampionsMoveScalarRelationFilter, Prisma.ChampionsMoveWhereInput>
 }
 
 export type BoxPokemonMoveOrderByWithRelationInput = {
@@ -217,7 +217,7 @@ export type BoxPokemonMoveOrderByWithRelationInput = {
   move_id?: Prisma.SortOrder
   slot?: Prisma.SortOrder
   boxPokemon?: Prisma.BoxPokemonOrderByWithRelationInput
-  move?: Prisma.ChampMoveOrderByWithRelationInput
+  move?: Prisma.ChampionsMoveOrderByWithRelationInput
 }
 
 export type BoxPokemonMoveWhereUniqueInput = Prisma.AtLeast<{
@@ -229,7 +229,7 @@ export type BoxPokemonMoveWhereUniqueInput = Prisma.AtLeast<{
   move_id?: Prisma.IntFilter<"BoxPokemonMove"> | number
   slot?: Prisma.IntFilter<"BoxPokemonMove"> | number
   boxPokemon?: Prisma.XOR<Prisma.BoxPokemonScalarRelationFilter, Prisma.BoxPokemonWhereInput>
-  move?: Prisma.XOR<Prisma.ChampMoveScalarRelationFilter, Prisma.ChampMoveWhereInput>
+  move?: Prisma.XOR<Prisma.ChampionsMoveScalarRelationFilter, Prisma.ChampionsMoveWhereInput>
 }, "box_pokemon_id_move_id">
 
 export type BoxPokemonMoveOrderByWithAggregationInput = {
@@ -255,7 +255,7 @@ export type BoxPokemonMoveScalarWhereWithAggregatesInput = {
 export type BoxPokemonMoveCreateInput = {
   slot: number
   boxPokemon: Prisma.BoxPokemonCreateNestedOneWithoutMovesInput
-  move: Prisma.ChampMoveCreateNestedOneWithoutInBoxSetsInput
+  move: Prisma.ChampionsMoveCreateNestedOneWithoutInBoxSetsInput
 }
 
 export type BoxPokemonMoveUncheckedCreateInput = {
@@ -267,7 +267,7 @@ export type BoxPokemonMoveUncheckedCreateInput = {
 export type BoxPokemonMoveUpdateInput = {
   slot?: Prisma.IntFieldUpdateOperationsInput | number
   boxPokemon?: Prisma.BoxPokemonUpdateOneRequiredWithoutMovesNestedInput
-  move?: Prisma.ChampMoveUpdateOneRequiredWithoutInBoxSetsNestedInput
+  move?: Prisma.ChampionsMoveUpdateOneRequiredWithoutInBoxSetsNestedInput
 }
 
 export type BoxPokemonMoveUncheckedUpdateInput = {
@@ -468,7 +468,7 @@ export type BoxPokemonMoveScalarWhereInput = {
 
 export type BoxPokemonMoveCreateWithoutBoxPokemonInput = {
   slot: number
-  move: Prisma.ChampMoveCreateNestedOneWithoutInBoxSetsInput
+  move: Prisma.ChampionsMoveCreateNestedOneWithoutInBoxSetsInput
 }
 
 export type BoxPokemonMoveUncheckedCreateWithoutBoxPokemonInput = {
@@ -529,7 +529,7 @@ export type BoxPokemonMoveCreateManyBoxPokemonInput = {
 
 export type BoxPokemonMoveUpdateWithoutBoxPokemonInput = {
   slot?: Prisma.IntFieldUpdateOperationsInput | number
-  move?: Prisma.ChampMoveUpdateOneRequiredWithoutInBoxSetsNestedInput
+  move?: Prisma.ChampionsMoveUpdateOneRequiredWithoutInBoxSetsNestedInput
 }
 
 export type BoxPokemonMoveUncheckedUpdateWithoutBoxPokemonInput = {
@@ -549,7 +549,7 @@ export type BoxPokemonMoveSelect<ExtArgs extends runtime.Types.Extensions.Intern
   move_id?: boolean
   slot?: boolean
   boxPokemon?: boolean | Prisma.BoxPokemonDefaultArgs<ExtArgs>
-  move?: boolean | Prisma.ChampMoveDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.ChampionsMoveDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["boxPokemonMove"]>
 
 export type BoxPokemonMoveSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -557,7 +557,7 @@ export type BoxPokemonMoveSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   move_id?: boolean
   slot?: boolean
   boxPokemon?: boolean | Prisma.BoxPokemonDefaultArgs<ExtArgs>
-  move?: boolean | Prisma.ChampMoveDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.ChampionsMoveDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["boxPokemonMove"]>
 
 export type BoxPokemonMoveSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -565,7 +565,7 @@ export type BoxPokemonMoveSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   move_id?: boolean
   slot?: boolean
   boxPokemon?: boolean | Prisma.BoxPokemonDefaultArgs<ExtArgs>
-  move?: boolean | Prisma.ChampMoveDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.ChampionsMoveDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["boxPokemonMove"]>
 
 export type BoxPokemonMoveSelectScalar = {
@@ -577,22 +577,22 @@ export type BoxPokemonMoveSelectScalar = {
 export type BoxPokemonMoveOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"box_pokemon_id" | "move_id" | "slot", ExtArgs["result"]["boxPokemonMove"]>
 export type BoxPokemonMoveInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   boxPokemon?: boolean | Prisma.BoxPokemonDefaultArgs<ExtArgs>
-  move?: boolean | Prisma.ChampMoveDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.ChampionsMoveDefaultArgs<ExtArgs>
 }
 export type BoxPokemonMoveIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   boxPokemon?: boolean | Prisma.BoxPokemonDefaultArgs<ExtArgs>
-  move?: boolean | Prisma.ChampMoveDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.ChampionsMoveDefaultArgs<ExtArgs>
 }
 export type BoxPokemonMoveIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   boxPokemon?: boolean | Prisma.BoxPokemonDefaultArgs<ExtArgs>
-  move?: boolean | Prisma.ChampMoveDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.ChampionsMoveDefaultArgs<ExtArgs>
 }
 
 export type $BoxPokemonMovePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "BoxPokemonMove"
   objects: {
     boxPokemon: Prisma.$BoxPokemonPayload<ExtArgs>
-    move: Prisma.$ChampMovePayload<ExtArgs>
+    move: Prisma.$ChampionsMovePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     box_pokemon_id: number
@@ -993,7 +993,7 @@ readonly fields: BoxPokemonMoveFieldRefs;
 export interface Prisma__BoxPokemonMoveClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   boxPokemon<T extends Prisma.BoxPokemonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BoxPokemonDefaultArgs<ExtArgs>>): Prisma.Prisma__BoxPokemonClient<runtime.Types.Result.GetResult<Prisma.$BoxPokemonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  move<T extends Prisma.ChampMoveDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampMoveDefaultArgs<ExtArgs>>): Prisma.Prisma__ChampMoveClient<runtime.Types.Result.GetResult<Prisma.$ChampMovePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  move<T extends Prisma.ChampionsMoveDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampionsMoveDefaultArgs<ExtArgs>>): Prisma.Prisma__ChampionsMoveClient<runtime.Types.Result.GetResult<Prisma.$ChampionsMovePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

@@ -18,41 +18,41 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
- * Model ChampType
+ * Model ChampionsType
  * 
  */
-export type ChampType = Prisma.ChampTypeModel
+export type ChampionsType = Prisma.ChampionsTypeModel
 /**
- * Model ChampTypeEfficacy
+ * Model ChampionsTypeEfficacy
  * Champions' own type chart. Currently identical to Gen 9, but stored rather than assumed
  * so a future regulation that tweaks it is a data change, not a code change.
  */
-export type ChampTypeEfficacy = Prisma.ChampTypeEfficacyModel
+export type ChampionsTypeEfficacy = Prisma.ChampionsTypeEfficacyModel
 /**
- * Model ChampAbility
+ * Model ChampionsAbility
  * 
  */
-export type ChampAbility = Prisma.ChampAbilityModel
+export type ChampionsAbility = Prisma.ChampionsAbilityModel
 /**
- * Model ChampMove
+ * Model ChampionsMove
  * 
  */
-export type ChampMove = Prisma.ChampMoveModel
+export type ChampionsMove = Prisma.ChampionsMoveModel
 /**
- * Model ChampPokemon
+ * Model ChampionsPokemon
  * 
  */
-export type ChampPokemon = Prisma.ChampPokemonModel
+export type ChampionsPokemon = Prisma.ChampionsPokemonModel
 /**
- * Model ChampPokemonAbility
+ * Model ChampionsPokemonAbility
  * 
  */
-export type ChampPokemonAbility = Prisma.ChampPokemonAbilityModel
+export type ChampionsPokemonAbility = Prisma.ChampionsPokemonAbilityModel
 /**
- * Model ChampLearnset
+ * Model ChampionsLearnset
  * 
  */
-export type ChampLearnset = Prisma.ChampLearnsetModel
+export type ChampionsLearnset = Prisma.ChampionsLearnsetModel
 /**
  * Model Regulation
  * A Champions regulation set. M-B ran 17 Jun 2026 → 2 Sep 2026 with ~208 species and

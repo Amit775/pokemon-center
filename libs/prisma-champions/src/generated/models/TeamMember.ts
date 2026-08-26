@@ -245,7 +245,7 @@ export type TeamMemberWhereInput = {
   box_pokemon_id?: Prisma.IntNullableFilter<"TeamMember"> | number | null
   known_set_id?: Prisma.IntNullableFilter<"TeamMember"> | number | null
   team?: Prisma.XOR<Prisma.TeamScalarRelationFilter, Prisma.TeamWhereInput>
-  pokemon?: Prisma.XOR<Prisma.ChampPokemonScalarRelationFilter, Prisma.ChampPokemonWhereInput>
+  pokemon?: Prisma.XOR<Prisma.ChampionsPokemonScalarRelationFilter, Prisma.ChampionsPokemonWhereInput>
   boxPokemon?: Prisma.XOR<Prisma.BoxPokemonNullableScalarRelationFilter, Prisma.BoxPokemonWhereInput> | null
   knownSet?: Prisma.XOR<Prisma.KnownSetNullableScalarRelationFilter, Prisma.KnownSetWhereInput> | null
 }
@@ -258,7 +258,7 @@ export type TeamMemberOrderByWithRelationInput = {
   box_pokemon_id?: Prisma.SortOrderInput | Prisma.SortOrder
   known_set_id?: Prisma.SortOrderInput | Prisma.SortOrder
   team?: Prisma.TeamOrderByWithRelationInput
-  pokemon?: Prisma.ChampPokemonOrderByWithRelationInput
+  pokemon?: Prisma.ChampionsPokemonOrderByWithRelationInput
   boxPokemon?: Prisma.BoxPokemonOrderByWithRelationInput
   knownSet?: Prisma.KnownSetOrderByWithRelationInput
 }
@@ -275,7 +275,7 @@ export type TeamMemberWhereUniqueInput = Prisma.AtLeast<{
   box_pokemon_id?: Prisma.IntNullableFilter<"TeamMember"> | number | null
   known_set_id?: Prisma.IntNullableFilter<"TeamMember"> | number | null
   team?: Prisma.XOR<Prisma.TeamScalarRelationFilter, Prisma.TeamWhereInput>
-  pokemon?: Prisma.XOR<Prisma.ChampPokemonScalarRelationFilter, Prisma.ChampPokemonWhereInput>
+  pokemon?: Prisma.XOR<Prisma.ChampionsPokemonScalarRelationFilter, Prisma.ChampionsPokemonWhereInput>
   boxPokemon?: Prisma.XOR<Prisma.BoxPokemonNullableScalarRelationFilter, Prisma.BoxPokemonWhereInput> | null
   knownSet?: Prisma.XOR<Prisma.KnownSetNullableScalarRelationFilter, Prisma.KnownSetWhereInput> | null
 }, "id" | "team_id_slot">
@@ -309,7 +309,7 @@ export type TeamMemberScalarWhereWithAggregatesInput = {
 export type TeamMemberCreateInput = {
   slot: number
   team: Prisma.TeamCreateNestedOneWithoutMembersInput
-  pokemon: Prisma.ChampPokemonCreateNestedOneWithoutTeamMembersInput
+  pokemon: Prisma.ChampionsPokemonCreateNestedOneWithoutTeamMembersInput
   boxPokemon?: Prisma.BoxPokemonCreateNestedOneWithoutMembershipsInput
   knownSet?: Prisma.KnownSetCreateNestedOneWithoutMembersInput
 }
@@ -326,7 +326,7 @@ export type TeamMemberUncheckedCreateInput = {
 export type TeamMemberUpdateInput = {
   slot?: Prisma.IntFieldUpdateOperationsInput | number
   team?: Prisma.TeamUpdateOneRequiredWithoutMembersNestedInput
-  pokemon?: Prisma.ChampPokemonUpdateOneRequiredWithoutTeamMembersNestedInput
+  pokemon?: Prisma.ChampionsPokemonUpdateOneRequiredWithoutTeamMembersNestedInput
   boxPokemon?: Prisma.BoxPokemonUpdateOneWithoutMembershipsNestedInput
   knownSet?: Prisma.KnownSetUpdateOneWithoutMembersNestedInput
 }
@@ -646,7 +646,7 @@ export type TeamMemberScalarWhereInput = {
 export type TeamMemberCreateWithoutKnownSetInput = {
   slot: number
   team: Prisma.TeamCreateNestedOneWithoutMembersInput
-  pokemon: Prisma.ChampPokemonCreateNestedOneWithoutTeamMembersInput
+  pokemon: Prisma.ChampionsPokemonCreateNestedOneWithoutTeamMembersInput
   boxPokemon?: Prisma.BoxPokemonCreateNestedOneWithoutMembershipsInput
 }
 
@@ -687,7 +687,7 @@ export type TeamMemberUpdateManyWithWhereWithoutKnownSetInput = {
 export type TeamMemberCreateWithoutBoxPokemonInput = {
   slot: number
   team: Prisma.TeamCreateNestedOneWithoutMembersInput
-  pokemon: Prisma.ChampPokemonCreateNestedOneWithoutTeamMembersInput
+  pokemon: Prisma.ChampionsPokemonCreateNestedOneWithoutTeamMembersInput
   knownSet?: Prisma.KnownSetCreateNestedOneWithoutMembersInput
 }
 
@@ -727,7 +727,7 @@ export type TeamMemberUpdateManyWithWhereWithoutBoxPokemonInput = {
 
 export type TeamMemberCreateWithoutTeamInput = {
   slot: number
-  pokemon: Prisma.ChampPokemonCreateNestedOneWithoutTeamMembersInput
+  pokemon: Prisma.ChampionsPokemonCreateNestedOneWithoutTeamMembersInput
   boxPokemon?: Prisma.BoxPokemonCreateNestedOneWithoutMembershipsInput
   knownSet?: Prisma.KnownSetCreateNestedOneWithoutMembersInput
 }
@@ -808,7 +808,7 @@ export type TeamMemberCreateManyKnownSetInput = {
 export type TeamMemberUpdateWithoutKnownSetInput = {
   slot?: Prisma.IntFieldUpdateOperationsInput | number
   team?: Prisma.TeamUpdateOneRequiredWithoutMembersNestedInput
-  pokemon?: Prisma.ChampPokemonUpdateOneRequiredWithoutTeamMembersNestedInput
+  pokemon?: Prisma.ChampionsPokemonUpdateOneRequiredWithoutTeamMembersNestedInput
   boxPokemon?: Prisma.BoxPokemonUpdateOneWithoutMembershipsNestedInput
 }
 
@@ -839,7 +839,7 @@ export type TeamMemberCreateManyBoxPokemonInput = {
 export type TeamMemberUpdateWithoutBoxPokemonInput = {
   slot?: Prisma.IntFieldUpdateOperationsInput | number
   team?: Prisma.TeamUpdateOneRequiredWithoutMembersNestedInput
-  pokemon?: Prisma.ChampPokemonUpdateOneRequiredWithoutTeamMembersNestedInput
+  pokemon?: Prisma.ChampionsPokemonUpdateOneRequiredWithoutTeamMembersNestedInput
   knownSet?: Prisma.KnownSetUpdateOneWithoutMembersNestedInput
 }
 
@@ -869,7 +869,7 @@ export type TeamMemberCreateManyTeamInput = {
 
 export type TeamMemberUpdateWithoutTeamInput = {
   slot?: Prisma.IntFieldUpdateOperationsInput | number
-  pokemon?: Prisma.ChampPokemonUpdateOneRequiredWithoutTeamMembersNestedInput
+  pokemon?: Prisma.ChampionsPokemonUpdateOneRequiredWithoutTeamMembersNestedInput
   boxPokemon?: Prisma.BoxPokemonUpdateOneWithoutMembershipsNestedInput
   knownSet?: Prisma.KnownSetUpdateOneWithoutMembersNestedInput
 }
@@ -900,7 +900,7 @@ export type TeamMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   box_pokemon_id?: boolean
   known_set_id?: boolean
   team?: boolean | Prisma.TeamDefaultArgs<ExtArgs>
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   boxPokemon?: boolean | Prisma.TeamMember$boxPokemonArgs<ExtArgs>
   knownSet?: boolean | Prisma.TeamMember$knownSetArgs<ExtArgs>
 }, ExtArgs["result"]["teamMember"]>
@@ -913,7 +913,7 @@ export type TeamMemberSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   box_pokemon_id?: boolean
   known_set_id?: boolean
   team?: boolean | Prisma.TeamDefaultArgs<ExtArgs>
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   boxPokemon?: boolean | Prisma.TeamMember$boxPokemonArgs<ExtArgs>
   knownSet?: boolean | Prisma.TeamMember$knownSetArgs<ExtArgs>
 }, ExtArgs["result"]["teamMember"]>
@@ -926,7 +926,7 @@ export type TeamMemberSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   box_pokemon_id?: boolean
   known_set_id?: boolean
   team?: boolean | Prisma.TeamDefaultArgs<ExtArgs>
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   boxPokemon?: boolean | Prisma.TeamMember$boxPokemonArgs<ExtArgs>
   knownSet?: boolean | Prisma.TeamMember$knownSetArgs<ExtArgs>
 }, ExtArgs["result"]["teamMember"]>
@@ -943,19 +943,19 @@ export type TeamMemberSelectScalar = {
 export type TeamMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "team_id" | "pokemon_id" | "slot" | "box_pokemon_id" | "known_set_id", ExtArgs["result"]["teamMember"]>
 export type TeamMemberInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   team?: boolean | Prisma.TeamDefaultArgs<ExtArgs>
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   boxPokemon?: boolean | Prisma.TeamMember$boxPokemonArgs<ExtArgs>
   knownSet?: boolean | Prisma.TeamMember$knownSetArgs<ExtArgs>
 }
 export type TeamMemberIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   team?: boolean | Prisma.TeamDefaultArgs<ExtArgs>
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   boxPokemon?: boolean | Prisma.TeamMember$boxPokemonArgs<ExtArgs>
   knownSet?: boolean | Prisma.TeamMember$knownSetArgs<ExtArgs>
 }
 export type TeamMemberIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   team?: boolean | Prisma.TeamDefaultArgs<ExtArgs>
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   boxPokemon?: boolean | Prisma.TeamMember$boxPokemonArgs<ExtArgs>
   knownSet?: boolean | Prisma.TeamMember$knownSetArgs<ExtArgs>
 }
@@ -964,7 +964,7 @@ export type $TeamMemberPayload<ExtArgs extends runtime.Types.Extensions.Internal
   name: "TeamMember"
   objects: {
     team: Prisma.$TeamPayload<ExtArgs>
-    pokemon: Prisma.$ChampPokemonPayload<ExtArgs>
+    pokemon: Prisma.$ChampionsPokemonPayload<ExtArgs>
     boxPokemon: Prisma.$BoxPokemonPayload<ExtArgs> | null
     knownSet: Prisma.$KnownSetPayload<ExtArgs> | null
   }
@@ -1376,7 +1376,7 @@ readonly fields: TeamMemberFieldRefs;
 export interface Prisma__TeamMemberClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   team<T extends Prisma.TeamDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TeamDefaultArgs<ExtArgs>>): Prisma.Prisma__TeamClient<runtime.Types.Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  pokemon<T extends Prisma.ChampPokemonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampPokemonDefaultArgs<ExtArgs>>): Prisma.Prisma__ChampPokemonClient<runtime.Types.Result.GetResult<Prisma.$ChampPokemonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  pokemon<T extends Prisma.ChampionsPokemonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampionsPokemonDefaultArgs<ExtArgs>>): Prisma.Prisma__ChampionsPokemonClient<runtime.Types.Result.GetResult<Prisma.$ChampionsPokemonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   boxPokemon<T extends Prisma.TeamMember$boxPokemonArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TeamMember$boxPokemonArgs<ExtArgs>>): Prisma.Prisma__BoxPokemonClient<runtime.Types.Result.GetResult<Prisma.$BoxPokemonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   knownSet<T extends Prisma.TeamMember$knownSetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TeamMember$knownSetArgs<ExtArgs>>): Prisma.Prisma__KnownSetClient<runtime.Types.Result.GetResult<Prisma.$KnownSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**

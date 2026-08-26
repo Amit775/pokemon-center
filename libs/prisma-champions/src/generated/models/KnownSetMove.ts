@@ -209,7 +209,7 @@ export type KnownSetMoveWhereInput = {
   move_id?: Prisma.IntFilter<"KnownSetMove"> | number
   slot?: Prisma.IntFilter<"KnownSetMove"> | number
   knownSet?: Prisma.XOR<Prisma.KnownSetScalarRelationFilter, Prisma.KnownSetWhereInput>
-  move?: Prisma.XOR<Prisma.ChampMoveScalarRelationFilter, Prisma.ChampMoveWhereInput>
+  move?: Prisma.XOR<Prisma.ChampionsMoveScalarRelationFilter, Prisma.ChampionsMoveWhereInput>
 }
 
 export type KnownSetMoveOrderByWithRelationInput = {
@@ -217,7 +217,7 @@ export type KnownSetMoveOrderByWithRelationInput = {
   move_id?: Prisma.SortOrder
   slot?: Prisma.SortOrder
   knownSet?: Prisma.KnownSetOrderByWithRelationInput
-  move?: Prisma.ChampMoveOrderByWithRelationInput
+  move?: Prisma.ChampionsMoveOrderByWithRelationInput
 }
 
 export type KnownSetMoveWhereUniqueInput = Prisma.AtLeast<{
@@ -229,7 +229,7 @@ export type KnownSetMoveWhereUniqueInput = Prisma.AtLeast<{
   move_id?: Prisma.IntFilter<"KnownSetMove"> | number
   slot?: Prisma.IntFilter<"KnownSetMove"> | number
   knownSet?: Prisma.XOR<Prisma.KnownSetScalarRelationFilter, Prisma.KnownSetWhereInput>
-  move?: Prisma.XOR<Prisma.ChampMoveScalarRelationFilter, Prisma.ChampMoveWhereInput>
+  move?: Prisma.XOR<Prisma.ChampionsMoveScalarRelationFilter, Prisma.ChampionsMoveWhereInput>
 }, "known_set_id_move_id">
 
 export type KnownSetMoveOrderByWithAggregationInput = {
@@ -255,7 +255,7 @@ export type KnownSetMoveScalarWhereWithAggregatesInput = {
 export type KnownSetMoveCreateInput = {
   slot: number
   knownSet: Prisma.KnownSetCreateNestedOneWithoutMovesInput
-  move: Prisma.ChampMoveCreateNestedOneWithoutInSetsInput
+  move: Prisma.ChampionsMoveCreateNestedOneWithoutInSetsInput
 }
 
 export type KnownSetMoveUncheckedCreateInput = {
@@ -267,7 +267,7 @@ export type KnownSetMoveUncheckedCreateInput = {
 export type KnownSetMoveUpdateInput = {
   slot?: Prisma.IntFieldUpdateOperationsInput | number
   knownSet?: Prisma.KnownSetUpdateOneRequiredWithoutMovesNestedInput
-  move?: Prisma.ChampMoveUpdateOneRequiredWithoutInSetsNestedInput
+  move?: Prisma.ChampionsMoveUpdateOneRequiredWithoutInSetsNestedInput
 }
 
 export type KnownSetMoveUncheckedUpdateInput = {
@@ -468,7 +468,7 @@ export type KnownSetMoveScalarWhereInput = {
 
 export type KnownSetMoveCreateWithoutKnownSetInput = {
   slot: number
-  move: Prisma.ChampMoveCreateNestedOneWithoutInSetsInput
+  move: Prisma.ChampionsMoveCreateNestedOneWithoutInSetsInput
 }
 
 export type KnownSetMoveUncheckedCreateWithoutKnownSetInput = {
@@ -529,7 +529,7 @@ export type KnownSetMoveCreateManyKnownSetInput = {
 
 export type KnownSetMoveUpdateWithoutKnownSetInput = {
   slot?: Prisma.IntFieldUpdateOperationsInput | number
-  move?: Prisma.ChampMoveUpdateOneRequiredWithoutInSetsNestedInput
+  move?: Prisma.ChampionsMoveUpdateOneRequiredWithoutInSetsNestedInput
 }
 
 export type KnownSetMoveUncheckedUpdateWithoutKnownSetInput = {
@@ -549,7 +549,7 @@ export type KnownSetMoveSelect<ExtArgs extends runtime.Types.Extensions.Internal
   move_id?: boolean
   slot?: boolean
   knownSet?: boolean | Prisma.KnownSetDefaultArgs<ExtArgs>
-  move?: boolean | Prisma.ChampMoveDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.ChampionsMoveDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["knownSetMove"]>
 
 export type KnownSetMoveSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -557,7 +557,7 @@ export type KnownSetMoveSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   move_id?: boolean
   slot?: boolean
   knownSet?: boolean | Prisma.KnownSetDefaultArgs<ExtArgs>
-  move?: boolean | Prisma.ChampMoveDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.ChampionsMoveDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["knownSetMove"]>
 
 export type KnownSetMoveSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -565,7 +565,7 @@ export type KnownSetMoveSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   move_id?: boolean
   slot?: boolean
   knownSet?: boolean | Prisma.KnownSetDefaultArgs<ExtArgs>
-  move?: boolean | Prisma.ChampMoveDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.ChampionsMoveDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["knownSetMove"]>
 
 export type KnownSetMoveSelectScalar = {
@@ -577,22 +577,22 @@ export type KnownSetMoveSelectScalar = {
 export type KnownSetMoveOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"known_set_id" | "move_id" | "slot", ExtArgs["result"]["knownSetMove"]>
 export type KnownSetMoveInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   knownSet?: boolean | Prisma.KnownSetDefaultArgs<ExtArgs>
-  move?: boolean | Prisma.ChampMoveDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.ChampionsMoveDefaultArgs<ExtArgs>
 }
 export type KnownSetMoveIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   knownSet?: boolean | Prisma.KnownSetDefaultArgs<ExtArgs>
-  move?: boolean | Prisma.ChampMoveDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.ChampionsMoveDefaultArgs<ExtArgs>
 }
 export type KnownSetMoveIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   knownSet?: boolean | Prisma.KnownSetDefaultArgs<ExtArgs>
-  move?: boolean | Prisma.ChampMoveDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.ChampionsMoveDefaultArgs<ExtArgs>
 }
 
 export type $KnownSetMovePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "KnownSetMove"
   objects: {
     knownSet: Prisma.$KnownSetPayload<ExtArgs>
-    move: Prisma.$ChampMovePayload<ExtArgs>
+    move: Prisma.$ChampionsMovePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     known_set_id: number
@@ -993,7 +993,7 @@ readonly fields: KnownSetMoveFieldRefs;
 export interface Prisma__KnownSetMoveClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   knownSet<T extends Prisma.KnownSetDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.KnownSetDefaultArgs<ExtArgs>>): Prisma.Prisma__KnownSetClient<runtime.Types.Result.GetResult<Prisma.$KnownSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  move<T extends Prisma.ChampMoveDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampMoveDefaultArgs<ExtArgs>>): Prisma.Prisma__ChampMoveClient<runtime.Types.Result.GetResult<Prisma.$ChampMovePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  move<T extends Prisma.ChampionsMoveDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampionsMoveDefaultArgs<ExtArgs>>): Prisma.Prisma__ChampionsMoveClient<runtime.Types.Result.GetResult<Prisma.$ChampionsMovePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
