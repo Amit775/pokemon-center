@@ -1,5 +1,5 @@
 import { Signal, computed, inject } from '@angular/core';
-import { CurrentRegulationDocument, champResource } from '@pokemon-center/data-access-champions';
+import { CurrentRegulationDocument, championsResource } from '@pokemon-center/data-access-champions';
 import { signalStore, withComputed, withProps } from '@ngrx/signals';
 
 /** Milliseconds in a day, for the countdown to the next regulation. */
@@ -55,7 +55,7 @@ export const RegulationStore = signalStore(
 	// Underscore-prefixed members are private to the store in @ngrx/signals, which is what
 	// we want for the transport: consumers read regulation state, never the raw resource.
 	withProps(() => ({
-		_query: champResource(CurrentRegulationDocument, () => ({})),
+		_query: championsResource(CurrentRegulationDocument, () => ({})),
 	})),
 	withComputed(({ _query }) => {
 		const regulation: Signal<ActiveRegulation | null> = computed(() => _query.value()?.currentRegulation ?? null);

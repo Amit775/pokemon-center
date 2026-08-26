@@ -16,7 +16,7 @@ const gen1Ref: ReferenceData = { typeChart: GEN1_CHART };
 const modernCtx: GameContext = { versionGroup: null, generation: null };
 const gen1Ctx: GameContext = { versionGroup: 'red-blue', generation: 1 };
 
-const SEEDS = Array.from({ length: 200 }, (_, i) => i * 7919 + 13);
+const SEEDS = Array.from({ length: 200 }, (_, index) => index * 7919 + 13);
 
 /* ------------------------------------------------------------------ lookups */
 
@@ -50,7 +50,7 @@ describe('dualEffectiveness', () => {
 
 /* ------------------------------------------------------------------ generators */
 
-describe.each(typeChartGenerators.map((g) => [g.id, g] as const))('%s', (_id, generator: ExerciseGenerator) => {
+describe.each(typeChartGenerators.map((typeChartGenerator) => [typeChartGenerator.id, typeChartGenerator] as const))('%s', (_id, generator: ExerciseGenerator) => {
 	it('is deterministic — the same seed reproduces the exercise exactly', () => {
 		for (const seed of SEEDS.slice(0, 25)) {
 			expect(generator.generate(seed, modernRef, modernCtx)).toEqual(generator.generate(seed, modernRef, modernCtx));
@@ -63,11 +63,11 @@ describe.each(typeChartGenerators.map((g) => [g.id, g] as const))('%s', (_id, ge
 		// so simply generating across the space is the assertion.
 		for (const seed of SEEDS) {
 			const exercise = generator.generate(seed, modernRef, modernCtx);
-			const correct = exercise.candidates.filter((c) => c.correct);
+			const correct = exercise.candidates.filter((candidate) => candidate.correct);
 			expect(correct).toHaveLength(1);
 
 			const answerValue = correct[0].value;
-			const clashes = exercise.candidates.filter((c) => !c.correct && Object.is(c.value, answerValue));
+			const clashes = exercise.candidates.filter((candidate) => !candidate.correct && Object.is(candidate.value, answerValue));
 			expect(clashes).toEqual([]);
 		}
 	});
@@ -75,8 +75,8 @@ describe.each(typeChartGenerators.map((g) => [g.id, g] as const))('%s', (_id, ge
 	it('offers all four hint tiers in order', () => {
 		for (const seed of SEEDS.slice(0, 50)) {
 			const { hints } = generator.generate(seed, modernRef, modernCtx);
-			expect(hints.map((h) => h.tier)).toEqual([1, 2, 3, 4]);
-			expect(hints.every((h) => h.text.length > 0)).toBe(true);
+			expect(hints.map((hint) => hint.tier)).toEqual([1, 2, 3, 4]);
+			expect(hints.every((hint) => hint.text.length > 0)).toBe(true);
 		}
 	});
 
@@ -84,10 +84,10 @@ describe.each(typeChartGenerators.map((g) => [g.id, g] as const))('%s', (_id, ge
 		for (const seed of SEEDS) {
 			const exercise = generator.generate(seed, modernRef, modernCtx);
 			// Quoted labels, not substrings: one label is often a prefix of another.
-			const quoted = [...(exercise.hints.find((h) => h.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+			const quoted = [...(exercise.hints.find((hint) => hint.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((entry) => entry[1]);
 			expect(quoted.length).toBeGreaterThan(0);
 			for (const label of quoted) {
-				expect(exercise.candidates.find((c) => c.label === label)?.correct).toBe(false);
+				expect(exercise.candidates.find((candidate) => candidate.label === label)?.correct).toBe(false);
 			}
 		}
 	});
@@ -111,11 +111,11 @@ describe.each(typeChartGenerators.map((g) => [g.id, g] as const))('%s', (_id, ge
 	});
 
 	it('confines itself to the era it was given', () => {
-		// The whole point: with a gen-1 chart, types that did not exist yet cannot appear —
+		// The whole point: with a generation-1 chart, types that did not exist yet cannot appear —
 		// not by filtering, but because they are simply absent from the data.
 		for (const seed of SEEDS) {
 			const exercise = generator.generate(seed, gen1Ref, gen1Ctx);
-			const surface = [exercise.prompt, exercise.explanation, ...exercise.candidates.map((c) => c.label), ...exercise.hints.map((h) => h.text)].join(' ');
+			const surface = [exercise.prompt, exercise.explanation, ...exercise.candidates.map((candidate) => candidate.label), ...exercise.hints.map((hint) => hint.text)].join(' ');
 			expect(surface).not.toMatch(/\bDark\b|\bSteel\b|\bFairy\b/);
 		}
 	});
@@ -124,7 +124,7 @@ describe.each(typeChartGenerators.map((g) => [g.id, g] as const))('%s', (_id, ge
 describe('singleTypeEffectivenessGenerator', () => {
 	it('always answers with a real single-type outcome', () => {
 		for (const seed of SEEDS) {
-			const answer = singleTypeEffectivenessGenerator.generate(seed, modernRef, modernCtx).candidates.find((c) => c.correct);
+			const answer = singleTypeEffectivenessGenerator.generate(seed, modernRef, modernCtx).candidates.find((candidate) => candidate.correct);
 			expect([0, 0.5, 1, 2]).toContain(answer?.value);
 		}
 	});
@@ -133,7 +133,7 @@ describe('singleTypeEffectivenessGenerator', () => {
 describe('dualTypeMultipliersGenerator', () => {
 	it('answers with a product of two single-type factors', () => {
 		for (const seed of SEEDS) {
-			const answer = dualTypeMultipliersGenerator.generate(seed, modernRef, modernCtx).candidates.find((c) => c.correct);
+			const answer = dualTypeMultipliersGenerator.generate(seed, modernRef, modernCtx).candidates.find((candidate) => candidate.correct);
 			expect([0, 0.25, 0.5, 1, 2, 4]).toContain(answer?.value);
 		}
 	});
@@ -154,7 +154,7 @@ describe('immunitiesGenerator', () => {
 		for (const seed of SEEDS) {
 			const exercise = immunitiesGenerator.generate(seed, modernRef, modernCtx);
 			const attacking = /immune to (\w+)-type/.exec(exercise.prompt)?.[1]?.toLowerCase();
-			const answer = exercise.candidates.find((c) => c.correct)?.value as string;
+			const answer = exercise.candidates.find((candidate) => candidate.correct)?.value as string;
 			expect(attacking).toBeDefined();
 			expect(effectiveness(MODERN_CHART, attacking as string, answer)).toBe(0);
 		}
@@ -164,13 +164,13 @@ describe('immunitiesGenerator', () => {
 		for (const seed of SEEDS) {
 			const exercise = immunitiesGenerator.generate(seed, modernRef, modernCtx);
 			const attacking = /immune to (\w+)-type/.exec(exercise.prompt)?.[1]?.toLowerCase() as string;
-			for (const distractor of exercise.candidates.filter((c) => !c.correct)) {
+			for (const distractor of exercise.candidates.filter((candidate) => !candidate.correct)) {
 				expect(effectiveness(MODERN_CHART, attacking, distractor.value as string)).not.toBe(0);
 			}
 		}
 	});
 
-	it('surfaces the gen-1 Ghost/Psychic bug when handed a gen-1 chart', () => {
+	it('surfaces the generation-1 Ghost/Psychic bug when handed a generation-1 chart', () => {
 		expect(effectiveness(GEN1_CHART, 'ghost', 'psychic')).toBe(0);
 		expect(effectiveness(MODERN_CHART, 'ghost', 'psychic')).toBe(2);
 	});

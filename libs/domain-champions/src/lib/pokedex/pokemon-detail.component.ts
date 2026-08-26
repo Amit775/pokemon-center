@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal, untracked } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { defensiveProfile } from '@pokemon-center/champions-engine';
-import { ChampTeamDocument, champResource } from '@pokemon-center/data-access-champions';
+import { ChampionsTeamDocument, championsResource } from '@pokemon-center/data-access-champions';
 import {
 	EntityPortraitComponent,
 	SectionHeadingComponent,
@@ -12,7 +12,7 @@ import {
 } from '@pokemon-center/ui-pokedex';
 import { CounterListComponent } from './counter-list.component';
 import { answeredBy, answersTo } from './counters';
-import { DexStore } from './dex.store';
+import { PokedexStore } from './pokedex.store';
 import { MegaPanelComponent } from './mega-panel.component';
 import { MovesTableComponent } from './moves-table.component';
 import { StatPanelComponent } from './stat-panel.component';
@@ -76,7 +76,7 @@ import { StatPanelComponent } from './stat-panel.component';
 			</nav>
 
 			<header class="masthead">
-				<pkd-entity-portrait
+				<pokedex-entity-portrait
 					[type]="pokemon.types[0]"
 					[src]="sprite().src"
 					[fallbackSrc]="sprite().fallbackSrc"
@@ -87,9 +87,9 @@ import { StatPanelComponent } from './stat-panel.component';
 					<h1>{{ pokemon.name }}</h1>
 					<div class="chips">
 						@for (t of pokemon.types; track t) {
-							<pkd-type-chip [type]="t" />
+							<pokedex-type-chip [type]="t" />
 						}
-						<span class="dex">#{{ pokemon.nationalDexNo }}</span>
+						<span class="pokedex-number">#{{ pokemon.nationalPokedexNumber }}</span>
 						@if (canMega()) {
 							<span class="badge mega-badge">Can Mega Evolve</span>
 						}
@@ -107,8 +107,8 @@ import { StatPanelComponent } from './stat-panel.component';
 			</header>
 
 			<!-- The defensive read, up front: what this thing folds to, and what it shrugs off. -->
-			<pkd-section-heading label="Defensively" />
-			<pkd-card>
+			<pokedex-section-heading label="Defensively" />
+			<pokedex-card>
 				<div class="panel">
 					<div class="matchups">
 						<div>
@@ -116,7 +116,7 @@ import { StatPanelComponent } from './stat-panel.component';
 							<div class="chips">
 								@for (entry of profile().weaknesses; track entry.type) {
 									<span class="mult">
-										<pkd-type-chip [type]="entry.type" size="sm" />
+										<pokedex-type-chip [type]="entry.type" size="sm" />
 										<span class="x">{{ entry.multiplier }}×</span>
 									</span>
 								} @empty {
@@ -129,7 +129,7 @@ import { StatPanelComponent } from './stat-panel.component';
 							<div class="chips">
 								@for (entry of profile().resistances; track entry.type) {
 									<span class="mult">
-										<pkd-type-chip [type]="entry.type" size="sm" />
+										<pokedex-type-chip [type]="entry.type" size="sm" />
 										<span class="x">{{ entry.multiplier }}×</span>
 									</span>
 								} @empty {
@@ -142,35 +142,35 @@ import { StatPanelComponent } from './stat-panel.component';
 								<h3>Immune to</h3>
 								<div class="chips">
 									@for (type of profile().immunities; track type) {
-										<pkd-type-chip [type]="type" size="sm" />
+										<pokedex-type-chip [type]="type" size="sm" />
 									}
 								</div>
 							</div>
 						}
 					</div>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 
 			<!-- Base stats: the species fact. The level-50 numbers are one click away, not assumed. -->
-			<pkd-section-heading label="Base stats" />
-			<pkd-card>
+			<pokedex-section-heading label="Base stats" />
+			<pokedex-card>
 				<div class="panel">
 					<champions-stat-panel [base]="pokemon.baseStats" [type]="pokemon.types[0]" />
 				</div>
-			</pkd-card>
+			</pokedex-card>
 
 			@if (mon(); as detail) {
 				@if (detail.megaForms.length > 0) {
-					<pkd-section-heading label="Mega Evolution" />
+					<pokedex-section-heading label="Mega Evolution" />
 					@for (mega of detail.megaForms; track mega.slug) {
-						<pkd-card>
+						<pokedex-card>
 							<champions-mega-panel [mega]="mega" [baseStats]="pokemon.baseStats" [baseTypes]="pokemon.types" />
-						</pkd-card>
+						</pokedex-card>
 					}
 				}
 
-				<pkd-section-heading label="Abilities" />
-				<pkd-card>
+				<pokedex-section-heading label="Abilities" />
+				<pokedex-card>
 					<div class="panel">
 						<ul class="abilities">
 							@for (slot of detail.abilities; track slot.ability.slug) {
@@ -191,15 +191,15 @@ import { StatPanelComponent } from './stat-panel.component';
 							}
 						</ul>
 					</div>
-				</pkd-card>
+				</pokedex-card>
 
-				<pkd-section-heading label="Moves ({{ detail.moves.length }})" />
-				<pkd-card>
+				<pokedex-section-heading label="Moves ({{ detail.moves.length }})" />
+				<pokedex-card>
 					<champions-moves-table [moves]="detail.moves" [isApproximate]="detail.learnsetIsApproximate" />
-				</pkd-card>
+				</pokedex-card>
 			} @else {
-				<pkd-section-heading label="Abilities and moves" />
-				<pkd-skeleton height="14rem" />
+				<pokedex-section-heading label="Abilities and moves" />
+				<pokedex-skeleton height="14rem" />
 			}
 
 			<!--
@@ -207,8 +207,8 @@ import { StatPanelComponent } from './stat-panel.component';
 				are not computed until someone asks, because a signal nobody reads is a signal
 				nobody pays for.
 			-->
-			<pkd-section-heading label="Matchups" />
-			<pkd-card>
+			<pokedex-section-heading label="Matchups" />
+			<pokedex-card>
 				<div class="panel">
 					<button
 						type="button"
@@ -250,21 +250,21 @@ import { StatPanelComponent } from './stat-panel.component';
 							A typing-level shortlist of what answers it and what it answers, ranked and explained.
 						</p>
 					} @loading {
-						<pkd-skeleton height="10rem" />
+						<pokedex-skeleton height="10rem" />
 					}
 				</div>
-			</pkd-card>
-		} @else if (dex.isLoading() || query.isLoading()) {
-			<pkd-skeleton height="16rem" />
+			</pokedex-card>
+		} @else if (pokedex.isLoading() || query.isLoading()) {
+			<pokedex-skeleton height="16rem" />
 		} @else if (notFound()) {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel">
 					<h2>Not in this regulation</h2>
 					<p>
 						<a routerLink="/champions/pokedex">Back to the roster</a>
 					</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		}
 	`,
 	styles: `
@@ -335,7 +335,7 @@ import { StatPanelComponent } from './stat-panel.component';
 			margin-top: var(--s-1, 0.25rem);
 		}
 
-		.dex {
+		.pokedex-number {
 			color: var(--ink-muted);
 			font-variant-numeric: tabular-nums;
 			font-size: var(--fs-sm, 0.875rem);
@@ -498,16 +498,16 @@ export default class PokemonDetailComponent {
 	/** Bound from the route parameter via `withComponentInputBinding`. */
 	readonly slug = input.required<string>();
 
-	protected readonly dex = inject(DexStore);
+	protected readonly pokedex = inject(PokedexStore);
 	private readonly router = inject(Router);
 
-	protected readonly query = champResource(ChampTeamDocument, () => ({ slugs: [this.slug()] }));
+	protected readonly query = championsResource(ChampionsTeamDocument, () => ({ slugs: [this.slug()] }));
 
 	/** The learnset, abilities and Mega forms — the only part of this page that waits. */
-	protected readonly mon = computed(() => this.query.value()?.champTeam[0] ?? null);
+	protected readonly mon = computed(() => this.query.value()?.championsTeam[0] ?? null);
 
 	/** The same Pokémon as the grid already knows it. Present the moment the roster has loaded. */
-	private readonly seed = computed(() => this.dex.entries().find((entry) => entry.slug === this.slug()) ?? null);
+	private readonly seed = computed(() => this.pokedex.entries().find((entry) => entry.slug === this.slug()) ?? null);
 
 	/**
 	 * What the masthead, defensive profile and stat panel render from.
@@ -537,19 +537,19 @@ export default class PokemonDetailComponent {
 	protected readonly sprite = computed(() => spriteSources(this.head()?.id ?? 0));
 
 	/** The entries either side of this one in the filter you were browsing. */
-	protected readonly neighbours = computed(() => this.dex.neighbours(this.slug()));
+	protected readonly neighbours = computed(() => this.pokedex.neighbours(this.slug()));
 
 	protected readonly canMega = computed(() => this.seed()?.hasMega ?? (this.mon()?.megaForms.length ?? 0) > 0);
 
 	protected readonly isOwned = computed(() => {
 		const head = this.head();
-		return head ? this.dex.isOwned({ slug: head.slug, megaOfSlug: head.megaOfSlug ?? null }) : false;
+		return head ? this.pokedex.isOwned({ slug: head.slug, megaOfSlug: head.megaOfSlug ?? null }) : false;
 	});
 
 	/** Weaknesses, resistances and immunities, sharpest first. */
 	protected readonly profile = computed(() => {
 		const types = this.head()?.types ?? [];
-		const chart = this.dex.typeChart();
+		const chart = this.pokedex.typeChart();
 		if (types.length === 0 || Object.keys(chart).length === 0) {
 			return { weaknesses: [], resistances: [], immunities: [] };
 		}
@@ -561,21 +561,21 @@ export default class PokemonDetailComponent {
 
 	/**
 	 * Both counter lists, over the roster the store already holds. Neither makes a request —
-	 * see `dex/counters.ts` for why that is the whole point.
+	 * see `pokedex/counters.ts` for why that is the whole point.
 	 */
 	protected readonly beatenBy = computed(() => {
 		const entry = this.seed();
-		return entry ? answersTo(entry, this.dex.entries(), this.dex.typeChart()) : [];
+		return entry ? answersTo(entry, this.pokedex.entries(), this.pokedex.typeChart()) : [];
 	});
 
 	protected readonly beats = computed(() => {
 		const entry = this.seed();
-		return entry ? answeredBy(entry, this.dex.entries(), this.dex.typeChart()) : [];
+		return entry ? answeredBy(entry, this.pokedex.entries(), this.pokedex.typeChart()) : [];
 	});
 
 	/** Hand the ranking to the grid, where it can be filtered and sorted further. */
 	protected showAllCounters(slug: string): void {
-		this.dex.patch({ counterOf: slug });
+		this.pokedex.patch({ counterOf: slug });
 		void this.router.navigate(['/champions/pokedex']);
 	}
 

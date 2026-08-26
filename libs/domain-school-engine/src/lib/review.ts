@@ -88,5 +88,5 @@ export function weakestFirst(
 	const byLesson = new Map(records.map((record) => [record.lessonId, record]));
 	return lessonIds
 		.map((lessonId) => ({ lessonId, weight: reviewWeight(byLesson.get(lessonId), nowISO) }))
-		.sort((a, b) => b.weight - a.weight);
+		.sort((first, second) => second.weight - first.weight);
 }

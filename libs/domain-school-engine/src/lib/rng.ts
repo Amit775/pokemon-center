@@ -43,7 +43,7 @@ export function createRng(seed: number): Rng {
 		if (items.length === 0) throw new Error('rng.pickWeighted: empty pool');
 
 		const weights = items.map((item) => Math.max(0, weight(item)));
-		const total = weights.reduce((sum, w) => sum + w, 0);
+		const total = weights.reduce((sum, weightValue) => sum + weightValue, 0);
 		// Everything weightless (all freshly mastered, say) — fall back to uniform rather than
 		// returning nothing.
 		if (total <= 0) return pick(items);

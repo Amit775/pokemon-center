@@ -8,13 +8,13 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/ChampType'
-export type * from './models/ChampTypeEfficacy'
-export type * from './models/ChampAbility'
-export type * from './models/ChampMove'
-export type * from './models/ChampPokemon'
-export type * from './models/ChampPokemonAbility'
-export type * from './models/ChampLearnset'
+export type * from './models/ChampionsType'
+export type * from './models/ChampionsTypeEfficacy'
+export type * from './models/ChampionsAbility'
+export type * from './models/ChampionsMove'
+export type * from './models/ChampionsPokemon'
+export type * from './models/ChampionsPokemonAbility'
+export type * from './models/ChampionsLearnset'
 export type * from './models/Regulation'
 export type * from './models/RegulationLegality'
 export type * from './models/KnownSet'

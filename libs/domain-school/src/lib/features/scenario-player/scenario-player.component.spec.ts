@@ -51,12 +51,12 @@ describe('ScenarioPlayerComponent', () => {
 	let fixture: ComponentFixture<HostComponent>;
 	let host: HostComponent;
 
-	const el = (selector: string): HTMLElement | null => fixture.nativeElement.querySelector(selector);
+	const element = (selector: string): HTMLElement | null => fixture.nativeElement.querySelector(selector);
 	const options = (): HTMLElement[] => Array.from(fixture.nativeElement.querySelectorAll('.option'));
 	const optionAt = (index: number): HTMLElement => options()[index];
 	const buttonLabelled = (text: string): HTMLButtonElement | undefined =>
-		Array.from(fixture.nativeElement.querySelectorAll<HTMLButtonElement>('.actions button')).find((b) =>
-			(b.textContent ?? '').includes(text),
+		Array.from(fixture.nativeElement.querySelectorAll<HTMLButtonElement>('.actions button')).find((button) =>
+			(button.textContent ?? '').includes(text),
 		);
 	const chosenCount = (): number => fixture.nativeElement.querySelectorAll('.option.is-chosen').length;
 
@@ -65,7 +65,7 @@ describe('ScenarioPlayerComponent', () => {
 		fixture.detectChanges();
 	};
 	const press = (key: string): void => {
-		(el('.options') as HTMLElement).dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
+		(element('.options') as HTMLElement).dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
 		fixture.detectChanges();
 	};
 
@@ -78,7 +78,7 @@ describe('ScenarioPlayerComponent', () => {
 
 	it('renders every option with its detail line', () => {
 		expect(options()).toHaveLength(4);
-		expect(el('.detail')?.textContent).toContain('Fire · 90 power');
+		expect(element('.detail')?.textContent).toContain('Fire · 90 power');
 	});
 
 	it('will not submit before the required number is chosen', () => {
@@ -105,7 +105,7 @@ describe('ScenarioPlayerComponent', () => {
 
 		expect(host.attempts[0].quality).toBe(1);
 		expect(host.attempts[0].correct).toBe(true);
-		expect(el('.verdict')?.textContent).toContain('Optimal.');
+		expect(element('.verdict')?.textContent).toContain('Optimal.');
 	});
 
 	it('marks the best answer after submitting, so the gap is visible', () => {
@@ -135,7 +135,7 @@ describe('ScenarioPlayerComponent', () => {
 		host.scenario.set(scenarioWith('second', 1));
 		fixture.detectChanges();
 
-		expect(el('.verdict')).toBeNull();
+		expect(element('.verdict')).toBeNull();
 		expect(chosenCount()).toBe(0);
 	});
 
@@ -182,7 +182,7 @@ describe('ScenarioPlayerComponent', () => {
 
 		it('shows progress while choosing, without revealing the target', () => {
 			click(0);
-			const progress = el('.progress')?.textContent ?? '';
+			const progress = element('.progress')?.textContent ?? '';
 			expect(progress).toContain('1 of 3 chosen');
 			expect(progress).toContain('reaching');
 			// The optimum is never on screen before submitting.

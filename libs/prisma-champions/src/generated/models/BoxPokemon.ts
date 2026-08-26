@@ -335,8 +335,8 @@ export type BoxPokemonWhereInput = {
   notes?: Prisma.StringNullableFilter<"BoxPokemon"> | string | null
   created_at?: Prisma.DateTimeFilter<"BoxPokemon"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"BoxPokemon"> | Date | string
-  pokemon?: Prisma.XOR<Prisma.ChampPokemonScalarRelationFilter, Prisma.ChampPokemonWhereInput>
-  ability?: Prisma.XOR<Prisma.ChampAbilityNullableScalarRelationFilter, Prisma.ChampAbilityWhereInput> | null
+  pokemon?: Prisma.XOR<Prisma.ChampionsPokemonScalarRelationFilter, Prisma.ChampionsPokemonWhereInput>
+  ability?: Prisma.XOR<Prisma.ChampionsAbilityNullableScalarRelationFilter, Prisma.ChampionsAbilityWhereInput> | null
   moves?: Prisma.BoxPokemonMoveListRelationFilter
   memberships?: Prisma.TeamMemberListRelationFilter
 }
@@ -357,8 +357,8 @@ export type BoxPokemonOrderByWithRelationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  pokemon?: Prisma.ChampPokemonOrderByWithRelationInput
-  ability?: Prisma.ChampAbilityOrderByWithRelationInput
+  pokemon?: Prisma.ChampionsPokemonOrderByWithRelationInput
+  ability?: Prisma.ChampionsAbilityOrderByWithRelationInput
   moves?: Prisma.BoxPokemonMoveOrderByRelationAggregateInput
   memberships?: Prisma.TeamMemberOrderByRelationAggregateInput
 }
@@ -382,8 +382,8 @@ export type BoxPokemonWhereUniqueInput = Prisma.AtLeast<{
   notes?: Prisma.StringNullableFilter<"BoxPokemon"> | string | null
   created_at?: Prisma.DateTimeFilter<"BoxPokemon"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"BoxPokemon"> | Date | string
-  pokemon?: Prisma.XOR<Prisma.ChampPokemonScalarRelationFilter, Prisma.ChampPokemonWhereInput>
-  ability?: Prisma.XOR<Prisma.ChampAbilityNullableScalarRelationFilter, Prisma.ChampAbilityWhereInput> | null
+  pokemon?: Prisma.XOR<Prisma.ChampionsPokemonScalarRelationFilter, Prisma.ChampionsPokemonWhereInput>
+  ability?: Prisma.XOR<Prisma.ChampionsAbilityNullableScalarRelationFilter, Prisma.ChampionsAbilityWhereInput> | null
   moves?: Prisma.BoxPokemonMoveListRelationFilter
   memberships?: Prisma.TeamMemberListRelationFilter
 }, "id">
@@ -445,8 +445,8 @@ export type BoxPokemonCreateInput = {
   notes?: string | null
   created_at?: Date | string
   updated_at?: Date | string
-  pokemon: Prisma.ChampPokemonCreateNestedOneWithoutBoxEntriesInput
-  ability?: Prisma.ChampAbilityCreateNestedOneWithoutBoxPokemonInput
+  pokemon: Prisma.ChampionsPokemonCreateNestedOneWithoutBoxEntriesInput
+  ability?: Prisma.ChampionsAbilityCreateNestedOneWithoutBoxPokemonInput
   moves?: Prisma.BoxPokemonMoveCreateNestedManyWithoutBoxPokemonInput
   memberships?: Prisma.TeamMemberCreateNestedManyWithoutBoxPokemonInput
 }
@@ -484,8 +484,8 @@ export type BoxPokemonUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pokemon?: Prisma.ChampPokemonUpdateOneRequiredWithoutBoxEntriesNestedInput
-  ability?: Prisma.ChampAbilityUpdateOneWithoutBoxPokemonNestedInput
+  pokemon?: Prisma.ChampionsPokemonUpdateOneRequiredWithoutBoxEntriesNestedInput
+  ability?: Prisma.ChampionsAbilityUpdateOneWithoutBoxPokemonNestedInput
   moves?: Prisma.BoxPokemonMoveUpdateManyWithoutBoxPokemonNestedInput
   memberships?: Prisma.TeamMemberUpdateManyWithoutBoxPokemonNestedInput
 }
@@ -786,7 +786,7 @@ export type BoxPokemonCreateWithoutAbilityInput = {
   notes?: string | null
   created_at?: Date | string
   updated_at?: Date | string
-  pokemon: Prisma.ChampPokemonCreateNestedOneWithoutBoxEntriesInput
+  pokemon: Prisma.ChampionsPokemonCreateNestedOneWithoutBoxEntriesInput
   moves?: Prisma.BoxPokemonMoveCreateNestedManyWithoutBoxPokemonInput
   memberships?: Prisma.TeamMemberCreateNestedManyWithoutBoxPokemonInput
 }
@@ -870,7 +870,7 @@ export type BoxPokemonCreateWithoutPokemonInput = {
   notes?: string | null
   created_at?: Date | string
   updated_at?: Date | string
-  ability?: Prisma.ChampAbilityCreateNestedOneWithoutBoxPokemonInput
+  ability?: Prisma.ChampionsAbilityCreateNestedOneWithoutBoxPokemonInput
   moves?: Prisma.BoxPokemonMoveCreateNestedManyWithoutBoxPokemonInput
   memberships?: Prisma.TeamMemberCreateNestedManyWithoutBoxPokemonInput
 }
@@ -933,8 +933,8 @@ export type BoxPokemonCreateWithoutMovesInput = {
   notes?: string | null
   created_at?: Date | string
   updated_at?: Date | string
-  pokemon: Prisma.ChampPokemonCreateNestedOneWithoutBoxEntriesInput
-  ability?: Prisma.ChampAbilityCreateNestedOneWithoutBoxPokemonInput
+  pokemon: Prisma.ChampionsPokemonCreateNestedOneWithoutBoxEntriesInput
+  ability?: Prisma.ChampionsAbilityCreateNestedOneWithoutBoxPokemonInput
   memberships?: Prisma.TeamMemberCreateNestedManyWithoutBoxPokemonInput
 }
 
@@ -986,8 +986,8 @@ export type BoxPokemonUpdateWithoutMovesInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pokemon?: Prisma.ChampPokemonUpdateOneRequiredWithoutBoxEntriesNestedInput
-  ability?: Prisma.ChampAbilityUpdateOneWithoutBoxPokemonNestedInput
+  pokemon?: Prisma.ChampionsPokemonUpdateOneRequiredWithoutBoxEntriesNestedInput
+  ability?: Prisma.ChampionsAbilityUpdateOneWithoutBoxPokemonNestedInput
   memberships?: Prisma.TeamMemberUpdateManyWithoutBoxPokemonNestedInput
 }
 
@@ -1023,8 +1023,8 @@ export type BoxPokemonCreateWithoutMembershipsInput = {
   notes?: string | null
   created_at?: Date | string
   updated_at?: Date | string
-  pokemon: Prisma.ChampPokemonCreateNestedOneWithoutBoxEntriesInput
-  ability?: Prisma.ChampAbilityCreateNestedOneWithoutBoxPokemonInput
+  pokemon: Prisma.ChampionsPokemonCreateNestedOneWithoutBoxEntriesInput
+  ability?: Prisma.ChampionsAbilityCreateNestedOneWithoutBoxPokemonInput
   moves?: Prisma.BoxPokemonMoveCreateNestedManyWithoutBoxPokemonInput
 }
 
@@ -1076,8 +1076,8 @@ export type BoxPokemonUpdateWithoutMembershipsInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pokemon?: Prisma.ChampPokemonUpdateOneRequiredWithoutBoxEntriesNestedInput
-  ability?: Prisma.ChampAbilityUpdateOneWithoutBoxPokemonNestedInput
+  pokemon?: Prisma.ChampionsPokemonUpdateOneRequiredWithoutBoxEntriesNestedInput
+  ability?: Prisma.ChampionsAbilityUpdateOneWithoutBoxPokemonNestedInput
   moves?: Prisma.BoxPokemonMoveUpdateManyWithoutBoxPokemonNestedInput
 }
 
@@ -1130,7 +1130,7 @@ export type BoxPokemonUpdateWithoutAbilityInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pokemon?: Prisma.ChampPokemonUpdateOneRequiredWithoutBoxEntriesNestedInput
+  pokemon?: Prisma.ChampionsPokemonUpdateOneRequiredWithoutBoxEntriesNestedInput
   moves?: Prisma.BoxPokemonMoveUpdateManyWithoutBoxPokemonNestedInput
   memberships?: Prisma.TeamMemberUpdateManyWithoutBoxPokemonNestedInput
 }
@@ -1201,7 +1201,7 @@ export type BoxPokemonUpdateWithoutPokemonInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ability?: Prisma.ChampAbilityUpdateOneWithoutBoxPokemonNestedInput
+  ability?: Prisma.ChampionsAbilityUpdateOneWithoutBoxPokemonNestedInput
   moves?: Prisma.BoxPokemonMoveUpdateManyWithoutBoxPokemonNestedInput
   memberships?: Prisma.TeamMemberUpdateManyWithoutBoxPokemonNestedInput
 }
@@ -1298,7 +1298,7 @@ export type BoxPokemonSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   notes?: boolean
   created_at?: boolean
   updated_at?: boolean
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   ability?: boolean | Prisma.BoxPokemon$abilityArgs<ExtArgs>
   moves?: boolean | Prisma.BoxPokemon$movesArgs<ExtArgs>
   memberships?: boolean | Prisma.BoxPokemon$membershipsArgs<ExtArgs>
@@ -1321,7 +1321,7 @@ export type BoxPokemonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   notes?: boolean
   created_at?: boolean
   updated_at?: boolean
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   ability?: boolean | Prisma.BoxPokemon$abilityArgs<ExtArgs>
 }, ExtArgs["result"]["boxPokemon"]>
 
@@ -1341,7 +1341,7 @@ export type BoxPokemonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   notes?: boolean
   created_at?: boolean
   updated_at?: boolean
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   ability?: boolean | Prisma.BoxPokemon$abilityArgs<ExtArgs>
 }, ExtArgs["result"]["boxPokemon"]>
 
@@ -1365,26 +1365,26 @@ export type BoxPokemonSelectScalar = {
 
 export type BoxPokemonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "pokemon_id" | "nickname" | "nature" | "ability_id" | "item" | "sp_hp" | "sp_attack" | "sp_defense" | "sp_special_attack" | "sp_special_defense" | "sp_speed" | "notes" | "created_at" | "updated_at", ExtArgs["result"]["boxPokemon"]>
 export type BoxPokemonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   ability?: boolean | Prisma.BoxPokemon$abilityArgs<ExtArgs>
   moves?: boolean | Prisma.BoxPokemon$movesArgs<ExtArgs>
   memberships?: boolean | Prisma.BoxPokemon$membershipsArgs<ExtArgs>
   _count?: boolean | Prisma.BoxPokemonCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BoxPokemonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   ability?: boolean | Prisma.BoxPokemon$abilityArgs<ExtArgs>
 }
 export type BoxPokemonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   ability?: boolean | Prisma.BoxPokemon$abilityArgs<ExtArgs>
 }
 
 export type $BoxPokemonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "BoxPokemon"
   objects: {
-    pokemon: Prisma.$ChampPokemonPayload<ExtArgs>
-    ability: Prisma.$ChampAbilityPayload<ExtArgs> | null
+    pokemon: Prisma.$ChampionsPokemonPayload<ExtArgs>
+    ability: Prisma.$ChampionsAbilityPayload<ExtArgs> | null
     moves: Prisma.$BoxPokemonMovePayload<ExtArgs>[]
     memberships: Prisma.$TeamMemberPayload<ExtArgs>[]
   }
@@ -1807,8 +1807,8 @@ readonly fields: BoxPokemonFieldRefs;
  */
 export interface Prisma__BoxPokemonClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  pokemon<T extends Prisma.ChampPokemonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampPokemonDefaultArgs<ExtArgs>>): Prisma.Prisma__ChampPokemonClient<runtime.Types.Result.GetResult<Prisma.$ChampPokemonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  ability<T extends Prisma.BoxPokemon$abilityArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BoxPokemon$abilityArgs<ExtArgs>>): Prisma.Prisma__ChampAbilityClient<runtime.Types.Result.GetResult<Prisma.$ChampAbilityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  pokemon<T extends Prisma.ChampionsPokemonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampionsPokemonDefaultArgs<ExtArgs>>): Prisma.Prisma__ChampionsPokemonClient<runtime.Types.Result.GetResult<Prisma.$ChampionsPokemonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  ability<T extends Prisma.BoxPokemon$abilityArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BoxPokemon$abilityArgs<ExtArgs>>): Prisma.Prisma__ChampionsAbilityClient<runtime.Types.Result.GetResult<Prisma.$ChampionsAbilityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   moves<T extends Prisma.BoxPokemon$movesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BoxPokemon$movesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BoxPokemonMovePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   memberships<T extends Prisma.BoxPokemon$membershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BoxPokemon$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -2260,18 +2260,18 @@ export type BoxPokemonDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
  */
 export type BoxPokemon$abilityArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ChampAbility
+   * Select specific fields to fetch from the ChampionsAbility
    */
-  select?: Prisma.ChampAbilitySelect<ExtArgs> | null
+  select?: Prisma.ChampionsAbilitySelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ChampAbility
+   * Omit specific fields from the ChampionsAbility
    */
-  omit?: Prisma.ChampAbilityOmit<ExtArgs> | null
+  omit?: Prisma.ChampionsAbilityOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ChampAbilityInclude<ExtArgs> | null
-  where?: Prisma.ChampAbilityWhereInput
+  include?: Prisma.ChampionsAbilityInclude<ExtArgs> | null
+  where?: Prisma.ChampionsAbilityWhereInput
 }
 
 /**

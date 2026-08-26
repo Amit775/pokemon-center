@@ -151,7 +151,7 @@ export function speedTiers(yours: ChampionsBuild[], theirs: ChampionsBuild[], co
 
 	// Descending, with your own team first on a tie so the ambiguity is visible rather than
 	// hidden behind an arbitrary sort.
-	return entries.sort((a, b) => b.speed - a.speed || Number(b.isYours) - Number(a.isYours));
+	return entries.sort((first, second) => second.speed - first.speed || Number(second.isYours) - Number(first.isYours));
 }
 
 /**

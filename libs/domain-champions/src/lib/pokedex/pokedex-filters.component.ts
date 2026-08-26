@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, signal, untracked, viewChild } from '@angular/core';
 import { STAT_KEYS, StatKey } from '@pokemon-center/champions-engine';
 import { EntityPortraitComponent, spriteSources } from '@pokemon-center/ui-pokedex';
-import { DexStore } from './dex.store';
-import { STAT_BOUNDS, TOTAL_BOUNDS, type DexEntry, type MegaDisplay, type Range, type SortKey } from './dex-filter';
+import { PokedexStore } from './pokedex.store';
+import { STAT_BOUNDS, TOTAL_BOUNDS, type PokedexEntry, type MegaDisplay, type Range, type SortKey } from './pokedex-filter';
 import { SavedSetsComponent } from './saved-sets.component';
 import { StatRangeComponent, type RangeLandmark } from './stat-range.component';
 import { TypePickerComponent } from './type-picker.component';
@@ -14,18 +14,18 @@ import { TypePickerComponent } from './type-picker.component';
  * than Accelgor" does not — and fame is not in the data. The lowest dex number is the closest
  * available proxy: it favours the older, better-known Pokémon at almost every value.
  */
-function pickLandmarks(entries: readonly DexEntry[], valueOf: (entry: DexEntry) => number): RangeLandmark[] {
-	const best = new Map<number, RangeLandmark & { dex: number }>();
+function pickLandmarks(entries: readonly PokedexEntry[], valueOf: (entry: PokedexEntry) => number): RangeLandmark[] {
+	const best = new Map<number, RangeLandmark & { pokedexNumber: number }>();
 
 	for (const entry of entries) {
 		const value = valueOf(entry);
 		const existing = best.get(value);
-		if (!existing || entry.nationalDexNo < existing.dex) {
-			best.set(value, { value, id: entry.id, name: entry.name, types: entry.types, dex: entry.nationalDexNo });
+		if (!existing || entry.nationalPokedexNumber < existing.pokedexNumber) {
+			best.set(value, { value, id: entry.id, name: entry.name, types: entry.types, pokedexNumber: entry.nationalPokedexNumber });
 		}
 	}
 
-	return [...best.values()].sort((a, b) => a.value - b.value);
+	return [...best.values()].sort((first, second) => first.value - second.value);
 }
 
 /** Long enough to cover ordinary typing, short enough to feel immediate. */
@@ -53,7 +53,7 @@ const STAT_LABELS: { key: StatKey; label: string }[] = [
  * instructions would be an admission the controls do not work.
  */
 @Component({
-	selector: 'champions-dex-filters',
+	selector: 'champions-pokedex-filters',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [EntityPortraitComponent, SavedSetsComponent, StatRangeComponent, TypePickerComponent],
 	template: `
@@ -119,7 +119,7 @@ const STAT_LABELS: { key: StatKey; label: string }[] = [
 			-->
 			@if (store.matchupPokemon(); as picked) {
 				<div class="picked">
-					<pkd-entity-portrait
+					<pokedex-entity-portrait
 						[type]="picked.types[0]"
 						[src]="sprite(picked.id).src"
 						[fallbackSrc]="sprite(picked.id).fallbackSrc"
@@ -147,7 +147,7 @@ const STAT_LABELS: { key: StatKey; label: string }[] = [
 							@for (result of monResults(); track result.slug) {
 								<li role="option" [attr.aria-selected]="false">
 									<button type="button" (click)="pick(result)">
-										<pkd-entity-portrait
+										<pokedex-entity-portrait
 											[type]="result.types[0]"
 											[src]="sprite(result.id).src"
 											[fallbackSrc]="sprite(result.id).fallbackSrc"
@@ -527,8 +527,8 @@ const STAT_LABELS: { key: StatKey; label: string }[] = [
 		}
 	`,
 })
-export class DexFiltersComponent {
-	protected readonly store = inject(DexStore);
+export class PokedexFiltersComponent {
+	protected readonly store = inject(PokedexStore);
 
 	protected readonly statLabels = STAT_LABELS;
 	protected readonly statBounds = STAT_BOUNDS;
@@ -562,7 +562,7 @@ export class DexFiltersComponent {
 		return this.store
 			.moveIndex()
 			.filter((move) => move.name.toLowerCase().includes(term))
-			.sort((a, b) => Number(b.name.toLowerCase().startsWith(term)) - Number(a.name.toLowerCase().startsWith(term)))
+			.sort((first, second) => Number(second.name.toLowerCase().startsWith(term)) - Number(first.name.toLowerCase().startsWith(term)))
 			.slice(0, 8);
 	});
 
@@ -573,7 +573,7 @@ export class DexFiltersComponent {
 	];
 
 	protected readonly sortOptions: { key: SortKey; label: string }[] = [
-		{ key: 'dex', label: 'Dex number' },
+		{ key: 'pokedex', label: 'Pokedex number' },
 		{ key: 'name', label: 'Name' },
 		{ key: 'total', label: 'Base stat total' },
 		...STAT_LABELS.map((stat) => ({ key: stat.key as SortKey, label: stat.label })),
@@ -613,9 +613,9 @@ export class DexFiltersComponent {
 			.entries()
 			.filter((entry) => !entry.isMega && entry.name.toLowerCase().includes(term))
 			.sort(
-				(a, b) =>
-					Number(b.name.toLowerCase().startsWith(term)) - Number(a.name.toLowerCase().startsWith(term)) ||
-					a.nationalDexNo - b.nationalDexNo,
+				(first, second) =>
+					Number(second.name.toLowerCase().startsWith(term)) - Number(first.name.toLowerCase().startsWith(term)) ||
+					first.nationalPokedexNumber - second.nationalPokedexNumber,
 			)
 			.slice(0, 8);
 	});
@@ -633,7 +633,7 @@ export class DexFiltersComponent {
 		return spriteSources(id);
 	}
 
-	protected pick(entry: DexEntry): void {
+	protected pick(entry: PokedexEntry): void {
 		this.store.setMatchupPokemon(entry);
 		this.monTerm.set('');
 	}

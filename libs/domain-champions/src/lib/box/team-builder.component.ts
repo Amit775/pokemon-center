@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { teamWeaknesses } from '@pokemon-center/champions-engine';
-import { TypeChartDocument, champResource, type TeamInput } from '@pokemon-center/data-access-champions';
+import { TypeChartDocument, championsResource, type TeamInput } from '@pokemon-center/data-access-champions';
 import { EntityPortraitComponent, SectionHeadingComponent, TypeChipComponent, UiCardComponent, spriteSources } from '@pokemon-center/ui-pokedex';
 import { toTypeChart } from '../advisor/build-inference';
 import { boxEntryToBuild } from './box-build';
@@ -18,7 +18,7 @@ import { BoxStore } from './box.store';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [EntityPortraitComponent, SectionHeadingComponent, TypeChipComponent, UiCardComponent],
 	template: `
-		<pkd-section-heading label="Teams" />
+		<pokedex-section-heading label="Teams" />
 
 		@if (store.teams().length > 0) {
 			<ul class="teams">
@@ -28,7 +28,7 @@ import { BoxStore } from './box.store';
 							<span class="team-name">{{ team.label }}</span>
 							<span class="team-mons">
 								@for (member of team.members; track member.slot) {
-									<pkd-entity-portrait
+									<pokedex-entity-portrait
 										[type]="member.pokemon.types[0]"
 										[src]="sprite(member.pokemon.id).src"
 										[fallbackSrc]="sprite(member.pokemon.id).fallbackSrc"
@@ -44,7 +44,7 @@ import { BoxStore } from './box.store';
 			</ul>
 		}
 
-		<pkd-card>
+		<pokedex-card>
 			<div class="panel">
 				@if (store.entries().length === 0) {
 					<p class="hint">Add Pokémon to your Box first — teams are built from what you own.</p>
@@ -63,7 +63,7 @@ import { BoxStore } from './box.store';
 							<div class="slot">
 								@if (chosen()[slot]; as entry) {
 									<button type="button" class="filled" (click)="clearSlot(slot)" [attr.aria-label]="'Remove from slot ' + (slot + 1)">
-										<pkd-entity-portrait
+										<pokedex-entity-portrait
 											[type]="entry.pokemon.types[0]"
 											[src]="sprite(entry.pokemon.id).src"
 											[fallbackSrc]="sprite(entry.pokemon.id).fallbackSrc"
@@ -91,7 +91,7 @@ import { BoxStore } from './box.store';
 								[disabled]="isChosen(entry.id) || firstOpenSlot() === null"
 								(click)="add(entry.id)"
 							>
-								<pkd-entity-portrait
+								<pokedex-entity-portrait
 									[type]="entry.pokemon.types[0]"
 									[src]="sprite(entry.pokemon.id).src"
 									[fallbackSrc]="sprite(entry.pokemon.id).fallbackSrc"
@@ -115,7 +115,7 @@ import { BoxStore } from './box.store';
 								<ul>
 									@for (entry of pressure(); track entry.type) {
 										<li [class.danger]="entry.hits >= 3">
-											<pkd-type-chip [type]="entry.type" size="sm" />
+											<pokedex-type-chip [type]="entry.type" size="sm" />
 											<span>hits {{ entry.hits }} of {{ filledCount() }}</span>
 										</li>
 									}
@@ -141,7 +141,7 @@ import { BoxStore } from './box.store';
 					</div>
 				}
 			</div>
-		</pkd-card>
+		</pokedex-card>
 	`,
 	styles: `
 		:host {
@@ -362,7 +362,7 @@ export class TeamBuilderComponent {
 	/** Box entry ids by slot; sparse. */
 	protected readonly slotIds = signal<(number | null)[]>([null, null, null, null, null, null]);
 
-	private readonly chartQuery = champResource(TypeChartDocument, () => ({}));
+	private readonly chartQuery = championsResource(TypeChartDocument, () => ({}));
 
 	protected readonly chosen = computed(() =>
 		this.slotIds().map((id) => (id === null ? null : (this.store.entries().find((entry) => entry.id === id) ?? null))),
@@ -404,7 +404,7 @@ export class TeamBuilderComponent {
 	}
 
 	protected load(teamId: number): void {
-		const team = this.store.teams().find((t) => t.id === teamId);
+		const team = this.store.teams().find((candidateTeam) => candidateTeam.id === teamId);
 		if (!team) return;
 
 		this.editingId.set(team.id);

@@ -10,10 +10,10 @@ import { Route } from '@angular/router';
 export const domainChampionsRoutes: Route[] = [
 	{ path: '', pathMatch: 'full', redirectTo: 'pokedex' },
 
-	{ path: 'pokedex', loadComponent: () => import('./dex/roster.component') },
-	{ path: 'pokedex/changes', loadComponent: () => import('./dex/changes.component') },
+	{ path: 'pokedex', loadComponent: () => import('./pokedex/roster.component') },
+	{ path: 'pokedex/changes', loadComponent: () => import('./pokedex/changes.component') },
 	// After `pokedex/changes`, so the literal segment wins over the parameter.
-	{ path: 'pokedex/:slug', loadComponent: () => import('./dex/pokemon-detail.component') },
+	{ path: 'pokedex/:slug', loadComponent: () => import('./pokedex/pokemon-detail.component') },
 
 	{ path: 'box', loadComponent: () => import('./box/box.component') },
 
@@ -27,7 +27,4 @@ export const domainChampionsRoutes: Route[] = [
 	{ path: 'preview', redirectTo: 'companion' },
 	{ path: 'battle', redirectTo: 'companion/live' },
 	{ path: 'changes', redirectTo: 'pokedex/changes' },
-	// `dex` was the section's path until it was renamed to what everyone calls it. A prefix
-	// redirect, so `/dex/garchomp` keeps its tail.
-	{ path: 'dex', redirectTo: 'pokedex' },
 ];

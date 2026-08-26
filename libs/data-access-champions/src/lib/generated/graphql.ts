@@ -54,31 +54,31 @@ export type RegulationListQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type RegulationListQuery = { regulations: Array<{ id: number, code: string, name: string, startsOn: string, endsOn: string, isCurrent: boolean, legalCount: number }> };
 
-export type PokemonSummaryFragment = { id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } };
+export type PokemonSummaryFragment = { id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } };
 
-export type ChampSearchQueryVariables = Exact<{
+export type ChampionsSearchQueryVariables = Exact<{
   query: string;
   take?: number | null | undefined;
 }>;
 
 
-export type ChampSearchQuery = { champSearch: Array<{ id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
+export type ChampionsSearchQuery = { championsSearch: Array<{ id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
 
-export type PokemonDetailFragment = { id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } };
+export type PokemonDetailFragment = { id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } };
 
-export type ChampTeamQueryVariables = Exact<{
+export type ChampionsTeamQueryVariables = Exact<{
   slugs: Array<string> | string;
 }>;
 
 
-export type ChampTeamQuery = { champTeam: Array<{ learnsetIsApproximate: boolean, id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, abilities: Array<{ slot: number, isHidden: boolean, ability: { id: number, slug: string, name: string, effectText: string | null, isMega: boolean } }>, megaAbility: { id: number, slug: string, name: string, effectText: string | null } | null, megaForms: Array<{ id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }>, moves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, effectText: string | null, effectChance: number | null, isOverridden: boolean, overrideNote: string | null }>, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
+export type ChampionsTeamQuery = { championsTeam: Array<{ learnsetIsApproximate: boolean, id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, abilities: Array<{ slot: number, isHidden: boolean, ability: { id: number, slug: string, name: string, effectText: string | null, isMega: boolean } }>, megaAbility: { id: number, slug: string, name: string, effectText: string | null } | null, megaForms: Array<{ id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }>, moves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, effectText: string | null, effectChance: number | null, isOverridden: boolean, overrideNote: string | null }>, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
 
 export type TypeChartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type TypeChartQuery = { typeChart: Array<{ attacking: string, defending: string, factor: number }> };
 
-export type ChampRosterQueryVariables = Exact<{
+export type ChampionsRosterQueryVariables = Exact<{
   type?: string | null | undefined;
   search?: string | null | undefined;
   includeMegas?: boolean | null | undefined;
@@ -87,33 +87,33 @@ export type ChampRosterQueryVariables = Exact<{
 }>;
 
 
-export type ChampRosterQuery = { champRosterCount: number, champRoster: Array<{ id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
+export type ChampionsRosterQuery = { championsRosterCount: number, championsRoster: Array<{ id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
 
-export type ChampDexQueryVariables = Exact<{ [key: string]: never; }>;
+export type ChampionsPokedexQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ChampDexQuery = { champDex: Array<{ id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, hasMega: boolean, megaOfSlug: string | null, abilitySlugs: Array<string>, abilityNames: Array<string>, learnsetIsApproximate: boolean, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
+export type ChampionsPokedexQuery = { championsPokedex: Array<{ id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, hasMega: boolean, megaOfSlug: string | null, abilitySlugs: Array<string>, abilityNames: Array<string>, learnsetIsApproximate: boolean, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
 
-export type BoxEntryFragment = { id: number, nickname: string | null, nature: string | null, item: string | null, notes: string | null, pokemon: { id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }, ability: { slug: string, name: string } | null, statPoints: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number }, moves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, isOverridden: boolean }> };
+export type BoxEntryFragment = { id: number, nickname: string | null, nature: string | null, item: string | null, notes: string | null, pokemon: { id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }, ability: { slug: string, name: string } | null, statPoints: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number }, moves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, isOverridden: boolean }> };
 
 export type BoxQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BoxQuery = { box: Array<{ id: number, nickname: string | null, nature: string | null, item: string | null, notes: string | null, pokemon: { id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }, ability: { slug: string, name: string } | null, statPoints: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number }, moves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, isOverridden: boolean }> }> };
+export type BoxQuery = { box: Array<{ id: number, nickname: string | null, nature: string | null, item: string | null, notes: string | null, pokemon: { id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }, ability: { slug: string, name: string } | null, statPoints: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number }, moves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, isOverridden: boolean }> }> };
 
 export type TeamsQueryVariables = Exact<{
   isMine?: boolean | null | undefined;
 }>;
 
 
-export type TeamsQuery = { teams: Array<{ id: number, label: string, isMine: boolean, notes: string | null, members: Array<{ slot: number, pokemon: { id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }, boxPokemon: { id: number, nickname: string | null, nature: string | null, item: string | null, notes: string | null, pokemon: { id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }, ability: { slug: string, name: string } | null, statPoints: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number }, moves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, isOverridden: boolean }> } | null }> }> };
+export type TeamsQuery = { teams: Array<{ id: number, label: string, isMine: boolean, notes: string | null, members: Array<{ slot: number, pokemon: { id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }, boxPokemon: { id: number, nickname: string | null, nature: string | null, item: string | null, notes: string | null, pokemon: { id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }, ability: { slug: string, name: string } | null, statPoints: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number }, moves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, isOverridden: boolean }> } | null }> }> };
 
 export type SaveBoxPokemonMutationVariables = Exact<{
   input: BoxPokemonInput;
 }>;
 
 
-export type SaveBoxPokemonMutation = { saveBoxPokemon: { id: number, nickname: string | null, nature: string | null, item: string | null, notes: string | null, pokemon: { id: number, slug: string, name: string, nationalDexNo: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }, ability: { slug: string, name: string } | null, statPoints: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number }, moves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, isOverridden: boolean }> } };
+export type SaveBoxPokemonMutation = { saveBoxPokemon: { id: number, nickname: string | null, nature: string | null, item: string | null, notes: string | null, pokemon: { id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }, ability: { slug: string, name: string } | null, statPoints: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number }, moves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, isOverridden: boolean }> } };
 
 export type DeleteBoxPokemonMutationVariables = Exact<{
   id: number;
@@ -136,32 +136,32 @@ export type DeleteTeamMutationVariables = Exact<{
 
 export type DeleteTeamMutation = { deleteTeam: boolean };
 
-export type ChampTypesQueryVariables = Exact<{ [key: string]: never; }>;
+export type ChampionsTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ChampTypesQuery = { champTypes: Array<{ id: number, slug: string, name: string }> };
+export type ChampionsTypesQuery = { championsTypes: Array<{ id: number, slug: string, name: string }> };
 
-export type ChampAbilitiesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ChampAbilitiesQuery = { champAbilities: Array<{ id: number, slug: string, name: string, effectText: string | null, isMega: boolean }> };
-
-export type ChampMoveIndexQueryVariables = Exact<{ [key: string]: never; }>;
+export type ChampionsAbilitiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ChampMoveIndexQuery = { champMoveIndex: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass }> };
+export type ChampionsAbilitiesQuery = { championsAbilities: Array<{ id: number, slug: string, name: string, effectText: string | null, isMega: boolean }> };
 
-export type ChampMoveLearnersQueryVariables = Exact<{
+export type ChampionsMoveIndexQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ChampionsMoveIndexQuery = { championsMoveIndex: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass }> };
+
+export type ChampionsMoveLearnersQueryVariables = Exact<{
   moveSlug: string;
 }>;
 
 
-export type ChampMoveLearnersQuery = { champMoveLearners: Array<number> };
+export type ChampionsMoveLearnersQuery = { championsMoveLearners: Array<number> };
 
-export type ChampChangedMovesQueryVariables = Exact<{ [key: string]: never; }>;
+export type ChampionsChangedMovesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ChampChangedMovesQuery = { champChangedMoves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, effectChance: number | null, overrideNote: string | null }> };
+export type ChampionsChangedMovesQuery = { championsChangedMoves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, effectChance: number | null, overrideNote: string | null }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -182,11 +182,11 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 export const PokemonDetailFragmentDoc = new TypedDocumentString(`
-    fragment PokemonDetail on ChampPokemonDetail {
+    fragment PokemonDetail on ChampionsPokemonDetail {
   id
   slug
   name
-  nationalDexNo
+  nationalPokedexNumber
   types
   isMega
   spriteKey
@@ -203,11 +203,11 @@ export const PokemonDetailFragmentDoc = new TypedDocumentString(`
 }
     `, {"fragmentName":"PokemonDetail"}) as unknown as TypedDocumentString<PokemonDetailFragment, unknown>;
 export const PokemonSummaryFragmentDoc = new TypedDocumentString(`
-    fragment PokemonSummary on ChampPokemonSummary {
+    fragment PokemonSummary on ChampionsPokemonSummary {
   id
   slug
   name
-  nationalDexNo
+  nationalPokedexNumber
   types
   isMega
   spriteKey
@@ -260,11 +260,11 @@ export const BoxEntryFragmentDoc = new TypedDocumentString(`
     isOverridden
   }
 }
-    fragment PokemonSummary on ChampPokemonSummary {
+    fragment PokemonSummary on ChampionsPokemonSummary {
   id
   slug
   name
-  nationalDexNo
+  nationalPokedexNumber
   types
   isMega
   spriteKey
@@ -306,17 +306,17 @@ export const RegulationListDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<RegulationListQuery, RegulationListQueryVariables>;
-export const ChampSearchDocument = new TypedDocumentString(`
-    query ChampSearch($query: String!, $take: Int) {
-  champSearch(query: $query, take: $take) {
+export const ChampionsSearchDocument = new TypedDocumentString(`
+    query ChampionsSearch($query: String!, $take: Int) {
+  championsSearch(query: $query, take: $take) {
     ...PokemonSummary
   }
 }
-    fragment PokemonSummary on ChampPokemonSummary {
+    fragment PokemonSummary on ChampionsPokemonSummary {
   id
   slug
   name
-  nationalDexNo
+  nationalPokedexNumber
   types
   isMega
   spriteKey
@@ -330,10 +330,10 @@ export const ChampSearchDocument = new TypedDocumentString(`
     speed
     total
   }
-}`) as unknown as TypedDocumentString<ChampSearchQuery, ChampSearchQueryVariables>;
-export const ChampTeamDocument = new TypedDocumentString(`
-    query ChampTeam($slugs: [String!]!) {
-  champTeam(slugs: $slugs) {
+}`) as unknown as TypedDocumentString<ChampionsSearchQuery, ChampionsSearchQueryVariables>;
+export const ChampionsTeamDocument = new TypedDocumentString(`
+    query ChampionsTeam($slugs: [String!]!) {
+  championsTeam(slugs: $slugs) {
     ...PokemonDetail
     learnsetIsApproximate
     abilities {
@@ -374,11 +374,11 @@ export const ChampTeamDocument = new TypedDocumentString(`
     }
   }
 }
-    fragment PokemonSummary on ChampPokemonSummary {
+    fragment PokemonSummary on ChampionsPokemonSummary {
   id
   slug
   name
-  nationalDexNo
+  nationalPokedexNumber
   types
   isMega
   spriteKey
@@ -393,11 +393,11 @@ export const ChampTeamDocument = new TypedDocumentString(`
     total
   }
 }
-fragment PokemonDetail on ChampPokemonDetail {
+fragment PokemonDetail on ChampionsPokemonDetail {
   id
   slug
   name
-  nationalDexNo
+  nationalPokedexNumber
   types
   isMega
   spriteKey
@@ -411,7 +411,7 @@ fragment PokemonDetail on ChampPokemonDetail {
     speed
     total
   }
-}`) as unknown as TypedDocumentString<ChampTeamQuery, ChampTeamQueryVariables>;
+}`) as unknown as TypedDocumentString<ChampionsTeamQuery, ChampionsTeamQueryVariables>;
 export const TypeChartDocument = new TypedDocumentString(`
     query TypeChart {
   typeChart {
@@ -421,9 +421,9 @@ export const TypeChartDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<TypeChartQuery, TypeChartQueryVariables>;
-export const ChampRosterDocument = new TypedDocumentString(`
-    query ChampRoster($type: String, $search: String, $includeMegas: Boolean, $take: Int, $skip: Int) {
-  champRoster(
+export const ChampionsRosterDocument = new TypedDocumentString(`
+    query ChampionsRoster($type: String, $search: String, $includeMegas: Boolean, $take: Int, $skip: Int) {
+  championsRoster(
     type: $type
     search: $search
     includeMegas: $includeMegas
@@ -432,13 +432,13 @@ export const ChampRosterDocument = new TypedDocumentString(`
   ) {
     ...PokemonSummary
   }
-  champRosterCount(type: $type, search: $search, includeMegas: $includeMegas)
+  championsRosterCount(type: $type, search: $search, includeMegas: $includeMegas)
 }
-    fragment PokemonSummary on ChampPokemonSummary {
+    fragment PokemonSummary on ChampionsPokemonSummary {
   id
   slug
   name
-  nationalDexNo
+  nationalPokedexNumber
   types
   isMega
   spriteKey
@@ -452,14 +452,14 @@ export const ChampRosterDocument = new TypedDocumentString(`
     speed
     total
   }
-}`) as unknown as TypedDocumentString<ChampRosterQuery, ChampRosterQueryVariables>;
-export const ChampDexDocument = new TypedDocumentString(`
-    query ChampDex {
-  champDex {
+}`) as unknown as TypedDocumentString<ChampionsRosterQuery, ChampionsRosterQueryVariables>;
+export const ChampionsPokedexDocument = new TypedDocumentString(`
+    query ChampionsPokedex {
+  championsPokedex {
     id
     slug
     name
-    nationalDexNo
+    nationalPokedexNumber
     types
     isMega
     hasMega
@@ -478,18 +478,18 @@ export const ChampDexDocument = new TypedDocumentString(`
     }
   }
 }
-    `) as unknown as TypedDocumentString<ChampDexQuery, ChampDexQueryVariables>;
+    `) as unknown as TypedDocumentString<ChampionsPokedexQuery, ChampionsPokedexQueryVariables>;
 export const BoxDocument = new TypedDocumentString(`
     query Box {
   box {
     ...BoxEntry
   }
 }
-    fragment PokemonSummary on ChampPokemonSummary {
+    fragment PokemonSummary on ChampionsPokemonSummary {
   id
   slug
   name
-  nationalDexNo
+  nationalPokedexNumber
   types
   isMega
   spriteKey
@@ -558,11 +558,11 @@ export const TeamsDocument = new TypedDocumentString(`
     }
   }
 }
-    fragment PokemonSummary on ChampPokemonSummary {
+    fragment PokemonSummary on ChampionsPokemonSummary {
   id
   slug
   name
-  nationalDexNo
+  nationalPokedexNumber
   types
   isMega
   spriteKey
@@ -619,11 +619,11 @@ export const SaveBoxPokemonDocument = new TypedDocumentString(`
     ...BoxEntry
   }
 }
-    fragment PokemonSummary on ChampPokemonSummary {
+    fragment PokemonSummary on ChampionsPokemonSummary {
   id
   slug
   name
-  nationalDexNo
+  nationalPokedexNumber
   types
   isMega
   spriteKey
@@ -693,18 +693,18 @@ export const DeleteTeamDocument = new TypedDocumentString(`
   deleteTeam(id: $id)
 }
     `) as unknown as TypedDocumentString<DeleteTeamMutation, DeleteTeamMutationVariables>;
-export const ChampTypesDocument = new TypedDocumentString(`
-    query ChampTypes {
-  champTypes {
+export const ChampionsTypesDocument = new TypedDocumentString(`
+    query ChampionsTypes {
+  championsTypes {
     id
     slug
     name
   }
 }
-    `) as unknown as TypedDocumentString<ChampTypesQuery, ChampTypesQueryVariables>;
-export const ChampAbilitiesDocument = new TypedDocumentString(`
-    query ChampAbilities {
-  champAbilities {
+    `) as unknown as TypedDocumentString<ChampionsTypesQuery, ChampionsTypesQueryVariables>;
+export const ChampionsAbilitiesDocument = new TypedDocumentString(`
+    query ChampionsAbilities {
+  championsAbilities {
     id
     slug
     name
@@ -712,10 +712,10 @@ export const ChampAbilitiesDocument = new TypedDocumentString(`
     isMega
   }
 }
-    `) as unknown as TypedDocumentString<ChampAbilitiesQuery, ChampAbilitiesQueryVariables>;
-export const ChampMoveIndexDocument = new TypedDocumentString(`
-    query ChampMoveIndex {
-  champMoveIndex {
+    `) as unknown as TypedDocumentString<ChampionsAbilitiesQuery, ChampionsAbilitiesQueryVariables>;
+export const ChampionsMoveIndexDocument = new TypedDocumentString(`
+    query ChampionsMoveIndex {
+  championsMoveIndex {
     id
     slug
     name
@@ -723,15 +723,15 @@ export const ChampMoveIndexDocument = new TypedDocumentString(`
     damageClass
   }
 }
-    `) as unknown as TypedDocumentString<ChampMoveIndexQuery, ChampMoveIndexQueryVariables>;
-export const ChampMoveLearnersDocument = new TypedDocumentString(`
-    query ChampMoveLearners($moveSlug: String!) {
-  champMoveLearners(moveSlug: $moveSlug)
+    `) as unknown as TypedDocumentString<ChampionsMoveIndexQuery, ChampionsMoveIndexQueryVariables>;
+export const ChampionsMoveLearnersDocument = new TypedDocumentString(`
+    query ChampionsMoveLearners($moveSlug: String!) {
+  championsMoveLearners(moveSlug: $moveSlug)
 }
-    `) as unknown as TypedDocumentString<ChampMoveLearnersQuery, ChampMoveLearnersQueryVariables>;
-export const ChampChangedMovesDocument = new TypedDocumentString(`
-    query ChampChangedMoves {
-  champChangedMoves {
+    `) as unknown as TypedDocumentString<ChampionsMoveLearnersQuery, ChampionsMoveLearnersQueryVariables>;
+export const ChampionsChangedMovesDocument = new TypedDocumentString(`
+    query ChampionsChangedMoves {
+  championsChangedMoves {
     id
     slug
     name
@@ -746,4 +746,4 @@ export const ChampChangedMovesDocument = new TypedDocumentString(`
     overrideNote
   }
 }
-    `) as unknown as TypedDocumentString<ChampChangedMovesQuery, ChampChangedMovesQueryVariables>;
+    `) as unknown as TypedDocumentString<ChampionsChangedMovesQuery, ChampionsChangedMovesQueryVariables>;

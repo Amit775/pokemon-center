@@ -134,7 +134,7 @@ sprite, a name and a stat total cannot settle a choice between two Pokémon, so 
 meant opening two pages. Everything below follows from replacing it with a table.
 
 **Route and chrome.** `/champions/dex` → `/champions/pokedex` (prefix redirect kept, so
-`/dex/garchomp` still resolves). Tagline gone, result count gone, "Search the roster…" → 
+`/pokedex/garchomp` still resolves). Tagline gone, result count gone, "Search the roster…" → 
 "Search…". Copy nobody reads twice and a number nobody acts on.
 
 **Type and matchup pickers — one control, two readings.** Single click is strict: the typing
@@ -189,7 +189,7 @@ Five items from the project owner after seeing P0–P2 running.
    chains a percentage height off `body`, so there was nothing to restore alongside it.
 2. **A Mega is not a separate Pokémon** — now a convention, not a toggle. It is gone from the
    grid (241 rows, not 316), from both counter lists, and from the owned set, which normalizes
-   to base slugs. `/dex/garchomp-mega` redirects to `/dex/garchomp`. The `includeMegaForms`
+   to base slugs. `/pokedex/garchomp-mega` redirects to `/pokedex/garchomp`. The `includeMegaForms`
    filter is deleted rather than defaulted off.
 3. **The Mega appears in full on its base form's page**: artwork, typing, every stat, its own
    calculator, and the deltas the stone buys — `+40 Atk … −10 Spe · +100 BST`, with the loss in
@@ -207,7 +207,7 @@ Five items from the project owner after seeing P0–P2 running.
 
 Working today: whole roster in memory (316 rows + 324 chart rows, zero network per keystroke),
 filters for name/type/Mega/matchup/min-stats/ability/sort, a card grid, a detail page leading with
-the defensive profile and flagging every move Champions changed, and `/dex/changes`.
+the defensive profile and flagging every move Champions changed, and `/pokedex/changes`.
 
 The design decision underneath — **fetch once, filter locally** — is right and everything below
 leans on it rather than fighting it.
@@ -218,7 +218,7 @@ Three categories, in order of how much they cost.
 
 ### 1. The dex is a dead end
 
-`grep routerLink` across `libs/domain-champions/src/lib/dex/` returns links to the dex and nothing
+`grep routerLink` across `libs/domain-champions/src/lib/pokedex/` returns links to the dex and nothing
 else. You can look a Pokémon up and then you are stuck: no way to put it in your Box, no way to
 throw it at the Simulator, no signal that you already own one. The stated differentiator is *"this
 one knows your team"* — the Pokédex is the one section where it does not.
@@ -236,11 +236,11 @@ The detail page is a fact sheet. The competitive questions it does not answer:
 ### 3. Papercuts that are just bugs
 
 - `aria-live="polite"` sits on `<section class="results">` in
-  [roster.component.ts:33](libs/domain-champions/src/lib/dex/roster.component.ts:33), which wraps
+  [roster.component.ts:33](libs/domain-champions/src/lib/pokedex/roster.component.ts:33), which wraps
   the entire grid. Every keystroke re-announces up to 316 cards. It belongs on the count line.
-- [pokemon-detail.component.ts:37](libs/domain-champions/src/lib/dex/pokemon-detail.component.ts:37)
+- [pokemon-detail.component.ts:37](libs/domain-champions/src/lib/pokedex/pokemon-detail.component.ts:37)
   gates the whole page on `query.isLoading()`, so every navigation from the grid flashes a 16rem
-  skeleton — for a name, typing and stat spread the app already has in `DexStore`.
+  skeleton — for a name, typing and stat spread the app already has in `PokedexStore`.
 - Filters live only in `localStorage`. No shareable URL, no back-button semantics, and none of the
   saved-filter-set affordance the mainline side already has as `FilterSet`.
 - Search matches species name only. Typing "levitate" or "dragon" finds nothing.
@@ -258,10 +258,10 @@ Small, no new data, no new queries.
 
 | Change | File |
 |---|---|
-| Live region moved to the count line, so a keystroke announces "132 of 316 legal" rather than the grid | `dex/roster.component.ts` |
-| Detail page seeded from `DexStore` — name, types, sprite, base stats and the whole defensive profile paint immediately; only abilities/Megas/moves show a skeleton. Also **removed** the page's duplicate `TypeChart` query, since the store already holds it | `dex/pokemon-detail.component.ts` |
-| Every sort falls back to dex number, so ties stop reshuffling between renders | `dex/dex-filter.ts` |
-| Empty state names the filters worth dropping, each costed (`diagnoseEmpty`) — and omits ones whose removal still returns nothing | `dex/dex-filter.ts`, `dex/roster.component.ts` |
+| Live region moved to the count line, so a keystroke announces "132 of 316 legal" rather than the grid | `pokedex/roster.component.ts` |
+| Detail page seeded from `PokedexStore` — name, types, sprite, base stats and the whole defensive profile paint immediately; only abilities/Megas/moves show a skeleton. Also **removed** the page's duplicate `TypeChart` query, since the store already holds it | `pokedex/pokemon-detail.component.ts` |
+| Every sort falls back to dex number, so ties stop reshuffling between renders | `pokedex/pokedex-filter.ts` |
+| Empty state names the filters worth dropping, each costed (`diagnoseEmpty`) — and omits ones whose removal still returns nothing | `pokedex/pokedex-filter.ts`, `pokedex/roster.component.ts` |
 
 The empty-state diagnosis turned out better than planned: with a stale search plus four type
 chips, it correctly offered only *"Ignore the search → 132"*, because dropping the types alone
@@ -280,14 +280,14 @@ This is the phase that makes the section stop being a reference site.
   something else afterwards is a decision, not a navigation.
 - **Box accepts a species.** `/champions/box?add=garchomp` opens the build editor directly on that
   species, skipping the picker step that has no content when you already know the answer.
-- **"You own one" on the roster.** `DexStore` reads `BoxStore.entries()`; owned tiles get a green
+- **"You own one" on the roster.** `PokedexStore` reads `BoxStore.entries()`; owned tiles get a green
   border and an `Owned` word-badge, and an `Only what I own` filter falls out for free. A Mega
   counts as owned when you own its base form — the stone is the only difference.
-- **Prev/next within the filtered set.** The detail page reads `DexStore.results()`, so the arrows
+- **Prev/next within the filtered set.** The detail page reads `PokedexStore.results()`, so the arrows
   walk *your current filter*, not the national dex, and disappear when the slug is not in the
   results rather than jumping somewhere unrelated.
 
-Dependency notes: `DexStore` reading `BoxStore` is domain-internal, no lib boundary crossed. The
+Dependency notes: `PokedexStore` reading `BoxStore` is domain-internal, no lib boundary crossed. The
 Box query's failure is deliberately *not* folded into the dex's `error` — an unreachable Box costs
 you a badge, not the roster.
 
@@ -320,8 +320,8 @@ Also worth having, same machinery, near-zero extra cost: a **counter filter** on
 "show me everything that counters Mega Garchomp" — which is the matchup filter aimed at a *Pokémon*
 instead of at a *type*.
 
-**What shipped**, in `champions-engine/src/lib/counters.ts` plus `dex/counters.ts`,
-`dex/counter-list.component.ts`:
+**What shipped**, in `champions-engine/src/lib/counters.ts` plus `pokedex/counters.ts`,
+`pokedex/counter-list.component.ts`:
 
 - Five bands, not three. `trade` (both sides hit super-effectively — a speed race, not an answer)
   and `loses` were needed to keep `counter` meaningful. Only `counter`, `check` and `wall` are
@@ -340,7 +340,7 @@ instead of at a *type*.
 
 ### ~~P3 — Filters that answer more questions~~ ✅ shipped
 
-- **URL as state.** Serialize `DexFilters` to query params; `localStorage` becomes the default when
+- **URL as state.** Serialize `PokedexFilters` to query params; `localStorage` becomes the default when
   the URL is bare. Gives shareable views and a working back button.
 - **Saved filter sets.** Copy the `FilterSet` shape from
   [pokedex-context.store.ts:5](libs/data-access-pokedex/src/lib/pokedex-context.store.ts:5) — name,
@@ -357,7 +357,7 @@ instead of at a *type*.
   > move is picked, cached in the store, instant thereafter. The fetch-once principle is preserved;
   > it just gets a second, lazy fetch.
 
-**What shipped**, in `dex/dex-url.ts` plus additions to the store, filter panel and resolver:
+**What shipped**, in `pokedex/pokedex-url.ts` plus additions to the store, filter panel and resolver:
 
 - **URL as state.** A compact codec (`q`, `t`, `mu`, `s=speed:130-260`, …) writing only what
   differs from the default, so a cleared panel leaves a bare URL. Decoding never throws: every
@@ -372,7 +372,7 @@ instead of at a *type*.
 - **Search widened** to ability names, ability slugs and type names. Slugs because that is what a
   shared URL carries. Species-name prefixes still float to the top, so the common case is
   unchanged.
-- **Filter by move**, on the lazy query as planned — plus one supporting change: `champResource`
+- **Filter by move**, on the lazy query as planned — plus one supporting change: `championsResource`
   now treats `undefined` variables as *idle* rather than firing a request with a missing
   argument, which is what makes a genuinely lazy query possible. While the learners are in
   flight the filter is **skipped rather than applied**: narrowing a full list reads as loading,

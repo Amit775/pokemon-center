@@ -9,6 +9,6 @@ interface TypeSlot {
 @Pipe({ name: 'pokemonTypes', standalone: true })
 export class PokemonTypesPipe implements PipeTransform {
 	transform(types: readonly TypeSlot[] | null | undefined): string[] {
-		return [...(types ?? [])].sort((a, b) => a.slot - b.slot).map((t) => t.type.identifier);
+		return [...(types ?? [])].sort((first, second) => first.slot - second.slot).map((pokemonType) => pokemonType.type.identifier);
 	}
 }

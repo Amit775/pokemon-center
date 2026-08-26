@@ -12,12 +12,12 @@ import {
 	koVerdict,
 	turnOrder,
 } from '@pokemon-center/champions-engine';
-import { ChampTeamDocument, TypeChartDocument, champResource } from '@pokemon-center/data-access-champions';
+import { ChampionsTeamDocument, TypeChartDocument, championsResource } from '@pokemon-center/data-access-champions';
 import { EntityPortraitComponent, SectionHeadingComponent, TypeChipComponent, UiCardComponent, spriteSources } from '@pokemon-center/ui-pokedex';
 import { toTypeChart, inferBuild } from '../advisor/build-inference';
 import { boxEntryToBuild } from '../box/box-build';
 import { BoxStore } from '../box/box.store';
-import { CombatantPickerComponent } from './combatant-picker.component';
+import { BOX_PREFIX, CombatantPickerComponent, POKEDEX_PREFIX } from './combatant-picker.component';
 
 /**
  * The Simulator — a what-if lab for two Pokémon.
@@ -54,7 +54,7 @@ import { CombatantPickerComponent } from './combatant-picker.component';
 		</div>
 
 		@if (!left() || !right()) {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel">
 					<h2>Pick two Pokémon</h2>
 					<p>
@@ -62,10 +62,10 @@ import { CombatantPickerComponent } from './combatant-picker.component';
 						on the roster to try something you do not own.
 					</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		} @else {
-			<pkd-section-heading label="Conditions" />
-			<pkd-card>
+			<pokedex-section-heading label="Conditions" />
+			<pokedex-card>
 				<div class="panel conditions">
 					<div class="field-row">
 						<button type="button" [class.on]="field().tailwind" (click)="toggleField('tailwind')">Tailwind</button>
@@ -109,21 +109,21 @@ import { CombatantPickerComponent } from './combatant-picker.component';
 						}
 					</div>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 
-			<pkd-section-heading label="Speed" />
-			<pkd-card>
+			<pokedex-section-heading label="Speed" />
+			<pokedex-card>
 				<div class="panel">
 					<p class="verdict">{{ speedVerdict() }}</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 
 			@for (direction of directions(); track direction.label) {
-				<pkd-section-heading [label]="direction.label" />
-				<pkd-card>
+				<pokedex-section-heading [label]="direction.label" />
+				<pokedex-card>
 					<div class="panel">
 						<div class="who-row">
-							<pkd-entity-portrait
+							<pokedex-entity-portrait
 								[type]="direction.attacker.species.types[0]"
 								[src]="sprite(direction.attacker).src"
 								[fallbackSrc]="sprite(direction.attacker).fallbackSrc"
@@ -132,7 +132,7 @@ import { CombatantPickerComponent } from './combatant-picker.component';
 							/>
 							<span class="who-name">{{ direction.attacker.species.name }}</span>
 							@for (type of direction.attacker.species.types; track type) {
-								<pkd-type-chip [type]="type" size="sm" />
+								<pokedex-type-chip [type]="type" size="sm" />
 							}
 						</div>
 
@@ -140,8 +140,8 @@ import { CombatantPickerComponent } from './combatant-picker.component';
 							@for (option of direction.options; track option.move.id) {
 								<li>
 									<span class="move-name">{{ option.move.name }}</span>
-									<pkd-type-chip [type]="option.move.type" size="sm" />
-									<span class="damage">{{ pct(option.result.minFraction) }}–{{ pct(option.result.maxFraction) }}%</span>
+									<pokedex-type-chip [type]="option.move.type" size="sm" />
+									<span class="damage">{{ percent(option.result.minFraction) }}–{{ percent(option.result.maxFraction) }}%</span>
 									<span class="ko" [class.kill]="option.ko.startsWith('guaranteed')">{{ koLabel(option.ko) }}</span>
 								</li>
 							} @empty {
@@ -149,7 +149,7 @@ import { CombatantPickerComponent } from './combatant-picker.component';
 							}
 						</ul>
 					</div>
-				</pkd-card>
+				</pokedex-card>
 			}
 
 			<p class="disclosure">
@@ -339,7 +339,7 @@ import { CombatantPickerComponent } from './combatant-picker.component';
 export default class SimulatorComponent {
 	private readonly box = inject(BoxStore);
 
-	/** `box:<id>` or `dex:<slug>`. */
+	/** `box:<id>` or `pokedex:<slug>`. */
 	protected readonly leftKey = signal<string | null>(null);
 	protected readonly rightKey = signal<string | null>(null);
 
@@ -360,8 +360,8 @@ export default class SimulatorComponent {
 		untracked(() => {
 			const left = params.get('left');
 			const right = params.get('right');
-			if (left && !this.leftKey()) this.leftKey.set(`dex:${left}`);
-			if (right && !this.rightKey()) this.rightKey.set(`dex:${right}`);
+			if (left && !this.leftKey()) this.leftKey.set(`${POKEDEX_PREFIX}${left}`);
+			if (right && !this.rightKey()) this.rightKey.set(`${POKEDEX_PREFIX}${right}`);
 		});
 	});
 
@@ -382,27 +382,27 @@ export default class SimulatorComponent {
 		{ key: 'speed' as const, label: 'Spe' },
 	];
 
-	/** Roster slugs needed for whichever sides are dex picks. */
-	private readonly dexSlugs = computed(() =>
+	/** Roster slugs needed for whichever sides are Pokedex picks. */
+	private readonly pokedexSlugs = computed(() =>
 		[this.leftKey(), this.rightKey()]
-			.filter((key): key is string => key !== null && key.startsWith('dex:'))
-			.map((key) => key.slice(4)),
+			.filter((key): key is string => key !== null && key.startsWith(POKEDEX_PREFIX))
+			.map((key) => key.slice(POKEDEX_PREFIX.length)),
 	);
 
-	private readonly dexQuery = champResource(ChampTeamDocument, () => ({ slugs: this.dexSlugs() }));
-	private readonly chartQuery = champResource(TypeChartDocument, () => ({}));
+	private readonly pokedexQuery = championsResource(ChampionsTeamDocument, () => ({ slugs: this.pokedexSlugs() }));
+	private readonly chartQuery = championsResource(TypeChartDocument, () => ({}));
 
 	protected readonly typeChart = computed(() => toTypeChart(this.chartQuery.value()?.typeChart ?? []));
 
 	private build(key: string | null): ChampionsBuild | null {
 		if (!key) return null;
 
-		if (key.startsWith('box:')) {
-			const entry = this.box.entries().find((e) => e.id === Number(key.slice(4)));
+		if (key.startsWith(BOX_PREFIX)) {
+			const entry = this.box.entries().find((boxEntry) => boxEntry.id === Number(key.slice(BOX_PREFIX.length)));
 			return entry ? boxEntryToBuild(entry) : null;
 		}
 
-		const member = (this.dexQuery.value()?.champTeam ?? []).find((m) => m.slug === key.slice(4));
+		const member = (this.pokedexQuery.value()?.championsTeam ?? []).find((teamMember) => teamMember.slug === key.slice(POKEDEX_PREFIX.length));
 		return member ? inferBuild(member) : null;
 	}
 
@@ -434,7 +434,7 @@ export default class SimulatorComponent {
 					});
 					return { move, result, ko: koVerdict(result) };
 				})
-				.sort((a, b) => b.result.min - a.result.min);
+				.sort((first, second) => second.result.min - first.result.min);
 		};
 
 		return [
@@ -474,7 +474,7 @@ export default class SimulatorComponent {
 		return (side === 'left' ? this.left() : this.right())?.species.name ?? side;
 	}
 
-	protected pct(fraction: number): number {
+	protected percent(fraction: number): number {
 		return Math.round(fraction * 100);
 	}
 

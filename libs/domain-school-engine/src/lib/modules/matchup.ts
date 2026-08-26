@@ -38,14 +38,14 @@ export function buildMatchupScenario(
 	seed: number,
 	defenderTypes: readonly string[],
 	candidates: readonly MatchupCandidate[],
-	ctx: GameContext,
+	context: GameContext,
 ): Scenario {
 	if (candidates.length < OPTIONS_OFFERED) {
 		throw new Error(`[${MATCHUP_LESSON_ID}] only ${candidates.length} counters returned, need ${OPTIONS_OFFERED}`);
 	}
 
 	const rng = createRng(seed);
-	const ranked = [...candidates].sort((a, b) => b.score - a.score);
+	const ranked = [...candidates].sort((first, second) => second.score - first.score);
 
 	// The true best is always on the table: the question is "pick the best counter", so the
 	// best counter has to be pickable. The rest are drawn from across the ranking rather than
@@ -53,7 +53,7 @@ export function buildMatchupScenario(
 	const [top, ...rest] = ranked;
 	const offered = rng.shuffle([top, ...rng.sample(rest, OPTIONS_OFFERED - 1)]);
 	const byId = new Map(offered.map((candidate) => [candidate.slug, candidate]));
-	const offeredRanked = [...offered].sort((a, b) => b.score - a.score);
+	const offeredRanked = [...offered].sort((first, second) => second.score - first.score);
 	const optimal = offeredRanked[0];
 
 	const defenderLabel = defenderTypes.map(title).join('/');
@@ -87,7 +87,7 @@ export function buildMatchupScenario(
 		grade(selected: readonly string[]): ScenarioResult {
 			const chosen = selected.length > 0 ? byId.get(selected[0]) : undefined;
 			const achieved = chosen?.score ?? 0;
-			const rank = chosen ? offeredRanked.findIndex((c) => c.slug === chosen.slug) + 1 : offeredRanked.length;
+			const rank = chosen ? offeredRanked.findIndex((candidate) => candidate.slug === chosen.slug) + 1 : offeredRanked.length;
 
 			return {
 				quality: qualityOf(achieved, optimal.score),
@@ -100,10 +100,10 @@ export function buildMatchupScenario(
 					chosen === undefined
 						? 'No counter chosen.'
 						: rank === 1
-							? `${humanize(chosen.slug)} is the best of these, scoring ${achieved}${eraNote(ctx.versionGroup)}.`
+							? `${humanize(chosen.slug)} is the best of these, scoring ${achieved}${eraNote(context.versionGroup)}.`
 							: `${humanize(chosen.slug)} ranks ${rank} of ${offeredRanked.length} (${achieved} vs ${optimal.score}). ${humanize(
 									optimal.slug,
-								)} wins because ${humanize(optimal.bestMove)} is ${optimal.effectiveness}x here${eraNote(ctx.versionGroup)}.`,
+								)} wins because ${humanize(optimal.bestMove)} is ${optimal.effectiveness}x here${eraNote(context.versionGroup)}.`,
 			};
 		},
 	};

@@ -8,7 +8,7 @@ export interface MatchupCell {
 
 /** Color-coded effectiveness grid over defending/attacking types (Coverage, Type pages). */
 @Component({
-	selector: 'pkd-matchup-grid',
+	selector: 'pokedex-matchup-grid',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<div class="grid">

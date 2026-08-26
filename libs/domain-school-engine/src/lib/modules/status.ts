@@ -30,7 +30,7 @@ export const ailmentSourceGenerator: ExerciseGenerator = {
 	id: 'status.source',
 	lessonId: 'status.ailment-source',
 	requires: ['moves'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const moves = requireRef(ref, 'moves', this.lessonId);
 
@@ -69,7 +69,7 @@ export const ailmentSourceGenerator: ExerciseGenerator = {
 			hints,
 			explanation: `${humanize(answer.slug)} inflicts ${humanize(ailment).toLowerCase()}${
 				answer.ailmentChance > 0 ? ` ${answer.ailmentChance}% of the time` : ' whenever it connects'
-			}${eraNote(ctx.versionGroup)}.`,
+			}${eraNote(context.versionGroup)}.`,
 		};
 	},
 };
@@ -78,7 +78,7 @@ export const ailmentChanceGenerator: ExerciseGenerator = {
 	id: 'status.chance',
 	lessonId: 'status.ailment-chance',
 	requires: ['moves'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const moves = requireRef(ref, 'moves', this.lessonId);
 
@@ -87,14 +87,14 @@ export const ailmentChanceGenerator: ExerciseGenerator = {
 		if (chancy.length === 0) throw new Error(`[${this.lessonId}] no move in this set has a chance-based ailment`);
 
 		const answer = rng.pick(chancy);
-		const plausible = [10, 20, 30, 50, 100].filter((pct) => pct !== answer.ailmentChance);
+		const plausible = [10, 20, 30, 50, 100].filter((percent) => percent !== answer.ailmentChance);
 		const options = rng.shuffle([answer.ailmentChance, ...rng.sample(plausible, 3)]);
 
-		const candidates: Candidate<number>[] = options.map((pct) => ({
-			id: `p${pct}`,
-			label: `${pct}%`,
-			value: pct,
-			correct: pct === answer.ailmentChance,
+		const candidates: Candidate<number>[] = options.map((percent) => ({
+			id: `p${percent}`,
+			label: `${percent}%`,
+			value: percent,
+			correct: percent === answer.ailmentChance,
 		}));
 		assertUnambiguous(this.lessonId, candidates);
 
@@ -116,7 +116,7 @@ export const ailmentChanceGenerator: ExerciseGenerator = {
 			candidates,
 			hints,
 			explanation: `${humanize(answer.slug)}: ${answer.ailmentChance}% chance of ${humanize(answer.ailment as string).toLowerCase()}${eraNote(
-				ctx.versionGroup,
+				context.versionGroup,
 			)}.`,
 		};
 	},
@@ -126,7 +126,7 @@ export const recoilGenerator: ExerciseGenerator = {
 	id: 'status.recoil',
 	lessonId: 'status.recoil-and-drain',
 	requires: ['moves'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const moves = requireRef(ref, 'moves', this.lessonId);
 
@@ -156,7 +156,7 @@ export const recoilGenerator: ExerciseGenerator = {
 			prompt: 'Which of these moves hurts the Pokémon using it?',
 			candidates,
 			hints,
-			explanation: `${humanize(answer.slug)} costs the user ${Math.abs(answer.drain)}% of the damage dealt as recoil${eraNote(ctx.versionGroup)}.`,
+			explanation: `${humanize(answer.slug)} costs the user ${Math.abs(answer.drain)}% of the damage dealt as recoil${eraNote(context.versionGroup)}.`,
 		};
 	},
 };

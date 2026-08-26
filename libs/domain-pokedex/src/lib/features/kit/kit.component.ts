@@ -32,56 +32,56 @@ import {
 		<div class="kit">
 			<h1>ui-pokedex kit</h1>
 
-			<pkd-section-heading label="Buttons" />
+			<pokedex-section-heading label="Buttons" />
 			<div class="row">
-				<button pkd-button type="button">Default</button>
-				<button pkd-button="primary" type="button">Primary</button>
-				<button pkd-button type="button" disabled>Disabled</button>
-				<a pkd-button href="#buttons">Anchor</a>
+				<button pokedex-button type="button">Default</button>
+				<button pokedex-button="primary" type="button">Primary</button>
+				<button pokedex-button type="button" disabled>Disabled</button>
+				<a pokedex-button href="#buttons">Anchor</a>
 			</div>
 
-			<pkd-section-heading label="Type chips" />
+			<pokedex-section-heading label="Type chips" />
 			<div class="row">
 				@for (t of types; track t) {
-					<pkd-type-chip [type]="t" />
+					<pokedex-type-chip [type]="t" />
 				}
 			</div>
 
-			<pkd-section-heading label="Pokemon cards" />
+			<pokedex-section-heading label="Pokemon cards" />
 			<div class="grid">
-				<pkd-pokemon-card dexNumber="006" name="Charizard" [types]="['fire', 'flying']" [selected]="true" />
-				<pkd-pokemon-card dexNumber="001" name="Bulbasaur" [types]="['grass', 'poison']" />
-				<pkd-pokemon-card dexNumber="025" name="Pikachu" [types]="['electric']" />
-				<pkd-pokemon-card dexNumber="094" name="Gengar" [types]="['ghost', 'poison']" />
+				<pokedex-pokemon-card pokedexNumber="006" name="Charizard" [types]="['fire', 'flying']" [selected]="true" />
+				<pokedex-pokemon-card pokedexNumber="001" name="Bulbasaur" [types]="['grass', 'poison']" />
+				<pokedex-pokemon-card pokedexNumber="025" name="Pikachu" [types]="['electric']" />
+				<pokedex-pokemon-card pokedexNumber="094" name="Gengar" [types]="['ghost', 'poison']" />
 			</div>
 
-			<pkd-section-heading label="Card + portrait + stat bars" />
-			<pkd-card>
+			<pokedex-section-heading label="Card + portrait + stat bars" />
+			<pokedex-card>
 				<div class="detail">
-					<pkd-entity-portrait type="fire" [size]="120" />
+					<pokedex-entity-portrait type="fire" [size]="120" />
 					<div class="stats">
-						<pkd-tabs [tabs]="tabs" [(value)]="tab" />
+						<pokedex-tabs [tabs]="tabs" [(value)]="tab" />
 						@if (tab() === 'stats') {
-							<pkd-stat-bar label="HP" [value]="78" type="fire" />
-							<pkd-stat-bar label="Attack" [value]="84" type="fire" />
-							<pkd-stat-bar label="Defense" [value]="78" type="fire" />
-							<pkd-stat-bar label="Sp. Atk" [value]="109" type="fire" />
-							<pkd-stat-bar label="Sp. Def" [value]="85" type="fire" />
-							<pkd-stat-bar label="Speed" [value]="100" type="fire" />
+							<pokedex-stat-bar label="HP" [value]="78" type="fire" />
+							<pokedex-stat-bar label="Attack" [value]="84" type="fire" />
+							<pokedex-stat-bar label="Defense" [value]="78" type="fire" />
+							<pokedex-stat-bar label="Sp. Atk" [value]="109" type="fire" />
+							<pokedex-stat-bar label="Sp. Def" [value]="85" type="fire" />
+							<pokedex-stat-bar label="Speed" [value]="100" type="fire" />
 						} @else {
 							<p>Tab content for “{{ tab() }}”.</p>
 						}
 					</div>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 
-			<pkd-section-heading label="Skeletons" />
+			<pokedex-section-heading label="Skeletons" />
 			<div class="skel">
-				<pkd-skeleton width="120px" height="120px" radius="50%" />
+				<pokedex-skeleton width="120px" height="120px" radius="50%" />
 				<div style="flex:1; display:flex; flex-direction:column; gap:.5rem">
-					<pkd-skeleton width="40%" height="1.4rem" />
-					<pkd-skeleton width="70%" />
-					<pkd-skeleton width="60%" />
+					<pokedex-skeleton width="40%" height="1.4rem" />
+					<pokedex-skeleton width="70%" />
+					<pokedex-skeleton width="60%" />
 				</div>
 			</div>
 		</div>
@@ -118,7 +118,7 @@ import {
 		.stats {
 			flex: 1;
 		}
-		.stats pkd-tabs {
+		.stats pokedex-tabs {
 			margin-bottom: var(--s-3);
 		}
 		p {

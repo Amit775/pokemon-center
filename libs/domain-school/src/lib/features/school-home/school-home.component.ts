@@ -32,9 +32,9 @@ import { ButtonComponent } from '@pokemon-center/ui-pokedex';
 		</p>
 
 		<div class="bar">
-			<a pkd-button="primary" routerLink="/school/drill">Start a drill</a>
-			<a pkd-button routerLink="/school/drill" [queryParams]="{ adaptive: 1 }">Practise weak spots</a>
-			<a pkd-button routerLink="/school/placement">Placement test</a>
+			<a pokedex-button="primary" routerLink="/school/drill">Start a drill</a>
+			<a pokedex-button routerLink="/school/drill" [queryParams]="{ adaptive: 1 }">Practise weak spots</a>
+			<a pokedex-button routerLink="/school/placement">Placement test</a>
 			<label class="toggle">
 				<input type="checkbox" [checked]="progress.unlockOverride()" (change)="toggleUnlockAll($event)" />
 				Unlock everything
@@ -228,8 +228,8 @@ export default class SchoolHomeComponent {
 	});
 
 	protected readonly modules = computed(() => {
-		const open = new Set(this.progress.available().map((l) => l.id));
-		const titles = new Map(curriculum.flatMap((m) => m.lessons).map((l) => [l.id, l.title]));
+		const open = new Set(this.progress.available().map((lesson) => lesson.id));
+		const titles = new Map(curriculum.flatMap((module) => module.lessons).map((lesson) => [lesson.id, lesson.title]));
 		const ref = this.reference.reference();
 
 		return curriculum.map((module) => ({

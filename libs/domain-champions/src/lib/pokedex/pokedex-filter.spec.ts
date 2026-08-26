@@ -1,7 +1,7 @@
 import type { TypeChart } from '@pokemon-center/champions-engine';
 import {
-	DexEntry,
-	DexFilters,
+	PokedexEntry,
+	PokedexFilters,
 	EMPTY_FILTERS,
 	STAT_BOUNDS,
 	applyFilters,
@@ -9,7 +9,7 @@ import {
 	isFiltered,
 	megaOnlyMatches,
 	passesMatchup,
-} from './dex-filter';
+} from './pokedex-filter';
 
 /** Only the rows these tests need; `typeEffectiveness` treats a missing pairing as neutral. */
 const chart: TypeChart = {
@@ -20,10 +20,10 @@ const chart: TypeChart = {
 	ground: { steel: 2, fire: 2, flying: 0, dragon: 1, fairy: 1, ghost: 1, water: 1 },
 };
 
-function entry(overrides: Partial<DexEntry> & Pick<DexEntry, 'slug' | 'name' | 'types'>): DexEntry {
+function entry(overrides: Partial<PokedexEntry> & Pick<PokedexEntry, 'slug' | 'name' | 'types'>): PokedexEntry {
 	return {
 		id: 1,
-		nationalDexNo: 1,
+		nationalPokedexNumber: 1,
 		baseStats: { hp: 80, attack: 80, defense: 80, specialAttack: 80, specialDefense: 80, speed: 80, total: 480 },
 		isMega: false,
 		hasMega: false,
@@ -38,7 +38,7 @@ const garchomp = entry({
 	slug: 'garchomp',
 	name: 'Garchomp',
 	types: ['dragon', 'ground'],
-	nationalDexNo: 445,
+	nationalPokedexNumber: 445,
 	hasMega: true,
 	abilitySlugs: ['rough-skin'],
 	abilityNames: ['Rough Skin'],
@@ -49,7 +49,7 @@ const garchompMega = entry({
 	slug: 'garchomp-mega',
 	name: 'Mega Garchomp',
 	types: ['dragon', 'ground'],
-	nationalDexNo: 445,
+	nationalPokedexNumber: 445,
 	isMega: true,
 	megaOfSlug: 'garchomp',
 	baseStats: { hp: 108, attack: 170, defense: 115, specialAttack: 120, specialDefense: 95, speed: 92, total: 700 },
@@ -59,7 +59,7 @@ const corviknight = entry({
 	slug: 'corviknight',
 	name: 'Corviknight',
 	types: ['flying', 'steel'],
-	nationalDexNo: 823,
+	nationalPokedexNumber: 823,
 	abilitySlugs: ['pressure'],
 	abilityNames: ['Pressure'],
 	baseStats: { hp: 98, attack: 87, defense: 105, specialAttack: 53, specialDefense: 85, speed: 67, total: 495 },
@@ -69,7 +69,7 @@ const azumarill = entry({
 	slug: 'azumarill',
 	name: 'Azumarill',
 	types: ['water', 'fairy'],
-	nationalDexNo: 184,
+	nationalPokedexNumber: 184,
 	abilitySlugs: ['huge-power'],
 	abilityNames: ['Huge Power'],
 	baseStats: { hp: 100, attack: 50, defense: 80, specialAttack: 60, specialDefense: 80, speed: 50, total: 420 },
@@ -77,8 +77,8 @@ const azumarill = entry({
 
 const roster = [azumarill, garchomp, garchompMega, corviknight];
 
-const filters = (overrides: Partial<DexFilters> = {}): DexFilters => ({ ...EMPTY_FILTERS, ...overrides });
-const slugs = (result: DexEntry[]) => result.map((e) => e.slug);
+const filters = (overrides: Partial<PokedexFilters> = {}): PokedexFilters => ({ ...EMPTY_FILTERS, ...overrides });
+const slugs = (result: PokedexEntry[]) => result.map((resultEntry) => resultEntry.slug);
 
 describe('applyFilters', () => {
 	it('never lists a Mega form as its own entry', () => {
@@ -139,7 +139,7 @@ describe('type filter', () => {
 	it('returns mono-types only when exact mode has one chip', () => {
 		// Garchomp is Dragon/Ground, so it is not "a Dragon type" under the strict reading —
 		// it is a Dragon/Ground type. This is the whole difference between the two modes.
-		const mono = entry({ slug: 'druddigon', name: 'Druddigon', types: ['dragon'], nationalDexNo: 621 });
+		const mono = entry({ slug: 'druddigon', name: 'Druddigon', types: ['dragon'], nationalPokedexNumber: 621 });
 
 		expect(slugs(applyFilters([...roster, mono], filters({ types: ['dragon'], typeMode: 'exact' }), chart))).toEqual(['druddigon']);
 	});
@@ -154,12 +154,12 @@ describe('type filter', () => {
 describe('mega display', () => {
 	// The bug this exists to prevent: Beedrill's base Speed is 75, its Mega's is 145. A search
 	// for base Speed 125+ that drops Beedrill is hiding something that outspeeds you.
-	const beedrill = entry({ slug: 'beedrill', name: 'Beedrill', types: ['bug', 'poison'], nationalDexNo: 15, hasMega: true });
+	const beedrill = entry({ slug: 'beedrill', name: 'Beedrill', types: ['bug', 'poison'], nationalPokedexNumber: 15, hasMega: true });
 	const beedrillMega = entry({
 		slug: 'beedrill-mega',
 		name: 'Mega Beedrill',
 		types: ['bug', 'poison'],
-		nationalDexNo: 15,
+		nationalPokedexNumber: 15,
 		isMega: true,
 		megaOfSlug: 'beedrill',
 		baseStats: { hp: 65, attack: 150, defense: 40, specialAttack: 15, specialDefense: 80, speed: 145, total: 495 },
@@ -201,12 +201,12 @@ describe('mega display', () => {
 });
 
 describe('megaOnlyMatches', () => {
-	const beedrill = entry({ slug: 'beedrill', name: 'Beedrill', types: ['bug'], nationalDexNo: 15, hasMega: true });
+	const beedrill = entry({ slug: 'beedrill', name: 'Beedrill', types: ['bug'], nationalPokedexNumber: 15, hasMega: true });
 	const beedrillMega = entry({
 		slug: 'beedrill-mega',
 		name: 'Mega Beedrill',
 		types: ['bug'],
-		nationalDexNo: 15,
+		nationalPokedexNumber: 15,
 		isMega: true,
 		megaOfSlug: 'beedrill',
 		baseStats: { hp: 65, attack: 150, defense: 40, specialAttack: 15, specialDefense: 80, speed: 145, total: 495 },
@@ -323,7 +323,7 @@ describe('owned filter', () => {
 	});
 
 	it('matches on base forms, the only rows there are', () => {
-		// `DexStore` normalizes the owned set to base slugs, so boxing a Mega Garchomp marks
+		// `PokedexStore` normalizes the owned set to base slugs, so boxing a Mega Garchomp marks
 		// Garchomp — the row the grid actually shows.
 		const result = applyFilters(roster, filters({ ownedOnly: true }), chart, { owned: new Set(['garchomp']) });
 
@@ -380,8 +380,8 @@ describe('sorting', () => {
 	it('breaks stat ties by dex number rather than leaving them to input order', () => {
 		// Two entries with identical Speed, fed in reverse dex order. Without the tiebreak the
 		// result depends on the array it arrived in, so the grid reshuffles on unrelated changes.
-		const fast = entry({ slug: 'fast-b', name: 'Fast B', types: ['fire'], nationalDexNo: 900 });
-		const alsoFast = entry({ slug: 'fast-a', name: 'Fast A', types: ['fire'], nationalDexNo: 100 });
+		const fast = entry({ slug: 'fast-b', name: 'Fast B', types: ['fire'], nationalPokedexNumber: 900 });
+		const alsoFast = entry({ slug: 'fast-a', name: 'Fast A', types: ['fire'], nationalPokedexNumber: 100 });
 
 		expect(slugs(applyFilters([fast, alsoFast], filters({ sortBy: 'speed' }), chart))).toEqual(['fast-a', 'fast-b']);
 	});
@@ -395,8 +395,8 @@ describe('diagnoseEmpty', () => {
 		const relaxations = diagnoseEmpty(roster, impossible, chart);
 
 		expect(applyFilters(roster, impossible, chart)).toEqual([]);
-		expect(relaxations.map((r) => r.label)).toEqual(['the matchup', 'the stat ranges']);
-		expect(relaxations.every((r) => r.count > 0)).toBe(true);
+		expect(relaxations.map((relaxation) => relaxation.label)).toEqual(['the matchup', 'the stat ranges']);
+		expect(relaxations.every((relaxation) => relaxation.count > 0)).toBe(true);
 	});
 
 	it('returns a patch that actually un-empties the grid', () => {
@@ -414,7 +414,7 @@ describe('diagnoseEmpty', () => {
 		// offered; dropping the types leaves Garchomp, so that one is.
 		const both = filters({ types: ['dragon', 'steel'], typeMode: 'exact', ability: 'rough-skin' });
 
-		expect(diagnoseEmpty(roster, both, chart).map((r) => r.label)).toEqual(['the type filter']);
+		expect(diagnoseEmpty(roster, both, chart).map((diagnosis) => diagnosis.label)).toEqual(['the type filter']);
 	});
 });
 

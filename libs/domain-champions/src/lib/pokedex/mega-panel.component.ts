@@ -28,7 +28,7 @@ const SHORT: { key: StatKey; label: string }[] = [
 	imports: [EntityPortraitComponent, StatPanelComponent, TypeChipComponent],
 	template: `
 		<header>
-			<pkd-entity-portrait
+			<pokedex-entity-portrait
 				[type]="mega().types[0]"
 				[src]="sprite().src"
 				[fallbackSrc]="sprite().fallbackSrc"
@@ -39,7 +39,7 @@ const SHORT: { key: StatKey; label: string }[] = [
 				<h3>{{ mega().name }}</h3>
 				<div class="chips">
 					@for (type of mega().types; track type) {
-						<pkd-type-chip [type]="type" size="sm" />
+						<pokedex-type-chip [type]="type" size="sm" />
 					}
 					@if (typeChanged()) {
 						<span class="tag">new typing</span>

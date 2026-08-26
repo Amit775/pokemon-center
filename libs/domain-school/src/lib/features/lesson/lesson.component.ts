@@ -48,9 +48,9 @@ const CHECKS_PER_LESSON = 5;
 					<h2>Done — {{ correct() }} of {{ exercises().length }} unaided or hinted correctly</h2>
 					<p class="sub">Mastery for this lesson is now {{ percent() }}%.</p>
 					<div class="bar">
-						<button type="button" pkd-button="primary" (click)="again()">Go again</button>
-						<a pkd-button routerLink="/school">Back to School</a>
-						<a pkd-button routerLink="/school/drill">Drill everything</a>
+						<button type="button" pokedex-button="primary" (click)="again()">Go again</button>
+						<a pokedex-button routerLink="/school">Back to School</a>
+						<a pokedex-button routerLink="/school/drill">Drill everything</a>
 					</div>
 				</section>
 			}
@@ -149,11 +149,11 @@ export default class LessonComponent {
 	protected onAnswered(attempt: Attempt): void {
 		const lesson = this.lesson();
 		if (lesson) this.progress.recordFor(lesson.id, attempt);
-		if (attempt.correct) this.correct.update((n) => n + 1);
+		if (attempt.correct) this.correct.update((count) => count + 1);
 	}
 
 	protected onNext(): void {
-		this.index.update((i) => i + 1);
+		this.index.update((index) => index + 1);
 	}
 
 	/** A fresh seed, so "go again" is genuinely different questions rather than a replay. */

@@ -36,7 +36,7 @@ const boxInclude = {
 			id: true,
 			slug: true,
 			name: true,
-			national_dex_no: true,
+			national_pokedex_number: true,
 			base_hp: true,
 			base_attack: true,
 			base_defense: true,
@@ -86,7 +86,7 @@ function toSummary(row: any) {
 		id: row.id,
 		slug: row.slug,
 		name: row.name,
-		nationalDexNo: row.national_dex_no,
+		nationalPokedexNumber: row.national_pokedex_number,
 		types: [row.type1.slug, ...(row.type2 ? [row.type2.slug] : [])],
 		baseStats: {
 			hp: row.base_hp,
@@ -143,7 +143,7 @@ function toBoxPokemon(row: any): BoxPokemon {
 			: null,
 		item: row.item,
 		statPoints,
-		moves: row.moves.map((m: any) => toMove(m.move)),
+		moves: row.moves.map((move: any) => toMove(move.move)),
 		notes: row.notes,
 	};
 }
@@ -257,7 +257,7 @@ export class BoxResolver {
 	@Mutation(() => Team, { name: 'saveTeam' })
 	async saveTeam(@Args('input') input: TeamInput): Promise<Team> {
 		const members = input.members.filter((member) => member.slot >= 1 && member.slot <= TEAM_SIZE);
-		const slots = new Set(members.map((m) => m.slot));
+		const slots = new Set(members.map((member) => member.slot));
 		if (slots.size !== members.length) throw new BadRequestException('Two members cannot share a slot.');
 
 		const regulation =
@@ -283,7 +283,7 @@ export class BoxResolver {
 			});
 		}
 
-		return (await this.teams(input.isMine)).find((t) => t.id === team.id) as Team;
+		return (await this.teams(input.isMine)).find((existingTeam) => existingTeam.id === team.id) as Team;
 	}
 
 	@Mutation(() => Boolean, { name: 'deleteTeam' })

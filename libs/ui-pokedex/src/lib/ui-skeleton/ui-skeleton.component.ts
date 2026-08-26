@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 /** A shimmering placeholder for content that is loading. */
 @Component({
-	selector: 'pkd-skeleton',
+	selector: 'pokedex-skeleton',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: ``,
 	host: {
@@ -16,9 +16,9 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 			display: block;
 			background: linear-gradient(90deg, var(--surface-sunken) 25%, color-mix(in srgb, var(--surface-sunken) 60%, var(--surface)) 50%, var(--surface-sunken) 75%);
 			background-size: 200% 100%;
-			animation: pkd-shimmer 1.3s var(--ease) infinite;
+			animation: pokedex-shimmer 1.3s var(--ease) infinite;
 		}
-		@keyframes pkd-shimmer {
+		@keyframes pokedex-shimmer {
 			from {
 				background-position: 200% 0;
 			}

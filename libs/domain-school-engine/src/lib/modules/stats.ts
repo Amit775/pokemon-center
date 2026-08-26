@@ -41,7 +41,7 @@ export const natureEffectGenerator: ExerciseGenerator = {
 	id: 'stats.nature-effect',
 	lessonId: 'stats.nature-effect',
 	requires: ['natures'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const natures = requireRef(ref, 'natures', this.lessonId).filter((nature) => !isNeutral(nature));
 		if (natures.length < 4) throw new Error(`[${this.lessonId}] need at least 4 non-neutral natures`);
@@ -71,7 +71,7 @@ export const natureEffectGenerator: ExerciseGenerator = {
 			prompt: `What does the ${humanize(answer.slug)} nature do?`,
 			candidates,
 			hints,
-			explanation: `${humanize(answer.slug)}: ${natureEffect(answer)}${eraNote(ctx.versionGroup)}.`,
+			explanation: `${humanize(answer.slug)}: ${natureEffect(answer)}${eraNote(context.versionGroup)}.`,
 		};
 	},
 };
@@ -80,7 +80,7 @@ export const natureByEffectGenerator: ExerciseGenerator = {
 	id: 'stats.nature-by-effect',
 	lessonId: 'stats.nature-by-effect',
 	requires: ['natures'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const natures = requireRef(ref, 'natures', this.lessonId).filter((nature) => !isNeutral(nature));
 		if (natures.length < 4) throw new Error(`[${this.lessonId}] need at least 4 non-neutral natures`);
@@ -111,7 +111,7 @@ export const natureByEffectGenerator: ExerciseGenerator = {
 			prompt: `Which nature raises ${humanize(answer.increased as string)} and lowers ${humanize(answer.decreased as string)}?`,
 			candidates,
 			hints,
-			explanation: `${humanize(answer.slug)} is ${natureEffect(answer)}${eraNote(ctx.versionGroup)}.`,
+			explanation: `${humanize(answer.slug)} is ${natureEffect(answer)}${eraNote(context.versionGroup)}.`,
 		};
 	},
 };
@@ -120,7 +120,7 @@ export const statChangeGenerator: ExerciseGenerator = {
 	id: 'stats.stat-changes',
 	lessonId: 'stats.stat-changes',
 	requires: ['moves'],
-	generate(seed: number, ref: ReferenceData, ctx: GameContext): Exercise {
+	generate(seed: number, ref: ReferenceData, context: GameContext): Exercise {
 		const rng = createRng(seed);
 		const moves = requireRef(ref, 'moves', this.lessonId);
 		const changing = moves.filter(singleStatChange);
@@ -155,7 +155,7 @@ export const statChangeGenerator: ExerciseGenerator = {
 			prompt: `What does ${humanize(answer.slug)} do to stats?`,
 			candidates,
 			hints,
-			explanation: `${humanize(answer.slug)}: ${change.change > 0 ? '+' : ''}${change.change} ${humanize(change.stat)}${eraNote(ctx.versionGroup)}.`,
+			explanation: `${humanize(answer.slug)}: ${change.change > 0 ? '+' : ''}${change.change} ${humanize(change.stat)}${eraNote(context.versionGroup)}.`,
 		};
 	},
 };

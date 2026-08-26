@@ -8,8 +8,8 @@ import {
 	SaveTeamDocument,
 	TeamInput,
 	TeamsDocument,
-	champResource,
-	injectChampMutate,
+	championsResource,
+	injectChampionsMutate,
 } from '@pokemon-center/data-access-champions';
 import { signalStore, withComputed, withMethods, withProps } from '@ngrx/signals';
 
@@ -28,9 +28,9 @@ import { signalStore, withComputed, withMethods, withProps } from '@ngrx/signals
 export const BoxStore = signalStore(
 	{ providedIn: 'root' },
 	withProps(() => ({
-		_boxQuery: champResource(BoxDocument, () => ({})),
-		_teamsQuery: champResource(TeamsDocument, () => ({ isMine: true })),
-		_mutate: injectChampMutate(),
+		_boxQuery: championsResource(BoxDocument, () => ({})),
+		_teamsQuery: championsResource(TeamsDocument, () => ({ isMine: true })),
+		_mutate: injectChampionsMutate(),
 	})),
 	withComputed(({ _boxQuery, _teamsQuery }) => ({
 		entries: computed(() => _boxQuery.value()?.box ?? []),

@@ -41,7 +41,7 @@ export function gqlResource<TData, TVariables>(
 			parse: (raw) => {
 				const response = raw as GraphQLResponse<TData>;
 				if (response.errors?.length) {
-					throw new Error(response.errors.map((e) => e.message).join('; '));
+					throw new Error(response.errors.map((error) => error.message).join('; '));
 				}
 				return response.data as TData;
 			},

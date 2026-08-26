@@ -29,8 +29,8 @@ export * from "./enums"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more ChampTypes
- * const champTypes = await prisma.champType.findMany()
+ * // Fetch zero or more ChampionsTypes
+ * const championsTypes = await prisma.championsType.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -40,41 +40,41 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 /**
- * Model ChampType
+ * Model ChampionsType
  * 
  */
-export type ChampType = Prisma.ChampTypeModel
+export type ChampionsType = Prisma.ChampionsTypeModel
 /**
- * Model ChampTypeEfficacy
+ * Model ChampionsTypeEfficacy
  * Champions' own type chart. Currently identical to Gen 9, but stored rather than assumed
  * so a future regulation that tweaks it is a data change, not a code change.
  */
-export type ChampTypeEfficacy = Prisma.ChampTypeEfficacyModel
+export type ChampionsTypeEfficacy = Prisma.ChampionsTypeEfficacyModel
 /**
- * Model ChampAbility
+ * Model ChampionsAbility
  * 
  */
-export type ChampAbility = Prisma.ChampAbilityModel
+export type ChampionsAbility = Prisma.ChampionsAbilityModel
 /**
- * Model ChampMove
+ * Model ChampionsMove
  * 
  */
-export type ChampMove = Prisma.ChampMoveModel
+export type ChampionsMove = Prisma.ChampionsMoveModel
 /**
- * Model ChampPokemon
+ * Model ChampionsPokemon
  * 
  */
-export type ChampPokemon = Prisma.ChampPokemonModel
+export type ChampionsPokemon = Prisma.ChampionsPokemonModel
 /**
- * Model ChampPokemonAbility
+ * Model ChampionsPokemonAbility
  * 
  */
-export type ChampPokemonAbility = Prisma.ChampPokemonAbilityModel
+export type ChampionsPokemonAbility = Prisma.ChampionsPokemonAbilityModel
 /**
- * Model ChampLearnset
+ * Model ChampionsLearnset
  * 
  */
-export type ChampLearnset = Prisma.ChampLearnsetModel
+export type ChampionsLearnset = Prisma.ChampionsLearnsetModel
 /**
  * Model Regulation
  * A Champions regulation set. M-B ran 17 Jun 2026 → 2 Sep 2026 with ~208 species and

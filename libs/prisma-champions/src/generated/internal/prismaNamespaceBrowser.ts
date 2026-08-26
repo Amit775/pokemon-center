@@ -51,13 +51,13 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  ChampType: 'ChampType',
-  ChampTypeEfficacy: 'ChampTypeEfficacy',
-  ChampAbility: 'ChampAbility',
-  ChampMove: 'ChampMove',
-  ChampPokemon: 'ChampPokemon',
-  ChampPokemonAbility: 'ChampPokemonAbility',
-  ChampLearnset: 'ChampLearnset',
+  ChampionsType: 'ChampionsType',
+  ChampionsTypeEfficacy: 'ChampionsTypeEfficacy',
+  ChampionsAbility: 'ChampionsAbility',
+  ChampionsMove: 'ChampionsMove',
+  ChampionsPokemon: 'ChampionsPokemon',
+  ChampionsPokemonAbility: 'ChampionsPokemonAbility',
+  ChampionsLearnset: 'ChampionsLearnset',
   Regulation: 'Regulation',
   RegulationLegality: 'RegulationLegality',
   KnownSet: 'KnownSet',
@@ -86,25 +86,25 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const ChampTypeScalarFieldEnum = {
+export const ChampionsTypeScalarFieldEnum = {
   id: 'id',
   slug: 'slug',
   name: 'name'
 } as const
 
-export type ChampTypeScalarFieldEnum = (typeof ChampTypeScalarFieldEnum)[keyof typeof ChampTypeScalarFieldEnum]
+export type ChampionsTypeScalarFieldEnum = (typeof ChampionsTypeScalarFieldEnum)[keyof typeof ChampionsTypeScalarFieldEnum]
 
 
-export const ChampTypeEfficacyScalarFieldEnum = {
+export const ChampionsTypeEfficacyScalarFieldEnum = {
   attacking_type_id: 'attacking_type_id',
   defending_type_id: 'defending_type_id',
   damage_factor: 'damage_factor'
 } as const
 
-export type ChampTypeEfficacyScalarFieldEnum = (typeof ChampTypeEfficacyScalarFieldEnum)[keyof typeof ChampTypeEfficacyScalarFieldEnum]
+export type ChampionsTypeEfficacyScalarFieldEnum = (typeof ChampionsTypeEfficacyScalarFieldEnum)[keyof typeof ChampionsTypeEfficacyScalarFieldEnum]
 
 
-export const ChampAbilityScalarFieldEnum = {
+export const ChampionsAbilityScalarFieldEnum = {
   id: 'id',
   slug: 'slug',
   name: 'name',
@@ -112,10 +112,10 @@ export const ChampAbilityScalarFieldEnum = {
   is_mega: 'is_mega'
 } as const
 
-export type ChampAbilityScalarFieldEnum = (typeof ChampAbilityScalarFieldEnum)[keyof typeof ChampAbilityScalarFieldEnum]
+export type ChampionsAbilityScalarFieldEnum = (typeof ChampionsAbilityScalarFieldEnum)[keyof typeof ChampionsAbilityScalarFieldEnum]
 
 
-export const ChampMoveScalarFieldEnum = {
+export const ChampionsMoveScalarFieldEnum = {
   id: 'id',
   slug: 'slug',
   name: 'name',
@@ -132,14 +132,14 @@ export const ChampMoveScalarFieldEnum = {
   override_note: 'override_note'
 } as const
 
-export type ChampMoveScalarFieldEnum = (typeof ChampMoveScalarFieldEnum)[keyof typeof ChampMoveScalarFieldEnum]
+export type ChampionsMoveScalarFieldEnum = (typeof ChampionsMoveScalarFieldEnum)[keyof typeof ChampionsMoveScalarFieldEnum]
 
 
-export const ChampPokemonScalarFieldEnum = {
+export const ChampionsPokemonScalarFieldEnum = {
   id: 'id',
   slug: 'slug',
   name: 'name',
-  national_dex_no: 'national_dex_no',
+  national_pokedex_number: 'national_pokedex_number',
   type1_id: 'type1_id',
   type2_id: 'type2_id',
   base_hp: 'base_hp',
@@ -155,25 +155,25 @@ export const ChampPokemonScalarFieldEnum = {
   learnset_is_approximate: 'learnset_is_approximate'
 } as const
 
-export type ChampPokemonScalarFieldEnum = (typeof ChampPokemonScalarFieldEnum)[keyof typeof ChampPokemonScalarFieldEnum]
+export type ChampionsPokemonScalarFieldEnum = (typeof ChampionsPokemonScalarFieldEnum)[keyof typeof ChampionsPokemonScalarFieldEnum]
 
 
-export const ChampPokemonAbilityScalarFieldEnum = {
+export const ChampionsPokemonAbilityScalarFieldEnum = {
   pokemon_id: 'pokemon_id',
   ability_id: 'ability_id',
   slot: 'slot',
   is_hidden: 'is_hidden'
 } as const
 
-export type ChampPokemonAbilityScalarFieldEnum = (typeof ChampPokemonAbilityScalarFieldEnum)[keyof typeof ChampPokemonAbilityScalarFieldEnum]
+export type ChampionsPokemonAbilityScalarFieldEnum = (typeof ChampionsPokemonAbilityScalarFieldEnum)[keyof typeof ChampionsPokemonAbilityScalarFieldEnum]
 
 
-export const ChampLearnsetScalarFieldEnum = {
+export const ChampionsLearnsetScalarFieldEnum = {
   pokemon_id: 'pokemon_id',
   move_id: 'move_id'
 } as const
 
-export type ChampLearnsetScalarFieldEnum = (typeof ChampLearnsetScalarFieldEnum)[keyof typeof ChampLearnsetScalarFieldEnum]
+export type ChampionsLearnsetScalarFieldEnum = (typeof ChampionsLearnsetScalarFieldEnum)[keyof typeof ChampionsLearnsetScalarFieldEnum]
 
 
 export const RegulationScalarFieldEnum = {

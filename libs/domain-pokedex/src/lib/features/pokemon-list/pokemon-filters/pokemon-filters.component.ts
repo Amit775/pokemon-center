@@ -24,7 +24,7 @@ export class PokemonFiltersComponent {
 
 	private readonly typesQuery = gqlResource(TypesListDocument, () => ({}));
 	protected readonly allTypes = computed(() =>
-		(this.typesQuery.hasValue() ? (this.typesQuery.value()?.typeList ?? []) : []).filter((t) => Number(t.id) < 10000),
+		(this.typesQuery.hasValue() ? (this.typesQuery.value()?.typeList ?? []) : []).filter((typeOption) => Number(typeOption.id) < 10000),
 	);
 
 	protected onSearch(event: Event): void {
@@ -33,7 +33,7 @@ export class PokemonFiltersComponent {
 
 	protected toggleType(identifier: string): void {
 		const current = this.types();
-		this.types.set(current.includes(identifier) ? current.filter((t) => t !== identifier) : [...current, identifier]);
+		this.types.set(current.includes(identifier) ? current.filter((selectedType) => selectedType !== identifier) : [...current, identifier]);
 	}
 
 	protected onGeneration(event: Event): void {

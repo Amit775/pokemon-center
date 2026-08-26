@@ -332,8 +332,8 @@ export type KnownSetWhereInput = {
   source?: Prisma.EnumSetSourceFilter<"KnownSet"> | $Enums.SetSource
   seen_count?: Prisma.IntFilter<"KnownSet"> | number
   updated_at?: Prisma.DateTimeFilter<"KnownSet"> | Date | string
-  pokemon?: Prisma.XOR<Prisma.ChampPokemonScalarRelationFilter, Prisma.ChampPokemonWhereInput>
-  ability?: Prisma.XOR<Prisma.ChampAbilityNullableScalarRelationFilter, Prisma.ChampAbilityWhereInput> | null
+  pokemon?: Prisma.XOR<Prisma.ChampionsPokemonScalarRelationFilter, Prisma.ChampionsPokemonWhereInput>
+  ability?: Prisma.XOR<Prisma.ChampionsAbilityNullableScalarRelationFilter, Prisma.ChampionsAbilityWhereInput> | null
   moves?: Prisma.KnownSetMoveListRelationFilter
   members?: Prisma.TeamMemberListRelationFilter
 }
@@ -354,8 +354,8 @@ export type KnownSetOrderByWithRelationInput = {
   source?: Prisma.SortOrder
   seen_count?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  pokemon?: Prisma.ChampPokemonOrderByWithRelationInput
-  ability?: Prisma.ChampAbilityOrderByWithRelationInput
+  pokemon?: Prisma.ChampionsPokemonOrderByWithRelationInput
+  ability?: Prisma.ChampionsAbilityOrderByWithRelationInput
   moves?: Prisma.KnownSetMoveOrderByRelationAggregateInput
   members?: Prisma.TeamMemberOrderByRelationAggregateInput
 }
@@ -379,8 +379,8 @@ export type KnownSetWhereUniqueInput = Prisma.AtLeast<{
   source?: Prisma.EnumSetSourceFilter<"KnownSet"> | $Enums.SetSource
   seen_count?: Prisma.IntFilter<"KnownSet"> | number
   updated_at?: Prisma.DateTimeFilter<"KnownSet"> | Date | string
-  pokemon?: Prisma.XOR<Prisma.ChampPokemonScalarRelationFilter, Prisma.ChampPokemonWhereInput>
-  ability?: Prisma.XOR<Prisma.ChampAbilityNullableScalarRelationFilter, Prisma.ChampAbilityWhereInput> | null
+  pokemon?: Prisma.XOR<Prisma.ChampionsPokemonScalarRelationFilter, Prisma.ChampionsPokemonWhereInput>
+  ability?: Prisma.XOR<Prisma.ChampionsAbilityNullableScalarRelationFilter, Prisma.ChampionsAbilityWhereInput> | null
   moves?: Prisma.KnownSetMoveListRelationFilter
   members?: Prisma.TeamMemberListRelationFilter
 }, "id">
@@ -442,8 +442,8 @@ export type KnownSetCreateInput = {
   source?: $Enums.SetSource
   seen_count?: number
   updated_at?: Date | string
-  pokemon: Prisma.ChampPokemonCreateNestedOneWithoutKnownSetsInput
-  ability?: Prisma.ChampAbilityCreateNestedOneWithoutKnownSetsInput
+  pokemon: Prisma.ChampionsPokemonCreateNestedOneWithoutKnownSetsInput
+  ability?: Prisma.ChampionsAbilityCreateNestedOneWithoutKnownSetsInput
   moves?: Prisma.KnownSetMoveCreateNestedManyWithoutKnownSetInput
   members?: Prisma.TeamMemberCreateNestedManyWithoutKnownSetInput
 }
@@ -481,8 +481,8 @@ export type KnownSetUpdateInput = {
   source?: Prisma.EnumSetSourceFieldUpdateOperationsInput | $Enums.SetSource
   seen_count?: Prisma.IntFieldUpdateOperationsInput | number
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pokemon?: Prisma.ChampPokemonUpdateOneRequiredWithoutKnownSetsNestedInput
-  ability?: Prisma.ChampAbilityUpdateOneWithoutKnownSetsNestedInput
+  pokemon?: Prisma.ChampionsPokemonUpdateOneRequiredWithoutKnownSetsNestedInput
+  ability?: Prisma.ChampionsAbilityUpdateOneWithoutKnownSetsNestedInput
   moves?: Prisma.KnownSetMoveUpdateManyWithoutKnownSetNestedInput
   members?: Prisma.TeamMemberUpdateManyWithoutKnownSetNestedInput
 }
@@ -789,7 +789,7 @@ export type KnownSetCreateWithoutAbilityInput = {
   source?: $Enums.SetSource
   seen_count?: number
   updated_at?: Date | string
-  pokemon: Prisma.ChampPokemonCreateNestedOneWithoutKnownSetsInput
+  pokemon: Prisma.ChampionsPokemonCreateNestedOneWithoutKnownSetsInput
   moves?: Prisma.KnownSetMoveCreateNestedManyWithoutKnownSetInput
   members?: Prisma.TeamMemberCreateNestedManyWithoutKnownSetInput
 }
@@ -873,7 +873,7 @@ export type KnownSetCreateWithoutPokemonInput = {
   source?: $Enums.SetSource
   seen_count?: number
   updated_at?: Date | string
-  ability?: Prisma.ChampAbilityCreateNestedOneWithoutKnownSetsInput
+  ability?: Prisma.ChampionsAbilityCreateNestedOneWithoutKnownSetsInput
   moves?: Prisma.KnownSetMoveCreateNestedManyWithoutKnownSetInput
   members?: Prisma.TeamMemberCreateNestedManyWithoutKnownSetInput
 }
@@ -936,8 +936,8 @@ export type KnownSetCreateWithoutMovesInput = {
   source?: $Enums.SetSource
   seen_count?: number
   updated_at?: Date | string
-  pokemon: Prisma.ChampPokemonCreateNestedOneWithoutKnownSetsInput
-  ability?: Prisma.ChampAbilityCreateNestedOneWithoutKnownSetsInput
+  pokemon: Prisma.ChampionsPokemonCreateNestedOneWithoutKnownSetsInput
+  ability?: Prisma.ChampionsAbilityCreateNestedOneWithoutKnownSetsInput
   members?: Prisma.TeamMemberCreateNestedManyWithoutKnownSetInput
 }
 
@@ -989,8 +989,8 @@ export type KnownSetUpdateWithoutMovesInput = {
   source?: Prisma.EnumSetSourceFieldUpdateOperationsInput | $Enums.SetSource
   seen_count?: Prisma.IntFieldUpdateOperationsInput | number
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pokemon?: Prisma.ChampPokemonUpdateOneRequiredWithoutKnownSetsNestedInput
-  ability?: Prisma.ChampAbilityUpdateOneWithoutKnownSetsNestedInput
+  pokemon?: Prisma.ChampionsPokemonUpdateOneRequiredWithoutKnownSetsNestedInput
+  ability?: Prisma.ChampionsAbilityUpdateOneWithoutKnownSetsNestedInput
   members?: Prisma.TeamMemberUpdateManyWithoutKnownSetNestedInput
 }
 
@@ -1026,8 +1026,8 @@ export type KnownSetCreateWithoutMembersInput = {
   source?: $Enums.SetSource
   seen_count?: number
   updated_at?: Date | string
-  pokemon: Prisma.ChampPokemonCreateNestedOneWithoutKnownSetsInput
-  ability?: Prisma.ChampAbilityCreateNestedOneWithoutKnownSetsInput
+  pokemon: Prisma.ChampionsPokemonCreateNestedOneWithoutKnownSetsInput
+  ability?: Prisma.ChampionsAbilityCreateNestedOneWithoutKnownSetsInput
   moves?: Prisma.KnownSetMoveCreateNestedManyWithoutKnownSetInput
 }
 
@@ -1079,8 +1079,8 @@ export type KnownSetUpdateWithoutMembersInput = {
   source?: Prisma.EnumSetSourceFieldUpdateOperationsInput | $Enums.SetSource
   seen_count?: Prisma.IntFieldUpdateOperationsInput | number
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pokemon?: Prisma.ChampPokemonUpdateOneRequiredWithoutKnownSetsNestedInput
-  ability?: Prisma.ChampAbilityUpdateOneWithoutKnownSetsNestedInput
+  pokemon?: Prisma.ChampionsPokemonUpdateOneRequiredWithoutKnownSetsNestedInput
+  ability?: Prisma.ChampionsAbilityUpdateOneWithoutKnownSetsNestedInput
   moves?: Prisma.KnownSetMoveUpdateManyWithoutKnownSetNestedInput
 }
 
@@ -1133,7 +1133,7 @@ export type KnownSetUpdateWithoutAbilityInput = {
   source?: Prisma.EnumSetSourceFieldUpdateOperationsInput | $Enums.SetSource
   seen_count?: Prisma.IntFieldUpdateOperationsInput | number
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pokemon?: Prisma.ChampPokemonUpdateOneRequiredWithoutKnownSetsNestedInput
+  pokemon?: Prisma.ChampionsPokemonUpdateOneRequiredWithoutKnownSetsNestedInput
   moves?: Prisma.KnownSetMoveUpdateManyWithoutKnownSetNestedInput
   members?: Prisma.TeamMemberUpdateManyWithoutKnownSetNestedInput
 }
@@ -1204,7 +1204,7 @@ export type KnownSetUpdateWithoutPokemonInput = {
   source?: Prisma.EnumSetSourceFieldUpdateOperationsInput | $Enums.SetSource
   seen_count?: Prisma.IntFieldUpdateOperationsInput | number
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ability?: Prisma.ChampAbilityUpdateOneWithoutKnownSetsNestedInput
+  ability?: Prisma.ChampionsAbilityUpdateOneWithoutKnownSetsNestedInput
   moves?: Prisma.KnownSetMoveUpdateManyWithoutKnownSetNestedInput
   members?: Prisma.TeamMemberUpdateManyWithoutKnownSetNestedInput
 }
@@ -1301,7 +1301,7 @@ export type KnownSetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   source?: boolean
   seen_count?: boolean
   updated_at?: boolean
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   ability?: boolean | Prisma.KnownSet$abilityArgs<ExtArgs>
   moves?: boolean | Prisma.KnownSet$movesArgs<ExtArgs>
   members?: boolean | Prisma.KnownSet$membersArgs<ExtArgs>
@@ -1324,7 +1324,7 @@ export type KnownSetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   source?: boolean
   seen_count?: boolean
   updated_at?: boolean
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   ability?: boolean | Prisma.KnownSet$abilityArgs<ExtArgs>
 }, ExtArgs["result"]["knownSet"]>
 
@@ -1344,7 +1344,7 @@ export type KnownSetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   source?: boolean
   seen_count?: boolean
   updated_at?: boolean
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   ability?: boolean | Prisma.KnownSet$abilityArgs<ExtArgs>
 }, ExtArgs["result"]["knownSet"]>
 
@@ -1368,26 +1368,26 @@ export type KnownSetSelectScalar = {
 
 export type KnownSetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "pokemon_id" | "label" | "item" | "ability_id" | "nature" | "sp_hp" | "sp_attack" | "sp_defense" | "sp_special_attack" | "sp_special_defense" | "sp_speed" | "source" | "seen_count" | "updated_at", ExtArgs["result"]["knownSet"]>
 export type KnownSetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   ability?: boolean | Prisma.KnownSet$abilityArgs<ExtArgs>
   moves?: boolean | Prisma.KnownSet$movesArgs<ExtArgs>
   members?: boolean | Prisma.KnownSet$membersArgs<ExtArgs>
   _count?: boolean | Prisma.KnownSetCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type KnownSetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   ability?: boolean | Prisma.KnownSet$abilityArgs<ExtArgs>
 }
 export type KnownSetIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pokemon?: boolean | Prisma.ChampPokemonDefaultArgs<ExtArgs>
+  pokemon?: boolean | Prisma.ChampionsPokemonDefaultArgs<ExtArgs>
   ability?: boolean | Prisma.KnownSet$abilityArgs<ExtArgs>
 }
 
 export type $KnownSetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "KnownSet"
   objects: {
-    pokemon: Prisma.$ChampPokemonPayload<ExtArgs>
-    ability: Prisma.$ChampAbilityPayload<ExtArgs> | null
+    pokemon: Prisma.$ChampionsPokemonPayload<ExtArgs>
+    ability: Prisma.$ChampionsAbilityPayload<ExtArgs> | null
     moves: Prisma.$KnownSetMovePayload<ExtArgs>[]
     members: Prisma.$TeamMemberPayload<ExtArgs>[]
   }
@@ -1805,8 +1805,8 @@ readonly fields: KnownSetFieldRefs;
  */
 export interface Prisma__KnownSetClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  pokemon<T extends Prisma.ChampPokemonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampPokemonDefaultArgs<ExtArgs>>): Prisma.Prisma__ChampPokemonClient<runtime.Types.Result.GetResult<Prisma.$ChampPokemonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  ability<T extends Prisma.KnownSet$abilityArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.KnownSet$abilityArgs<ExtArgs>>): Prisma.Prisma__ChampAbilityClient<runtime.Types.Result.GetResult<Prisma.$ChampAbilityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  pokemon<T extends Prisma.ChampionsPokemonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ChampionsPokemonDefaultArgs<ExtArgs>>): Prisma.Prisma__ChampionsPokemonClient<runtime.Types.Result.GetResult<Prisma.$ChampionsPokemonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  ability<T extends Prisma.KnownSet$abilityArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.KnownSet$abilityArgs<ExtArgs>>): Prisma.Prisma__ChampionsAbilityClient<runtime.Types.Result.GetResult<Prisma.$ChampionsAbilityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   moves<T extends Prisma.KnownSet$movesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.KnownSet$movesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnownSetMovePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   members<T extends Prisma.KnownSet$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.KnownSet$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -2258,18 +2258,18 @@ export type KnownSetDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
  */
 export type KnownSet$abilityArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ChampAbility
+   * Select specific fields to fetch from the ChampionsAbility
    */
-  select?: Prisma.ChampAbilitySelect<ExtArgs> | null
+  select?: Prisma.ChampionsAbilitySelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ChampAbility
+   * Omit specific fields from the ChampionsAbility
    */
-  omit?: Prisma.ChampAbilityOmit<ExtArgs> | null
+  omit?: Prisma.ChampionsAbilityOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ChampAbilityInclude<ExtArgs> | null
-  where?: Prisma.ChampAbilityWhereInput
+  include?: Prisma.ChampionsAbilityInclude<ExtArgs> | null
+  where?: Prisma.ChampionsAbilityWhereInput
 }
 
 /**

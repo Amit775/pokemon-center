@@ -42,17 +42,17 @@ export class PokemonLocationsComponent {
 		}
 		return [...byKey.entries()].map(([key, { rows: groupRows }]) => {
 			const [version, location, area] = key.split('|');
-			const minLevel = Math.min(...groupRows.map((r) => r.min_level));
-			const maxLevel = Math.max(...groupRows.map((r) => r.max_level));
+			const minLevel = Math.min(...groupRows.map((groupRow) => groupRow.min_level));
+			const maxLevel = Math.max(...groupRows.map((groupRow) => groupRow.max_level));
 			return {
 				version,
 				location,
 				area: area && area !== location ? area : '',
-				methods: [...new Set(groupRows.map((r) => r.encounterSlot.encounterMethod.identifier))].join(', '),
+				methods: [...new Set(groupRows.map((groupRow) => groupRow.encounterSlot.encounterMethod.identifier))].join(', '),
 				levels: minLevel === maxLevel ? `${minLevel}` : `${minLevel}–${maxLevel}`,
 				chance: Math.min(
 					100,
-					groupRows.reduce((sum, r) => sum + r.encounterSlot.rarity, 0),
+					groupRows.reduce((sum, groupRow) => sum + groupRow.encounterSlot.rarity, 0),
 				),
 			};
 		});

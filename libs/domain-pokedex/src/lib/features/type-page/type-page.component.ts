@@ -8,10 +8,10 @@ import { MatchupCell, MatchupGridComponent, SectionHeadingComponent } from '@pok
 	template: `
 		@if (type(); as type) {
 			<h2>{{ type.identifier }}</h2>
-			<pkd-section-heading [label]="type.identifier + ' attacks (offense)'" />
-			<pkd-matchup-grid [cells]="offense()" />
-			<pkd-section-heading [label]="'attacks ' + type.identifier + ' (defense)'" />
-			<pkd-matchup-grid [cells]="defense()" />
+			<pokedex-section-heading [label]="type.identifier + ' attacks (offense)'" />
+			<pokedex-matchup-grid [cells]="offense()" />
+			<pokedex-section-heading [label]="'attacks ' + type.identifier + ' (defense)'" />
+			<pokedex-matchup-grid [cells]="defense()" />
 		}
 	`,
 	styles: `
@@ -38,13 +38,13 @@ export class TypePageComponent {
 
 	protected readonly offense = computed<MatchupCell[]>(() =>
 		[...(this.type()?.efficacy ?? [])]
-			.sort((a, b) => a.targetType.id.localeCompare(b.targetType.id))
-			.map((e) => ({ type: e.targetType.identifier, factor: e.damage_factor / 100 })),
+			.sort((first, second) => first.targetType.id.localeCompare(second.targetType.id))
+			.map((efficacy) => ({ type: efficacy.targetType.identifier, factor: efficacy.damage_factor / 100 })),
 	);
 
 	protected readonly defense = computed<MatchupCell[]>(() =>
 		[...(this.type()?.efficacyTarget ?? [])]
-			.sort((a, b) => a.damageType.id.localeCompare(b.damageType.id))
-			.map((e) => ({ type: e.damageType.identifier, factor: e.damage_factor / 100 })),
+			.sort((first, second) => first.damageType.id.localeCompare(second.damageType.id))
+			.map((efficacy) => ({ type: efficacy.damageType.identifier, factor: efficacy.damage_factor / 100 })),
 	);
 }

@@ -13,7 +13,7 @@ export class LanguageService {
 	private async map(): Promise<Map<string, number>> {
 		if (!this.slugToId) {
 			const langs = await this.prisma.languages.findMany({ select: { id: true, identifier: true } });
-			this.slugToId = new Map(langs.map((l) => [l.identifier, l.id]));
+			this.slugToId = new Map(langs.map((lang) => [lang.identifier, lang.id]));
 		}
 		return this.slugToId;
 	}

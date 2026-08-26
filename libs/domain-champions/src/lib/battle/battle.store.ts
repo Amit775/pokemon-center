@@ -125,7 +125,7 @@ export const BattleStore = signalStore(
 					});
 					return { move, result, ko: koVerdict(result, store.them().hpFraction) };
 				})
-				.sort((a, b) => b.result.min - a.result.min);
+				.sort((first, second) => second.result.min - first.result.min);
 		});
 
 		/** What their active does to you — the half most advisors leave out. */

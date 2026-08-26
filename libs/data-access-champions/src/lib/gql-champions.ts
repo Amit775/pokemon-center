@@ -25,7 +25,7 @@ interface GraphQLResponse<TData> {
 const unwrap = <TData>(raw: unknown): TData => {
 	const response = raw as GraphQLResponse<TData>;
 	if (response.errors?.length) {
-		throw new Error(response.errors.map((e) => e.message).join('; '));
+		throw new Error(response.errors.map((error) => error.message).join('; '));
 	}
 	return response.data as TData;
 };
@@ -34,19 +34,19 @@ const unwrap = <TData>(raw: unknown): TData => {
  * Signal-based GraphQL query resource, mirroring `gqlResource` in `data-access-pokedex`
  * but pointed at the Champions API.
  *
- *   regulation = champResource(CurrentRegulationDocument, () => ({}));
+ *   regulation = championsResource(CurrentRegulationDocument, () => ({}));
  *
  * Returning `undefined` from the variables function leaves the resource **idle** — no request
  * is made until it returns variables. That is how a query stays genuinely lazy rather than
  * merely conditional: the Pokédex's move-learners query has no sensible argument until someone
  * picks a move, and firing it with an undefined argument would be a guaranteed server error.
  *
- *   learners = champResource(ChampMoveLearnersDocument, () => {
+ *   learners = championsResource(ChampionsMoveLearnersDocument, () => {
  *     const move = store.filters().move;
  *     return move ? { moveSlug: move } : undefined;
  *   });
  */
-export function champResource<TData, TVariables>(
+export function championsResource<TData, TVariables>(
 	document: TypedDocumentString<TData, TVariables>,
 	variables: () => TVariables | undefined,
 ): HttpResourceRef<TData | undefined> {
@@ -74,10 +74,10 @@ export function champResource<TData, TVariables>(
  * change. The Champions API is the first mutable surface in this workspace, so writes get
  * their own primitive: called once, at the moment the user acts.
  *
- *   const mutate = injectChampMutate();
+ *   const mutate = injectChampionsMutate();
  *   await mutate(LogTurnDocument, { sessionId, state });
  */
-export function injectChampMutate(): <TData, TVariables>(
+export function injectChampionsMutate(): <TData, TVariables>(
 	document: TypedDocumentString<TData, TVariables>,
 	variables: TVariables,
 ) => Promise<TData> {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, input, output } from '@angular/core';
 import { TypeChipComponent } from '@pokemon-center/ui-pokedex';
-import type { SelectMode } from './dex-filter';
+import type { SelectMode } from './pokedex-filter';
 
 /**
  * A row of type chips with two readings, chosen by how you click.
@@ -32,7 +32,7 @@ import type { SelectMode } from './dex-filter';
 				(dblclick)="onDoubleClick(type.slug)"
 				(keydown.shift.enter)="onDoubleClick(type.slug)"
 			>
-				<pkd-type-chip [type]="type.slug" size="sm" />
+				<pokedex-type-chip [type]="type.slug" size="sm" />
 			</button>
 		}
 	`,

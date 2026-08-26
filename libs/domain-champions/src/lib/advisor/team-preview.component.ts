@@ -42,9 +42,9 @@ import { ThreatGridComponent } from './threat-grid.component';
 			</div>
 		</header>
 
-		<pkd-section-heading label="Your team" />
+		<pokedex-section-heading label="Your team" />
 		@if (store.availableTeams().length === 0) {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel">
 					<h2>No teams yet</h2>
 					<p>
@@ -52,7 +52,7 @@ import { ThreatGridComponent } from './threat-grid.component';
 						spreads and moves from there, so its numbers about your side are exact rather than assumed.
 					</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		} @else {
 			<div class="teams">
 				@for (team of store.availableTeams(); track team.id) {
@@ -60,7 +60,7 @@ import { ThreatGridComponent } from './threat-grid.component';
 						<span class="team-name">{{ team.label }}</span>
 						<span class="team-mons">
 							@for (member of team.members; track member.slot) {
-								<pkd-entity-portrait
+								<pokedex-entity-portrait
 									[type]="member.pokemon.types[0]"
 									[src]="sprite(member.pokemon.id).src"
 									[fallbackSrc]="sprite(member.pokemon.id).fallbackSrc"
@@ -74,7 +74,7 @@ import { ThreatGridComponent } from './threat-grid.component';
 			</div>
 		}
 
-		<pkd-section-heading label="Their team" />
+		<pokedex-section-heading label="Their team" />
 		<div class="slots">
 			@for (slot of slots; track slot) {
 				<champions-slot-picker
@@ -87,28 +87,28 @@ import { ThreatGridComponent } from './threat-grid.component';
 		</div>
 
 		@if (store.error()) {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel">
 					<h2>Champions API unreachable</h2>
 					<p>Nothing is answering on <code>:3001</code>. Start it with <code>nx serve champions-service</code>.</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		} @else if (store.theirSlugs().length === 0) {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel">
 					<h2>Add their six</h2>
 					<p>Type three letters and press Enter. Advice appears from the first opponent — no need to fill every slot.</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		} @else {
 			@if (store.theirWeaknesses(); as weaknesses) {
-				<pkd-section-heading label="What hits them hardest" />
-				<pkd-card>
+				<pokedex-section-heading label="What hits them hardest" />
+				<pokedex-card>
 					<div class="panel">
 						<ol class="pressure">
 							@for (entry of topPressure(); track entry.type) {
 								<li>
-									<pkd-type-chip [type]="entry.type" />
+									<pokedex-type-chip [type]="entry.type" />
 									<span class="hits">{{ entry.hits }} of {{ store.theirSlugs().length }}</span>
 									<span class="avg">avg ×{{ entry.averageMultiplier }}</span>
 								</li>
@@ -118,11 +118,11 @@ import { ThreatGridComponent } from './threat-grid.component';
 							<p class="covered"><strong>They resist:</strong> {{ weaknesses.covered.join(', ') }}</p>
 						}
 					</div>
-				</pkd-card>
+				</pokedex-card>
 			}
 
-			<pkd-section-heading label="Speed order" />
-			<pkd-card>
+			<pokedex-section-heading label="Speed order" />
+			<pokedex-card>
 				<div class="panel">
 					<champions-speed-tiers [tiers]="store.tiers()" />
 					<p class="caveat">
@@ -130,20 +130,20 @@ import { ThreatGridComponent } from './threat-grid.component';
 						fully invested, with the Choice Scarf figure alongside.
 					</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 
 			@if (store.threats(); as threats) {
-				<pkd-section-heading label="Matchups" />
-				<pkd-card>
+				<pokedex-section-heading label="Matchups" />
+				<pokedex-card>
 					<div class="panel"><champions-threat-grid [assessment]="threats" /></div>
-				</pkd-card>
+				</pokedex-card>
 			} @else if (!store.hasMyTeam()) {
-				<pkd-card>
+				<pokedex-card>
 					<div class="panel">
 						<h2>Pick your team for matchups</h2>
 						<p>Type pressure and speed only need their six. The grid needs yours too.</p>
 					</div>
-				</pkd-card>
+				</pokedex-card>
 			}
 
 			<p class="disclosure">

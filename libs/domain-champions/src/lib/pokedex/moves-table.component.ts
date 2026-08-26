@@ -41,8 +41,8 @@ export interface DetailMove {
 					<tr>
 						<th scope="col">Move</th>
 						<th scope="col">Type</th>
-						<th scope="col">Pow</th>
-						<th scope="col">Acc</th>
+						<th scope="col">Power</th>
+						<th scope="col">Accuracy</th>
 						<th scope="col">PP</th>
 					</tr>
 				</thead>
@@ -84,7 +84,7 @@ export interface DetailMove {
 									<span class="note">{{ move.overrideNote }}</span>
 								}
 							</td>
-							<td><pkd-type-chip [type]="move.type" size="sm" /></td>
+							<td><pokedex-type-chip [type]="move.type" size="sm" /></td>
 							<td class="num">{{ move.power ?? '—' }}</td>
 							<td class="num">{{ move.accuracy ?? '—' }}</td>
 							<td class="num">{{ move.pp ?? '—' }}</td>

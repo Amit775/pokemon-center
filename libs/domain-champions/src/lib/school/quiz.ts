@@ -1,6 +1,6 @@
 import { StatKey, TypeChart, statAt50, typeEffectiveness } from '@pokemon-center/champions-engine';
 import { natureByName } from '../box/natures';
-import type { DexEntry } from '../dex/dex-filter';
+import type { PokedexEntry } from '../pokedex/pokedex-filter';
 
 /**
  * Champions drills.
@@ -79,7 +79,7 @@ export function effectivenessLabel(multiplier: number): string {
  * Uses the Champions chart rather than a remembered one, and the options use Champions'
  * own wording — a player who learns "extremely effective" here reads the game's UI faster.
  */
-export function typeMatchupQuestion(entries: readonly DexEntry[], chart: TypeChart, seed: number): Question | null {
+export function typeMatchupQuestion(entries: readonly PokedexEntry[], chart: TypeChart, seed: number): Question | null {
 	const rng = createRng(seed);
 	const attackingTypes = Object.keys(chart);
 	if (attackingTypes.length === 0 || entries.length === 0) return null;
@@ -110,11 +110,11 @@ export function typeMatchupQuestion(entries: readonly DexEntry[], chart: TypeCha
  * base Speed rather than about a spread the player cannot see. Ties are filtered out — a
  * question with two correct answers teaches nothing.
  */
-export function speedTierQuestion(entries: readonly DexEntry[], seed: number): Question | null {
+export function speedTierQuestion(entries: readonly PokedexEntry[], seed: number): Question | null {
 	const rng = createRng(seed);
 	if (entries.length < 2) return null;
 
-	const speedOf = (entry: DexEntry) => statAt50(entry.baseStats.speed, 'speed' as StatKey, 32, natureByName(null));
+	const speedOf = (entry: PokedexEntry) => statAt50(entry.baseStats.speed, 'speed' as StatKey, 32, natureByName(null));
 
 	for (let attempt = 0; attempt < 12; attempt++) {
 		const a = pick(entries, rng);
@@ -151,7 +151,7 @@ export function speedTierQuestion(entries: readonly DexEntry[], seed: number): Q
  * Phrased around a percentage rather than raw damage, because that is how a battle actually
  * reads: you see a health bar, not a number.
  */
-export function ohkoQuestion(entries: readonly DexEntry[], chart: TypeChart, seed: number): Question | null {
+export function ohkoQuestion(entries: readonly PokedexEntry[], chart: TypeChart, seed: number): Question | null {
 	const rng = createRng(seed);
 	if (entries.length < 2) return null;
 
@@ -192,7 +192,7 @@ export function ohkoQuestion(entries: readonly DexEntry[], chart: TypeChart, see
 }
 
 /** Build one question of the requested kind, or null when the data cannot support it. */
-export function generateQuestion(kind: DrillKind, entries: readonly DexEntry[], chart: TypeChart, seed: number): Question | null {
+export function generateQuestion(kind: DrillKind, entries: readonly PokedexEntry[], chart: TypeChart, seed: number): Question | null {
 	switch (kind) {
 		case 'type-matchup':
 			return typeMatchupQuestion(entries, chart, seed);

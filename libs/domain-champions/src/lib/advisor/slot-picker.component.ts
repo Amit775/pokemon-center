@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, input, output, signal, viewChild } from '@angular/core';
-import { ChampSearchDocument, champResource } from '@pokemon-center/data-access-champions';
+import { ChampionsSearchDocument, championsResource } from '@pokemon-center/data-access-champions';
 import { TypeChipComponent } from '@pokemon-center/ui-pokedex';
 
 /**
@@ -58,7 +58,7 @@ import { TypeChipComponent } from '@pokemon-center/ui-pokedex';
 								<span class="name">{{ result.name }}</span>
 								<span class="chips">
 									@for (type of result.types; track type) {
-										<pkd-type-chip [type]="type" />
+										<pokedex-type-chip [type]="type" />
 									}
 								</span>
 								<span class="bst">{{ result.baseStats.total }}</span>
@@ -74,7 +74,7 @@ import { TypeChipComponent } from '@pokemon-center/ui-pokedex';
 				<span class="name">{{ mon.name }}</span>
 				<span class="chips">
 					@for (type of mon.types; track type) {
-						<pkd-type-chip [type]="type" />
+						<pokedex-type-chip [type]="type" />
 					}
 				</span>
 			</button>
@@ -217,9 +217,9 @@ export class SlotPickerComponent {
 
 	private readonly searchInput = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
-	protected readonly search = champResource(ChampSearchDocument, () => ({ query: this.term(), take: 8 }));
+	protected readonly search = championsResource(ChampionsSearchDocument, () => ({ query: this.term(), take: 8 }));
 
-	protected readonly results = computed(() => (this.term().trim().length === 0 ? [] : (this.search.value()?.champSearch ?? [])));
+	protected readonly results = computed(() => (this.term().trim().length === 0 ? [] : (this.search.value()?.championsSearch ?? [])));
 
 	constructor() {
 		// Focus the field the moment it appears — one click should be enough to start typing.
@@ -251,11 +251,11 @@ export class SlotPickerComponent {
 		switch (event.key) {
 			case 'ArrowDown':
 				event.preventDefault();
-				this.highlighted.update((i) => Math.min(i + 1, results.length - 1));
+				this.highlighted.update((highlightedIndex) => Math.min(highlightedIndex + 1, results.length - 1));
 				break;
 			case 'ArrowUp':
 				event.preventDefault();
-				this.highlighted.update((i) => Math.max(i - 1, 0));
+				this.highlighted.update((highlightedIndex) => Math.max(highlightedIndex - 1, 0));
 				break;
 			case 'Enter':
 				event.preventDefault();

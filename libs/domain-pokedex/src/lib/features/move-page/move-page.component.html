@@ -1,7 +1,7 @@
 @if (move(); as move) {
 	<h2>{{ move.identifier }}</h2>
 	<section class="facts">
-		<div><span>Type</span><span><pkd-type-chip [type]="move.type.identifier" size="sm" /></span></div>
+		<div><span>Type</span><span><pokedex-type-chip [type]="move.type.identifier" size="sm" /></span></div>
 		<div><span>Class</span><span>{{ move.damageClass.identifier }}</span></div>
 		<div><span>Power</span><span>{{ move.power ?? '—' }}</span></div>
 		<div><span>Accuracy</span><span>{{ move.accuracy ?? '—' }}</span></div>
@@ -27,7 +27,7 @@
 
 	@if (learnedBy().length) {
 		<section class="learned-by">
-			<pkd-section-heading [label]="'Learned by ' + learnedBy().length + ' pokémon' + (store.activeVersionGroup() ? ' in ' + store.activeVersionGroup() : '')" />
+			<pokedex-section-heading [label]="'Learned by ' + learnedBy().length + ' pokémon' + (store.activeVersionGroup() ? ' in ' + store.activeVersionGroup() : '')" />
 			<div class="grid">
 				@for (pokemon of learnedBy(); track pokemon.id) {
 					<a [routerLink]="['/', 'pokedex', 'pokemon', pokemon.id]">{{ pokemon.identifier }}</a>

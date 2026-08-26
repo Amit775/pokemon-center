@@ -1,20 +1,20 @@
 import { computed, effect, inject } from '@angular/core';
 import {
-	ChampAbilitiesDocument,
-	ChampDexDocument,
-	ChampMoveIndexDocument,
-	ChampMoveLearnersDocument,
-	ChampTypesDocument,
+	ChampionsAbilitiesDocument,
+	ChampionsPokedexDocument,
+	ChampionsMoveIndexDocument,
+	ChampionsMoveLearnersDocument,
+	ChampionsTypesDocument,
 	TypeChartDocument,
-	champResource,
+	championsResource,
 } from '@pokemon-center/data-access-champions';
 import { getState, patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
 import type { StatKey } from '@pokemon-center/champions-engine';
 import { toTypeChart } from '../advisor/build-inference';
 import { BoxStore } from '../box/box.store';
 import {
-	DexEntry,
-	DexFilters,
+	PokedexEntry,
+	PokedexFilters,
 	EMPTY_FILTERS,
 	Range,
 	TOTAL_BOUNDS,
@@ -22,8 +22,8 @@ import {
 	diagnoseEmpty,
 	megaOnlyMatches,
 	isFiltered,
-} from './dex-filter';
-import { fromQueryString, toQueryString } from './dex-url';
+} from './pokedex-filter';
+import { fromQueryString, toQueryString } from './pokedex-url';
 
 /**
  * The Pokédex.
@@ -37,8 +37,8 @@ import { fromQueryString, toQueryString } from './dex-url';
  * The comparison tray deliberately does not: it is a scratch selection for one sitting.
  */
 
-const STORAGE_KEY = 'pokemon-center.champions-dex.v2';
-const SETS_KEY = 'pokemon-center.champions-dex.sets.v1';
+const STORAGE_KEY = 'pokemon-center.champions-pokedex.v2';
+const SETS_KEY = 'pokemon-center.champions-pokedex.sets.v1';
 
 /** How many can sit in the comparison tray. Beyond four the columns stop being readable. */
 export const COMPARE_LIMIT = 4;
@@ -55,17 +55,17 @@ export interface FilterSet {
 	query: string;
 }
 
-interface DexState {
-	filters: DexFilters;
+interface PokedexState {
+	filters: PokedexFilters;
 	compare: string[];
 	sets: FilterSet[];
 }
 
-function hydrate(): DexFilters {
+function hydrate(): PokedexFilters {
 	try {
 		const raw = localStorage.getItem(STORAGE_KEY);
 		// Merged over the defaults so a filter added later does not arrive undefined.
-		return raw ? { ...EMPTY_FILTERS, ...(JSON.parse(raw) as DexFilters) } : EMPTY_FILTERS;
+		return raw ? { ...EMPTY_FILTERS, ...(JSON.parse(raw) as PokedexFilters) } : EMPTY_FILTERS;
 	} catch {
 		return EMPTY_FILTERS;
 	}
@@ -81,18 +81,18 @@ function hydrateSets(): FilterSet[] {
 	}
 }
 
-export const DexStore = signalStore(
+export const PokedexStore = signalStore(
 	{ providedIn: 'root' },
-	withState<DexState>({ filters: EMPTY_FILTERS, compare: [], sets: [] }),
+	withState<PokedexState>({ filters: EMPTY_FILTERS, compare: [], sets: [] }),
 	withProps((store) => ({
-		_dexQuery: champResource(ChampDexDocument, () => ({})),
-		_chartQuery: champResource(TypeChartDocument, () => ({})),
-		_typesQuery: champResource(ChampTypesDocument, () => ({})),
-		_abilityQuery: champResource(ChampAbilitiesDocument, () => ({})),
-		_moveIndexQuery: champResource(ChampMoveIndexDocument, () => ({})),
+		_pokedexQuery: championsResource(ChampionsPokedexDocument, () => ({})),
+		_chartQuery: championsResource(TypeChartDocument, () => ({})),
+		_typesQuery: championsResource(ChampionsTypesDocument, () => ({})),
+		_abilityQuery: championsResource(ChampionsAbilitiesDocument, () => ({})),
+		_moveIndexQuery: championsResource(ChampionsMoveIndexDocument, () => ({})),
 		// The one lazy query in the section. Its parameter is undefined until a move is picked,
 		// so nothing is fetched on a visit that never touches the move filter.
-		_learnersQuery: champResource(ChampMoveLearnersDocument, () => {
+		_learnersQuery: championsResource(ChampionsMoveLearnersDocument, () => {
 			const move = store.filters().move;
 			return move ? { moveSlug: move } : undefined;
 		}),
@@ -101,8 +101,8 @@ export const DexStore = signalStore(
 		// not the roster.
 		_box: inject(BoxStore),
 	})),
-	withComputed(({ _dexQuery, _chartQuery, _typesQuery, _abilityQuery, _moveIndexQuery, _learnersQuery, _box, filters, compare, sets }) => {
-		const entries = computed<DexEntry[]>(() => (_dexQuery.value()?.champDex ?? []) as DexEntry[]);
+	withComputed(({ _pokedexQuery, _chartQuery, _typesQuery, _abilityQuery, _moveIndexQuery, _learnersQuery, _box, filters, compare, sets }) => {
+		const entries = computed<PokedexEntry[]>(() => (_pokedexQuery.value()?.championsPokedex ?? []) as PokedexEntry[]);
 		const typeChart = computed(() => toTypeChart(_chartQuery.value()?.typeChart ?? []));
 		// Normalized to base forms, because a Mega is not a separate Pokémon here: boxing a
 		// Mega Garchomp means you own Garchomp, and the list only ever shows the base form.
@@ -113,7 +113,7 @@ export const DexStore = signalStore(
 		/** Null while a picked move's learners are still in flight — see `FilterContext`. */
 		const learners = computed<ReadonlySet<number> | null>(() => {
 			if (!filters().move) return null;
-			const ids = _learnersQuery.value()?.champMoveLearners;
+			const ids = _learnersQuery.value()?.championsMoveLearners;
 			return ids ? new Set(ids) : null;
 		});
 
@@ -122,7 +122,7 @@ export const DexStore = signalStore(
 
 		/** Base slug → its Mega forms, so a row can show them beneath it without a second query. */
 		const megaForms = computed(() => {
-			const byBase = new Map<string, DexEntry[]>();
+			const byBase = new Map<string, PokedexEntry[]>();
 			for (const entry of entries()) {
 				if (!entry.isMega || !entry.megaOfSlug) continue;
 				byBase.set(entry.megaOfSlug, [...(byBase.get(entry.megaOfSlug) ?? []), entry]);
@@ -137,10 +137,10 @@ export const DexStore = signalStore(
 			results,
 			megaForms,
 
-			types: computed(() => _typesQuery.value()?.champTypes ?? []),
+			types: computed(() => _typesQuery.value()?.championsTypes ?? []),
 
-			isLoading: computed(() => _dexQuery.isLoading() || _chartQuery.isLoading()),
-			error: computed(() => _dexQuery.error() ?? _chartQuery.error()),
+			isLoading: computed(() => _pokedexQuery.isLoading() || _chartQuery.isLoading()),
+			error: computed(() => _pokedexQuery.error() ?? _chartQuery.error()),
 
 			/**
 			 * Ability slug → its name and effect text.
@@ -150,7 +150,7 @@ export const DexStore = signalStore(
 			 */
 			abilityText: computed(() => {
 				const map = new Map<string, { name: string; effectText: string | null }>();
-				for (const ability of _abilityQuery.value()?.champAbilities ?? []) {
+				for (const ability of _abilityQuery.value()?.championsAbilities ?? []) {
 					map.set(ability.slug, { name: ability.name, effectText: ability.effectText ?? null });
 				}
 				return map;
@@ -163,12 +163,12 @@ export const DexStore = signalStore(
 			relaxations: computed(() => (results().length > 0 ? [] : diagnoseEmpty(entries(), filters(), typeChart(), context()))),
 
 			/** Every move, for the move filter's autocomplete. Names only — no learnsets. */
-			moveIndex: computed(() => _moveIndexQuery.value()?.champMoveIndex ?? []),
+			moveIndex: computed(() => _moveIndexQuery.value()?.championsMoveIndex ?? []),
 
 			/** The picked move, and whether its learners have arrived yet. */
 			pickedMove: computed(() => {
 				const slug = filters().move;
-				return slug ? ((_moveIndexQuery.value()?.champMoveIndex ?? []).find((move) => move.slug === slug) ?? null) : null;
+				return slug ? ((_moveIndexQuery.value()?.championsMoveIndex ?? []).find((move) => move.slug === slug) ?? null) : null;
 			}),
 
 			isLoadingLearners: computed(() => filters().move !== null && learners() === null),
@@ -189,7 +189,7 @@ export const DexStore = signalStore(
 				for (const entry of entries()) {
 					entry.abilitySlugs.forEach((slug, index) => seen.set(slug, entry.abilityNames[index] ?? slug));
 				}
-				return [...seen].map(([slug, name]) => ({ slug, name })).sort((a, b) => a.name.localeCompare(b.name));
+				return [...seen].map(([slug, name]) => ({ slug, name })).sort((first, second) => first.name.localeCompare(second.name));
 			}),
 
 			hasActiveFilters: computed(() => isFiltered(filters())),
@@ -215,12 +215,12 @@ export const DexStore = signalStore(
 				const roster = entries();
 				return compare()
 					.map((slug) => roster.find((entry) => entry.slug === slug))
-					.filter((entry): entry is DexEntry => entry !== undefined);
+					.filter((entry): entry is PokedexEntry => entry !== undefined);
 			}),
 		};
 	}),
 	withMethods((store) => ({
-		patch(patch: Partial<DexFilters>): void {
+		patch(patch: Partial<PokedexFilters>): void {
 			patchState(store, { filters: { ...store.filters(), ...patch } });
 		},
 
@@ -236,7 +236,7 @@ export const DexStore = signalStore(
 			const { types, typeMode } = store.filters();
 
 			if (typeMode === 'any') return this.patch({ types: [slug], typeMode: 'exact' });
-			if (types.includes(slug)) return this.patch({ types: types.filter((t) => t !== slug) });
+			if (types.includes(slug)) return this.patch({ types: types.filter((typeSlug) => typeSlug !== slug) });
 
 			this.patch({ types: [...types, slug].slice(-2), typeMode: 'exact' });
 		},
@@ -244,7 +244,7 @@ export const DexStore = signalStore(
 		/** Double click: the loose reading. No cap, and the existing selection carries over. */
 		expandType(slug: string): void {
 			const { types } = store.filters();
-			const next = types.includes(slug) ? types.filter((t) => t !== slug) : [...types, slug];
+			const next = types.includes(slug) ? types.filter((typeSlug) => typeSlug !== slug) : [...types, slug];
 			this.patch({ types: next, typeMode: 'any' });
 		},
 
@@ -252,14 +252,14 @@ export const DexStore = signalStore(
 			const { matchupTypes, matchupMode } = store.filters();
 
 			if (matchupMode === 'any') return this.patch({ matchupTypes: [slug], matchupMode: 'exact', matchupSlug: null });
-			if (matchupTypes.includes(slug)) return this.patch({ matchupTypes: matchupTypes.filter((t) => t !== slug), matchupSlug: null });
+			if (matchupTypes.includes(slug)) return this.patch({ matchupTypes: matchupTypes.filter((matchupType) => matchupType !== slug), matchupSlug: null });
 
 			this.patch({ matchupTypes: [...matchupTypes, slug].slice(-2), matchupMode: 'exact', matchupSlug: null });
 		},
 
 		expandMatchupType(slug: string): void {
 			const { matchupTypes } = store.filters();
-			const next = matchupTypes.includes(slug) ? matchupTypes.filter((t) => t !== slug) : [...matchupTypes, slug];
+			const next = matchupTypes.includes(slug) ? matchupTypes.filter((matchupType) => matchupType !== slug) : [...matchupTypes, slug];
 			this.patch({ matchupTypes: next, matchupMode: 'any', matchupSlug: null });
 		},
 
@@ -270,7 +270,7 @@ export const DexStore = signalStore(
 		 * Garchomp is picking Dragon and Ground, so the direction toggle keeps meaning exactly
 		 * what it meant, and the result stays explainable.
 		 */
-		setMatchupPokemon(entry: DexEntry | null): void {
+		setMatchupPokemon(entry: PokedexEntry | null): void {
 			if (!entry) return this.patch({ matchupTypes: [], matchupSlug: null });
 			this.patch({ matchupTypes: [...entry.types], matchupMode: 'exact', matchupSlug: entry.slug });
 		},
@@ -296,7 +296,7 @@ export const DexStore = signalStore(
 		},
 
 		/** Do you have this species in the Box? `owned` is already normalized to base forms. */
-		isOwned(entry: Pick<DexEntry, 'slug' | 'megaOfSlug'>): boolean {
+		isOwned(entry: Pick<PokedexEntry, 'slug' | 'megaOfSlug'>): boolean {
 			return store.owned().has(entry.megaOfSlug ?? entry.slug);
 		},
 
@@ -306,7 +306,7 @@ export const DexStore = signalStore(
 
 		toggleCompare(slug: string): void {
 			const current = store.compare();
-			if (current.includes(slug)) return patchState(store, { compare: current.filter((s) => s !== slug) });
+			if (current.includes(slug)) return patchState(store, { compare: current.filter((existingSlug) => existingSlug !== slug) });
 			// Silently dropping the oldest keeps the control from ever being dead.
 			patchState(store, { compare: [...current, slug].slice(-COMPARE_LIMIT) });
 		},
@@ -316,7 +316,7 @@ export const DexStore = signalStore(
 		},
 
 		/** Replace the whole filter state — used by the URL and by saved sets alike. */
-		replace(filters: DexFilters): void {
+		replace(filters: PokedexFilters): void {
 			patchState(store, { filters });
 		},
 
@@ -333,7 +333,7 @@ export const DexStore = signalStore(
 
 			const query = toQueryString(store.filters());
 			const rest = store.sets().filter((set) => set.name !== trimmed);
-			patchState(store, { sets: [...rest, { name: trimmed, query }].sort((a, b) => a.name.localeCompare(b.name)) });
+			patchState(store, { sets: [...rest, { name: trimmed, query }].sort((first, second) => first.name.localeCompare(second.name)) });
 		},
 
 		applySet(set: FilterSet): void {
@@ -351,7 +351,7 @@ export const DexStore = signalStore(
 		 * should walk the answers. Null on both sides when the slug is not in the results —
 		 * arrows that jump somewhere unrelated are worse than no arrows.
 		 */
-		neighbours(slug: string): { prev: DexEntry | null; next: DexEntry | null } {
+		neighbours(slug: string): { prev: PokedexEntry | null; next: PokedexEntry | null } {
 			const results = store.results();
 			const index = results.findIndex((entry) => entry.slug === slug);
 			if (index === -1) return { prev: null, next: null };
@@ -360,7 +360,7 @@ export const DexStore = signalStore(
 		},
 
 		/** The Mega forms of a base entry, for its sub-row. */
-		megasOf(slug: string): DexEntry[] {
+		megasOf(slug: string): PokedexEntry[] {
 			return store.megaForms().get(slug) ?? [];
 		},
 	})),

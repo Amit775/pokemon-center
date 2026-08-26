@@ -14,11 +14,11 @@ import { STAT_KEYS, StatKey, TypeChart, compareCounters, counterScore, isAnswer,
  */
 
 /** The subset of a roster row the filters read. Structural, so the GraphQL type satisfies it. */
-export interface DexEntry {
+export interface PokedexEntry {
 	id: number;
 	slug: string;
 	name: string;
-	nationalDexNo: number;
+	nationalPokedexNumber: number;
 	types: string[];
 	baseStats: Record<StatKey, number> & { total: number };
 	isMega: boolean;
@@ -47,7 +47,7 @@ export type MegaFilter = 'any' | 'has-mega' | 'no-mega';
  */
 export type MegaDisplay = 'show' | 'separate' | 'hide';
 
-export type SortKey = 'dex' | 'name' | 'total' | StatKey;
+export type SortKey = 'pokedex' | 'name' | 'total' | StatKey;
 
 /**
  * How a set of type chips is read.
@@ -66,7 +66,7 @@ export type Range = [number, number];
 export const STAT_BOUNDS: Range = [0, 260];
 export const TOTAL_BOUNDS: Range = [0, 800];
 
-export interface DexFilters {
+export interface PokedexFilters {
 	search: string;
 	/** Type slugs. */
 	types: string[];
@@ -101,7 +101,7 @@ export interface DexFilters {
 	sortDesc: boolean;
 }
 
-export const EMPTY_FILTERS: DexFilters = {
+export const EMPTY_FILTERS: PokedexFilters = {
 	search: '',
 	types: [],
 	typeMode: 'exact',
@@ -117,7 +117,7 @@ export const EMPTY_FILTERS: DexFilters = {
 	move: null,
 	ownedOnly: false,
 	counterOf: null,
-	sortBy: 'dex',
+	sortBy: 'pokedex',
 	sortDesc: false,
 };
 
@@ -127,7 +127,7 @@ export function isFullRange(range: Range | undefined, bounds: Range): boolean {
 }
 
 /** True when any filter is doing something, so the UI can offer a meaningful "clear". */
-export function isFiltered(filters: DexFilters): boolean {
+export function isFiltered(filters: PokedexFilters): boolean {
 	return (
 		filters.search.trim().length > 0 ||
 		filters.types.length > 0 ||
@@ -143,7 +143,7 @@ export function isFiltered(filters: DexFilters): boolean {
 }
 
 /** What `counterScore` needs from a roster row. */
-export function toCounterSubject(entry: DexEntry) {
+export function toCounterSubject(entry: PokedexEntry) {
 	return { types: entry.types, baseSpeed: entry.baseStats.speed };
 }
 
@@ -154,11 +154,11 @@ export function toCounterSubject(entry: DexEntry) {
  * Dragon *and* Fairy" must not return something that folds to one of them. `any` means one is
  * enough, which is what you want when asking what a coverage slot melts.
  */
-export function passesMatchup(entry: DexEntry, filters: DexFilters, chart: TypeChart): boolean {
+export function passesMatchup(entry: PokedexEntry, filters: PokedexFilters, chart: TypeChart): boolean {
 	if (filters.matchupTypes.length === 0) return true;
 
 	const multipliers = filters.matchupTypes.map((type) => typeEffectiveness(type, entry.types, chart));
-	const holds = filters.matchupDirection === 'resists' ? (m: number) => m < 1 : (m: number) => m > 1;
+	const holds = filters.matchupDirection === 'resists' ? (multiplier: number) => multiplier < 1 : (multiplier: number) => multiplier > 1;
 
 	return filters.matchupMode === 'exact' ? multipliers.every(holds) : multipliers.some(holds);
 }
@@ -170,7 +170,7 @@ export function passesMatchup(entry: DexEntry, filters: DexFilters, chart: TypeC
  * returns mono-types only: a Fire/Flying Pokémon is not "a Fire type" under that reading, it is
  * a Fire/Flying type.
  */
-function passesTypes(entry: DexEntry, filters: DexFilters): boolean {
+function passesTypes(entry: PokedexEntry, filters: PokedexFilters): boolean {
 	if (filters.types.length === 0) return true;
 
 	if (filters.typeMode === 'any') return filters.types.some((type) => entry.types.includes(type));
@@ -181,7 +181,7 @@ function passesTypes(entry: DexEntry, filters: DexFilters): boolean {
 }
 
 /** Base stats only. The level-50 number depends on a spread, which is not a species fact. */
-function passesStats(entry: DexEntry, filters: DexFilters): boolean {
+function passesStats(entry: PokedexEntry, filters: PokedexFilters): boolean {
 	const [totalMin, totalMax] = filters.totalRange ?? TOTAL_BOUNDS;
 	if (entry.baseStats.total < totalMin || entry.baseStats.total > totalMax) return false;
 
@@ -200,20 +200,20 @@ function passesStats(entry: DexEntry, filters: DexFilters): boolean {
  * Without it, the many Pokémon sharing a base Speed of 100 reshuffle on any unrelated filter
  * change, which reads as the list flickering for no reason. A tie is broken the same way twice.
  */
-function byDex(a: DexEntry, b: DexEntry): number {
-	return a.nationalDexNo - b.nationalDexNo || Number(a.isMega) - Number(b.isMega);
+function byPokedex(a: PokedexEntry, b: PokedexEntry): number {
+	return a.nationalPokedexNumber - b.nationalPokedexNumber || Number(a.isMega) - Number(b.isMega);
 }
 
-const SORTERS: Record<SortKey, (a: DexEntry, b: DexEntry) => number> = {
-	dex: byDex,
-	name: (a, b) => a.name.localeCompare(b.name) || byDex(a, b),
-	total: (a, b) => a.baseStats.total - b.baseStats.total || byDex(a, b),
-	hp: (a, b) => a.baseStats.hp - b.baseStats.hp || byDex(a, b),
-	attack: (a, b) => a.baseStats.attack - b.baseStats.attack || byDex(a, b),
-	defense: (a, b) => a.baseStats.defense - b.baseStats.defense || byDex(a, b),
-	specialAttack: (a, b) => a.baseStats.specialAttack - b.baseStats.specialAttack || byDex(a, b),
-	specialDefense: (a, b) => a.baseStats.specialDefense - b.baseStats.specialDefense || byDex(a, b),
-	speed: (a, b) => a.baseStats.speed - b.baseStats.speed || byDex(a, b),
+const SORTERS: Record<SortKey, (a: PokedexEntry, b: PokedexEntry) => number> = {
+	pokedex: byPokedex,
+	name: (first, second) => first.name.localeCompare(second.name) || byPokedex(first, second),
+	total: (first, second) => first.baseStats.total - second.baseStats.total || byPokedex(first, second),
+	hp: (first, second) => first.baseStats.hp - second.baseStats.hp || byPokedex(first, second),
+	attack: (first, second) => first.baseStats.attack - second.baseStats.attack || byPokedex(first, second),
+	defense: (first, second) => first.baseStats.defense - second.baseStats.defense || byPokedex(first, second),
+	specialAttack: (first, second) => first.baseStats.specialAttack - second.baseStats.specialAttack || byPokedex(first, second),
+	specialDefense: (first, second) => first.baseStats.specialDefense - second.baseStats.specialDefense || byPokedex(first, second),
+	speed: (first, second) => first.baseStats.speed - second.baseStats.speed || byPokedex(first, second),
 };
 
 const NOTHING_OWNED: ReadonlySet<string> = new Set();
@@ -244,7 +244,7 @@ export interface FilterContext {
  * "huge-power" is a plausible thing to paste back into the box. Prefix matches on the species
  * name still float to the top, so widening this costs the common case nothing.
  */
-function matchesSearch(entry: DexEntry, search: string): boolean {
+function matchesSearch(entry: PokedexEntry, search: string): boolean {
 	return (
 		entry.name.toLowerCase().includes(search) ||
 		entry.abilityNames.some((name) => name.toLowerCase().includes(search)) ||
@@ -268,7 +268,7 @@ interface MatchContext {
  * Exported because two questions need it: which rows to show, and — for a base form that only
  * qualified because of its Mega — whether to say so.
  */
-export function matchesFilters(entry: DexEntry, filters: DexFilters, context: MatchContext): boolean {
+export function matchesFilters(entry: PokedexEntry, filters: PokedexFilters, context: MatchContext): boolean {
 	const { owned, learners, search, target, chart } = context;
 
 	if (search && !matchesSearch(entry, search)) return false;
@@ -294,8 +294,8 @@ export function matchesFilters(entry: DexEntry, filters: DexFilters, context: Ma
 }
 
 /** Base slug → its Mega forms. */
-function megasByBase(entries: readonly DexEntry[]): Map<string, DexEntry[]> {
-	const map = new Map<string, DexEntry[]>();
+function megasByBase(entries: readonly PokedexEntry[]): Map<string, PokedexEntry[]> {
+	const map = new Map<string, PokedexEntry[]>();
 	for (const entry of entries) {
 		if (!entry.isMega || !entry.megaOfSlug) continue;
 		map.set(entry.megaOfSlug, [...(map.get(entry.megaOfSlug) ?? []), entry]);
@@ -305,11 +305,11 @@ function megasByBase(entries: readonly DexEntry[]): Map<string, DexEntry[]> {
 
 /** Apply every filter, then sort. */
 export function applyFilters(
-	entries: readonly DexEntry[],
-	filters: DexFilters,
+	entries: readonly PokedexEntry[],
+	filters: PokedexFilters,
 	chart: TypeChart,
 	context: FilterContext = {},
-): DexEntry[] {
+): PokedexEntry[] {
 	// Resolved once rather than per row: the target is a lookup into the same array being
 	// filtered, and doing it inside the predicate would be 316 scans instead of one.
 	const counterTarget = filters.counterOf ? (entries.find((entry) => entry.slug === filters.counterOf) ?? null) : null;
@@ -349,8 +349,8 @@ export function applyFilters(
 	// sort was left selected — the same precedence the search prefix takes below.
 	if (match.target) {
 		const target = match.target;
-		sorted.sort((a, b) =>
-			compareCounters(counterScore(target, toCounterSubject(a), chart), counterScore(target, toCounterSubject(b), chart)),
+		sorted.sort((first, second) =>
+			compareCounters(counterScore(target, toCounterSubject(first), chart), counterScore(target, toCounterSubject(second), chart)),
 		);
 	}
 
@@ -358,7 +358,7 @@ export function applyFilters(
 	// regardless of the chosen sort.
 	if (match.search) {
 		const search = match.search;
-		sorted.sort((a, b) => Number(b.name.toLowerCase().startsWith(search)) - Number(a.name.toLowerCase().startsWith(search)));
+		sorted.sort((first, second) => Number(second.name.toLowerCase().startsWith(search)) - Number(first.name.toLowerCase().startsWith(search)));
 	}
 
 	return sorted;
@@ -372,8 +372,8 @@ export function applyFilters(
  * roster, so it costs one pass over what is already on screen.
  */
 export function megaOnlyMatches(
-	results: readonly DexEntry[],
-	filters: DexFilters,
+	results: readonly PokedexEntry[],
+	filters: PokedexFilters,
 	chart: TypeChart,
 	context: FilterContext = {},
 ): ReadonlySet<string> {
@@ -397,29 +397,29 @@ export interface Relaxation {
 	/** What the button says, e.g. "Ignore the matchup". */
 	label: string;
 	/** The patch that drops this group. */
-	patch: Partial<DexFilters>;
+	patch: Partial<PokedexFilters>;
 	/** How many entries would come back. */
 	count: number;
 }
 
 /** Each filter group, as a label and the patch that switches it off. */
-const GROUPS: { label: string; active(f: DexFilters): boolean; off: Partial<DexFilters> }[] = [
-	{ label: 'the search', active: (f) => f.search.trim().length > 0, off: { search: '' } },
-	{ label: 'the type filter', active: (f) => f.types.length > 0, off: { types: [] } },
+const GROUPS: { label: string; active(f: PokedexFilters): boolean; off: Partial<PokedexFilters> }[] = [
+	{ label: 'the search', active: (filters) => filters.search.trim().length > 0, off: { search: '' } },
+	{ label: 'the type filter', active: (filters) => filters.types.length > 0, off: { types: [] } },
 	{
 		label: 'the matchup',
-		active: (f) => f.matchupTypes.length > 0,
+		active: (filters) => filters.matchupTypes.length > 0,
 		off: { matchupTypes: [], matchupSlug: null },
 	},
-	{ label: 'the Mega filter', active: (f) => f.mega !== 'any', off: { mega: 'any' } },
-	{ label: 'the ability', active: (f) => f.ability !== null, off: { ability: null } },
-	{ label: 'the move', active: (f) => f.move !== null, off: { move: null } },
-	{ label: 'what you own', active: (f) => f.ownedOnly, off: { ownedOnly: false } },
-	{ label: 'the counter search', active: (f) => f.counterOf !== null, off: { counterOf: null } },
+	{ label: 'the Mega filter', active: (filters) => filters.mega !== 'any', off: { mega: 'any' } },
+	{ label: 'the ability', active: (filters) => filters.ability !== null, off: { ability: null } },
+	{ label: 'the move', active: (filters) => filters.move !== null, off: { move: null } },
+	{ label: 'what you own', active: (filters) => filters.ownedOnly, off: { ownedOnly: false } },
+	{ label: 'the counter search', active: (filters) => filters.counterOf !== null, off: { counterOf: null } },
 	{
 		label: 'the stat ranges',
-		active: (f) =>
-			!isFullRange(f.totalRange, TOTAL_BOUNDS) || STAT_KEYS.some((key) => !isFullRange(f.statRanges[key], STAT_BOUNDS)),
+		active: (filters) =>
+			!isFullRange(filters.totalRange, TOTAL_BOUNDS) || STAT_KEYS.some((key) => !isFullRange(filters.statRanges[key], STAT_BOUNDS)),
 		off: { statRanges: {}, totalRange: TOTAL_BOUNDS },
 	},
 ];
@@ -436,8 +436,8 @@ const GROUPS: { label: string; active(f: DexFilters): boolean; off: Partial<DexF
  * offering a button that changes nothing is worse than offering none.
  */
 export function diagnoseEmpty(
-	entries: readonly DexEntry[],
-	filters: DexFilters,
+	entries: readonly PokedexEntry[],
+	filters: PokedexFilters,
 	chart: TypeChart,
 	context: FilterContext = {},
 ): Relaxation[] {
@@ -453,5 +453,5 @@ export function diagnoseEmpty(
 			count: applyFilters(entries, { ...filters, ...group.off }, chart, context).length,
 		}))
 		.filter((relaxation) => relaxation.count > 0)
-		.sort((a, b) => b.count - a.count);
+		.sort((first, second) => second.count - first.count);
 }

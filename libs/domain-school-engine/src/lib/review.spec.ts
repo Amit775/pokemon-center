@@ -137,7 +137,7 @@ describe('rng.pickWeighted', () => {
 /* ---------------------------------------------- placement */
 
 const ref: ReferenceData = { typeChart: MODERN_CHART, moves: MOVES, natures: NATURES };
-const ctx: GameContext = { versionGroup: null, generation: null };
+const context: GameContext = { versionGroup: null, generation: null };
 
 describe('ancestorsOf', () => {
 	it('collects prerequisites transitively', () => {
@@ -151,26 +151,26 @@ describe('ancestorsOf', () => {
 
 describe('buildPlacementTest', () => {
 	it('is deterministic', () => {
-		const a = buildPlacementTest(42, ref, ctx).map((q) => q.exercise.id);
-		expect(buildPlacementTest(42, ref, ctx).map((q) => q.exercise.id)).toEqual(a);
+		const a = buildPlacementTest(42, ref, context).map((question) => question.exercise.id);
+		expect(buildPlacementTest(42, ref, context).map((question) => question.exercise.id)).toEqual(a);
 	});
 
 	it('asks about every playable exercise lesson exactly once', () => {
-		const test = buildPlacementTest(42, ref, ctx);
-		const ids = test.map((q) => q.lessonId);
+		const test = buildPlacementTest(42, ref, context);
+		const ids = test.map((question) => question.lessonId);
 		expect(new Set(ids).size).toBe(ids.length);
 		expect(ids.length).toBeGreaterThanOrEqual(10);
 	});
 
 	it('excludes simulations, which grade on a scale rather than yes/no', () => {
-		const ids = buildPlacementTest(42, ref, ctx).map((q) => q.lessonId);
+		const ids = buildPlacementTest(42, ref, context).map((question) => question.lessonId);
 		expect(ids).not.toContain('coverage.four-move-coverage');
 		expect(ids).not.toContain('matchup.best-counter');
 	});
 
 	it('offers only lessons whose reference data is present', () => {
-		const chartOnly = buildPlacementTest(42, { typeChart: MODERN_CHART }, ctx);
-		expect(chartOnly.every((q) => q.lessonId.startsWith('type-chart.'))).toBe(true);
+		const chartOnly = buildPlacementTest(42, { typeChart: MODERN_CHART }, context);
+		expect(chartOnly.every((question) => question.lessonId.startsWith('type-chart.'))).toBe(true);
 	});
 });
 
@@ -198,7 +198,7 @@ describe('placementUnlocks', () => {
 
 	it('opens a whole module when its deepest lesson is passed', () => {
 		const granted = placementUnlocks(['type-chart.dual-type-multipliers', 'damage.stab', 'damage.priority']);
-		const open = unlockedLessons(curriculum, new Set(), false, granted).map((l) => l.id);
+		const open = unlockedLessons(curriculum, new Set(), false, granted).map((lesson) => lesson.id);
 		expect(open).toContain('type-chart.single-type-effectiveness');
 		expect(open).toContain('damage.expected-damage');
 	});

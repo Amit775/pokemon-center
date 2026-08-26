@@ -7,7 +7,7 @@ import { typeColorVar } from '../type-colors';
  * placeholder. Decorative unless an alt is supplied.
  */
 @Component({
-	selector: 'pkd-entity-portrait',
+	selector: 'pokedex-entity-portrait',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		@if (currentSrc(); as source) {
@@ -58,6 +58,6 @@ export class EntityPortraitComponent {
 	protected readonly colorVar = computed(() => typeColorVar(this.type()));
 
 	protected onError(): void {
-		this.stage.update((s) => (s === 0 && this.fallbackSrc() ? 1 : 2));
+		this.stage.update((stage) => (stage === 0 && this.fallbackSrc() ? 1 : 2));
 	}
 }

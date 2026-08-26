@@ -39,11 +39,11 @@ export interface CurriculumModule {
 export type Curriculum = readonly CurriculumModule[];
 
 export function allLessons(curriculum: Curriculum): Lesson[] {
-	return curriculum.flatMap((m) => m.lessons);
+	return curriculum.flatMap((module) => module.lessons);
 }
 
 export function findLesson(curriculum: Curriculum, id: LessonId): Lesson | undefined {
-	return allLessons(curriculum).find((l) => l.id === id);
+	return allLessons(curriculum).find((lesson) => lesson.id === id);
 }
 
 /**

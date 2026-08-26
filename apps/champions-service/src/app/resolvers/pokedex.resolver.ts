@@ -1,12 +1,12 @@
 import { Args, Int, Query, Resolver } from '@nestjs/graphql';
 import {
 	BaseStats,
-	ChampAbility,
-	ChampDexEntry,
-	ChampMove,
-	ChampPokemonDetail,
-	ChampPokemonSummary,
-	ChampType as ChampTypeModel,
+	ChampionsAbility,
+	ChampionsPokedexEntry,
+	ChampionsMove,
+	ChampionsPokemonDetail,
+	ChampionsPokemonSummary,
+	ChampionsType as ChampionsTypeModel,
 	DamageClass,
 	TypeEfficacyEntry,
 } from '../models/pokemon.model';
@@ -43,7 +43,7 @@ type PokemonRow = {
 	id: number;
 	slug: string;
 	name: string;
-	national_dex_no: number;
+	national_pokedex_number: number;
 	base_hp: number;
 	base_attack: number;
 	base_defense: number;
@@ -61,7 +61,7 @@ const summarySelect = {
 	id: true,
 	slug: true,
 	name: true,
-	national_dex_no: true,
+	national_pokedex_number: true,
 	base_hp: true,
 	base_attack: true,
 	base_defense: true,
@@ -89,12 +89,12 @@ function toBaseStats(row: PokemonRow): BaseStats {
 	};
 }
 
-function toSummary(row: PokemonRow): ChampPokemonSummary {
+function toSummary(row: PokemonRow): ChampionsPokemonSummary {
 	return {
 		id: row.id,
 		slug: row.slug,
 		name: row.name,
-		nationalDexNo: row.national_dex_no,
+		nationalPokedexNumber: row.national_pokedex_number,
 		types: [row.type1.slug, ...(row.type2 ? [row.type2.slug] : [])],
 		baseStats: toBaseStats(row),
 		isMega: row.is_mega,
@@ -103,11 +103,11 @@ function toSummary(row: PokemonRow): ChampPokemonSummary {
 	};
 }
 
-function toAbility(row: AbilityRow): ChampAbility {
+function toAbility(row: AbilityRow): ChampionsAbility {
 	return { id: row.id, slug: row.slug, name: row.name, effectText: row.effect_text, isMega: row.is_mega };
 }
 
-function toMove(row: MoveRow): ChampMove {
+function toMove(row: MoveRow): ChampionsMove {
 	return {
 		id: row.id,
 		slug: row.slug,
@@ -143,7 +143,7 @@ export class PokedexResolver {
 			where: { regulation_id: regulation.id },
 			select: { pokemon_id: true },
 		});
-		return rows.map((r) => r.pokemon_id);
+		return rows.map((row) => row.pokemon_id);
 	}
 
 	/**
@@ -153,30 +153,30 @@ export class PokedexResolver {
 	 * before Gyarados, because the slot picker has a two-second budget and the first result
 	 * is the one that gets taken.
 	 */
-	@Query(() => [ChampPokemonSummary], { name: 'champSearch' })
-	async champSearch(
+	@Query(() => [ChampionsPokemonSummary], { name: 'championsSearch' })
+	async championsSearch(
 		@Args('query') query: string,
 		@Args('take', { type: () => Int, nullable: true, defaultValue: 12 }) take: number,
 		@Args('regulation', { nullable: true }) regulation?: string,
-	): Promise<ChampPokemonSummary[]> {
+	): Promise<ChampionsPokemonSummary[]> {
 		const term = query.trim();
 		const legal = await this.legalIds(regulation);
 		if (legal.length === 0) return [];
 
-		const rows = (await this.prisma.champPokemon.findMany({
+		const rows = (await this.prisma.championsPokemon.findMany({
 			where: { id: { in: legal }, ...(term ? { name: { contains: term, mode: 'insensitive' } } : {}) },
 			select: summarySelect,
 			// A generous slice so ranking below has something to work with.
 			take: Math.max(take * 4, 48),
-			orderBy: { national_dex_no: 'asc' },
+			orderBy: { national_pokedex_number: 'asc' },
 		})) as PokemonRow[];
 
 		const lower = term.toLowerCase();
-		const ranked = rows.sort((a, b) => {
-			const aStarts = a.name.toLowerCase().startsWith(lower) ? 0 : 1;
-			const bStarts = b.name.toLowerCase().startsWith(lower) ? 0 : 1;
+		const ranked = rows.sort((first, second) => {
+			const aStarts = first.name.toLowerCase().startsWith(lower) ? 0 : 1;
+			const bStarts = second.name.toLowerCase().startsWith(lower) ? 0 : 1;
 			// Base forms before Megas: you pick Charizard, then decide about the stone.
-			return aStarts - bStarts || Number(a.is_mega) - Number(b.is_mega) || a.national_dex_no - b.national_dex_no;
+			return aStarts - bStarts || Number(first.is_mega) - Number(second.is_mega) || first.national_pokedex_number - second.national_pokedex_number;
 		});
 
 		return ranked.slice(0, take).map(toSummary);
@@ -188,19 +188,19 @@ export class PokedexResolver {
 	 * Megas are excluded by default: a list that interleaves Charizard with Mega Charizard X
 	 * and Y reads as three Pokémon when it is one line of thinking. They are one toggle away.
 	 */
-	@Query(() => [ChampPokemonSummary], { name: 'champRoster' })
-	async champRoster(
+	@Query(() => [ChampionsPokemonSummary], { name: 'championsRoster' })
+	async championsRoster(
 		@Args('type', { nullable: true }) type?: string,
 		@Args('search', { nullable: true }) search?: string,
 		@Args('includeMegas', { nullable: true, defaultValue: false }) includeMegas?: boolean,
 		@Args('take', { type: () => Int, nullable: true, defaultValue: 60 }) take?: number,
 		@Args('skip', { type: () => Int, nullable: true, defaultValue: 0 }) skip?: number,
 		@Args('regulation', { nullable: true }) regulation?: string,
-	): Promise<ChampPokemonSummary[]> {
+	): Promise<ChampionsPokemonSummary[]> {
 		const legal = await this.legalIds(regulation);
 		if (legal.length === 0) return [];
 
-		const rows = (await this.prisma.champPokemon.findMany({
+		const rows = (await this.prisma.championsPokemon.findMany({
 			where: {
 				id: { in: legal },
 				...(includeMegas ? {} : { is_mega: false }),
@@ -208,7 +208,7 @@ export class PokedexResolver {
 				...(type ? { OR: [{ type1: { slug: type } }, { type2: { slug: type } }] } : {}),
 			},
 			select: summarySelect,
-			orderBy: [{ national_dex_no: 'asc' }, { is_mega: 'asc' }],
+			orderBy: [{ national_pokedex_number: 'asc' }, { is_mega: 'asc' }],
 			take: take ?? 60,
 			skip: skip ?? 0,
 		})) as PokemonRow[];
@@ -217,8 +217,8 @@ export class PokedexResolver {
 	}
 
 	/** How many entries match a roster filter, for the "showing N of M" line. */
-	@Query(() => Int, { name: 'champRosterCount' })
-	async champRosterCount(
+	@Query(() => Int, { name: 'championsRosterCount' })
+	async championsRosterCount(
 		@Args('type', { nullable: true }) type?: string,
 		@Args('search', { nullable: true }) search?: string,
 		@Args('includeMegas', { nullable: true, defaultValue: false }) includeMegas?: boolean,
@@ -227,7 +227,7 @@ export class PokedexResolver {
 		const legal = await this.legalIds(regulation);
 		if (legal.length === 0) return 0;
 
-		return this.prisma.champPokemon.count({
+		return this.prisma.championsPokemon.count({
 			where: {
 				id: { in: legal },
 				...(includeMegas ? {} : { is_mega: false }),
@@ -244,12 +244,12 @@ export class PokedexResolver {
 	 * browser is what makes the filters instant and freely combinable; paginating it would
 	 * mean a round trip per keystroke and a much weaker product.
 	 */
-	@Query(() => [ChampDexEntry], { name: 'champDex' })
-	async champDex(@Args('regulation', { nullable: true }) regulation?: string): Promise<ChampDexEntry[]> {
+	@Query(() => [ChampionsPokedexEntry], { name: 'championsPokedex' })
+	async championsPokedex(@Args('regulation', { nullable: true }) regulation?: string): Promise<ChampionsPokedexEntry[]> {
 		const legal = await this.legalIds(regulation);
 		if (legal.length === 0) return [];
 
-		const rows = await this.prisma.champPokemon.findMany({
+		const rows = await this.prisma.championsPokemon.findMany({
 			where: { id: { in: legal } },
 			select: {
 				...summarySelect,
@@ -259,7 +259,7 @@ export class PokedexResolver {
 				// form the current regulation has removed.
 				megaForms: { where: { id: { in: legal } }, select: { id: true } },
 			},
-			orderBy: [{ national_dex_no: 'asc' }, { is_mega: 'asc' }],
+			orderBy: [{ national_pokedex_number: 'asc' }, { is_mega: 'asc' }],
 		});
 
 		return rows.map((row) => {
@@ -273,8 +273,8 @@ export class PokedexResolver {
 			return {
 				...summary,
 				hasMega: typed.megaForms.length > 0,
-				abilitySlugs: typed.abilities.map((a) => a.ability.slug),
-				abilityNames: typed.abilities.map((a) => a.ability.name),
+				abilitySlugs: typed.abilities.map((ability) => ability.ability.slug),
+				abilityNames: typed.abilities.map((ability) => ability.ability.name),
 				learnsetIsApproximate: typed.learnset_is_approximate,
 			};
 		});
@@ -283,13 +283,13 @@ export class PokedexResolver {
 	/**
 	 * Every ability with its effect text.
 	 *
-	 * A separate query rather than more fields on `champDex`: an ability is shared across many
+	 * A separate query rather than more fields on `championsPokedex`: an ability is shared across many
 	 * Pokémon, so sending them once keyed by slug is a fraction of the size of repeating the
 	 * effect text on all ~316 roster rows. The Pokédex joins the two in the browser.
 	 */
-	@Query(() => [ChampAbility], { name: 'champAbilities' })
-	async champAbilities(): Promise<ChampAbility[]> {
-		const rows = await this.prisma.champAbility.findMany({
+	@Query(() => [ChampionsAbility], { name: 'championsAbilities' })
+	async championsAbilities(): Promise<ChampionsAbility[]> {
+		const rows = await this.prisma.championsAbility.findMany({
 			select: { id: true, slug: true, name: true, effect_text: true, is_mega: true },
 			orderBy: { name: 'asc' },
 		});
@@ -302,12 +302,12 @@ export class PokedexResolver {
 	 *
 	 * Ids rather than whole rows, because the Pokédex already holds the roster in memory and
 	 * only needs to know which of it to keep. And a query per move rather than learnsets on
-	 * `champDex`, because the full learnset table is orders of magnitude larger than the roster
+	 * `championsPokedex`, because the full learnset table is orders of magnitude larger than the roster
 	 * and most visits never touch this filter. One round trip, the first time a move is picked.
 	 */
-	@Query(() => [Int], { name: 'champMoveLearners' })
-	async champMoveLearners(@Args('moveSlug') moveSlug: string): Promise<number[]> {
-		const rows = await this.prisma.champLearnset.findMany({
+	@Query(() => [Int], { name: 'championsMoveLearners' })
+	async championsMoveLearners(@Args('moveSlug') moveSlug: string): Promise<number[]> {
+		const rows = await this.prisma.championsLearnset.findMany({
 			where: { move: { slug: moveSlug } },
 			select: { pokemon_id: true },
 		});
@@ -316,9 +316,9 @@ export class PokedexResolver {
 	}
 
 	/** Every move on the roster, for the move filter's autocomplete. */
-	@Query(() => [ChampMove], { name: 'champMoveIndex' })
-	async champMoveIndex(): Promise<ChampMove[]> {
-		const rows = await this.prisma.champMove.findMany({
+	@Query(() => [ChampionsMove], { name: 'championsMoveIndex' })
+	async championsMoveIndex(): Promise<ChampionsMove[]> {
+		const rows = await this.prisma.championsMove.findMany({
 			include: { type: true },
 			orderBy: { name: 'asc' },
 		});
@@ -327,9 +327,9 @@ export class PokedexResolver {
 	}
 
 	/** Every type, for the filter row. */
-	@Query(() => [ChampTypeModel], { name: 'champTypes' })
-	async champTypes(): Promise<ChampTypeModel[]> {
-		return this.prisma.champType.findMany({ orderBy: { id: 'asc' }, select: { id: true, slug: true, name: true } });
+	@Query(() => [ChampionsTypeModel], { name: 'championsTypes' })
+	async championsTypes(): Promise<ChampionsTypeModel[]> {
+		return this.prisma.championsType.findMany({ orderBy: { id: 'asc' }, select: { id: true, slug: true, name: true } });
 	}
 
 	/**
@@ -338,9 +338,9 @@ export class PokedexResolver {
 	 * This is the page a mainline player most needs: everything they think they know about
 	 * a move and now do not.
 	 */
-	@Query(() => [ChampMove], { name: 'champChangedMoves' })
-	async champChangedMoves(): Promise<ChampMove[]> {
-		const rows = await this.prisma.champMove.findMany({
+	@Query(() => [ChampionsMove], { name: 'championsChangedMoves' })
+	async championsChangedMoves(): Promise<ChampionsMove[]> {
+		const rows = await this.prisma.championsMove.findMany({
 			where: { is_overridden: true },
 			select: {
 				id: true,
@@ -365,11 +365,11 @@ export class PokedexResolver {
 	}
 
 	/** Full detail for a set of slugs — what the advisor needs to calculate with a team. */
-	@Query(() => [ChampPokemonDetail], { name: 'champTeam' })
-	async champTeam(@Args('slugs', { type: () => [String] }) slugs: string[]): Promise<ChampPokemonDetail[]> {
+	@Query(() => [ChampionsPokemonDetail], { name: 'championsTeam' })
+	async championsTeam(@Args('slugs', { type: () => [String] }) slugs: string[]): Promise<ChampionsPokemonDetail[]> {
 		if (slugs.length === 0) return [];
 
-		const rows = await this.prisma.champPokemon.findMany({
+		const rows = await this.prisma.championsPokemon.findMany({
 			where: { slug: { in: slugs } },
 			select: {
 				...summarySelect,
@@ -422,18 +422,18 @@ export class PokedexResolver {
 				...toSummary(typed),
 				learnsetIsApproximate: typed.learnset_is_approximate,
 				megaAbility: typed.megaAbility ? toAbility(typed.megaAbility) : null,
-				abilities: typed.abilities.map((a) => ({ ability: toAbility(a.ability), slot: a.slot, isHidden: a.is_hidden })),
+				abilities: typed.abilities.map((ability) => ({ ability: toAbility(ability.ability), slot: ability.slot, isHidden: ability.is_hidden })),
 				megaForms: typed.megaForms.map(toSummary),
 				// Strongest first: the advisor and the UI both want the damaging moves at the top.
 				moves: typed.learnset
-					.map((l) => toMove(l.move))
-					.sort((a, b) => (b.power ?? 0) - (a.power ?? 0) || a.name.localeCompare(b.name)),
+					.map((learnsetEntry) => toMove(learnsetEntry.move))
+					.sort((first, second) => (second.power ?? 0) - (first.power ?? 0) || first.name.localeCompare(second.name)),
 			};
 		});
 
 		// Preserve the order the caller asked for, so team slots do not shuffle.
-		const bySlug = new Map(details.map((d) => [d.slug, d]));
-		return slugs.map((slug) => bySlug.get(slug)).filter((d): d is ChampPokemonDetail => d !== undefined);
+		const bySlug = new Map(details.map((detail) => [detail.slug, detail]));
+		return slugs.map((slug) => bySlug.get(slug)).filter((slug): slug is ChampionsPokemonDetail => slug !== undefined);
 	}
 
 	/**
@@ -444,7 +444,7 @@ export class PokedexResolver {
 	 */
 	@Query(() => [TypeEfficacyEntry], { name: 'typeChart' })
 	async typeChart(): Promise<TypeEfficacyEntry[]> {
-		const rows = await this.prisma.champTypeEfficacy.findMany({
+		const rows = await this.prisma.championsTypeEfficacy.findMany({
 			select: {
 				damage_factor: true,
 				attackingType: { select: { slug: true } },

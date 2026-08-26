@@ -4,7 +4,7 @@
 			<span>Types</span>
 			<span class="chips">
 				@for (type of pokemon.types; track type.slot) {
-					<pkd-type-chip [type]="type.type.identifier" size="sm" />
+					<pokedex-type-chip [type]="type.type.identifier" size="sm" />
 				}
 			</span>
 		</div>
@@ -42,7 +42,7 @@
 
 	@if (flavor().length) {
 		<section class="flavor">
-			<pkd-section-heading [label]="'Pokédex entries' + (store.activeVersionGroup() ? ' — ' + store.activeVersionGroup() : '')" />
+			<pokedex-section-heading [label]="'Pokédex entries' + (store.activeVersionGroup() ? ' — ' + store.activeVersionGroup() : '')" />
 			@for (entry of flavor(); track entry.version.identifier) {
 				<blockquote>
 					<cite>{{ entry.version.identifier }}</cite>
@@ -54,7 +54,7 @@
 
 	@if (chain().length > 1) {
 		<section class="evolution">
-			<pkd-section-heading label="Evolution" />
+			<pokedex-section-heading label="Evolution" />
 			<div class="chain">
 				@for (species of chain(); track species.id) {
 					@if (!$first) {

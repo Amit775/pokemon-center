@@ -20,34 +20,34 @@ export class CompareComponent {
 	private readonly router = inject(Router);
 	private readonly route = inject(ActivatedRoute);
 
-	private readonly initial = (this.route.snapshot.queryParamMap.get('p') ?? '').split(',');
+	private readonly initial = (this.route.snapshot.queryParamMap.get('pokemon') ?? '').split(',');
 	protected readonly slots = [signal(this.initial[0] ?? ''), signal(this.initial[1] ?? ''), signal(this.initial[2] ?? ''), signal(this.initial[3] ?? '')];
 
 	private readonly resources = this.slots.map((slot) => gqlResource(ComparePokemonDocument, () => (slot() ? { idOrSlug: slot() } : { idOrSlug: '__none__' })));
 
 	protected readonly columns = computed<(ComparedPokemon | null)[]>(() =>
-		this.slots.map((slot, i) => (slot() ? (this.resources[i].value()?.pokemon ?? null) : null)),
+		this.slots.map((slot, index) => (slot() ? (this.resources[index].value()?.pokemon ?? null) : null)),
 	);
 
-	protected readonly filled = computed(() => this.columns().filter((c): c is ComparedPokemon => c !== null));
+	protected readonly filled = computed(() => this.columns().filter((column): column is ComparedPokemon => column !== null));
 
 	protected readonly statOrder = STAT_ORDER;
 
 	protected baseStat(pokemon: ComparedPokemon, statId: string): number {
-		return pokemon.stats.find((s) => s.stat.identifier === statId)?.base_stat ?? 0;
+		return pokemon.stats.find((stat) => stat.stat.identifier === statId)?.base_stat ?? 0;
 	}
 
 	protected bst(pokemon: ComparedPokemon): number {
-		return pokemon.stats.reduce((sum, s) => sum + s.base_stat, 0);
+		return pokemon.stats.reduce((sum, stat) => sum + stat.base_stat, 0);
 	}
 
 	protected isMax(statId: string, value: number): boolean {
-		const values = this.filled().map((p) => this.baseStat(p, statId));
+		const values = this.filled().map((pokemon) => this.baseStat(pokemon, statId));
 		return values.length > 1 && value === Math.max(...values) && value > 0;
 	}
 
 	protected isMaxBst(value: number): boolean {
-		const values = this.filled().map((p) => this.bst(p));
+		const values = this.filled().map((pokemon) => this.bst(pokemon));
 		return values.length > 1 && value === Math.max(...values);
 	}
 
@@ -57,7 +57,7 @@ export class CompareComponent {
 	}
 
 	private syncUrl(): void {
-		const p = this.slots.map((s) => s()).filter(Boolean).join(',');
-		this.router.navigate([], { relativeTo: this.route, queryParams: { p: p || null }, replaceUrl: true });
+		const pokemon = this.slots.map((slot) => slot()).filter(Boolean).join(',');
+		this.router.navigate([], { relativeTo: this.route, queryParams: { pokemon: pokemon || null }, replaceUrl: true });
 	}
 }

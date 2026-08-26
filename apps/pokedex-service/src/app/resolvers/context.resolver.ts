@@ -31,10 +31,10 @@ export class ContextResolver {
 	@Query(() => [LanguageOption], { description: 'Official game languages, each with its own name (autonym), for the display-language selector' })
 	async languages(): Promise<LanguageOption[]> {
 		return this.prisma.$queryRaw<LanguageOption[]>`
-			SELECT l.id, l.identifier AS code, ln.name
-			FROM languages l
-			JOIN language_names ln ON ln.language_id = l.id AND ln.local_language_id = l.id
-			WHERE l.official = 1
-			ORDER BY l."order"`;
+			SELECT languages.id, languages.identifier AS code, language_names.name
+			FROM languages
+			JOIN language_names ON language_names.language_id = languages.id AND language_names.local_language_id = languages.id
+			WHERE languages.official = 1
+			ORDER BY languages."order"`;
 	}
 }

@@ -8,7 +8,7 @@ import {
 	statAt50,
 	validateSpread,
 } from '@pokemon-center/champions-engine';
-import { BoxPokemonInput, ChampTeamDocument, champResource } from '@pokemon-center/data-access-champions';
+import { BoxPokemonInput, ChampionsTeamDocument, championsResource } from '@pokemon-center/data-access-champions';
 import { EntityPortraitComponent, TypeChipComponent, UiSkeletonComponent, spriteSources } from '@pokemon-center/ui-pokedex';
 import { NATURES } from './natures';
 
@@ -27,7 +27,7 @@ import { NATURES } from './natures';
 	template: `
 		@if (detail(); as mon) {
 			<div class="head">
-				<pkd-entity-portrait [type]="mon.types[0]" [src]="sprite().src" [fallbackSrc]="sprite().fallbackSrc" [alt]="mon.name" [size]="72" />
+				<pokedex-entity-portrait [type]="mon.types[0]" [src]="sprite().src" [fallbackSrc]="sprite().fallbackSrc" [alt]="mon.name" [size]="72" />
 				<div>
 					<input
 						class="nickname"
@@ -39,7 +39,7 @@ import { NATURES } from './natures';
 					/>
 					<div class="chips">
 						@for (type of mon.types; track type) {
-							<pkd-type-chip [type]="type" size="sm" />
+							<pokedex-type-chip [type]="type" size="sm" />
 						}
 						@if (mon.isMega) {
 							<span class="tag">Mega</span>
@@ -152,7 +152,7 @@ import { NATURES } from './natures';
 				<button type="button" (click)="cancelled.emit()">Cancel</button>
 			</div>
 		} @else {
-			<pkd-skeleton height="20rem" />
+			<pokedex-skeleton height="20rem" />
 		}
 	`,
 	styles: `
@@ -433,8 +433,8 @@ export class BuildEditorComponent {
 	protected readonly saving = signal(false);
 	protected readonly moveSearch = signal('');
 
-	private readonly query = champResource(ChampTeamDocument, () => ({ slugs: [this.slug()] }));
-	protected readonly detail = computed(() => this.query.value()?.champTeam[0] ?? null);
+	private readonly query = championsResource(ChampionsTeamDocument, () => ({ slugs: [this.slug()] }));
+	protected readonly detail = computed(() => this.query.value()?.championsTeam[0] ?? null);
 	protected readonly sprite = computed(() => spriteSources(this.detail()?.id ?? 0));
 
 	protected readonly nickname = signal('');
@@ -455,7 +455,7 @@ export class BuildEditorComponent {
 	protected readonly remaining = computed(() => this.spread().remaining);
 	protected readonly budgetPercent = computed(() => Math.min(100, (this.spread().total / SP_TOTAL_BUDGET) * 100));
 
-	private readonly nature = computed(() => this.natures.find((n) => n.name === this.natureName()) ?? NEUTRAL_NATURE);
+	private readonly nature = computed(() => this.natures.find((nature) => nature.name === this.natureName()) ?? NEUTRAL_NATURE);
 
 	/** Each stat with its live level-50 value and whether the nature is touching it. */
 	protected readonly statRows = computed(() => {
@@ -536,7 +536,7 @@ export class BuildEditorComponent {
 	}
 
 	protected toggleMove(id: number): void {
-		this.moveIds.update((current) => (current.includes(id) ? current.filter((m) => m !== id) : [...current, id].slice(0, 4)));
+		this.moveIds.update((current) => (current.includes(id) ? current.filter((moveId) => moveId !== id) : [...current, id].slice(0, 4)));
 	}
 
 	protected onAbility(event: Event): void {

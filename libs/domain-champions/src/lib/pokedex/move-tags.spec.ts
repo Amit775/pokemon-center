@@ -6,13 +6,13 @@ describe('moveTags', () => {
 	it('names flags the way Champions does, not the way the dataset does', () => {
 		// `ballistics` is the dataset's slug; nobody looking for what Bulletproof blocks
 		// searches for that.
-		expect(moveTags(move(['ballistics'])).map((t) => t.label)).toEqual(['Ball & Bomb']);
+		expect(moveTags(move(['ballistics'])).map((tag) => tag.label)).toEqual(['Ball & Bomb']);
 	});
 
 	it('puts priority first, signed, because turn order decides the click', () => {
 		const tags = moveTags(move(['contact'], 1));
 
-		expect(tags.map((t) => t.label)).toEqual(['Priority +1', 'Contact']);
+		expect(tags.map((tag) => tag.label)).toEqual(['Priority +1', 'Contact']);
 		expect(tags[0].isPriority).toBe(true);
 	});
 
@@ -34,8 +34,8 @@ describe('moveTags', () => {
 		const one = moveTags(move(['sound', 'contact', 'punch']));
 		const other = moveTags(move(['punch', 'sound', 'contact']));
 
-		expect(one.map((t) => t.label)).toEqual(other.map((t) => t.label));
-		expect(one.map((t) => t.label)).toEqual(['Contact', 'Punch', 'Sound']);
+		expect(one.map((tag) => tag.label)).toEqual(other.map((tag) => tag.label));
+		expect(one.map((tag) => tag.label)).toEqual(['Contact', 'Punch', 'Sound']);
 	});
 
 	it('explains what each tag governs, so the tag answers "which ability"', () => {

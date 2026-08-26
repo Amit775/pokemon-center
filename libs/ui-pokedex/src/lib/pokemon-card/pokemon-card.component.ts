@@ -5,26 +5,26 @@ import { TypeChipComponent } from '../type-chip/type-chip.component';
 
 /** The Pokédex grid tile — type-gradient header, floating portrait, name, type chips. */
 @Component({
-	selector: 'pkd-pokemon-card',
+	selector: 'pokedex-pokemon-card',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [EntityPortraitComponent, TypeChipComponent],
 	template: `
 		<div class="hd">
-			<span class="no">#{{ dexNumber() }}</span>
-			<pkd-entity-portrait [type]="primaryType()" [src]="src()" [fallbackSrc]="fallbackSrc()" [alt]="name()" [size]="72" />
+			<span class="no">#{{ pokedexNumber() }}</span>
+			<pokedex-entity-portrait [type]="primaryType()" [src]="src()" [fallbackSrc]="fallbackSrc()" [alt]="name()" [size]="72" />
 		</div>
 		<div class="bd">
 			<h3>{{ name() }}</h3>
 			<div class="chips">
 				@for (type of types(); track type) {
-					<pkd-type-chip [type]="type" size="sm" />
+					<pokedex-type-chip [type]="type" size="sm" />
 				}
 			</div>
 		</div>
 	`,
 	host: {
 		'[style.--pt]': 'colorVar()',
-		'[class.pkd-pokemon-card--selected]': 'selected()',
+		'[class.pokedex-pokemon-card--selected]': 'selected()',
 	},
 	styles: `
 		:host {
@@ -44,7 +44,7 @@ import { TypeChipComponent } from '../type-chip/type-chip.component';
 			transform: translateY(-3px);
 			box-shadow: var(--shadow-md);
 		}
-		:host(.pkd-pokemon-card--selected) {
+		:host(.pokedex-pokemon-card--selected) {
 			border-color: var(--accent);
 			box-shadow:
 				0 0 0 2px var(--accent),
@@ -62,7 +62,7 @@ import { TypeChipComponent } from '../type-chip/type-chip.component';
 			font-size: var(--fs-sm);
 			color: color-mix(in srgb, var(--ink) 45%, transparent);
 		}
-		pkd-entity-portrait {
+		pokedex-entity-portrait {
 			margin: 0.1rem auto -1.3rem;
 			border: 3.5px solid var(--surface);
 			border-radius: 50%;
@@ -95,7 +95,7 @@ import { TypeChipComponent } from '../type-chip/type-chip.component';
 	`,
 })
 export class PokemonCardComponent {
-	readonly dexNumber = input.required<string | number>();
+	readonly pokedexNumber = input.required<string | number>();
 	readonly name = input.required<string>();
 	readonly types = input.required<readonly string[]>();
 	readonly src = input<string | null>(null);

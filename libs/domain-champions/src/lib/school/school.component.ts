@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { SectionHeadingComponent, UiCardComponent, UiSkeletonComponent } from '@pokemon-center/ui-pokedex';
-import { DexStore } from '../dex/dex.store';
+import { PokedexStore } from '../pokedex/pokedex.store';
 import { DRILLS, DrillKind, Question, generateQuestion } from './quiz';
 
 /**
@@ -42,11 +42,11 @@ import { DRILLS, DrillKind, Question, generateQuestion } from './quiz';
 			}
 		</div>
 
-		@if (dex.isLoading()) {
-			<pkd-skeleton height="12rem" />
+		@if (pokedex.isLoading()) {
+			<pokedex-skeleton height="12rem" />
 		} @else if (question(); as current) {
-			<pkd-section-heading label="Question {{ answered() + 1 }}" />
-			<pkd-card>
+			<pokedex-section-heading label="Question {{ answered() + 1 }}" />
+			<pokedex-card>
 				<div class="panel">
 					<p class="prompt">{{ current.prompt }}</p>
 
@@ -73,13 +73,13 @@ import { DRILLS, DrillKind, Question, generateQuestion } from './quiz';
 						<button type="button" class="primary" (click)="next()">Next question</button>
 					}
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		} @else {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel">
 					<p>The roster has not loaded yet, so there is nothing to drill on.</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		}
 	`,
 	styles: `
@@ -232,7 +232,7 @@ import { DRILLS, DrillKind, Question, generateQuestion } from './quiz';
 	`,
 })
 export default class SchoolComponent {
-	protected readonly dex = inject(DexStore);
+	protected readonly pokedex = inject(PokedexStore);
 	protected readonly drills = DRILLS;
 
 	protected readonly kind = signal<DrillKind>('type-matchup');
@@ -252,8 +252,8 @@ export default class SchoolComponent {
 	 * Speeds — so the seed is nudged until one lands rather than showing an empty card.
 	 */
 	protected readonly question = computed<Question | null>(() => {
-		const entries = this.dex.entries();
-		const chart = this.dex.typeChart();
+		const entries = this.pokedex.entries();
+		const chart = this.pokedex.typeChart();
 		if (entries.length === 0 || Object.keys(chart).length === 0) return null;
 
 		for (let attempt = 0; attempt < 25; attempt++) {
@@ -274,11 +274,11 @@ export default class SchoolComponent {
 		this.chosen.set(label);
 		this.wasRight.set(isCorrect);
 		this.revealed.set(true);
-		this.answered.update((n) => n + 1);
+		this.answered.update((count) => count + 1);
 
 		if (isCorrect) {
-			this.correct.update((n) => n + 1);
-			this.streak.update((n) => n + 1);
+			this.correct.update((count) => count + 1);
+			this.streak.update((count) => count + 1);
 		} else {
 			this.streak.set(0);
 		}

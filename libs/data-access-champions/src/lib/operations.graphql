@@ -23,11 +23,11 @@ query RegulationList {
 	}
 }
 
-fragment PokemonSummary on ChampPokemonSummary {
+fragment PokemonSummary on ChampionsPokemonSummary {
 	id
 	slug
 	name
-	nationalDexNo
+	nationalPokedexNumber
 	types
 	isMega
 	spriteKey
@@ -43,19 +43,19 @@ fragment PokemonSummary on ChampPokemonSummary {
 	}
 }
 
-query ChampSearch($query: String!, $take: Int) {
-	champSearch(query: $query, take: $take) {
+query ChampionsSearch($query: String!, $take: Int) {
+	championsSearch(query: $query, take: $take) {
 		...PokemonSummary
 	}
 }
 
-# ChampPokemonDetail is a separate GraphQL object type rather than an implementation of an
+# ChampionsPokemonDetail is a separate GraphQL object type rather than an implementation of an
 # interface, so it needs its own fragment — the summary fields are repeated here on purpose.
-fragment PokemonDetail on ChampPokemonDetail {
+fragment PokemonDetail on ChampionsPokemonDetail {
 	id
 	slug
 	name
-	nationalDexNo
+	nationalPokedexNumber
 	types
 	isMega
 	spriteKey
@@ -71,8 +71,8 @@ fragment PokemonDetail on ChampPokemonDetail {
 	}
 }
 
-query ChampTeam($slugs: [String!]!) {
-	champTeam(slugs: $slugs) {
+query ChampionsTeam($slugs: [String!]!) {
+	championsTeam(slugs: $slugs) {
 		...PokemonDetail
 		learnsetIsApproximate
 		abilities {
@@ -122,19 +122,19 @@ query TypeChart {
 	}
 }
 
-query ChampRoster($type: String, $search: String, $includeMegas: Boolean, $take: Int, $skip: Int) {
-	champRoster(type: $type, search: $search, includeMegas: $includeMegas, take: $take, skip: $skip) {
+query ChampionsRoster($type: String, $search: String, $includeMegas: Boolean, $take: Int, $skip: Int) {
+	championsRoster(type: $type, search: $search, includeMegas: $includeMegas, take: $take, skip: $skip) {
 		...PokemonSummary
 	}
-	champRosterCount(type: $type, search: $search, includeMegas: $includeMegas)
+	championsRosterCount(type: $type, search: $search, includeMegas: $includeMegas)
 }
 
-query ChampDex {
-	champDex {
+query ChampionsPokedex {
+	championsPokedex {
 		id
 		slug
 		name
-		nationalDexNo
+		nationalPokedexNumber
 		types
 		isMega
 		hasMega
@@ -237,8 +237,8 @@ mutation DeleteTeam($id: Int!) {
 	deleteTeam(id: $id)
 }
 
-query ChampTypes {
-	champTypes {
+query ChampionsTypes {
+	championsTypes {
 		id
 		slug
 		name
@@ -247,8 +247,8 @@ query ChampTypes {
 
 # Keyed by slug in the browser and joined onto the roster's `abilitySlugs`, so the effect text
 # is sent once per ability rather than once per Pokémon that has it.
-query ChampAbilities {
-	champAbilities {
+query ChampionsAbilities {
+	championsAbilities {
 		id
 		slug
 		name
@@ -258,8 +258,8 @@ query ChampAbilities {
 }
 
 # Names only — enough for the move filter's autocomplete, without the learnsets behind them.
-query ChampMoveIndex {
-	champMoveIndex {
+query ChampionsMoveIndex {
+	championsMoveIndex {
 		id
 		slug
 		name
@@ -270,12 +270,12 @@ query ChampMoveIndex {
 
 # Fetched only once a move is actually picked. Ids, because the Pokédex already has the roster
 # and just needs to know which of it to keep.
-query ChampMoveLearners($moveSlug: String!) {
-	champMoveLearners(moveSlug: $moveSlug)
+query ChampionsMoveLearners($moveSlug: String!) {
+	championsMoveLearners(moveSlug: $moveSlug)
 }
 
-query ChampChangedMoves {
-	champChangedMoves {
+query ChampionsChangedMoves {
+	championsChangedMoves {
 		id
 		slug
 		name

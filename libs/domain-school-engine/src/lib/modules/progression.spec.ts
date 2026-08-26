@@ -9,10 +9,10 @@ import {
 	progressionGenerators,
 } from './progression';
 
-const ctx: GameContext = { versionGroup: null, generation: null };
-const SEEDS = Array.from({ length: 120 }, (_, i) => i * 5231 + 17);
+const context: GameContext = { versionGroup: null, generation: null };
+const SEEDS = Array.from({ length: 120 }, (_, index) => index * 5231 + 17);
 
-const evolutionTo = (species: string): EvolutionRef => EVOLUTIONS.find((e) => e.to === species) as EvolutionRef;
+const evolutionTo = (species: string): EvolutionRef => EVOLUTIONS.find((evolution) => evolution.to === species) as EvolutionRef;
 
 describe('describeEvolution', () => {
 	it('describes a plain level-up', () => {
@@ -57,56 +57,56 @@ describe('describeEvolution', () => {
 	});
 });
 
-describe.each(progressionGenerators.map((g) => [g.id, g] as const))('%s', (_id, generator: ExerciseGenerator) => {
+describe.each(progressionGenerators.map((progressionGenerator) => [progressionGenerator.id, progressionGenerator] as const))('%s', (_id, generator: ExerciseGenerator) => {
 	it('declares the reference sections it reads', () => {
 		expect(generator.requires.length).toBeGreaterThan(0);
 		expect(hasRequired(fullReference, generator)).toBe(true);
 	});
 
 	it('refuses to run when its reference data is absent', () => {
-		expect(() => generator.generate(1, {}, ctx)).toThrow(/missing reference data/);
+		expect(() => generator.generate(1, {}, context)).toThrow(/missing reference data/);
 	});
 
 	it('is deterministic', () => {
 		for (const seed of SEEDS.slice(0, 20)) {
-			expect(generator.generate(seed, fullReference, ctx)).toEqual(generator.generate(seed, fullReference, ctx));
+			expect(generator.generate(seed, fullReference, context)).toEqual(generator.generate(seed, fullReference, context));
 		}
 	});
 
 	it('never generates an ambiguous question', () => {
 		for (const seed of SEEDS) {
-			const exercise = generator.generate(seed, fullReference, ctx);
-			const correct = exercise.candidates.filter((c) => c.correct);
+			const exercise = generator.generate(seed, fullReference, context);
+			const correct = exercise.candidates.filter((candidate) => candidate.correct);
 			expect(correct).toHaveLength(1);
-			expect(exercise.candidates.filter((c) => !c.correct && Object.is(c.value, correct[0].value))).toEqual([]);
+			expect(exercise.candidates.filter((candidate) => !candidate.correct && Object.is(candidate.value, correct[0].value))).toEqual([]);
 		}
 	});
 
 	it('offers all four hint tiers in order', () => {
 		for (const seed of SEEDS.slice(0, 30)) {
-			const { hints } = generator.generate(seed, fullReference, ctx);
-			expect(hints.map((h) => h.tier)).toEqual([1, 2, 3, 4]);
-			expect(hints.every((h) => h.text.trim().length > 0)).toBe(true);
+			const { hints } = generator.generate(seed, fullReference, context);
+			expect(hints.map((hint) => hint.tier)).toEqual([1, 2, 3, 4]);
+			expect(hints.every((hint) => hint.text.trim().length > 0)).toBe(true);
 		}
 	});
 
 	it('never eliminates the right answer in the T2 narrowing hint', () => {
 		for (const seed of SEEDS) {
-			const exercise = generator.generate(seed, fullReference, ctx);
+			const exercise = generator.generate(seed, fullReference, context);
 			// Compare the *quoted* labels rather than substrings: one option's label is often a
 			// prefix of another ("Level up with high friendship" vs "…during the day"), so a
 			// substring check reports eliminations that never happened.
-			const quoted = [...(exercise.hints.find((h) => h.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+			const quoted = [...(exercise.hints.find((hint) => hint.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((entry) => entry[1]);
 			expect(quoted.length).toBeGreaterThan(0);
 			for (const label of quoted) {
-				expect(exercise.candidates.find((c) => c.label === label)?.correct).toBe(false);
+				expect(exercise.candidates.find((candidate) => candidate.label === label)?.correct).toBe(false);
 			}
 		}
 	});
 
 	it('produces four options and a stable id', () => {
 		for (const seed of SEEDS.slice(0, 30)) {
-			const exercise = generator.generate(seed, fullReference, ctx);
+			const exercise = generator.generate(seed, fullReference, context);
 			expect(exercise.candidates).toHaveLength(4);
 			expect(exercise.id).toBe(`${generator.lessonId}:${seed}`);
 		}
@@ -116,12 +116,12 @@ describe.each(progressionGenerators.map((g) => [g.id, g] as const))('%s', (_id, 
 describe('evolutionMethodGenerator', () => {
 	it('the answer really is that species pair’s condition', () => {
 		for (const seed of SEEDS) {
-			const exercise = evolutionMethodGenerator.generate(seed, fullReference, ctx);
+			const exercise = evolutionMethodGenerator.generate(seed, fullReference, context);
 			const pair = /How does (\w[\w' -]*) evolve into (\w[\w' -]*)\?/.exec(exercise.prompt);
 			expect(pair).not.toBeNull();
 
-			const answerLabel = exercise.candidates.find((c) => c.correct)?.label;
-			const match = EVOLUTIONS.filter((e) => describeEvolution(e) === answerLabel);
+			const answerLabel = exercise.candidates.find((candidate) => candidate.correct)?.label;
+			const match = EVOLUTIONS.filter((evolution) => describeEvolution(evolution) === answerLabel);
 			expect(match.length).toBeGreaterThan(0);
 		}
 	});
@@ -130,23 +130,23 @@ describe('evolutionMethodGenerator', () => {
 describe('machineNumberGenerator', () => {
 	it('names the game, because a TM number means nothing without one', () => {
 		for (const seed of SEEDS) {
-			const exercise = machineNumberGenerator.generate(seed, fullReference, ctx);
+			const exercise = machineNumberGenerator.generate(seed, fullReference, context);
 			expect(exercise.prompt).toMatch(/^In .+, which move does TM\d+ teach\?$/);
 		}
 	});
 
 	it('the answer is the move that machine actually teaches', () => {
 		for (const seed of SEEDS) {
-			const exercise = machineNumberGenerator.generate(seed, fullReference, ctx);
+			const exercise = machineNumberGenerator.generate(seed, fullReference, context);
 			const number = Number(/TM(\d+)/.exec(exercise.prompt)?.[1]);
-			const answer = exercise.candidates.find((c) => c.correct)?.value;
-			expect(MACHINES.find((m) => m.number === number)?.move).toBe(answer);
+			const answer = exercise.candidates.find((candidate) => candidate.correct)?.value;
+			expect(MACHINES.find((machine) => machine.number === number)?.move).toBe(answer);
 		}
 	});
 
 	it('never offers the same move twice', () => {
 		for (const seed of SEEDS) {
-			const values = machineNumberGenerator.generate(seed, fullReference, ctx).candidates.map((c) => c.value);
+			const values = machineNumberGenerator.generate(seed, fullReference, context).candidates.map((candidate) => candidate.value);
 			expect(new Set(values).size).toBe(values.length);
 		}
 	});
@@ -155,13 +155,13 @@ describe('machineNumberGenerator', () => {
 describe('growthRateGenerator', () => {
 	it('the marked answer really is the most expensive curve offered', () => {
 		for (const seed of SEEDS) {
-			const exercise = growthRateGenerator.generate(seed, fullReference, ctx);
-			const costOf = (slug: unknown) => GROWTH_RATES.find((r) => r.slug === slug)?.experienceToLevel100 ?? 0;
-			const costs = exercise.candidates.map((c) => costOf(c.value));
-			const answerCost = costOf(exercise.candidates.find((c) => c.correct)?.value);
+			const exercise = growthRateGenerator.generate(seed, fullReference, context);
+			const costOf = (slug: unknown) => GROWTH_RATES.find((growthRate) => growthRate.slug === slug)?.experienceToLevel100 ?? 0;
+			const costs = exercise.candidates.map((candidate) => costOf(candidate.value));
+			const answerCost = costOf(exercise.candidates.find((candidate) => candidate.correct)?.value);
 
 			expect(answerCost).toBe(Math.max(...costs));
-			expect(costs.filter((c) => c === answerCost)).toHaveLength(1);
+			expect(costs.filter((cost) => cost === answerCost)).toHaveLength(1);
 		}
 	});
 });

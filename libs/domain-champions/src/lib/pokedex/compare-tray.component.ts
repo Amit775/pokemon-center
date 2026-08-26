@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { RouterLink } from '@angular/router';
 import { StatKey } from '@pokemon-center/champions-engine';
 import { EntityPortraitComponent, TypeChipComponent, spriteSources } from '@pokemon-center/ui-pokedex';
-import { DexStore } from './dex.store';
+import { PokedexStore } from './pokedex.store';
 
 const STATS: { key: StatKey; label: string }[] = [
 	{ key: 'hp', label: 'HP' },
@@ -39,7 +39,7 @@ const STATS: { key: StatKey; label: string }[] = [
 					<ul class="picked">
 						@for (entry of entries(); track entry.slug) {
 							<li>
-								<pkd-entity-portrait
+								<pokedex-entity-portrait
 									[type]="entry.types[0]"
 									[src]="sprite(entry.id).src"
 									[fallbackSrc]="sprite(entry.id).fallbackSrc"
@@ -67,7 +67,7 @@ const STATS: { key: StatKey; label: string }[] = [
 											<a [routerLink]="['/champions/pokedex', entry.slug]">{{ entry.name }}</a>
 											<span class="chips">
 												@for (type of entry.types; track type) {
-													<pkd-type-chip [type]="type" size="sm" />
+													<pokedex-type-chip [type]="type" size="sm" />
 												}
 											</span>
 										</th>
@@ -247,7 +247,7 @@ const STATS: { key: StatKey; label: string }[] = [
 	`,
 })
 export class CompareTrayComponent {
-	protected readonly store = inject(DexStore);
+	protected readonly store = inject(PokedexStore);
 	protected readonly open = signal(false);
 
 	protected readonly entries = computed(() => this.store.compareEntries());

@@ -70,10 +70,10 @@ import { ButtonComponent } from '@pokemon-center/ui-pokedex';
 					<p class="verdict" [class.is-good]="result()!.quality === 1" role="status" aria-live="polite">
 						<b>{{ verdictLabel() }}</b> {{ result()!.summary }}
 					</p>
-					<button type="button" pkd-button="primary" (click)="next.emit()">Next</button>
+					<button type="button" pokedex-button="primary" (click)="next.emit()">Next</button>
 				} @else {
-					<button type="button" pkd-button="primary" (click)="submit()" [disabled]="!canSubmit()">Lock it in</button>
-					<button type="button" pkd-button (click)="revealHint()" [disabled]="!canHint()">
+					<button type="button" pokedex-button="primary" (click)="submit()" [disabled]="!canSubmit()">Lock it in</button>
+					<button type="button" pokedex-button (click)="revealHint()" [disabled]="!canHint()">
 						{{ hintsLeft() === 4 ? 'Need a hint?' : hintsLeft() + ' hint(s) left' }}
 					</button>
 				}
@@ -225,7 +225,7 @@ export class ScenarioPlayerComponent {
 
 	protected readonly submitted = computed(() => this.result() !== null);
 	protected readonly canSubmit = computed(() => this.selected().length === this.scenario().pick);
-	protected readonly visibleHints = computed(() => this.scenario().hints.filter((h) => h.tier <= this.revealedTier()));
+	protected readonly visibleHints = computed(() => this.scenario().hints.filter((hint) => hint.tier <= this.revealedTier()));
 	protected readonly canHint = computed(() => !this.submitted() && this.revealedTier() < 4);
 	protected readonly hintsLeft = computed(() => 4 - this.revealedTier());
 

@@ -49,7 +49,7 @@ function bestCombination(chart: TypeChart, moves: readonly MoveRef[]): { ids: st
 	return { ids: bestIds, score: bestScore };
 }
 
-export function buildCoverageScenario(seed: number, ref: ReferenceData, ctx: GameContext): Scenario {
+export function buildCoverageScenario(seed: number, ref: ReferenceData, context: GameContext): Scenario {
 	const lessonId = 'coverage.four-move-coverage';
 	const chart = requireRef(ref, 'typeChart', lessonId);
 	const moves = requireRef(ref, 'moves', lessonId);
@@ -110,11 +110,11 @@ export function buildCoverageScenario(seed: number, ref: ReferenceData, ctx: Gam
 				optimalIds: optimum.ids,
 				summary:
 					achieved === optimum.score
-						? `${achieved} of ${chart.types.length} types covered — the best available here${eraNote(ctx.versionGroup)}.`
+						? `${achieved} of ${chart.types.length} types covered — the best available here${eraNote(context.versionGroup)}.`
 						: `${achieved} of ${chart.types.length} covered; the best available was ${optimum.score}. Missed: ${gaps
 								.slice(0, 6)
 								.map(title)
-								.join(', ')}${gaps.length > 6 ? '…' : ''}${eraNote(ctx.versionGroup)}.`,
+								.join(', ')}${gaps.length > 6 ? '…' : ''}${eraNote(context.versionGroup)}.`,
 			};
 		},
 	};

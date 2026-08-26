@@ -24,7 +24,7 @@ import { RankedAnswer, VERDICT_LABEL, explain } from './counters';
 			@for (answer of answers(); track answer.entry.slug) {
 				<li>
 					<a class="who" [routerLink]="['/champions/pokedex', answer.entry.slug]">
-						<pkd-entity-portrait
+						<pokedex-entity-portrait
 							[type]="answer.entry.types[0]"
 							[src]="sprite(answer.entry.id).src"
 							[fallbackSrc]="sprite(answer.entry.id).fallbackSrc"

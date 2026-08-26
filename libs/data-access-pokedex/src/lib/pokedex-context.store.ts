@@ -64,11 +64,11 @@ export const PokedexContextStore = signalStore(
 		},
 		saveFilter(filter: FilterSet): void {
 			patchState(store, {
-				savedFilters: [...store.savedFilters().filter((f) => f.name !== filter.name), filter],
+				savedFilters: [...store.savedFilters().filter((existingFilter) => existingFilter.name !== filter.name), filter],
 			});
 		},
 		deleteFilter(name: string): void {
-			patchState(store, { savedFilters: store.savedFilters().filter((f) => f.name !== name) });
+			patchState(store, { savedFilters: store.savedFilters().filter((existingFilter) => existingFilter.name !== name) });
 		},
 		toggleFavorite(canonicalId: string): void {
 			const favorites = store.favorites();

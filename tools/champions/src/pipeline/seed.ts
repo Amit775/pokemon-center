@@ -20,14 +20,14 @@ import { DERIVED_DIR, DerivedDataset } from '../lib/champions-data';
 
 function loadDataset(file?: string): { dataset: DerivedDataset; path: string } {
 	const dir = path.join(process.cwd(), DERIVED_DIR);
-	const candidates = file ? [path.join(process.cwd(), file)] : fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => path.join(dir, f)) : [];
+	const candidates = file ? [path.join(process.cwd(), file)] : fs.existsSync(dir) ? fs.readdirSync(dir).filter((fileName) => fileName.endsWith('.json')).map((fileName) => path.join(dir, fileName)) : [];
 
 	if (candidates.length === 0) {
 		throw new Error(`No derived dataset found in ${DERIVED_DIR}. Run "nx run champions:derive" first.`);
 	}
 
 	// Newest first, so a fresh regulation wins without needing an argument.
-	const chosen = candidates.sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)[0];
+	const chosen = candidates.sort((first, second) => fs.statSync(second).mtimeMs - fs.statSync(first).mtimeMs)[0];
 	return { dataset: JSON.parse(fs.readFileSync(chosen, 'utf8')) as DerivedDataset, path: chosen };
 }
 
@@ -41,24 +41,24 @@ export async function runSeed(file?: string): Promise<void> {
 	try {
 		// ---- reference data, parents before children ------------------------------------
 		await prisma.$transaction(
-			dataset.types.map((t) =>
-				prisma.champType.upsert({ where: { id: t.id }, create: { id: t.id, slug: t.slug, name: t.name }, update: { slug: t.slug, name: t.name } }),
+			dataset.types.map((datasetType) =>
+				prisma.championsType.upsert({ where: { id: datasetType.id }, create: { id: datasetType.id, slug: datasetType.slug, name: datasetType.name }, update: { slug: datasetType.slug, name: datasetType.name } }),
 			),
 		);
 		console.log(`  types: ${dataset.types.length}`);
 
-		await prisma.champTypeEfficacy.deleteMany({});
-		await prisma.champTypeEfficacy.createMany({
-			data: dataset.typeEfficacy.map((e) => ({
-				attacking_type_id: e.attackingTypeId,
-				defending_type_id: e.defendingTypeId,
-				damage_factor: e.damageFactor,
+		await prisma.championsTypeEfficacy.deleteMany({});
+		await prisma.championsTypeEfficacy.createMany({
+			data: dataset.typeEfficacy.map((entry) => ({
+				attacking_type_id: entry.attackingTypeId,
+				defending_type_id: entry.defendingTypeId,
+				damage_factor: entry.damageFactor,
 			})),
 		});
 		console.log(`  type efficacy: ${dataset.typeEfficacy.length}`);
 
 		for (const a of dataset.abilities) {
-			await prisma.champAbility.upsert({
+			await prisma.championsAbility.upsert({
 				where: { id: a.id },
 				create: { id: a.id, slug: a.slug, name: a.name, effect_text: a.effectText, is_mega: a.isMega },
 				update: { slug: a.slug, name: a.name, effect_text: a.effectText, is_mega: a.isMega },
@@ -82,17 +82,17 @@ export async function runSeed(file?: string): Promise<void> {
 				is_overridden: m.isOverridden,
 				override_note: m.overrideNote,
 			};
-			await prisma.champMove.upsert({ where: { id: m.id }, create: { id: m.id, ...fields }, update: fields });
+			await prisma.championsMove.upsert({ where: { id: m.id }, create: { id: m.id, ...fields }, update: fields });
 		}
-		console.log(`  moves: ${dataset.moves.length} (${dataset.moves.filter((m) => m.isOverridden).length} overridden)`);
+		console.log(`  moves: ${dataset.moves.length} (${dataset.moves.filter((move) => move.isOverridden).length} overridden)`);
 
 		// Base forms before Megas, so `mega_of_id` always has a row to point at.
-		const ordered = [...dataset.pokemon].sort((a, b) => Number(a.isMega) - Number(b.isMega));
+		const ordered = [...dataset.pokemon].sort((first, second) => Number(first.isMega) - Number(second.isMega));
 		for (const p of ordered) {
 			const fields = {
 				slug: p.slug,
 				name: p.name,
-				national_dex_no: p.nationalDexNo,
+				national_pokedex_number: p.nationalPokedexNumber,
 				type1_id: p.type1Id,
 				type2_id: p.type2Id,
 				base_hp: p.baseHp,
@@ -107,26 +107,26 @@ export async function runSeed(file?: string): Promise<void> {
 				sprite_key: p.spriteKey,
 				learnset_is_approximate: p.learnsetIsApproximate,
 			};
-			await prisma.champPokemon.upsert({ where: { id: p.id }, create: { id: p.id, ...fields }, update: fields });
+			await prisma.championsPokemon.upsert({ where: { id: p.id }, create: { id: p.id, ...fields }, update: fields });
 		}
 		console.log(`  pokemon: ${dataset.pokemon.length}`);
 
 		// Join tables are rebuilt wholesale — cheap at this scale, and it means a Pokémon
 		// that lost a move does not keep it forever.
-		const pokemonIds = dataset.pokemon.map((p) => p.id);
-		await prisma.champPokemonAbility.deleteMany({ where: { pokemon_id: { in: pokemonIds } } });
-		await prisma.champPokemonAbility.createMany({
-			data: dataset.pokemon.flatMap((p) =>
-				p.abilities.map((a) => ({ pokemon_id: p.id, ability_id: a.abilityId, slot: a.slot, is_hidden: a.isHidden })),
+		const pokemonIds = dataset.pokemon.map((pokemonEntry) => pokemonEntry.id);
+		await prisma.championsPokemonAbility.deleteMany({ where: { pokemon_id: { in: pokemonIds } } });
+		await prisma.championsPokemonAbility.createMany({
+			data: dataset.pokemon.flatMap((pokemonEntry) =>
+				pokemonEntry.abilities.map((ability) => ({ pokemon_id: pokemonEntry.id, ability_id: ability.abilityId, slot: ability.slot, is_hidden: ability.isHidden })),
 			),
 			skipDuplicates: true,
 		});
 
-		await prisma.champLearnset.deleteMany({ where: { pokemon_id: { in: pokemonIds } } });
-		const learnset = dataset.pokemon.flatMap((p) => p.moveIds.map((moveId) => ({ pokemon_id: p.id, move_id: moveId })));
+		await prisma.championsLearnset.deleteMany({ where: { pokemon_id: { in: pokemonIds } } });
+		const learnset = dataset.pokemon.flatMap((pokemonEntry) => pokemonEntry.moveIds.map((moveId) => ({ pokemon_id: pokemonEntry.id, move_id: moveId })));
 		// Chunked: a single createMany with tens of thousands of rows exceeds the parameter limit.
 		for (let i = 0; i < learnset.length; i += 5000) {
-			await prisma.champLearnset.createMany({ data: learnset.slice(i, i + 5000), skipDuplicates: true });
+			await prisma.championsLearnset.createMany({ data: learnset.slice(i, i + 5000), skipDuplicates: true });
 		}
 		console.log(`  learnset pairs: ${learnset.length}`);
 

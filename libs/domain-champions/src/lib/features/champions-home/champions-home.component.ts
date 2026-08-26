@@ -22,9 +22,9 @@ import { RegulationStore } from '../../regulation.store';
 		</header>
 
 		@if (store.isLoading()) {
-			<pkd-skeleton />
+			<pokedex-skeleton />
 		} @else if (store.error()) {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel error">
 					<h2>Champions API unreachable</h2>
 					<p>
@@ -32,10 +32,10 @@ import { RegulationStore } from '../../regulation.store';
 						<code>nx serve champions-service</code>.
 					</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		} @else if (store.regulation(); as regulation) {
-			<pkd-section-heading label="Active regulation" />
-			<pkd-card>
+			<pokedex-section-heading label="Active regulation" />
+			<pokedex-card>
 				<div class="panel">
 					<div class="reg-head">
 						<span class="code">{{ regulation.code }}</span>
@@ -66,10 +66,10 @@ import { RegulationStore } from '../../regulation.store';
 						<p class="notes">{{ regulation.notes }}</p>
 					}
 				</div>
-			</pkd-card>
+			</pokedex-card>
 
 			@if (!store.hasRoster()) {
-				<pkd-card>
+				<pokedex-card>
 					<div class="panel next">
 						<h2>Roster not seeded</h2>
 						<p>
@@ -77,9 +77,9 @@ import { RegulationStore } from '../../regulation.store';
 							populate the species and Mega Evolutions legal in {{ regulation.code }}.
 						</p>
 					</div>
-				</pkd-card>
+				</pokedex-card>
 			} @else {
-				<pkd-section-heading label="Tools" />
+				<pokedex-section-heading label="Tools" />
 				<div class="tools">
 					<a class="tool" routerLink="preview">
 						<span class="tool-name">Team preview advisor</span>
@@ -93,7 +93,7 @@ import { RegulationStore } from '../../regulation.store';
 							One tap per event while you play. Live damage, KO odds and who moves first.
 						</span>
 					</a>
-					<a class="tool" routerLink="dex">
+					<a class="tool" routerLink="pokedex">
 						<span class="tool-name">Roster</span>
 						<span class="tool-blurb">
 							Every legal Pokémon with Champions' own stats, typings and Mega abilities.
@@ -108,12 +108,12 @@ import { RegulationStore } from '../../regulation.store';
 				</div>
 			}
 		} @else {
-			<pkd-card>
+			<pokedex-card>
 				<div class="panel">
 					<h2>No regulation loaded</h2>
 					<p>The Champions database is reachable but empty. Seed a regulation to begin.</p>
 				</div>
-			</pkd-card>
+			</pokedex-card>
 		}
 	`,
 	styles: `

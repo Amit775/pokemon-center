@@ -56,8 +56,8 @@ const randomSeed = (): number => Math.floor(Math.random() * 0x7fffffff);
 				<p class="sub">Streak: {{ progress.streak().current }} day(s) — best {{ progress.streak().best }}.</p>
 				<p class="note">Replay this exact drill: <code>?seed={{ seed() }}</code></p>
 				<div class="bar">
-					<button type="button" pkd-button="primary" (click)="again()">New drill</button>
-					<a pkd-button routerLink="/school">Back to School</a>
+					<button type="button" pokedex-button="primary" (click)="again()">New drill</button>
+					<a pokedex-button routerLink="/school">Back to School</a>
 				</div>
 			</section>
 		}
@@ -197,7 +197,7 @@ export default class DrillComponent {
 	protected onAnswered(attempt: Attempt): void {
 		const exercise = this.current();
 		if (exercise) this.progress.recordFor(exercise.lessonId, attempt);
-		if (attempt.correct) this.correct.update((n) => n + 1);
+		if (attempt.correct) this.correct.update((count) => count + 1);
 	}
 
 	protected onNext(): void {

@@ -5,8 +5,8 @@
 		Gen
 		<select (change)="onGeneration($event)">
 			<option value="" [selected]="generation() === null">All</option>
-			@for (gen of generations; track gen) {
-				<option [value]="gen" [selected]="generation() === gen">{{ gen }}</option>
+			@for (generationNumber of generations; track generationNumber) {
+				<option [value]="generationNumber" [selected]="generation() === generationNumber">{{ generationNumber }}</option>
 			}
 		</select>
 	</label>
@@ -36,6 +36,6 @@
 
 <div class="type-facets">
 	@for (type of allTypes(); track type.id) {
-		<pkd-chip-toggle [label]="type.identifier" [type]="type.identifier" [active]="types().includes(type.identifier)" (toggled)="toggleType(type.identifier)" />
+		<pokedex-chip-toggle [label]="type.identifier" [type]="type.identifier" [active]="types().includes(type.identifier)" (toggled)="toggleType(type.identifier)" />
 	}
 </div>

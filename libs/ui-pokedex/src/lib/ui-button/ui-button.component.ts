@@ -7,11 +7,11 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  * an `<a routerLink>` without nesting interactive elements or breaking routing — the two ways a
  * "button" actually appears in this app.
  *
- *   <button pkd-button (click)="…">Hint</button>
- *   <a pkd-button="primary" routerLink="/school/drill">Start a drill</a>
+ *   <button pokedex-button (click)="…">Hint</button>
+ *   <a pokedex-button="primary" routerLink="/school/drill">Start a drill</a>
  */
 @Component({
-	selector: 'button[pkd-button], a[pkd-button]',
+	selector: 'button[pokedex-button], a[pokedex-button]',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `<ng-content />`,
 	host: { '[class.is-primary]': 'primary()' },
@@ -58,8 +58,8 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 	`,
 })
 export class ButtonComponent {
-	/** `pkd-button` alone is the default look; `pkd-button="primary"` is the filled one. */
-	readonly variant = input<'' | 'default' | 'primary'>('', { alias: 'pkd-button' });
+	/** `pokedex-button` alone is the default look; `pokedex-button="primary"` is the filled one. */
+	readonly variant = input<'' | 'default' | 'primary'>('', { alias: 'pokedex-button' });
 
 	protected readonly primary = computed(() => this.variant() === 'primary');
 }

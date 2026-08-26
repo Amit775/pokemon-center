@@ -43,7 +43,7 @@ const ROWS: { key: StatKey; label: string }[] = [
 	template: `
 		@for (row of rows; track row.key) {
 			<div class="row">
-				<pkd-stat-bar [label]="row.label" [value]="base()[row.key]" [type]="type()" />
+				<pokedex-stat-bar [label]="row.label" [value]="base()[row.key]" [type]="type()" />
 				@if (open()) {
 					<input
 						type="number"

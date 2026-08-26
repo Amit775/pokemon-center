@@ -1,5 +1,5 @@
 import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
-import { ChampAbility, ChampMove, ChampPokemonSummary } from './pokemon.model';
+import { ChampionsAbility, ChampionsMove, ChampionsPokemonSummary } from './pokemon.model';
 
 /**
  * The Box and teams — the mutable half of the Champions API.
@@ -35,13 +35,13 @@ export class StatPointSpreadInput {
 @ObjectType()
 export class BoxPokemon {
 	@Field(() => Int) id!: number;
-	@Field(() => ChampPokemonSummary) pokemon!: ChampPokemonSummary;
+	@Field(() => ChampionsPokemonSummary) pokemon!: ChampionsPokemonSummary;
 	@Field(() => String, { nullable: true }) nickname!: string | null;
 	@Field(() => String, { nullable: true }) nature!: string | null;
-	@Field(() => ChampAbility, { nullable: true }) ability!: ChampAbility | null;
+	@Field(() => ChampionsAbility, { nullable: true }) ability!: ChampionsAbility | null;
 	@Field(() => String, { nullable: true }) item!: string | null;
 	@Field(() => StatPointSpread) statPoints!: StatPointSpread;
-	@Field(() => [ChampMove]) moves!: ChampMove[];
+	@Field(() => [ChampionsMove]) moves!: ChampionsMove[];
 	@Field(() => String, { nullable: true }) notes!: string | null;
 }
 
@@ -63,7 +63,7 @@ export class BoxPokemonInput {
 @ObjectType()
 export class TeamMember {
 	@Field(() => Int) slot!: number;
-	@Field(() => ChampPokemonSummary) pokemon!: ChampPokemonSummary;
+	@Field(() => ChampionsPokemonSummary) pokemon!: ChampionsPokemonSummary;
 	/** Present on your own teams: the exact build from your Box. */
 	@Field(() => BoxPokemon, { nullable: true }) boxPokemon!: BoxPokemon | null;
 }

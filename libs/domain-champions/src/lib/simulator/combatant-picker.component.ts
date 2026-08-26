@@ -1,8 +1,18 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
-import { ChampSearchDocument, champResource } from '@pokemon-center/data-access-champions';
+import { ChampionsSearchDocument, championsResource } from '@pokemon-center/data-access-champions';
 import { EntityPortraitComponent, TypeChipComponent, spriteSources } from '@pokemon-center/ui-pokedex';
 import { BoxStore } from '../box/box.store';
-import { DexStore } from '../dex/dex.store';
+import { PokedexStore } from '../pokedex/pokedex.store';
+
+/**
+ * A combatant key is `box:<id>` or `pokedex:<slug>`. The prefixes are named rather than sliced
+ * off by a hardcoded length, because the two are different widths — reading one back with the
+ * other's offset silently yields a slug that matches nothing rather than an error.
+ *
+ * In-memory only: the URL carries bare slugs, so renaming a prefix breaks no stored state.
+ */
+export const BOX_PREFIX = 'box:';
+export const POKEDEX_PREFIX = 'pokedex:';
 
 /**
  * Picks one side of a simulated matchup — a real build from the Box, or anything on the roster.
@@ -21,7 +31,7 @@ import { DexStore } from '../dex/dex.store';
 
 			@if (chosen(); as choice) {
 				<button type="button" class="chosen" (click)="reset()">
-					<pkd-entity-portrait
+					<pokedex-entity-portrait
 						[type]="choice.types[0]"
 						[src]="sprite(choice.id).src"
 						[fallbackSrc]="sprite(choice.id).fallbackSrc"
@@ -32,7 +42,7 @@ import { DexStore } from '../dex/dex.store';
 						<span class="chosen-name">{{ choice.name }}</span>
 						<span class="chips">
 							@for (type of choice.types; track type) {
-								<pkd-type-chip [type]="type" size="sm" />
+								<pokedex-type-chip [type]="type" size="sm" />
 							}
 						</span>
 						<span class="source" [class.exact]="choice.exact">{{ choice.exact ? 'Your build' : 'Inferred' }}</span>
@@ -43,7 +53,7 @@ import { DexStore } from '../dex/dex.store';
 					<div class="box-row">
 						@for (entry of box.entries(); track entry.id) {
 							<button type="button" class="box-chip" (click)="picked.emit('box:' + entry.id)">
-								<pkd-entity-portrait
+								<pokedex-entity-portrait
 									[type]="entry.pokemon.types[0]"
 									[src]="sprite(entry.pokemon.id).src"
 									[fallbackSrc]="sprite(entry.pokemon.id).fallbackSrc"
@@ -68,8 +78,8 @@ import { DexStore } from '../dex/dex.store';
 					<ul class="results">
 						@for (result of results(); track result.slug) {
 							<li>
-								<button type="button" (click)="picked.emit('dex:' + result.slug)">
-									<pkd-entity-portrait
+								<button type="button" (click)="picked.emit(pokedexKey(result.slug))">
+									<pokedex-entity-portrait
 										[type]="result.types[0]"
 										[src]="sprite(result.id).src"
 										[fallbackSrc]="sprite(result.id).fallbackSrc"
@@ -198,16 +208,16 @@ import { DexStore } from '../dex/dex.store';
 })
 export class CombatantPickerComponent {
 	readonly label = input.required<string>();
-	/** `box:<id>` or `dex:<slug>`. */
+	/** `box:<id>` or `pokedex:<slug>`. */
 	readonly selected = input<string | null>(null);
 	readonly picked = output<string | null>();
 
 	protected readonly box = inject(BoxStore);
-	private readonly dex = inject(DexStore);
+	private readonly pokedex = inject(PokedexStore);
 	protected readonly term = signal('');
 
-	private readonly search = champResource(ChampSearchDocument, () => ({ query: this.term(), take: 8 }));
-	protected readonly results = computed(() => (this.term().trim() === '' ? [] : (this.search.value()?.champSearch ?? [])));
+	private readonly search = championsResource(ChampionsSearchDocument, () => ({ query: this.term(), take: 8 }));
+	protected readonly results = computed(() => (this.term().trim() === '' ? [] : (this.search.value()?.championsSearch ?? [])));
 
 	/**
 	 * What is currently selected, and whether its numbers are exact or inferred.
@@ -216,19 +226,24 @@ export class CombatantPickerComponent {
 	 * roster in memory — so this costs nothing and, unlike reading it back out of the search
 	 * results, survives the search box being cleared.
 	 */
+	/** The key a roster pick emits, so the prefix lives in one place rather than in the template. */
+	protected pokedexKey(slug: string): string {
+		return `${POKEDEX_PREFIX}${slug}`;
+	}
+
 	protected readonly chosen = computed(() => {
 		const key = this.selected();
 		if (!key) return null;
 
-		if (key.startsWith('box:')) {
-			const entry = this.box.entries().find((e) => e.id === Number(key.slice(4)));
+		if (key.startsWith(BOX_PREFIX)) {
+			const entry = this.box.entries().find((boxEntry) => boxEntry.id === Number(key.slice(BOX_PREFIX.length)));
 			return entry
 				? { id: entry.pokemon.id, name: entry.nickname || entry.pokemon.name, types: entry.pokemon.types, exact: true }
 				: null;
 		}
 
-		const slug = key.slice(4);
-		const found = this.dex.entries().find((entry) => entry.slug === slug);
+		const slug = key.slice(POKEDEX_PREFIX.length);
+		const found = this.pokedex.entries().find((entry) => entry.slug === slug);
 		return found ? { id: found.id, name: found.name, types: found.types, exact: false } : null;
 	});
 

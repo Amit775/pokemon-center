@@ -5,15 +5,15 @@ import { MOVES } from './testing/reference.fixture';
 import { MODERN_CHART } from './testing/type-chart.fixture';
 import type { GameContext, ReferenceData } from './types';
 
-const ctx: GameContext = { versionGroup: null, generation: null };
+const context: GameContext = { versionGroup: null, generation: null };
 const ref: ReferenceData = { typeChart: MODERN_CHART, moves: MOVES };
-const SEEDS = Array.from({ length: 60 }, (_, i) => i * 4517 + 11);
+const SEEDS = Array.from({ length: 60 }, (_, index) => index * 4517 + 11);
 
 describe('combinations', () => {
 	it('produces every k-subset exactly once', () => {
 		const all = [...combinations([1, 2, 3, 4], 2)];
 		expect(all).toHaveLength(6);
-		expect(new Set(all.map((c) => c.join(','))).size).toBe(6);
+		expect(new Set(all.map((combination) => combination.join(','))).size).toBe(6);
 	});
 
 	it('yields nothing when k exceeds the pool', () => {
@@ -65,8 +65,8 @@ describe('coverageGaps', () => {
 describe('buildCoverageScenario', () => {
 	it('is deterministic', () => {
 		for (const seed of SEEDS.slice(0, 10)) {
-			const a = buildCoverageScenario(seed, ref, ctx);
-			const b = buildCoverageScenario(seed, ref, ctx);
+			const a = buildCoverageScenario(seed, ref, context);
+			const b = buildCoverageScenario(seed, ref, context);
 			expect(a.options).toEqual(b.options);
 			expect(a.prompt).toBe(b.prompt);
 		}
@@ -74,15 +74,15 @@ describe('buildCoverageScenario', () => {
 
 	it('offers one move per attacking type, so no pick is a duplicate of another', () => {
 		for (const seed of SEEDS) {
-			const scenario = buildCoverageScenario(seed, ref, ctx);
-			const types = scenario.options.map((o) => o.detail?.split(' · ')[0]);
+			const scenario = buildCoverageScenario(seed, ref, context);
+			const types = scenario.options.map((option) => option.detail?.split(' · ')[0]);
 			expect(new Set(types).size).toBe(scenario.options.length);
 		}
 	});
 
 	it('grades the optimal set as full quality', () => {
 		for (const seed of SEEDS) {
-			const scenario = buildCoverageScenario(seed, ref, ctx);
+			const scenario = buildCoverageScenario(seed, ref, context);
 			const result = scenario.grade(scenario.grade([]).optimalIds);
 			expect(result.quality).toBe(1);
 			expect(result.achieved).toBe(result.optimal);
@@ -93,9 +93,9 @@ describe('buildCoverageScenario', () => {
 		// The optimum is computed over every combination, so nothing can exceed it. If this
 		// ever fails, the grader and the optimum have drifted apart.
 		for (const seed of SEEDS) {
-			const scenario = buildCoverageScenario(seed, ref, ctx);
+			const scenario = buildCoverageScenario(seed, ref, context);
 			for (const combo of combinations(scenario.options, COVERAGE_PICK)) {
-				const result = scenario.grade(combo.map((o) => o.id));
+				const result = scenario.grade(combo.map((option) => option.id));
 				expect(result.achieved).toBeLessThanOrEqual(result.optimal);
 				expect(result.quality).toBeLessThanOrEqual(1);
 			}
@@ -103,15 +103,15 @@ describe('buildCoverageScenario', () => {
 	});
 
 	it('rates a deliberately redundant pick below the optimum', () => {
-		const scenario = buildCoverageScenario(SEEDS[0], ref, ctx);
+		const scenario = buildCoverageScenario(SEEDS[0], ref, context);
 		const optimal = scenario.grade(scenario.grade([]).optimalIds);
 		const single = scenario.grade([scenario.options[0].id]);
 		expect(single.achieved).toBeLessThan(optimal.achieved);
 	});
 
 	it('refuses to run without both a chart and moves', () => {
-		expect(() => buildCoverageScenario(1, { typeChart: MODERN_CHART }, ctx)).toThrow(/missing reference data: moves/);
-		expect(() => buildCoverageScenario(1, { moves: MOVES }, ctx)).toThrow(/missing reference data: typeChart/);
+		expect(() => buildCoverageScenario(1, { typeChart: MODERN_CHART }, context)).toThrow(/missing reference data: moves/);
+		expect(() => buildCoverageScenario(1, { moves: MOVES }, context)).toThrow(/missing reference data: typeChart/);
 	});
 });
 
@@ -125,7 +125,7 @@ const candidate = (slug: string, score: number): MatchupCandidate => ({
 	score,
 });
 
-const CANDIDATES = Array.from({ length: 15 }, (_, i) => candidate(`mon-${i}`, 200 - i * 7));
+const CANDIDATES = Array.from({ length: 15 }, (_, index) => candidate(`mon-${index}`, 200 - index * 7));
 
 describe('pickMatchupDefender', () => {
 	it('is deterministic and always names real types', () => {
@@ -155,14 +155,14 @@ describe('buildMatchupScenario', () => {
 	it('always offers the genuinely best counter', () => {
 		// "Pick the best counter" is unanswerable if the best one is not on the list.
 		for (const seed of SEEDS) {
-			const scenario = buildMatchupScenario(seed, ['water', 'flying'], CANDIDATES, ctx);
-			expect(scenario.options.map((o) => o.id)).toContain('mon-0');
+			const scenario = buildMatchupScenario(seed, ['water', 'flying'], CANDIDATES, context);
+			expect(scenario.options.map((option) => option.id)).toContain('mon-0');
 		}
 	});
 
 	it('grades the best counter as full quality and rank 1', () => {
 		for (const seed of SEEDS) {
-			const scenario = buildMatchupScenario(seed, ['water'], CANDIDATES, ctx);
+			const scenario = buildMatchupScenario(seed, ['water'], CANDIDATES, context);
 			const result = scenario.grade(['mon-0']);
 			expect(result.quality).toBe(1);
 			expect(result.rank).toBe(1);
@@ -170,8 +170,8 @@ describe('buildMatchupScenario', () => {
 	});
 
 	it('gives partial credit for a near miss rather than zero', () => {
-		const scenario = buildMatchupScenario(SEEDS[0], ['water'], CANDIDATES, ctx);
-		const runnerUp = scenario.options.map((o) => o.id).filter((id) => id !== 'mon-0')[0];
+		const scenario = buildMatchupScenario(SEEDS[0], ['water'], CANDIDATES, context);
+		const runnerUp = scenario.options.map((option) => option.id).filter((id) => id !== 'mon-0')[0];
 		const result = scenario.grade([runnerUp]);
 
 		expect(result.quality).toBeGreaterThan(0);
@@ -180,16 +180,16 @@ describe('buildMatchupScenario', () => {
 	});
 
 	it('scores an empty selection as zero without throwing', () => {
-		const scenario = buildMatchupScenario(SEEDS[0], ['water'], CANDIDATES, ctx);
+		const scenario = buildMatchupScenario(SEEDS[0], ['water'], CANDIDATES, context);
 		expect(scenario.grade([]).quality).toBe(0);
 	});
 
 	it('refuses to build from too few counters', () => {
-		expect(() => buildMatchupScenario(1, ['water'], CANDIDATES.slice(0, 3), ctx)).toThrow(/need 6/);
+		expect(() => buildMatchupScenario(1, ['water'], CANDIDATES.slice(0, 3), context)).toThrow(/need 6/);
 	});
 
 	it('is a single-pick scenario on the matchup lesson', () => {
-		const scenario = buildMatchupScenario(SEEDS[0], ['water'], CANDIDATES, ctx);
+		const scenario = buildMatchupScenario(SEEDS[0], ['water'], CANDIDATES, context);
 		expect(scenario.pick).toBe(1);
 		expect(scenario.lessonId).toBe(MATCHUP_LESSON_ID);
 	});
@@ -198,13 +198,13 @@ describe('buildMatchupScenario', () => {
 /* ---------------------------------------------- shared shape */
 
 describe.each([
-	['coverage', () => buildCoverageScenario(SEEDS[3], ref, ctx)],
-	['matchup', () => buildMatchupScenario(SEEDS[3], ['water', 'flying'], CANDIDATES, ctx)],
+	['coverage', () => buildCoverageScenario(SEEDS[3], ref, context)],
+	['matchup', () => buildMatchupScenario(SEEDS[3], ['water', 'flying'], CANDIDATES, context)],
 ] as const)('%s scenario', (_name, build) => {
 	it('offers all four hint tiers in order', () => {
 		const { hints } = build();
-		expect(hints.map((h) => h.tier)).toEqual([1, 2, 3, 4]);
-		expect(hints.every((h) => h.text.trim().length > 0)).toBe(true);
+		expect(hints.map((hint) => hint.tier)).toEqual([1, 2, 3, 4]);
+		expect(hints.every((hint) => hint.text.trim().length > 0)).toBe(true);
 	});
 
 	it('asks for a sane number of picks from a larger option set', () => {

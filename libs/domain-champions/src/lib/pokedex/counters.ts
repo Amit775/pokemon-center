@@ -1,5 +1,5 @@
 import { CounterScore, TypeChart, compareCounters, counterScore, isAnswer } from '@pokemon-center/champions-engine';
-import { DexEntry, toCounterSubject } from './dex-filter';
+import { PokedexEntry, toCounterSubject } from './pokedex-filter';
 
 /**
  * The two counter lists a detail page shows, built from the roster already in memory.
@@ -13,7 +13,7 @@ import { DexEntry, toCounterSubject } from './dex-filter';
  */
 
 export interface RankedAnswer {
-	entry: DexEntry;
+	entry: PokedexEntry;
 	score: CounterScore;
 }
 
@@ -24,7 +24,7 @@ export interface RankedAnswer {
  * Pokémon enters, not a second Pokémon, and listing "Garchomp" above "Mega Garchomp" reads as
  * two answers when it is one. The Mega's own numbers live on its base form's page.
  */
-function candidates(roster: readonly DexEntry[], subjectSlug: string): DexEntry[] {
+function candidates(roster: readonly PokedexEntry[], subjectSlug: string): PokedexEntry[] {
 	return roster.filter((entry) => !entry.isMega && entry.slug !== subjectSlug);
 }
 
@@ -32,12 +32,12 @@ function candidates(roster: readonly DexEntry[], subjectSlug: string): DexEntry[
 function rank(pairs: RankedAnswer[], limit: number): RankedAnswer[] {
 	return pairs
 		.filter((pair) => isAnswer(pair.score))
-		.sort((a, b) => compareCounters(a.score, b.score))
+		.sort((first, second) => compareCounters(first.score, second.score))
 		.slice(0, limit);
 }
 
 /** What beats `target`. */
-export function answersTo(target: DexEntry, roster: readonly DexEntry[], chart: TypeChart, limit = 8): RankedAnswer[] {
+export function answersTo(target: PokedexEntry, roster: readonly PokedexEntry[], chart: TypeChart, limit = 8): RankedAnswer[] {
 	if (Object.keys(chart).length === 0) return [];
 	const subject = toCounterSubject(target);
 
@@ -53,7 +53,7 @@ export function answersTo(target: DexEntry, roster: readonly DexEntry[], chart: 
  * Worth showing next to the first list because the pair together is the actual question: this
  * is what you bring it in on, and this is what makes you switch out.
  */
-export function answeredBy(mon: DexEntry, roster: readonly DexEntry[], chart: TypeChart, limit = 8): RankedAnswer[] {
+export function answeredBy(mon: PokedexEntry, roster: readonly PokedexEntry[], chart: TypeChart, limit = 8): RankedAnswer[] {
 	if (Object.keys(chart).length === 0) return [];
 	const subject = toCounterSubject(mon);
 

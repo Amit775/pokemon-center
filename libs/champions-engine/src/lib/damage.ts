@@ -21,7 +21,7 @@ import {
  *   damage = floor(base · modifiers · roll)
  *
  * What changes is everything feeding into it — Champions' rebalanced move values arrive via
- * the seeded `champ_move` rows, and the stats come from the SP system. The engine therefore
+ * the seeded `champions_move` rows, and the stats come from the SP system. The engine therefore
  * takes moves and builds as data and never hard-codes a power or a base stat.
  *
  * Damage is returned as the full 16-roll range rather than an average. "84–99%" and "92%"
@@ -306,7 +306,7 @@ export function bestMoveAgainst(
 	if (damaging.length === 0) return null;
 
 	// Rank on the minimum roll: the advisor should recommend what works, not what might.
-	return damaging.sort((a, b) => b.result.min - a.result.min || b.result.max - a.result.max)[0];
+	return damaging.sort((first, second) => second.result.min - first.result.min || second.result.max - first.result.max)[0];
 }
 
 /** Convenience for the live tracker, which already holds both sides' state. */

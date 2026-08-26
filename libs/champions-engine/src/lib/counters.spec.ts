@@ -100,7 +100,7 @@ describe('compareCounters', () => {
 	it('ranks by band before anything else', () => {
 		const ranked = [score({ verdict: 'wall' }), score({ verdict: 'counter' }), score({ verdict: 'check' })].sort(compareCounters);
 
-		expect(ranked.map((s) => s.verdict)).toEqual(['counter', 'check', 'wall']);
+		expect(ranked.map((answer) => answer.verdict)).toEqual(['counter', 'check', 'wall']);
 	});
 
 	it('prefers hitting harder over taking less within a band', () => {

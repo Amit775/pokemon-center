@@ -3,12 +3,12 @@ import { typeColorVar } from '../type-colors';
 
 /** The Pokémon type badge — the single source of type coloring across the app. */
 @Component({
-	selector: 'pkd-type-chip',
+	selector: 'pokedex-type-chip',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `{{ type() }}`,
 	host: {
 		'[style.--ct]': 'colorVar()',
-		'[class.pkd-type-chip--sm]': "size() === 'sm'",
+		'[class.pokedex-type-chip--sm]': "size() === 'sm'",
 	},
 	styles: `
 		:host {
@@ -24,7 +24,7 @@ import { typeColorVar } from '../type-colors';
 			box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.13);
 			white-space: nowrap;
 		}
-		:host(.pkd-type-chip--sm) {
+		:host(.pokedex-type-chip--sm) {
 			font-size: var(--fs-xs);
 			padding: 0.1rem 0.5rem;
 		}

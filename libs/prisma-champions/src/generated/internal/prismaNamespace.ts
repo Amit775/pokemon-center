@@ -384,13 +384,13 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  ChampType: 'ChampType',
-  ChampTypeEfficacy: 'ChampTypeEfficacy',
-  ChampAbility: 'ChampAbility',
-  ChampMove: 'ChampMove',
-  ChampPokemon: 'ChampPokemon',
-  ChampPokemonAbility: 'ChampPokemonAbility',
-  ChampLearnset: 'ChampLearnset',
+  ChampionsType: 'ChampionsType',
+  ChampionsTypeEfficacy: 'ChampionsTypeEfficacy',
+  ChampionsAbility: 'ChampionsAbility',
+  ChampionsMove: 'ChampionsMove',
+  ChampionsPokemon: 'ChampionsPokemon',
+  ChampionsPokemonAbility: 'ChampionsPokemonAbility',
+  ChampionsLearnset: 'ChampionsLearnset',
   Regulation: 'Regulation',
   RegulationLegality: 'RegulationLegality',
   KnownSet: 'KnownSet',
@@ -416,525 +416,525 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "champType" | "champTypeEfficacy" | "champAbility" | "champMove" | "champPokemon" | "champPokemonAbility" | "champLearnset" | "regulation" | "regulationLegality" | "knownSet" | "knownSetMove" | "boxPokemon" | "boxPokemonMove" | "team" | "teamMember" | "battleSession" | "battleTurn"
+    modelProps: "championsType" | "championsTypeEfficacy" | "championsAbility" | "championsMove" | "championsPokemon" | "championsPokemonAbility" | "championsLearnset" | "regulation" | "regulationLegality" | "knownSet" | "knownSetMove" | "boxPokemon" | "boxPokemonMove" | "team" | "teamMember" | "battleSession" | "battleTurn"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
-    ChampType: {
-      payload: Prisma.$ChampTypePayload<ExtArgs>
-      fields: Prisma.ChampTypeFieldRefs
+    ChampionsType: {
+      payload: Prisma.$ChampionsTypePayload<ExtArgs>
+      fields: Prisma.ChampionsTypeFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ChampTypeFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypePayload> | null
+          args: Prisma.ChampionsTypeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypePayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ChampTypeFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypePayload>
+          args: Prisma.ChampionsTypeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypePayload>
         }
         findFirst: {
-          args: Prisma.ChampTypeFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypePayload> | null
+          args: Prisma.ChampionsTypeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypePayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ChampTypeFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypePayload>
+          args: Prisma.ChampionsTypeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypePayload>
         }
         findMany: {
-          args: Prisma.ChampTypeFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypePayload>[]
+          args: Prisma.ChampionsTypeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypePayload>[]
         }
         create: {
-          args: Prisma.ChampTypeCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypePayload>
+          args: Prisma.ChampionsTypeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypePayload>
         }
         createMany: {
-          args: Prisma.ChampTypeCreateManyArgs<ExtArgs>
+          args: Prisma.ChampionsTypeCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ChampTypeCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypePayload>[]
+          args: Prisma.ChampionsTypeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypePayload>[]
         }
         delete: {
-          args: Prisma.ChampTypeDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypePayload>
+          args: Prisma.ChampionsTypeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypePayload>
         }
         update: {
-          args: Prisma.ChampTypeUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypePayload>
+          args: Prisma.ChampionsTypeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypePayload>
         }
         deleteMany: {
-          args: Prisma.ChampTypeDeleteManyArgs<ExtArgs>
+          args: Prisma.ChampionsTypeDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ChampTypeUpdateManyArgs<ExtArgs>
+          args: Prisma.ChampionsTypeUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ChampTypeUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypePayload>[]
+          args: Prisma.ChampionsTypeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypePayload>[]
         }
         upsert: {
-          args: Prisma.ChampTypeUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypePayload>
+          args: Prisma.ChampionsTypeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypePayload>
         }
         aggregate: {
-          args: Prisma.ChampTypeAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateChampType>
+          args: Prisma.ChampionsTypeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChampionsType>
         }
         groupBy: {
-          args: Prisma.ChampTypeGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ChampTypeGroupByOutputType>[]
+          args: Prisma.ChampionsTypeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChampionsTypeGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ChampTypeCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ChampTypeCountAggregateOutputType> | number
+          args: Prisma.ChampionsTypeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChampionsTypeCountAggregateOutputType> | number
         }
       }
     }
-    ChampTypeEfficacy: {
-      payload: Prisma.$ChampTypeEfficacyPayload<ExtArgs>
-      fields: Prisma.ChampTypeEfficacyFieldRefs
+    ChampionsTypeEfficacy: {
+      payload: Prisma.$ChampionsTypeEfficacyPayload<ExtArgs>
+      fields: Prisma.ChampionsTypeEfficacyFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ChampTypeEfficacyFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypeEfficacyPayload> | null
+          args: Prisma.ChampionsTypeEfficacyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypeEfficacyPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ChampTypeEfficacyFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypeEfficacyPayload>
+          args: Prisma.ChampionsTypeEfficacyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypeEfficacyPayload>
         }
         findFirst: {
-          args: Prisma.ChampTypeEfficacyFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypeEfficacyPayload> | null
+          args: Prisma.ChampionsTypeEfficacyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypeEfficacyPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ChampTypeEfficacyFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypeEfficacyPayload>
+          args: Prisma.ChampionsTypeEfficacyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypeEfficacyPayload>
         }
         findMany: {
-          args: Prisma.ChampTypeEfficacyFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypeEfficacyPayload>[]
+          args: Prisma.ChampionsTypeEfficacyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypeEfficacyPayload>[]
         }
         create: {
-          args: Prisma.ChampTypeEfficacyCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypeEfficacyPayload>
+          args: Prisma.ChampionsTypeEfficacyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypeEfficacyPayload>
         }
         createMany: {
-          args: Prisma.ChampTypeEfficacyCreateManyArgs<ExtArgs>
+          args: Prisma.ChampionsTypeEfficacyCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ChampTypeEfficacyCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypeEfficacyPayload>[]
+          args: Prisma.ChampionsTypeEfficacyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypeEfficacyPayload>[]
         }
         delete: {
-          args: Prisma.ChampTypeEfficacyDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypeEfficacyPayload>
+          args: Prisma.ChampionsTypeEfficacyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypeEfficacyPayload>
         }
         update: {
-          args: Prisma.ChampTypeEfficacyUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypeEfficacyPayload>
+          args: Prisma.ChampionsTypeEfficacyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypeEfficacyPayload>
         }
         deleteMany: {
-          args: Prisma.ChampTypeEfficacyDeleteManyArgs<ExtArgs>
+          args: Prisma.ChampionsTypeEfficacyDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ChampTypeEfficacyUpdateManyArgs<ExtArgs>
+          args: Prisma.ChampionsTypeEfficacyUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ChampTypeEfficacyUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypeEfficacyPayload>[]
+          args: Prisma.ChampionsTypeEfficacyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypeEfficacyPayload>[]
         }
         upsert: {
-          args: Prisma.ChampTypeEfficacyUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampTypeEfficacyPayload>
+          args: Prisma.ChampionsTypeEfficacyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsTypeEfficacyPayload>
         }
         aggregate: {
-          args: Prisma.ChampTypeEfficacyAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateChampTypeEfficacy>
+          args: Prisma.ChampionsTypeEfficacyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChampionsTypeEfficacy>
         }
         groupBy: {
-          args: Prisma.ChampTypeEfficacyGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ChampTypeEfficacyGroupByOutputType>[]
+          args: Prisma.ChampionsTypeEfficacyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChampionsTypeEfficacyGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ChampTypeEfficacyCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ChampTypeEfficacyCountAggregateOutputType> | number
+          args: Prisma.ChampionsTypeEfficacyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChampionsTypeEfficacyCountAggregateOutputType> | number
         }
       }
     }
-    ChampAbility: {
-      payload: Prisma.$ChampAbilityPayload<ExtArgs>
-      fields: Prisma.ChampAbilityFieldRefs
+    ChampionsAbility: {
+      payload: Prisma.$ChampionsAbilityPayload<ExtArgs>
+      fields: Prisma.ChampionsAbilityFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ChampAbilityFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampAbilityPayload> | null
+          args: Prisma.ChampionsAbilityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsAbilityPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ChampAbilityFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampAbilityPayload>
+          args: Prisma.ChampionsAbilityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsAbilityPayload>
         }
         findFirst: {
-          args: Prisma.ChampAbilityFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampAbilityPayload> | null
+          args: Prisma.ChampionsAbilityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsAbilityPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ChampAbilityFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampAbilityPayload>
+          args: Prisma.ChampionsAbilityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsAbilityPayload>
         }
         findMany: {
-          args: Prisma.ChampAbilityFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampAbilityPayload>[]
+          args: Prisma.ChampionsAbilityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsAbilityPayload>[]
         }
         create: {
-          args: Prisma.ChampAbilityCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampAbilityPayload>
+          args: Prisma.ChampionsAbilityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsAbilityPayload>
         }
         createMany: {
-          args: Prisma.ChampAbilityCreateManyArgs<ExtArgs>
+          args: Prisma.ChampionsAbilityCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ChampAbilityCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampAbilityPayload>[]
+          args: Prisma.ChampionsAbilityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsAbilityPayload>[]
         }
         delete: {
-          args: Prisma.ChampAbilityDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampAbilityPayload>
+          args: Prisma.ChampionsAbilityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsAbilityPayload>
         }
         update: {
-          args: Prisma.ChampAbilityUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampAbilityPayload>
+          args: Prisma.ChampionsAbilityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsAbilityPayload>
         }
         deleteMany: {
-          args: Prisma.ChampAbilityDeleteManyArgs<ExtArgs>
+          args: Prisma.ChampionsAbilityDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ChampAbilityUpdateManyArgs<ExtArgs>
+          args: Prisma.ChampionsAbilityUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ChampAbilityUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampAbilityPayload>[]
+          args: Prisma.ChampionsAbilityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsAbilityPayload>[]
         }
         upsert: {
-          args: Prisma.ChampAbilityUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampAbilityPayload>
+          args: Prisma.ChampionsAbilityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsAbilityPayload>
         }
         aggregate: {
-          args: Prisma.ChampAbilityAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateChampAbility>
+          args: Prisma.ChampionsAbilityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChampionsAbility>
         }
         groupBy: {
-          args: Prisma.ChampAbilityGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ChampAbilityGroupByOutputType>[]
+          args: Prisma.ChampionsAbilityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChampionsAbilityGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ChampAbilityCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ChampAbilityCountAggregateOutputType> | number
+          args: Prisma.ChampionsAbilityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChampionsAbilityCountAggregateOutputType> | number
         }
       }
     }
-    ChampMove: {
-      payload: Prisma.$ChampMovePayload<ExtArgs>
-      fields: Prisma.ChampMoveFieldRefs
+    ChampionsMove: {
+      payload: Prisma.$ChampionsMovePayload<ExtArgs>
+      fields: Prisma.ChampionsMoveFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ChampMoveFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampMovePayload> | null
+          args: Prisma.ChampionsMoveFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsMovePayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ChampMoveFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampMovePayload>
+          args: Prisma.ChampionsMoveFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsMovePayload>
         }
         findFirst: {
-          args: Prisma.ChampMoveFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampMovePayload> | null
+          args: Prisma.ChampionsMoveFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsMovePayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ChampMoveFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampMovePayload>
+          args: Prisma.ChampionsMoveFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsMovePayload>
         }
         findMany: {
-          args: Prisma.ChampMoveFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampMovePayload>[]
+          args: Prisma.ChampionsMoveFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsMovePayload>[]
         }
         create: {
-          args: Prisma.ChampMoveCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampMovePayload>
+          args: Prisma.ChampionsMoveCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsMovePayload>
         }
         createMany: {
-          args: Prisma.ChampMoveCreateManyArgs<ExtArgs>
+          args: Prisma.ChampionsMoveCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ChampMoveCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampMovePayload>[]
+          args: Prisma.ChampionsMoveCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsMovePayload>[]
         }
         delete: {
-          args: Prisma.ChampMoveDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampMovePayload>
+          args: Prisma.ChampionsMoveDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsMovePayload>
         }
         update: {
-          args: Prisma.ChampMoveUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampMovePayload>
+          args: Prisma.ChampionsMoveUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsMovePayload>
         }
         deleteMany: {
-          args: Prisma.ChampMoveDeleteManyArgs<ExtArgs>
+          args: Prisma.ChampionsMoveDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ChampMoveUpdateManyArgs<ExtArgs>
+          args: Prisma.ChampionsMoveUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ChampMoveUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampMovePayload>[]
+          args: Prisma.ChampionsMoveUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsMovePayload>[]
         }
         upsert: {
-          args: Prisma.ChampMoveUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampMovePayload>
+          args: Prisma.ChampionsMoveUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsMovePayload>
         }
         aggregate: {
-          args: Prisma.ChampMoveAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateChampMove>
+          args: Prisma.ChampionsMoveAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChampionsMove>
         }
         groupBy: {
-          args: Prisma.ChampMoveGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ChampMoveGroupByOutputType>[]
+          args: Prisma.ChampionsMoveGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChampionsMoveGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ChampMoveCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ChampMoveCountAggregateOutputType> | number
+          args: Prisma.ChampionsMoveCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChampionsMoveCountAggregateOutputType> | number
         }
       }
     }
-    ChampPokemon: {
-      payload: Prisma.$ChampPokemonPayload<ExtArgs>
-      fields: Prisma.ChampPokemonFieldRefs
+    ChampionsPokemon: {
+      payload: Prisma.$ChampionsPokemonPayload<ExtArgs>
+      fields: Prisma.ChampionsPokemonFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ChampPokemonFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonPayload> | null
+          args: Prisma.ChampionsPokemonFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ChampPokemonFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonPayload>
+          args: Prisma.ChampionsPokemonFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonPayload>
         }
         findFirst: {
-          args: Prisma.ChampPokemonFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonPayload> | null
+          args: Prisma.ChampionsPokemonFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ChampPokemonFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonPayload>
+          args: Prisma.ChampionsPokemonFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonPayload>
         }
         findMany: {
-          args: Prisma.ChampPokemonFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonPayload>[]
+          args: Prisma.ChampionsPokemonFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonPayload>[]
         }
         create: {
-          args: Prisma.ChampPokemonCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonPayload>
+          args: Prisma.ChampionsPokemonCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonPayload>
         }
         createMany: {
-          args: Prisma.ChampPokemonCreateManyArgs<ExtArgs>
+          args: Prisma.ChampionsPokemonCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ChampPokemonCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonPayload>[]
+          args: Prisma.ChampionsPokemonCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonPayload>[]
         }
         delete: {
-          args: Prisma.ChampPokemonDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonPayload>
+          args: Prisma.ChampionsPokemonDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonPayload>
         }
         update: {
-          args: Prisma.ChampPokemonUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonPayload>
+          args: Prisma.ChampionsPokemonUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonPayload>
         }
         deleteMany: {
-          args: Prisma.ChampPokemonDeleteManyArgs<ExtArgs>
+          args: Prisma.ChampionsPokemonDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ChampPokemonUpdateManyArgs<ExtArgs>
+          args: Prisma.ChampionsPokemonUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ChampPokemonUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonPayload>[]
+          args: Prisma.ChampionsPokemonUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonPayload>[]
         }
         upsert: {
-          args: Prisma.ChampPokemonUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonPayload>
+          args: Prisma.ChampionsPokemonUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonPayload>
         }
         aggregate: {
-          args: Prisma.ChampPokemonAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateChampPokemon>
+          args: Prisma.ChampionsPokemonAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChampionsPokemon>
         }
         groupBy: {
-          args: Prisma.ChampPokemonGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ChampPokemonGroupByOutputType>[]
+          args: Prisma.ChampionsPokemonGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChampionsPokemonGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ChampPokemonCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ChampPokemonCountAggregateOutputType> | number
+          args: Prisma.ChampionsPokemonCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChampionsPokemonCountAggregateOutputType> | number
         }
       }
     }
-    ChampPokemonAbility: {
-      payload: Prisma.$ChampPokemonAbilityPayload<ExtArgs>
-      fields: Prisma.ChampPokemonAbilityFieldRefs
+    ChampionsPokemonAbility: {
+      payload: Prisma.$ChampionsPokemonAbilityPayload<ExtArgs>
+      fields: Prisma.ChampionsPokemonAbilityFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ChampPokemonAbilityFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonAbilityPayload> | null
+          args: Prisma.ChampionsPokemonAbilityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonAbilityPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ChampPokemonAbilityFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonAbilityPayload>
+          args: Prisma.ChampionsPokemonAbilityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonAbilityPayload>
         }
         findFirst: {
-          args: Prisma.ChampPokemonAbilityFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonAbilityPayload> | null
+          args: Prisma.ChampionsPokemonAbilityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonAbilityPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ChampPokemonAbilityFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonAbilityPayload>
+          args: Prisma.ChampionsPokemonAbilityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonAbilityPayload>
         }
         findMany: {
-          args: Prisma.ChampPokemonAbilityFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonAbilityPayload>[]
+          args: Prisma.ChampionsPokemonAbilityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonAbilityPayload>[]
         }
         create: {
-          args: Prisma.ChampPokemonAbilityCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonAbilityPayload>
+          args: Prisma.ChampionsPokemonAbilityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonAbilityPayload>
         }
         createMany: {
-          args: Prisma.ChampPokemonAbilityCreateManyArgs<ExtArgs>
+          args: Prisma.ChampionsPokemonAbilityCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ChampPokemonAbilityCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonAbilityPayload>[]
+          args: Prisma.ChampionsPokemonAbilityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonAbilityPayload>[]
         }
         delete: {
-          args: Prisma.ChampPokemonAbilityDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonAbilityPayload>
+          args: Prisma.ChampionsPokemonAbilityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonAbilityPayload>
         }
         update: {
-          args: Prisma.ChampPokemonAbilityUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonAbilityPayload>
+          args: Prisma.ChampionsPokemonAbilityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonAbilityPayload>
         }
         deleteMany: {
-          args: Prisma.ChampPokemonAbilityDeleteManyArgs<ExtArgs>
+          args: Prisma.ChampionsPokemonAbilityDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ChampPokemonAbilityUpdateManyArgs<ExtArgs>
+          args: Prisma.ChampionsPokemonAbilityUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ChampPokemonAbilityUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonAbilityPayload>[]
+          args: Prisma.ChampionsPokemonAbilityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonAbilityPayload>[]
         }
         upsert: {
-          args: Prisma.ChampPokemonAbilityUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampPokemonAbilityPayload>
+          args: Prisma.ChampionsPokemonAbilityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsPokemonAbilityPayload>
         }
         aggregate: {
-          args: Prisma.ChampPokemonAbilityAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateChampPokemonAbility>
+          args: Prisma.ChampionsPokemonAbilityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChampionsPokemonAbility>
         }
         groupBy: {
-          args: Prisma.ChampPokemonAbilityGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ChampPokemonAbilityGroupByOutputType>[]
+          args: Prisma.ChampionsPokemonAbilityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChampionsPokemonAbilityGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ChampPokemonAbilityCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ChampPokemonAbilityCountAggregateOutputType> | number
+          args: Prisma.ChampionsPokemonAbilityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChampionsPokemonAbilityCountAggregateOutputType> | number
         }
       }
     }
-    ChampLearnset: {
-      payload: Prisma.$ChampLearnsetPayload<ExtArgs>
-      fields: Prisma.ChampLearnsetFieldRefs
+    ChampionsLearnset: {
+      payload: Prisma.$ChampionsLearnsetPayload<ExtArgs>
+      fields: Prisma.ChampionsLearnsetFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ChampLearnsetFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampLearnsetPayload> | null
+          args: Prisma.ChampionsLearnsetFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsLearnsetPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ChampLearnsetFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampLearnsetPayload>
+          args: Prisma.ChampionsLearnsetFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsLearnsetPayload>
         }
         findFirst: {
-          args: Prisma.ChampLearnsetFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampLearnsetPayload> | null
+          args: Prisma.ChampionsLearnsetFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsLearnsetPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ChampLearnsetFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampLearnsetPayload>
+          args: Prisma.ChampionsLearnsetFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsLearnsetPayload>
         }
         findMany: {
-          args: Prisma.ChampLearnsetFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampLearnsetPayload>[]
+          args: Prisma.ChampionsLearnsetFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsLearnsetPayload>[]
         }
         create: {
-          args: Prisma.ChampLearnsetCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampLearnsetPayload>
+          args: Prisma.ChampionsLearnsetCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsLearnsetPayload>
         }
         createMany: {
-          args: Prisma.ChampLearnsetCreateManyArgs<ExtArgs>
+          args: Prisma.ChampionsLearnsetCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ChampLearnsetCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampLearnsetPayload>[]
+          args: Prisma.ChampionsLearnsetCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsLearnsetPayload>[]
         }
         delete: {
-          args: Prisma.ChampLearnsetDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampLearnsetPayload>
+          args: Prisma.ChampionsLearnsetDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsLearnsetPayload>
         }
         update: {
-          args: Prisma.ChampLearnsetUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampLearnsetPayload>
+          args: Prisma.ChampionsLearnsetUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsLearnsetPayload>
         }
         deleteMany: {
-          args: Prisma.ChampLearnsetDeleteManyArgs<ExtArgs>
+          args: Prisma.ChampionsLearnsetDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ChampLearnsetUpdateManyArgs<ExtArgs>
+          args: Prisma.ChampionsLearnsetUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ChampLearnsetUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampLearnsetPayload>[]
+          args: Prisma.ChampionsLearnsetUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsLearnsetPayload>[]
         }
         upsert: {
-          args: Prisma.ChampLearnsetUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampLearnsetPayload>
+          args: Prisma.ChampionsLearnsetUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChampionsLearnsetPayload>
         }
         aggregate: {
-          args: Prisma.ChampLearnsetAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateChampLearnset>
+          args: Prisma.ChampionsLearnsetAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChampionsLearnset>
         }
         groupBy: {
-          args: Prisma.ChampLearnsetGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ChampLearnsetGroupByOutputType>[]
+          args: Prisma.ChampionsLearnsetGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChampionsLearnsetGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ChampLearnsetCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ChampLearnsetCountAggregateOutputType> | number
+          args: Prisma.ChampionsLearnsetCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChampionsLearnsetCountAggregateOutputType> | number
         }
       }
     }
@@ -1717,25 +1717,25 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const ChampTypeScalarFieldEnum = {
+export const ChampionsTypeScalarFieldEnum = {
   id: 'id',
   slug: 'slug',
   name: 'name'
 } as const
 
-export type ChampTypeScalarFieldEnum = (typeof ChampTypeScalarFieldEnum)[keyof typeof ChampTypeScalarFieldEnum]
+export type ChampionsTypeScalarFieldEnum = (typeof ChampionsTypeScalarFieldEnum)[keyof typeof ChampionsTypeScalarFieldEnum]
 
 
-export const ChampTypeEfficacyScalarFieldEnum = {
+export const ChampionsTypeEfficacyScalarFieldEnum = {
   attacking_type_id: 'attacking_type_id',
   defending_type_id: 'defending_type_id',
   damage_factor: 'damage_factor'
 } as const
 
-export type ChampTypeEfficacyScalarFieldEnum = (typeof ChampTypeEfficacyScalarFieldEnum)[keyof typeof ChampTypeEfficacyScalarFieldEnum]
+export type ChampionsTypeEfficacyScalarFieldEnum = (typeof ChampionsTypeEfficacyScalarFieldEnum)[keyof typeof ChampionsTypeEfficacyScalarFieldEnum]
 
 
-export const ChampAbilityScalarFieldEnum = {
+export const ChampionsAbilityScalarFieldEnum = {
   id: 'id',
   slug: 'slug',
   name: 'name',
@@ -1743,10 +1743,10 @@ export const ChampAbilityScalarFieldEnum = {
   is_mega: 'is_mega'
 } as const
 
-export type ChampAbilityScalarFieldEnum = (typeof ChampAbilityScalarFieldEnum)[keyof typeof ChampAbilityScalarFieldEnum]
+export type ChampionsAbilityScalarFieldEnum = (typeof ChampionsAbilityScalarFieldEnum)[keyof typeof ChampionsAbilityScalarFieldEnum]
 
 
-export const ChampMoveScalarFieldEnum = {
+export const ChampionsMoveScalarFieldEnum = {
   id: 'id',
   slug: 'slug',
   name: 'name',
@@ -1763,14 +1763,14 @@ export const ChampMoveScalarFieldEnum = {
   override_note: 'override_note'
 } as const
 
-export type ChampMoveScalarFieldEnum = (typeof ChampMoveScalarFieldEnum)[keyof typeof ChampMoveScalarFieldEnum]
+export type ChampionsMoveScalarFieldEnum = (typeof ChampionsMoveScalarFieldEnum)[keyof typeof ChampionsMoveScalarFieldEnum]
 
 
-export const ChampPokemonScalarFieldEnum = {
+export const ChampionsPokemonScalarFieldEnum = {
   id: 'id',
   slug: 'slug',
   name: 'name',
-  national_dex_no: 'national_dex_no',
+  national_pokedex_number: 'national_pokedex_number',
   type1_id: 'type1_id',
   type2_id: 'type2_id',
   base_hp: 'base_hp',
@@ -1786,25 +1786,25 @@ export const ChampPokemonScalarFieldEnum = {
   learnset_is_approximate: 'learnset_is_approximate'
 } as const
 
-export type ChampPokemonScalarFieldEnum = (typeof ChampPokemonScalarFieldEnum)[keyof typeof ChampPokemonScalarFieldEnum]
+export type ChampionsPokemonScalarFieldEnum = (typeof ChampionsPokemonScalarFieldEnum)[keyof typeof ChampionsPokemonScalarFieldEnum]
 
 
-export const ChampPokemonAbilityScalarFieldEnum = {
+export const ChampionsPokemonAbilityScalarFieldEnum = {
   pokemon_id: 'pokemon_id',
   ability_id: 'ability_id',
   slot: 'slot',
   is_hidden: 'is_hidden'
 } as const
 
-export type ChampPokemonAbilityScalarFieldEnum = (typeof ChampPokemonAbilityScalarFieldEnum)[keyof typeof ChampPokemonAbilityScalarFieldEnum]
+export type ChampionsPokemonAbilityScalarFieldEnum = (typeof ChampionsPokemonAbilityScalarFieldEnum)[keyof typeof ChampionsPokemonAbilityScalarFieldEnum]
 
 
-export const ChampLearnsetScalarFieldEnum = {
+export const ChampionsLearnsetScalarFieldEnum = {
   pokemon_id: 'pokemon_id',
   move_id: 'move_id'
 } as const
 
-export type ChampLearnsetScalarFieldEnum = (typeof ChampLearnsetScalarFieldEnum)[keyof typeof ChampLearnsetScalarFieldEnum]
+export type ChampionsLearnsetScalarFieldEnum = (typeof ChampionsLearnsetScalarFieldEnum)[keyof typeof ChampionsLearnsetScalarFieldEnum]
 
 
 export const RegulationScalarFieldEnum = {
@@ -2227,13 +2227,13 @@ export type PrismaClientOptions = ({
   queryPlanCacheMaxSize?: number
 }
 export type GlobalOmitConfig = {
-  champType?: Prisma.ChampTypeOmit
-  champTypeEfficacy?: Prisma.ChampTypeEfficacyOmit
-  champAbility?: Prisma.ChampAbilityOmit
-  champMove?: Prisma.ChampMoveOmit
-  champPokemon?: Prisma.ChampPokemonOmit
-  champPokemonAbility?: Prisma.ChampPokemonAbilityOmit
-  champLearnset?: Prisma.ChampLearnsetOmit
+  championsType?: Prisma.ChampionsTypeOmit
+  championsTypeEfficacy?: Prisma.ChampionsTypeEfficacyOmit
+  championsAbility?: Prisma.ChampionsAbilityOmit
+  championsMove?: Prisma.ChampionsMoveOmit
+  championsPokemon?: Prisma.ChampionsPokemonOmit
+  championsPokemonAbility?: Prisma.ChampionsPokemonAbilityOmit
+  championsLearnset?: Prisma.ChampionsLearnsetOmit
   regulation?: Prisma.RegulationOmit
   regulationLegality?: Prisma.RegulationLegalityOmit
   knownSet?: Prisma.KnownSetOmit
