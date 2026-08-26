@@ -31,7 +31,7 @@ const ROSTER_FIXTURE = `
 `;
 
 const entries = () => parseRoster(ROSTER_FIXTURE);
-const megaEntries = () => entries().filter((e) => e.isMega);
+const megaEntries = () => entries().filter((entry) => entry.isMega);
 
 const CHANGES_FIXTURE = `
 * Some Abilities were modified:
@@ -58,13 +58,13 @@ const CHANGES_FIXTURE = `
 ** {{m|Night Slash}} has 20 PP instead of 16.
 `;
 
-const find = (overrides: ReturnType<typeof parseMoveOverrides>, move: string) => overrides.find((o) => o.move === move);
+const find = (overrides: ReturnType<typeof parseMoveOverrides>, move: string) => overrides.find((override) => override.move === move);
 
-const byForm = (form: string) => entries().find((e) => e.form === form);
+const byForm = (form: string) => entries().find((entry) => entry.form === form);
 
 describe('parseRoster', () => {
 	it('reads base forms with their Champions typing', () => {
-		const species = entries().filter((e) => e.section === 'species');
+		const species = entries().filter((entry) => entry.section === 'species');
 
 		expect(species).toHaveLength(3);
 		expect(species[0]).toMatchObject({ pokedexNumber: 3, species: 'Venusaur', types: ['Grass', 'Poison'], isMega: false });
@@ -104,7 +104,7 @@ describe('parseRoster', () => {
 	});
 
 	it('excludes the untransferable list', () => {
-		expect(entries().find((e) => e.species === 'Pawmot')).toMatchObject({ section: 'untransferable', isAvailable: false });
+		expect(entries().find((entry) => entry.species === 'Pawmot')).toMatchObject({ section: 'untransferable', isAvailable: false });
 	});
 });
 
@@ -166,7 +166,7 @@ describe('parseMoveOverrides', () => {
 	});
 
 	it('strips wiki markup out of every move name', () => {
-		expect(overrides.every((o) => !/[{}[\]|]/.test(o.move))).toBe(true);
+		expect(overrides.every((override) => !/[{}[\]|]/.test(override.move))).toBe(true);
 	});
 
 	it('ignores ability changes, which use the same bullet style', () => {

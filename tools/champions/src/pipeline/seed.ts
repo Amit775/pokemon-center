@@ -27,7 +27,7 @@ function loadDataset(file?: string): { dataset: DerivedDataset; path: string } {
 	}
 
 	// Newest first, so a fresh regulation wins without needing an argument.
-	const chosen = candidates.sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)[0];
+	const chosen = candidates.sort((first, second) => fs.statSync(second).mtimeMs - fs.statSync(first).mtimeMs)[0];
 	return { dataset: JSON.parse(fs.readFileSync(chosen, 'utf8')) as DerivedDataset, path: chosen };
 }
 
@@ -84,10 +84,10 @@ export async function runSeed(file?: string): Promise<void> {
 			};
 			await prisma.champMove.upsert({ where: { id: m.id }, create: { id: m.id, ...fields }, update: fields });
 		}
-		console.log(`  moves: ${dataset.moves.length} (${dataset.moves.filter((m) => m.isOverridden).length} overridden)`);
+		console.log(`  moves: ${dataset.moves.length} (${dataset.moves.filter((move) => move.isOverridden).length} overridden)`);
 
 		// Base forms before Megas, so `mega_of_id` always has a row to point at.
-		const ordered = [...dataset.pokemon].sort((a, b) => Number(a.isMega) - Number(b.isMega));
+		const ordered = [...dataset.pokemon].sort((first, second) => Number(first.isMega) - Number(second.isMega));
 		for (const p of ordered) {
 			const fields = {
 				slug: p.slug,
@@ -113,17 +113,17 @@ export async function runSeed(file?: string): Promise<void> {
 
 		// Join tables are rebuilt wholesale — cheap at this scale, and it means a Pokémon
 		// that lost a move does not keep it forever.
-		const pokemonIds = dataset.pokemon.map((p) => p.id);
+		const pokemonIds = dataset.pokemon.map((pokemonEntry) => pokemonEntry.id);
 		await prisma.champPokemonAbility.deleteMany({ where: { pokemon_id: { in: pokemonIds } } });
 		await prisma.champPokemonAbility.createMany({
-			data: dataset.pokemon.flatMap((p) =>
-				p.abilities.map((a) => ({ pokemon_id: p.id, ability_id: a.abilityId, slot: a.slot, is_hidden: a.isHidden })),
+			data: dataset.pokemon.flatMap((pokemonEntry) =>
+				pokemonEntry.abilities.map((ability) => ({ pokemon_id: pokemonEntry.id, ability_id: ability.abilityId, slot: ability.slot, is_hidden: ability.isHidden })),
 			),
 			skipDuplicates: true,
 		});
 
 		await prisma.champLearnset.deleteMany({ where: { pokemon_id: { in: pokemonIds } } });
-		const learnset = dataset.pokemon.flatMap((p) => p.moveIds.map((moveId) => ({ pokemon_id: p.id, move_id: moveId })));
+		const learnset = dataset.pokemon.flatMap((pokemonEntry) => pokemonEntry.moveIds.map((moveId) => ({ pokemon_id: pokemonEntry.id, move_id: moveId })));
 		// Chunked: a single createMany with tens of thousands of rows exceeds the parameter limit.
 		for (let i = 0; i < learnset.length; i += 5000) {
 			await prisma.champLearnset.createMany({ data: learnset.slice(i, i + 5000), skipDuplicates: true });

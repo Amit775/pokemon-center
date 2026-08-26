@@ -59,12 +59,12 @@ export class PokemonResolver {
 				ORDER BY similarity(identifier, ${search}) DESC
 				LIMIT 100`;
 			const rows = await this.prisma.pokemon.findMany({
-				where: { id: { in: ids.map((r) => r.id) }, ...contextWhere },
+				where: { id: { in: ids.map((id) => id.id) }, ...contextWhere },
 				include: POKEMON_INCLUDE,
 			});
-			const order = new Map(ids.map((r, i) => [r.id, i]));
+			const order = new Map(ids.map((id, index) => [id.id, index]));
 			return rows
-				.sort((a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0))
+				.sort((first, second) => (order.get(first.id) ?? 0) - (order.get(second.id) ?? 0))
 				.slice(skip, skip + take) as unknown as Pokemon[];
 		}
 		return (await this.prisma.pokemon.findMany({

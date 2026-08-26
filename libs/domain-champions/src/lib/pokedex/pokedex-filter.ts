@@ -349,8 +349,8 @@ export function applyFilters(
 	// sort was left selected — the same precedence the search prefix takes below.
 	if (match.target) {
 		const target = match.target;
-		sorted.sort((a, b) =>
-			compareCounters(counterScore(target, toCounterSubject(a), chart), counterScore(target, toCounterSubject(b), chart)),
+		sorted.sort((first, second) =>
+			compareCounters(counterScore(target, toCounterSubject(first), chart), counterScore(target, toCounterSubject(second), chart)),
 		);
 	}
 
@@ -358,7 +358,7 @@ export function applyFilters(
 	// regardless of the chosen sort.
 	if (match.search) {
 		const search = match.search;
-		sorted.sort((a, b) => Number(b.name.toLowerCase().startsWith(search)) - Number(a.name.toLowerCase().startsWith(search)));
+		sorted.sort((first, second) => Number(second.name.toLowerCase().startsWith(search)) - Number(first.name.toLowerCase().startsWith(search)));
 	}
 
 	return sorted;
@@ -453,5 +453,5 @@ export function diagnoseEmpty(
 			count: applyFilters(entries, { ...filters, ...group.off }, chart, context).length,
 		}))
 		.filter((relaxation) => relaxation.count > 0)
-		.sort((a, b) => b.count - a.count);
+		.sort((first, second) => second.count - first.count);
 }

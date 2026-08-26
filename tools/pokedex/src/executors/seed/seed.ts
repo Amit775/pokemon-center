@@ -108,7 +108,7 @@ class CsvProcessorService {
 			tables = ordered.filter((t) => wanted.has(t));
 		}
 
-		return tables.map((t) => `${t}.csv`).filter((f) => fs.existsSync(path.join(csvDir, f)));
+		return tables.map((table) => `${table}.csv`).filter((table) => fs.existsSync(path.join(csvDir, table)));
 	}
 
 	private async processCsvFile(filePath: string): Promise<void> {

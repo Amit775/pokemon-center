@@ -45,7 +45,7 @@ export function buildMatchupScenario(
 	}
 
 	const rng = createRng(seed);
-	const ranked = [...candidates].sort((a, b) => b.score - a.score);
+	const ranked = [...candidates].sort((first, second) => second.score - first.score);
 
 	// The true best is always on the table: the question is "pick the best counter", so the
 	// best counter has to be pickable. The rest are drawn from across the ranking rather than
@@ -53,7 +53,7 @@ export function buildMatchupScenario(
 	const [top, ...rest] = ranked;
 	const offered = rng.shuffle([top, ...rng.sample(rest, OPTIONS_OFFERED - 1)]);
 	const byId = new Map(offered.map((candidate) => [candidate.slug, candidate]));
-	const offeredRanked = [...offered].sort((a, b) => b.score - a.score);
+	const offeredRanked = [...offered].sort((first, second) => second.score - first.score);
 	const optimal = offeredRanked[0];
 
 	const defenderLabel = defenderTypes.map(title).join('/');

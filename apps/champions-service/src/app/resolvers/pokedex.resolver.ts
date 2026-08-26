@@ -143,7 +143,7 @@ export class PokedexResolver {
 			where: { regulation_id: regulation.id },
 			select: { pokemon_id: true },
 		});
-		return rows.map((r) => r.pokemon_id);
+		return rows.map((row) => row.pokemon_id);
 	}
 
 	/**
@@ -172,11 +172,11 @@ export class PokedexResolver {
 		})) as PokemonRow[];
 
 		const lower = term.toLowerCase();
-		const ranked = rows.sort((a, b) => {
-			const aStarts = a.name.toLowerCase().startsWith(lower) ? 0 : 1;
-			const bStarts = b.name.toLowerCase().startsWith(lower) ? 0 : 1;
+		const ranked = rows.sort((first, second) => {
+			const aStarts = first.name.toLowerCase().startsWith(lower) ? 0 : 1;
+			const bStarts = second.name.toLowerCase().startsWith(lower) ? 0 : 1;
 			// Base forms before Megas: you pick Charizard, then decide about the stone.
-			return aStarts - bStarts || Number(a.is_mega) - Number(b.is_mega) || a.national_dex_no - b.national_dex_no;
+			return aStarts - bStarts || Number(first.is_mega) - Number(second.is_mega) || first.national_dex_no - second.national_dex_no;
 		});
 
 		return ranked.slice(0, take).map(toSummary);
@@ -273,8 +273,8 @@ export class PokedexResolver {
 			return {
 				...summary,
 				hasMega: typed.megaForms.length > 0,
-				abilitySlugs: typed.abilities.map((a) => a.ability.slug),
-				abilityNames: typed.abilities.map((a) => a.ability.name),
+				abilitySlugs: typed.abilities.map((ability) => ability.ability.slug),
+				abilityNames: typed.abilities.map((ability) => ability.ability.name),
 				learnsetIsApproximate: typed.learnset_is_approximate,
 			};
 		});
@@ -422,18 +422,18 @@ export class PokedexResolver {
 				...toSummary(typed),
 				learnsetIsApproximate: typed.learnset_is_approximate,
 				megaAbility: typed.megaAbility ? toAbility(typed.megaAbility) : null,
-				abilities: typed.abilities.map((a) => ({ ability: toAbility(a.ability), slot: a.slot, isHidden: a.is_hidden })),
+				abilities: typed.abilities.map((ability) => ({ ability: toAbility(ability.ability), slot: ability.slot, isHidden: ability.is_hidden })),
 				megaForms: typed.megaForms.map(toSummary),
 				// Strongest first: the advisor and the UI both want the damaging moves at the top.
 				moves: typed.learnset
 					.map((l) => toMove(l.move))
-					.sort((a, b) => (b.power ?? 0) - (a.power ?? 0) || a.name.localeCompare(b.name)),
+					.sort((first, second) => (second.power ?? 0) - (first.power ?? 0) || first.name.localeCompare(second.name)),
 			};
 		});
 
 		// Preserve the order the caller asked for, so team slots do not shuffle.
-		const bySlug = new Map(details.map((d) => [d.slug, d]));
-		return slugs.map((slug) => bySlug.get(slug)).filter((d): d is ChampPokemonDetail => d !== undefined);
+		const bySlug = new Map(details.map((detail) => [detail.slug, detail]));
+		return slugs.map((slug) => bySlug.get(slug)).filter((slug): slug is ChampPokemonDetail => slug !== undefined);
 	}
 
 	/**

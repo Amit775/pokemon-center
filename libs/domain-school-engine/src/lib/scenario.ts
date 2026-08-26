@@ -50,7 +50,7 @@ export function* combinations<T>(items: readonly T[], k: number): Generator<T[]>
 
 	const indices = Array.from({ length: k }, (_, i) => i);
 	for (;;) {
-		yield indices.map((i) => items[i]);
+		yield indices.map((indice) => items[indice]);
 
 		let cursor = k - 1;
 		while (cursor >= 0 && indices[cursor] === n - k + cursor) cursor--;

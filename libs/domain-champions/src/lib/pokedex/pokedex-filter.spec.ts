@@ -395,8 +395,8 @@ describe('diagnoseEmpty', () => {
 		const relaxations = diagnoseEmpty(roster, impossible, chart);
 
 		expect(applyFilters(roster, impossible, chart)).toEqual([]);
-		expect(relaxations.map((r) => r.label)).toEqual(['the matchup', 'the stat ranges']);
-		expect(relaxations.every((r) => r.count > 0)).toBe(true);
+		expect(relaxations.map((relaxation) => relaxation.label)).toEqual(['the matchup', 'the stat ranges']);
+		expect(relaxations.every((relaxation) => relaxation.count > 0)).toBe(true);
 	});
 
 	it('returns a patch that actually un-empties the grid', () => {

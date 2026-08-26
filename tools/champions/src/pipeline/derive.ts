@@ -101,12 +101,12 @@ function resolveEntry(entry: RosterEntry, bySpecies: Map<number, { id: number; i
 	const pick = (row: { id: number; identifier: string }) => ({ entry, pokemonId: row.id, identifier: row.identifier });
 
 	if (entry.isMega) {
-		const megas = candidates.filter((c) => c.identifier.includes('-mega'));
+		const megas = candidates.filter((candidate) => candidate.identifier.includes('-mega'));
 		if (megas.length === 0) return null;
 
 		// "Mega Charizard X" → prefer the `-mega-x` row; a lone Mega needs no suffix.
 		const variant = entry.form?.match(/\s([XY])$/i)?.[1]?.toLowerCase();
-		const match = variant ? megas.find((m) => m.identifier.endsWith(`-mega-${variant}`)) : megas.find((m) => /-mega$/.test(m.identifier));
+		const match = variant ? megas.find((mega) => mega.identifier.endsWith(`-mega-${variant}`)) : megas.find((mega) => /-mega$/.test(mega.identifier));
 
 		const chosen = match ?? (megas.length === 1 ? megas[0] : null);
 		return chosen ? pick(chosen) : null;
@@ -127,11 +127,11 @@ function resolveEntry(entry: RosterEntry, bySpecies: Map<number, { id: number; i
 		const wanted = `${base}-${toSlug(entry.formSuffix)}`;
 		// Exact first, then prefix: Bulbapedia writes `-Paldea Combat` where the dataset says
 		// `tauros-paldea-combat-breed`.
-		const match = candidates.find((c) => c.identifier === wanted) ?? candidates.find((c) => c.identifier.startsWith(wanted));
+		const match = candidates.find((candidate) => candidate.identifier === wanted) ?? candidates.find((candidate) => candidate.identifier.startsWith(wanted));
 		return match ? pick(match) : null;
 	}
 
-	const base = candidates.find((c) => c.is_default === 1) ?? candidates[0];
+	const base = candidates.find((candidate) => candidate.is_default === 1) ?? candidates[0];
 	return pick(base);
 }
 
@@ -142,7 +142,7 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 	// Untransferable rows are present in the game data but cannot be obtained, so they are
 	// dropped here rather than counted as legal.
 	const allEntries = parseRoster(rosterWikitext);
-	const rosterEntries = allEntries.filter((e) => e.isAvailable);
+	const rosterEntries = allEntries.filter((entry) => entry.isAvailable);
 	const excluded = allEntries.length - rosterEntries.length;
 	if (excluded > 0) console.log(`Excluded ${excluded} unavailable entries (untransferable or marked "No")`);
 
@@ -154,7 +154,7 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 	if (!header) throw new Error('Could not read the regulation code and end date from the roster page.');
 
 	console.log(`Regulation ${header.code}, ends ${header.endsOn}`);
-	const bySection = (section: string) => rosterEntries.filter((e) => e.section === section).length;
+	const bySection = (section: string) => rosterEntries.filter((rosterEntry) => rosterEntry.section === section).length;
 	console.log(`Roster: ${bySection('species')} species + ${bySection('mega')} Megas + ${bySection('other-form')} alternate forms`);
 	console.log(`Move overrides: ${moveOverrides.length}; PP exceptions: ${ppExceptions.size}`);
 
@@ -199,10 +199,10 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 				});
 		}
 
-		const legalIds = resolved.map((r) => r.pokemonId);
+		const legalIds = resolved.map((resolvedEntry) => resolvedEntry.pokemonId);
 		console.log(
 			`Resolved ${resolved.length} distinct Pokémon from ${rosterEntries.length} rows ` +
-				`(${resolved.filter((r) => !r.entry.isMega).length} base/forms + ${resolved.filter((r) => r.entry.isMega).length} Megas)`,
+				`(${resolved.filter((resolvedEntry) => !resolvedEntry.entry.isMega).length} base/forms + ${resolved.filter((resolvedEntry) => resolvedEntry.entry.isMega).length} Megas)`,
 		);
 
 		// ---- types and the efficacy chart ----------------------------------------------
@@ -210,16 +210,16 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 			where: { id: { lte: 18 } },
 			select: { id: true, identifier: true, typeNames: { where: { local_language_id: ENGLISH }, select: { name: true } } },
 		});
-		const types: DerivedType[] = typeRows.map((t) => ({ id: t.id, slug: t.identifier, name: t.typeNames[0]?.name ?? t.identifier }));
+		const types: DerivedType[] = typeRows.map((typeRow) => ({ id: typeRow.id, slug: typeRow.identifier, name: typeRow.typeNames[0]?.name ?? typeRow.identifier }));
 		const typeBySlug = new Map(types.map((t) => [t.slug, t.id]));
 
 		const efficacyRows = await prisma.typeEfficacy.findMany({
 			where: { damage_type_id: { lte: 18 }, target_type_id: { lte: 18 } },
 		});
-		const typeEfficacy = efficacyRows.map((e) => ({
-			attackingTypeId: e.damage_type_id,
-			defendingTypeId: e.target_type_id,
-			damageFactor: e.damage_factor,
+		const typeEfficacy = efficacyRows.map((efficacyRow) => ({
+			attackingTypeId: efficacyRow.damage_type_id,
+			defendingTypeId: efficacyRow.target_type_id,
+			damageFactor: efficacyRow.damage_factor,
 		}));
 
 		// ---- learnsets, straight from the champions version group -----------------------
@@ -278,19 +278,19 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 		// `Moves.effect_id` has no declared relation in the mainline schema, so effect text is
 		// fetched separately rather than through an include.
 		const effectRows = await prisma.moveEffectProse.findMany({
-			where: { local_language_id: ENGLISH, move_effect_id: { in: [...new Set(moveRows.map((m) => m.effect_id).filter((id): id is number => id !== null))] } },
+			where: { local_language_id: ENGLISH, move_effect_id: { in: [...new Set(moveRows.map((moveRow) => moveRow.effect_id).filter((id): id is number => id !== null))] } },
 			select: { move_effect_id: true, short_effect: true },
 		});
-		const effectTextById = new Map(effectRows.map((e) => [e.move_effect_id, e.short_effect]));
+		const effectTextById = new Map(effectRows.map((effectRow) => [effectRow.move_effect_id, effectRow.short_effect]));
 
-		const overrideBySlug = new Map(moveOverrides.map((o) => [toSlug(o.move), o]));
+		const overrideBySlug = new Map(moveOverrides.map((moveOverride) => [toSlug(moveOverride.move), moveOverride]));
 		const ppExceptionBySlug = new Map([...ppExceptions].map(([name, pp]) => [toSlug(name), pp]));
 		const damageClass = { 1: 'STATUS', 2: 'PHYSICAL', 3: 'SPECIAL' } as const;
 
 		const moves: DerivedMove[] = moveRows.map((row) => {
 			const override = overrideBySlug.get(row.identifier);
 			const ppException = ppExceptionBySlug.get(row.identifier);
-			const flags = row.flagMap.map((f) => f.flag.identifier);
+			const flags = row.flagMap.map((flagLink) => flagLink.flag.identifier);
 			const notes: string[] = [];
 
 			if (override?.note) notes.push(override.note);
@@ -321,18 +321,18 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 		});
 
 		for (const [slug, override] of overrideBySlug) {
-			if (!moveRows.some((m) => m.identifier === slug)) {
+			if (!moveRows.some((moveRow) => moveRow.identifier === slug)) {
 				unresolved.push({ kind: 'move', name: override.move, reason: 'not learnable by any legal Pokémon, or unknown slug' });
 			}
 		}
-		console.log(`Moves: ${moves.length} (${moves.filter((m) => m.isOverridden).length} carry a Champions override)`);
+		console.log(`Moves: ${moves.length} (${moves.filter((move) => move.isOverridden).length} carry a Champions override)`);
 
 		// ---- abilities ------------------------------------------------------------------
 		const abilityLinks = await prisma.pokemonAbilities.findMany({
 			where: { pokemon_id: { in: legalIds } },
 			select: { pokemon_id: true, ability_id: true, slot: true, is_hidden: true },
 		});
-		const abilityIds = [...new Set(abilityLinks.map((a) => a.ability_id))];
+		const abilityIds = [...new Set(abilityLinks.map((abilityLink) => abilityLink.ability_id))];
 
 		const abilityRows = await prisma.abilities.findMany({
 			where: { id: { in: abilityIds } },
@@ -345,19 +345,19 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 		});
 
 		const megaAbilityIds = new Set(
-			abilityLinks.filter((a) => resolved.some((r) => r.pokemonId === a.pokemon_id && r.entry.isMega)).map((a) => a.ability_id),
+			abilityLinks.filter((abilityLink) => resolved.some((resolvedEntry) => resolvedEntry.pokemonId === abilityLink.pokemon_id && resolvedEntry.entry.isMega)).map((abilityLink) => abilityLink.ability_id),
 		);
 		const nonMegaAbilityIds = new Set(
-			abilityLinks.filter((a) => resolved.some((r) => r.pokemonId === a.pokemon_id && !r.entry.isMega)).map((a) => a.ability_id),
+			abilityLinks.filter((abilityLink) => resolved.some((resolvedEntry) => resolvedEntry.pokemonId === abilityLink.pokemon_id && !resolvedEntry.entry.isMega)).map((abilityLink) => abilityLink.ability_id),
 		);
 
-		const abilities: DerivedAbility[] = abilityRows.map((a) => ({
-			id: a.id,
-			slug: a.identifier,
-			name: a.abilityNames[0]?.name ?? a.identifier,
-			effectText: a.abilityProses[0]?.short_effect ?? null,
+		const abilities: DerivedAbility[] = abilityRows.map((abilityRow) => ({
+			id: abilityRow.id,
+			slug: abilityRow.identifier,
+			name: abilityRow.abilityNames[0]?.name ?? abilityRow.identifier,
+			effectText: abilityRow.abilityProses[0]?.short_effect ?? null,
 			// Mega-only: appears on a Mega and on nothing else in the roster.
-			isMega: megaAbilityIds.has(a.id) && !nonMegaAbilityIds.has(a.id),
+			isMega: megaAbilityIds.has(abilityRow.id) && !nonMegaAbilityIds.has(abilityRow.id),
 		}));
 
 		// ---- Pokémon --------------------------------------------------------------------
@@ -376,7 +376,7 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 			where: { local_language_id: ENGLISH },
 			select: { pokemon_species_id: true, name: true },
 		});
-		const speciesNameById = new Map(speciesNames.map((s) => [s.pokemon_species_id, s.name]));
+		const speciesNameById = new Map(speciesNames.map((speciesName) => [speciesName.pokemon_species_id, speciesName.name]));
 
 		const megaBaseByPokedex = new Map<number, number>();
 		for (const r of resolved) if (!r.entry.isMega) megaBaseByPokedex.set(r.entry.pokedexNumber, r.pokemonId);
@@ -390,7 +390,7 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 
 		const pokemon: DerivedPokemon[] = resolved.map(({ entry, pokemonId, identifier }) => {
 			const stats = statsByPokemon.get(pokemonId) ?? new Map<number, number>();
-			const ownAbilities = (abilitiesByPokemon.get(pokemonId) ?? []).sort((a, b) => a.slot - b.slot);
+			const ownAbilities = (abilitiesByPokemon.get(pokemonId) ?? []).sort((first, second) => first.slot - second.slot);
 
 			// Champions' typing wins over the mainline's — Mega Clefable is Fairy/Flying here,
 			// and reading that from mainline data would be quietly wrong.
@@ -414,12 +414,12 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 				megaAbilityId: entry.isMega ? (ownAbilities[0]?.abilityId ?? null) : null,
 				spriteKey: identifier,
 				abilities: ownAbilities,
-				moveIds: (movesByPokemon.get(pokemonId) ?? []).sort((a, b) => a - b),
+				moveIds: (movesByPokemon.get(pokemonId) ?? []).sort((first, second) => first - second),
 				learnsetIsApproximate: approximatedLearnsets.has(pokemonId) || !championsPairs.has(pokemonId),
 			};
 		});
 
-		const withoutMoves = pokemon.filter((p) => p.moveIds.length === 0);
+		const withoutMoves = pokemon.filter((pokemonEntry) => pokemonEntry.moveIds.length === 0);
 		if (withoutMoves.length > 0) {
 			console.log(`  note: ${withoutMoves.length} Pokémon have no champions-version-group learnset (Megas usually inherit their base form's)`);
 		}
@@ -427,7 +427,7 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 		// Megas share their base form's learnset in-game; the dataset only lists it once.
 		for (const mon of pokemon) {
 			if (mon.moveIds.length === 0 && mon.megaOfId !== null) {
-				const base = pokemon.find((p) => p.id === mon.megaOfId);
+				const base = pokemon.find((pokemonEntry) => pokemonEntry.id === mon.megaOfId);
 				mon.moveIds = base?.moveIds ?? [];
 				mon.learnsetIsApproximate = base?.learnsetIsApproximate ?? true;
 			}
@@ -445,8 +445,8 @@ export async function runDerive(outputDir: string = DERIVED_DIR): Promise<void> 
 				startsOn: '2026-06-17',
 				endsOn: header.endsOn,
 				isCurrent: true,
-				notes: `${pokemon.filter((p) => !p.isMega).length} species and ${pokemon.filter((p) => p.isMega).length} Mega Evolutions are legal. All Pokémon battle at level ${CHAMPIONS_LEVEL}.`,
-				legalPokemonIds: pokemon.map((p) => p.id),
+				notes: `${pokemon.filter((pokemonEntry) => !pokemonEntry.isMega).length} species and ${pokemon.filter((pokemonEntry) => pokemonEntry.isMega).length} Mega Evolutions are legal. All Pokémon battle at level ${CHAMPIONS_LEVEL}.`,
+				legalPokemonIds: pokemon.map((pokemonEntry) => pokemonEntry.id),
 			},
 			types,
 			typeEfficacy,

@@ -22,11 +22,11 @@ export class MoveResolver {
 				ORDER BY similarity(identifier, ${search}) DESC
 				LIMIT ${take} OFFSET ${skip}`;
 			const rows = await this.prisma.moves.findMany({
-				where: { id: { in: ids.map((r) => r.id) } },
+				where: { id: { in: ids.map((id) => id.id) } },
 				include: MOVE_INCLUDE,
 			});
-			const order = new Map(ids.map((r, i) => [r.id, i]));
-			return rows.sort((a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0)) as unknown as Moves[];
+			const order = new Map(ids.map((id, index) => [id.id, index]));
+			return rows.sort((first, second) => (order.get(first.id) ?? 0) - (order.get(second.id) ?? 0)) as unknown as Moves[];
 		}
 		return (await this.prisma.moves.findMany({
 			take,

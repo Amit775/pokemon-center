@@ -162,7 +162,7 @@ export const growthRateGenerator: ExerciseGenerator = {
 		}));
 		assertUnambiguous(this.lessonId, candidates);
 
-		const cheapest = [...drawn].sort((a, b) => expToHundred(a) - expToHundred(b))[0];
+		const cheapest = [...drawn].sort((first, second) => expToHundred(first) - expToHundred(second))[0];
 
 		const hints: Hint[] = [
 			{ tier: 1, text: 'A growth curve decides how much experience level 100 costs — the spread between the cheapest and dearest is nearly threefold.' },

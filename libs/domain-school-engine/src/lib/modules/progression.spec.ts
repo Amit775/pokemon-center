@@ -57,7 +57,7 @@ describe('describeEvolution', () => {
 	});
 });
 
-describe.each(progressionGenerators.map((g) => [g.id, g] as const))('%s', (_id, generator: ExerciseGenerator) => {
+describe.each(progressionGenerators.map((progressionGenerator) => [progressionGenerator.id, progressionGenerator] as const))('%s', (_id, generator: ExerciseGenerator) => {
 	it('declares the reference sections it reads', () => {
 		expect(generator.requires.length).toBeGreaterThan(0);
 		expect(hasRequired(fullReference, generator)).toBe(true);
@@ -76,17 +76,17 @@ describe.each(progressionGenerators.map((g) => [g.id, g] as const))('%s', (_id, 
 	it('never generates an ambiguous question', () => {
 		for (const seed of SEEDS) {
 			const exercise = generator.generate(seed, fullReference, context);
-			const correct = exercise.candidates.filter((c) => c.correct);
+			const correct = exercise.candidates.filter((candidate) => candidate.correct);
 			expect(correct).toHaveLength(1);
-			expect(exercise.candidates.filter((c) => !c.correct && Object.is(c.value, correct[0].value))).toEqual([]);
+			expect(exercise.candidates.filter((candidate) => !candidate.correct && Object.is(candidate.value, correct[0].value))).toEqual([]);
 		}
 	});
 
 	it('offers all four hint tiers in order', () => {
 		for (const seed of SEEDS.slice(0, 30)) {
 			const { hints } = generator.generate(seed, fullReference, context);
-			expect(hints.map((h) => h.tier)).toEqual([1, 2, 3, 4]);
-			expect(hints.every((h) => h.text.trim().length > 0)).toBe(true);
+			expect(hints.map((hint) => hint.tier)).toEqual([1, 2, 3, 4]);
+			expect(hints.every((hint) => hint.text.trim().length > 0)).toBe(true);
 		}
 	});
 
@@ -96,10 +96,10 @@ describe.each(progressionGenerators.map((g) => [g.id, g] as const))('%s', (_id, 
 			// Compare the *quoted* labels rather than substrings: one option's label is often a
 			// prefix of another ("Level up with high friendship" vs "…during the day"), so a
 			// substring check reports eliminations that never happened.
-			const quoted = [...(exercise.hints.find((h) => h.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+			const quoted = [...(exercise.hints.find((hint) => hint.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((m) => m[1]);
 			expect(quoted.length).toBeGreaterThan(0);
 			for (const label of quoted) {
-				expect(exercise.candidates.find((c) => c.label === label)?.correct).toBe(false);
+				expect(exercise.candidates.find((candidate) => candidate.label === label)?.correct).toBe(false);
 			}
 		}
 	});
@@ -120,7 +120,7 @@ describe('evolutionMethodGenerator', () => {
 			const pair = /How does (\w[\w' -]*) evolve into (\w[\w' -]*)\?/.exec(exercise.prompt);
 			expect(pair).not.toBeNull();
 
-			const answerLabel = exercise.candidates.find((c) => c.correct)?.label;
+			const answerLabel = exercise.candidates.find((candidate) => candidate.correct)?.label;
 			const match = EVOLUTIONS.filter((e) => describeEvolution(e) === answerLabel);
 			expect(match.length).toBeGreaterThan(0);
 		}
@@ -139,14 +139,14 @@ describe('machineNumberGenerator', () => {
 		for (const seed of SEEDS) {
 			const exercise = machineNumberGenerator.generate(seed, fullReference, context);
 			const number = Number(/TM(\d+)/.exec(exercise.prompt)?.[1]);
-			const answer = exercise.candidates.find((c) => c.correct)?.value;
+			const answer = exercise.candidates.find((candidate) => candidate.correct)?.value;
 			expect(MACHINES.find((m) => m.number === number)?.move).toBe(answer);
 		}
 	});
 
 	it('never offers the same move twice', () => {
 		for (const seed of SEEDS) {
-			const values = machineNumberGenerator.generate(seed, fullReference, context).candidates.map((c) => c.value);
+			const values = machineNumberGenerator.generate(seed, fullReference, context).candidates.map((candidate) => candidate.value);
 			expect(new Set(values).size).toBe(values.length);
 		}
 	});
@@ -157,11 +157,11 @@ describe('growthRateGenerator', () => {
 		for (const seed of SEEDS) {
 			const exercise = growthRateGenerator.generate(seed, fullReference, context);
 			const costOf = (slug: unknown) => GROWTH_RATES.find((r) => r.slug === slug)?.experienceToLevel100 ?? 0;
-			const costs = exercise.candidates.map((c) => costOf(c.value));
-			const answerCost = costOf(exercise.candidates.find((c) => c.correct)?.value);
+			const costs = exercise.candidates.map((candidate) => costOf(candidate.value));
+			const answerCost = costOf(exercise.candidates.find((candidate) => candidate.correct)?.value);
 
 			expect(answerCost).toBe(Math.max(...costs));
-			expect(costs.filter((c) => c === answerCost)).toHaveLength(1);
+			expect(costs.filter((cost) => cost === answerCost)).toHaveLength(1);
 		}
 	});
 });

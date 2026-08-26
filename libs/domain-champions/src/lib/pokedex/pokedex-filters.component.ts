@@ -25,7 +25,7 @@ function pickLandmarks(entries: readonly PokedexEntry[], valueOf: (entry: Pokede
 		}
 	}
 
-	return [...best.values()].sort((a, b) => a.value - b.value);
+	return [...best.values()].sort((first, second) => first.value - second.value);
 }
 
 /** Long enough to cover ordinary typing, short enough to feel immediate. */
@@ -562,7 +562,7 @@ export class PokedexFiltersComponent {
 		return this.store
 			.moveIndex()
 			.filter((move) => move.name.toLowerCase().includes(term))
-			.sort((a, b) => Number(b.name.toLowerCase().startsWith(term)) - Number(a.name.toLowerCase().startsWith(term)))
+			.sort((first, second) => Number(second.name.toLowerCase().startsWith(term)) - Number(first.name.toLowerCase().startsWith(term)))
 			.slice(0, 8);
 	});
 
@@ -613,9 +613,9 @@ export class PokedexFiltersComponent {
 			.entries()
 			.filter((entry) => !entry.isMega && entry.name.toLowerCase().includes(term))
 			.sort(
-				(a, b) =>
-					Number(b.name.toLowerCase().startsWith(term)) - Number(a.name.toLowerCase().startsWith(term)) ||
-					a.nationalDexNo - b.nationalDexNo,
+				(first, second) =>
+					Number(second.name.toLowerCase().startsWith(term)) - Number(first.name.toLowerCase().startsWith(term)) ||
+					first.nationalDexNo - second.nationalDexNo,
 			)
 			.slice(0, 8);
 	});

@@ -34,8 +34,8 @@ export function defensiveProfile(defending: TypeSlug[], chart: TypeChart): Defen
 	}
 
 	// Sharpest first — a 4× weakness is the headline, not a footnote.
-	profile.weaknesses.sort((a, b) => b.multiplier - a.multiplier);
-	profile.resistances.sort((a, b) => a.multiplier - b.multiplier);
+	profile.weaknesses.sort((first, second) => second.multiplier - first.multiplier);
+	profile.resistances.sort((first, second) => first.multiplier - second.multiplier);
 	return profile;
 }
 
@@ -58,14 +58,14 @@ export function teamWeaknesses(team: ChampionsBuild[], chart: TypeChart): TeamTy
 
 	for (const attacking of Object.keys(chart)) {
 		const multipliers = team.map((member) => typeEffectiveness(attacking, member.species.types, chart));
-		const hits = multipliers.filter((m) => m > 1).length;
-		const average = multipliers.reduce((sum, m) => sum + m, 0) / (multipliers.length || 1);
+		const hits = multipliers.filter((multiplier) => multiplier > 1).length;
+		const average = multipliers.reduce((sum, multiplier) => sum + multiplier, 0) / (multipliers.length || 1);
 
 		if (hits > 0) pressure.push({ type: attacking, hits, averageMultiplier: Number(average.toFixed(2)) });
 		else if (average < 1) covered.push(attacking);
 	}
 
-	pressure.sort((a, b) => b.hits - a.hits || b.averageMultiplier - a.averageMultiplier);
+	pressure.sort((first, second) => second.hits - first.hits || second.averageMultiplier - first.averageMultiplier);
 	return { pressure, covered };
 }
 
@@ -75,7 +75,7 @@ export function teamWeaknesses(team: ChampionsBuild[], chart: TypeChart): TeamTy
  * The mirror of `teamWeaknesses`, used when checking your own six for a hole.
  */
 export function coverageGaps(team: ChampionsBuild[], chart: TypeChart, allDefendingTypes: TypeSlug[]): TypeSlug[] {
-	const attackingTypes = new Set(team.flatMap((member) => member.moves.filter((m) => m.damageClass !== 'STATUS').map((m) => m.type)));
+	const attackingTypes = new Set(team.flatMap((member) => member.moves.filter((move) => move.damageClass !== 'STATUS').map((move) => move.type)));
 
 	return allDefendingTypes.filter((defending) => {
 		const best = [...attackingTypes].reduce((max, attacking) => Math.max(max, chart[attacking]?.[defending] ?? 1), 0);
@@ -191,11 +191,11 @@ export function threatMatrix(yours: ChampionsBuild[], theirs: ChampionsBuild[], 
 
 	const mustRemove = theirs
 		.map((build, column) => ({ build, beats: grid.filter((row) => row[column].verdict === 'they-win').length }))
-		.sort((a, b) => b.beats - a.beats);
+		.sort((first, second) => second.beats - first.beats);
 
 	const winConditions = yours
 		.map((build, row) => ({ build, beats: grid[row].filter((cell) => cell.verdict === 'you-win').length }))
-		.sort((a, b) => b.beats - a.beats);
+		.sort((first, second) => second.beats - first.beats);
 
 	return { grid, mustRemove, winConditions };
 }

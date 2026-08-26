@@ -85,12 +85,12 @@ describe('speedTiers', () => {
 	const tiers = speedTiers([jollyChomp], [timidPult, slowCorv]);
 
 	it('merges both teams into one descending list', () => {
-		expect(tiers.map((t) => t.build.species.name)).toEqual(['Dragapult', 'Garchomp', 'Corviknight']);
+		expect(tiers.map((tier) => tier.build.species.name)).toEqual(['Dragapult', 'Garchomp', 'Corviknight']);
 	});
 
 	it('marks which entries are yours', () => {
-		expect(tiers.find((t) => t.build.species.name === 'Garchomp')?.isYours).toBe(true);
-		expect(tiers.find((t) => t.build.species.name === 'Dragapult')?.isYours).toBe(false);
+		expect(tiers.find((tier) => tier.build.species.name === 'Garchomp')?.isYours).toBe(true);
+		expect(tiers.find((tier) => tier.build.species.name === 'Dragapult')?.isYours).toBe(false);
 	});
 
 	it('lists the modifiers behind a speed', () => {

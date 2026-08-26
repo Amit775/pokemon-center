@@ -35,6 +35,6 @@ export class CoverageComponent {
 	}
 
 	protected removeMove(slug: string): void {
-		this.moves.set(this.moves().filter((m) => m !== slug));
+		this.moves.set(this.moves().filter((thi) => thi !== slug));
 	}
 }

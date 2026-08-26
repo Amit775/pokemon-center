@@ -75,7 +75,7 @@ describe('buildCoverageScenario', () => {
 	it('offers one move per attacking type, so no pick is a duplicate of another', () => {
 		for (const seed of SEEDS) {
 			const scenario = buildCoverageScenario(seed, ref, context);
-			const types = scenario.options.map((o) => o.detail?.split(' · ')[0]);
+			const types = scenario.options.map((option) => option.detail?.split(' · ')[0]);
 			expect(new Set(types).size).toBe(scenario.options.length);
 		}
 	});
@@ -156,7 +156,7 @@ describe('buildMatchupScenario', () => {
 		// "Pick the best counter" is unanswerable if the best one is not on the list.
 		for (const seed of SEEDS) {
 			const scenario = buildMatchupScenario(seed, ['water', 'flying'], CANDIDATES, context);
-			expect(scenario.options.map((o) => o.id)).toContain('mon-0');
+			expect(scenario.options.map((option) => option.id)).toContain('mon-0');
 		}
 	});
 
@@ -171,7 +171,7 @@ describe('buildMatchupScenario', () => {
 
 	it('gives partial credit for a near miss rather than zero', () => {
 		const scenario = buildMatchupScenario(SEEDS[0], ['water'], CANDIDATES, context);
-		const runnerUp = scenario.options.map((o) => o.id).filter((id) => id !== 'mon-0')[0];
+		const runnerUp = scenario.options.map((option) => option.id).filter((id) => id !== 'mon-0')[0];
 		const result = scenario.grade([runnerUp]);
 
 		expect(result.quality).toBeGreaterThan(0);
@@ -203,8 +203,8 @@ describe.each([
 ] as const)('%s scenario', (_name, build) => {
 	it('offers all four hint tiers in order', () => {
 		const { hints } = build();
-		expect(hints.map((h) => h.tier)).toEqual([1, 2, 3, 4]);
-		expect(hints.every((h) => h.text.trim().length > 0)).toBe(true);
+		expect(hints.map((hint) => hint.tier)).toEqual([1, 2, 3, 4]);
+		expect(hints.every((hint) => hint.text.trim().length > 0)).toBe(true);
 	});
 
 	it('asks for a sane number of picks from a larger option set', () => {

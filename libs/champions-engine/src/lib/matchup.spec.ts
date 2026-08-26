@@ -36,16 +36,16 @@ describe('defensiveProfile', () => {
 	const profile = defensiveProfile(['dragon', 'ghost'], typeChart);
 
 	it('lists weaknesses sharpest first', () => {
-		const multipliers = profile.weaknesses.map((w) => w.multiplier);
+		const multipliers = profile.weaknesses.map((weakness) => weakness.multiplier);
 
-		expect(multipliers).toEqual([...multipliers].sort((a, b) => b - a));
+		expect(multipliers).toEqual([...multipliers].sort((first, second) => second - first));
 	});
 
 	it('separates immunities from resistances', () => {
 		const flyingProfile = defensiveProfile(['flying', 'steel'], typeChart);
 
 		expect(flyingProfile.immunities).toContain('ground');
-		expect(flyingProfile.resistances.map((r) => r.type)).not.toContain('ground');
+		expect(flyingProfile.resistances.map((resistance) => resistance.type)).not.toContain('ground');
 	});
 });
 

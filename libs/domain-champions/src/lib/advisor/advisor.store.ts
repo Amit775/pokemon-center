@@ -69,7 +69,7 @@ export const AdvisorStore = signalStore(
 
 		const theirMembers = computed(() => _theirQuery.value()?.champTeam ?? []);
 		const theirBuilds = computed(() => {
-			const bySlug = new Map(theirMembers().map((m) => [m.slug, m]));
+			const bySlug = new Map(theirMembers().map((theirMember) => [theirMember.slug, theirMember]));
 			return theirSlugs().flatMap((slug) => {
 				const member = bySlug.get(slug);
 				return member ? [inferBuild(member)] : [];

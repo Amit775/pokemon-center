@@ -32,7 +32,7 @@ function candidates(roster: readonly PokedexEntry[], subjectSlug: string): Poked
 function rank(pairs: RankedAnswer[], limit: number): RankedAnswer[] {
 	return pairs
 		.filter((pair) => isAnswer(pair.score))
-		.sort((a, b) => compareCounters(a.score, b.score))
+		.sort((first, second) => compareCounters(first.score, second.score))
 		.slice(0, limit);
 }
 

@@ -82,7 +82,7 @@ export class ItemResolver {
 				WHERE identifier % ${search}
 				ORDER BY similarity(identifier, ${search}) DESC
 				LIMIT ${take} OFFSET ${skip}`;
-			return (await this.prisma.items.findMany({ where: { id: { in: ids.map((r) => r.id) } } })) as unknown as Items[];
+			return (await this.prisma.items.findMany({ where: { id: { in: ids.map((id) => id.id) } } })) as unknown as Items[];
 		}
 		return (await this.prisma.items.findMany({ take, skip, orderBy: { id: 'asc' }, include: { category: true } })) as unknown as Items[];
 	}

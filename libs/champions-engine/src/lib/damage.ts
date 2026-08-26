@@ -306,7 +306,7 @@ export function bestMoveAgainst(
 	if (damaging.length === 0) return null;
 
 	// Rank on the minimum roll: the advisor should recommend what works, not what might.
-	return damaging.sort((a, b) => b.result.min - a.result.min || b.result.max - a.result.max)[0];
+	return damaging.sort((first, second) => second.result.min - first.result.min || second.result.max - first.result.max)[0];
 }
 
 /** Convenience for the live tracker, which already holds both sides' state. */

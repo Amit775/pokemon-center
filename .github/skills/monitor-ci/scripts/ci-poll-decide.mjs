@@ -89,7 +89,7 @@ const failureClassification = rawFailureClassification?.toLowerCase() ?? null;
 
 function categorizeTasks() {
 	const verifiedSet = new Set(verifiedTaskIds);
-	const unverified = failedTaskIds.filter((t) => !verifiedSet.has(t));
+	const unverified = failedTaskIds.filter((failedTaskId) => !verifiedSet.has(failedTaskId));
 	if (unverified.length === 0) return { category: 'all_verified' };
 
 	const e2e = unverified.filter((t) => {

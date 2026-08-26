@@ -143,7 +143,7 @@ function toBoxPokemon(row: any): BoxPokemon {
 			: null,
 		item: row.item,
 		statPoints,
-		moves: row.moves.map((m: any) => toMove(m.move)),
+		moves: row.moves.map((move: any) => toMove(move.move)),
 		notes: row.notes,
 	};
 }
@@ -257,7 +257,7 @@ export class BoxResolver {
 	@Mutation(() => Team, { name: 'saveTeam' })
 	async saveTeam(@Args('input') input: TeamInput): Promise<Team> {
 		const members = input.members.filter((member) => member.slot >= 1 && member.slot <= TEAM_SIZE);
-		const slots = new Set(members.map((m) => m.slot));
+		const slots = new Set(members.map((member) => member.slot));
 		if (slots.size !== members.length) throw new BadRequestException('Two members cannot share a slot.');
 
 		const regulation =

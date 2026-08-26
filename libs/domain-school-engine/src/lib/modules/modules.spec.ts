@@ -36,19 +36,19 @@ describe.each(allNew.map((g) => [g.id, g] as const))('%s', (_id, generator: Exer
 	it('never generates an ambiguous question', () => {
 		for (const seed of SEEDS) {
 			const exercise = generator.generate(seed, fullReference, context);
-			const correct = exercise.candidates.filter((c) => c.correct);
+			const correct = exercise.candidates.filter((candidate) => candidate.correct);
 			expect(correct).toHaveLength(1);
 
 			const answerValue = correct[0].value;
-			expect(exercise.candidates.filter((c) => !c.correct && Object.is(c.value, answerValue))).toEqual([]);
+			expect(exercise.candidates.filter((candidate) => !candidate.correct && Object.is(candidate.value, answerValue))).toEqual([]);
 		}
 	});
 
 	it('offers all four hint tiers in order', () => {
 		for (const seed of SEEDS.slice(0, 40)) {
 			const { hints } = generator.generate(seed, fullReference, context);
-			expect(hints.map((h) => h.tier)).toEqual([1, 2, 3, 4]);
-			expect(hints.every((h) => h.text.trim().length > 0)).toBe(true);
+			expect(hints.map((hint) => hint.tier)).toEqual([1, 2, 3, 4]);
+			expect(hints.every((hint) => hint.text.trim().length > 0)).toBe(true);
 		}
 	});
 
@@ -56,10 +56,10 @@ describe.each(allNew.map((g) => [g.id, g] as const))('%s', (_id, generator: Exer
 		for (const seed of SEEDS) {
 			const exercise = generator.generate(seed, fullReference, context);
 			// Quoted labels, not substrings: one label is often a prefix of another.
-			const quoted = [...(exercise.hints.find((h) => h.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+			const quoted = [...(exercise.hints.find((hint) => hint.tier === 2)?.text ?? '').matchAll(/"([^"]+)"/g)].map((m) => m[1]);
 			expect(quoted.length).toBeGreaterThan(0);
 			for (const label of quoted) {
-				expect(exercise.candidates.find((c) => c.label === label)?.correct).toBe(false);
+				expect(exercise.candidates.find((candidate) => candidate.label === label)?.correct).toBe(false);
 			}
 		}
 	});
@@ -92,18 +92,18 @@ describe('expectedDamageGenerator', () => {
 	it('the marked answer really does have the highest expected damage', () => {
 		for (const seed of SEEDS) {
 			const exercise = expectedDamageGenerator.generate(seed, fullReference, context);
-			const scores = exercise.candidates.map((c) => expectedDamage(moveOf(c.value as string)));
-			const answerScore = expectedDamage(moveOf(exercise.candidates.find((c) => c.correct)?.value as string));
+			const scores = exercise.candidates.map((candidate) => expectedDamage(moveOf(candidate.value as string)));
+			const answerScore = expectedDamage(moveOf(exercise.candidates.find((candidate) => candidate.correct)?.value as string));
 			expect(answerScore).toBe(Math.max(...scores));
 			// And strictly so — a tie would make two options defensible.
-			expect(scores.filter((s) => s === answerScore)).toHaveLength(1);
+			expect(scores.filter((score) => score === answerScore)).toHaveLength(1);
 		}
 	});
 
 	it('teaches the method on a non-answer in its T3 hint', () => {
 		for (const seed of SEEDS.slice(0, 40)) {
 			const exercise = expectedDamageGenerator.generate(seed, fullReference, context);
-			const answerLabel = exercise.candidates.find((c) => c.correct)?.label ?? '';
+			const answerLabel = exercise.candidates.find((candidate) => candidate.correct)?.label ?? '';
 			expect(exercise.hints[2].text).not.toContain(answerLabel);
 		}
 	});
@@ -113,8 +113,8 @@ describe('priorityGenerator', () => {
 	it('the answer is the only move above priority 0', () => {
 		for (const seed of SEEDS) {
 			const exercise = priorityGenerator.generate(seed, fullReference, context);
-			const answer = moveOf(exercise.candidates.find((c) => c.correct)?.value as string);
-			const others = exercise.candidates.filter((c) => !c.correct).map((c) => moveOf(c.value as string));
+			const answer = moveOf(exercise.candidates.find((candidate) => candidate.correct)?.value as string);
+			const others = exercise.candidates.filter((candidate) => !candidate.correct).map((candidate) => moveOf(candidate.value as string));
 			expect(answer.priority).toBeGreaterThan(0);
 			for (const other of others) expect(other.priority).toBeLessThan(answer.priority);
 		}
@@ -128,7 +128,7 @@ describe('stabGenerator', () => {
 			const askedType = /for an? (\w+)-type/.exec(exercise.prompt)?.[1]?.toLowerCase();
 			expect(askedType).toBeDefined();
 
-			const matching = exercise.candidates.filter((c) => moveOf(c.value as string).type === askedType);
+			const matching = exercise.candidates.filter((candidate) => moveOf(candidate.value as string).type === askedType);
 			expect(matching).toHaveLength(1);
 			expect(matching[0].correct).toBe(true);
 		}
@@ -141,10 +141,10 @@ describe('ailmentSourceGenerator', () => {
 	it('the answer inflicts the named ailment and no distractor does', () => {
 		for (const seed of SEEDS) {
 			const exercise = ailmentSourceGenerator.generate(seed, fullReference, context);
-			const answer = moveOf(exercise.candidates.find((c) => c.correct)?.value as string);
+			const answer = moveOf(exercise.candidates.find((candidate) => candidate.correct)?.value as string);
 			expect(answer.ailment).toBeTruthy();
 
-			for (const wrong of exercise.candidates.filter((c) => !c.correct)) {
+			for (const wrong of exercise.candidates.filter((candidate) => !candidate.correct)) {
 				expect(moveOf(wrong.value as string).ailment).not.toBe(answer.ailment);
 			}
 		}
@@ -156,7 +156,7 @@ describe('ailmentChanceGenerator', () => {
 		// chance 0 means "always" in this dataset; asking "how often?" about those is nonsense.
 		for (const seed of SEEDS) {
 			const exercise = ailmentChanceGenerator.generate(seed, fullReference, context);
-			const answer = exercise.candidates.find((c) => c.correct)?.value as number;
+			const answer = exercise.candidates.find((candidate) => candidate.correct)?.value as number;
 			expect(answer).toBeGreaterThan(0);
 			expect(MOVES.some((m) => m.ailmentChance === answer)).toBe(true);
 		}
@@ -167,10 +167,10 @@ describe('recoilGenerator', () => {
 	it('only the answer costs its user HP', () => {
 		for (const seed of SEEDS) {
 			const exercise = recoilGenerator.generate(seed, fullReference, context);
-			const answer = moveOf(exercise.candidates.find((c) => c.correct)?.value as string);
+			const answer = moveOf(exercise.candidates.find((candidate) => candidate.correct)?.value as string);
 			expect(answer.drain).toBeLessThan(0);
 
-			for (const wrong of exercise.candidates.filter((c) => !c.correct)) {
+			for (const wrong of exercise.candidates.filter((candidate) => !candidate.correct)) {
 				expect(moveOf(wrong.value as string).drain).toBeGreaterThanOrEqual(0);
 			}
 		}
@@ -201,7 +201,7 @@ describe('nature generators', () => {
 	it('natureByEffect names a stat pair that exactly one nature satisfies', () => {
 		for (const seed of SEEDS) {
 			const exercise = natureByEffectGenerator.generate(seed, fullReference, context);
-			const answer = NATURES.find((n) => n.slug === exercise.candidates.find((c) => c.correct)?.value);
+			const answer = NATURES.find((n) => n.slug === exercise.candidates.find((candidate) => candidate.correct)?.value);
 			const sameEffect = NATURES.filter((n) => n.increased === answer?.increased && n.decreased === answer?.decreased);
 			expect(sameEffect).toHaveLength(1);
 		}
@@ -212,7 +212,7 @@ describe('statChangeGenerator', () => {
 	it('offers four genuinely different stat changes', () => {
 		for (const seed of SEEDS) {
 			const exercise = statChangeGenerator.generate(seed, fullReference, context);
-			const signatures = new Set(exercise.candidates.map((c) => c.value as string));
+			const signatures = new Set(exercise.candidates.map((candidate) => candidate.value as string));
 			expect(signatures.size).toBe(4);
 		}
 	});
@@ -220,9 +220,9 @@ describe('statChangeGenerator', () => {
 	it('the answer matches the move named in the prompt', () => {
 		for (const seed of SEEDS) {
 			const exercise = statChangeGenerator.generate(seed, fullReference, context);
-			const answerSlug = exercise.candidates.find((c) => c.correct)?.id as string;
+			const answerSlug = exercise.candidates.find((candidate) => candidate.correct)?.id as string;
 			const [change] = moveOf(answerSlug).statChanges;
-			expect(exercise.candidates.find((c) => c.correct)?.value).toBe(`${change.stat}:${change.change}`);
+			expect(exercise.candidates.find((candidate) => candidate.correct)?.value).toBe(`${change.stat}:${change.change}`);
 		}
 	});
 });

@@ -105,11 +105,11 @@ export class AnalysisResolver {
 		return {
 			generationId,
 			// Ordered by attacker id above, so first appearance is national type order.
-			types: [...new Set(rows.map((r) => r.damage_type))],
-			cells: rows.map((r) => ({
-				damageType: r.damage_type,
-				targetType: r.target_type,
-				factor: r.damage_factor / 100,
+			types: [...new Set(rows.map((row) => row.damage_type))],
+			cells: rows.map((row) => ({
+				damageType: row.damage_type,
+				targetType: row.target_type,
+				factor: row.damage_factor / 100,
 			})),
 		};
 	}
@@ -192,13 +192,13 @@ export class AnalysisResolver {
 			ORDER BY score DESC
 			LIMIT ${take}`;
 
-		return rows.map((r) => ({
-			pokemonId: r.pokemon_id,
-			pokemonSlug: r.pokemon_slug,
-			bestMove: r.best_move,
-			bestMoveType: r.best_move_type,
-			effectiveness: r.effectiveness,
-			score: r.score,
+		return rows.map((row) => ({
+			pokemonId: row.pokemon_id,
+			pokemonSlug: row.pokemon_slug,
+			bestMove: row.best_move,
+			bestMoveType: row.best_move_type,
+			effectiveness: row.effectiveness,
+			score: row.score,
 		}));
 	}
 
@@ -231,10 +231,10 @@ export class AnalysisResolver {
 			)
 			SELECT defending_type, best_factor, via_move FROM best ORDER BY defending_type`;
 
-		return rows.map((r) => ({
-			defendingType: r.defending_type,
-			bestFactor: r.best_factor,
-			viaMove: r.via_move,
+		return rows.map((row) => ({
+			defendingType: row.defending_type,
+			bestFactor: row.best_factor,
+			viaMove: row.via_move,
 		}));
 	}
 }

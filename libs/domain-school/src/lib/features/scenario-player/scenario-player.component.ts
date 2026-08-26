@@ -225,7 +225,7 @@ export class ScenarioPlayerComponent {
 
 	protected readonly submitted = computed(() => this.result() !== null);
 	protected readonly canSubmit = computed(() => this.selected().length === this.scenario().pick);
-	protected readonly visibleHints = computed(() => this.scenario().hints.filter((h) => h.tier <= this.revealedTier()));
+	protected readonly visibleHints = computed(() => this.scenario().hints.filter((hint) => hint.tier <= this.revealedTier()));
 	protected readonly canHint = computed(() => !this.submitted() && this.revealedTier() < 4);
 	protected readonly hintsLeft = computed(() => 4 - this.revealedTier());
 

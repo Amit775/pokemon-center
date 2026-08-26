@@ -12,7 +12,7 @@ describe('moveTags', () => {
 	it('puts priority first, signed, because turn order decides the click', () => {
 		const tags = moveTags(move(['contact'], 1));
 
-		expect(tags.map((t) => t.label)).toEqual(['Priority +1', 'Contact']);
+		expect(tags.map((tag) => tag.label)).toEqual(['Priority +1', 'Contact']);
 		expect(tags[0].isPriority).toBe(true);
 	});
 

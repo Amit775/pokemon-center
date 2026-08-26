@@ -121,7 +121,7 @@ export class OmnisearchComponent {
 		const hits = this.results.value()?.search ?? [];
 		const kinds = ['pokemon', 'move', 'ability', 'item', 'type'];
 		return kinds
-			.map((kind) => ({ kind, hits: hits.filter((h) => h.kind === kind) }))
+			.map((kind) => ({ kind, hits: hits.filter((hit) => hit.kind === kind) }))
 			.filter((group) => group.hits.length > 0);
 	});
 
@@ -162,8 +162,8 @@ export class OmnisearchComponent {
 
 	protected openFirst(): void {
 		const first = this.groups()
-			.flatMap((g) => g.hits)
-			.find((h) => this.isNavigable(h.kind));
+			.flatMap((thi) => thi.hits)
+			.find((thi) => this.isNavigable(thi.kind));
 		if (first) this.go(first.kind, first.id);
 	}
 }

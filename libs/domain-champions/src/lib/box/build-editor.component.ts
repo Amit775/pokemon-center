@@ -455,7 +455,7 @@ export class BuildEditorComponent {
 	protected readonly remaining = computed(() => this.spread().remaining);
 	protected readonly budgetPercent = computed(() => Math.min(100, (this.spread().total / SP_TOTAL_BUDGET) * 100));
 
-	private readonly nature = computed(() => this.natures.find((n) => n.name === this.natureName()) ?? NEUTRAL_NATURE);
+	private readonly nature = computed(() => this.natures.find((nature) => nature.name === this.natureName()) ?? NEUTRAL_NATURE);
 
 	/** Each stat with its live level-50 value and whether the nature is touching it. */
 	protected readonly statRows = computed(() => {

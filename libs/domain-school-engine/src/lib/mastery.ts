@@ -58,7 +58,7 @@ export function creditFor(attempt: Attempt): number {
 export function masteryScore(record: MasteryRecord): number {
 	const window = record.attempts.slice(-MASTERY_WINDOW);
 	if (window.length === 0) return 0;
-	return window.reduce((sum, a) => sum + creditFor(a), 0) / window.length;
+	return window.reduce((sum, item) => sum + creditFor(item), 0) / window.length;
 }
 
 export function isMastered(record: MasteryRecord): boolean {
@@ -71,5 +71,5 @@ export function recordAttempt(record: MasteryRecord, attempt: Attempt): MasteryR
 }
 
 export function masteredLessonIds(records: readonly MasteryRecord[]): Set<LessonId> {
-	return new Set(records.filter(isMastered).map((r) => r.lessonId));
+	return new Set(records.filter(isMastered).map((record) => record.lessonId));
 }

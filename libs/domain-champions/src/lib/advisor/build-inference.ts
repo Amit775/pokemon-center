@@ -54,7 +54,7 @@ function toSpecies(member: TeamMember): ChampionsSpecies {
 			speed: member.baseStats.speed,
 		},
 		isMega: member.isMega,
-		abilities: member.abilities.map((a) => a.ability.slug),
+		abilities: member.abilities.map((ability) => ability.ability.slug),
 	};
 }
 
@@ -85,13 +85,13 @@ export function primaryAttackStat(member: TeamMember): Extract<StatKey, 'attack'
  * set with three Dragon moves is not a set anyone brings.
  */
 export function inferMoveset(member: TeamMember, limit = 4): ChampionsMove[] {
-	const attacking = member.moves.filter((m) => m.damageClass !== 'STATUS' && (m.power ?? 0) > 0);
+	const attacking = member.moves.filter((move) => move.damageClass !== 'STATUS' && (move.power ?? 0) > 0);
 	const stabTypes = new Set(member.types);
 
-	const ranked = [...attacking].sort((a, b) => {
-		const aStab = stabTypes.has(a.type) ? 1 : 0;
-		const bStab = stabTypes.has(b.type) ? 1 : 0;
-		return bStab - aStab || (b.power ?? 0) - (a.power ?? 0);
+	const ranked = [...attacking].sort((first, second) => {
+		const aStab = stabTypes.has(first.type) ? 1 : 0;
+		const bStab = stabTypes.has(second.type) ? 1 : 0;
+		return bStab - aStab || (second.power ?? 0) - (first.power ?? 0);
 	});
 
 	const chosen: typeof ranked = [];
@@ -134,7 +134,7 @@ export function inferBuild(member: TeamMember): InferredBuild {
 		species,
 		nature: NEUTRAL_NATURE,
 		statPoints: assumeMaxInvestment(attackStat, 'speed'),
-		ability: member.megaAbility?.slug ?? member.abilities.find((a) => !a.isHidden)?.ability.slug ?? null,
+		ability: member.megaAbility?.slug ?? member.abilities.find((ability) => !ability.isHidden)?.ability.slug ?? null,
 		item: null,
 		moves: inferMoveset(member),
 		movesAreInferred: true,

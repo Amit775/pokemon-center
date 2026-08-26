@@ -51,5 +51,5 @@ export function sampleDistinctBy<T>(rng: Rng, pool: readonly T[], count: number,
 
 /** The single lowest-scoring item; handy for demonstrating a method on a non-answer. */
 export function worstOf<T>(items: readonly T[], score: (item: T) => number): T {
-	return [...items].sort((a, b) => score(a) - score(b))[0];
+	return [...items].sort((first, second) => score(first) - score(second))[0];
 }

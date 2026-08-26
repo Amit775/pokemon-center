@@ -245,10 +245,10 @@ export class ExercisePlayerComponent {
 	});
 
 	protected readonly isAnswered = computed(() => this.chosenId() !== null);
-	protected readonly visibleHints = computed(() => this.exercise().hints.filter((h) => h.tier <= this.revealedTier()));
+	protected readonly visibleHints = computed(() => this.exercise().hints.filter((hint) => hint.tier <= this.revealedTier()));
 	protected readonly canHint = computed(() => !this.isAnswered() && this.revealedTier() < 4);
 	protected readonly hintsLeft = computed(() => 4 - this.revealedTier());
-	protected readonly wasCorrect = computed(() => this.exercise().candidates.find((c) => c.id === this.chosenId())?.correct ?? false);
+	protected readonly wasCorrect = computed(() => this.exercise().candidates.find((candidate) => candidate.id === this.chosenId())?.correct ?? false);
 
 	/** CDK reports the listbox value as an array of `unknown`; narrow it here rather than in the template. */
 	protected selectFrom(value: readonly unknown[]): void {
@@ -262,7 +262,7 @@ export class ExercisePlayerComponent {
 
 		const tier = this.revealedTier();
 		this.answered.emit({
-			correct: this.exercise().candidates.find((c) => c.id === candidateId)?.correct ?? false,
+			correct: this.exercise().candidates.find((candidate) => candidate.id === candidateId)?.correct ?? false,
 			deepestHintTier: tier === 0 ? null : (tier as HintTier),
 			atISO: new Date().toISOString(),
 		});

@@ -434,7 +434,7 @@ export default class SimulatorComponent {
 					});
 					return { move, result, ko: koVerdict(result) };
 				})
-				.sort((a, b) => b.result.min - a.result.min);
+				.sort((first, second) => second.result.min - first.result.min);
 		};
 
 		return [

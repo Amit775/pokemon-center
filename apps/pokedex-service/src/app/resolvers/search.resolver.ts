@@ -95,7 +95,7 @@ export class SearchResolver {
 				if (!existing || row.similarity_score > existing.similarity_score) best.set(row.id, row);
 			}
 			return [...best.values()]
-				.sort((a, b) => b.similarity_score - a.similarity_score)
+				.sort((first, second) => second.similarity_score - first.similarity_score)
 				.slice(0, takePerKind)
 				.map((row) => ({
 					kind,
@@ -113,6 +113,6 @@ export class SearchResolver {
 			...toHits('ability', abilities),
 			...toHits('item', items),
 			...toHits('type', types),
-		].sort((a, b) => b.similarity - a.similarity);
+		].sort((first, second) => second.similarity - first.similarity);
 	}
 }

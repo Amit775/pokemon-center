@@ -189,7 +189,7 @@ export const PokedexStore = signalStore(
 				for (const entry of entries()) {
 					entry.abilitySlugs.forEach((slug, index) => seen.set(slug, entry.abilityNames[index] ?? slug));
 				}
-				return [...seen].map(([slug, name]) => ({ slug, name })).sort((a, b) => a.name.localeCompare(b.name));
+				return [...seen].map(([slug, name]) => ({ slug, name })).sort((first, second) => first.name.localeCompare(second.name));
 			}),
 
 			hasActiveFilters: computed(() => isFiltered(filters())),
@@ -252,14 +252,14 @@ export const PokedexStore = signalStore(
 			const { matchupTypes, matchupMode } = store.filters();
 
 			if (matchupMode === 'any') return this.patch({ matchupTypes: [slug], matchupMode: 'exact', matchupSlug: null });
-			if (matchupTypes.includes(slug)) return this.patch({ matchupTypes: matchupTypes.filter((t) => t !== slug), matchupSlug: null });
+			if (matchupTypes.includes(slug)) return this.patch({ matchupTypes: matchupTypes.filter((matchupType) => matchupType !== slug), matchupSlug: null });
 
 			this.patch({ matchupTypes: [...matchupTypes, slug].slice(-2), matchupMode: 'exact', matchupSlug: null });
 		},
 
 		expandMatchupType(slug: string): void {
 			const { matchupTypes } = store.filters();
-			const next = matchupTypes.includes(slug) ? matchupTypes.filter((t) => t !== slug) : [...matchupTypes, slug];
+			const next = matchupTypes.includes(slug) ? matchupTypes.filter((matchupType) => matchupType !== slug) : [...matchupTypes, slug];
 			this.patch({ matchupTypes: next, matchupMode: 'any', matchupSlug: null });
 		},
 
@@ -333,7 +333,7 @@ export const PokedexStore = signalStore(
 
 			const query = toQueryString(store.filters());
 			const rest = store.sets().filter((set) => set.name !== trimmed);
-			patchState(store, { sets: [...rest, { name: trimmed, query }].sort((a, b) => a.name.localeCompare(b.name)) });
+			patchState(store, { sets: [...rest, { name: trimmed, query }].sort((first, second) => first.name.localeCompare(second.name)) });
 		},
 
 		applySet(set: FilterSet): void {
