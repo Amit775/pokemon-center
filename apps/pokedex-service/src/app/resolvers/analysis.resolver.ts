@@ -95,11 +95,12 @@ export class AnalysisResolver {
 
 		const rows = await this.prisma.$queryRaw<{ damage_type: string; target_type: string; damage_factor: number }[]>`
 			WITH efficacy AS (${eraEfficacySql(generationId)})
-			SELECT atk.identifier AS damage_type, def.identifier AS target_type, e.damage_factor
-			FROM efficacy e
-			JOIN types atk ON atk.id = e.damage_type_id
-			JOIN types def ON def.id = e.target_type_id
-			ORDER BY atk.id, def.id`;
+			SELECT attacking_type.identifier AS damage_type, defending_type.identifier AS target_type, efficacy.damage_factor
+			FROM efficacy
+			-- Two aliases on the same types table, so these two must stay aliased.
+			JOIN types attacking_type ON attacking_type.id = efficacy.damage_type_id
+			JOIN types defending_type ON defending_type.id = efficacy.target_type_id
+			ORDER BY attacking_type.id, defending_type.id`;
 
 		return {
 			generationId,
@@ -137,45 +138,46 @@ export class AnalysisResolver {
 				-- nullif() skips ln(0) for immunities; those groups are dropped by HAVING min > 0 anyway.
 				-- efficacy is era-scoped, so attacking types the era lacks drop out here and never reach
 				-- the join below; a defender type the era lacks likewise contributes no factor.
-				SELECT te.damage_type_id,
-				       exp(sum(ln(nullif(te.damage_factor, 0) / 100.0))) AS factor
-				FROM efficacy te
-				JOIN defender d ON d.id = te.target_type_id
-				GROUP BY te.damage_type_id
-				HAVING min(te.damage_factor) > 0
+				SELECT efficacy.damage_type_id,
+				       exp(sum(ln(nullif(efficacy.damage_factor, 0) / 100.0))) AS factor
+				FROM efficacy
+				JOIN defender ON defender.id = efficacy.target_type_id
+				GROUP BY efficacy.damage_type_id
+				HAVING min(efficacy.damage_factor) > 0
 			),
 			version_group_context AS (
-				SELECT vg.id FROM version_groups vg WHERE ${versionGroupFilter}::text IS NULL OR vg.identifier = ${versionGroupFilter}
+				SELECT version_groups.id FROM version_groups WHERE ${versionGroupFilter}::text IS NULL OR version_groups.identifier = ${versionGroupFilter}
 			),
 			candidate_moves AS (
-				SELECT DISTINCT pm.pokemon_id, pm.move_id
-				FROM pokemon_moves pm
-				WHERE ${versionGroupFilter}::text IS NULL OR pm.version_group_id IN (SELECT id FROM version_group_context)
+				SELECT DISTINCT pokemon_moves.pokemon_id, pokemon_moves.move_id
+				FROM pokemon_moves
+				WHERE ${versionGroupFilter}::text IS NULL OR pokemon_moves.version_group_id IN (SELECT id FROM version_group_context)
 			),
 			scored AS (
-				SELECT p.id AS pokemon_id,
-				       p.identifier AS pokemon_slug,
-				       m.identifier AS best_move,
-				       mt.identifier AS best_move_type,
-				       mu.factor AS effectiveness,
-				       m.power
-				         * mu.factor
-				         * CASE WHEN EXISTS (SELECT 1 FROM pokemon_types pt WHERE pt.pokemon_id = p.id AND pt.type_id = m.type_id) THEN 1.5 ELSE 1.0 END
-				         * (COALESCE(st.base_stat, 100) / 100.0) AS raw_score
-				FROM candidate_moves cm
-				JOIN moves m ON m.id = cm.move_id AND m.power IS NOT NULL
-				JOIN types mt ON mt.id = m.type_id
-				JOIN matchup mu ON mu.damage_type_id = m.type_id
-				JOIN pokemon p ON p.id = cm.pokemon_id AND p.is_default = 1
-				JOIN move_damage_classes dc ON dc.id = m.damage_class_id
-				LEFT JOIN pokemon_stats st
-				  ON st.pokemon_id = p.id
-				 AND st.stat_id = CASE WHEN dc.identifier = 'physical' THEN 2 WHEN dc.identifier = 'special' THEN 4 ELSE NULL END
+				SELECT pokemon.id AS pokemon_id,
+				       pokemon.identifier AS pokemon_slug,
+				       moves.identifier AS best_move,
+				       move_type.identifier AS best_move_type,
+				       matchup.factor AS effectiveness,
+				       moves.power
+				         * matchup.factor
+				         * CASE WHEN EXISTS (SELECT 1 FROM pokemon_types WHERE pokemon_types.pokemon_id = pokemon.id AND pokemon_types.type_id = moves.type_id) THEN 1.5 ELSE 1.0 END
+				         * (COALESCE(pokemon_stats.base_stat, 100) / 100.0) AS raw_score
+				FROM candidate_moves
+				JOIN moves ON moves.id = candidate_moves.move_id AND moves.power IS NOT NULL
+				-- Aliased because types is also joined as the defender elsewhere in this statement.
+				JOIN types move_type ON move_type.id = moves.type_id
+				JOIN matchup ON matchup.damage_type_id = moves.type_id
+				JOIN pokemon ON pokemon.id = candidate_moves.pokemon_id AND pokemon.is_default = 1
+				JOIN move_damage_classes ON move_damage_classes.id = moves.damage_class_id
+				LEFT JOIN pokemon_stats
+				  ON pokemon_stats.pokemon_id = pokemon.id
+				 AND pokemon_stats.stat_id = CASE WHEN move_damage_classes.identifier = 'physical' THEN 2 WHEN move_damage_classes.identifier = 'special' THEN 4 ELSE NULL END
 				WHERE (${versionGroupFilter}::text IS NULL OR EXISTS (
-					SELECT 1 FROM pokemon_dex_numbers pdn
-					JOIN pokedex_version_groups pvg ON pvg.pokedex_id = pdn.pokedex_id
-					JOIN version_group_context ON version_group_context.id = pvg.version_group_id
-					WHERE pdn.species_id = p.species_id
+					SELECT 1 FROM pokemon_dex_numbers
+					JOIN pokedex_version_groups ON pokedex_version_groups.pokedex_id = pokemon_dex_numbers.pokedex_id
+					JOIN version_group_context ON version_group_context.id = pokedex_version_groups.version_group_id
+					WHERE pokemon_dex_numbers.species_id = pokemon.species_id
 				))
 			),
 			ranked AS (
@@ -208,18 +210,18 @@ export class AnalysisResolver {
 
 		const rows = await this.prisma.$queryRaw<{ defending_type: string; best_factor: number; via_move: string | null }[]>`
 			WITH picked AS (
-				SELECT m.id, m.identifier, m.type_id
-				FROM moves m
-				WHERE m.identifier = ANY(${moves}) AND m.power IS NOT NULL
+				SELECT moves.id, moves.identifier, moves.type_id
+				FROM moves
+				WHERE moves.identifier = ANY(${moves}) AND moves.power IS NOT NULL
 			),
 			per_defender AS (
-				SELECT def.identifier AS defending_type,
-				       COALESCE(te.damage_factor, 100) / 100.0 AS factor,
-				       pk.identifier AS via_move
-				FROM types def
-				CROSS JOIN picked pk
-				LEFT JOIN type_efficacy te ON te.damage_type_id = pk.type_id AND te.target_type_id = def.id
-				WHERE def.id < 10000
+				SELECT defending_type.identifier AS defending_type,
+				       COALESCE(type_efficacy.damage_factor, 100) / 100.0 AS factor,
+				       picked.identifier AS via_move
+				FROM types defending_type
+				CROSS JOIN picked
+				LEFT JOIN type_efficacy ON type_efficacy.damage_type_id = picked.type_id AND type_efficacy.target_type_id = defending_type.id
+				WHERE defending_type.id < 10000
 			),
 			best AS (
 				SELECT DISTINCT ON (defending_type)

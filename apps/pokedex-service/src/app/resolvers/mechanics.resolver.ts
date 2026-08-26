@@ -193,37 +193,37 @@ export class MechanicsResolver {
 		// Unknown version group: empty rather than a silently-modern list, matching typeChart.
 		if (versionGroup && generationId === null) return [];
 
-		const eraFilter = generationId === null ? Prisma.empty : Prisma.sql`AND m.generation_id <= ${generationId}`;
+		const eraFilter = generationId === null ? Prisma.empty : Prisma.sql`AND moves.generation_id <= ${generationId}`;
 
 		const rows = await this.prisma.$queryRaw<RawMove[]>`
-			SELECT m.identifier            AS slug,
-			       t.identifier            AS type,
-			       dc.identifier           AS damage_class,
-			       m.power, m.accuracy, m.pp, m.priority,
-			       ma.identifier           AS ailment,
-			       COALESCE(mm.ailment_chance, 0) AS ailment_chance,
-			       COALESCE(mm.crit_rate, 0)      AS crit_rate,
-			       COALESCE(mm.flinch_chance, 0)  AS flinch_chance,
-			       COALESCE(mm.drain, 0)          AS drain,
-			       COALESCE(mm.healing, 0)        AS healing,
-			       mm.min_hits, mm.max_hits,
-			       COALESCE(mm.stat_chance, 0)    AS stat_chance
-			FROM moves m
-			JOIN types t ON t.id = m.type_id
-			JOIN move_damage_classes dc ON dc.id = m.damage_class_id
-			LEFT JOIN move_meta mm ON mm.move_id = m.id
-			LEFT JOIN move_meta_ailments ma ON ma.id = mm.meta_ailment_id
-			WHERE m.id < 10000
+			SELECT moves.identifier                   AS slug,
+			       types.identifier                   AS type,
+			       move_damage_classes.identifier     AS damage_class,
+			       moves.power, moves.accuracy, moves.pp, moves.priority,
+			       move_meta_ailments.identifier      AS ailment,
+			       COALESCE(move_meta.ailment_chance, 0) AS ailment_chance,
+			       COALESCE(move_meta.crit_rate, 0)      AS crit_rate,
+			       COALESCE(move_meta.flinch_chance, 0)  AS flinch_chance,
+			       COALESCE(move_meta.drain, 0)          AS drain,
+			       COALESCE(move_meta.healing, 0)        AS healing,
+			       move_meta.min_hits, move_meta.max_hits,
+			       COALESCE(move_meta.stat_chance, 0)    AS stat_chance
+			FROM moves
+			JOIN types ON types.id = moves.type_id
+			JOIN move_damage_classes ON move_damage_classes.id = moves.damage_class_id
+			LEFT JOIN move_meta ON move_meta.move_id = moves.id
+			LEFT JOIN move_meta_ailments ON move_meta_ailments.id = move_meta.meta_ailment_id
+			WHERE moves.id < 10000
 			${eraFilter}
-			ORDER BY m.id
+			ORDER BY moves.id
 			LIMIT ${take}`;
 
 		const changes = await this.prisma.$queryRaw<{ slug: string; stat: string; change: number }[]>`
-			SELECT m.identifier AS slug, s.identifier AS stat, msc.change
-			FROM move_meta_stat_changes msc
-			JOIN moves m ON m.id = msc.move_id
-			JOIN stats s ON s.id = msc.stat_id
-			WHERE msc.change <> 0`;
+			SELECT moves.identifier AS slug, stats.identifier AS stat, move_meta_stat_changes.change
+			FROM move_meta_stat_changes
+			JOIN moves ON moves.id = move_meta_stat_changes.move_id
+			JOIN stats ON stats.id = move_meta_stat_changes.stat_id
+			WHERE move_meta_stat_changes.change <> 0`;
 
 		const bySlug = new Map<string, MoveStatChange[]>();
 		for (const row of changes) {
@@ -258,27 +258,29 @@ export class MechanicsResolver {
 	})
 	async evolutionList(@Args('take', { type: () => Int, defaultValue: 600 }) take = 600): Promise<EvolutionStep[]> {
 		return this.prisma.$queryRaw<EvolutionStep[]>`
-			SELECT pre.identifier   AS "from",
-			       s.identifier     AS "to",
-			       t.identifier     AS trigger,
-			       pe.minimum_level     AS "minLevel",
-			       pe.minimum_happiness AS "minHappiness",
-			       NULLIF(pe.time_of_day, '') AS "timeOfDay",
-			       ti.identifier    AS "triggerItem",
-			       hi.identifier    AS "heldItem",
-			       km.identifier    AS "knownMove",
-			       ts.identifier    AS "tradeSpecies",
-			       loc.identifier   AS location
-			FROM pokemon_evolution pe
-			JOIN pokemon_species s   ON s.id = pe.evolved_species_id
-			JOIN pokemon_species pre ON pre.id = s.evolves_from_species_id
-			JOIN evolution_triggers t ON t.id = pe.evolution_trigger_id
-			LEFT JOIN items ti          ON ti.id = pe.trigger_item_id
-			LEFT JOIN items hi          ON hi.id = pe.held_item_id
-			LEFT JOIN moves km          ON km.id = pe.known_move_id
-			LEFT JOIN pokemon_species ts ON ts.id = pe.trade_species_id
-			LEFT JOIN locations loc     ON loc.id = pe.location_id
-			ORDER BY pe.id
+			SELECT pre_evolution_species.identifier AS "from",
+			       evolved_species.identifier       AS "to",
+			       evolution_triggers.identifier    AS trigger,
+			       pokemon_evolution.minimum_level     AS "minLevel",
+			       pokemon_evolution.minimum_happiness AS "minHappiness",
+			       NULLIF(pokemon_evolution.time_of_day, '') AS "timeOfDay",
+			       trigger_item.identifier          AS "triggerItem",
+			       held_item.identifier             AS "heldItem",
+			       moves.identifier                 AS "knownMove",
+			       trade_species.identifier         AS "tradeSpecies",
+			       locations.identifier             AS location
+			FROM pokemon_evolution
+			-- pokemon_species is joined three times and items twice, so those keep role-named
+			-- aliases; the rest are unambiguous under their own table names.
+			JOIN pokemon_species evolved_species       ON evolved_species.id = pokemon_evolution.evolved_species_id
+			JOIN pokemon_species pre_evolution_species ON pre_evolution_species.id = evolved_species.evolves_from_species_id
+			JOIN evolution_triggers ON evolution_triggers.id = pokemon_evolution.evolution_trigger_id
+			LEFT JOIN items trigger_item          ON trigger_item.id = pokemon_evolution.trigger_item_id
+			LEFT JOIN items held_item             ON held_item.id = pokemon_evolution.held_item_id
+			LEFT JOIN moves                       ON moves.id = pokemon_evolution.known_move_id
+			LEFT JOIN pokemon_species trade_species ON trade_species.id = pokemon_evolution.trade_species_id
+			LEFT JOIN locations                   ON locations.id = pokemon_evolution.location_id
+			ORDER BY pokemon_evolution.id
 			LIMIT ${take}`;
 	}
 
@@ -307,23 +309,23 @@ export class MechanicsResolver {
 		if (versionGroupId === null) return [];
 
 		return this.prisma.$queryRaw<Machine[]>`
-			SELECT m.machine_number AS number,
-			       mv.identifier    AS move,
-			       vg.identifier    AS "versionGroup"
-			FROM machines m
-			JOIN moves mv          ON mv.id = m.move_id
-			JOIN version_groups vg ON vg.id = m.version_group_id
-			WHERE m.version_group_id = ${versionGroupId}
-			ORDER BY m.machine_number`;
+			SELECT machines.machine_number   AS number,
+			       moves.identifier          AS move,
+			       version_groups.identifier AS "versionGroup"
+			FROM machines
+			JOIN moves          ON moves.id = machines.move_id
+			JOIN version_groups ON version_groups.id = machines.version_group_id
+			WHERE machines.version_group_id = ${versionGroupId}
+			ORDER BY machines.machine_number`;
 	}
 
 	@Query(() => [GrowthRate], { description: 'The experience curves and the total experience each needs to reach level 100' })
 	async growthRateList(): Promise<GrowthRate[]> {
 		return this.prisma.$queryRaw<GrowthRate[]>`
-			SELECT g.identifier AS slug, e.experience AS "experienceToLevel100"
-			FROM growth_rates g
-			JOIN experience e ON e.growth_rate_id = g.id AND e.level = 100
-			ORDER BY e.experience`;
+			SELECT growth_rates.identifier AS slug, experience.experience AS "experienceToLevel100"
+			FROM growth_rates
+			JOIN experience ON experience.growth_rate_id = growth_rates.id AND experience.level = 100
+			ORDER BY experience.experience`;
 	}
 
 	@Query(() => [NatureEffect], {
@@ -331,13 +333,14 @@ export class MechanicsResolver {
 	})
 	async natureList(): Promise<NatureEffect[]> {
 		const rows = await this.prisma.$queryRaw<{ slug: string; increased: string; decreased: string }[]>`
-			SELECT n.identifier   AS slug,
-			       inc.identifier AS increased,
-			       dec.identifier AS decreased
-			FROM natures n
-			JOIN stats inc ON inc.id = n.increased_stat_id
-			JOIN stats dec ON dec.id = n.decreased_stat_id
-			ORDER BY n.id`;
+			SELECT natures.identifier        AS slug,
+			       increased_stat.identifier AS increased,
+			       decreased_stat.identifier AS decreased
+			FROM natures
+			-- Two aliases on the same stats table, so these two must stay aliased.
+			JOIN stats increased_stat ON increased_stat.id = natures.increased_stat_id
+			JOIN stats decreased_stat ON decreased_stat.id = natures.decreased_stat_id
+			ORDER BY natures.id`;
 
 		return rows;
 	}

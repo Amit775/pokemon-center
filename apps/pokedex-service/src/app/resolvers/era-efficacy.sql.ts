@@ -21,24 +21,25 @@ import { Prisma } from '@pokemon-center/prisma';
 export function eraEfficacySql(generationId: number | null): Prisma.Sql {
 	if (generationId === null) {
 		return Prisma.sql`
-			SELECT te.damage_type_id, te.target_type_id, te.damage_factor
-			FROM type_efficacy te`;
+			SELECT type_efficacy.damage_type_id, type_efficacy.target_type_id, type_efficacy.damage_factor
+			FROM type_efficacy`;
 	}
 
 	return Prisma.sql`
 		WITH past AS (
-			SELECT DISTINCT ON (tep.damage_type_id, tep.target_type_id)
-			       tep.damage_type_id, tep.target_type_id, tep.damage_factor
-			FROM type_efficacy_past tep
-			WHERE tep.generation_id >= ${generationId}
-			ORDER BY tep.damage_type_id, tep.target_type_id, tep.generation_id
+			SELECT DISTINCT ON (type_efficacy_past.damage_type_id, type_efficacy_past.target_type_id)
+			       type_efficacy_past.damage_type_id, type_efficacy_past.target_type_id, type_efficacy_past.damage_factor
+			FROM type_efficacy_past
+			WHERE type_efficacy_past.generation_id >= ${generationId}
+			ORDER BY type_efficacy_past.damage_type_id, type_efficacy_past.target_type_id, type_efficacy_past.generation_id
 		)
-		SELECT te.damage_type_id, te.target_type_id,
-		       COALESCE(p.damage_factor, te.damage_factor) AS damage_factor
-		FROM type_efficacy te
-		JOIN types atk ON atk.id = te.damage_type_id AND atk.generation_id <= ${generationId}
-		JOIN types def ON def.id = te.target_type_id AND def.generation_id <= ${generationId}
-		LEFT JOIN past p
-		  ON p.damage_type_id = te.damage_type_id
-		 AND p.target_type_id = te.target_type_id`;
+		SELECT type_efficacy.damage_type_id, type_efficacy.target_type_id,
+		       COALESCE(past.damage_factor, type_efficacy.damage_factor) AS damage_factor
+		FROM type_efficacy
+		-- Two aliases on the same types table, so these two must stay aliased.
+		JOIN types attacking_type ON attacking_type.id = type_efficacy.damage_type_id AND attacking_type.generation_id <= ${generationId}
+		JOIN types defending_type ON defending_type.id = type_efficacy.target_type_id AND defending_type.generation_id <= ${generationId}
+		LEFT JOIN past
+		  ON past.damage_type_id = type_efficacy.damage_type_id
+		 AND past.target_type_id = type_efficacy.target_type_id`;
 }
