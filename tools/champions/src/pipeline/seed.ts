@@ -8,6 +8,8 @@ import { DERIVED_DIR, DerivedDataset, DerivedPokemon } from '../lib/champions-da
 const CREATE_MANY_CHUNK_SIZE = 5000;
 const TRANSACTION_TIMEOUT_MILLISECONDS = 5 * 60 * 1000;
 const TRANSACTION_MAX_WAIT_MILLISECONDS = 30 * 1000;
+const VERIFIED_TABLE_NAME_WIDTH = 26;
+const VERIFIED_ROW_COUNT_WIDTH = 6;
 
 function newestFirst(first: string, second: string): number {
 	return fs.statSync(second).mtimeMs - fs.statSync(first).mtimeMs;
@@ -34,7 +36,7 @@ function deduplicateRows<Row>(table: string, rows: readonly Row[], primaryKeyOf:
 	for (const row of rows) byPrimaryKey.set(primaryKeyOf(row), row);
 
 	if (byPrimaryKey.size !== rows.length) {
-		console.warn(`  ! ${table}: the derived file repeats ${rows.length - byPrimaryKey.size} primary keys and derive should not emit those; collapsed.`);
+		console.warn(`  ! ${table}: dropped ${rows.length - byPrimaryKey.size} rows whose primary key the derived file repeats, which derive should not emit.`);
 	}
 	return [...byPrimaryKey.values()];
 }
@@ -51,7 +53,7 @@ function reportRowCountsAndThrowOnDrift(expectedFromDataset: Record<string, numb
 	console.log('\n  verified against the database:');
 	for (const table of Object.keys(expectedFromDataset)) {
 		const drift = expectedFromDataset[table] === actualInDatabase[table] ? '' : `  <- MISMATCH, expected ${expectedFromDataset[table]}`;
-		console.log(`    ${table.padEnd(26)} ${String(actualInDatabase[table]).padStart(6)}${drift}`);
+		console.log(`    ${table.padEnd(VERIFIED_TABLE_NAME_WIDTH)} ${String(actualInDatabase[table]).padStart(VERIFIED_ROW_COUNT_WIDTH)}${drift}`);
 	}
 
 	if (driftedTables.length > 0) {
@@ -168,7 +170,7 @@ async function upsertRegulationAndReplaceItsLegality(transaction: Prisma.Transac
 	const legalityRows = deduplicateRows(
 		'regulation_legality',
 		derivedRegulation.legalPokemonIds.map((pokemonId) => ({ regulation_id: regulation.id, pokemon_id: pokemonId })),
-		(row) => `${row.pokemon_id}`,
+		(row) => `${row.regulation_id}:${row.pokemon_id}`,
 	);
 	await transaction.regulationLegality.deleteMany({ where: { regulation_id: regulation.id } });
 	await createManyInChunks(legalityRows, (chunk) => transaction.regulationLegality.createMany({ data: chunk }));
