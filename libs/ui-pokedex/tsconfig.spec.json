@@ -3,10 +3,11 @@
 	"compilerOptions": {
 		"outDir": "../../dist/out-tsc",
 		"module": "preserve",
-		"target": "es2016",
+		"target": "ES2022",
 		"types": ["jest", "node"],
 		"moduleResolution": "bundler",
-		"isolatedModules": true
+		"isolatedModules": true,
+		"allowJs": true
 	},
 	"files": ["src/test-setup.ts"],
 	"include": ["jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts", "src/**/*.d.ts"],

@@ -11,3 +11,10 @@ export * from './lib/ui-skeleton/ui-skeleton.component';
 export * from './lib/ui-tabs/ui-tabs.component';
 export * from './lib/chip-toggle/chip-toggle.component';
 export * from './lib/matchup-grid/matchup-grid.component';
+export * from './lib/data-table/data-table-columns';
+export * from './lib/data-table/data-table.component';
+
+// Type-only. `isolatedModules` is on, so re-exporting a type in value position fails the build —
+// and consumers need these two names to declare a column set and a sort state without importing
+// TanStack directly.
+export type { ColumnDef, SortingState } from '@tanstack/angular-table';
