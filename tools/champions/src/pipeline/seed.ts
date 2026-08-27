@@ -1,53 +1,21 @@
-// Relative for the same reason as derive.ts: ts-node does not apply tsconfig `paths`.
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { Prisma, PrismaClient } from '../../../../libs/prisma-champions/src/generated/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import * as fs from 'fs';
 import * as path from 'path';
-import { DERIVED_DIR, DerivedDataset } from '../lib/champions-data';
+import { DERIVED_DIR, DerivedDataset, DerivedPokemon } from '../lib/champions-data';
 
-/**
- * Stage 3 of the Champions pipeline: load the reviewed JSON into the Champions database.
- *
- * The seed is *authoritative* over the tables it owns: after it runs, those tables hold
- * exactly what the derived file says and nothing else. That matters because this will be
- * run again on every regulation rotation, and a pipeline you are afraid to re-run is a
- * pipeline that rots.
- *
- * Three kinds of table live in this database, and the seed treats them differently:
- *
- *  1. **Derived tables** — `champions_type_efficacy`, `champions_pokemon_ability`,
- *     `champions_learnset`, and the seeded regulation's `regulation_legality`. These are a
- *     projection of the derived file and nothing else, so they are emptied and reloaded.
- *     Scoping those deletes to the ids *in the file* (which is what this used to do) prunes
- *     a Pokémon that lost a move, but silently keeps every row belonging to a Pokémon that
- *     left the dataset entirely — and a stale learnset pair makes the app call an illegal
- *     move legal, on exactly the question Champions exists to answer. Worse, it only
- *     happens on a database that has seen an older dataset, so it never reproduces on a
- *     fresh one.
- *  2. **Reference tables** — `champions_type`, `champions_ability`, `champions_move`,
- *     `champions_pokemon`, `regulation`. Upserted by mainline id, never deleted: a Pokémon
- *     that leaves the roster stops being *legal*, but its stats stay so that old battle
- *     logs still resolve.
- *  3. **User tables** — `box_pokemon`, `team`, `known_set`, `battle_session` and friends.
- *     Never touched. The advisor's data is not derived from anything and is not the
- *     pipeline's to rewrite.
- *
- * The whole load runs in one transaction, so a seed that fails partway leaves the database
- * as it was rather than half-populated — an emptied `champions_learnset` with no rows back
- * in it would be a worse outcome than the drift this fixes.
- */
-
-/** A single `createMany` with tens of thousands of rows exceeds Postgres' bind-parameter limit. */
 const CREATE_MANY_CHUNK_SIZE = 5000;
-
-/**
- * Budget for the seeding transaction. Generous on purpose: the reference upserts are ~1100
- * statements and the box this runs on may be a laptop with Postgres in Docker. Blowing the
- * default 5s would roll back a load that was going to succeed.
- */
 const TRANSACTION_TIMEOUT_MILLISECONDS = 5 * 60 * 1000;
 const TRANSACTION_MAX_WAIT_MILLISECONDS = 30 * 1000;
+
+function newestFirst(first: string, second: string): number {
+	return fs.statSync(second).mtimeMs - fs.statSync(first).mtimeMs;
+}
+
+function baseFormsBeforeMegaForms(first: DerivedPokemon, second: DerivedPokemon): number {
+	return Number(first.isMega) - Number(second.isMega);
+}
 
 function loadDataset(file?: string): { dataset: DerivedDataset; path: string } {
 	const dir = path.join(process.cwd(), DERIVED_DIR);
@@ -57,81 +25,44 @@ function loadDataset(file?: string): { dataset: DerivedDataset; path: string } {
 		throw new Error(`No derived dataset found in ${DERIVED_DIR}. Run "nx run champions:derive" first.`);
 	}
 
-	// Newest first, so a fresh regulation wins without needing an argument.
-	const chosen = candidates.sort((first, second) => fs.statSync(second).mtimeMs - fs.statSync(first).mtimeMs)[0];
+	const chosen = candidates.sort(newestFirst)[0];
 	return { dataset: JSON.parse(fs.readFileSync(chosen, 'utf8')) as DerivedDataset, path: chosen };
 }
 
-/**
- * Collapse rows that share a composite primary key, keeping the last one.
- *
- * The derived file should never contain two rows for the same key, but if it does we would
- * rather report the number we actually wrote than have the row-count check below fail on a
- * discrepancy that is really a `derive` bug. The warning says so out loud.
- */
-function deduplicateRows<Row>(label: string, rows: readonly Row[], keyOf: (row: Row) => string): Row[] {
-	const byKey = new Map<string, Row>();
-	for (const row of rows) byKey.set(keyOf(row), row);
+function deduplicateRows<Row>(table: string, rows: readonly Row[], primaryKeyOf: (row: Row) => string): Row[] {
+	const byPrimaryKey = new Map<string, Row>();
+	for (const row of rows) byPrimaryKey.set(primaryKeyOf(row), row);
 
-	if (byKey.size !== rows.length) {
-		console.warn(`  ! ${label}: derived file contains ${rows.length - byKey.size} duplicate rows; collapsed. This is a derive bug.`);
+	if (byPrimaryKey.size !== rows.length) {
+		console.warn(`  ! ${table}: the derived file repeats ${rows.length - byPrimaryKey.size} primary keys and derive should not emit those; collapsed.`);
 	}
-	return [...byKey.values()];
+	return [...byPrimaryKey.values()];
 }
 
-async function createManyInChunks<Row>(rows: readonly Row[], insert: (chunk: Row[]) => Promise<unknown>): Promise<void> {
+async function createManyInChunks<Row>(rows: readonly Row[], insertChunk: (chunk: Row[]) => Promise<unknown>): Promise<void> {
 	for (let offset = 0; offset < rows.length; offset += CREATE_MANY_CHUNK_SIZE) {
-		await insert(rows.slice(offset, offset + CREATE_MANY_CHUNK_SIZE));
+		await insertChunk(rows.slice(offset, offset + CREATE_MANY_CHUNK_SIZE));
 	}
 }
 
-/**
- * Read back what the transaction just wrote and compare it against what we meant to write.
- *
- * This is the check that would have caught the original drift the day it appeared instead of
- * months later: it runs inside the transaction, so a mismatch rolls the whole seed back
- * rather than reporting one number and leaving another in the database.
- */
-async function verifyRowCounts(expected: Record<string, number>, actual: Record<string, number>): Promise<void> {
-	const mismatches = Object.keys(expected).filter((table) => expected[table] !== actual[table]);
+function reportRowCountsAndThrowOnDrift(expectedFromDataset: Record<string, number>, actualInDatabase: Record<string, number>): void {
+	const driftedTables = Object.keys(expectedFromDataset).filter((table) => expectedFromDataset[table] !== actualInDatabase[table]);
 
 	console.log('\n  verified against the database:');
-	for (const table of Object.keys(expected)) {
-		const suffix = expected[table] === actual[table] ? '' : `  <- MISMATCH, expected ${expected[table]}`;
-		console.log(`    ${table.padEnd(26)} ${String(actual[table]).padStart(6)}${suffix}`);
+	for (const table of Object.keys(expectedFromDataset)) {
+		const drift = expectedFromDataset[table] === actualInDatabase[table] ? '' : `  <- MISMATCH, expected ${expectedFromDataset[table]}`;
+		console.log(`    ${table.padEnd(26)} ${String(actualInDatabase[table]).padStart(6)}${drift}`);
 	}
 
-	if (mismatches.length > 0) {
+	if (driftedTables.length > 0) {
 		throw new Error(
-			`Seed rolled back: ${mismatches.join(', ')} did not match the derived dataset after loading. ` +
-				`The seed is meant to be authoritative over these tables, so a difference means rows are being kept or dropped that should not be.`,
+			`Seed rolled back: ${driftedTables.join(', ')} did not match the derived dataset after loading. ` +
+				`The seed is authoritative over these tables, so a difference means rows are being kept or dropped that should not be.`,
 		);
 	}
 }
 
-export async function runSeed(file?: string): Promise<void> {
-	const { dataset, path: source } = loadDataset(file);
-	console.log(`Seeding from ${path.relative(process.cwd(), source)}`);
-	console.log(`  regulation ${dataset.regulation.code}, ${dataset.pokemon.length} Pokémon, ${dataset.moves.length} moves`);
-
-	const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env['DATABASE_URL_CHAMPIONS'] }) });
-
-	try {
-		await prisma.$transaction(
-			async (transaction) => {
-				await seedInTransaction(transaction, dataset);
-			},
-			{ timeout: TRANSACTION_TIMEOUT_MILLISECONDS, maxWait: TRANSACTION_MAX_WAIT_MILLISECONDS },
-		);
-		console.log('\nSeed complete.');
-	} finally {
-		await prisma.$disconnect();
-	}
-}
-
-async function seedInTransaction(transaction: Prisma.TransactionClient, dataset: DerivedDataset): Promise<void> {
-	// ---- reference data, parents before children ----------------------------------------
-	// Upserted by mainline id and never deleted; see the ownership note at the top.
+async function upsertReferenceRows(transaction: Prisma.TransactionClient, dataset: DerivedDataset): Promise<void> {
 	for (const datasetType of dataset.types) {
 		const fields = { slug: datasetType.slug, name: datasetType.name };
 		await transaction.championsType.upsert({ where: { id: datasetType.id }, create: { id: datasetType.id, ...fields }, update: fields });
@@ -164,9 +95,7 @@ async function seedInTransaction(transaction: Prisma.TransactionClient, dataset:
 	}
 	console.log(`  moves: ${dataset.moves.length} (${dataset.moves.filter((move) => move.isOverridden).length} overridden)`);
 
-	// Base forms before Megas, so `mega_of_id` always has a row to point at.
-	const orderedPokemon = [...dataset.pokemon].sort((first, second) => Number(first.isMega) - Number(second.isMega));
-	for (const datasetPokemon of orderedPokemon) {
+	for (const datasetPokemon of [...dataset.pokemon].sort(baseFormsBeforeMegaForms)) {
 		const fields = {
 			slug: datasetPokemon.slug,
 			name: datasetPokemon.name,
@@ -188,8 +117,9 @@ async function seedInTransaction(transaction: Prisma.TransactionClient, dataset:
 		await transaction.championsPokemon.upsert({ where: { id: datasetPokemon.id }, create: { id: datasetPokemon.id, ...fields }, update: fields });
 	}
 	console.log(`  pokemon: ${dataset.pokemon.length}`);
+}
 
-	// ---- derived tables: emptied and reloaded, so the file is the only truth --------------
+async function replaceDerivedRows(transaction: Prisma.TransactionClient, dataset: DerivedDataset): Promise<Record<string, number>> {
 	const typeEfficacyRows = deduplicateRows(
 		'champions_type_efficacy',
 		dataset.typeEfficacy.map((entry) => ({ attacking_type_id: entry.attackingTypeId, defending_type_id: entry.defendingTypeId, damage_factor: entry.damageFactor })),
@@ -219,25 +149,21 @@ async function seedInTransaction(transaction: Prisma.TransactionClient, dataset:
 	await createManyInChunks(learnsetRows, (chunk) => transaction.championsLearnset.createMany({ data: chunk }));
 	console.log(`  learnset pairs: ${learnsetRows.length}`);
 
-	// ---- regulation -----------------------------------------------------------------------
-	// The `regulation` row itself is reference data — past sets are kept so that "what changed
-	// this regulation" stays queryable — but the legality of the set being seeded is derived,
-	// so it is rebuilt. Other regulations' legality is history and is left alone.
+	return { champions_type_efficacy: typeEfficacyRows.length, champions_pokemon_ability: pokemonAbilityRows.length, champions_learnset: learnsetRows.length };
+}
+
+async function upsertRegulationAndReplaceItsLegality(transaction: Prisma.TransactionClient, dataset: DerivedDataset): Promise<{ regulationId: number; legalityRowCount: number }> {
 	const derivedRegulation = dataset.regulation;
 	if (derivedRegulation.isCurrent) await transaction.regulation.updateMany({ where: { is_current: true }, data: { is_current: false } });
 
-	const regulationFields = {
+	const fields = {
 		name: derivedRegulation.name,
 		starts_on: new Date(derivedRegulation.startsOn),
 		ends_on: new Date(derivedRegulation.endsOn),
 		is_current: derivedRegulation.isCurrent,
 		notes: derivedRegulation.notes,
 	};
-	const regulation = await transaction.regulation.upsert({
-		where: { code: derivedRegulation.code },
-		create: { code: derivedRegulation.code, ...regulationFields },
-		update: regulationFields,
-	});
+	const regulation = await transaction.regulation.upsert({ where: { code: derivedRegulation.code }, create: { code: derivedRegulation.code, ...fields }, update: fields });
 
 	const legalityRows = deduplicateRows(
 		'regulation_legality',
@@ -248,18 +174,39 @@ async function seedInTransaction(transaction: Prisma.TransactionClient, dataset:
 	await createManyInChunks(legalityRows, (chunk) => transaction.regulationLegality.createMany({ data: chunk }));
 	console.log(`  regulation ${derivedRegulation.code}: ${legalityRows.length} legal Pokémon`);
 
-	await verifyRowCounts(
-		{
-			champions_type_efficacy: typeEfficacyRows.length,
-			champions_pokemon_ability: pokemonAbilityRows.length,
-			champions_learnset: learnsetRows.length,
-			regulation_legality: legalityRows.length,
-		},
+	return { regulationId: regulation.id, legalityRowCount: legalityRows.length };
+}
+
+async function seedInTransaction(transaction: Prisma.TransactionClient, dataset: DerivedDataset): Promise<void> {
+	await upsertReferenceRows(transaction, dataset);
+	const derivedRowCounts = await replaceDerivedRows(transaction, dataset);
+	const { regulationId, legalityRowCount } = await upsertRegulationAndReplaceItsLegality(transaction, dataset);
+
+	reportRowCountsAndThrowOnDrift(
+		{ ...derivedRowCounts, regulation_legality: legalityRowCount },
 		{
 			champions_type_efficacy: await transaction.championsTypeEfficacy.count(),
 			champions_pokemon_ability: await transaction.championsPokemonAbility.count(),
 			champions_learnset: await transaction.championsLearnset.count(),
-			regulation_legality: await transaction.regulationLegality.count({ where: { regulation_id: regulation.id } }),
+			regulation_legality: await transaction.regulationLegality.count({ where: { regulation_id: regulationId } }),
 		},
 	);
+}
+
+export async function runSeed(file?: string): Promise<void> {
+	const { dataset, path: source } = loadDataset(file);
+	console.log(`Seeding from ${path.relative(process.cwd(), source)}`);
+	console.log(`  regulation ${dataset.regulation.code}, ${dataset.pokemon.length} Pokémon, ${dataset.moves.length} moves`);
+
+	const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env['DATABASE_URL_CHAMPIONS'] }) });
+
+	try {
+		await prisma.$transaction((transaction) => seedInTransaction(transaction, dataset), {
+			timeout: TRANSACTION_TIMEOUT_MILLISECONDS,
+			maxWait: TRANSACTION_MAX_WAIT_MILLISECONDS,
+		});
+		console.log('\nSeed complete.');
+	} finally {
+		await prisma.$disconnect();
+	}
 }
