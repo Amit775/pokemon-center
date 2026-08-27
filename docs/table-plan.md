@@ -165,6 +165,43 @@ Genuine runtime-only gating is narrower, and these are the ones to actually watc
   `getPreFilteredRowModel()` when filtering is not registered. That is why sorting works on its own,
   and why a missing row model degrades instead of throwing.
 
+### How the table is reactive — established in Phase 1, by measurement
+
+Worth stating precisely, because it was got wrong twice by reading source and settled by running a
+mutation. `table.options` is **not a plain property**. `constructTable` defines it as an accessor
+over an atom, and the Angular adapter's atom is a `signal`:
+
+```js
+Object.defineProperty(table, 'options', { get() { return table.optionsStore.get(); }, … });
+```
+
+So `table.options.<anything>` inside a reactive context is a tracked signal read. And `memo()`
+evaluates its dependency function on **every call**, before the cache check — so
+`table.getAllLeafColumns()` touches `table.options` whether it hits the cache or not. The write side
+closes the loop: `injectTable`'s effect calls `setOptions`, which writes the atom.
+
+The adapter's own doc comment states this as a contract: the returned table is signal-reactive, and
+its methods are safe to consume inside `computed()` and `effect()`. **No explicit-dependency pattern
+is needed anywhere.**
+
+Three consequences for later phases:
+
+1. **It is emergent per-API, not blanket.** `assignTableAPIs` memoises only APIs that declare
+   `memoDeps`; the rest are reactive only if their body happens to read options or atoms. It works
+   because nearly everything bottoms out in one of two chokepoints — `table.options` and
+   `table.atoms.*`. Rely on the chokepoints, not on a given method tracking a given thing.
+2. **Phase 3 gets more reactive, and more precisely.** `getAllLeafColumns`'s `memoDeps` already reads
+   `table.atoms.columnOrder?.get()` and `table.atoms.grouping?.get()`, both `undefined` today only
+   because those features are unregistered. Registering ordering/visibility/sizing creates those
+   atoms as Angular `computed`s, so they invalidate directly rather than through the options blob.
+3. **`table.options` is a single coarse signal — design around this in Phase 4.** `setOptions`
+   replaces the whole object and `injectTable` spreads `{...previous, ...currentOptions}`, a fresh
+   object every time, so `Object.is` always sees a change. Therefore **any** computed reading **any**
+   `table.options.*` invalidates when **any** option changes — `data` and `state.sorting` included.
+   `gridTemplateColumns` already recomputes on every sort and every data change. Harmless at five
+   rows; it matters once virtualization stacks per-frame computeds on a large dataset, where they
+   will re-run on every data tick.
+
 ### 3. Zoneless — the go/no-go
 
 **It repaints.** This is the check the whole recommendation rested on, and it passes cleanly.
