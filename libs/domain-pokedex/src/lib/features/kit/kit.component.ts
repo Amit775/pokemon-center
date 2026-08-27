@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import {
 	ButtonComponent,
 	EntityPortraitComponent,
@@ -8,9 +8,42 @@ import {
 	StatBarComponent,
 	TypeChipComponent,
 	UiCardComponent,
+	UiDataTableComponent,
 	UiSkeletonComponent,
 	UiTabsComponent,
+	createDataTableColumns,
+	type SortingState,
 } from '@pokemon-center/ui-pokedex';
+
+interface KitMove {
+	name: string;
+	type: string;
+	power: number;
+	accuracy: number;
+}
+
+const moveColumnHelper = createDataTableColumns<KitMove>();
+
+/**
+ * Module scope, not a component field — this is the demo that shows consumers the shape to copy.
+ *
+ * `injectTable` re-runs its options initializer whenever a signal inside it changes, and
+ * `coreColumnsFeature` memoises on `table.options.columns` by identity, so an array rebuilt per
+ * change detection reconstructs every column, header group and cell with its memos cold. Nothing
+ * type-checks this, which is precisely why the demo has to model it.
+ *
+ * The `actions` column is a `display` column, and it carries an explicit `cell` on purpose:
+ * `getDefaultColumnDef` supplies a default `header` but **no default `cell`**, and a display column
+ * has no accessor — so without one it renders as a blank stripe on the single screen where layout
+ * is being judged. It also exercises the non-sortable header path.
+ */
+const moveColumns = moveColumnHelper.columns([
+	moveColumnHelper.accessor('name', { header: 'Move', sortFn: 'alphanumeric' }),
+	moveColumnHelper.accessor('type', { header: 'Type', sortFn: 'alphanumeric' }),
+	moveColumnHelper.accessor('power', { header: 'Power', sortFn: 'basic' }),
+	moveColumnHelper.accessor('accuracy', { header: 'Accuracy', sortFn: 'basic' }),
+	moveColumnHelper.display({ id: 'actions', header: 'Actions', cell: () => 'add' }),
+]);
 
 /** Living demo of the ui-pokedex kit — eyeball every component in both themes. */
 @Component({
@@ -27,6 +60,7 @@ import {
 		UiSkeletonComponent,
 		UiTabsComponent,
 		ButtonComponent,
+		UiDataTableComponent,
 	],
 	template: `
 		<div class="kit">
@@ -74,6 +108,19 @@ import {
 					</div>
 				</div>
 			</pokedex-card>
+
+			<pokedex-section-heading label="Data table" />
+			<pokedex-data-table
+				[data]="moveRows"
+				[columns]="moveColumns"
+				[(sorting)]="moveSorting"
+				[columnTracks]="moveColumnTracks"
+				label="Example moves"
+				emptyLabel="No moves match."
+			/>
+			<p class="sort-readout">
+				Sort state, owned out here rather than inside the table: <strong>{{ sortDescription() }}</strong>
+			</p>
 
 			<pokedex-section-heading label="Skeletons" />
 			<div class="skel">
@@ -129,6 +176,9 @@ import {
 			gap: var(--s-4);
 			align-items: center;
 		}
+		.sort-readout {
+			font-size: var(--fs-xs);
+		}
 	`,
 })
 export class KitComponent {
@@ -139,4 +189,31 @@ export class KitComponent {
 		{ label: 'Moves', value: 'moves' },
 	];
 	protected readonly tab = signal('stats');
+
+	protected readonly moveColumns = moveColumns;
+
+	protected readonly moveRows: KitMove[] = [
+		{ name: 'Flamethrower', type: 'Fire', power: 90, accuracy: 100 },
+		{ name: 'Aerial Ace', type: 'Flying', power: 60, accuracy: 100 },
+		{ name: 'Thunderbolt', type: 'Electric', power: 90, accuracy: 100 },
+		{ name: 'Ember', type: 'Fire', power: 40, accuracy: 100 },
+		{ name: 'Focus Blast', type: 'Fighting', power: 120, accuracy: 70 },
+	];
+
+	/**
+	 * A bare signal, because on this screen nothing outside the table reads the sort. A real
+	 * surface whose sort belongs in the URL backs the same input with a `signalStore` instead — the
+	 * table cannot tell the difference, which is the point of the `model()`.
+	 */
+	protected readonly moveSorting = signal<SortingState>([]);
+
+	/** A wide name column and narrow numeric ones — the override Phase 2's moves table needs. */
+	protected readonly moveColumnTracks = ['2fr', '1fr', '1fr', '1fr', '1fr'];
+
+	/** A computed, not a method — a template-called method re-runs on every change detection. */
+	protected readonly sortDescription = computed(() => {
+		const [entry] = this.moveSorting();
+		if (!entry) return 'none';
+		return `${entry.id} ${entry.desc ? 'descending' : 'ascending'}`;
+	});
 }

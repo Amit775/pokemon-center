@@ -146,12 +146,24 @@ spike was spent rediscovering it from the `.d.ts`.
 All of the above is pinned by `type-inference.spec.ts`, where each finding is a `@ts-expect-error`
 that fails the build if the behaviour changes.
 
-**One thing the type system does not catch.** Feature gating is a runtime contract, not a
-template-checked one. `row.getVisibleCells()` is contributed by `columnVisibilityFeature`; with
-only `rowSortingFeature` registered it compiles under `strictTemplates` and then throws
-`getVisibleCells is not a function` on the first render. `row.getAllCells()` is the core
-equivalent. Expect one of these per feature you forget to register, and expect to find them by
-running the thing rather than by building it.
+**Feature gating, and where the compiler does and does not help.** `row.getVisibleCells()` is contributed by
+`columnVisibilityFeature`; with only `rowSortingFeature` registered, `row.getAllCells()` is the core
+equivalent. `table.getVisibleLeafColumns()` / `getAllLeafColumns()` is the same pair.
+
+_Corrected after Phase 1 review:_ this was first written up as a runtime failure. It is not.
+`Row` and `Table` are assembled through `ExtractFeatureMapTypes`, so an unregistered feature's
+methods are **absent from the type** and `strictTemplates` rejects them — verified by compiling a
+probe with `ngc`. The original observation came from a state where the table still typed as `any`.
+
+Genuine runtime-only gating is narrower, and these are the ones to actually watch:
+
+- **`sortFn` names are resolved by string.** An unregistered name logs a `console.warn` and falls
+  back to `sortFn_basic`. The default column def is `sortFn: 'auto'`, which resolves `'text'` for
+  string values — so registering `sortFn_text` is what makes the default path correct rather than
+  merely quiet.
+- **Row models fall back silently.** `getFilteredRowModel` is a *core* API returning
+  `getPreFilteredRowModel()` when filtering is not registered. That is why sorting works on its own,
+  and why a missing row model degrades instead of throwing.
 
 ### 3. Zoneless — the go/no-go
 
@@ -334,7 +346,9 @@ export const TablePreferencesStore = signalStore(
 ```
 
 ```ts
-export default class PokedexDataTableComponent {
+// A domain consumer, not the kit component — the kit component is `UiDataTableComponent`
+// and owns no store at all (kit rule 4). This is the shape a surface like the roster takes.
+export default class RosterTableComponent {
   private readonly preferences = inject(TablePreferencesStore);
 
   protected readonly table = injectTable(() => ({
@@ -353,9 +367,11 @@ it. The test that matters is the fourth one in `spike-table.component.spec.ts` �
 table object. That is the property a shareable URL is built on, and it works.
 
 **`features` and `columns` must be module-scope constants.** `injectTable` re-evaluates its
-initializer whenever a signal read inside it changes, so a `columns` array rebuilt in there is a
-new array on every sort — and a new `columns` array is a new table. This is the loudest warning in
-the migration guide and it is not paranoia. Where columns need something reactive (a label that
+initializer whenever a signal read inside it changes, so a `columns` array rebuilt in there is a new
+array on every sort — and `coreColumnsFeature` memoises on `table.options.columns` by identity, so
+every column, header group and cell is reconstructed with its memos cold. The table instance itself
+survives; the waste is everything hanging off it. This is the loudest warning in the migration guide
+and it is not paranoia. Where columns need something reactive (a label that
 depends on the active regulation, say), the reactive part belongs in the cell renderer, not in the
 column definition.
 
@@ -444,7 +460,9 @@ Two adjustments to what v1 said:
   URL-syncing next to the URL codec that already exists.
 - **Column definitions stay in the domain lib**, as v1 said — but they must be module-scope
   constants built with `createColumnHelper(...).columns([...])`, for the two reasons in check 2.
-  A column definition built inside a component field is a table rebuilt on every sort.
+  A column definition built inside a component field invalidates `table.options.columns`, which is
+  the memo dependency for every column, header group and cell — so all of them are reconstructed on
+  every sort with their memos cold. The table instance itself is created once and survives.
 
 `libs/ui-list` stays as-is for now. It is a CDK virtual-scroll list with exactly one consumer
 (`moves-list`), and that consumer is the pilot below — once it is a table, `ui-list` becomes a
@@ -565,8 +583,9 @@ replace it.
 | Zoneless incompatibility | **Retired.** 14 tests in a zoneless environment. | — |
 | Jest cannot load the ESM | **Retired.** Two-line fix, recorded in check 4. | Carry it into every consuming project's config |
 | v8 answers online don't compile | Live, and worse than expected — the alpha docs are also stale (`_features`, `_rowModels`). | Read the installed `.d.ts`; it was faster than the docs twice |
-| Feature gating not caught by the compiler | **New.** `getVisibleCells()` compiles without its feature and throws on render. | Render every feature at least once in a test |
-| Columns rebuilt inside `injectTable` | **New.** Silently rebuilds the table on every state change. | Module-scope constants; make it a review-checklist line |
+| Feature gating not caught by the compiler | **Retired — the claim was wrong.** Unregistered feature methods are absent from the type; `strictTemplates` rejects them. | — |
+| `sortFn` resolved by string at runtime | **New.** An unregistered name warns to the console and silently falls back to `sortFn_basic`. | Register `sortFn_text`; name a `sortFn` on every column |
+| Columns rebuilt inside `injectTable` | **New.** A fresh array invalidates the memo dependency for every column, header group and cell — all reconstructed on each state change, memos cold. The table instance itself is stable. | Module-scope constants; make it a review-checklist line |
 | ARIA roles hand-maintained | Live, unchanged. | Tests + one screen-reader pass in Phase 1 |
 | Roster regression | Live, unchanged. | Explicit 4.4s baseline; Phase 4 fails if it is not beaten |
 | Flag rots into a permanent fork | Live, unchanged. | Phase 5 forces a default-or-delete verdict per surface |
