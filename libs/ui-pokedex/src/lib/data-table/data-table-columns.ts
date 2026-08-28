@@ -31,10 +31,35 @@ import {
  * `console.warn` and silently falls back to `sortFn_basic`. Registering it makes the default path
  * correct rather than merely quiet.
  */
+/**
+ * Per-column presentation hints the kit reads, declared as a type so a typo cannot reach the DOM.
+ *
+ * `align: 'end'` is what makes a numeric column scannable. `tabular-nums` on its own only equalises
+ * digit widths; it does not line up a 40 under a 150, and a stat column whose ones digits wander is
+ * the column nobody reads.
+ */
+export interface DataTableColumnMeta {
+	align?: 'start' | 'end';
+}
+
 export const dataTableFeatures = tableFeatures({
 	rowSortingFeature,
 	sortedRowModel: createSortedRowModel(),
 	sortFns: { alphanumeric: sortFn_alphanumeric, basic: sortFn_basic, text: sortFn_text },
+
+	// A phantom: type-only, and `tableFeatures` strips it at runtime. It is not optional decoration.
+	// `table-core` declares `interface ColumnMeta {}` — empty — and `ColumnDef.meta` falls back to
+	// that unless the features object carries a `columnMeta` slot. Measured: without the slot,
+	// `meta: { align: 'end' }` type-checks *and so does* `meta: { alignment: 'end' }`, because `{}`
+	// admits any object and gets no excess-property check — the same silently-blank-column family as
+	// the bare-`ColumnDef` trap above. Meanwhile the kit's own read of `meta?.align` fails outright
+	// with TS2339, which is the tempting moment to reach for a cast; a cast would throw away the
+	// misspelling check that is the entire reason to type this.
+	//
+	// This is the per-table slot, deliberately, rather than global declaration merging on
+	// `ColumnMeta`: the vocabulary belongs to `pokedex-data-table`, not to every TanStack table
+	// anyone in this workspace might ever construct.
+	columnMeta: {} as DataTableColumnMeta,
 });
 
 /** The feature-set type that `ColumnDef` and `Column` must be parameterised with. */

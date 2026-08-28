@@ -554,20 +554,50 @@ the spike confirms is possible, since the whole sort state is inspectable from t
 Carry the config changes from check 4 into every `jest.config.ts` and `tsconfig.spec.json` that
 will import the table, not just the app's.
 
-**Phase 2 — Pilot: the Champions moves table, behind the flag.**
+**Phase 2 — Pilot: the Champions moves table, behind the flag. Done.**
 `libs/domain-champions/src/lib/pokedex/moves-table.component.ts`, the learnset inside a Pokémon's
 detail page. Chosen over the Pokédex moves list because Champions is the active project and this is
-the smallest surface in it: flat scalar columns (power, accuracy, PP, priority, type), one consumer,
-no routing of its own, and markup that is *already* a table — so the diff is the sorting behaviour
-and nothing else.
+the smallest surface in it: one consumer, no routing of its own, and markup that is already
+tabular. Sorting a learnset by power or accuracy is also a real answer to a real question when
+building a set, which the Pokédex moves list is not.
 
-Sorting a learnset by power or accuracy is also a real answer to a real question when building a
-set, which the Pokédex moves list is not.
+This surface is already a table, so `?view=table` does not switch a list into a table here — it
+switches the **current static table** for the **new sortable one**. That is a cleaner A/B than the
+list surfaces get, because the two renderings hold the same content and any visual regression is
+obvious side by side.
 
-One wrinkle worth naming: this surface is already tabular, so `?view=table` does not switch a list
-into a table here — it switches the **current static table** for the **new sortable one**. That is a
-cleaner A/B than the list surfaces get, because the two renderings hold the same content and any
-visual regression is obvious side by side.
+**Correction, made while building it: "the diff is the sorting behaviour and nothing else" was
+wrong,** and Phase 4 needs to know that before it plans the roster, whose rows are richer still.
+The learnset is not five scalar columns. Its first column packs six things into one cell — move
+name, a "changed" badge, the effect sentence, a conditional effect-chance span, the ability-hook
+tags and the override note — rows carry a modifier, numeric cells are right-aligned, and the whole
+thing sits in a horizontal scroller. So Phase 2 also delivered five things Phase 1 did not provide:
+
+- **`rowVariant`** on the kit component — a closed vocabulary (`'marked'`) that the kit both names
+  and paints, rather than a class string from the consumer. A consumer class *cannot* work: `.row`
+  lives in the kit's view and carries the kit's `_ngcontent` attribute under emulated
+  encapsulation, and `jest-preset-angular` strips component styles, so the wrong shape passes its
+  test green and shows an untinted row in the browser.
+- **Column alignment** through `meta: { align: 'end' }`, read on the cell *and* on its header. The
+  feature set has to declare a `columnMeta` slot for this to be typed at all — `table-core` ships
+  `interface ColumnMeta {}`, and against an empty interface a misspelled `alignment` key compiles
+  just as happily as `align`.
+- **A scroller**, because the kit clipped. `.table` is `overflow: hidden` to clip the header
+  background at the radius and `pokedex-card` is `overflow: hidden` too, so a row wider than a
+  narrow viewport was unreachable rather than scrollable.
+- **`move-name-cell.component.ts`**, the rich first column, rendered through `flexRenderComponent`.
+  This is the first real use of the mechanism Phase 4 depends on for portraits and stat bars, and
+  it works: mounted cells update across a re-sort rather than sticking to stale rows.
+- **`view-mode.ts`**, the `?view=` parser, consumed as a routed `input()` rather than through
+  `ActivatedRoute.queryParams` — still an `Observable` in router 22, with no signal accessor.
+
+One trap worth carrying forward to every nullable numeric column: **`sortUndefined` must be the
+string `'last'`, not the default.** The numeric form falls through to a `sortInt` that
+`if (isDesc) sortInt *= -1` then inverts, so it means "undefined last ascending, undefined *first*
+descending" — and numeric columns sort descending first, which puts every null at the top of the
+very first click. And the accessor that maps `null → undefined` to make the comparator work is the
+same change that blanks the cell, because the renderer emits nothing for `kind: 'null'`; the
+em-dash has to be written out in an explicit `cell`.
 
 **Phase 3 — Column ordering, resizing, visibility.**
 Add `columnOrderingFeature`, `columnSizingFeature`, `columnResizingFeature`,
@@ -585,6 +615,19 @@ second virtualization implementation for a kit that has already chosen one.
 Rich cells (portrait, type chips, stat bars) render through `flexRenderComponent`. The Mega sub-row
 needs a decision — sub-row, `rowExpandingFeature`, or its own row.
 **Measure against the 4.4s baseline; if the table is not clearly faster, this phase has failed.**
+
+**Known ahead of time: the horizontal scroller must be restructured here.** Phase 2 gives `.table`
+`width: max-content; min-width: 100%`, which is what makes a narrow viewport scroll instead of
+clipping. Measured against the CDK 22.0.5 viewport (`contain: strict` plus an absolutely-positioned
+content wrapper), **a windowed body contributes nothing to `max-content`**: at 400px the table
+collapses to 400, horizontal scrolling disappears entirely, and header and body cells diverge (183px
+against 168px). So Phase 4 cannot simply drop rows into a viewport — the width has to come from
+somewhere the windowing does not erase, most likely the resolved track list itself.
+
+Two Phase 2 constraints also carry forward, both because **each row is its own grid container**: no
+content-based track may appear in `columnTracks` (`auto` made a column wander 26px between rows), and
+the header sits outside the windowed region, so it must be sized by the same track string the rows
+use rather than by its own content.
 
 **Phase 5 — Pokédex list, and the verdict.**
 `pokemon-list` becomes cards ⟷ table on the same flag, with the server-side sorting caveat above:

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { ColumnDef, SortingState } from '@tanstack/angular-table';
 import { createDataTableColumns, type DataTableFeatures } from './data-table-columns';
-import { UiDataTableComponent } from './data-table.component';
+import { UiDataTableComponent, type DataTableRowVariant } from './data-table.component';
 
 interface DemoMove {
 	name: string;
@@ -31,7 +31,9 @@ const columnHelper = createDataTableColumns<DemoMove>();
  */
 const demoColumns = columnHelper.columns([
 	columnHelper.accessor('name', { header: 'Name', sortFn: 'alphanumeric' }),
-	columnHelper.accessor('power', { header: 'Power', sortFn: 'basic' }),
+	// `meta` only type-checks its keys because `dataTableFeatures` declares the `columnMeta` slot.
+	// Without it, `{ alignment: 'end' }` would compile just as happily and align nothing.
+	columnHelper.accessor('power', { header: 'Power', sortFn: 'basic', meta: { align: 'end' } }),
 	columnHelper.display({ id: 'actions', header: 'Actions', cell: () => 'edit' }),
 ]);
 
@@ -47,13 +49,14 @@ type DemoColumns = ColumnDef<DataTableFeatures, DemoMove>[];
 	selector: 'pokedex-data-table-host',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [UiDataTableComponent],
-	template: `<pokedex-data-table [data]="rows()" [columns]="columns()" [(sorting)]="sorting" [columnTracks]="tracks()" label="Demo moves" emptyLabel="No moves." />`,
+	template: `<pokedex-data-table [data]="rows()" [columns]="columns()" [(sorting)]="sorting" [columnTracks]="tracks()" [rowVariant]="variant()" label="Demo moves" emptyLabel="No moves." />`,
 })
 class DataTableHostComponent {
 	readonly rows = signal<DemoMove[]>(demoMoves);
 	readonly columns = signal<DemoColumns>(demoColumns);
 	readonly sorting = signal<SortingState>([]);
 	readonly tracks = signal<readonly string[] | null>(null);
+	readonly variant = signal<((row: DemoMove) => DataTableRowVariant | null) | null>(null);
 }
 
 /**
@@ -238,6 +241,34 @@ describe('UiDataTableComponent', () => {
 	});
 
 	/**
+	 * The other break jsdom cannot see, and the one that actually shipped once.
+	 *
+	 * Each row is its own grid container rather than a `subgrid` of the table, so a content-based
+	 * track resolves against *that row's* content: measured in Chrome, a column of type names moved
+	 * its left edge 26px between rows and never lined up with its own header. The table's overall
+	 * width is unchanged, so `scrollWidth` cannot betray it either — a warning is the only guard
+	 * short of eyes on the kit demo.
+	 */
+	it('warns in development about a content-based track', () => {
+		const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+		host.tracks.set(['2fr', 'auto', 'minmax(0, max-content)']);
+		fixture.detectChanges();
+
+		expect(warn).toHaveBeenCalledWith(expect.stringContaining('auto, minmax(0, max-content)'));
+	});
+
+	it('does not warn about lengths, percentages or fr', () => {
+		// `var(--auto-width)` is the false positive worth pinning: it contains `auto` and is fine.
+		const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+		host.tracks.set(['minmax(0, 3fr)', '20%', 'var(--auto-width)']);
+		fixture.detectChanges();
+
+		expect(warn).not.toHaveBeenCalledWith(expect.stringContaining('content-based track'));
+	});
+
+	/**
 	 * Runtime column-set reactivity, which nothing else here covers: every other track-list test
 	 * either goes through `columnTracks` or never changes the column set.
 	 *
@@ -268,5 +299,50 @@ describe('UiDataTableComponent', () => {
 
 	it('labels the grid for assistive technology', () => {
 		expect(grid().getAttribute('aria-label')).toBe('Demo moves');
+	});
+
+	/**
+	 * The three below carry the same caveat, and it is not a formality:
+	 * **`jest-preset-angular` strips component styles**, so nothing here can see a background
+	 * colour, a text alignment or a scrollbar. What they prove is that the *hook fires* — the class
+	 * lands on the right element, the wrapper exists — and nothing whatsoever about appearance.
+	 * Only the browser pass can say the row is tinted, the numbers line up or the table scrolls.
+	 */
+	it('paints a row variant where the consumer asks for one, and leaves the rest alone', () => {
+		expect(bodyRows().every((row) => !row.classList.contains('marked'))).toBe(true);
+
+		host.variant.set((row) => (row.name === 'Aerial Ace' ? 'marked' : null));
+		fixture.detectChanges();
+
+		// The static `row` class survives the [class] binding — it merges rather than replacing,
+		// which is the property the whole grid layout rests on.
+		expect(bodyRows().map((row) => row.classList.contains('marked'))).toEqual([false, true, false]);
+		expect(bodyRows().every((row) => row.classList.contains('row'))).toBe(true);
+
+		host.variant.set(null);
+		fixture.detectChanges();
+
+		expect(bodyRows().every((row) => !row.classList.contains('marked'))).toBe(true);
+		expect(bodyRows().every((row) => row.classList.contains('row'))).toBe(true);
+	});
+
+	it('carries a column meta alignment onto the cell and onto its header', () => {
+		// The header half is the one worth pinning: a right-aligned column under a left-aligned
+		// header reads as a bug, and it is the half an implementer forgets.
+		expect(columnHeaders()[1].classList.contains('align-end')).toBe(true);
+		expect(columnHeaders()[0].classList.contains('align-end')).toBe(false);
+
+		const firstRowCells = Array.from(bodyRows()[0].querySelectorAll<HTMLElement>('.cell'));
+		expect(firstRowCells[1].classList.contains('align-end')).toBe(true);
+		expect(firstRowCells[0].classList.contains('align-end')).toBe(false);
+	});
+
+	it('wraps the grid in a horizontal scroller', () => {
+		// Without it a narrow viewport does not scroll the table, it clips it: .table is
+		// overflow: hidden so the header background clips at the radius, and pokedex-card is
+		// overflow: hidden as well. A clipped row is unreachable, which is a loss of information.
+		const scroller = element().querySelector('.scroller');
+		expect(scroller).not.toBeNull();
+		expect(scroller?.contains(grid())).toBe(true);
 	});
 });

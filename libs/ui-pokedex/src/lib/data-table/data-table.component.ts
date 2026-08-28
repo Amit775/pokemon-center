@@ -12,6 +12,35 @@ import {
 import { dataTableFeatures, type DataTableFeatures } from './data-table-columns';
 
 /**
+ * The row modifiers the kit knows how to paint.
+ *
+ * A closed vocabulary rather than a free class string, and that is the whole design. The `.row`
+ * element lives in **this** component's view, so under emulated encapsulation it carries the kit's
+ * `_ngcontent` attribute — a `.changed` rule written in a consumer's `styles` block would never
+ * match it. Worse, `jest-preset-angular` strips component styles entirely, so a consumer's
+ * class-presence test passes green while the browser shows an untinted row. The kit therefore owns
+ * both the name and the paint; the consumer owns only the meaning it maps onto them.
+ *
+ * `marked` is deliberately about emphasis rather than about any one domain's reason for it —
+ * Champions means "this move differs from the main series", another surface will mean something
+ * else, and the kit does not need to know which.
+ */
+export type DataTableRowVariant = 'marked';
+
+/**
+ * The four spellings of a track that sizes itself from content, wherever they appear — bare, or
+ * inside a `minmax()`.
+ *
+ * Only these four are rejected because only these four ask the browser to measure something. A
+ * length, a percentage and an `fr` all resolve to the same width in every row's grid; `auto`,
+ * `min-content`, `max-content` and `fit-content()` resolve against whatever that particular row
+ * happens to hold. The leading `[\s,(]` alternative is what keeps `var(--auto-width)` and
+ * `minmax(0, 3fr)` out of it.
+ */
+// Case-insensitive because CSS keywords are: `AUTO` is as valid, and as wrong here, as `auto`.
+const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content)\b/i;
+
+/**
  * A sortable data table, headless underneath and 100% our pixels on top.
  *
  * The engine is TanStack Table v9, which renders nothing at all — so there is no borrowed
@@ -42,60 +71,78 @@ import { dataTableFeatures, type DataTableFeatures } from './data-table-columns'
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [FlexRender],
 	template: `
-		<div class="table" role="table" [attr.aria-label]="label()" [style.--pokedex-table-columns]="gridTemplateColumns()">
-			<div role="rowgroup">
-				@for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
-					<div class="row header-row" role="row">
-						@for (header of headerGroup.headers; track header.id) {
-							<div class="cell header-cell" role="columnheader" [attr.aria-sort]="header.isPlaceholder ? null : ariaSort(header.column)">
-								@if (!header.isPlaceholder) {
-									<!--
-										A sort button only where a sort is possible. A display column has no
-										accessor, so getCanSort() is false for it, and an aria-sort on a column
-										that can never sort is a false promise to a screen reader.
+		<!--
+			The scroller is outside the grid, not inside it. .table is overflow: hidden so the header
+			background clips at the corner radius, and pokedex-card is overflow: hidden too — so
+			without a scroll container a row that outgrows a narrow viewport is not scrolled, it is
+			cut off and unreachable. That is a loss of information no test in jsdom can see.
+		-->
+		<div class="scroller">
+			<div class="table" role="table" [attr.aria-label]="label()" [style.--pokedex-table-columns]="gridTemplateColumns()">
+				<div role="rowgroup">
+					@for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
+						<div class="row header-row" role="row">
+							@for (header of headerGroup.headers; track header.id) {
+								<div
+									class="cell header-cell"
+									role="columnheader"
+									[class]="alignmentClass(header.column)"
+									[attr.aria-sort]="header.isPlaceholder ? null : ariaSort(header.column)"
+								>
+									@if (!header.isPlaceholder) {
+										<!--
+											A sort button only where a sort is possible. A display column has no
+											accessor, so getCanSort() is false for it, and an aria-sort on a column
+											that can never sort is a false promise to a screen reader.
 
-										The isPlaceholder half matters even with no group columns in Phase 1:
-										a placeholder header's column is the *leaf* column, so getCanSort() is
-										true for it and a placeholder would otherwise render a second,
-										duplicate sort button for the same column.
-									-->
-									@if (header.column.getCanSort()) {
-										<button type="button" (click)="toggleSort(header.column)">
-											<ng-container *flexRenderHeader="header; let rendered">{{ rendered }}</ng-container>
-											<span class="indicator" aria-hidden="true">{{ sortGlyph(header.column.getIsSorted()) }}</span>
-										</button>
-									} @else {
-										<span class="static-header">
-											<ng-container *flexRenderHeader="header; let rendered">{{ rendered }}</ng-container>
-										</span>
+											The isPlaceholder half matters even with no group columns in Phase 1:
+											a placeholder header's column is the *leaf* column, so getCanSort() is
+											true for it and a placeholder would otherwise render a second,
+											duplicate sort button for the same column.
+										-->
+										@if (header.column.getCanSort()) {
+											<button type="button" (click)="toggleSort(header.column)">
+												<ng-container *flexRenderHeader="header; let rendered">{{ rendered }}</ng-container>
+												<span class="indicator" aria-hidden="true">{{ sortGlyph(header.column.getIsSorted()) }}</span>
+											</button>
+										} @else {
+											<span class="static-header">
+												<ng-container *flexRenderHeader="header; let rendered">{{ rendered }}</ng-container>
+											</span>
+										}
 									}
-								}
-							</div>
-						}
-					</div>
-				}
-			</div>
+								</div>
+							}
+						</div>
+					}
+				</div>
 
-			<div role="rowgroup">
-				@for (row of table.getRowModel().rows; track row.id) {
-					<div class="row" role="row">
+				<div role="rowgroup">
+					@for (row of table.getRowModel().rows; track row.id) {
 						<!--
-							getAllCells(), not getVisibleCells(): the latter is contributed by
-							columnVisibilityFeature, which Phase 1 does not register. Phase 3 switches this
-							and getAllLeafColumns() below in the same edit.
+							[class] merges with the static class rather than replacing it, and a null binding
+							removes only what it added — measured, because the opposite would silently drop
+							.row and take the grid with it.
 						-->
-						@for (cell of row.getAllCells(); track cell.id) {
-							<div class="cell" role="cell">
-								<ng-container *flexRenderCell="cell; let rendered">{{ rendered }}</ng-container>
-							</div>
-						}
-					</div>
-				} @empty {
-					<!-- A header floating over nothing is not a finished component. -->
-					<div class="row empty-row" role="row">
-						<div class="cell empty-cell" role="cell" [attr.aria-colspan]="table.getAllLeafColumns().length">{{ emptyLabel() }}</div>
-					</div>
-				}
+						<div class="row" role="row" [class]="variantFor(row.original)">
+							<!--
+								getAllCells(), not getVisibleCells(): the latter is contributed by
+								columnVisibilityFeature, which Phase 1 does not register. Phase 3 switches this
+								and getAllLeafColumns() below in the same edit.
+							-->
+							@for (cell of row.getAllCells(); track cell.id) {
+								<div class="cell" role="cell" [class]="alignmentClass(cell.column)">
+									<ng-container *flexRenderCell="cell; let rendered">{{ rendered }}</ng-container>
+								</div>
+							}
+						</div>
+					} @empty {
+						<!-- A header floating over nothing is not a finished component. -->
+						<div class="row empty-row" role="row">
+							<div class="cell empty-cell" role="cell" [attr.aria-colspan]="table.getAllLeafColumns().length">{{ emptyLabel() }}</div>
+						</div>
+					}
+				</div>
 			</div>
 		</div>
 	`,
@@ -104,6 +151,36 @@ import { dataTableFeatures, type DataTableFeatures } from './data-table-columns'
 			display: block;
 		}
 
+		.scroller {
+			overflow-x: auto;
+		}
+
+		/*
+			width: max-content is what actually makes the scroller work, and min-width: 100% is what
+			stops it shrinking below the space available.
+
+			The sizing lives here rather than on .row because .table is overflow: hidden — a row wider
+			than a content-width .table is clipped by it and the scroller never sees anything to
+			scroll. Sizing .table itself instead means the rows fill it, so the header background
+			still paints across the whole scrolled width for free.
+
+			max-content is the value to watch, in two different ways.
+
+			Today: with a track list like minmax(0, 3fr), the fr track resolves to its max-content
+			contribution — the widest thing any cell in that column holds — so a column full of long
+			prose can push the table past the viewport and engage the scroller on a wide screen,
+			where it should not. jsdom does no layout and cannot see this; only the browser can. If
+			that happens, drop width: max-content and keep min-width: 100%, which is the smaller
+			hammer: rows then squeeze instead of scrolling.
+
+			Phase 4, and this one needs a restructure rather than a tweak: measured under
+			CdkVirtualScrollViewport (CDK 22.0.5), the windowed body contributes nothing to
+			max-content at all. The viewport is contain: strict with an absolutely-positioned content
+			wrapper, so the rows are out of flow as far as intrinsic sizing is concerned. At a 400px
+			viewport the table collapsed to 400, horizontal scrolling disappeared entirely, and the
+			header and body cells diverged — 183px against 168px for the same column. Whoever adds
+			virtualization has to solve the width story here, not inherit it.
+		*/
 		.table {
 			font-size: var(--fs-sm);
 			border: 1px solid var(--line);
@@ -111,6 +188,9 @@ import { dataTableFeatures, type DataTableFeatures } from './data-table-columns'
 			overflow: hidden;
 			background: var(--surface);
 			color: var(--ink);
+			width: max-content;
+			min-width: 100%;
+			box-sizing: border-box;
 		}
 
 		/*
@@ -125,10 +205,42 @@ import { dataTableFeatures, type DataTableFeatures } from './data-table-columns'
 			grid-template-columns: var(--pokedex-table-columns);
 		}
 
+		/* The one row modifier the kit paints — a token, never a raw colour. */
+		.row.marked {
+			background: var(--surface-sunken);
+		}
+
 		.cell {
 			padding: var(--s-2) var(--s-3);
 			border-bottom: 1px solid var(--line);
 			font-variant-numeric: tabular-nums;
+		}
+
+		/*
+			Alignment arrives as a class rather than a style binding because the body cell and the
+			header cell need two different declarations to reach the same place: the body cell is
+			ordinary flow, so text-align moves it, while the header cell's content is a flex button
+			that ignores text-align entirely and has to be moved with justify-content. One class, one
+			vocabulary, and the CSS resolves each context.
+
+			end, not right: the logical property matches the value name and costs nothing.
+		*/
+		.cell.align-end {
+			text-align: end;
+		}
+
+		.header-cell.align-end button,
+		.header-cell.align-end .static-header {
+			justify-content: flex-end;
+		}
+
+		.cell.align-start {
+			text-align: start;
+		}
+
+		.header-cell.align-start button,
+		.header-cell.align-start .static-header {
+			justify-content: flex-start;
 		}
 
 		/*
@@ -237,8 +349,25 @@ export class UiDataTableComponent<TRow extends RowData> {
 	 * A `readonly string[]` rather than a raw string so the count can be checked against the column
 	 * count. With a raw string a wrong track count silently wraps each row onto implicit grid rows —
 	 * a layout break **no test can catch**, because jsdom does no layout.
+	 *
+	 * **Use only lengths, percentages and `fr`. Never a content-based track.** Each row is its own
+	 * grid container rather than a `subgrid` of the table — see the note on `.row` in the styles for
+	 * why — so `auto`, `min-content`, `max-content` and `fit-content()` resolve *independently per
+	 * row*, against that row's own content. A column of type names measured a 26px wander in its
+	 * left edge from row to row, never lining up with its own header. It reads as a ragged edge
+	 * rather than a column, and `clientWidth`/`scrollWidth` cannot see it because the table's
+	 * overall width is unchanged. The dev-mode warning below catches the four spellings.
 	 */
 	readonly columnTracks = input<readonly string[] | null>(null);
+
+	/**
+	 * Which rows carry a modifier, if any.
+	 *
+	 * A function of the row rather than a field on it, so the kit never has to know what makes a
+	 * particular surface's row worth emphasising — Champions asks for `marked` where a move differs
+	 * from the main series, and the kit only paints it.
+	 */
+	readonly rowVariant = input<((row: TRow) => DataTableRowVariant | null) | null>(null);
 
 	readonly emptyLabel = input('Nothing to show.');
 
@@ -295,11 +424,22 @@ export class UiDataTableComponent<TRow extends RowData> {
 
 		if (!tracks) return `repeat(${columnCount}, minmax(0, 1fr))`;
 
-		if (isDevMode() && tracks.length !== columnCount) {
-			console.warn(
-				`pokedex-data-table: columnTracks has ${tracks.length} entries but the table has ${columnCount} columns. ` +
-					'Rows will wrap onto implicit grid rows.',
-			);
+		if (isDevMode()) {
+			if (tracks.length !== columnCount) {
+				console.warn(
+					`pokedex-data-table: columnTracks has ${tracks.length} entries but the table has ${columnCount} columns. ` +
+						'Rows will wrap onto implicit grid rows.',
+				);
+			}
+
+			const contentBased = tracks.filter((track) => CONTENT_BASED_TRACK.test(track));
+			if (contentBased.length > 0) {
+				console.warn(
+					`pokedex-data-table: columnTracks contains a content-based track (${contentBased.join(', ')}). ` +
+						'Every row is its own grid container, so such a track resolves against that row alone and the ' +
+						'column will not line up with its header or with the other rows. Use a length, a percentage or fr.',
+				);
+			}
 		}
 
 		return tracks.join(' ');
@@ -332,6 +472,23 @@ export class UiDataTableComponent<TRow extends RowData> {
 		this.announcer.announce(
 			entry ? `${headerText} sorted ${entry.desc ? 'descending' : 'ascending'}` : `${headerText} not sorted`,
 		);
+	}
+
+	/** The modifier class for one row, or `null` when the consumer supplied no `rowVariant`. */
+	protected variantFor(row: TRow): DataTableRowVariant | null {
+		return this.rowVariant()?.(row) ?? null;
+	}
+
+	/**
+	 * The alignment class for a column, read off `meta`.
+	 *
+	 * Applied to the header as well as the body cell on purpose: a right-aligned Power column under
+	 * a left-aligned "Power" header reads as a bug, and the eye follows the header when scanning
+	 * for the column it wants.
+	 */
+	protected alignmentClass(column: Column<DataTableFeatures, TRow>): string | null {
+		const align = column.columnDef.meta?.align;
+		return align ? `align-${align}` : null;
 	}
 
 	/** `null` rather than `'none'` where a column cannot sort — see the template comment. */
