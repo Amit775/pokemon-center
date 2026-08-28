@@ -12,6 +12,7 @@ import {
 	UiSkeletonComponent,
 	UiTabsComponent,
 	createDataTableColumns,
+	type DataTableRowVariant,
 	type SortingState,
 } from '@pokemon-center/ui-pokedex';
 
@@ -36,12 +37,16 @@ const moveColumnHelper = createDataTableColumns<KitMove>();
  * `getDefaultColumnDef` supplies a default `header` but **no default `cell`**, and a display column
  * has no accessor — so without one it renders as a blank stripe on the single screen where layout
  * is being judged. It also exercises the non-sortable header path.
+ *
+ * The two numeric columns carry `meta: { align: 'end' }`, which the kit applies to the cell *and*
+ * to its header. That is here to be looked at: a right-aligned column under a left-aligned header
+ * reads as a bug, and this is the screen where that gets caught.
  */
 const moveColumns = moveColumnHelper.columns([
 	moveColumnHelper.accessor('name', { header: 'Move', sortFn: 'alphanumeric' }),
 	moveColumnHelper.accessor('type', { header: 'Type', sortFn: 'alphanumeric' }),
-	moveColumnHelper.accessor('power', { header: 'Power', sortFn: 'basic' }),
-	moveColumnHelper.accessor('accuracy', { header: 'Accuracy', sortFn: 'basic' }),
+	moveColumnHelper.accessor('power', { header: 'Power', sortFn: 'basic', meta: { align: 'end' } }),
+	moveColumnHelper.accessor('accuracy', { header: 'Accuracy', sortFn: 'basic', meta: { align: 'end' } }),
 	moveColumnHelper.display({ id: 'actions', header: 'Actions', cell: () => 'add' }),
 ]);
 
@@ -115,6 +120,7 @@ const moveColumns = moveColumnHelper.columns([
 				[columns]="moveColumns"
 				[(sorting)]="moveSorting"
 				[columnTracks]="moveColumnTracks"
+				[rowVariant]="moveRowVariant"
 				label="Example moves"
 				emptyLabel="No moves match."
 			/>
@@ -207,8 +213,27 @@ export class KitComponent {
 	 */
 	protected readonly moveSorting = signal<SortingState>([]);
 
-	/** A wide name column and narrow numeric ones — the override Phase 2's moves table needs. */
+	/**
+	 * A wide name column and narrow numeric ones — the override a real moves table needs.
+	 *
+	 * Every entry is an `fr`, and that is the pattern to copy. **A content-based track — `auto`,
+	 * `min-content`, `max-content`, `fit-content()` — is a bug here.** Each row is its own grid
+	 * container rather than a `subgrid` of the table, so a content-based track resolves against
+	 * that row alone and the column's left edge wanders from row to row instead of lining up with
+	 * its header. Lengths, percentages and `fr` all resolve identically across the rows; the kit
+	 * warns in development if one of the other four appears.
+	 */
 	protected readonly moveColumnTracks = ['2fr', '1fr', '1fr', '1fr', '1fr'];
+
+	/**
+	 * One marked row, so the kit's only row modifier is visible in both themes.
+	 *
+	 * The kit owns the name and the paint; the consumer supplies only the meaning — here, "this one
+	 * misses". A class string from out here could not work: the row lives in the kit's view and
+	 * carries the kit's encapsulation attribute, so a rule in these styles would never match it.
+	 */
+	protected readonly moveRowVariant = (move: KitMove): DataTableRowVariant | null =>
+		move.accuracy < 100 ? 'marked' : null;
 
 	/** A computed, not a method — a template-called method re-runs on every change detection. */
 	protected readonly sortDescription = computed(() => {

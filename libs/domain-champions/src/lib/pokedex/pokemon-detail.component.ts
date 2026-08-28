@@ -10,10 +10,12 @@ import {
 	UiSkeletonComponent,
 	spriteSources,
 } from '@pokemon-center/ui-pokedex';
+import { parseViewMode } from '../view-mode';
 import { CounterListComponent } from './counter-list.component';
 import { answeredBy, answersTo } from './counters';
 import { PokedexStore } from './pokedex.store';
 import { MegaPanelComponent } from './mega-panel.component';
+import { MovesDataTableComponent } from './moves-data-table.component';
 import { MovesTableComponent } from './moves-table.component';
 import { StatPanelComponent } from './stat-panel.component';
 
@@ -42,6 +44,13 @@ import { StatPanelComponent } from './stat-panel.component';
 		CounterListComponent,
 		EntityPortraitComponent,
 		MegaPanelComponent,
+		// Both renderings of the learnset stay in the tree for the length of the preview: that
+		// duplication *is* the A/B, and identical content side by side is what makes a regression
+		// obvious. It puts TanStack (~13.4 kB transfer) into this route's chunk for every visitor,
+		// flagged or not — accepted, not overlooked. The route is already lazy so the initial bundle
+		// is untouched, and @defer-ing the table branch would put a loading state in the middle of
+		// the comparison. Phase 5 decides which one survives and this cost goes away with the loser.
+		MovesDataTableComponent,
 		MovesTableComponent,
 		RouterLink,
 		SectionHeadingComponent,
@@ -195,7 +204,12 @@ import { StatPanelComponent } from './stat-panel.component';
 
 				<pokedex-section-heading label="Moves ({{ detail.moves.length }})" />
 				<pokedex-card>
-					<champions-moves-table [moves]="detail.moves" [isApproximate]="detail.learnsetIsApproximate" />
+					<!-- No visible toggle: a control would advertise a preview as a supported feature. -->
+					@if (viewMode() === 'table') {
+						<champions-moves-data-table [moves]="detail.moves" [isApproximate]="detail.learnsetIsApproximate" />
+					} @else {
+						<champions-moves-table [moves]="detail.moves" [isApproximate]="detail.learnsetIsApproximate" />
+					}
 				</pokedex-card>
 			} @else {
 				<pokedex-section-heading label="Abilities and moves" />
@@ -497,6 +511,21 @@ import { StatPanelComponent } from './stat-panel.component';
 export default class PokemonDetailComponent {
 	/** Bound from the route parameter via `withComponentInputBinding`. */
 	readonly slug = input.required<string>();
+
+	/**
+	 * The `?view=` preview flag, bound the same way `slug` is.
+	 *
+	 * An input rather than a read of `ActivatedRoute.queryParams`, which is still an `Observable` in
+	 * router 22 with no signal accessor — reaching for `toSignal` or `snapshot` here would be going
+	 * against the grain of a component that already binds its route state this way. The router
+	 * binds query parameters to inputs as well as path parameters, so changing `?view=` re-emits
+	 * onto the live instance and OnPush repaints without a navigation to a different component.
+	 *
+	 * Typed `string` rather than `ViewMode` because the value is whatever was in the URL.
+	 */
+	readonly view = input<string>();
+
+	protected readonly viewMode = computed(() => parseViewMode(this.view()));
 
 	protected readonly pokedex = inject(PokedexStore);
 	private readonly router = inject(Router);
