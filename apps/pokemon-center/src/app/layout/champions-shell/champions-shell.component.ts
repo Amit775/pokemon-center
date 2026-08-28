@@ -97,6 +97,7 @@ export default class ChampionsShellComponent {
 	private readonly tabs = [
 		{ path: '/champions/pokedex', label: 'Pokédex', enabled: true },
 		{ path: '/champions/box', label: 'Box', enabled: true },
+		{ path: '/champions/synergy', label: 'Synergy', enabled: true },
 		{ path: '/champions/companion', label: 'Companion', enabled: true },
 		{ path: '/champions/simulator', label: 'Simulator', enabled: true },
 		{ path: '/champions/school', label: 'School', enabled: true },

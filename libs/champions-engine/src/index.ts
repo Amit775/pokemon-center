@@ -4,3 +4,4 @@ export * from './lib/speed';
 export * from './lib/damage';
 export * from './lib/matchup';
 export * from './lib/counters';
+export * from './lib/synergy';
