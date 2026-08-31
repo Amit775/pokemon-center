@@ -3,10 +3,7 @@ import { MovesTablePreferencesStore } from './moves-table-preferences.store';
 
 const STORAGE_KEY = 'pokemon-center.champions-moves-table.v1';
 
-/**
- * The store is `providedIn: 'root'`, so each test gets a fresh injector and therefore a fresh
- * `onInit` — which is what makes hydration testable at all.
- */
+/** Root-provided, so a reset injector gives a fresh `onInit` — which is what makes hydration testable. */
 function createStore() {
 	return TestBed.inject(MovesTablePreferencesStore);
 }
@@ -55,13 +52,9 @@ describe('MovesTablePreferencesStore', () => {
 	});
 
 	/**
-	 * The reason the guard exists, and it is not crash protection.
-	 *
-	 * TanStack tolerates a stale id perfectly well — an unmatched entry in `columnOrder` is skipped
-	 * and an unread visibility key is just unread. The guard is here because the move-left/right
-	 * arithmetic indexes into the order array, and because a column renamed away and later
-	 * reintroduced under its old id would otherwise silently inherit a position and a hidden flag
-	 * written by a version of the table that no longer exists.
+	 * Not crash protection — TanStack tolerates a stale id. The guard exists because the move
+	 * arithmetic indexes into the order array, and a renamed column returning under its old id would
+	 * otherwise inherit a position written by a version of the table that no longer exists.
 	 */
 	it('drops ids for columns the table no longer has', () => {
 		localStorage.setItem(

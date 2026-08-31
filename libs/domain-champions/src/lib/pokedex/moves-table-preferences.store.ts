@@ -5,15 +5,9 @@ import { functionalUpdate, type ColumnOrderState, type Updater, type ColumnVisib
 /**
  * Which columns of the moves table you keep, and in what order.
  *
- * **Sorting is deliberately not here.** It stays a local signal on the component, because it is a
- * glance-level question about the Pokémon in front of you — "what hits hardest?" — and this store is
- * `providedIn: 'root'` and persisted. Moving sorting in would mean sorting one learnset by Power
- * silently sorts every learnset by Power, for ever, across sessions. That may be wanted one day; it
- * would be a user-visible change and it is not this one.
- *
- * Column choices are the opposite kind of preference: a trainer who never reads PP wants it gone
- * everywhere, permanently, and having to hide it again on the next Pokémon is the annoyance this
- * exists to remove.
+ * **Sorting is deliberately not here.** This store is root-provided and persisted, so a sort in it
+ * would mean sorting one learnset by Power sorts every learnset by Power, for ever. Column choices
+ * are the opposite: hide PP once, and it should stay hidden everywhere.
  */
 export interface MovesTablePreferences {
 	columnVisibility: ColumnVisibilityState;
@@ -29,14 +23,9 @@ const EMPTY_PREFERENCES: MovesTablePreferences = {
 const STORAGE_KEY = 'pokemon-center.champions-moves-table.v1';
 
 /**
- * Every column id the table can legitimately hold.
- *
- * Hydration filters against this rather than trusting what is in storage. TanStack itself tolerates
- * a stale id — an unmatched entry in `columnOrder` is skipped, and a `columnVisibility` key for a
- * column that no longer exists is simply never read — so this is not crash protection. It is there
- * because the move-left/right arithmetic indexes into the order array, and because a renamed column
- * that later comes back under its old id would otherwise inherit a position and a hidden flag some
- * previous version of the table wrote.
+ * Hydration filters against this. Not crash protection — TanStack tolerates a stale id — but the
+ * move arithmetic indexes into the order array, and a renamed column returning under its old id
+ * should not inherit a position some earlier version wrote.
  */
 const KNOWN_COLUMN_IDENTIFIERS: readonly string[] = ['name', 'type', 'power', 'accuracy', 'pp'];
 
@@ -68,13 +57,7 @@ export const MovesTablePreferencesStore = signalStore(
 	{ providedIn: 'root' },
 	withState<MovesTablePreferences>(EMPTY_PREFERENCES),
 	withMethods((store) => ({
-		/**
-		 * Apply one of TanStack's state updaters.
-		 *
-		 * The table hands back a function of the previous value, never a bare value — the one piece of
-		 * plumbing a controlled-state integration cannot avoid. `functionalUpdate` is TanStack's own
-		 * resolver, so the semantics stay theirs rather than being guessed at.
-		 */
+		/** The table hands back a function of the previous value, never a bare value. */
 		applyVisibilityUpdate(update: Updater<ColumnVisibilityState>): void {
 			patchState(store, { columnVisibility: functionalUpdate(update, store.columnVisibility()) });
 		},

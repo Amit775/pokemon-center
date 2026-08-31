@@ -28,21 +28,12 @@ interface KitMove {
 const moveColumnHelper = createDataTableColumns<KitMove>();
 
 /**
- * Module scope, not a component field — this is the demo that shows consumers the shape to copy.
+ * Module scope, not a component field — the shape consumers should copy, since nothing type-checks
+ * it and a fresh array rebuilds every column, header and cell.
  *
- * `injectTable` re-runs its options initializer whenever a signal inside it changes, and
- * `coreColumnsFeature` memoises on `table.options.columns` by identity, so an array rebuilt per
- * change detection reconstructs every column, header group and cell with its memos cold. Nothing
- * type-checks this, which is precisely why the demo has to model it.
- *
- * The `actions` column is a `display` column, and it carries an explicit `cell` on purpose:
- * `getDefaultColumnDef` supplies a default `header` but **no default `cell`**, and a display column
- * has no accessor — so without one it renders as a blank stripe on the single screen where layout
- * is being judged. It also exercises the non-sortable header path.
- *
- * The two numeric columns carry `meta: { align: 'end' }`, which the kit applies to the cell *and*
- * to its header. That is here to be looked at: a right-aligned column under a left-aligned header
- * reads as a bug, and this is the screen where that gets caught.
+ * The `actions` display column carries an explicit `cell` because there is no default one, and it
+ * exercises the non-sortable header path. The numeric columns carry `align: 'end'`, applied to the
+ * header as well as the cell, which is here to be looked at.
  */
 const moveColumns = moveColumnHelper.columns([
 	moveColumnHelper.accessor('name', { header: 'Move', sortFn: 'alphanumeric' }),
@@ -210,11 +201,7 @@ export class KitComponent {
 		{ name: 'Focus Blast', type: 'Fighting', power: 120, accuracy: 70 },
 	];
 
-	/**
-	 * A bare signal, because on this screen nothing outside the table reads the sort. A real
-	 * surface whose sort belongs in the URL backs the same input with a `signalStore` instead — the
-	 * table cannot tell the difference, which is the point of the `model()`.
-	 */
+	/** A bare signal here; a real surface backs the same input with a store. The table cannot tell. */
 	protected readonly moveSorting = signal<SortingState>([]);
 
 	/**
@@ -224,11 +211,8 @@ export class KitComponent {
 	 * `min-content`, `max-content`, `fit-content()` — is a bug here.** Each row is its own grid
 	 * container rather than a `subgrid` of the table, so a content-based track resolves against
 	 * that row alone and the column's left edge wanders from row to row instead of lining up with
-	 * its header. Lengths, percentages and `fr` all resolve identically across the rows; the kit
-	 * warns in development if one of the other four appears.
-	 *
-	 * Keyed by column id, not positional — hiding or moving a column has to take its track with it,
-	 * and an index cannot follow a column that moved.
+	 * its header. The kit warns in development if one appears. Keyed by column id, since an index
+	 * cannot follow a column that moved.
 	 */
 	protected readonly moveColumnTracks = {
 		name: '2fr',
@@ -238,27 +222,15 @@ export class KitComponent {
 		actions: '1fr',
 	};
 
-	/**
-	 * Visibility and order, so the Columns panel has somewhere to write.
-	 *
-	 * One column starts hidden deliberately: the trigger reads "Columns 4/5" on load, which is the
-	 * state being demonstrated, and it makes the panel worth opening on a screen that exists to be
-	 * looked at.
-	 */
+	/** One column starts hidden, so the trigger reads "Columns 4/5" and the panel is worth opening. */
 	protected readonly moveColumnVisibility = signal<ColumnVisibilityState>({ actions: false });
 	protected readonly moveColumnOrder = signal<ColumnOrderState>([]);
 
-	/**
-	 * One marked row, so the kit's only row modifier is visible in both themes.
-	 *
-	 * The kit owns the name and the paint; the consumer supplies only the meaning — here, "this one
-	 * misses". A class string from out here could not work: the row lives in the kit's view and
-	 * carries the kit's encapsulation attribute, so a rule in these styles would never match it.
-	 */
+	/** One marked row, so the kit's only row modifier is visible in both themes. */
 	protected readonly moveRowVariant = (move: KitMove): DataTableRowVariant | null =>
 		move.accuracy < 100 ? 'marked' : null;
 
-	/** A computed, not a method — a template-called method re-runs on every change detection. */
+	/** A computed, not a method: a template-called method re-runs on every change detection. */
 	protected readonly sortDescription = computed(() => {
 		const [entry] = this.moveSorting();
 		if (!entry) return 'none';

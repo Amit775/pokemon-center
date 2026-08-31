@@ -13,23 +13,9 @@ import type { DetailMove } from './moves-table.component';
 
 const columnHelper = createDataTableColumns<DetailMove>();
 
-/**
- * The learnset columns, at module scope because they must be.
- *
- * `injectTable` re-runs its options initializer whenever a signal read inside it changes, and
- * `coreColumnsFeature` memoises on `table.options.columns` **by identity** — so an array rebuilt in
- * a component field is a fresh array on every sort click, and every column, header group and cell
- * is reconstructed with its memos cold. Nothing checks this; a component field type-checks
- * perfectly.
- */
+/** Module scope, not a component field: a fresh array rebuilds every column, header and cell. */
 const moveColumns = columnHelper.columns([
-	/*
-		The Move column is a component, not a string. A learnset row packs six things into this one
-		cell — name, the "changed" badge, the effect sentence, the effect chance, the ability-hook
-		tags and the override note — and a cell that returns a component renders through
-		`flexRenderComponent`, which mounts it properly rather than stringifying it. It also updates
-		across a re-sort rather than sticking to the row it first mounted on.
-	*/
+	// A component, not a string: this cell packs name, badge, effect, chance, tags and note.
 	columnHelper.accessor('name', {
 		header: 'Move',
 		sortFn: 'alphanumeric',
@@ -43,19 +29,14 @@ const moveColumns = columnHelper.columns([
 	}),
 
 	/*
-		The three nullable numbers, and each needs both lines below or it breaks in a different way.
+		Three nullable numbers, and each needs both lines below.
 
-		`sortUndefined: 'last'` — the string forms return early from `createSortedRowModel`'s
-		comparator; the numeric form `1` falls through to `sortInt = aUndefined ? 1 : -1` and is then
-		inverted by `if (isDesc) sortInt *= -1`, so it means "undefined last **ascending**, undefined
-		**first descending**". Numeric columns sort descending first, so relying on the default puts
-		every status move at the top of the very first click on Power.
+		sortUndefined: 'last' — the default `1` means "undefined last ascending, undefined FIRST
+		descending", and numeric columns sort descending first, so it would put every status move at
+		the top of the first click on Power.
 
-		The explicit `cell` — once the accessor maps null to undefined,
-		`mapToFlexRenderTypedContent` classifies it as `kind: 'null'` and the renderer emits nothing
-		at all, measured as ["40", "", "150", ""]. The change that fixes the sorting is the change
-		that breaks the display, so the em-dash has to be written out rather than left to the
-		default cell.
+		The explicit cell — once the accessor maps null to undefined the renderer emits nothing at
+		all, so the em-dash has to be written out. The change that fixes the sort breaks the display.
 	*/
 	columnHelper.accessor((move) => move.power ?? undefined, {
 		id: 'power',
@@ -86,18 +67,11 @@ const moveColumns = columnHelper.columns([
 ]);
 
 /**
- * Wide enough for a sentence in the Move column, tight enough to keep the numbers together.
+ * Type is a fixed `6rem`, not `auto`: every row is its own grid container, so a content-based track
+ * resolves per row — measured, the Type column wandered 26px and never lined up with its header.
+ * 6rem clears the widest type name, and clears it by more at larger root font sizes.
  *
- * Type is a fixed `6rem` rather than `auto`, and that is not a tuning preference. Every row is its
- * own grid container — Phase 1 chose that over `subgrid` so a windowed body keeps working — so a
- * content-based track resolves **independently per row**: measured, the Type column's left edge
- * wandered 26px between rows and never lined up with its own header, because "fighting" is a wider
- * word than "ice". Only lengths, percentages and `fr` resolve identically across independent
- * grids. 6rem clears the widest type name — and clears it by more at larger root font sizes, since
- * the chip and the track are both rem-based while the cell padding is fixed px.
- *
- * Keyed by column id rather than positional: once a column can be hidden or moved, position stops
- * identifying anything.
+ * Keyed by column id, since a hidden or moved column makes position meaningless.
  */
 const moveColumnTracks = {
 	name: 'minmax(0, 3fr)',
@@ -108,14 +82,8 @@ const moveColumnTracks = {
 };
 
 /**
- * A Pokémon's legal moves, sortable.
- *
- * The same content as `champions-moves-table`, rendered through the kit's `pokedex-data-table` so
- * that "which of these hits hardest" and "which of these never misses" are one click rather than a
- * read of forty rows. Behind `?view=table` while both renderings coexist — see `view-mode.ts`.
- *
- * The inputs match `champions-moves-table` exactly, so the detail page swaps one for the other and
- * changes nothing else.
+ * A Pokémon's legal moves, sortable — the same content as `champions-moves-table`, behind
+ * `?view=table` while both coexist. The inputs match it exactly so the detail page can swap them.
  */
 @Component({
 	selector: 'champions-moves-data-table',
@@ -174,44 +142,21 @@ export class MovesDataTableComponent {
 	protected readonly columns = moveColumns;
 	protected readonly columnTracks = moveColumnTracks;
 
-	/**
-	 * Column choices persist; the sort below does not, and the split is deliberate.
-	 *
-	 * Someone who never reads PP wants it gone on every Pokémon and wants it to stay gone. Someone
-	 * who sorts this learnset by Power is asking about *this* Pokémon, and carrying that to the next
-	 * one would be a surprise rather than a convenience.
-	 */
+	/** Column choices persist across Pokémon; the sort below deliberately does not. */
 	protected readonly preferences = inject(MovesTablePreferencesStore);
 
 	/**
-	 * The mutable copy the table wants, computed rather than written inline.
-	 *
-	 * `moves` is `readonly DetailMove[]` and the kit's `data` is `TRow[]`, so a copy is unavoidable
-	 * — but a spread written inside `injectTable`'s initializer would be a fresh array on every
-	 * sort click, and `createCoreRowModel`'s `memoDeps` is `[table.options.data]` by identity, so
-	 * every row would be rebuilt on every sort. Exactly the twin of the columns rule above.
+	 * A computed copy, not a spread inside `injectTable`: `createCoreRowModel` memoises on
+	 * `table.options.data` by identity, so an inline spread rebuilds every row on every sort.
 	 */
 	protected readonly rows = computed(() => [...this.moves()]);
 
-	/**
-	 * A local signal, not the URL and not a store.
-	 *
-	 * This is a sub-view of a detail page and the sort is a glance-level preference — nothing
-	 * outside the table reads it, and the roster's codec already owns `sortBy`/`sortDescending` on
-	 * a different route, so putting a second meaning on those names would give one question two
-	 * answers. Promoting it later is a one-line change to a `model()`.
-	 */
+	/** Local, not the URL: a glance-level preference, and the roster's codec owns `sort`/`desc`. */
 	protected readonly sorting = signal<SortingState>([]);
 
 	protected readonly changedCount = computed(() => this.moves().filter((move) => move.isOverridden).length);
 
-	/**
-	 * Moves Champions changed read differently from the rest of the list, so they are tinted.
-	 *
-	 * The kit owns the vocabulary and the paint; this only supplies the meaning. A class string
-	 * would not work — the row lives in the kit's view, so a rule written in this component's
-	 * styles could never match it.
-	 */
+	/** The kit owns the paint; this only supplies the meaning. A class from here could not match. */
 	protected readonly rowVariant = (move: DetailMove): DataTableRowVariant | null =>
 		move.isOverridden ? 'marked' : null;
 }

@@ -23,13 +23,7 @@ const demoMoves: DemoMove[] = [
 
 const columnHelper = createDataTableColumns<DemoMove>();
 
-/**
- * Module scope, as every consumer's columns must be — a fresh array on each change detection would
- * invalidate the memo dependency for every column, header group and cell.
- *
- * The display column is here to exercise the non-sortable path: it has no accessor, so
- * `getCanSort()` is false for it, and it must render neither a button nor an `aria-sort`.
- */
+/** Module scope, as consumers' columns must be. The display column exercises the non-sortable path. */
 const demoColumns = columnHelper.columns([
 	columnHelper.accessor('name', { header: 'Name', sortFn: 'alphanumeric' }),
 	// `meta` only type-checks its keys because `dataTableFeatures` declares the `columnMeta` slot.
@@ -45,11 +39,8 @@ const narrowColumns = columnHelper.columns([
 ]);
 
 /**
- * Four columns, for the reordering tests only.
- *
- * Three is not enough to discriminate: with one column hidden between the two being swapped, the
- * right algorithm and the wrong one agree. A fourth column means the hidden one can sit outside the
- * swapped pair, which is where they diverge.
+ * Four columns, for the reordering tests. Three cannot discriminate: with the hidden column between
+ * the swapped pair, the right algorithm and the wrong one agree.
  */
 const fourColumns = columnHelper.columns([
 	columnHelper.accessor('name', { header: 'Name', sortFn: 'alphanumeric' }),
@@ -77,11 +68,8 @@ class DataTableHostComponent {
 }
 
 /**
- * `src/test-setup.ts` calls `setupZonelessTestEnv()`, so these run in the same change detection
- * model as the application: no Zone.js, nothing patching `addEventListener`, and
- * `detectChanges()` repainting only what a signal actually invalidated. That is why every
- * assertion below is on rendered text rather than on state — state alone would prove nothing about
- * the repaint, which is the whole question.
+ * `test-setup.ts` calls `setupZonelessTestEnv()`, so these run in the application's change-detection
+ * model. Assertions are on rendered text rather than state: state alone proves nothing about repaint.
  */
 describe('UiDataTableComponent', () => {
 	let fixture: ComponentFixture<DataTableHostComponent>;
@@ -161,11 +149,8 @@ describe('UiDataTableComponent', () => {
 		expect(nameColumn()).toEqual(['Aerial Ace', 'Ember', 'Flamethrower']);
 	});
 
-	// Each click is followed by its own detectChanges(), and that is load-bearing rather than
-	// stylistic: `getNextSortingOrder` derives from the table's sorting atom, which an Angular effect
-	// updates, so clicks batched into a single tick all compute the same next direction and the
-	// second one is a no-op. A real user never hits this; three .click() calls followed by one
-	// detectChanges() hits it every time and reads like a library bug.
+	// One detectChanges() per click is load-bearing: `getNextSortingOrder` reads the table's atom,
+	// which an effect updates, so batched clicks all compute the same direction.
 	it('cycles a string column ascending, descending, none', () => {
 		clickHeader(0);
 		expect(host.sorting()).toEqual([{ id: 'name', desc: false }]);
@@ -203,13 +188,8 @@ describe('UiDataTableComponent', () => {
 	});
 
 	/**
-	 * The one assertion that pins the announcer's stale-read trap.
-	 *
-	 * `injectTable` pushes options into the table through an Angular effect, so inside the click
-	 * handler `column.getIsSorted()` still holds the **pre-click** value. Swap the model read in
-	 * `toggleSort` for `column.getIsSorted()` and every other test in this file still passes while
-	 * the component announces "Power not sorted" on the click that just sorted it descending — which
-	 * is why this test exists and why the first assertion is the load-bearing one.
+	 * Pins the announcer's stale-read trap: swap the model read in `toggleSort` for
+	 * `column.getIsSorted()` and every other test still passes while this one reports "not sorted".
 	 */
 	it('announces the direction it just moved to, not the one it came from', () => {
 		clickHeader(1);
@@ -230,10 +210,8 @@ describe('UiDataTableComponent', () => {
 	});
 
 	/**
-	 * jsdom does no layout, so nothing here proves the columns *look* right — but the custom
-	 * property is the single value the entire grid rests on, and it is readable. What these pin is
-	 * that it is written at all, that the override replaces the default, and that a wrong track
-	 * count is not silent.
+	 * jsdom does no layout, so none of this proves the columns *look* right — but the custom property
+	 * is the value the whole grid rests on, and it is readable.
 	 */
 	it('defaults the track list to an even split across the leaf columns', () => {
 		expect(trackList()).toBe('repeat(3, minmax(0, 1fr))');
@@ -265,13 +243,8 @@ describe('UiDataTableComponent', () => {
 	});
 
 	/**
-	 * The other break jsdom cannot see, and the one that actually shipped once.
-	 *
-	 * Each row is its own grid container rather than a `subgrid` of the table, so a content-based
-	 * track resolves against *that row's* content: measured in Chrome, a column of type names moved
-	 * its left edge 26px between rows and never lined up with its own header. The table's overall
-	 * width is unchanged, so `scrollWidth` cannot betray it either — a warning is the only guard
-	 * short of eyes on the kit demo.
+	 * The break that actually shipped once: each row is its own grid, so a content-based track
+	 * resolves per row — a type column wandered 26px, and `scrollWidth` cannot see it.
 	 */
 	it('warns in development about a content-based track', () => {
 		const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
@@ -293,14 +266,9 @@ describe('UiDataTableComponent', () => {
 	});
 
 	/**
-	 * Runtime column-set reactivity, which nothing else here covers: every other track-list test
-	 * either goes through `columnTracks` or never changes the column set.
-	 *
-	 * It does **not** pin the explicit `this.columns()` read in `gridTemplateColumns` — that was
-	 * checked by deleting the line, and this test still passed, because reaching through
-	 * `this.table` establishes a dependency of its own. What this pins is the observable behaviour:
-	 * swap the columns and the track list follows. That holds however the dependency is provided,
-	 * which is the property worth protecting.
+	 * Runtime column-set reactivity, which nothing else covers. It does *not* pin the explicit
+	 * `this.columns()` read — deleting that passes too — but the observable behaviour, which holds
+	 * however the dependency is provided.
 	 */
 	it('recomputes the track list when the column set changes at runtime', () => {
 		expect(trackList()).toBe('repeat(3, minmax(0, 1fr))');
@@ -420,13 +388,9 @@ describe('UiDataTableComponent', () => {
 	});
 
 	/**
-	 * The regression guard for a defect that reached an earlier draft of this phase.
-	 *
-	 * The fixture is discriminating on purpose. With the hidden column sitting *between* the two
-	 * being swapped, the wrong algorithm and the right one produce identical output and the test
-	 * passes green either way. Hiding the **first** of four is the case that separates them: writing
-	 * only the visible ids makes `columnOrder` a prefix that omits the hidden column, and TanStack
-	 * then appends it — so it silently travels from the front to the back.
+	 * Regression guard for a defect that reached an earlier draft. Hiding the **first** of four is
+	 * what discriminates: writing only visible ids makes `columnOrder` a prefix omitting the hidden
+	 * column, which TanStack then appends — so it travels from front to back.
 	 */
 	it('leaves a hidden column where it was when other columns are reordered', () => {
 		host.columns.set(fourColumns);

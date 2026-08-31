@@ -3,28 +3,17 @@ import { moveTags } from './move-tags';
 import type { DetailMove } from './moves-table.component';
 
 /**
- * The Move column, which is six things rather than a name.
+ * The Move column: name, what Champions changed, what the move does, and the tags an ability hooks
+ * into — all printed rather than hidden behind a hover, because this is read while choosing.
  *
- * A learnset row is not a scalar. The name alone answers "can it learn this"; what someone
- * actually asks while building a set is **what it does**, **what Champions changed about it**, and
- * **which tags an ability can hook into** — so all of that is printed here rather than hidden
- * behind a hover, because this is read while deciding what to click and pointing at things to
- * reveal them is what there is no time for.
- *
- * It exists as its own component because a sortable table renders its cells through
- * `flexRenderComponent`, which takes a component type. The markup and styles below are the first
- * `<td>` of `moves-table.component.ts`, moved across unchanged, so the two renderings are the same
- * pixels while the preview flag keeps both alive.
+ * A component because `flexRenderComponent` takes a component type. The markup and styles are the
+ * first `<td>` of `moves-table.component.ts` moved across unchanged, so both renderings match.
  */
 @Component({
 	selector: 'champions-move-name-cell',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<!--
-			Read once into a local. The original was a @for loop variable, so every property access
-			narrowed; a repeated move() call is a function call the template type-checker cannot
-			narrow through, and the effect-chance comparison below needs the narrowing.
-		-->
+		<!-- A local, because a repeated move() call cannot be narrowed and effectChance needs it. -->
 		@let currentMove = move();
 
 		{{ currentMove.name }}
