@@ -15,6 +15,6 @@ export * from './lib/data-table/data-table-columns';
 export * from './lib/data-table/data-table.component';
 
 // Type-only. `isolatedModules` is on, so re-exporting a type in value position fails the build —
-// and consumers need these two names to declare a column set and a sort state without importing
-// TanStack directly.
-export type { ColumnDef, SortingState } from '@tanstack/angular-table';
+// and consumers need these names to declare a column set and the three controlled state slices
+// without importing TanStack directly.
+export type { ColumnDef, ColumnOrderState, SortingState, ColumnVisibilityState } from '@tanstack/angular-table';

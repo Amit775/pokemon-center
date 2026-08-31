@@ -12,8 +12,10 @@ import {
 	UiSkeletonComponent,
 	UiTabsComponent,
 	createDataTableColumns,
+	type ColumnOrderState,
 	type DataTableRowVariant,
 	type SortingState,
+	type ColumnVisibilityState,
 } from '@pokemon-center/ui-pokedex';
 
 interface KitMove {
@@ -119,6 +121,8 @@ const moveColumns = moveColumnHelper.columns([
 				[data]="moveRows"
 				[columns]="moveColumns"
 				[(sorting)]="moveSorting"
+				[(columnVisibility)]="moveColumnVisibility"
+				[(columnOrder)]="moveColumnOrder"
 				[columnTracks]="moveColumnTracks"
 				[rowVariant]="moveRowVariant"
 				label="Example moves"
@@ -222,8 +226,27 @@ export class KitComponent {
 	 * that row alone and the column's left edge wanders from row to row instead of lining up with
 	 * its header. Lengths, percentages and `fr` all resolve identically across the rows; the kit
 	 * warns in development if one of the other four appears.
+	 *
+	 * Keyed by column id, not positional — hiding or moving a column has to take its track with it,
+	 * and an index cannot follow a column that moved.
 	 */
-	protected readonly moveColumnTracks = ['2fr', '1fr', '1fr', '1fr', '1fr'];
+	protected readonly moveColumnTracks = {
+		name: '2fr',
+		type: '1fr',
+		power: '1fr',
+		accuracy: '1fr',
+		actions: '1fr',
+	};
+
+	/**
+	 * Visibility and order, so the Columns panel has somewhere to write.
+	 *
+	 * One column starts hidden deliberately: the trigger reads "Columns 4/5" on load, which is the
+	 * state being demonstrated, and it makes the panel worth opening on a screen that exists to be
+	 * looked at.
+	 */
+	protected readonly moveColumnVisibility = signal<ColumnVisibilityState>({ actions: false });
+	protected readonly moveColumnOrder = signal<ColumnOrderState>([]);
 
 	/**
 	 * One marked row, so the kit's only row modifier is visible in both themes.

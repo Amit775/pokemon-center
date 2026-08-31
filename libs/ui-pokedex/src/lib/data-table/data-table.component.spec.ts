@@ -1,13 +1,14 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import type { ColumnDef, SortingState } from '@tanstack/angular-table';
+import type { ColumnDef, ColumnOrderState, SortingState, ColumnVisibilityState } from '@tanstack/angular-table';
 import { createDataTableColumns, type DataTableFeatures } from './data-table-columns';
 import { UiDataTableComponent, type DataTableRowVariant } from './data-table.component';
 
 interface DemoMove {
 	name: string;
 	power: number;
+	accuracy: number;
 }
 
 /**
@@ -15,9 +16,9 @@ interface DemoMove {
  * either sorted order.
  */
 const demoMoves: DemoMove[] = [
-	{ name: 'Ember', power: 40 },
-	{ name: 'Aerial Ace', power: 60 },
-	{ name: 'Flamethrower', power: 90 },
+	{ name: 'Ember', power: 40, accuracy: 100 },
+	{ name: 'Aerial Ace', power: 60, accuracy: 95 },
+	{ name: 'Flamethrower', power: 90, accuracy: 85 },
 ];
 
 const columnHelper = createDataTableColumns<DemoMove>();
@@ -43,19 +44,35 @@ const narrowColumns = columnHelper.columns([
 	columnHelper.accessor('power', { header: 'Power', sortFn: 'basic' }),
 ]);
 
+/**
+ * Four columns, for the reordering tests only.
+ *
+ * Three is not enough to discriminate: with one column hidden between the two being swapped, the
+ * right algorithm and the wrong one agree. A fourth column means the hidden one can sit outside the
+ * swapped pair, which is where they diverge.
+ */
+const fourColumns = columnHelper.columns([
+	columnHelper.accessor('name', { header: 'Name', sortFn: 'alphanumeric' }),
+	columnHelper.accessor('power', { header: 'Power', sortFn: 'basic' }),
+	columnHelper.accessor('accuracy', { header: 'Accuracy', sortFn: 'basic' }),
+	columnHelper.display({ id: 'actions', header: 'Actions', cell: () => 'edit' }),
+]);
+
 type DemoColumns = ColumnDef<DataTableFeatures, DemoMove>[];
 
 @Component({
 	selector: 'pokedex-data-table-host',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [UiDataTableComponent],
-	template: `<pokedex-data-table [data]="rows()" [columns]="columns()" [(sorting)]="sorting" [columnTracks]="tracks()" [rowVariant]="variant()" label="Demo moves" emptyLabel="No moves." />`,
+	template: `<pokedex-data-table [data]="rows()" [columns]="columns()" [(sorting)]="sorting" [(columnVisibility)]="visibility" [(columnOrder)]="order" [columnTracks]="tracks()" [rowVariant]="variant()" label="Demo moves" emptyLabel="No moves." />`,
 })
 class DataTableHostComponent {
 	readonly rows = signal<DemoMove[]>(demoMoves);
 	readonly columns = signal<DemoColumns>(demoColumns);
 	readonly sorting = signal<SortingState>([]);
-	readonly tracks = signal<readonly string[] | null>(null);
+	readonly visibility = signal<ColumnVisibilityState>({});
+	readonly order = signal<ColumnOrderState>([]);
+	readonly tracks = signal<Readonly<Record<string, string>> | null>(null);
 	readonly variant = signal<((row: DemoMove) => DataTableRowVariant | null) | null>(null);
 }
 
@@ -222,22 +239,29 @@ describe('UiDataTableComponent', () => {
 		expect(trackList()).toBe('repeat(3, minmax(0, 1fr))');
 	});
 
-	it('lets columnTracks override the default', () => {
-		host.tracks.set(['2fr', '1fr', '1fr']);
+	it('lets columnTracks override the default, keyed by column id', () => {
+		host.tracks.set({ name: '2fr', power: '1fr', actions: '1fr' });
 		fixture.detectChanges();
 
 		expect(trackList()).toBe('2fr 1fr 1fr');
 	});
 
-	it('warns in development when the track count does not match the column count', () => {
-		// The only guard on a break no test can catch: a wrong count silently wraps each row onto
-		// implicit grid rows, and jsdom cannot see that happen.
-		const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
-
-		host.tracks.set(['2fr', '1fr']);
+	it('falls back to a flexible track for any column the map does not mention', () => {
+		host.tracks.set({ power: '5rem' });
 		fixture.detectChanges();
 
-		expect(warn).toHaveBeenCalledWith(expect.stringContaining('columnTracks has 2 entries but the table has 3 columns'));
+		expect(trackList()).toBe('minmax(0, 1fr) 5rem minmax(0, 1fr)');
+	});
+
+	it('warns in development about a track keyed to a column that does not exist', () => {
+		// It cannot misalign anything — an unread key is simply unread — but it is always a mistake,
+		// and it is how a renamed column quietly loses the width someone chose for it.
+		const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+		host.tracks.set({ name: '2fr', pwoer: '1fr' });
+		fixture.detectChanges();
+
+		expect(warn).toHaveBeenCalledWith(expect.stringContaining('unknown columns (pwoer)'));
 	});
 
 	/**
@@ -252,7 +276,7 @@ describe('UiDataTableComponent', () => {
 	it('warns in development about a content-based track', () => {
 		const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
 
-		host.tracks.set(['2fr', 'auto', 'minmax(0, max-content)']);
+		host.tracks.set({ name: '2fr', power: 'auto', actions: 'minmax(0, max-content)' });
 		fixture.detectChanges();
 
 		expect(warn).toHaveBeenCalledWith(expect.stringContaining('auto, minmax(0, max-content)'));
@@ -262,7 +286,7 @@ describe('UiDataTableComponent', () => {
 		// `var(--auto-width)` is the false positive worth pinning: it contains `auto` and is fine.
 		const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
 
-		host.tracks.set(['minmax(0, 3fr)', '20%', 'var(--auto-width)']);
+		host.tracks.set({ name: 'minmax(0, 3fr)', power: '20%', actions: 'var(--auto-width)' });
 		fixture.detectChanges();
 
 		expect(warn).not.toHaveBeenCalledWith(expect.stringContaining('content-based track'));
@@ -286,6 +310,179 @@ describe('UiDataTableComponent', () => {
 
 		expect(trackList()).toBe('repeat(2, minmax(0, 1fr))');
 		expect(columnHeaders()).toHaveLength(2);
+	});
+
+	// ---- the Columns panel ----
+
+	function panelRows(): HTMLElement[] {
+		return Array.from(element().querySelectorAll<HTMLElement>('.columns-row'));
+	}
+
+	function checkboxAt(index: number): HTMLInputElement {
+		const found = panelRows()[index]?.querySelector<HTMLInputElement>('input[type=checkbox]');
+		if (!found) throw new Error(`no checkbox in panel row ${index}`);
+		return found;
+	}
+
+	function moveButtons(index: number): HTMLButtonElement[] {
+		return Array.from(panelRows()[index]?.querySelectorAll<HTMLButtonElement>('button.move') ?? []);
+	}
+
+	function columnsTrigger(): HTMLButtonElement {
+		const found = element().querySelector<HTMLButtonElement>('.columns-trigger');
+		if (!found) throw new Error('the Columns trigger is missing');
+		return found;
+	}
+
+	function headerText(): string[] {
+		return columnHeaders().map((header) => (header.textContent ?? '').replace(/[↑↓↕]/g, '').trim());
+	}
+
+	it('hides both the header and the cell of a hidden column', () => {
+		host.visibility.set({ power: false });
+		fixture.detectChanges();
+
+		expect(headerText()).toEqual(['Name', 'Actions']);
+		expect(bodyRows()[0].querySelectorAll('.cell')).toHaveLength(2);
+	});
+
+	it('follows the visible columns in the track list', () => {
+		host.visibility.set({ power: false });
+		fixture.detectChanges();
+
+		expect(trackList()).toBe('repeat(2, minmax(0, 1fr))');
+	});
+
+	it('gives the empty row a colspan of the visible column count, not the total', () => {
+		// The third of the three getAll*/getVisible* sites, and the one that gets forgotten — nothing
+		// in the type system objects to leaving it behind.
+		host.rows.set([]);
+		host.visibility.set({ power: false });
+		fixture.detectChanges();
+
+		expect(element().querySelector('.empty-cell')?.getAttribute('aria-colspan')).toBe('2');
+	});
+
+	it('refuses to hide the last visible column, and puts the checkbox back', () => {
+		host.visibility.set({ power: false, actions: false });
+		fixture.detectChanges();
+
+		const nameCheckbox = checkboxAt(0);
+		expect(nameCheckbox.getAttribute('aria-disabled')).toBe('true');
+
+		nameCheckbox.click();
+		fixture.detectChanges();
+
+		// aria-disabled keeps it focusable, so the browser still flips the box; the handler has to
+		// put it back or the DOM disagrees with the table.
+		expect(nameCheckbox.checked).toBe(true);
+		expect(headerText()).toEqual(['Name']);
+	});
+
+	it('announces the state a column moved to, not the one it came from', () => {
+		checkboxAt(1).click();
+		fixture.detectChanges();
+		expect(announce).toHaveBeenLastCalledWith('Power hidden');
+
+		checkboxAt(1).click();
+		fixture.detectChanges();
+		expect(announce).toHaveBeenLastCalledWith('Power shown');
+	});
+
+	it('reports a never-toggled column as shown', () => {
+		// The sparse-map trap: `columnVisibility` holds only what was touched, so a bare map[id]
+		// lookup reports every untouched column as hidden.
+		moveButtons(1)[0].click();
+		fixture.detectChanges();
+
+		expect(announce).toHaveBeenLastCalledWith('Power moved left');
+	});
+
+	it('moves a column left and right, writing the whole order', () => {
+		moveButtons(1)[0].click();
+		fixture.detectChanges();
+
+		expect(host.order()).toEqual(['power', 'name', 'actions']);
+		expect(headerText()).toEqual(['Power', 'Name', 'Actions']);
+
+		moveButtons(0)[1].click();
+		fixture.detectChanges();
+
+		expect(host.order()).toEqual(['name', 'power', 'actions']);
+	});
+
+	it('disables the move buttons at the ends without making them unfocusable', () => {
+		// The disabled attribute would drop focus to <body> the moment the focused button became
+		// disabled — which is exactly when the user just pressed it.
+		expect(moveButtons(0)[0].getAttribute('aria-disabled')).toBe('true');
+		expect(moveButtons(0)[0].hasAttribute('disabled')).toBe(false);
+		expect(moveButtons(2)[1].getAttribute('aria-disabled')).toBe('true');
+	});
+
+	/**
+	 * The regression guard for a defect that reached an earlier draft of this phase.
+	 *
+	 * The fixture is discriminating on purpose. With the hidden column sitting *between* the two
+	 * being swapped, the wrong algorithm and the right one produce identical output and the test
+	 * passes green either way. Hiding the **first** of four is the case that separates them: writing
+	 * only the visible ids makes `columnOrder` a prefix that omits the hidden column, and TanStack
+	 * then appends it — so it silently travels from the front to the back.
+	 */
+	it('leaves a hidden column where it was when other columns are reordered', () => {
+		host.columns.set(fourColumns);
+		host.visibility.set({ name: false });
+		fixture.detectChanges();
+
+		expect(headerText()).toEqual(['Power', 'Accuracy', 'Actions']);
+
+		// Move Accuracy left, past Power. Name is hidden at index 0 and must not move.
+		moveButtons(2)[0].click();
+		fixture.detectChanges();
+
+		expect(host.order()).toEqual(['name', 'accuracy', 'power', 'actions']);
+
+		host.visibility.set({});
+		fixture.detectChanges();
+
+		expect(headerText()).toEqual(['Name', 'Accuracy', 'Power', 'Actions']);
+	});
+
+	it('skips over a hidden neighbour rather than swapping with it', () => {
+		// Swapping with the hidden column would reorder the model and change nothing on screen — a
+		// control that looks broken because it did nothing.
+		host.columns.set(fourColumns);
+		host.visibility.set({ power: false });
+		fixture.detectChanges();
+
+		expect(headerText()).toEqual(['Name', 'Accuracy', 'Actions']);
+
+		moveButtons(2)[0].click();
+		fixture.detectChanges();
+
+		expect(headerText()).toEqual(['Accuracy', 'Name', 'Actions']);
+	});
+
+	it('counts visible against total on the trigger', () => {
+		expect(columnsTrigger().textContent?.trim()).toBe('Columns 3/3');
+
+		host.visibility.set({ power: false });
+		fixture.detectChanges();
+
+		expect(columnsTrigger().textContent?.trim()).toBe('Columns 2/3');
+	});
+
+	it('keeps the panel in the DOM while collapsed so aria-controls resolves', () => {
+		const trigger = columnsTrigger();
+		const panelId = trigger.getAttribute('aria-controls') ?? '';
+
+		expect(panelId).not.toBe('');
+		expect(trigger.getAttribute('aria-expanded')).toBe('false');
+		expect(element().querySelector(`#${panelId}`)).not.toBeNull();
+
+		trigger.click();
+		fixture.detectChanges();
+
+		expect(trigger.getAttribute('aria-expanded')).toBe('true');
 	});
 
 	it('renders the header and the empty label when there are no rows', () => {

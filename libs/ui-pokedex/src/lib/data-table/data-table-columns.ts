@@ -1,4 +1,6 @@
 import {
+	columnOrderingFeature,
+	columnVisibilityFeature,
 	createColumnHelper,
 	createSortedRowModel,
 	rowSortingFeature,
@@ -17,10 +19,11 @@ import {
  * object is therefore not convenience, it is the only way a domain library can declare columns at
  * all.
  *
- * Phase 1 registers sorting and nothing else. That is a deliberate budget rather than an oversight:
- * TanStack v9 is tree-shaken per feature, so a table that only sorts does not pay for ordering,
- * resizing, visibility or filtering. Phase 3 adds the column-management features; adding them here
- * early would put their weight into every consumer's bundle for no caller.
+ * The registration is a deliberate budget rather than a default: TanStack v9 is tree-shaken per
+ * feature, so a table that never resizes does not pay for resizing. Phase 1 registered sorting
+ * alone; Phase 3a adds visibility and ordering because the Columns panel needs them. Sizing,
+ * resizing and filtering are still absent, and adding one "for later" puts its weight into every
+ * consumer's bundle for no caller.
  *
  * The sort functions are registered **individually** rather than by spreading the whole `sortFns`
  * registry. That is the difference between shipping three comparators and shipping six.
@@ -46,6 +49,15 @@ export const dataTableFeatures = tableFeatures({
 	rowSortingFeature,
 	sortedRowModel: createSortedRowModel(),
 	sortFns: { alphanumeric: sortFn_alphanumeric, basic: sortFn_basic, text: sortFn_text },
+
+	// Visibility and ordering, for the Columns panel.
+	//
+	// Registering these does NOT make `getAllCells()` / `getAllLeafColumns()` unavailable — they are
+	// core APIs and stay perfectly type-valid alongside their visible-* counterparts. So a half-done
+	// switch from one to the other compiles green, and the compiler is no help. The three call sites
+	// in the component are named in its template comments for exactly that reason.
+	columnVisibilityFeature,
+	columnOrderingFeature,
 
 	// A phantom: type-only, and `tableFeatures` strips it at runtime. It is not optional decoration.
 	// `table-core` declares `interface ColumnMeta {}` — empty — and `ColumnDef.meta` falls back to

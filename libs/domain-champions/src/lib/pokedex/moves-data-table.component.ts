@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import {
 	TypeChipComponent,
 	UiDataTableComponent,
@@ -8,6 +8,7 @@ import {
 } from '@pokemon-center/ui-pokedex';
 import { flexRenderComponent } from '@tanstack/angular-table';
 import { MoveNameCellComponent } from './move-name-cell.component';
+import { MovesTablePreferencesStore } from './moves-table-preferences.store';
 import type { DetailMove } from './moves-table.component';
 
 const columnHelper = createDataTableColumns<DetailMove>();
@@ -92,9 +93,19 @@ const moveColumns = columnHelper.columns([
  * content-based track resolves **independently per row**: measured, the Type column's left edge
  * wandered 26px between rows and never lined up with its own header, because "fighting" is a wider
  * word than "ice". Only lengths, percentages and `fr` resolve identically across independent
- * grids. 6rem clears the widest type name at this font size.
+ * grids. 6rem clears the widest type name — and clears it by more at larger root font sizes, since
+ * the chip and the track are both rem-based while the cell padding is fixed px.
+ *
+ * Keyed by column id rather than positional: once a column can be hidden or moved, position stops
+ * identifying anything.
  */
-const moveColumnTracks = ['minmax(0, 3fr)', '6rem', '5rem', '5rem', '4rem'];
+const moveColumnTracks = {
+	name: 'minmax(0, 3fr)',
+	type: '6rem',
+	power: '5rem',
+	accuracy: '5rem',
+	pp: '4rem',
+};
 
 /**
  * A Pokémon's legal moves, sortable.
@@ -120,6 +131,10 @@ const moveColumnTracks = ['minmax(0, 3fr)', '6rem', '5rem', '5rem', '4rem'];
 			[columns]="columns"
 			[columnTracks]="columnTracks"
 			[(sorting)]="sorting"
+			[columnVisibility]="preferences.columnVisibility()"
+			(columnVisibilityChange)="preferences.applyVisibilityUpdate($event)"
+			[columnOrder]="preferences.columnOrder()"
+			(columnOrderChange)="preferences.applyOrderUpdate($event)"
 			[rowVariant]="rowVariant"
 			label="Legal moves"
 			emptyLabel="No legal moves in this regulation."
@@ -158,6 +173,15 @@ export class MovesDataTableComponent {
 
 	protected readonly columns = moveColumns;
 	protected readonly columnTracks = moveColumnTracks;
+
+	/**
+	 * Column choices persist; the sort below does not, and the split is deliberate.
+	 *
+	 * Someone who never reads PP wants it gone on every Pokémon and wants it to stay gone. Someone
+	 * who sorts this learnset by Power is asking about *this* Pokémon, and carrying that to the next
+	 * one would be a surprise rather than a convenience.
+	 */
+	protected readonly preferences = inject(MovesTablePreferencesStore);
 
 	/**
 	 * The mutable copy the table wants, computed rather than written inline.

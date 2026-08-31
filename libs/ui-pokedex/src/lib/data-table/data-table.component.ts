@@ -1,15 +1,35 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, Component, computed, inject, input, isDevMode, model } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	Injector,
+	afterNextRender,
+	computed,
+	inject,
+	input,
+	isDevMode,
+	model,
+	signal,
+} from '@angular/core';
 import {
 	FlexRender,
 	functionalUpdate,
 	injectTable,
 	type Column,
 	type ColumnDef,
+	type ColumnOrderState,
 	type RowData,
 	type SortingState,
+	type ColumnVisibilityState,
 } from '@tanstack/angular-table';
 import { dataTableFeatures, type DataTableFeatures } from './data-table-columns';
+
+/**
+ * One id per table instance, so two tables on the same page do not both claim the same
+ * `aria-controls` target. A page with the kit demo and a real table is not hypothetical.
+ */
+let panelInstanceCount = 0;
 
 /**
  * The row modifiers the kit knows how to paint.
@@ -72,6 +92,82 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 	imports: [FlexRender],
 	template: `
 		<!--
+			An inline disclosure, deliberately neither a menu nor an overlay. Both were tried and
+			measured.
+
+			CdkMenu closes on activate: CdkMenuItem.trigger() calls closeAll() unless keepOpen, and
+			click passes no options — so a mouse click closes the panel, and so does Enter. Only Space
+			keeps it open, which means a keyboard-only check never sees the defect while every mouse
+			user reopens the panel for each toggle.
+
+			A CDK overlay fails differently. CdkConnectedOverlay has no openChange output, so Escape
+			detaches the pane and leaves our signal saying open; nothing closes it on an outside
+			click; and because the pane is appended to body, the panel controls land after every
+			element on the page in tab order. Fixing that needs cdkTrapFocusAutoCapture, which makes
+			it behave modally while role="group" says it is not.
+
+			In flow, all of that disappears: tab order is document order, nothing needs closing, and
+			focus never leaves to be restored. The panel sits outside .table (overflow: hidden) and
+			outside .scroller (overflow-x: auto) or it would be clipped by them.
+		-->
+		<div class="toolbar">
+			<button
+				type="button"
+				class="columns-trigger"
+				[attr.aria-expanded]="panelOpen()"
+				[attr.aria-controls]="panelId"
+				(click)="panelOpen.set(!panelOpen())"
+			>
+				Columns {{ visibleColumnCount() }}/{{ allColumnCount() }}
+			</button>
+
+			<!--
+				Rendered always and hidden with [hidden] rather than @if: aria-controls pointing at an
+				id that does not exist while collapsed references nothing at all.
+			-->
+			<div class="columns-panel" [id]="panelId" role="group" [attr.aria-label]="'Columns in ' + label()" [hidden]="!panelOpen()">
+				@for (column of table.getAllLeafColumns(); track column.id) {
+					<div class="columns-row" [attr.data-column-id]="column.id">
+						<label class="columns-toggle">
+							<!--
+								aria-disabled, never the disabled attribute. Disabling the control that
+								currently holds focus drops focus to body and the keyboard user loses
+								their place — in the one phase whose whole justification is keyboard
+								operability.
+							-->
+							<input
+								type="checkbox"
+								[checked]="column.getIsVisible()"
+								[attr.aria-disabled]="isVisibilityLocked(column) ? 'true' : null"
+								(change)="toggleColumnVisibility(column, $event)"
+							/>
+							{{ columnLabel(column) }}
+						</label>
+
+						<button
+							type="button"
+							class="move"
+							[attr.aria-disabled]="column.getIsFirstColumn() ? 'true' : null"
+							(click)="moveColumn(column, -1)"
+						>
+							<span class="sr-only">Move {{ columnLabel(column) }} left</span>
+							<span aria-hidden="true">←</span>
+						</button>
+						<button
+							type="button"
+							class="move"
+							[attr.aria-disabled]="column.getIsLastColumn() ? 'true' : null"
+							(click)="moveColumn(column, 1)"
+						>
+							<span class="sr-only">Move {{ columnLabel(column) }} right</span>
+							<span aria-hidden="true">→</span>
+						</button>
+					</div>
+				}
+			</div>
+		</div>
+
+		<!--
 			The scroller is outside the grid, not inside it. .table is overflow: hidden so the header
 			background clips at the corner radius, and pokedex-card is overflow: hidden too — so
 			without a scroll container a row that outgrows a narrow viewport is not scrolled, it is
@@ -126,11 +222,13 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 						-->
 						<div class="row" role="row" [class]="variantFor(row.original)">
 							<!--
-								getAllCells(), not getVisibleCells(): the latter is contributed by
-								columnVisibilityFeature, which Phase 1 does not register. Phase 3 switches this
-								and getAllLeafColumns() below in the same edit.
+								getVisibleCells(), one of three sites that had to move together when
+								columnVisibilityFeature was registered — the others being the track list and
+								the empty row's aria-colspan below. Nothing enforces this: getAllCells() is a
+								core API and stays perfectly type-valid, so a half-done switch compiles green
+								and simply keeps rendering hidden columns.
 							-->
-							@for (cell of row.getAllCells(); track cell.id) {
+							@for (cell of row.getVisibleCells(); track cell.id) {
 								<div class="cell" role="cell" [class]="alignmentClass(cell.column)">
 									<ng-container *flexRenderCell="cell; let rendered">{{ rendered }}</ng-container>
 								</div>
@@ -139,7 +237,7 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 					} @empty {
 						<!-- A header floating over nothing is not a finished component. -->
 						<div class="row empty-row" role="row">
-							<div class="cell empty-cell" role="cell" [attr.aria-colspan]="table.getAllLeafColumns().length">{{ emptyLabel() }}</div>
+							<div class="cell empty-cell" role="cell" [attr.aria-colspan]="table.getVisibleLeafColumns().length">{{ emptyLabel() }}</div>
 						</div>
 					}
 				</div>
@@ -153,6 +251,118 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 
 		.scroller {
 			overflow-x: auto;
+		}
+
+		/* Outside the scroller and outside .table, so neither overflow rule clips the panel. */
+		.toolbar {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: var(--s-2);
+			margin-bottom: var(--s-2);
+		}
+
+		.columns-trigger {
+			all: unset;
+			padding: var(--s-1) var(--s-3);
+			border: 1px solid var(--line);
+			border-radius: var(--r-pill);
+			font-size: var(--fs-xs);
+			color: var(--ink-muted);
+			cursor: pointer;
+			transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+		}
+
+		.columns-trigger:hover {
+			border-color: var(--accent);
+			color: var(--accent);
+		}
+
+		.columns-trigger:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
+		}
+
+		.columns-panel {
+			display: flex;
+			flex-direction: column;
+			gap: var(--s-1);
+			padding: var(--s-3);
+			border: 1px solid var(--line);
+			border-radius: var(--r-md);
+			background: var(--surface);
+			font-size: var(--fs-sm);
+		}
+
+		/* [hidden] loses to display: flex without this — the attribute alone is not enough here. */
+		.columns-panel[hidden] {
+			display: none;
+		}
+
+		.columns-row {
+			display: flex;
+			align-items: center;
+			gap: var(--s-2);
+		}
+
+		.columns-toggle {
+			display: flex;
+			align-items: center;
+			gap: var(--s-2);
+			min-width: 12ch;
+			cursor: pointer;
+			color: var(--ink);
+		}
+
+		.columns-toggle input:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
+		}
+
+		.move {
+			all: unset;
+			padding: 0 var(--s-2);
+			border-radius: var(--r-sm);
+			color: var(--ink-muted);
+			cursor: pointer;
+		}
+
+		.move:hover {
+			background: var(--accent-soft);
+			color: var(--accent);
+		}
+
+		.move:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: -2px;
+		}
+
+		/*
+			aria-disabled rather than the disabled attribute keeps these focusable, so they must look
+			unavailable without being unreachable.
+		*/
+		.move[aria-disabled='true'],
+		.columns-toggle input[aria-disabled='true'] {
+			opacity: 0.4;
+			cursor: not-allowed;
+		}
+
+		.move[aria-disabled='true']:hover {
+			background: none;
+			color: var(--ink-muted);
+		}
+
+		/* Visually hidden, still announced — the arrows alone do not say which column they move. */
+		.sr-only {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip-path: inset(50%);
+			white-space: nowrap;
+			border: 0;
 		}
 
 		/*
@@ -357,8 +567,24 @@ export class UiDataTableComponent<TRow extends RowData> {
 	 * left edge from row to row, never lining up with its own header. It reads as a ragged edge
 	 * rather than a column, and `clientWidth`/`scrollWidth` cannot see it because the table's
 	 * overall width is unchanged. The dev-mode warning below catches the four spellings.
+	 *
+	 * **Keyed by column id, not positional.** It was an array until columns could be hidden and
+	 * reordered — at which point position stops meaning anything: hide the second column and every
+	 * track after it slides onto the wrong one, silently. An id is the only stable handle.
 	 */
-	readonly columnTracks = input<readonly string[] | null>(null);
+	readonly columnTracks = input<Readonly<Record<string, string>> | null>(null);
+
+	/**
+	 * Which columns are visible, and in what order. Controlled by the consumer exactly as `sorting`
+	 * is — the kit holds no state of its own (rule 4), so a store, the URL or a bare signal can back
+	 * these without the component knowing which.
+	 *
+	 * `columnVisibility` is **sparse**: `toggleVisibility` writes only the column it touched, so a
+	 * map of `{power: false}` is normal and every column absent from it is visible. Read it as
+	 * `map[id] ?? true` — a bare `map[id]` reports every untouched column as hidden.
+	 */
+	readonly columnVisibility = model<ColumnVisibilityState>({});
+	readonly columnOrder = model<ColumnOrderState>([]);
 
 	/**
 	 * Which rows carry a modifier, if any.
@@ -372,12 +598,23 @@ export class UiDataTableComponent<TRow extends RowData> {
 	readonly emptyLabel = input('Nothing to show.');
 
 	private readonly announcer = inject(LiveAnnouncer);
+	private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly injector = inject(Injector);
+
+	/** Whether the Columns panel is expanded. Purely presentational, so the kit may own it. */
+	protected readonly panelOpen = signal(false);
+
+	protected readonly panelId = `pokedex-data-table-columns-${(panelInstanceCount += 1)}`;
 
 	protected readonly table = injectTable(() => ({
 		features: dataTableFeatures,
 		columns: this.columns(),
 		data: this.data(),
-		state: { sorting: this.sorting() },
+		state: {
+			sorting: this.sorting(),
+			columnVisibility: this.columnVisibility(),
+			columnOrder: this.columnOrder(),
+		},
 		// The updater is *always* a function — `setStateSlice` wraps every change, never handing
 		// back a bare SortingState — so `this.sorting.set(update)` would store a function in the
 		// model and feed the table garbage on the next read. `functionalUpdate` is TanStack's own
@@ -387,7 +624,21 @@ export class UiDataTableComponent<TRow extends RowData> {
 		// so the model's default `Object.is` equality suppresses a redundant rebuild for free. Worth
 		// knowing before a test asserting an emission that never arrives is filed as a bug.
 		onSortingChange: (update) => this.sorting.set(functionalUpdate(update, this.sorting())),
+		// Same always-a-function contract as sorting above; `setStateSlice` wraps every change.
+		onColumnVisibilityChange: (update) => this.columnVisibility.set(functionalUpdate(update, this.columnVisibility())),
+		onColumnOrderChange: (update) => this.columnOrder.set(functionalUpdate(update, this.columnOrder())),
 	}));
+
+	protected readonly visibleColumnCount = computed(() => {
+		this.columns();
+		this.columnVisibility();
+		return this.table.getVisibleLeafColumns().length;
+	});
+
+	protected readonly allColumnCount = computed(() => {
+		this.columns();
+		return this.table.getAllLeafColumns().length;
+	});
 
 	/**
 	 * The track list for every row.
@@ -418,21 +669,28 @@ export class UiDataTableComponent<TRow extends RowData> {
 		// tracks on its own. One property read buys a dependency that is ours and stated, instead of
 		// one that depends on how `injectTable` happens to bridge its options store today.
 		this.columns();
+		this.columnVisibility();
+		this.columnOrder();
 
-		const columnCount = this.table.getAllLeafColumns().length;
+		const visible = this.table.getVisibleLeafColumns();
 		const tracks = this.columnTracks();
 
-		if (!tracks) return `repeat(${columnCount}, minmax(0, 1fr))`;
+		if (!tracks) return `repeat(${visible.length}, minmax(0, 1fr))`;
 
 		if (isDevMode()) {
-			if (tracks.length !== columnCount) {
+			// An id in the map that matches no column is a typo, or a stale entry left behind by a
+			// rename. It cannot misalign anything — it is simply never read — but it is always a
+			// mistake, and silently ignoring it is how a renamed column loses its width.
+			const known = new Set(this.table.getAllLeafColumns().map((column) => column.id));
+			const unknown = Object.keys(tracks).filter((id) => !known.has(id));
+			if (unknown.length > 0) {
 				console.warn(
-					`pokedex-data-table: columnTracks has ${tracks.length} entries but the table has ${columnCount} columns. ` +
-						'Rows will wrap onto implicit grid rows.',
+					`pokedex-data-table: columnTracks has entries for unknown columns (${unknown.join(', ')}). ` +
+						'Check for a typo or a stale key left over from a rename.',
 				);
 			}
 
-			const contentBased = tracks.filter((track) => CONTENT_BASED_TRACK.test(track));
+			const contentBased = Object.values(tracks).filter((track) => CONTENT_BASED_TRACK.test(track));
 			if (contentBased.length > 0) {
 				console.warn(
 					`pokedex-data-table: columnTracks contains a content-based track (${contentBased.join(', ')}). ` +
@@ -442,7 +700,8 @@ export class UiDataTableComponent<TRow extends RowData> {
 			}
 		}
 
-		return tracks.join(' ');
+		// Walked in visible order, so hiding or moving a column takes its track with it.
+		return visible.map((column) => tracks[column.id] ?? 'minmax(0, 1fr)').join(' ');
 	});
 
 	/**
@@ -471,6 +730,107 @@ export class UiDataTableComponent<TRow extends RowData> {
 
 		this.announcer.announce(
 			entry ? `${headerText} sorted ${entry.desc ? 'descending' : 'ascending'}` : `${headerText} not sorted`,
+		);
+	}
+
+	/** The header text, resolved the same way `toggleSort` does — see the note there. */
+	protected columnLabel(column: Column<DataTableFeatures, TRow>): string {
+		return typeof column.columnDef.header === 'string' ? column.columnDef.header : column.id;
+	}
+
+	/**
+	 * True where hiding this column would leave the table with none.
+	 *
+	 * A table with every column hidden renders a bare empty row — and the Columns trigger is the only
+	 * way back, which is a dead end rather than a curiosity. `enableHiding: false` is honoured here
+	 * too; the kit does not otherwise support it.
+	 */
+	protected isVisibilityLocked(column: Column<DataTableFeatures, TRow>): boolean {
+		if (!column.getCanHide()) return true;
+		return column.getIsVisible() && this.table.getVisibleLeafColumns().length === 1;
+	}
+
+	/**
+	 * Show or hide a column.
+	 *
+	 * The refusal path has to put the checkbox back by hand. `aria-disabled` keeps the control
+	 * focusable — which is the entire point, since the native `disabled` attribute drops focus to
+	 * `<body>` the moment the focused control becomes disabled — but it does not stop the browser
+	 * flipping the box. The table is the source of truth, so the DOM is corrected to match it.
+	 */
+	protected toggleColumnVisibility(column: Column<DataTableFeatures, TRow>, event: Event): void {
+		const checkbox = event.target as HTMLInputElement;
+
+		if (this.isVisibilityLocked(column)) {
+			checkbox.checked = column.getIsVisible();
+			return;
+		}
+
+		column.toggleVisibility();
+
+		// Read the model, not the column: `injectTable` pushes options through an effect, so the
+		// table's own atom still holds the pre-click value here. Same staleness `toggleSort`
+		// documents. The `?? true` is the sparse-map default.
+		const nowVisible = this.columnVisibility()[column.id] ?? true;
+		this.announcer.announce(`${this.columnLabel(column)} ${nowVisible ? 'shown' : 'hidden'}`);
+	}
+
+	/**
+	 * Move a column one place left or right among the **visible** columns.
+	 *
+	 * Operating over `getAllLeafColumns()` rather than the visible list is load-bearing, and both
+	 * halves were measured. Writing only the visible ids relocates the hidden ones: `columnOrder` is
+	 * a *prefix*, so anything unlisted is appended in definition order, and a column hidden at
+	 * position 0 silently reappears last when it is shown again. Meanwhile stepping to the adjacent
+	 * entry rather than the nearest *visible* one can swap a column across a hidden neighbour and
+	 * change nothing on screen — a control that looks broken because it did nothing.
+	 *
+	 * The index is computed **before** the removal and reused as the insertion point. Recomputing it
+	 * afterwards gets move-right wrong; computing it first is correct in both directions.
+	 */
+	protected moveColumn(column: Column<DataTableFeatures, TRow>, direction: -1 | 1): void {
+		if (direction === -1 ? column.getIsFirstColumn() : column.getIsLastColumn()) return;
+
+		const ids = this.table.getAllLeafColumns().map((candidate) => candidate.id);
+		const from = ids.indexOf(column.id);
+
+		let to = from + direction;
+		while (to >= 0 && to < ids.length && !this.table.getColumn(ids[to])?.getIsVisible()) {
+			to += direction;
+		}
+
+		// Unreachable in practice — the buttons are aria-disabled at the ends — but the loop above
+		// can only be trusted to stop inside the array if this is stated.
+		if (to < 0 || to >= ids.length) return;
+
+		const next = [...ids];
+		next.splice(from, 1);
+		next.splice(to, 0, column.id);
+
+		this.columnOrder.set(next);
+		this.announcer.announce(`${this.columnLabel(column)} moved ${direction === -1 ? 'left' : 'right'}`);
+		this.keepFocusOnMoveButton(column.id, direction);
+	}
+
+	/**
+	 * Put focus back on the button that was just pressed.
+	 *
+	 * Reordering rewrites the panel's own list, so the `@for` moves the row the button lives in and
+	 * the focused element is replaced — measured in Chrome, focus lands on `<body>` and the keyboard
+	 * user loses their place at exactly the moment they finished the action. Tracking by `column.id`
+	 * is not enough to prevent it; the node still moves.
+	 *
+	 * This is the second half of the same defect `aria-disabled` solves for the *refused* press. Both
+	 * halves are invisible to jsdom, which lays nothing out and makes nothing focusable.
+	 */
+	private keepFocusOnMoveButton(columnIdentifier: string, direction: -1 | 1): void {
+		afterNextRender(
+			() => {
+				const row = this.host.nativeElement.querySelector(`.columns-row[data-column-id="${columnIdentifier}"]`);
+				const buttons = row?.querySelectorAll<HTMLButtonElement>('button.move');
+				buttons?.[direction === -1 ? 0 : 1]?.focus();
+			},
+			{ injector: this.injector },
 		);
 	}
 
