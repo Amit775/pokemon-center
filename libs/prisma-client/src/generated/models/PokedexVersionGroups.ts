@@ -208,14 +208,15 @@ export type PokedexVersionGroupsOrderByWithRelationInput = {
 }
 
 export type PokedexVersionGroupsWhereUniqueInput = Prisma.AtLeast<{
-  pokedex_id?: number
+  pokedex_id_version_group_id?: Prisma.PokedexVersionGroupsPokedex_idVersion_group_idCompoundUniqueInput
   AND?: Prisma.PokedexVersionGroupsWhereInput | Prisma.PokedexVersionGroupsWhereInput[]
   OR?: Prisma.PokedexVersionGroupsWhereInput[]
   NOT?: Prisma.PokedexVersionGroupsWhereInput | Prisma.PokedexVersionGroupsWhereInput[]
+  pokedex_id?: Prisma.IntFilter<"PokedexVersionGroups"> | number
   version_group_id?: Prisma.IntFilter<"PokedexVersionGroups"> | number
   pokedex?: Prisma.XOR<Prisma.PokedexesScalarRelationFilter, Prisma.PokedexesWhereInput>
   versionGroup?: Prisma.XOR<Prisma.VersionGroupsScalarRelationFilter, Prisma.VersionGroupsWhereInput>
-}, "pokedex_id">
+}, "pokedex_id_version_group_id">
 
 export type PokedexVersionGroupsOrderByWithAggregationInput = {
   pokedex_id?: Prisma.SortOrder
@@ -277,6 +278,11 @@ export type PokedexVersionGroupsListRelationFilter = {
 
 export type PokedexVersionGroupsOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type PokedexVersionGroupsPokedex_idVersion_group_idCompoundUniqueInput = {
+  pokedex_id: number
+  version_group_id: number
 }
 
 export type PokedexVersionGroupsCountOrderByAggregateInput = {

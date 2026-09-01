@@ -12311,6 +12311,7 @@ export type PokemonColorNamesScalarFieldEnum = (typeof PokemonColorNamesScalarFi
 
 
 export const PokemonFormConditionsScalarFieldEnum = {
+  row_id: 'row_id',
   pokemon_form_id: 'pokemon_form_id',
   form_trigger_id: 'form_trigger_id',
   trigger_item_id: 'trigger_item_id',

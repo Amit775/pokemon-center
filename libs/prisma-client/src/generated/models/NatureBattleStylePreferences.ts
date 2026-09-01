@@ -234,16 +234,17 @@ export type NatureBattleStylePreferencesOrderByWithRelationInput = {
 }
 
 export type NatureBattleStylePreferencesWhereUniqueInput = Prisma.AtLeast<{
-  nature_id?: number
+  nature_id_move_battle_style_id?: Prisma.NatureBattleStylePreferencesNature_idMove_battle_style_idCompoundUniqueInput
   AND?: Prisma.NatureBattleStylePreferencesWhereInput | Prisma.NatureBattleStylePreferencesWhereInput[]
   OR?: Prisma.NatureBattleStylePreferencesWhereInput[]
   NOT?: Prisma.NatureBattleStylePreferencesWhereInput | Prisma.NatureBattleStylePreferencesWhereInput[]
+  nature_id?: Prisma.IntFilter<"NatureBattleStylePreferences"> | number
   move_battle_style_id?: Prisma.IntFilter<"NatureBattleStylePreferences"> | number
   low_hp_preference?: Prisma.IntFilter<"NatureBattleStylePreferences"> | number
   high_hp_preference?: Prisma.IntFilter<"NatureBattleStylePreferences"> | number
   nature?: Prisma.XOR<Prisma.NaturesScalarRelationFilter, Prisma.NaturesWhereInput>
   battleStyle?: Prisma.XOR<Prisma.MoveBattleStylesScalarRelationFilter, Prisma.MoveBattleStylesWhereInput>
-}, "nature_id">
+}, "nature_id_move_battle_style_id">
 
 export type NatureBattleStylePreferencesOrderByWithAggregationInput = {
   nature_id?: Prisma.SortOrder
@@ -322,6 +323,11 @@ export type NatureBattleStylePreferencesListRelationFilter = {
 
 export type NatureBattleStylePreferencesOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type NatureBattleStylePreferencesNature_idMove_battle_style_idCompoundUniqueInput = {
+  nature_id: number
+  move_battle_style_id: number
 }
 
 export type NatureBattleStylePreferencesCountOrderByAggregateInput = {

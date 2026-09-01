@@ -208,14 +208,15 @@ export type VersionGroupPokemonMoveMethodsOrderByWithRelationInput = {
 }
 
 export type VersionGroupPokemonMoveMethodsWhereUniqueInput = Prisma.AtLeast<{
-  version_group_id?: number
+  version_group_id_pokemon_move_method_id?: Prisma.VersionGroupPokemonMoveMethodsVersion_group_idPokemon_move_method_idCompoundUniqueInput
   AND?: Prisma.VersionGroupPokemonMoveMethodsWhereInput | Prisma.VersionGroupPokemonMoveMethodsWhereInput[]
   OR?: Prisma.VersionGroupPokemonMoveMethodsWhereInput[]
   NOT?: Prisma.VersionGroupPokemonMoveMethodsWhereInput | Prisma.VersionGroupPokemonMoveMethodsWhereInput[]
+  version_group_id?: Prisma.IntFilter<"VersionGroupPokemonMoveMethods"> | number
   pokemon_move_method_id?: Prisma.IntFilter<"VersionGroupPokemonMoveMethods"> | number
   versionGroup?: Prisma.XOR<Prisma.VersionGroupsScalarRelationFilter, Prisma.VersionGroupsWhereInput>
   moveMethod?: Prisma.XOR<Prisma.PokemonMoveMethodsScalarRelationFilter, Prisma.PokemonMoveMethodsWhereInput>
-}, "version_group_id">
+}, "version_group_id_pokemon_move_method_id">
 
 export type VersionGroupPokemonMoveMethodsOrderByWithAggregationInput = {
   version_group_id?: Prisma.SortOrder
@@ -277,6 +278,11 @@ export type VersionGroupPokemonMoveMethodsListRelationFilter = {
 
 export type VersionGroupPokemonMoveMethodsOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type VersionGroupPokemonMoveMethodsVersion_group_idPokemon_move_method_idCompoundUniqueInput = {
+  version_group_id: number
+  pokemon_move_method_id: number
 }
 
 export type VersionGroupPokemonMoveMethodsCountOrderByAggregateInput = {

@@ -208,14 +208,15 @@ export type VersionGroupRegionsOrderByWithRelationInput = {
 }
 
 export type VersionGroupRegionsWhereUniqueInput = Prisma.AtLeast<{
-  version_group_id?: number
+  version_group_id_region_id?: Prisma.VersionGroupRegionsVersion_group_idRegion_idCompoundUniqueInput
   AND?: Prisma.VersionGroupRegionsWhereInput | Prisma.VersionGroupRegionsWhereInput[]
   OR?: Prisma.VersionGroupRegionsWhereInput[]
   NOT?: Prisma.VersionGroupRegionsWhereInput | Prisma.VersionGroupRegionsWhereInput[]
+  version_group_id?: Prisma.IntFilter<"VersionGroupRegions"> | number
   region_id?: Prisma.IntFilter<"VersionGroupRegions"> | number
   versionGroup?: Prisma.XOR<Prisma.VersionGroupsScalarRelationFilter, Prisma.VersionGroupsWhereInput>
   region?: Prisma.XOR<Prisma.RegionsScalarRelationFilter, Prisma.RegionsWhereInput>
-}, "version_group_id">
+}, "version_group_id_region_id">
 
 export type VersionGroupRegionsOrderByWithAggregationInput = {
   version_group_id?: Prisma.SortOrder
@@ -277,6 +278,11 @@ export type VersionGroupRegionsListRelationFilter = {
 
 export type VersionGroupRegionsOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type VersionGroupRegionsVersion_group_idRegion_idCompoundUniqueInput = {
+  version_group_id: number
+  region_id: number
 }
 
 export type VersionGroupRegionsCountOrderByAggregateInput = {

@@ -370,6 +370,7 @@ export type MovesWhereInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextListRelationFilter
   moveNames?: Prisma.MoveNamesListRelationFilter
   pokemonFormConditions?: Prisma.PokemonFormConditionsListRelationFilter
+  metaStatChanges?: Prisma.MoveMetaStatChangesListRelationFilter
 }
 
 export type MovesOrderByWithRelationInput = {
@@ -410,6 +411,7 @@ export type MovesOrderByWithRelationInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextOrderByRelationAggregateInput
   moveNames?: Prisma.MoveNamesOrderByRelationAggregateInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsOrderByRelationAggregateInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesOrderByRelationAggregateInput
 }
 
 export type MovesWhereUniqueInput = Prisma.AtLeast<{
@@ -453,6 +455,7 @@ export type MovesWhereUniqueInput = Prisma.AtLeast<{
   moveFlavorTexts?: Prisma.MoveFlavorTextListRelationFilter
   moveNames?: Prisma.MoveNamesListRelationFilter
   pokemonFormConditions?: Prisma.PokemonFormConditionsListRelationFilter
+  metaStatChanges?: Prisma.MoveMetaStatChangesListRelationFilter
 }, "id">
 
 export type MovesOrderByWithAggregationInput = {
@@ -530,6 +533,7 @@ export type MovesCreateInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateInput = {
@@ -563,6 +567,7 @@ export type MovesUncheckedCreateInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUpdateInput = {
@@ -596,6 +601,7 @@ export type MovesUpdateInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateInput = {
@@ -629,6 +635,7 @@ export type MovesUncheckedUpdateInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesCreateManyInput = {
@@ -1140,6 +1147,20 @@ export type MovesUpdateOneRequiredWithoutMetaNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MovesUpdateToOneWithWhereWithoutMetaInput, Prisma.MovesUpdateWithoutMetaInput>, Prisma.MovesUncheckedUpdateWithoutMetaInput>
 }
 
+export type MovesCreateNestedOneWithoutMetaStatChangesInput = {
+  create?: Prisma.XOR<Prisma.MovesCreateWithoutMetaStatChangesInput, Prisma.MovesUncheckedCreateWithoutMetaStatChangesInput>
+  connectOrCreate?: Prisma.MovesCreateOrConnectWithoutMetaStatChangesInput
+  connect?: Prisma.MovesWhereUniqueInput
+}
+
+export type MovesUpdateOneRequiredWithoutMetaStatChangesNestedInput = {
+  create?: Prisma.XOR<Prisma.MovesCreateWithoutMetaStatChangesInput, Prisma.MovesUncheckedCreateWithoutMetaStatChangesInput>
+  connectOrCreate?: Prisma.MovesCreateOrConnectWithoutMetaStatChangesInput
+  upsert?: Prisma.MovesUpsertWithoutMetaStatChangesInput
+  connect?: Prisma.MovesWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MovesUpdateToOneWithWhereWithoutMetaStatChangesInput, Prisma.MovesUpdateWithoutMetaStatChangesInput>, Prisma.MovesUncheckedUpdateWithoutMetaStatChangesInput>
+}
+
 export type MovesCreateNestedOneWithoutFlagMapInput = {
   create?: Prisma.XOR<Prisma.MovesCreateWithoutFlagMapInput, Prisma.MovesUncheckedCreateWithoutFlagMapInput>
   connectOrCreate?: Prisma.MovesCreateOrConnectWithoutFlagMapInput
@@ -1326,6 +1347,7 @@ export type MovesCreateWithoutTargetInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutTargetInput = {
@@ -1358,6 +1380,7 @@ export type MovesUncheckedCreateWithoutTargetInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutTargetInput = {
@@ -1437,6 +1460,7 @@ export type MovesCreateWithoutDamageClassInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutDamageClassInput = {
@@ -1469,6 +1493,7 @@ export type MovesUncheckedCreateWithoutDamageClassInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutDamageClassInput = {
@@ -1527,6 +1552,7 @@ export type MovesCreateWithoutTypeInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutTypeInput = {
@@ -1559,6 +1585,7 @@ export type MovesUncheckedCreateWithoutTypeInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutTypeInput = {
@@ -1617,6 +1644,7 @@ export type MovesCreateWithoutGenerationInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutGenerationInput = {
@@ -1649,6 +1677,7 @@ export type MovesUncheckedCreateWithoutGenerationInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutGenerationInput = {
@@ -1707,6 +1736,7 @@ export type MovesCreateWithoutEvolutionsAsUsedMoveInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutEvolutionsAsUsedMoveInput = {
@@ -1739,6 +1769,7 @@ export type MovesUncheckedCreateWithoutEvolutionsAsUsedMoveInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutEvolutionsAsUsedMoveInput = {
@@ -1776,6 +1807,7 @@ export type MovesCreateWithoutKnownMovesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutKnownMovesInput = {
@@ -1808,6 +1840,7 @@ export type MovesUncheckedCreateWithoutKnownMovesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutKnownMovesInput = {
@@ -1856,6 +1889,7 @@ export type MovesUpdateWithoutEvolutionsAsUsedMoveInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutEvolutionsAsUsedMoveInput = {
@@ -1888,6 +1922,7 @@ export type MovesUncheckedUpdateWithoutEvolutionsAsUsedMoveInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUpsertWithoutKnownMovesInput = {
@@ -1931,6 +1966,7 @@ export type MovesUpdateWithoutKnownMovesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutKnownMovesInput = {
@@ -1963,6 +1999,7 @@ export type MovesUncheckedUpdateWithoutKnownMovesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesCreateWithoutContestTypeInput = {
@@ -1995,6 +2032,7 @@ export type MovesCreateWithoutContestTypeInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutContestTypeInput = {
@@ -2027,6 +2065,7 @@ export type MovesUncheckedCreateWithoutContestTypeInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutContestTypeInput = {
@@ -2085,6 +2124,7 @@ export type MovesCreateWithoutContestEffectInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutContestEffectInput = {
@@ -2117,6 +2157,7 @@ export type MovesUncheckedCreateWithoutContestEffectInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutContestEffectInput = {
@@ -2175,6 +2216,7 @@ export type MovesCreateWithoutSuperContestEffectInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutSuperContestEffectInput = {
@@ -2207,6 +2249,7 @@ export type MovesUncheckedCreateWithoutSuperContestEffectInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutSuperContestEffectInput = {
@@ -2265,6 +2308,7 @@ export type MovesCreateWithoutMachinesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutMachinesInput = {
@@ -2297,6 +2341,7 @@ export type MovesUncheckedCreateWithoutMachinesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutMachinesInput = {
@@ -2345,6 +2390,7 @@ export type MovesUpdateWithoutMachinesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutMachinesInput = {
@@ -2377,6 +2423,7 @@ export type MovesUncheckedUpdateWithoutMachinesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesCreateWithoutMetaInput = {
@@ -2409,6 +2456,7 @@ export type MovesCreateWithoutMetaInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutMetaInput = {
@@ -2441,6 +2489,7 @@ export type MovesUncheckedCreateWithoutMetaInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutMetaInput = {
@@ -2489,6 +2538,7 @@ export type MovesUpdateWithoutMetaInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutMetaInput = {
@@ -2509,6 +2559,155 @@ export type MovesUncheckedUpdateWithoutMetaInput = {
   super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput
   machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput
+  flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput
+  contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput
+  contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput
+  superContestCombos?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput
+  superContestCombosSecond?: Prisma.SuperContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput
+  knownMoves?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutKnownMoveNestedInput
+  evolutionsAsUsedMove?: Prisma.PokemonEvolutionUncheckedUpdateManyWithoutUsedMoveNestedInput
+  moveChangelogs?: Prisma.MoveChangelogUncheckedUpdateManyWithoutMoveNestedInput
+  moveFlavorSummaries?: Prisma.MoveFlavorSummariesUncheckedUpdateManyWithoutMoveNestedInput
+  moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
+  moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
+  pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
+}
+
+export type MovesCreateWithoutMetaStatChangesInput = {
+  id: number
+  identifier: string
+  power?: number | null
+  pp?: number | null
+  accuracy?: number | null
+  priority: number
+  effect_id?: number | null
+  effect_chance?: number | null
+  generation: Prisma.GenerationsCreateNestedOneWithoutMovesInput
+  type: Prisma.TypesCreateNestedOneWithoutMovesInput
+  target: Prisma.MoveTargetsCreateNestedOneWithoutMovesInput
+  damageClass: Prisma.MoveDamageClassesCreateNestedOneWithoutMovesInput
+  contestType?: Prisma.ContestTypesCreateNestedOneWithoutMovesInput
+  contestEffect?: Prisma.ContestEffectsCreateNestedOneWithoutMovesInput
+  superContestEffect?: Prisma.SuperContestEffectsCreateNestedOneWithoutMovesInput
+  pokemonMoves?: Prisma.PokemonMovesCreateNestedManyWithoutMoveInput
+  machines?: Prisma.MachinesCreateNestedManyWithoutMoveInput
+  meta?: Prisma.MoveMetaCreateNestedManyWithoutMoveInput
+  flagMap?: Prisma.MoveFlagMapCreateNestedManyWithoutMoveInput
+  contestCombos?: Prisma.ContestCombosCreateNestedManyWithoutFirstMoveInput
+  contestCombosSecond?: Prisma.ContestCombosCreateNestedManyWithoutSecondMoveInput
+  superContestCombos?: Prisma.SuperContestCombosCreateNestedManyWithoutFirstMoveInput
+  superContestCombosSecond?: Prisma.SuperContestCombosCreateNestedManyWithoutSecondMoveInput
+  knownMoves?: Prisma.PokemonEvolutionCreateNestedManyWithoutKnownMoveInput
+  evolutionsAsUsedMove?: Prisma.PokemonEvolutionCreateNestedManyWithoutUsedMoveInput
+  moveChangelogs?: Prisma.MoveChangelogCreateNestedManyWithoutMoveInput
+  moveFlavorSummaries?: Prisma.MoveFlavorSummariesCreateNestedManyWithoutMoveInput
+  moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
+  moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
+  pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+}
+
+export type MovesUncheckedCreateWithoutMetaStatChangesInput = {
+  id: number
+  identifier: string
+  generation_id: number
+  type_id: number
+  power?: number | null
+  pp?: number | null
+  accuracy?: number | null
+  priority: number
+  target_id: number
+  damage_class_id: number
+  effect_id?: number | null
+  effect_chance?: number | null
+  contest_type_id?: number | null
+  contest_effect_id?: number | null
+  super_contest_effect_id?: number | null
+  pokemonMoves?: Prisma.PokemonMovesUncheckedCreateNestedManyWithoutMoveInput
+  machines?: Prisma.MachinesUncheckedCreateNestedManyWithoutMoveInput
+  meta?: Prisma.MoveMetaUncheckedCreateNestedManyWithoutMoveInput
+  flagMap?: Prisma.MoveFlagMapUncheckedCreateNestedManyWithoutMoveInput
+  contestCombos?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput
+  contestCombosSecond?: Prisma.ContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput
+  superContestCombos?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutFirstMoveInput
+  superContestCombosSecond?: Prisma.SuperContestCombosUncheckedCreateNestedManyWithoutSecondMoveInput
+  knownMoves?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutKnownMoveInput
+  evolutionsAsUsedMove?: Prisma.PokemonEvolutionUncheckedCreateNestedManyWithoutUsedMoveInput
+  moveChangelogs?: Prisma.MoveChangelogUncheckedCreateNestedManyWithoutMoveInput
+  moveFlavorSummaries?: Prisma.MoveFlavorSummariesUncheckedCreateNestedManyWithoutMoveInput
+  moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
+  moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
+  pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+}
+
+export type MovesCreateOrConnectWithoutMetaStatChangesInput = {
+  where: Prisma.MovesWhereUniqueInput
+  create: Prisma.XOR<Prisma.MovesCreateWithoutMetaStatChangesInput, Prisma.MovesUncheckedCreateWithoutMetaStatChangesInput>
+}
+
+export type MovesUpsertWithoutMetaStatChangesInput = {
+  update: Prisma.XOR<Prisma.MovesUpdateWithoutMetaStatChangesInput, Prisma.MovesUncheckedUpdateWithoutMetaStatChangesInput>
+  create: Prisma.XOR<Prisma.MovesCreateWithoutMetaStatChangesInput, Prisma.MovesUncheckedCreateWithoutMetaStatChangesInput>
+  where?: Prisma.MovesWhereInput
+}
+
+export type MovesUpdateToOneWithWhereWithoutMetaStatChangesInput = {
+  where?: Prisma.MovesWhereInput
+  data: Prisma.XOR<Prisma.MovesUpdateWithoutMetaStatChangesInput, Prisma.MovesUncheckedUpdateWithoutMetaStatChangesInput>
+}
+
+export type MovesUpdateWithoutMetaStatChangesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  identifier?: Prisma.StringFieldUpdateOperationsInput | string
+  power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  generation?: Prisma.GenerationsUpdateOneRequiredWithoutMovesNestedInput
+  type?: Prisma.TypesUpdateOneRequiredWithoutMovesNestedInput
+  target?: Prisma.MoveTargetsUpdateOneRequiredWithoutMovesNestedInput
+  damageClass?: Prisma.MoveDamageClassesUpdateOneRequiredWithoutMovesNestedInput
+  contestType?: Prisma.ContestTypesUpdateOneWithoutMovesNestedInput
+  contestEffect?: Prisma.ContestEffectsUpdateOneWithoutMovesNestedInput
+  superContestEffect?: Prisma.SuperContestEffectsUpdateOneWithoutMovesNestedInput
+  pokemonMoves?: Prisma.PokemonMovesUpdateManyWithoutMoveNestedInput
+  machines?: Prisma.MachinesUpdateManyWithoutMoveNestedInput
+  meta?: Prisma.MoveMetaUpdateManyWithoutMoveNestedInput
+  flagMap?: Prisma.MoveFlagMapUpdateManyWithoutMoveNestedInput
+  contestCombos?: Prisma.ContestCombosUpdateManyWithoutFirstMoveNestedInput
+  contestCombosSecond?: Prisma.ContestCombosUpdateManyWithoutSecondMoveNestedInput
+  superContestCombos?: Prisma.SuperContestCombosUpdateManyWithoutFirstMoveNestedInput
+  superContestCombosSecond?: Prisma.SuperContestCombosUpdateManyWithoutSecondMoveNestedInput
+  knownMoves?: Prisma.PokemonEvolutionUpdateManyWithoutKnownMoveNestedInput
+  evolutionsAsUsedMove?: Prisma.PokemonEvolutionUpdateManyWithoutUsedMoveNestedInput
+  moveChangelogs?: Prisma.MoveChangelogUpdateManyWithoutMoveNestedInput
+  moveFlavorSummaries?: Prisma.MoveFlavorSummariesUpdateManyWithoutMoveNestedInput
+  moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
+  moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
+  pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+}
+
+export type MovesUncheckedUpdateWithoutMetaStatChangesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  identifier?: Prisma.StringFieldUpdateOperationsInput | string
+  generation_id?: Prisma.IntFieldUpdateOperationsInput | number
+  type_id?: Prisma.IntFieldUpdateOperationsInput | number
+  power?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  accuracy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  target_id?: Prisma.IntFieldUpdateOperationsInput | number
+  damage_class_id?: Prisma.IntFieldUpdateOperationsInput | number
+  effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  effect_chance?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contest_type_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  super_contest_effect_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pokemonMoves?: Prisma.PokemonMovesUncheckedUpdateManyWithoutMoveNestedInput
+  machines?: Prisma.MachinesUncheckedUpdateManyWithoutMoveNestedInput
+  meta?: Prisma.MoveMetaUncheckedUpdateManyWithoutMoveNestedInput
   flagMap?: Prisma.MoveFlagMapUncheckedUpdateManyWithoutMoveNestedInput
   contestCombos?: Prisma.ContestCombosUncheckedUpdateManyWithoutFirstMoveNestedInput
   contestCombosSecond?: Prisma.ContestCombosUncheckedUpdateManyWithoutSecondMoveNestedInput
@@ -2553,6 +2752,7 @@ export type MovesCreateWithoutFlagMapInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutFlagMapInput = {
@@ -2585,6 +2785,7 @@ export type MovesUncheckedCreateWithoutFlagMapInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutFlagMapInput = {
@@ -2633,6 +2834,7 @@ export type MovesUpdateWithoutFlagMapInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutFlagMapInput = {
@@ -2665,6 +2867,7 @@ export type MovesUncheckedUpdateWithoutFlagMapInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesCreateWithoutContestCombosInput = {
@@ -2697,6 +2900,7 @@ export type MovesCreateWithoutContestCombosInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutContestCombosInput = {
@@ -2729,6 +2933,7 @@ export type MovesUncheckedCreateWithoutContestCombosInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutContestCombosInput = {
@@ -2766,6 +2971,7 @@ export type MovesCreateWithoutContestCombosSecondInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutContestCombosSecondInput = {
@@ -2798,6 +3004,7 @@ export type MovesUncheckedCreateWithoutContestCombosSecondInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutContestCombosSecondInput = {
@@ -2846,6 +3053,7 @@ export type MovesUpdateWithoutContestCombosInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutContestCombosInput = {
@@ -2878,6 +3086,7 @@ export type MovesUncheckedUpdateWithoutContestCombosInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUpsertWithoutContestCombosSecondInput = {
@@ -2921,6 +3130,7 @@ export type MovesUpdateWithoutContestCombosSecondInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutContestCombosSecondInput = {
@@ -2953,6 +3163,7 @@ export type MovesUncheckedUpdateWithoutContestCombosSecondInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesCreateWithoutSuperContestCombosInput = {
@@ -2985,6 +3196,7 @@ export type MovesCreateWithoutSuperContestCombosInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutSuperContestCombosInput = {
@@ -3017,6 +3229,7 @@ export type MovesUncheckedCreateWithoutSuperContestCombosInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutSuperContestCombosInput = {
@@ -3054,6 +3267,7 @@ export type MovesCreateWithoutSuperContestCombosSecondInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutSuperContestCombosSecondInput = {
@@ -3086,6 +3300,7 @@ export type MovesUncheckedCreateWithoutSuperContestCombosSecondInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutSuperContestCombosSecondInput = {
@@ -3134,6 +3349,7 @@ export type MovesUpdateWithoutSuperContestCombosInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutSuperContestCombosInput = {
@@ -3166,6 +3382,7 @@ export type MovesUncheckedUpdateWithoutSuperContestCombosInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUpsertWithoutSuperContestCombosSecondInput = {
@@ -3209,6 +3426,7 @@ export type MovesUpdateWithoutSuperContestCombosSecondInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutSuperContestCombosSecondInput = {
@@ -3241,6 +3459,7 @@ export type MovesUncheckedUpdateWithoutSuperContestCombosSecondInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesCreateWithoutPokemonMovesInput = {
@@ -3273,6 +3492,7 @@ export type MovesCreateWithoutPokemonMovesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutPokemonMovesInput = {
@@ -3305,6 +3525,7 @@ export type MovesUncheckedCreateWithoutPokemonMovesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutPokemonMovesInput = {
@@ -3353,6 +3574,7 @@ export type MovesUpdateWithoutPokemonMovesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutPokemonMovesInput = {
@@ -3385,6 +3607,7 @@ export type MovesUncheckedUpdateWithoutPokemonMovesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesCreateWithoutMoveChangelogsInput = {
@@ -3417,6 +3640,7 @@ export type MovesCreateWithoutMoveChangelogsInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutMoveChangelogsInput = {
@@ -3449,6 +3673,7 @@ export type MovesUncheckedCreateWithoutMoveChangelogsInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutMoveChangelogsInput = {
@@ -3497,6 +3722,7 @@ export type MovesUpdateWithoutMoveChangelogsInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutMoveChangelogsInput = {
@@ -3529,6 +3755,7 @@ export type MovesUncheckedUpdateWithoutMoveChangelogsInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesCreateWithoutMoveFlavorSummariesInput = {
@@ -3561,6 +3788,7 @@ export type MovesCreateWithoutMoveFlavorSummariesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutMoveFlavorSummariesInput = {
@@ -3593,6 +3821,7 @@ export type MovesUncheckedCreateWithoutMoveFlavorSummariesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutMoveFlavorSummariesInput = {
@@ -3641,6 +3870,7 @@ export type MovesUpdateWithoutMoveFlavorSummariesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutMoveFlavorSummariesInput = {
@@ -3673,6 +3903,7 @@ export type MovesUncheckedUpdateWithoutMoveFlavorSummariesInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesCreateWithoutMoveFlavorTextsInput = {
@@ -3705,6 +3936,7 @@ export type MovesCreateWithoutMoveFlavorTextsInput = {
   moveFlavorSummaries?: Prisma.MoveFlavorSummariesCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutMoveFlavorTextsInput = {
@@ -3737,6 +3969,7 @@ export type MovesUncheckedCreateWithoutMoveFlavorTextsInput = {
   moveFlavorSummaries?: Prisma.MoveFlavorSummariesUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutMoveFlavorTextsInput = {
@@ -3785,6 +4018,7 @@ export type MovesUpdateWithoutMoveFlavorTextsInput = {
   moveFlavorSummaries?: Prisma.MoveFlavorSummariesUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutMoveFlavorTextsInput = {
@@ -3817,6 +4051,7 @@ export type MovesUncheckedUpdateWithoutMoveFlavorTextsInput = {
   moveFlavorSummaries?: Prisma.MoveFlavorSummariesUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesCreateWithoutMoveNamesInput = {
@@ -3849,6 +4084,7 @@ export type MovesCreateWithoutMoveNamesInput = {
   moveFlavorSummaries?: Prisma.MoveFlavorSummariesCreateNestedManyWithoutMoveInput
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutMoveNamesInput = {
@@ -3881,6 +4117,7 @@ export type MovesUncheckedCreateWithoutMoveNamesInput = {
   moveFlavorSummaries?: Prisma.MoveFlavorSummariesUncheckedCreateNestedManyWithoutMoveInput
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedCreateNestedManyWithoutTriggerMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutMoveNamesInput = {
@@ -3929,6 +4166,7 @@ export type MovesUpdateWithoutMoveNamesInput = {
   moveFlavorSummaries?: Prisma.MoveFlavorSummariesUpdateManyWithoutMoveNestedInput
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutMoveNamesInput = {
@@ -3961,6 +4199,7 @@ export type MovesUncheckedUpdateWithoutMoveNamesInput = {
   moveFlavorSummaries?: Prisma.MoveFlavorSummariesUncheckedUpdateManyWithoutMoveNestedInput
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesCreateWithoutPokemonFormConditionsInput = {
@@ -3993,6 +4232,7 @@ export type MovesCreateWithoutPokemonFormConditionsInput = {
   moveFlavorSummaries?: Prisma.MoveFlavorSummariesCreateNestedManyWithoutMoveInput
   moveFlavorTexts?: Prisma.MoveFlavorTextCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesCreateNestedManyWithoutMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMoveInput
 }
 
 export type MovesUncheckedCreateWithoutPokemonFormConditionsInput = {
@@ -4025,6 +4265,7 @@ export type MovesUncheckedCreateWithoutPokemonFormConditionsInput = {
   moveFlavorSummaries?: Prisma.MoveFlavorSummariesUncheckedCreateNestedManyWithoutMoveInput
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedCreateNestedManyWithoutMoveInput
   moveNames?: Prisma.MoveNamesUncheckedCreateNestedManyWithoutMoveInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput
 }
 
 export type MovesCreateOrConnectWithoutPokemonFormConditionsInput = {
@@ -4073,6 +4314,7 @@ export type MovesUpdateWithoutPokemonFormConditionsInput = {
   moveFlavorSummaries?: Prisma.MoveFlavorSummariesUpdateManyWithoutMoveNestedInput
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutPokemonFormConditionsInput = {
@@ -4105,6 +4347,7 @@ export type MovesUncheckedUpdateWithoutPokemonFormConditionsInput = {
   moveFlavorSummaries?: Prisma.MoveFlavorSummariesUncheckedUpdateManyWithoutMoveNestedInput
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesCreateManyTargetInput = {
@@ -4154,6 +4397,7 @@ export type MovesUpdateWithoutTargetInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutTargetInput = {
@@ -4186,6 +4430,7 @@ export type MovesUncheckedUpdateWithoutTargetInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateManyWithoutTargetInput = {
@@ -4252,6 +4497,7 @@ export type MovesUpdateWithoutDamageClassInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutDamageClassInput = {
@@ -4284,6 +4530,7 @@ export type MovesUncheckedUpdateWithoutDamageClassInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateManyWithoutDamageClassInput = {
@@ -4350,6 +4597,7 @@ export type MovesUpdateWithoutTypeInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutTypeInput = {
@@ -4382,6 +4630,7 @@ export type MovesUncheckedUpdateWithoutTypeInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateManyWithoutTypeInput = {
@@ -4448,6 +4697,7 @@ export type MovesUpdateWithoutGenerationInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutGenerationInput = {
@@ -4480,6 +4730,7 @@ export type MovesUncheckedUpdateWithoutGenerationInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateManyWithoutGenerationInput = {
@@ -4546,6 +4797,7 @@ export type MovesUpdateWithoutContestTypeInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutContestTypeInput = {
@@ -4578,6 +4830,7 @@ export type MovesUncheckedUpdateWithoutContestTypeInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateManyWithoutContestTypeInput = {
@@ -4644,6 +4897,7 @@ export type MovesUpdateWithoutContestEffectInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutContestEffectInput = {
@@ -4676,6 +4930,7 @@ export type MovesUncheckedUpdateWithoutContestEffectInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateManyWithoutContestEffectInput = {
@@ -4742,6 +4997,7 @@ export type MovesUpdateWithoutSuperContestEffectInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateWithoutSuperContestEffectInput = {
@@ -4774,6 +5030,7 @@ export type MovesUncheckedUpdateWithoutSuperContestEffectInput = {
   moveFlavorTexts?: Prisma.MoveFlavorTextUncheckedUpdateManyWithoutMoveNestedInput
   moveNames?: Prisma.MoveNamesUncheckedUpdateManyWithoutMoveNestedInput
   pokemonFormConditions?: Prisma.PokemonFormConditionsUncheckedUpdateManyWithoutTriggerMoveNestedInput
+  metaStatChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput
 }
 
 export type MovesUncheckedUpdateManyWithoutSuperContestEffectInput = {
@@ -4814,6 +5071,7 @@ export type MovesCountOutputType = {
   moveFlavorTexts: number
   moveNames: number
   pokemonFormConditions: number
+  metaStatChanges: number
 }
 
 export type MovesCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4832,6 +5090,7 @@ export type MovesCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   moveFlavorTexts?: boolean | MovesCountOutputTypeCountMoveFlavorTextsArgs
   moveNames?: boolean | MovesCountOutputTypeCountMoveNamesArgs
   pokemonFormConditions?: boolean | MovesCountOutputTypeCountPokemonFormConditionsArgs
+  metaStatChanges?: boolean | MovesCountOutputTypeCountMetaStatChangesArgs
 }
 
 /**
@@ -4949,6 +5208,13 @@ export type MovesCountOutputTypeCountPokemonFormConditionsArgs<ExtArgs extends r
   where?: Prisma.PokemonFormConditionsWhereInput
 }
 
+/**
+ * MovesCountOutputType without action
+ */
+export type MovesCountOutputTypeCountMetaStatChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MoveMetaStatChangesWhereInput
+}
+
 
 export type MovesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4988,6 +5254,7 @@ export type MovesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   moveFlavorTexts?: boolean | Prisma.Moves$moveFlavorTextsArgs<ExtArgs>
   moveNames?: boolean | Prisma.Moves$moveNamesArgs<ExtArgs>
   pokemonFormConditions?: boolean | Prisma.Moves$pokemonFormConditionsArgs<ExtArgs>
+  metaStatChanges?: boolean | Prisma.Moves$metaStatChangesArgs<ExtArgs>
   _count?: boolean | Prisma.MovesCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["moves"]>
 
@@ -5083,6 +5350,7 @@ export type MovesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   moveFlavorTexts?: boolean | Prisma.Moves$moveFlavorTextsArgs<ExtArgs>
   moveNames?: boolean | Prisma.Moves$moveNamesArgs<ExtArgs>
   pokemonFormConditions?: boolean | Prisma.Moves$pokemonFormConditionsArgs<ExtArgs>
+  metaStatChanges?: boolean | Prisma.Moves$metaStatChangesArgs<ExtArgs>
   _count?: boolean | Prisma.MovesCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MovesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5129,6 +5397,7 @@ export type $MovesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     moveFlavorTexts: Prisma.$MoveFlavorTextPayload<ExtArgs>[]
     moveNames: Prisma.$MoveNamesPayload<ExtArgs>[]
     pokemonFormConditions: Prisma.$PokemonFormConditionsPayload<ExtArgs>[]
+    metaStatChanges: Prisma.$MoveMetaStatChangesPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -5562,6 +5831,7 @@ export interface Prisma__MovesClient<T, Null = never, ExtArgs extends runtime.Ty
   moveFlavorTexts<T extends Prisma.Moves$moveFlavorTextsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$moveFlavorTextsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MoveFlavorTextPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   moveNames<T extends Prisma.Moves$moveNamesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$moveNamesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MoveNamesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   pokemonFormConditions<T extends Prisma.Moves$pokemonFormConditionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$pokemonFormConditionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PokemonFormConditionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  metaStatChanges<T extends Prisma.Moves$metaStatChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Moves$metaStatChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MoveMetaStatChangesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6421,6 +6691,30 @@ export type Moves$pokemonFormConditionsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.PokemonFormConditionsScalarFieldEnum | Prisma.PokemonFormConditionsScalarFieldEnum[]
+}
+
+/**
+ * Moves.metaStatChanges
+ */
+export type Moves$metaStatChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MoveMetaStatChanges
+   */
+  select?: Prisma.MoveMetaStatChangesSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MoveMetaStatChanges
+   */
+  omit?: Prisma.MoveMetaStatChangesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MoveMetaStatChangesInclude<ExtArgs> | null
+  where?: Prisma.MoveMetaStatChangesWhereInput
+  orderBy?: Prisma.MoveMetaStatChangesOrderByWithRelationInput | Prisma.MoveMetaStatChangesOrderByWithRelationInput[]
+  cursor?: Prisma.MoveMetaStatChangesWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MoveMetaStatChangesScalarFieldEnum | Prisma.MoveMetaStatChangesScalarFieldEnum[]
 }
 
 /**

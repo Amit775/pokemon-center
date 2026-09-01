@@ -208,14 +208,15 @@ export type SuperContestCombosOrderByWithRelationInput = {
 }
 
 export type SuperContestCombosWhereUniqueInput = Prisma.AtLeast<{
-  first_move_id?: number
+  first_move_id_second_move_id?: Prisma.SuperContestCombosFirst_move_idSecond_move_idCompoundUniqueInput
   AND?: Prisma.SuperContestCombosWhereInput | Prisma.SuperContestCombosWhereInput[]
   OR?: Prisma.SuperContestCombosWhereInput[]
   NOT?: Prisma.SuperContestCombosWhereInput | Prisma.SuperContestCombosWhereInput[]
+  first_move_id?: Prisma.IntFilter<"SuperContestCombos"> | number
   second_move_id?: Prisma.IntFilter<"SuperContestCombos"> | number
   firstMove?: Prisma.XOR<Prisma.MovesScalarRelationFilter, Prisma.MovesWhereInput>
   secondMove?: Prisma.XOR<Prisma.MovesScalarRelationFilter, Prisma.MovesWhereInput>
-}, "first_move_id">
+}, "first_move_id_second_move_id">
 
 export type SuperContestCombosOrderByWithAggregationInput = {
   first_move_id?: Prisma.SortOrder
@@ -277,6 +278,11 @@ export type SuperContestCombosListRelationFilter = {
 
 export type SuperContestCombosOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type SuperContestCombosFirst_move_idSecond_move_idCompoundUniqueInput = {
+  first_move_id: number
+  second_move_id: number
 }
 
 export type SuperContestCombosCountOrderByAggregateInput = {

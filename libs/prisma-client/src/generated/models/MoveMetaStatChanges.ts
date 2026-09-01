@@ -209,7 +209,7 @@ export type MoveMetaStatChangesWhereInput = {
   stat_id?: Prisma.IntFilter<"MoveMetaStatChanges"> | number
   change?: Prisma.IntFilter<"MoveMetaStatChanges"> | number
   stat?: Prisma.XOR<Prisma.StatsScalarRelationFilter, Prisma.StatsWhereInput>
-  meta?: Prisma.XOR<Prisma.MoveMetaScalarRelationFilter, Prisma.MoveMetaWhereInput>
+  move?: Prisma.XOR<Prisma.MovesScalarRelationFilter, Prisma.MovesWhereInput>
 }
 
 export type MoveMetaStatChangesOrderByWithRelationInput = {
@@ -217,7 +217,7 @@ export type MoveMetaStatChangesOrderByWithRelationInput = {
   stat_id?: Prisma.SortOrder
   change?: Prisma.SortOrder
   stat?: Prisma.StatsOrderByWithRelationInput
-  meta?: Prisma.MoveMetaOrderByWithRelationInput
+  move?: Prisma.MovesOrderByWithRelationInput
 }
 
 export type MoveMetaStatChangesWhereUniqueInput = Prisma.AtLeast<{
@@ -229,7 +229,7 @@ export type MoveMetaStatChangesWhereUniqueInput = Prisma.AtLeast<{
   stat_id?: Prisma.IntFilter<"MoveMetaStatChanges"> | number
   change?: Prisma.IntFilter<"MoveMetaStatChanges"> | number
   stat?: Prisma.XOR<Prisma.StatsScalarRelationFilter, Prisma.StatsWhereInput>
-  meta?: Prisma.XOR<Prisma.MoveMetaScalarRelationFilter, Prisma.MoveMetaWhereInput>
+  move?: Prisma.XOR<Prisma.MovesScalarRelationFilter, Prisma.MovesWhereInput>
 }, "move_id_stat_id">
 
 export type MoveMetaStatChangesOrderByWithAggregationInput = {
@@ -255,7 +255,7 @@ export type MoveMetaStatChangesScalarWhereWithAggregatesInput = {
 export type MoveMetaStatChangesCreateInput = {
   change: number
   stat: Prisma.StatsCreateNestedOneWithoutMoveMetaStatChangesInput
-  meta: Prisma.MoveMetaCreateNestedOneWithoutStatChangesInput
+  move: Prisma.MovesCreateNestedOneWithoutMetaStatChangesInput
 }
 
 export type MoveMetaStatChangesUncheckedCreateInput = {
@@ -267,7 +267,7 @@ export type MoveMetaStatChangesUncheckedCreateInput = {
 export type MoveMetaStatChangesUpdateInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   stat?: Prisma.StatsUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput
-  meta?: Prisma.MoveMetaUpdateOneRequiredWithoutStatChangesNestedInput
+  move?: Prisma.MovesUpdateOneRequiredWithoutMetaStatChangesNestedInput
 }
 
 export type MoveMetaStatChangesUncheckedUpdateInput = {
@@ -337,6 +337,48 @@ export type MoveMetaStatChangesSumOrderByAggregateInput = {
   change?: Prisma.SortOrder
 }
 
+export type MoveMetaStatChangesCreateNestedManyWithoutMoveInput = {
+  create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMoveInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMoveInput> | Prisma.MoveMetaStatChangesCreateWithoutMoveInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutMoveInput[]
+  connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutMoveInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutMoveInput[]
+  createMany?: Prisma.MoveMetaStatChangesCreateManyMoveInputEnvelope
+  connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
+}
+
+export type MoveMetaStatChangesUncheckedCreateNestedManyWithoutMoveInput = {
+  create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMoveInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMoveInput> | Prisma.MoveMetaStatChangesCreateWithoutMoveInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutMoveInput[]
+  connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutMoveInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutMoveInput[]
+  createMany?: Prisma.MoveMetaStatChangesCreateManyMoveInputEnvelope
+  connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
+}
+
+export type MoveMetaStatChangesUpdateManyWithoutMoveNestedInput = {
+  create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMoveInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMoveInput> | Prisma.MoveMetaStatChangesCreateWithoutMoveInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutMoveInput[]
+  connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutMoveInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutMoveInput[]
+  upsert?: Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutMoveInput | Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutMoveInput[]
+  createMany?: Prisma.MoveMetaStatChangesCreateManyMoveInputEnvelope
+  set?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
+  disconnect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
+  delete?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
+  connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
+  update?: Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutMoveInput | Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutMoveInput[]
+  updateMany?: Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutMoveInput | Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutMoveInput[]
+  deleteMany?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[]
+}
+
+export type MoveMetaStatChangesUncheckedUpdateManyWithoutMoveNestedInput = {
+  create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMoveInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMoveInput> | Prisma.MoveMetaStatChangesCreateWithoutMoveInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutMoveInput[]
+  connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutMoveInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutMoveInput[]
+  upsert?: Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutMoveInput | Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutMoveInput[]
+  createMany?: Prisma.MoveMetaStatChangesCreateManyMoveInputEnvelope
+  set?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
+  disconnect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
+  delete?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
+  connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
+  update?: Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutMoveInput | Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutMoveInput[]
+  updateMany?: Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutMoveInput | Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutMoveInput[]
+  deleteMany?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[]
+}
+
 export type MoveMetaStatChangesCreateNestedManyWithoutStatInput = {
   create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutStatInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutStatInput> | Prisma.MoveMetaStatChangesCreateWithoutStatInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutStatInput[]
   connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutStatInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutStatInput[]
@@ -379,51 +421,54 @@ export type MoveMetaStatChangesUncheckedUpdateManyWithoutStatNestedInput = {
   deleteMany?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[]
 }
 
-export type MoveMetaStatChangesCreateNestedManyWithoutMetaInput = {
-  create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput> | Prisma.MoveMetaStatChangesCreateWithoutMetaInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput[]
-  connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput[]
-  createMany?: Prisma.MoveMetaStatChangesCreateManyMetaInputEnvelope
-  connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
+export type MoveMetaStatChangesCreateWithoutMoveInput = {
+  change: number
+  stat: Prisma.StatsCreateNestedOneWithoutMoveMetaStatChangesInput
 }
 
-export type MoveMetaStatChangesUncheckedCreateNestedManyWithoutMetaInput = {
-  create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput> | Prisma.MoveMetaStatChangesCreateWithoutMetaInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput[]
-  connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput[]
-  createMany?: Prisma.MoveMetaStatChangesCreateManyMetaInputEnvelope
-  connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
+export type MoveMetaStatChangesUncheckedCreateWithoutMoveInput = {
+  stat_id: number
+  change: number
 }
 
-export type MoveMetaStatChangesUpdateManyWithoutMetaNestedInput = {
-  create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput> | Prisma.MoveMetaStatChangesCreateWithoutMetaInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput[]
-  connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput[]
-  upsert?: Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutMetaInput | Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutMetaInput[]
-  createMany?: Prisma.MoveMetaStatChangesCreateManyMetaInputEnvelope
-  set?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
-  disconnect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
-  delete?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
-  connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
-  update?: Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutMetaInput | Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutMetaInput[]
-  updateMany?: Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutMetaInput | Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutMetaInput[]
-  deleteMany?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[]
+export type MoveMetaStatChangesCreateOrConnectWithoutMoveInput = {
+  where: Prisma.MoveMetaStatChangesWhereUniqueInput
+  create: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMoveInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMoveInput>
 }
 
-export type MoveMetaStatChangesUncheckedUpdateManyWithoutMetaNestedInput = {
-  create?: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput> | Prisma.MoveMetaStatChangesCreateWithoutMetaInput[] | Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput[]
-  connectOrCreate?: Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput | Prisma.MoveMetaStatChangesCreateOrConnectWithoutMetaInput[]
-  upsert?: Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutMetaInput | Prisma.MoveMetaStatChangesUpsertWithWhereUniqueWithoutMetaInput[]
-  createMany?: Prisma.MoveMetaStatChangesCreateManyMetaInputEnvelope
-  set?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
-  disconnect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
-  delete?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
-  connect?: Prisma.MoveMetaStatChangesWhereUniqueInput | Prisma.MoveMetaStatChangesWhereUniqueInput[]
-  update?: Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutMetaInput | Prisma.MoveMetaStatChangesUpdateWithWhereUniqueWithoutMetaInput[]
-  updateMany?: Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutMetaInput | Prisma.MoveMetaStatChangesUpdateManyWithWhereWithoutMetaInput[]
-  deleteMany?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[]
+export type MoveMetaStatChangesCreateManyMoveInputEnvelope = {
+  data: Prisma.MoveMetaStatChangesCreateManyMoveInput | Prisma.MoveMetaStatChangesCreateManyMoveInput[]
+  skipDuplicates?: boolean
+}
+
+export type MoveMetaStatChangesUpsertWithWhereUniqueWithoutMoveInput = {
+  where: Prisma.MoveMetaStatChangesWhereUniqueInput
+  update: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateWithoutMoveInput, Prisma.MoveMetaStatChangesUncheckedUpdateWithoutMoveInput>
+  create: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMoveInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMoveInput>
+}
+
+export type MoveMetaStatChangesUpdateWithWhereUniqueWithoutMoveInput = {
+  where: Prisma.MoveMetaStatChangesWhereUniqueInput
+  data: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateWithoutMoveInput, Prisma.MoveMetaStatChangesUncheckedUpdateWithoutMoveInput>
+}
+
+export type MoveMetaStatChangesUpdateManyWithWhereWithoutMoveInput = {
+  where: Prisma.MoveMetaStatChangesScalarWhereInput
+  data: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateManyMutationInput, Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMoveInput>
+}
+
+export type MoveMetaStatChangesScalarWhereInput = {
+  AND?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[]
+  OR?: Prisma.MoveMetaStatChangesScalarWhereInput[]
+  NOT?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[]
+  move_id?: Prisma.IntFilter<"MoveMetaStatChanges"> | number
+  stat_id?: Prisma.IntFilter<"MoveMetaStatChanges"> | number
+  change?: Prisma.IntFilter<"MoveMetaStatChanges"> | number
 }
 
 export type MoveMetaStatChangesCreateWithoutStatInput = {
   change: number
-  meta: Prisma.MoveMetaCreateNestedOneWithoutStatChangesInput
+  move: Prisma.MovesCreateNestedOneWithoutMetaStatChangesInput
 }
 
 export type MoveMetaStatChangesUncheckedCreateWithoutStatInput = {
@@ -457,49 +502,24 @@ export type MoveMetaStatChangesUpdateManyWithWhereWithoutStatInput = {
   data: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateManyMutationInput, Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutStatInput>
 }
 
-export type MoveMetaStatChangesScalarWhereInput = {
-  AND?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[]
-  OR?: Prisma.MoveMetaStatChangesScalarWhereInput[]
-  NOT?: Prisma.MoveMetaStatChangesScalarWhereInput | Prisma.MoveMetaStatChangesScalarWhereInput[]
-  move_id?: Prisma.IntFilter<"MoveMetaStatChanges"> | number
-  stat_id?: Prisma.IntFilter<"MoveMetaStatChanges"> | number
-  change?: Prisma.IntFilter<"MoveMetaStatChanges"> | number
-}
-
-export type MoveMetaStatChangesCreateWithoutMetaInput = {
-  change: number
-  stat: Prisma.StatsCreateNestedOneWithoutMoveMetaStatChangesInput
-}
-
-export type MoveMetaStatChangesUncheckedCreateWithoutMetaInput = {
+export type MoveMetaStatChangesCreateManyMoveInput = {
   stat_id: number
   change: number
 }
 
-export type MoveMetaStatChangesCreateOrConnectWithoutMetaInput = {
-  where: Prisma.MoveMetaStatChangesWhereUniqueInput
-  create: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput>
+export type MoveMetaStatChangesUpdateWithoutMoveInput = {
+  change?: Prisma.IntFieldUpdateOperationsInput | number
+  stat?: Prisma.StatsUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput
 }
 
-export type MoveMetaStatChangesCreateManyMetaInputEnvelope = {
-  data: Prisma.MoveMetaStatChangesCreateManyMetaInput | Prisma.MoveMetaStatChangesCreateManyMetaInput[]
-  skipDuplicates?: boolean
+export type MoveMetaStatChangesUncheckedUpdateWithoutMoveInput = {
+  stat_id?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type MoveMetaStatChangesUpsertWithWhereUniqueWithoutMetaInput = {
-  where: Prisma.MoveMetaStatChangesWhereUniqueInput
-  update: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedUpdateWithoutMetaInput>
-  create: Prisma.XOR<Prisma.MoveMetaStatChangesCreateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedCreateWithoutMetaInput>
-}
-
-export type MoveMetaStatChangesUpdateWithWhereUniqueWithoutMetaInput = {
-  where: Prisma.MoveMetaStatChangesWhereUniqueInput
-  data: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateWithoutMetaInput, Prisma.MoveMetaStatChangesUncheckedUpdateWithoutMetaInput>
-}
-
-export type MoveMetaStatChangesUpdateManyWithWhereWithoutMetaInput = {
-  where: Prisma.MoveMetaStatChangesScalarWhereInput
-  data: Prisma.XOR<Prisma.MoveMetaStatChangesUpdateManyMutationInput, Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMetaInput>
+export type MoveMetaStatChangesUncheckedUpdateManyWithoutMoveInput = {
+  stat_id?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type MoveMetaStatChangesCreateManyStatInput = {
@@ -509,7 +529,7 @@ export type MoveMetaStatChangesCreateManyStatInput = {
 
 export type MoveMetaStatChangesUpdateWithoutStatInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
-  meta?: Prisma.MoveMetaUpdateOneRequiredWithoutStatChangesNestedInput
+  move?: Prisma.MovesUpdateOneRequiredWithoutMetaStatChangesNestedInput
 }
 
 export type MoveMetaStatChangesUncheckedUpdateWithoutStatInput = {
@@ -522,26 +542,6 @@ export type MoveMetaStatChangesUncheckedUpdateManyWithoutStatInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type MoveMetaStatChangesCreateManyMetaInput = {
-  stat_id: number
-  change: number
-}
-
-export type MoveMetaStatChangesUpdateWithoutMetaInput = {
-  change?: Prisma.IntFieldUpdateOperationsInput | number
-  stat?: Prisma.StatsUpdateOneRequiredWithoutMoveMetaStatChangesNestedInput
-}
-
-export type MoveMetaStatChangesUncheckedUpdateWithoutMetaInput = {
-  stat_id?: Prisma.IntFieldUpdateOperationsInput | number
-  change?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type MoveMetaStatChangesUncheckedUpdateManyWithoutMetaInput = {
-  stat_id?: Prisma.IntFieldUpdateOperationsInput | number
-  change?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
 
 
 export type MoveMetaStatChangesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -549,7 +549,7 @@ export type MoveMetaStatChangesSelect<ExtArgs extends runtime.Types.Extensions.I
   stat_id?: boolean
   change?: boolean
   stat?: boolean | Prisma.StatsDefaultArgs<ExtArgs>
-  meta?: boolean | Prisma.MoveMetaDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.MovesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["moveMetaStatChanges"]>
 
 export type MoveMetaStatChangesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -557,7 +557,7 @@ export type MoveMetaStatChangesSelectCreateManyAndReturn<ExtArgs extends runtime
   stat_id?: boolean
   change?: boolean
   stat?: boolean | Prisma.StatsDefaultArgs<ExtArgs>
-  meta?: boolean | Prisma.MoveMetaDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.MovesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["moveMetaStatChanges"]>
 
 export type MoveMetaStatChangesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -565,7 +565,7 @@ export type MoveMetaStatChangesSelectUpdateManyAndReturn<ExtArgs extends runtime
   stat_id?: boolean
   change?: boolean
   stat?: boolean | Prisma.StatsDefaultArgs<ExtArgs>
-  meta?: boolean | Prisma.MoveMetaDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.MovesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["moveMetaStatChanges"]>
 
 export type MoveMetaStatChangesSelectScalar = {
@@ -577,22 +577,22 @@ export type MoveMetaStatChangesSelectScalar = {
 export type MoveMetaStatChangesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"move_id" | "stat_id" | "change", ExtArgs["result"]["moveMetaStatChanges"]>
 export type MoveMetaStatChangesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   stat?: boolean | Prisma.StatsDefaultArgs<ExtArgs>
-  meta?: boolean | Prisma.MoveMetaDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.MovesDefaultArgs<ExtArgs>
 }
 export type MoveMetaStatChangesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   stat?: boolean | Prisma.StatsDefaultArgs<ExtArgs>
-  meta?: boolean | Prisma.MoveMetaDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.MovesDefaultArgs<ExtArgs>
 }
 export type MoveMetaStatChangesIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   stat?: boolean | Prisma.StatsDefaultArgs<ExtArgs>
-  meta?: boolean | Prisma.MoveMetaDefaultArgs<ExtArgs>
+  move?: boolean | Prisma.MovesDefaultArgs<ExtArgs>
 }
 
 export type $MoveMetaStatChangesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "MoveMetaStatChanges"
   objects: {
     stat: Prisma.$StatsPayload<ExtArgs>
-    meta: Prisma.$MoveMetaPayload<ExtArgs>
+    move: Prisma.$MovesPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     move_id: number
@@ -993,7 +993,7 @@ readonly fields: MoveMetaStatChangesFieldRefs;
 export interface Prisma__MoveMetaStatChangesClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   stat<T extends Prisma.StatsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StatsDefaultArgs<ExtArgs>>): Prisma.Prisma__StatsClient<runtime.Types.Result.GetResult<Prisma.$StatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  meta<T extends Prisma.MoveMetaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MoveMetaDefaultArgs<ExtArgs>>): Prisma.Prisma__MoveMetaClient<runtime.Types.Result.GetResult<Prisma.$MoveMetaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  move<T extends Prisma.MovesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovesDefaultArgs<ExtArgs>>): Prisma.Prisma__MovesClient<runtime.Types.Result.GetResult<Prisma.$MovesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

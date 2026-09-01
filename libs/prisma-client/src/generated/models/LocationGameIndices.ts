@@ -221,7 +221,7 @@ export type LocationGameIndicesOrderByWithRelationInput = {
 }
 
 export type LocationGameIndicesWhereUniqueInput = Prisma.AtLeast<{
-  location_id_generation_id?: Prisma.LocationGameIndicesLocation_idGeneration_idCompoundUniqueInput
+  location_id_generation_id_game_index?: Prisma.LocationGameIndicesLocation_idGeneration_idGame_indexCompoundUniqueInput
   AND?: Prisma.LocationGameIndicesWhereInput | Prisma.LocationGameIndicesWhereInput[]
   OR?: Prisma.LocationGameIndicesWhereInput[]
   NOT?: Prisma.LocationGameIndicesWhereInput | Prisma.LocationGameIndicesWhereInput[]
@@ -230,7 +230,7 @@ export type LocationGameIndicesWhereUniqueInput = Prisma.AtLeast<{
   game_index?: Prisma.IntFilter<"LocationGameIndices"> | number
   location?: Prisma.XOR<Prisma.LocationsScalarRelationFilter, Prisma.LocationsWhereInput>
   generation?: Prisma.XOR<Prisma.GenerationsScalarRelationFilter, Prisma.GenerationsWhereInput>
-}, "location_id_generation_id">
+}, "location_id_generation_id_game_index">
 
 export type LocationGameIndicesOrderByWithAggregationInput = {
   location_id?: Prisma.SortOrder
@@ -302,9 +302,10 @@ export type LocationGameIndicesOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type LocationGameIndicesLocation_idGeneration_idCompoundUniqueInput = {
+export type LocationGameIndicesLocation_idGeneration_idGame_indexCompoundUniqueInput = {
   location_id: number
   generation_id: number
+  game_index: number
 }
 
 export type LocationGameIndicesCountOrderByAggregateInput = {

@@ -331,7 +331,6 @@ export type MoveMetaWhereInput = {
   move?: Prisma.XOR<Prisma.MovesScalarRelationFilter, Prisma.MovesWhereInput>
   metaCategory?: Prisma.XOR<Prisma.MoveMetaCategoriesScalarRelationFilter, Prisma.MoveMetaCategoriesWhereInput>
   metaAilment?: Prisma.XOR<Prisma.MoveMetaAilmentsNullableScalarRelationFilter, Prisma.MoveMetaAilmentsWhereInput> | null
-  statChanges?: Prisma.MoveMetaStatChangesListRelationFilter
 }
 
 export type MoveMetaOrderByWithRelationInput = {
@@ -351,7 +350,6 @@ export type MoveMetaOrderByWithRelationInput = {
   move?: Prisma.MovesOrderByWithRelationInput
   metaCategory?: Prisma.MoveMetaCategoriesOrderByWithRelationInput
   metaAilment?: Prisma.MoveMetaAilmentsOrderByWithRelationInput
-  statChanges?: Prisma.MoveMetaStatChangesOrderByRelationAggregateInput
 }
 
 export type MoveMetaWhereUniqueInput = Prisma.AtLeast<{
@@ -374,7 +372,6 @@ export type MoveMetaWhereUniqueInput = Prisma.AtLeast<{
   move?: Prisma.XOR<Prisma.MovesScalarRelationFilter, Prisma.MovesWhereInput>
   metaCategory?: Prisma.XOR<Prisma.MoveMetaCategoriesScalarRelationFilter, Prisma.MoveMetaCategoriesWhereInput>
   metaAilment?: Prisma.XOR<Prisma.MoveMetaAilmentsNullableScalarRelationFilter, Prisma.MoveMetaAilmentsWhereInput> | null
-  statChanges?: Prisma.MoveMetaStatChangesListRelationFilter
 }, "move_id">
 
 export type MoveMetaOrderByWithAggregationInput = {
@@ -431,7 +428,6 @@ export type MoveMetaCreateInput = {
   move: Prisma.MovesCreateNestedOneWithoutMetaInput
   metaCategory: Prisma.MoveMetaCategoriesCreateNestedOneWithoutMetaInput
   metaAilment?: Prisma.MoveMetaAilmentsCreateNestedOneWithoutMetaInput
-  statChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMetaInput
 }
 
 export type MoveMetaUncheckedCreateInput = {
@@ -448,7 +444,6 @@ export type MoveMetaUncheckedCreateInput = {
   ailment_chance: number
   flinch_chance: number
   stat_chance: number
-  statChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMetaInput
 }
 
 export type MoveMetaUpdateInput = {
@@ -465,7 +460,6 @@ export type MoveMetaUpdateInput = {
   move?: Prisma.MovesUpdateOneRequiredWithoutMetaNestedInput
   metaCategory?: Prisma.MoveMetaCategoriesUpdateOneRequiredWithoutMetaNestedInput
   metaAilment?: Prisma.MoveMetaAilmentsUpdateOneWithoutMetaNestedInput
-  statChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMetaNestedInput
 }
 
 export type MoveMetaUncheckedUpdateInput = {
@@ -482,7 +476,6 @@ export type MoveMetaUncheckedUpdateInput = {
   ailment_chance?: Prisma.IntFieldUpdateOperationsInput | number
   flinch_chance?: Prisma.IntFieldUpdateOperationsInput | number
   stat_chance?: Prisma.IntFieldUpdateOperationsInput | number
-  statChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMetaNestedInput
 }
 
 export type MoveMetaCreateManyInput = {
@@ -620,11 +613,6 @@ export type MoveMetaSumOrderByAggregateInput = {
   stat_chance?: Prisma.SortOrder
 }
 
-export type MoveMetaScalarRelationFilter = {
-  is?: Prisma.MoveMetaWhereInput
-  isNot?: Prisma.MoveMetaWhereInput
-}
-
 export type MoveMetaCreateNestedManyWithoutMoveInput = {
   create?: Prisma.XOR<Prisma.MoveMetaCreateWithoutMoveInput, Prisma.MoveMetaUncheckedCreateWithoutMoveInput> | Prisma.MoveMetaCreateWithoutMoveInput[] | Prisma.MoveMetaUncheckedCreateWithoutMoveInput[]
   connectOrCreate?: Prisma.MoveMetaCreateOrConnectWithoutMoveInput | Prisma.MoveMetaCreateOrConnectWithoutMoveInput[]
@@ -751,20 +739,6 @@ export type MoveMetaUncheckedUpdateManyWithoutMetaAilmentNestedInput = {
   deleteMany?: Prisma.MoveMetaScalarWhereInput | Prisma.MoveMetaScalarWhereInput[]
 }
 
-export type MoveMetaCreateNestedOneWithoutStatChangesInput = {
-  create?: Prisma.XOR<Prisma.MoveMetaCreateWithoutStatChangesInput, Prisma.MoveMetaUncheckedCreateWithoutStatChangesInput>
-  connectOrCreate?: Prisma.MoveMetaCreateOrConnectWithoutStatChangesInput
-  connect?: Prisma.MoveMetaWhereUniqueInput
-}
-
-export type MoveMetaUpdateOneRequiredWithoutStatChangesNestedInput = {
-  create?: Prisma.XOR<Prisma.MoveMetaCreateWithoutStatChangesInput, Prisma.MoveMetaUncheckedCreateWithoutStatChangesInput>
-  connectOrCreate?: Prisma.MoveMetaCreateOrConnectWithoutStatChangesInput
-  upsert?: Prisma.MoveMetaUpsertWithoutStatChangesInput
-  connect?: Prisma.MoveMetaWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MoveMetaUpdateToOneWithWhereWithoutStatChangesInput, Prisma.MoveMetaUpdateWithoutStatChangesInput>, Prisma.MoveMetaUncheckedUpdateWithoutStatChangesInput>
-}
-
 export type MoveMetaCreateWithoutMoveInput = {
   min_hits?: number | null
   max_hits?: number | null
@@ -778,7 +752,6 @@ export type MoveMetaCreateWithoutMoveInput = {
   stat_chance: number
   metaCategory: Prisma.MoveMetaCategoriesCreateNestedOneWithoutMetaInput
   metaAilment?: Prisma.MoveMetaAilmentsCreateNestedOneWithoutMetaInput
-  statChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMetaInput
 }
 
 export type MoveMetaUncheckedCreateWithoutMoveInput = {
@@ -794,7 +767,6 @@ export type MoveMetaUncheckedCreateWithoutMoveInput = {
   ailment_chance: number
   flinch_chance: number
   stat_chance: number
-  statChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMetaInput
 }
 
 export type MoveMetaCreateOrConnectWithoutMoveInput = {
@@ -855,7 +827,6 @@ export type MoveMetaCreateWithoutMetaCategoryInput = {
   stat_chance: number
   move: Prisma.MovesCreateNestedOneWithoutMetaInput
   metaAilment?: Prisma.MoveMetaAilmentsCreateNestedOneWithoutMetaInput
-  statChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMetaInput
 }
 
 export type MoveMetaUncheckedCreateWithoutMetaCategoryInput = {
@@ -871,7 +842,6 @@ export type MoveMetaUncheckedCreateWithoutMetaCategoryInput = {
   ailment_chance: number
   flinch_chance: number
   stat_chance: number
-  statChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMetaInput
 }
 
 export type MoveMetaCreateOrConnectWithoutMetaCategoryInput = {
@@ -913,7 +883,6 @@ export type MoveMetaCreateWithoutMetaAilmentInput = {
   stat_chance: number
   move: Prisma.MovesCreateNestedOneWithoutMetaInput
   metaCategory: Prisma.MoveMetaCategoriesCreateNestedOneWithoutMetaInput
-  statChanges?: Prisma.MoveMetaStatChangesCreateNestedManyWithoutMetaInput
 }
 
 export type MoveMetaUncheckedCreateWithoutMetaAilmentInput = {
@@ -929,7 +898,6 @@ export type MoveMetaUncheckedCreateWithoutMetaAilmentInput = {
   ailment_chance: number
   flinch_chance: number
   stat_chance: number
-  statChanges?: Prisma.MoveMetaStatChangesUncheckedCreateNestedManyWithoutMetaInput
 }
 
 export type MoveMetaCreateOrConnectWithoutMetaAilmentInput = {
@@ -956,86 +924,6 @@ export type MoveMetaUpdateWithWhereUniqueWithoutMetaAilmentInput = {
 export type MoveMetaUpdateManyWithWhereWithoutMetaAilmentInput = {
   where: Prisma.MoveMetaScalarWhereInput
   data: Prisma.XOR<Prisma.MoveMetaUpdateManyMutationInput, Prisma.MoveMetaUncheckedUpdateManyWithoutMetaAilmentInput>
-}
-
-export type MoveMetaCreateWithoutStatChangesInput = {
-  min_hits?: number | null
-  max_hits?: number | null
-  min_turns?: number | null
-  max_turns?: number | null
-  drain: number
-  healing: number
-  crit_rate: number
-  ailment_chance: number
-  flinch_chance: number
-  stat_chance: number
-  move: Prisma.MovesCreateNestedOneWithoutMetaInput
-  metaCategory: Prisma.MoveMetaCategoriesCreateNestedOneWithoutMetaInput
-  metaAilment?: Prisma.MoveMetaAilmentsCreateNestedOneWithoutMetaInput
-}
-
-export type MoveMetaUncheckedCreateWithoutStatChangesInput = {
-  move_id: number
-  meta_category_id: number
-  meta_ailment_id?: number | null
-  min_hits?: number | null
-  max_hits?: number | null
-  min_turns?: number | null
-  max_turns?: number | null
-  drain: number
-  healing: number
-  crit_rate: number
-  ailment_chance: number
-  flinch_chance: number
-  stat_chance: number
-}
-
-export type MoveMetaCreateOrConnectWithoutStatChangesInput = {
-  where: Prisma.MoveMetaWhereUniqueInput
-  create: Prisma.XOR<Prisma.MoveMetaCreateWithoutStatChangesInput, Prisma.MoveMetaUncheckedCreateWithoutStatChangesInput>
-}
-
-export type MoveMetaUpsertWithoutStatChangesInput = {
-  update: Prisma.XOR<Prisma.MoveMetaUpdateWithoutStatChangesInput, Prisma.MoveMetaUncheckedUpdateWithoutStatChangesInput>
-  create: Prisma.XOR<Prisma.MoveMetaCreateWithoutStatChangesInput, Prisma.MoveMetaUncheckedCreateWithoutStatChangesInput>
-  where?: Prisma.MoveMetaWhereInput
-}
-
-export type MoveMetaUpdateToOneWithWhereWithoutStatChangesInput = {
-  where?: Prisma.MoveMetaWhereInput
-  data: Prisma.XOR<Prisma.MoveMetaUpdateWithoutStatChangesInput, Prisma.MoveMetaUncheckedUpdateWithoutStatChangesInput>
-}
-
-export type MoveMetaUpdateWithoutStatChangesInput = {
-  min_hits?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  max_hits?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  min_turns?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  max_turns?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  drain?: Prisma.IntFieldUpdateOperationsInput | number
-  healing?: Prisma.IntFieldUpdateOperationsInput | number
-  crit_rate?: Prisma.IntFieldUpdateOperationsInput | number
-  ailment_chance?: Prisma.IntFieldUpdateOperationsInput | number
-  flinch_chance?: Prisma.IntFieldUpdateOperationsInput | number
-  stat_chance?: Prisma.IntFieldUpdateOperationsInput | number
-  move?: Prisma.MovesUpdateOneRequiredWithoutMetaNestedInput
-  metaCategory?: Prisma.MoveMetaCategoriesUpdateOneRequiredWithoutMetaNestedInput
-  metaAilment?: Prisma.MoveMetaAilmentsUpdateOneWithoutMetaNestedInput
-}
-
-export type MoveMetaUncheckedUpdateWithoutStatChangesInput = {
-  move_id?: Prisma.IntFieldUpdateOperationsInput | number
-  meta_category_id?: Prisma.IntFieldUpdateOperationsInput | number
-  meta_ailment_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  min_hits?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  max_hits?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  min_turns?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  max_turns?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  drain?: Prisma.IntFieldUpdateOperationsInput | number
-  healing?: Prisma.IntFieldUpdateOperationsInput | number
-  crit_rate?: Prisma.IntFieldUpdateOperationsInput | number
-  ailment_chance?: Prisma.IntFieldUpdateOperationsInput | number
-  flinch_chance?: Prisma.IntFieldUpdateOperationsInput | number
-  stat_chance?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type MoveMetaCreateManyMoveInput = {
@@ -1066,7 +954,6 @@ export type MoveMetaUpdateWithoutMoveInput = {
   stat_chance?: Prisma.IntFieldUpdateOperationsInput | number
   metaCategory?: Prisma.MoveMetaCategoriesUpdateOneRequiredWithoutMetaNestedInput
   metaAilment?: Prisma.MoveMetaAilmentsUpdateOneWithoutMetaNestedInput
-  statChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMetaNestedInput
 }
 
 export type MoveMetaUncheckedUpdateWithoutMoveInput = {
@@ -1082,7 +969,6 @@ export type MoveMetaUncheckedUpdateWithoutMoveInput = {
   ailment_chance?: Prisma.IntFieldUpdateOperationsInput | number
   flinch_chance?: Prisma.IntFieldUpdateOperationsInput | number
   stat_chance?: Prisma.IntFieldUpdateOperationsInput | number
-  statChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMetaNestedInput
 }
 
 export type MoveMetaUncheckedUpdateManyWithoutMoveInput = {
@@ -1128,7 +1014,6 @@ export type MoveMetaUpdateWithoutMetaCategoryInput = {
   stat_chance?: Prisma.IntFieldUpdateOperationsInput | number
   move?: Prisma.MovesUpdateOneRequiredWithoutMetaNestedInput
   metaAilment?: Prisma.MoveMetaAilmentsUpdateOneWithoutMetaNestedInput
-  statChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMetaNestedInput
 }
 
 export type MoveMetaUncheckedUpdateWithoutMetaCategoryInput = {
@@ -1144,7 +1029,6 @@ export type MoveMetaUncheckedUpdateWithoutMetaCategoryInput = {
   ailment_chance?: Prisma.IntFieldUpdateOperationsInput | number
   flinch_chance?: Prisma.IntFieldUpdateOperationsInput | number
   stat_chance?: Prisma.IntFieldUpdateOperationsInput | number
-  statChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMetaNestedInput
 }
 
 export type MoveMetaUncheckedUpdateManyWithoutMetaCategoryInput = {
@@ -1190,7 +1074,6 @@ export type MoveMetaUpdateWithoutMetaAilmentInput = {
   stat_chance?: Prisma.IntFieldUpdateOperationsInput | number
   move?: Prisma.MovesUpdateOneRequiredWithoutMetaNestedInput
   metaCategory?: Prisma.MoveMetaCategoriesUpdateOneRequiredWithoutMetaNestedInput
-  statChanges?: Prisma.MoveMetaStatChangesUpdateManyWithoutMetaNestedInput
 }
 
 export type MoveMetaUncheckedUpdateWithoutMetaAilmentInput = {
@@ -1206,7 +1089,6 @@ export type MoveMetaUncheckedUpdateWithoutMetaAilmentInput = {
   ailment_chance?: Prisma.IntFieldUpdateOperationsInput | number
   flinch_chance?: Prisma.IntFieldUpdateOperationsInput | number
   stat_chance?: Prisma.IntFieldUpdateOperationsInput | number
-  statChanges?: Prisma.MoveMetaStatChangesUncheckedUpdateManyWithoutMetaNestedInput
 }
 
 export type MoveMetaUncheckedUpdateManyWithoutMetaAilmentInput = {
@@ -1224,35 +1106,6 @@ export type MoveMetaUncheckedUpdateManyWithoutMetaAilmentInput = {
   stat_chance?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-
-/**
- * Count Type MoveMetaCountOutputType
- */
-
-export type MoveMetaCountOutputType = {
-  statChanges: number
-}
-
-export type MoveMetaCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  statChanges?: boolean | MoveMetaCountOutputTypeCountStatChangesArgs
-}
-
-/**
- * MoveMetaCountOutputType without action
- */
-export type MoveMetaCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the MoveMetaCountOutputType
-   */
-  select?: Prisma.MoveMetaCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * MoveMetaCountOutputType without action
- */
-export type MoveMetaCountOutputTypeCountStatChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MoveMetaStatChangesWhereInput
-}
 
 
 export type MoveMetaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1272,8 +1125,6 @@ export type MoveMetaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   move?: boolean | Prisma.MovesDefaultArgs<ExtArgs>
   metaCategory?: boolean | Prisma.MoveMetaCategoriesDefaultArgs<ExtArgs>
   metaAilment?: boolean | Prisma.MoveMeta$metaAilmentArgs<ExtArgs>
-  statChanges?: boolean | Prisma.MoveMeta$statChangesArgs<ExtArgs>
-  _count?: boolean | Prisma.MoveMetaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["moveMeta"]>
 
 export type MoveMetaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1335,8 +1186,6 @@ export type MoveMetaInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   move?: boolean | Prisma.MovesDefaultArgs<ExtArgs>
   metaCategory?: boolean | Prisma.MoveMetaCategoriesDefaultArgs<ExtArgs>
   metaAilment?: boolean | Prisma.MoveMeta$metaAilmentArgs<ExtArgs>
-  statChanges?: boolean | Prisma.MoveMeta$statChangesArgs<ExtArgs>
-  _count?: boolean | Prisma.MoveMetaCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MoveMetaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   move?: boolean | Prisma.MovesDefaultArgs<ExtArgs>
@@ -1355,7 +1204,6 @@ export type $MoveMetaPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     move: Prisma.$MovesPayload<ExtArgs>
     metaCategory: Prisma.$MoveMetaCategoriesPayload<ExtArgs>
     metaAilment: Prisma.$MoveMetaAilmentsPayload<ExtArgs> | null
-    statChanges: Prisma.$MoveMetaStatChangesPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     move_id: number
@@ -1768,7 +1616,6 @@ export interface Prisma__MoveMetaClient<T, Null = never, ExtArgs extends runtime
   move<T extends Prisma.MovesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovesDefaultArgs<ExtArgs>>): Prisma.Prisma__MovesClient<runtime.Types.Result.GetResult<Prisma.$MovesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   metaCategory<T extends Prisma.MoveMetaCategoriesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MoveMetaCategoriesDefaultArgs<ExtArgs>>): Prisma.Prisma__MoveMetaCategoriesClient<runtime.Types.Result.GetResult<Prisma.$MoveMetaCategoriesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   metaAilment<T extends Prisma.MoveMeta$metaAilmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MoveMeta$metaAilmentArgs<ExtArgs>>): Prisma.Prisma__MoveMetaAilmentsClient<runtime.Types.Result.GetResult<Prisma.$MoveMetaAilmentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  statChanges<T extends Prisma.MoveMeta$statChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MoveMeta$statChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MoveMetaStatChangesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2228,30 +2075,6 @@ export type MoveMeta$metaAilmentArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   include?: Prisma.MoveMetaAilmentsInclude<ExtArgs> | null
   where?: Prisma.MoveMetaAilmentsWhereInput
-}
-
-/**
- * MoveMeta.statChanges
- */
-export type MoveMeta$statChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the MoveMetaStatChanges
-   */
-  select?: Prisma.MoveMetaStatChangesSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the MoveMetaStatChanges
-   */
-  omit?: Prisma.MoveMetaStatChangesOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MoveMetaStatChangesInclude<ExtArgs> | null
-  where?: Prisma.MoveMetaStatChangesWhereInput
-  orderBy?: Prisma.MoveMetaStatChangesOrderByWithRelationInput | Prisma.MoveMetaStatChangesOrderByWithRelationInput[]
-  cursor?: Prisma.MoveMetaStatChangesWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.MoveMetaStatChangesScalarFieldEnum | Prisma.MoveMetaStatChangesScalarFieldEnum[]
 }
 
 /**

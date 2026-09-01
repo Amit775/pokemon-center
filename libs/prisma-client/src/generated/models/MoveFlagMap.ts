@@ -208,14 +208,15 @@ export type MoveFlagMapOrderByWithRelationInput = {
 }
 
 export type MoveFlagMapWhereUniqueInput = Prisma.AtLeast<{
-  move_id?: number
+  move_id_move_flag_id?: Prisma.MoveFlagMapMove_idMove_flag_idCompoundUniqueInput
   AND?: Prisma.MoveFlagMapWhereInput | Prisma.MoveFlagMapWhereInput[]
   OR?: Prisma.MoveFlagMapWhereInput[]
   NOT?: Prisma.MoveFlagMapWhereInput | Prisma.MoveFlagMapWhereInput[]
+  move_id?: Prisma.IntFilter<"MoveFlagMap"> | number
   move_flag_id?: Prisma.IntFilter<"MoveFlagMap"> | number
   move?: Prisma.XOR<Prisma.MovesScalarRelationFilter, Prisma.MovesWhereInput>
   flag?: Prisma.XOR<Prisma.MoveFlagsScalarRelationFilter, Prisma.MoveFlagsWhereInput>
-}, "move_id">
+}, "move_id_move_flag_id">
 
 export type MoveFlagMapOrderByWithAggregationInput = {
   move_id?: Prisma.SortOrder
@@ -277,6 +278,11 @@ export type MoveFlagMapListRelationFilter = {
 
 export type MoveFlagMapOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type MoveFlagMapMove_idMove_flag_idCompoundUniqueInput = {
+  move_id: number
+  move_flag_id: number
 }
 
 export type MoveFlagMapCountOrderByAggregateInput = {

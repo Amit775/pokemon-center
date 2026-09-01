@@ -208,14 +208,15 @@ export type EncounterConditionValueMapOrderByWithRelationInput = {
 }
 
 export type EncounterConditionValueMapWhereUniqueInput = Prisma.AtLeast<{
-  encounter_id?: number
+  encounter_id_encounter_condition_value_id?: Prisma.EncounterConditionValueMapEncounter_idEncounter_condition_value_idCompoundUniqueInput
   AND?: Prisma.EncounterConditionValueMapWhereInput | Prisma.EncounterConditionValueMapWhereInput[]
   OR?: Prisma.EncounterConditionValueMapWhereInput[]
   NOT?: Prisma.EncounterConditionValueMapWhereInput | Prisma.EncounterConditionValueMapWhereInput[]
+  encounter_id?: Prisma.IntFilter<"EncounterConditionValueMap"> | number
   encounter_condition_value_id?: Prisma.IntFilter<"EncounterConditionValueMap"> | number
   encounter?: Prisma.XOR<Prisma.EncountersScalarRelationFilter, Prisma.EncountersWhereInput>
   conditionValue?: Prisma.XOR<Prisma.EncounterConditionValuesScalarRelationFilter, Prisma.EncounterConditionValuesWhereInput>
-}, "encounter_id">
+}, "encounter_id_encounter_condition_value_id">
 
 export type EncounterConditionValueMapOrderByWithAggregationInput = {
   encounter_id?: Prisma.SortOrder
@@ -277,6 +278,11 @@ export type EncounterConditionValueMapListRelationFilter = {
 
 export type EncounterConditionValueMapOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type EncounterConditionValueMapEncounter_idEncounter_condition_value_idCompoundUniqueInput = {
+  encounter_id: number
+  encounter_condition_value_id: number
 }
 
 export type EncounterConditionValueMapCountOrderByAggregateInput = {

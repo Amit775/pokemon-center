@@ -220,7 +220,7 @@ export type PokemonMovesGroupByOutputType = {
   version_group_id: number
   move_id: number
   pokemon_move_method_id: number
-  level: number | null
+  level: number
   order: number | null
   mastery: number | null
   _count: PokemonMovesCountAggregateOutputType | null
@@ -253,7 +253,7 @@ export type PokemonMovesWhereInput = {
   version_group_id?: Prisma.IntFilter<"PokemonMoves"> | number
   move_id?: Prisma.IntFilter<"PokemonMoves"> | number
   pokemon_move_method_id?: Prisma.IntFilter<"PokemonMoves"> | number
-  level?: Prisma.IntNullableFilter<"PokemonMoves"> | number | null
+  level?: Prisma.IntFilter<"PokemonMoves"> | number
   order?: Prisma.IntNullableFilter<"PokemonMoves"> | number | null
   mastery?: Prisma.IntNullableFilter<"PokemonMoves"> | number | null
   pokemon?: Prisma.XOR<Prisma.PokemonScalarRelationFilter, Prisma.PokemonWhereInput>
@@ -267,7 +267,7 @@ export type PokemonMovesOrderByWithRelationInput = {
   version_group_id?: Prisma.SortOrder
   move_id?: Prisma.SortOrder
   pokemon_move_method_id?: Prisma.SortOrder
-  level?: Prisma.SortOrderInput | Prisma.SortOrder
+  level?: Prisma.SortOrder
   order?: Prisma.SortOrderInput | Prisma.SortOrder
   mastery?: Prisma.SortOrderInput | Prisma.SortOrder
   pokemon?: Prisma.PokemonOrderByWithRelationInput
@@ -277,7 +277,7 @@ export type PokemonMovesOrderByWithRelationInput = {
 }
 
 export type PokemonMovesWhereUniqueInput = Prisma.AtLeast<{
-  pokemon_id_version_group_id_move_id_pokemon_move_method_id?: Prisma.PokemonMovesPokemon_idVersion_group_idMove_idPokemon_move_method_idCompoundUniqueInput
+  pokemon_id_version_group_id_move_id_pokemon_move_method_id_level?: Prisma.PokemonMovesPokemon_idVersion_group_idMove_idPokemon_move_method_idLevelCompoundUniqueInput
   AND?: Prisma.PokemonMovesWhereInput | Prisma.PokemonMovesWhereInput[]
   OR?: Prisma.PokemonMovesWhereInput[]
   NOT?: Prisma.PokemonMovesWhereInput | Prisma.PokemonMovesWhereInput[]
@@ -285,21 +285,21 @@ export type PokemonMovesWhereUniqueInput = Prisma.AtLeast<{
   version_group_id?: Prisma.IntFilter<"PokemonMoves"> | number
   move_id?: Prisma.IntFilter<"PokemonMoves"> | number
   pokemon_move_method_id?: Prisma.IntFilter<"PokemonMoves"> | number
-  level?: Prisma.IntNullableFilter<"PokemonMoves"> | number | null
+  level?: Prisma.IntFilter<"PokemonMoves"> | number
   order?: Prisma.IntNullableFilter<"PokemonMoves"> | number | null
   mastery?: Prisma.IntNullableFilter<"PokemonMoves"> | number | null
   pokemon?: Prisma.XOR<Prisma.PokemonScalarRelationFilter, Prisma.PokemonWhereInput>
   versionGroup?: Prisma.XOR<Prisma.VersionGroupsScalarRelationFilter, Prisma.VersionGroupsWhereInput>
   move?: Prisma.XOR<Prisma.MovesScalarRelationFilter, Prisma.MovesWhereInput>
   moveMethod?: Prisma.XOR<Prisma.PokemonMoveMethodsScalarRelationFilter, Prisma.PokemonMoveMethodsWhereInput>
-}, "pokemon_id_version_group_id_move_id_pokemon_move_method_id">
+}, "pokemon_id_version_group_id_move_id_pokemon_move_method_id_level">
 
 export type PokemonMovesOrderByWithAggregationInput = {
   pokemon_id?: Prisma.SortOrder
   version_group_id?: Prisma.SortOrder
   move_id?: Prisma.SortOrder
   pokemon_move_method_id?: Prisma.SortOrder
-  level?: Prisma.SortOrderInput | Prisma.SortOrder
+  level?: Prisma.SortOrder
   order?: Prisma.SortOrderInput | Prisma.SortOrder
   mastery?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PokemonMovesCountOrderByAggregateInput
@@ -317,13 +317,13 @@ export type PokemonMovesScalarWhereWithAggregatesInput = {
   version_group_id?: Prisma.IntWithAggregatesFilter<"PokemonMoves"> | number
   move_id?: Prisma.IntWithAggregatesFilter<"PokemonMoves"> | number
   pokemon_move_method_id?: Prisma.IntWithAggregatesFilter<"PokemonMoves"> | number
-  level?: Prisma.IntNullableWithAggregatesFilter<"PokemonMoves"> | number | null
+  level?: Prisma.IntWithAggregatesFilter<"PokemonMoves"> | number
   order?: Prisma.IntNullableWithAggregatesFilter<"PokemonMoves"> | number | null
   mastery?: Prisma.IntNullableWithAggregatesFilter<"PokemonMoves"> | number | null
 }
 
 export type PokemonMovesCreateInput = {
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
   pokemon: Prisma.PokemonCreateNestedOneWithoutMovesInput
@@ -337,13 +337,13 @@ export type PokemonMovesUncheckedCreateInput = {
   version_group_id: number
   move_id: number
   pokemon_move_method_id: number
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
 }
 
 export type PokemonMovesUpdateInput = {
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pokemon?: Prisma.PokemonUpdateOneRequiredWithoutMovesNestedInput
@@ -357,7 +357,7 @@ export type PokemonMovesUncheckedUpdateInput = {
   version_group_id?: Prisma.IntFieldUpdateOperationsInput | number
   move_id?: Prisma.IntFieldUpdateOperationsInput | number
   pokemon_move_method_id?: Prisma.IntFieldUpdateOperationsInput | number
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -367,13 +367,13 @@ export type PokemonMovesCreateManyInput = {
   version_group_id: number
   move_id: number
   pokemon_move_method_id: number
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
 }
 
 export type PokemonMovesUpdateManyMutationInput = {
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -383,7 +383,7 @@ export type PokemonMovesUncheckedUpdateManyInput = {
   version_group_id?: Prisma.IntFieldUpdateOperationsInput | number
   move_id?: Prisma.IntFieldUpdateOperationsInput | number
   pokemon_move_method_id?: Prisma.IntFieldUpdateOperationsInput | number
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -398,11 +398,12 @@ export type PokemonMovesOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type PokemonMovesPokemon_idVersion_group_idMove_idPokemon_move_method_idCompoundUniqueInput = {
+export type PokemonMovesPokemon_idVersion_group_idMove_idPokemon_move_method_idLevelCompoundUniqueInput = {
   pokemon_id: number
   version_group_id: number
   move_id: number
   pokemon_move_method_id: number
+  level: number
 }
 
 export type PokemonMovesCountOrderByAggregateInput = {
@@ -624,7 +625,7 @@ export type PokemonMovesUncheckedUpdateManyWithoutMoveMethodNestedInput = {
 }
 
 export type PokemonMovesCreateWithoutPokemonInput = {
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
   versionGroup: Prisma.VersionGroupsCreateNestedOneWithoutPokemonMovesInput
@@ -636,7 +637,7 @@ export type PokemonMovesUncheckedCreateWithoutPokemonInput = {
   version_group_id: number
   move_id: number
   pokemon_move_method_id: number
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
 }
@@ -675,13 +676,13 @@ export type PokemonMovesScalarWhereInput = {
   version_group_id?: Prisma.IntFilter<"PokemonMoves"> | number
   move_id?: Prisma.IntFilter<"PokemonMoves"> | number
   pokemon_move_method_id?: Prisma.IntFilter<"PokemonMoves"> | number
-  level?: Prisma.IntNullableFilter<"PokemonMoves"> | number | null
+  level?: Prisma.IntFilter<"PokemonMoves"> | number
   order?: Prisma.IntNullableFilter<"PokemonMoves"> | number | null
   mastery?: Prisma.IntNullableFilter<"PokemonMoves"> | number | null
 }
 
 export type PokemonMovesCreateWithoutMoveInput = {
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
   pokemon: Prisma.PokemonCreateNestedOneWithoutMovesInput
@@ -693,7 +694,7 @@ export type PokemonMovesUncheckedCreateWithoutMoveInput = {
   pokemon_id: number
   version_group_id: number
   pokemon_move_method_id: number
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
 }
@@ -725,7 +726,7 @@ export type PokemonMovesUpdateManyWithWhereWithoutMoveInput = {
 }
 
 export type PokemonMovesCreateWithoutVersionGroupInput = {
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
   pokemon: Prisma.PokemonCreateNestedOneWithoutMovesInput
@@ -737,7 +738,7 @@ export type PokemonMovesUncheckedCreateWithoutVersionGroupInput = {
   pokemon_id: number
   move_id: number
   pokemon_move_method_id: number
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
 }
@@ -769,7 +770,7 @@ export type PokemonMovesUpdateManyWithWhereWithoutVersionGroupInput = {
 }
 
 export type PokemonMovesCreateWithoutMoveMethodInput = {
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
   pokemon: Prisma.PokemonCreateNestedOneWithoutMovesInput
@@ -781,7 +782,7 @@ export type PokemonMovesUncheckedCreateWithoutMoveMethodInput = {
   pokemon_id: number
   version_group_id: number
   move_id: number
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
 }
@@ -816,13 +817,13 @@ export type PokemonMovesCreateManyPokemonInput = {
   version_group_id: number
   move_id: number
   pokemon_move_method_id: number
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
 }
 
 export type PokemonMovesUpdateWithoutPokemonInput = {
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   versionGroup?: Prisma.VersionGroupsUpdateOneRequiredWithoutPokemonMovesNestedInput
@@ -834,7 +835,7 @@ export type PokemonMovesUncheckedUpdateWithoutPokemonInput = {
   version_group_id?: Prisma.IntFieldUpdateOperationsInput | number
   move_id?: Prisma.IntFieldUpdateOperationsInput | number
   pokemon_move_method_id?: Prisma.IntFieldUpdateOperationsInput | number
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -843,7 +844,7 @@ export type PokemonMovesUncheckedUpdateManyWithoutPokemonInput = {
   version_group_id?: Prisma.IntFieldUpdateOperationsInput | number
   move_id?: Prisma.IntFieldUpdateOperationsInput | number
   pokemon_move_method_id?: Prisma.IntFieldUpdateOperationsInput | number
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -852,13 +853,13 @@ export type PokemonMovesCreateManyMoveInput = {
   pokemon_id: number
   version_group_id: number
   pokemon_move_method_id: number
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
 }
 
 export type PokemonMovesUpdateWithoutMoveInput = {
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pokemon?: Prisma.PokemonUpdateOneRequiredWithoutMovesNestedInput
@@ -870,7 +871,7 @@ export type PokemonMovesUncheckedUpdateWithoutMoveInput = {
   pokemon_id?: Prisma.IntFieldUpdateOperationsInput | number
   version_group_id?: Prisma.IntFieldUpdateOperationsInput | number
   pokemon_move_method_id?: Prisma.IntFieldUpdateOperationsInput | number
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -879,7 +880,7 @@ export type PokemonMovesUncheckedUpdateManyWithoutMoveInput = {
   pokemon_id?: Prisma.IntFieldUpdateOperationsInput | number
   version_group_id?: Prisma.IntFieldUpdateOperationsInput | number
   pokemon_move_method_id?: Prisma.IntFieldUpdateOperationsInput | number
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -888,13 +889,13 @@ export type PokemonMovesCreateManyVersionGroupInput = {
   pokemon_id: number
   move_id: number
   pokemon_move_method_id: number
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
 }
 
 export type PokemonMovesUpdateWithoutVersionGroupInput = {
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pokemon?: Prisma.PokemonUpdateOneRequiredWithoutMovesNestedInput
@@ -906,7 +907,7 @@ export type PokemonMovesUncheckedUpdateWithoutVersionGroupInput = {
   pokemon_id?: Prisma.IntFieldUpdateOperationsInput | number
   move_id?: Prisma.IntFieldUpdateOperationsInput | number
   pokemon_move_method_id?: Prisma.IntFieldUpdateOperationsInput | number
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -915,7 +916,7 @@ export type PokemonMovesUncheckedUpdateManyWithoutVersionGroupInput = {
   pokemon_id?: Prisma.IntFieldUpdateOperationsInput | number
   move_id?: Prisma.IntFieldUpdateOperationsInput | number
   pokemon_move_method_id?: Prisma.IntFieldUpdateOperationsInput | number
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -924,13 +925,13 @@ export type PokemonMovesCreateManyMoveMethodInput = {
   pokemon_id: number
   version_group_id: number
   move_id: number
-  level?: number | null
+  level: number
   order?: number | null
   mastery?: number | null
 }
 
 export type PokemonMovesUpdateWithoutMoveMethodInput = {
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pokemon?: Prisma.PokemonUpdateOneRequiredWithoutMovesNestedInput
@@ -942,7 +943,7 @@ export type PokemonMovesUncheckedUpdateWithoutMoveMethodInput = {
   pokemon_id?: Prisma.IntFieldUpdateOperationsInput | number
   version_group_id?: Prisma.IntFieldUpdateOperationsInput | number
   move_id?: Prisma.IntFieldUpdateOperationsInput | number
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -951,7 +952,7 @@ export type PokemonMovesUncheckedUpdateManyWithoutMoveMethodInput = {
   pokemon_id?: Prisma.IntFieldUpdateOperationsInput | number
   version_group_id?: Prisma.IntFieldUpdateOperationsInput | number
   move_id?: Prisma.IntFieldUpdateOperationsInput | number
-  level?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  level?: Prisma.IntFieldUpdateOperationsInput | number
   order?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   mastery?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
@@ -1043,7 +1044,7 @@ export type $PokemonMovesPayload<ExtArgs extends runtime.Types.Extensions.Intern
     version_group_id: number
     move_id: number
     pokemon_move_method_id: number
-    level: number | null
+    level: number
     order: number | null
     mastery: number | null
   }, ExtArgs["result"]["pokemonMoves"]>

@@ -208,14 +208,15 @@ export type ItemFlagMapOrderByWithRelationInput = {
 }
 
 export type ItemFlagMapWhereUniqueInput = Prisma.AtLeast<{
-  item_id?: number
+  item_id_item_flag_id?: Prisma.ItemFlagMapItem_idItem_flag_idCompoundUniqueInput
   AND?: Prisma.ItemFlagMapWhereInput | Prisma.ItemFlagMapWhereInput[]
   OR?: Prisma.ItemFlagMapWhereInput[]
   NOT?: Prisma.ItemFlagMapWhereInput | Prisma.ItemFlagMapWhereInput[]
+  item_id?: Prisma.IntFilter<"ItemFlagMap"> | number
   item_flag_id?: Prisma.IntFilter<"ItemFlagMap"> | number
   item?: Prisma.XOR<Prisma.ItemsScalarRelationFilter, Prisma.ItemsWhereInput>
   flag?: Prisma.XOR<Prisma.ItemFlagsScalarRelationFilter, Prisma.ItemFlagsWhereInput>
-}, "item_id">
+}, "item_id_item_flag_id">
 
 export type ItemFlagMapOrderByWithAggregationInput = {
   item_id?: Prisma.SortOrder
@@ -277,6 +278,11 @@ export type ItemFlagMapListRelationFilter = {
 
 export type ItemFlagMapOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type ItemFlagMapItem_idItem_flag_idCompoundUniqueInput = {
+  item_id: number
+  item_flag_id: number
 }
 
 export type ItemFlagMapCountOrderByAggregateInput = {
