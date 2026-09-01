@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { RegulationStore } from '@pokemon-center/data-access-champions';
 import { SectionHeadingComponent, UiCardComponent, UiSkeletonComponent } from '@pokemon-center/ui-pokedex';
-import { RegulationStore } from '../../regulation.store';
 
 /**
  * Champions landing page.
