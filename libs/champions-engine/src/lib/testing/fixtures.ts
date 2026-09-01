@@ -119,6 +119,54 @@ export const moves = {
 		priority: 0,
 		flags: [],
 	} satisfies ChampionsMove,
+
+	stealthRock: {
+		id: 446,
+		slug: 'stealth-rock',
+		name: 'Stealth Rock',
+		type: 'rock',
+		damageClass: 'STATUS',
+		power: null,
+		accuracy: null,
+		priority: 0,
+		flags: ['reflectable'],
+	} satisfies ChampionsMove,
+
+	rapidSpin: {
+		id: 229,
+		slug: 'rapid-spin',
+		name: 'Rapid Spin',
+		type: 'normal',
+		damageClass: 'PHYSICAL',
+		power: 50,
+		accuracy: 100,
+		priority: 0,
+		flags: ['contact', 'protect', 'mirror'],
+	} satisfies ChampionsMove,
+
+	rainDance: {
+		id: 240,
+		slug: 'rain-dance',
+		name: 'Rain Dance',
+		type: 'water',
+		damageClass: 'STATUS',
+		power: null,
+		accuracy: null,
+		priority: 0,
+		flags: [],
+	} satisfies ChampionsMove,
+
+	thunderWave: {
+		id: 86,
+		slug: 'thunder-wave',
+		name: 'Thunder Wave',
+		type: 'electric',
+		damageClass: 'STATUS',
+		power: null,
+		accuracy: null,
+		priority: 0,
+		flags: ['reflectable'],
+	} satisfies ChampionsMove,
 };
 
 /** Only the rows the tests need; `typeEffectiveness` treats a missing entry as neutral. */
