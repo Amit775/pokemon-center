@@ -417,9 +417,7 @@ import { NATURES } from './natures';
 	`,
 })
 export class BuildEditorComponent {
-	/** Species to build. */
 	readonly slug = input.required<string>();
-	/** Set when editing an existing Box entry. */
 	readonly existingId = input<number | null>(null);
 	readonly initial = input<Partial<BoxPokemonInput> | null>(null);
 

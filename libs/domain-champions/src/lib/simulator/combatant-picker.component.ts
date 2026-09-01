@@ -219,6 +219,11 @@ export class CombatantPickerComponent {
 	private readonly search = championsResource(ChampionsSearchDocument, () => ({ query: this.term(), take: 8 }));
 	protected readonly results = computed(() => (this.term().trim() === '' ? [] : (this.search.value()?.championsSearch ?? [])));
 
+	/** The key a roster pick emits, so the prefix lives in one place rather than in the template. */
+	protected pokedexKey(slug: string): string {
+		return `${POKEDEX_PREFIX}${slug}`;
+	}
+
 	/**
 	 * What is currently selected, and whether its numbers are exact or inferred.
 	 *
@@ -226,11 +231,6 @@ export class CombatantPickerComponent {
 	 * roster in memory — so this costs nothing and, unlike reading it back out of the search
 	 * results, survives the search box being cleared.
 	 */
-	/** The key a roster pick emits, so the prefix lives in one place rather than in the template. */
-	protected pokedexKey(slug: string): string {
-		return `${POKEDEX_PREFIX}${slug}`;
-	}
-
 	protected readonly chosen = computed(() => {
 		const key = this.selected();
 		if (!key) return null;

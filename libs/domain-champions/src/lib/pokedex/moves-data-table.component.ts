@@ -9,13 +9,13 @@ import {
 import { flexRenderComponent } from '@tanstack/angular-table';
 import { MoveNameCellComponent } from './move-name-cell.component';
 import { MovesTablePreferencesStore } from './moves-table-preferences.store';
-import type { DetailMove } from './moves-table.component';
+import type { DetailMove } from './move.model';
 
 const columnHelper = createDataTableColumns<DetailMove>();
 
 /** Module scope, not a component field: a fresh array rebuilds every column, header and cell. */
 const moveColumns = columnHelper.columns([
-	// A component, not a string: this cell packs name, badge, effect, chance, tags and note.
+	// A component, not a string: this cell packs name, effect, chance, tags and note.
 	columnHelper.accessor('name', {
 		header: 'Move',
 		sortFn: 'alphanumeric',
@@ -81,10 +81,7 @@ const moveColumnTracks = {
 	pp: '4rem',
 };
 
-/**
- * A Pokémon's legal moves, sortable — the same content as `champions-moves-table`, behind
- * `?view=table` while both coexist. The inputs match it exactly so the detail page can swap them.
- */
+/** A Pokémon's legal moves, sortable. */
 @Component({
 	selector: 'champions-moves-data-table',
 	changeDetection: ChangeDetectionStrategy.OnPush,

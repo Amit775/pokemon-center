@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { moveTags } from './move-tags';
-import type { DetailMove } from './moves-table.component';
+import type { DetailMove } from './move.model';
 
 /**
- * The Move column: name, what Champions changed, what the move does, and the tags an ability hooks
- * into — all printed rather than hidden behind a hover, because this is read while choosing.
+ * The Move column: name, what the move does, and the tags an ability hooks into — all printed
+ * rather than hidden behind a hover, because this is read while choosing.
  *
- * A component because `flexRenderComponent` takes a component type. The markup and styles are the
- * first `<td>` of `moves-table.component.ts` moved across unchanged, so both renderings match.
+ * A component because `flexRenderComponent` takes a component type.
  */
 @Component({
 	selector: 'champions-move-name-cell',
@@ -17,9 +16,6 @@ import type { DetailMove } from './moves-table.component';
 		@let currentMove = move();
 
 		{{ currentMove.name }}
-		@if (currentMove.isOverridden) {
-			<span class="badge" [title]="currentMove.overrideNote ?? ''">changed</span>
-		}
 
 		@if (currentMove.effectText) {
 			<span class="effect">
@@ -53,20 +49,6 @@ import type { DetailMove } from './moves-table.component';
 	styles: `
 		:host {
 			display: block;
-		}
-
-		/* A word, not just a colour — the change has to survive a screenshot. */
-		.badge {
-			display: inline-block;
-			margin-left: 0.4rem;
-			padding: 0.05rem 0.35rem;
-			border-radius: var(--r-sm, 4px);
-			background: var(--accent, #4f6df5);
-			color: #fff;
-			font-size: 0.65rem;
-			text-transform: uppercase;
-			letter-spacing: 0.06em;
-			vertical-align: middle;
 		}
 
 		.note,
