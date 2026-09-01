@@ -99,7 +99,6 @@ describe('applyFilters', () => {
 	});
 
 	it('searches abilities and types too, not only names', () => {
-		// Typing "huge power" or "steel" should find something rather than nothing.
 		expect(slugs(applyFilters(roster, filters({ search: 'huge' }), chart))).toEqual(['azumarill']);
 		expect(slugs(applyFilters(roster, filters({ search: 'steel' }), chart))).toEqual(['corviknight']);
 	});

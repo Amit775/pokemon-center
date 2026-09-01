@@ -382,7 +382,6 @@ export default class SimulatorComponent {
 		{ key: 'speed' as const, label: 'Spe' },
 	];
 
-	/** Roster slugs needed for whichever sides are Pokedex picks. */
 	private readonly pokedexSlugs = computed(() =>
 		[this.leftKey(), this.rightKey()]
 			.filter((key): key is string => key !== null && key.startsWith(POKEDEX_PREFIX))

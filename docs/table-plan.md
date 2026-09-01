@@ -554,12 +554,17 @@ the spike confirms is possible, since the whole sort state is inspectable from t
 Carry the config changes from check 4 into every `jest.config.ts` and `tsconfig.spec.json` that
 will import the table, not just the app's.
 
-**Phase 2 — Pilot: the Champions moves table, behind the flag. Done.**
-`libs/domain-champions/src/lib/pokedex/moves-table.component.ts`, the learnset inside a Pokémon's
-detail page. Chosen over the Pokédex moves list because Champions is the active project and this is
-the smallest surface in it: one consumer, no routing of its own, and markup that is already
-tabular. Sorting a learnset by power or accuracy is also a real answer to a real question when
-building a set, which the Pokédex moves list is not.
+**Phase 2 — Pilot: the Champions moves table, behind the flag. Done, and resolved.**
+The verdict came in early for this one surface: the sortable table won, `?view=table` and the
+static `moves-table.component.ts` it gated are gone, and `champions-moves-data-table` is the only
+rendering left. The rest of this phase's write-up stays as the record of what building the pilot
+found.
+
+The pilot was `libs/domain-champions/src/lib/pokedex/moves-table.component.ts` (now removed), the
+learnset inside a Pokémon's detail page. Chosen over the Pokédex moves list because Champions is
+the active project and this is the smallest surface in it: one consumer, no routing of its own,
+and markup that is already tabular. Sorting a learnset by power or accuracy is also a real answer
+to a real question when building a set, which the Pokédex moves list is not.
 
 This surface is already a table, so `?view=table` does not switch a list into a table here — it
 switches the **current static table** for the **new sortable one**. That is a cleaner A/B than the
@@ -688,7 +693,7 @@ replace it.
 | Columns rebuilt inside `injectTable` | **New.** A fresh array invalidates the memo dependency for every column, header group and cell — all reconstructed on each state change, memos cold. The table instance itself is stable. | Module-scope constants; make it a review-checklist line |
 | ARIA roles hand-maintained | Live, unchanged. | Tests + one screen-reader pass in Phase 1 |
 | Roster regression | Live, unchanged. | Explicit 4.4s baseline; Phase 4 fails if it is not beaten |
-| Flag rots into a permanent fork | Live, unchanged. | Phase 5 forces a default-or-delete verdict per surface |
+| Flag rots into a permanent fork | **Retired for the moves table** — resolved to table-by-default and the flag removed, ahead of Phase 5. Live for surfaces Phase 5 hasn't reached. | Phase 5 forces a default-or-delete verdict per surface |
 | Cold worktrees cannot build | **New**, and unrelated to TanStack. | Bump `eslint` to 9.35+ or pin `@eslint/js` to 9.x, separately |
 
 ---
