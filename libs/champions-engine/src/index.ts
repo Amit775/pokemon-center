@@ -6,3 +6,4 @@ export * from './lib/matchup';
 export * from './lib/counters';
 export * from './lib/synergy';
 export * from './lib/intel';
+export * from './lib/selection';
