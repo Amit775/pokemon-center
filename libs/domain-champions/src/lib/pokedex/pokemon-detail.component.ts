@@ -16,7 +16,6 @@ import { answeredBy, answersTo } from './counters';
 import { PokedexStore } from './pokedex.store';
 import { MegaPanelComponent } from './mega-panel.component';
 import { MovesDataTableComponent } from './moves-data-table.component';
-import { MovesTableComponent } from './moves-table.component';
 import { StatPanelComponent } from './stat-panel.component';
 
 /**
@@ -44,14 +43,7 @@ import { StatPanelComponent } from './stat-panel.component';
 		CounterListComponent,
 		EntityPortraitComponent,
 		MegaPanelComponent,
-		// Both renderings of the learnset stay in the tree for the length of the preview: that
-		// duplication *is* the A/B, and identical content side by side is what makes a regression
-		// obvious. It puts TanStack (~13.4 kB transfer) into this route's chunk for every visitor,
-		// flagged or not — accepted, not overlooked. The route is already lazy so the initial bundle
-		// is untouched, and @defer-ing the table branch would put a loading state in the middle of
-		// the comparison. Phase 5 decides which one survives and this cost goes away with the loser.
 		MovesDataTableComponent,
-		MovesTableComponent,
 		RouterLink,
 		SectionHeadingComponent,
 		StatPanelComponent,
@@ -186,9 +178,6 @@ import { StatPanelComponent } from './stat-panel.component';
 								<li>
 									<span class="ability-name">
 										{{ slot.ability.name }}
-										@if (slot.isHidden) {
-											<span class="tag">hidden</span>
-										}
 										@if (slot.ability.isMega) {
 											<span class="tag mega">Mega only</span>
 										}
@@ -204,12 +193,7 @@ import { StatPanelComponent } from './stat-panel.component';
 
 				<pokedex-section-heading label="Moves ({{ detail.moves.length }})" />
 				<pokedex-card>
-					<!-- No visible toggle: a control would advertise a preview as a supported feature. -->
-					@if (viewMode() === 'table') {
-						<champions-moves-data-table [moves]="detail.moves" [isApproximate]="detail.learnsetIsApproximate" />
-					} @else {
-						<champions-moves-table [moves]="detail.moves" [isApproximate]="detail.learnsetIsApproximate" />
-					}
+					<champions-moves-data-table [moves]="detail.moves" [isApproximate]="detail.learnsetIsApproximate" />
 				</pokedex-card>
 			} @else {
 				<pokedex-section-heading label="Abilities and moves" />
@@ -496,9 +480,6 @@ import { StatPanelComponent } from './stat-panel.component';
 			color: var(--accent, #4f6df5);
 		}
 
-		/* Wide enough to read as a sentence, narrow enough to keep the numbers on screen. */
-		/* Quiet outlines: they are a reference layer, read when an ability raises the question. */
-		/* Except priority, which changes the turn order and is read first. */
 		.caveat {
 			margin-top: var(--s-3, 0.75rem);
 			font-size: var(--fs-xs, 0.75rem);

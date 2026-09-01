@@ -182,7 +182,6 @@ export const BattleStore = signalStore(
 				patchState(store, { [side]: { ...store[side](), hpFraction: Math.max(0, Math.min(1, fraction)) } } as Partial<BattleState>);
 			},
 
-			/** Subtract a chunk of HP in one tap. */
 			chip(side: 'you' | 'them', fraction: number): void {
 				const next = Math.max(0, store[side]().hpFraction - fraction);
 				patchState(store, { [side]: { ...store[side](), hpFraction: next } } as Partial<BattleState>);
@@ -206,8 +205,6 @@ export const BattleStore = signalStore(
 			},
 
 			/**
-			 * Record a move the opponent actually used.
-			 *
 			 * This is the harvesting hook: every revealed move narrows the inference for this
 			 * battle and, once the corpus is worth keeping, becomes usage data nobody else has.
 			 */

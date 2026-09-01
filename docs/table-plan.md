@@ -554,12 +554,17 @@ the spike confirms is possible, since the whole sort state is inspectable from t
 Carry the config changes from check 4 into every `jest.config.ts` and `tsconfig.spec.json` that
 will import the table, not just the app's.
 
-**Phase 2 — Pilot: the Champions moves table, behind the flag. Done.**
-`libs/domain-champions/src/lib/pokedex/moves-table.component.ts`, the learnset inside a Pokémon's
-detail page. Chosen over the Pokédex moves list because Champions is the active project and this is
-the smallest surface in it: one consumer, no routing of its own, and markup that is already
-tabular. Sorting a learnset by power or accuracy is also a real answer to a real question when
-building a set, which the Pokédex moves list is not.
+**Phase 2 — Pilot: the Champions moves table, behind the flag. Done, and resolved.**
+The verdict came in early for this one surface: the sortable table won, `?view=table` and the
+static `moves-table.component.ts` it gated are gone, and `champions-moves-data-table` is the only
+rendering left. The rest of this phase's write-up stays as the record of what building the pilot
+found.
+
+The pilot was `libs/domain-champions/src/lib/pokedex/moves-table.component.ts` (now removed), the
+learnset inside a Pokémon's detail page. Chosen over the Pokédex moves list because Champions is
+the active project and this is the smallest surface in it: one consumer, no routing of its own,
+and markup that is already tabular. Sorting a learnset by power or accuracy is also a real answer
+to a real question when building a set, which the Pokédex moves list is not.
 
 This surface is already a table, so `?view=table` does not switch a list into a table here — it
 switches the **current static table** for the **new sortable one**. That is a cleaner A/B than the
@@ -599,11 +604,31 @@ very first click. And the accessor that maps `null → undefined` to make the co
 same change that blanks the cell, because the renderer emits nothing for `kind: 'null'`; the
 em-dash has to be written out in an explicit `cell`.
 
-**Phase 3 — Column ordering, resizing, visibility.**
-Add `columnOrderingFeature`, `columnSizingFeature`, `columnResizingFeature`,
-`columnVisibilityFeature` — note that resizing needs sizing beneath it, which v1 did not know.
-Drag-and-drop comes from `@angular/cdk/drag-drop` per kit rule 5; TanStack supplies the reorder
-state, CDK supplies the gesture. Persistence for the three preference slices.
+**Phase 3 — split into 3a and 3b, on the input device rather than the feature.**
+
+The original shape was four features, two input devices and a persistence layer at once, and the
+half that gets squeezed in that arrangement is accessibility: CDK drag-and-drop is **not**
+keyboard-operable, while kit rule 6 requires every interactive element to be.
+
+**3a — visibility and ordering, from an inline disclosure panel. Done.**
+`columnVisibilityFeature` + `columnOrderingFeature`, a Columns panel with a checkbox and move
+buttons per column, and persistence for both slices in a Champions-side `signalStore`. Keyboard-first
+by construction. Three designs were tried and two rejected with measurements, all recorded in the
+component: `CdkMenu` closes on mouse click and on Enter (only Space keeps it open, so a keyboard-only
+check never sees it); a CDK overlay has no `openChange`, nothing closes it on an outside click, and
+its pane is appended to `<body>` so the panel's controls land after every element on the page in tab
+order. An in-flow panel has none of those problems.
+
+**3b — sizing and resizing, plus drag-to-reorder as a pointer shortcut.**
+`columnSizingFeature` + `columnResizingFeature` (resizing needs sizing beneath it). Drag comes from
+`@angular/cdk/drag-drop` per kit rule 5, as a faster path to the ordering 3a already provides — not
+as its only path.
+
+**The one thing 3b must decide first:** `column_getSize()` always returns a clamped pixel number once
+`columnSizingFeature` is registered — there is no "unset". So `columnTracks` (`fr`, `rem`) and
+resizing (px) are two sizing models that cannot both drive the same column. Decide per table: tracks
+*or* resizable, with `columnTracks` at most seeding an initial pixel size. The id-keyed map shape
+survives either way; only the values change.
 
 **Phase 4 — Champions roster.**
 The hard one and the one with the most to gain. `roster.component.ts` hand-rolls incremental paging
@@ -668,7 +693,7 @@ replace it.
 | Columns rebuilt inside `injectTable` | **New.** A fresh array invalidates the memo dependency for every column, header group and cell — all reconstructed on each state change, memos cold. The table instance itself is stable. | Module-scope constants; make it a review-checklist line |
 | ARIA roles hand-maintained | Live, unchanged. | Tests + one screen-reader pass in Phase 1 |
 | Roster regression | Live, unchanged. | Explicit 4.4s baseline; Phase 4 fails if it is not beaten |
-| Flag rots into a permanent fork | Live, unchanged. | Phase 5 forces a default-or-delete verdict per surface |
+| Flag rots into a permanent fork | **Retired for the moves table** — resolved to table-by-default and the flag removed, ahead of Phase 5. Live for surfaces Phase 5 hasn't reached. | Phase 5 forces a default-or-delete verdict per surface |
 | Cold worktrees cannot build | **New**, and unrelated to TanStack. | Bump `eslint` to 9.35+ or pin `@eslint/js` to 9.x, separately |
 
 ---

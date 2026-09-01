@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { RegulationStore } from '@pokemon-center/data-access-champions';
 import { PokedexContextStore } from '@pokemon-center/data-access-pokedex';
-import { RegulationStore } from '@pokemon-center/domain-champions';
 
 /**
  * Shell for the Champions app.

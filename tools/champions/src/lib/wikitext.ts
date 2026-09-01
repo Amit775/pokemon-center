@@ -362,3 +362,11 @@ export function toSlug(name: string): string {
 		.replace(/[^a-z0-9]+/g, '-')
 		.replace(/^-|-$/g, '');
 }
+
+export function parseRosterCounts(wikitext: string): { species: number; megas: number } | null {
+	const species = wikitext.match(/(\d+)\s+Pokémon species are available/i);
+	const megas = wikitext.match(/as well as\s+(\d+)\s+\[\[Mega Evolution\]\]s/i);
+	if (!species || !megas) return null;
+
+	return { species: Number(species[1]), megas: Number(megas[1]) };
+}

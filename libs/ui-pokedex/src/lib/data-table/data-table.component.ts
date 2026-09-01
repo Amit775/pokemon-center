@@ -1,70 +1,50 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, Component, computed, inject, input, isDevMode, model } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	Injector,
+	afterNextRender,
+	computed,
+	inject,
+	input,
+	isDevMode,
+	model,
+	signal,
+} from '@angular/core';
 import {
 	FlexRender,
 	functionalUpdate,
 	injectTable,
 	type Column,
 	type ColumnDef,
+	type ColumnOrderState,
 	type RowData,
 	type SortingState,
+	type ColumnVisibilityState,
 } from '@tanstack/angular-table';
 import { dataTableFeatures, type DataTableFeatures } from './data-table-columns';
 
-/**
- * The row modifiers the kit knows how to paint.
- *
- * A closed vocabulary rather than a free class string, and that is the whole design. The `.row`
- * element lives in **this** component's view, so under emulated encapsulation it carries the kit's
- * `_ngcontent` attribute — a `.changed` rule written in a consumer's `styles` block would never
- * match it. Worse, `jest-preset-angular` strips component styles entirely, so a consumer's
- * class-presence test passes green while the browser shows an untinted row. The kit therefore owns
- * both the name and the paint; the consumer owns only the meaning it maps onto them.
- *
- * `marked` is deliberately about emphasis rather than about any one domain's reason for it —
- * Champions means "this move differs from the main series", another surface will mean something
- * else, and the kit does not need to know which.
- */
+/** Unique per instance, so two tables on one page do not share an `aria-controls` target. */
+let panelInstanceCount = 0;
+
+/** Row modifiers the kit paints. Consumers map meaning onto these; they cannot supply their own class. */
 export type DataTableRowVariant = 'marked';
 
-/**
- * The four spellings of a track that sizes itself from content, wherever they appear — bare, or
- * inside a `minmax()`.
- *
- * Only these four are rejected because only these four ask the browser to measure something. A
- * length, a percentage and an `fr` all resolve to the same width in every row's grid; `auto`,
- * `min-content`, `max-content` and `fit-content()` resolve against whatever that particular row
- * happens to hold. The leading `[\s,(]` alternative is what keeps `var(--auto-width)` and
- * `minmax(0, 3fr)` out of it.
- */
-// Case-insensitive because CSS keywords are: `AUTO` is as valid, and as wrong here, as `auto`.
+/** Content-based tracks, bare or inside `minmax()`. Case-insensitive: CSS keywords are. */
 const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content)\b/i;
 
 /**
- * A sortable data table, headless underneath and 100% our pixels on top.
+ * A sortable data table. Headless (TanStack Table v9) underneath, our markup and tokens on top.
  *
- * The engine is TanStack Table v9, which renders nothing at all — so there is no borrowed
- * stylesheet to override and `tokens.scss` stays the only dial. What it supplies is the row model,
- * the comparators and the sort cycle; what we supply is the markup, the tokens and the ARIA.
+ * State is controlled, never owned — kit rule 4 forbids a store here, so sorting, visibility and
+ * order all arrive as `model()`s and the consumer decides what backs them.
  *
- * **The sort state is controlled, not owned.** Kit rule 4 forbids a store in `ui-pokedex`, and that
- * turns out to be the right shape anyway: sorting arrives as a `model()` and the consumer decides
- * where it lives. A `signalStore` backs it where the sort is written to the URL and restored from a
- * pasted link, a bare `signal` backs it on the kit demo, and the component cannot tell the
- * difference. TanStack never holds the sort — it reads ours and asks us to change it.
+ * A `display: grid` rather than a `<table>`, because a real table fights column resizing and
+ * virtualization. The cost is that the ARIA roles are hand-maintained.
  *
- * **The markup is a `display: grid`, not a `<table>`.** A real table sizes itself from its content,
- * which means Phase 3's resize handles would have to fight the table layout algorithm on every
- * reflow, and Phase 4's virtualization would have to window a `<tbody>` with transforms that fight
- * its box model. With grid, the widths are one string and a windowed body is ordinary. The cost is
- * that `role="table"` / `rowgroup` / `row` / `columnheader` / `cell` are hand-maintained, which is a
- * real obligation rather than a formality — a wrong role is worse than an inflexible table.
- *
- * **The sort cycle is first direction → opposite → none, and the first direction is per column.**
- * TanStack infers it by sampling the data: string columns start ascending, numeric columns start
- * **descending**. That is not a bug to be fixed — the first click on "Power" giving the strongest
- * move is what someone building a set actually wants — but it surprises everyone once, so it is
- * written down here rather than rediscovered.
+ * Sort cycle is first direction → opposite → none, and the first direction is inferred per column:
+ * strings ascend first, numbers descend first.
  */
 @Component({
 	selector: 'pokedex-data-table',
@@ -72,10 +52,63 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 	imports: [FlexRender],
 	template: `
 		<!--
-			The scroller is outside the grid, not inside it. .table is overflow: hidden so the header
-			background clips at the corner radius, and pokedex-card is overflow: hidden too — so
-			without a scroll container a row that outgrows a narrow viewport is not scrolled, it is
-			cut off and unreachable. That is a loss of information no test in jsdom can see.
+			An in-flow disclosure, not a CdkMenu (closes on click and Enter, only Space keeps it open)
+			and not a CDK overlay (no openChange, nothing closes it on outside click, and its pane is
+			appended to body so its controls land last in tab order). Must sit outside .table and
+			.scroller or their overflow rules clip it.
+		-->
+		<div class="toolbar">
+			<button
+				type="button"
+				class="columns-trigger"
+				[attr.aria-expanded]="panelOpen()"
+				[attr.aria-controls]="panelId"
+				(click)="panelOpen.set(!panelOpen())"
+			>
+				Columns {{ visibleColumnCount() }}/{{ allColumnCount() }}
+			</button>
+
+			<!-- Always rendered, [hidden] rather than @if, so aria-controls resolves while collapsed. -->
+			<div class="columns-panel" [id]="panelId" role="group" [attr.aria-label]="'Columns in ' + label()" [hidden]="!panelOpen()">
+				@for (column of table.getAllLeafColumns(); track column.id) {
+					<div class="columns-row" [attr.data-column-id]="column.id">
+						<label class="columns-toggle">
+							<!-- aria-disabled, never the disabled attribute: disabling a focused control drops focus to body. -->
+							<input
+								type="checkbox"
+								[checked]="column.getIsVisible()"
+								[attr.aria-disabled]="isVisibilityLocked(column) ? 'true' : null"
+								(change)="toggleColumnVisibility(column, $event)"
+							/>
+							{{ columnLabel(column) }}
+						</label>
+
+						<button
+							type="button"
+							class="move"
+							[attr.aria-disabled]="column.getIsFirstColumn() ? 'true' : null"
+							(click)="moveColumn(column, -1)"
+						>
+							<span class="sr-only">Move {{ columnLabel(column) }} left</span>
+							<span aria-hidden="true">←</span>
+						</button>
+						<button
+							type="button"
+							class="move"
+							[attr.aria-disabled]="column.getIsLastColumn() ? 'true' : null"
+							(click)="moveColumn(column, 1)"
+						>
+							<span class="sr-only">Move {{ columnLabel(column) }} right</span>
+							<span aria-hidden="true">→</span>
+						</button>
+					</div>
+				}
+			</div>
+		</div>
+
+		<!--
+			The scroller wraps the grid rather than sitting inside it: .table and pokedex-card are both
+			overflow: hidden, so without it a row wider than the viewport is clipped, not scrolled.
 		-->
 		<div class="scroller">
 			<div class="table" role="table" [attr.aria-label]="label()" [style.--pokedex-table-columns]="gridTemplateColumns()">
@@ -91,14 +124,10 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 								>
 									@if (!header.isPlaceholder) {
 										<!--
-											A sort button only where a sort is possible. A display column has no
-											accessor, so getCanSort() is false for it, and an aria-sort on a column
-											that can never sort is a false promise to a screen reader.
-
-											The isPlaceholder half matters even with no group columns in Phase 1:
-											a placeholder header's column is the *leaf* column, so getCanSort() is
-											true for it and a placeholder would otherwise render a second,
-											duplicate sort button for the same column.
+											A sort button only where sorting is possible; an aria-sort on a column
+											that cannot sort is a false promise. The isPlaceholder guard matters
+											because a placeholder's column is the leaf column, so getCanSort() is
+											true and it would render a duplicate button.
 										-->
 										@if (header.column.getCanSort()) {
 											<button type="button" (click)="toggleSort(header.column)">
@@ -119,18 +148,14 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 
 				<div role="rowgroup">
 					@for (row of table.getRowModel().rows; track row.id) {
-						<!--
-							[class] merges with the static class rather than replacing it, and a null binding
-							removes only what it added — measured, because the opposite would silently drop
-							.row and take the grid with it.
-						-->
+						<!-- [class] merges with the static class rather than replacing it. -->
 						<div class="row" role="row" [class]="variantFor(row.original)">
 							<!--
-								getAllCells(), not getVisibleCells(): the latter is contributed by
-								columnVisibilityFeature, which Phase 1 does not register. Phase 3 switches this
-								and getAllLeafColumns() below in the same edit.
+								getVisibleCells(), not getAllCells() — one of three sites that move together
+								with columnVisibilityFeature (the others: the track list, and aria-colspan
+								below). Nothing enforces it; the core APIs stay type-valid.
 							-->
-							@for (cell of row.getAllCells(); track cell.id) {
+							@for (cell of row.getVisibleCells(); track cell.id) {
 								<div class="cell" role="cell" [class]="alignmentClass(cell.column)">
 									<ng-container *flexRenderCell="cell; let rendered">{{ rendered }}</ng-container>
 								</div>
@@ -139,7 +164,7 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 					} @empty {
 						<!-- A header floating over nothing is not a finished component. -->
 						<div class="row empty-row" role="row">
-							<div class="cell empty-cell" role="cell" [attr.aria-colspan]="table.getAllLeafColumns().length">{{ emptyLabel() }}</div>
+							<div class="cell empty-cell" role="cell" [attr.aria-colspan]="table.getVisibleLeafColumns().length">{{ emptyLabel() }}</div>
 						</div>
 					}
 				</div>
@@ -155,31 +180,127 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 			overflow-x: auto;
 		}
 
+		/* Outside the scroller and outside .table, so neither overflow rule clips the panel. */
+		.toolbar {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: var(--s-2);
+			margin-bottom: var(--s-2);
+		}
+
+		.columns-trigger {
+			all: unset;
+			padding: var(--s-1) var(--s-3);
+			border: 1px solid var(--line);
+			border-radius: var(--r-pill);
+			font-size: var(--fs-xs);
+			color: var(--ink-muted);
+			cursor: pointer;
+			transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+		}
+
+		.columns-trigger:hover {
+			border-color: var(--accent);
+			color: var(--accent);
+		}
+
+		.columns-trigger:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
+		}
+
+		.columns-panel {
+			display: flex;
+			flex-direction: column;
+			gap: var(--s-1);
+			padding: var(--s-3);
+			border: 1px solid var(--line);
+			border-radius: var(--r-md);
+			background: var(--surface);
+			font-size: var(--fs-sm);
+		}
+
+		/* [hidden] loses to display: flex without this — the attribute alone is not enough here. */
+		.columns-panel[hidden] {
+			display: none;
+		}
+
+		.columns-row {
+			display: flex;
+			align-items: center;
+			gap: var(--s-2);
+		}
+
+		.columns-toggle {
+			display: flex;
+			align-items: center;
+			gap: var(--s-2);
+			min-width: 12ch;
+			cursor: pointer;
+			color: var(--ink);
+		}
+
+		.columns-toggle input:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
+		}
+
+		.move {
+			all: unset;
+			padding: 0 var(--s-2);
+			border-radius: var(--r-sm);
+			color: var(--ink-muted);
+			cursor: pointer;
+		}
+
+		.move:hover {
+			background: var(--accent-soft);
+			color: var(--accent);
+		}
+
+		.move:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: -2px;
+		}
+
 		/*
-			width: max-content is what actually makes the scroller work, and min-width: 100% is what
-			stops it shrinking below the space available.
+			aria-disabled rather than the disabled attribute keeps these focusable, so they must look
+			unavailable without being unreachable.
+		*/
+		.move[aria-disabled='true'],
+		.columns-toggle input[aria-disabled='true'] {
+			opacity: 0.4;
+			cursor: not-allowed;
+		}
 
-			The sizing lives here rather than on .row because .table is overflow: hidden — a row wider
-			than a content-width .table is clipped by it and the scroller never sees anything to
-			scroll. Sizing .table itself instead means the rows fill it, so the header background
-			still paints across the whole scrolled width for free.
+		.move[aria-disabled='true']:hover {
+			background: none;
+			color: var(--ink-muted);
+		}
 
-			max-content is the value to watch, in two different ways.
+		/* Visually hidden, still announced — the arrows alone do not say which column they move. */
+		.sr-only {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip-path: inset(50%);
+			white-space: nowrap;
+			border: 0;
+		}
 
-			Today: with a track list like minmax(0, 3fr), the fr track resolves to its max-content
-			contribution — the widest thing any cell in that column holds — so a column full of long
-			prose can push the table past the viewport and engage the scroller on a wide screen,
-			where it should not. jsdom does no layout and cannot see this; only the browser can. If
-			that happens, drop width: max-content and keep min-width: 100%, which is the smaller
-			hammer: rows then squeeze instead of scrolling.
+		/*
+			Sized here rather than on .row: .table is overflow: hidden, so a row wider than a
+			content-width .table is clipped by it and the scroller sees nothing to scroll.
 
-			Phase 4, and this one needs a restructure rather than a tweak: measured under
-			CdkVirtualScrollViewport (CDK 22.0.5), the windowed body contributes nothing to
-			max-content at all. The viewport is contain: strict with an absolutely-positioned content
-			wrapper, so the rows are out of flow as far as intrinsic sizing is concerned. At a 400px
-			viewport the table collapsed to 400, horizontal scrolling disappeared entirely, and the
-			header and body cells diverged — 183px against 168px for the same column. Whoever adds
-			virtualization has to solve the width story here, not inherit it.
+			Watch max-content. An fr track resolves to its max-content contribution, so a column of
+			long prose can engage the scroller on a wide screen — drop width: max-content if so.
+			And under CdkVirtualScrollViewport a windowed body contributes nothing to max-content at
+			all (measured: table collapses, header and body cells diverge), so Phase 4 has to solve
+			the width story here rather than inherit it.
 		*/
 		.table {
 			font-size: var(--fs-sm);
@@ -194,11 +315,8 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 		}
 
 		/*
-			Every row declares the track list itself rather than inheriting it through subgrid.
-			Subgrid is the tidier CSS, but it requires rows to be direct children of the grid — and
-			CdkVirtualScrollViewport inserts its own transformed content wrapper between the two,
-			which breaks that relationship in exactly the phase that needs it. One custom property
-			costs an extra declaration and survives windowing.
+			Each row declares the track list rather than inheriting it via subgrid: subgrid needs rows
+			to be direct grid children, and CdkVirtualScrollViewport inserts a wrapper between them.
 		*/
 		.row {
 			display: grid;
@@ -217,13 +335,8 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 		}
 
 		/*
-			Alignment arrives as a class rather than a style binding because the body cell and the
-			header cell need two different declarations to reach the same place: the body cell is
-			ordinary flow, so text-align moves it, while the header cell's content is a flex button
-			that ignores text-align entirely and has to be moved with justify-content. One class, one
-			vocabulary, and the CSS resolves each context.
-
-			end, not right: the logical property matches the value name and costs nothing.
+			A class, not a style binding: the body cell moves with text-align, but the header's
+			content is a flex button that ignores it and needs justify-content.
 		*/
 		.cell.align-end {
 			text-align: end;
@@ -244,10 +357,8 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 		}
 
 		/*
-			:not(.header-row) is load-bearing, not defensive. The header row is the only child of its
-			own rowgroup, so a bare :last-child matches it too — and once Phase 4 puts the body inside
-			a CdkVirtualScrollViewport, :last-child becomes whichever row the window happens to end
-			on, erasing a border in the middle of the list.
+			:not(.header-row) is load-bearing: the header is the only child of its own rowgroup so a
+			bare :last-child matches it, and under virtualization it becomes the window's last row.
 		*/
 		.row:last-child:not(.header-row) .cell {
 			border-bottom: none;
@@ -322,19 +433,10 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 	`,
 })
 export class UiDataTableComponent<TRow extends RowData> {
-	/**
-	 * `TRow extends RowData` is not decoration. `injectTable` constrains its data parameter to
-	 * `Record<string, any> | Array<any>`, and `ColumnDef` / `ColumnHelper` are declared `in out TData`
-	 * — explicitly invariant — so an unconstrained `TRow` has nothing to widen to and simply does not
-	 * compile.
-	 */
+	/** `TRow extends RowData` is required: `ColumnDef` is invariant in `TData`, so it cannot widen. */
 	readonly data = input.required<TRow[]>();
 
-	/**
-	 * Built with `createDataTableColumns()` at module scope. `TRow[]` rather than
-	 * `ReadonlyArray<TRow>` above for the same family of reasons: `TableOptions.data` is a mutable
-	 * array, and a readonly one forces a cast at the `injectTable` call.
-	 */
+	/** Built with `createDataTableColumns()`, at module scope. */
 	readonly columns = input.required<Array<ColumnDef<DataTableFeatures, TRow>>>();
 
 	/** Controlled sort state. The consumer decides whether a store, the URL or a bare signal backs it. */
@@ -355,84 +457,94 @@ export class UiDataTableComponent<TRow extends RowData> {
 	 * why — so `auto`, `min-content`, `max-content` and `fit-content()` resolve *independently per
 	 * row*, against that row's own content. A column of type names measured a 26px wander in its
 	 * left edge from row to row, never lining up with its own header. It reads as a ragged edge
-	 * rather than a column, and `clientWidth`/`scrollWidth` cannot see it because the table's
-	 * overall width is unchanged. The dev-mode warning below catches the four spellings.
+	 * rather than a column, and `clientWidth`/`scrollWidth` cannot see it. The dev warning below
+	 * catches the four spellings.
+	 *
+	 * Keyed by column id, not positional: once a column can be hidden or moved, an index no longer
+	 * identifies anything.
 	 */
-	readonly columnTracks = input<readonly string[] | null>(null);
+	readonly columnTracks = input<Readonly<Record<string, string>> | null>(null);
 
 	/**
-	 * Which rows carry a modifier, if any.
-	 *
-	 * A function of the row rather than a field on it, so the kit never has to know what makes a
-	 * particular surface's row worth emphasising — Champions asks for `marked` where a move differs
-	 * from the main series, and the kit only paints it.
+	 * Controlled like `sorting`. `columnVisibility` is **sparse** — only touched columns appear — so
+	 * read it as `map[id] ?? true`; a bare `map[id]` reports every untouched column as hidden.
 	 */
+	readonly columnVisibility = model<ColumnVisibilityState>({});
+	readonly columnOrder = model<ColumnOrderState>([]);
+
+	/** Which rows carry a modifier. A function of the row, so the kit never learns what it means. */
 	readonly rowVariant = input<((row: TRow) => DataTableRowVariant | null) | null>(null);
 
 	readonly emptyLabel = input('Nothing to show.');
 
 	private readonly announcer = inject(LiveAnnouncer);
+	private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly injector = inject(Injector);
+
+	/** Whether the Columns panel is expanded. Purely presentational, so the kit may own it. */
+	protected readonly panelOpen = signal(false);
+
+	protected readonly panelId = `pokedex-data-table-columns-${(panelInstanceCount += 1)}`;
 
 	protected readonly table = injectTable(() => ({
 		features: dataTableFeatures,
 		columns: this.columns(),
 		data: this.data(),
-		state: { sorting: this.sorting() },
-		// The updater is *always* a function — `setStateSlice` wraps every change, never handing
-		// back a bare SortingState — so `this.sorting.set(update)` would store a function in the
-		// model and feed the table garbage on the next read. `functionalUpdate` is TanStack's own
-		// resolver, which keeps the semantics theirs rather than guessed.
-		//
-		// TanStack's structural-equality guard returns the *same array reference* for a no-op sort,
-		// so the model's default `Object.is` equality suppresses a redundant rebuild for free. Worth
-		// knowing before a test asserting an emission that never arrives is filed as a bug.
+		state: {
+			sorting: this.sorting(),
+			columnVisibility: this.columnVisibility(),
+			columnOrder: this.columnOrder(),
+		},
+		// The updater is always a function, never a value — `setStateSlice` wraps every change — so a
+		// bare `.set(update)` would store the function itself. A no-op returns the same reference, so
+		// no event arrives for one.
 		onSortingChange: (update) => this.sorting.set(functionalUpdate(update, this.sorting())),
+		onColumnVisibilityChange: (update) => this.columnVisibility.set(functionalUpdate(update, this.columnVisibility())),
+		onColumnOrderChange: (update) => this.columnOrder.set(functionalUpdate(update, this.columnOrder())),
 	}));
 
+	protected readonly visibleColumnCount = computed(() => {
+		this.columns();
+		this.columnVisibility();
+		return this.table.getVisibleLeafColumns().length;
+	});
+
+	protected readonly allColumnCount = computed(() => {
+		this.columns();
+		return this.table.getAllLeafColumns().length;
+	});
+
 	/**
-	 * The track list for every row.
+	 * The track list for every row. No `getSize()` — `columnSizingFeature` is not registered.
 	 *
-	 * `column.getSize()` belongs to `columnSizingFeature`, which Phase 1 does not register, so the
-	 * default is an even split across the leaf columns and `columnTracks` is the way to say
-	 * otherwise. `getAllLeafColumns()` rather than `getVisibleLeafColumns()` for the same reason the
-	 * template uses `getAllCells()`.
-	 *
-	 * The mismatch warning lives in here rather than in an effect because this is the exact moment
-	 * the mismatch becomes real, and `isDevMode()` keeps it out of production.
-	 *
-	 * **Keep this read template-only.** The value it reads — the table's leaf column list — is
-	 * updated by `injectTable`'s effect, and the template is safe because component effects flush
-	 * before the view refreshes. Anything evaluating this *earlier* in the same tick than that
-	 * effect — another effect, or a consumer `computed` pulled outside the template — risks caching
-	 * a pre-swap column count.
-	 *
-	 * On what makes it recompute: measured, not assumed. Deleting the `this.columns()` read below
-	 * fails **no** test, including one that swaps the column set at runtime — so reaching through
-	 * `this.table` evidently establishes a dependency of its own, presumably because the options
-	 * store is bridged to signals. That is an observation about TanStack's internals rather than a
-	 * documented contract, which is why the explicit read stays. See the comment on it.
+	 * **Keep this read template-only.** The column list it reads is updated by `injectTable`'s
+	 * effect, and component effects flush before the view refreshes; anything evaluating it earlier
+	 * in the same tick would cache a stale count.
 	 */
 	protected readonly gridTemplateColumns = computed(() => {
-		// Belt and braces, kept deliberately after measuring rather than on the theory that it is
-		// load-bearing: removing it currently breaks nothing, because reaching through `this.table`
-		// tracks on its own. One property read buys a dependency that is ours and stated, instead of
-		// one that depends on how `injectTable` happens to bridge its options store today.
+		// Explicit dependencies. Reaching through `this.table` happens to track on its own, but that
+		// is an observation about TanStack's internals rather than a contract.
 		this.columns();
+		this.columnVisibility();
+		this.columnOrder();
 
-		const columnCount = this.table.getAllLeafColumns().length;
+		const visible = this.table.getVisibleLeafColumns();
 		const tracks = this.columnTracks();
 
-		if (!tracks) return `repeat(${columnCount}, minmax(0, 1fr))`;
+		if (!tracks) return `repeat(${visible.length}, minmax(0, 1fr))`;
 
 		if (isDevMode()) {
-			if (tracks.length !== columnCount) {
+			// An unread key cannot misalign anything, but it is always a typo or a stale rename.
+			const known = new Set(this.table.getAllLeafColumns().map((column) => column.id));
+			const unknown = Object.keys(tracks).filter((id) => !known.has(id));
+			if (unknown.length > 0) {
 				console.warn(
-					`pokedex-data-table: columnTracks has ${tracks.length} entries but the table has ${columnCount} columns. ` +
-						'Rows will wrap onto implicit grid rows.',
+					`pokedex-data-table: columnTracks has entries for unknown columns (${unknown.join(', ')}). ` +
+						'Check for a typo or a stale key left over from a rename.',
 				);
 			}
 
-			const contentBased = tracks.filter((track) => CONTENT_BASED_TRACK.test(track));
+			const contentBased = Object.values(tracks).filter((track) => CONTENT_BASED_TRACK.test(track));
 			if (contentBased.length > 0) {
 				console.warn(
 					`pokedex-data-table: columnTracks contains a content-based track (${contentBased.join(', ')}). ` +
@@ -442,27 +554,21 @@ export class UiDataTableComponent<TRow extends RowData> {
 			}
 		}
 
-		return tracks.join(' ');
+		// Walked in visible order, so hiding or moving a column takes its track with it.
+		return visible.map((column) => tracks[column.id] ?? 'minmax(0, 1fr)').join(' ');
 	});
 
 	/**
-	 * Toggle a column's sort and say so out loud.
+	 * Toggle a column's sort and announce it — an `aria-sort` change on an unfocused element is not
+	 * reliably re-announced.
 	 *
-	 * An `aria-sort` change on an element that never receives focus is not reliably re-announced,
-	 * which is why `MatSort` ships `matSortAnnounceSortedByColumn` — so `LiveAnnouncer` does the same
-	 * job here.
-	 *
-	 * **The direction is read from our model, never from `column.getIsSorted()`.** `injectTable`
-	 * pushes options into the table through an Angular effect, so immediately after `toggleSorting()`
-	 * the table's own sorting atom still holds the **pre-click** value; an announcer built the
-	 * obvious way states the wrong direction on every click, silently. Our `model()` was already set
-	 * synchronously by `onSortingChange`. The template's `getIsSorted()` reads — the glyph and
-	 * `aria-sort` — are unaffected, because they re-evaluate during the render that follows the
-	 * effect flush. Only this imperative read is stale.
+	 * **Reads the direction from our model, never `column.getIsSorted()`**, which is still pre-click
+	 * here because `injectTable` pushes options through an effect. The template's reads are fine;
+	 * they re-evaluate after the flush. Only this imperative one is stale.
 	 */
 	protected toggleSort(column: Column<DataTableFeatures, TRow>): void {
-		// The rendered header text lives inside the *flexRenderHeader template context, out of scope
-		// on the button, so it is resolved here rather than passed in from the template.
+		// Resolved here: the rendered header text lives in the *flexRenderHeader context, out of
+		// scope on the button.
 		const headerText = typeof column.columnDef.header === 'string' ? column.columnDef.header : column.id;
 
 		column.toggleSorting();
@@ -474,15 +580,86 @@ export class UiDataTableComponent<TRow extends RowData> {
 		);
 	}
 
+	/** The header text, resolved the same way `toggleSort` does — see the note there. */
+	protected columnLabel(column: Column<DataTableFeatures, TRow>): string {
+		return typeof column.columnDef.header === 'string' ? column.columnDef.header : column.id;
+	}
+
+	/** Hiding the last visible column is a dead end: nothing renders, and the panel is the way back. */
+	protected isVisibilityLocked(column: Column<DataTableFeatures, TRow>): boolean {
+		if (!column.getCanHide()) return true;
+		return column.getIsVisible() && this.table.getVisibleLeafColumns().length === 1;
+	}
+
+	protected toggleColumnVisibility(column: Column<DataTableFeatures, TRow>, event: Event): void {
+		const checkbox = event.target as HTMLInputElement;
+
+		if (this.isVisibilityLocked(column)) {
+			// aria-disabled keeps the box focusable but does not stop the browser flipping it.
+			checkbox.checked = column.getIsVisible();
+			return;
+		}
+
+		column.toggleVisibility();
+
+		// The model, not the column: the table's atom is still pre-click here. `?? true` for sparseness.
+		const nowVisible = this.columnVisibility()[column.id] ?? true;
+		this.announcer.announce(`${this.columnLabel(column)} ${nowVisible ? 'shown' : 'hidden'}`);
+	}
+
+	/**
+	 * Move a column one place among the visible ones.
+	 *
+	 * Walks `getAllLeafColumns()`, not the visible list: `columnOrder` is a **prefix**, so writing
+	 * only visible ids appends the hidden ones and relocates them. Steps to the nearest *visible*
+	 * neighbour, because swapping across a hidden one changes nothing on screen. The target index is
+	 * computed before the removal — recomputing after gets move-right wrong.
+	 */
+	protected moveColumn(column: Column<DataTableFeatures, TRow>, direction: -1 | 1): void {
+		if (direction === -1 ? column.getIsFirstColumn() : column.getIsLastColumn()) return;
+
+		const ids = this.table.getAllLeafColumns().map((candidate) => candidate.id);
+		const from = ids.indexOf(column.id);
+
+		let to = from + direction;
+		while (to >= 0 && to < ids.length && !this.table.getColumn(ids[to])?.getIsVisible()) {
+			to += direction;
+		}
+
+		// Unreachable: the buttons are aria-disabled at the ends.
+		if (to < 0 || to >= ids.length) return;
+
+		const next = [...ids];
+		next.splice(from, 1);
+		next.splice(to, 0, column.id);
+
+		this.columnOrder.set(next);
+		this.announcer.announce(`${this.columnLabel(column)} moved ${direction === -1 ? 'left' : 'right'}`);
+		this.keepFocusOnMoveButton(column.id, direction);
+	}
+
+	/**
+	 * Reordering rewrites the panel's own list, so the focused button is replaced and focus lands on
+	 * `<body>` — measured in Chrome. Tracking by `column.id` does not prevent it; the node still moves.
+	 */
+	private keepFocusOnMoveButton(columnIdentifier: string, direction: -1 | 1): void {
+		afterNextRender(
+			() => {
+				const row = this.host.nativeElement.querySelector(`.columns-row[data-column-id="${columnIdentifier}"]`);
+				const buttons = row?.querySelectorAll<HTMLButtonElement>('button.move');
+				buttons?.[direction === -1 ? 0 : 1]?.focus();
+			},
+			{ injector: this.injector },
+		);
+	}
+
 	/** The modifier class for one row, or `null` when the consumer supplied no `rowVariant`. */
 	protected variantFor(row: TRow): DataTableRowVariant | null {
 		return this.rowVariant()?.(row) ?? null;
 	}
 
 	/**
-	 * The alignment class for a column, read off `meta`.
-	 *
-	 * Applied to the header as well as the body cell on purpose: a right-aligned Power column under
+	 * Applied to the header as well as the body cell: a right-aligned Power column under
 	 * a left-aligned "Power" header reads as a bug, and the eye follows the header when scanning
 	 * for the column it wants.
 	 */

@@ -29,7 +29,6 @@ import type { ChampionsTeamQuery, TypeChartQuery } from '@pokemon-center/data-ac
 
 type TeamMember = ChampionsTeamQuery['championsTeam'][number];
 
-/** Build the engine's nested type chart from the flat rows the API returns. */
 export function toTypeChart(rows: TypeChartQuery['typeChart']): TypeChart {
 	const chart: TypeChart = {};
 	for (const row of rows) {
@@ -72,7 +71,6 @@ export function toMove(move: TeamMember['moves'][number]): ChampionsMove {
 	};
 }
 
-/** Which attacking stat this species leans on. */
 export function primaryAttackStat(member: TeamMember): Extract<StatKey, 'attack' | 'specialAttack'> {
 	return member.baseStats.attack >= member.baseStats.specialAttack ? 'attack' : 'specialAttack';
 }

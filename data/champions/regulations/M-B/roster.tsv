@@ -1,0 +1,379 @@
+pokedex_number	species	form	form_suffix	section	type1	type2	availability	note	introduced_in
+3	Venusaur			species	Grass	Poison	Yes		1.0.2
+6	Charizard			species	Fire	Flying	Yes		1.0.2
+9	Blastoise			species	Water		Yes		1.0.2
+15	Beedrill			species	Bug	Poison	Yes		1.0.2
+18	Pidgeot			species	Normal	Flying	Yes		1.0.2
+24	Arbok			species	Poison		Yes		1.0.2
+25	Pikachu			species	Electric		Yes	Regular form only	1.0.2
+26	Raichu			species	Electric		Yes		1.0.2
+26	Raichu	Alolan Form	-Alola	species	Electric	Psychic	Yes		1.0.2
+36	Clefable			species	Fairy		Yes		1.0.2
+38	Ninetales			species	Fire		Yes		1.0.2
+38	Ninetales	Alolan Form	-Alola	species	Ice	Fairy	Yes		1.0.2
+45	Vileplume			species	Grass	Poison	Yes		1.1.0
+59	Arcanine			species	Fire		Yes		1.0.2
+59	Arcanine	Hisuian Form	-Hisui	species	Fire	Rock	Yes		1.0.2
+65	Alakazam			species	Psychic		Yes		1.0.2
+68	Machamp			species	Fighting		Yes		1.0.2
+71	Victreebel			species	Grass	Poison	Yes		1.0.2
+80	Slowbro			species	Water	Psychic	Yes		1.0.2
+80	Slowbro	Galarian Form	-Galar	species	Poison	Psychic	Yes		1.0.2
+94	Gengar			species	Ghost	Poison	Yes		1.0.2
+115	Kangaskhan			species	Normal		Yes		1.0.2
+121	Starmie			species	Water	Psychic	Yes		1.0.2
+127	Pinsir			species	Bug		Yes		1.0.2
+128	Tauros			species	Normal		Yes		1.0.2
+128	Tauros	Paldean Form (Combat Breed)	-Paldea Combat	species	Fighting		Yes		1.0.2
+128	Tauros	Paldean Form (Blaze Breed)	-Paldea Blaze	species	Fighting	Fire	Yes		1.0.2
+128	Tauros	Paldean Form (Aqua Breed)	-Paldea Aqua	species	Fighting	Water	Yes		1.0.2
+130	Gyarados			species	Water	Flying	Yes		1.0.2
+132	Ditto			species	Normal		Yes		1.0.2
+134	Vaporeon			species	Water		Yes		1.0.2
+135	Jolteon			species	Electric		Yes		1.0.2
+136	Flareon			species	Fire		Yes		1.0.2
+142	Aerodactyl			species	Rock	Flying	Yes		1.0.2
+143	Snorlax			species	Normal		Yes		1.0.2
+149	Dragonite			species	Dragon	Flying	Yes		1.0.2
+154	Meganium			species	Grass		Yes		1.0.2
+157	Typhlosion			species	Fire		Yes		1.0.2
+157	Typhlosion	Hisuian Form	-Hisui	species	Fire	Ghost	Yes		1.0.2
+160	Feraligatr			species	Water		Yes		1.0.2
+168	Ariados			species	Bug	Poison	Yes		1.0.2
+181	Ampharos			species	Electric		Yes		1.0.2
+184	Azumarill			species	Water	Fairy	Yes		1.0.2
+186	Politoed			species	Water		Yes		1.0.2
+196	Espeon			species	Psychic		Yes		1.0.2
+197	Umbreon			species	Dark		Yes		1.0.2
+199	Slowking			species	Water	Psychic	Yes		1.0.2
+199	Slowking	Galarian Form	-Galar	species	Poison	Psychic	Yes		1.0.2
+205	Forretress			species	Bug	Steel	Yes		1.0.2
+208	Steelix			species	Steel	Ground	Yes		1.0.2
+211	Qwilfish			species	Water	Poison	Yes		1.1.0
+212	Scizor			species	Bug	Steel	Yes		1.0.2
+214	Heracross			species	Bug	Fighting	Yes		1.0.2
+227	Skarmory			species	Steel	Flying	Yes		1.0.2
+229	Houndoom			species	Dark	Fire	Yes		1.0.2
+248	Tyranitar			species	Rock	Dark	Yes		1.0.2
+254	Sceptile			species	Grass		Yes		1.1.0
+257	Blaziken			species	Fire	Fighting	Yes		1.1.0
+260	Swampert			species	Water	Ground	Yes		1.1.0
+279	Pelipper			species	Water	Flying	Yes		1.0.2
+282	Gardevoir			species	Psychic	Fairy	Yes		1.0.2
+302	Sableye			species	Dark	Ghost	Yes		1.0.2
+303	Mawile			species	Steel	Fairy	Yes		1.1.0
+306	Aggron			species	Steel	Rock	Yes		1.0.2
+308	Medicham			species	Fighting	Psychic	Yes		1.0.2
+310	Manectric			species	Electric		Yes		1.0.2
+319	Sharpedo			species	Water	Dark	Yes		1.0.2
+323	Camerupt			species	Fire	Ground	Yes		1.0.2
+324	Torkoal			species	Fire		Yes		1.0.2
+334	Altaria			species	Dragon	Flying	Yes		1.0.2
+350	Milotic			species	Water		Yes		1.0.2
+351	Castform			species	Normal		Yes		1.0.2
+354	Banette			species	Ghost		Yes		1.0.2
+358	Chimecho			species	Psychic		Yes		1.0.2
+359	Absol			species	Dark		Yes		1.0.2
+362	Glalie			species	Ice		Yes		1.0.2
+376	Metagross			species	Steel	Psychic	Yes		1.1.0
+389	Torterra			species	Grass	Ground	Yes		1.0.2
+392	Infernape			species	Fire	Fighting	Yes		1.0.2
+395	Empoleon			species	Water	Steel	Yes		1.0.2
+398	Staraptor			species	Normal	Flying	Yes		1.1.0
+405	Luxray			species	Electric		Yes		1.0.2
+407	Roserade			species	Grass	Poison	Yes		1.0.2
+409	Rampardos			species	Rock		Yes		1.0.2
+411	Bastiodon			species	Rock	Steel	Yes		1.0.2
+428	Lopunny			species	Normal		Yes		1.0.2
+442	Spiritomb			species	Ghost	Dark	Yes		1.0.2
+445	Garchomp			species	Dragon	Ground	Yes		1.0.2
+448	Lucario			species	Fighting	Steel	Yes		1.0.2
+450	Hippowdon			species	Ground		Yes		1.0.2
+454	Toxicroak			species	Poison	Fighting	Yes		1.0.2
+460	Abomasnow			species	Grass	Ice	Yes		1.0.2
+461	Weavile			species	Dark	Ice	Yes		1.0.2
+464	Rhyperior			species	Ground	Rock	Yes		1.0.2
+470	Leafeon			species	Grass		Yes		1.0.2
+471	Glaceon			species	Ice		Yes		1.0.2
+472	Gliscor			species	Ground	Flying	Yes		1.0.2
+473	Mamoswine			species	Ice	Ground	Yes		1.0.2
+475	Gallade			species	Psychic	Fighting	Yes		1.0.2
+478	Froslass			species	Ice	Ghost	Yes		1.0.2
+479	Rotom			species	Electric	Ghost	Yes		1.0.2
+497	Serperior			species	Grass		Yes		1.0.2
+500	Emboar			species	Fire	Fighting	Yes		1.0.2
+503	Samurott			species	Water		Yes		1.0.2
+503	Samurott	Hisuian Form	-Hisui	species	Water	Dark	Yes		1.0.2
+505	Watchog			species	Normal		Yes		1.0.2
+510	Liepard			species	Dark		Yes		1.0.2
+512	Simisage			species	Grass		Yes		1.0.2
+514	Simisear			species	Fire		Yes		1.0.2
+516	Simipour			species	Water		Yes		1.0.2
+518	Musharna			species	Psychic		Yes		1.1.0
+530	Excadrill			species	Ground	Steel	Yes		1.0.2
+531	Audino			species	Normal		Yes		1.0.2
+534	Conkeldurr			species	Fighting		Yes		1.0.2
+545	Scolipede			species	Bug	Poison	Yes		1.1.0
+547	Whimsicott			species	Grass	Fairy	Yes		1.0.2
+553	Krookodile			species	Ground	Dark	Yes		1.0.2
+560	Scrafty			species	Dark	Fighting	Yes		1.1.0
+563	Cofagrigus			species	Ghost		Yes		1.0.2
+569	Garbodor			species	Poison		Yes		1.0.2
+571	Zoroark			species	Dark		Yes		1.0.2
+571	Zoroark	Hisuian Form	-Hisui	species	Normal	Ghost	Yes		1.0.2
+579	Reuniclus			species	Psychic		Yes		1.0.2
+584	Vanilluxe			species	Ice		Yes		1.0.2
+587	Emolga			species	Electric	Flying	Yes		1.0.2
+604	Eelektross			species	Electric		Yes		1.1.0
+609	Chandelure			species	Ghost	Fire	Yes		1.0.2
+614	Beartic			species	Ice		Yes		1.0.2
+618	Stunfisk			species	Ground	Electric	Yes		1.0.2
+618	Stunfisk	Galarian Form	-Galar	species	Ground	Steel	Yes		1.0.2
+623	Golurk			species	Ground	Ghost	Yes		1.0.2
+635	Hydreigon			species	Dark	Dragon	Yes		1.0.2
+637	Volcarona			species	Bug	Fire	Yes		1.0.2
+652	Chesnaught			species	Grass	Fighting	Yes		1.0.2
+655	Delphox			species	Fire	Psychic	Yes		1.0.2
+658	Greninja			species	Water	Dark	Yes	Regular form only	1.0.2
+660	Diggersby			species	Normal	Ground	Yes		1.0.2
+663	Talonflame			species	Fire	Flying	Yes		1.0.2
+666	Vivillon		-High Plains	species	Bug	Flying	Yes		1.0.2
+668	Pyroar			species	Fire	Normal	Yes		1.1.0
+670	Floette	Eternal Flower	-Eternal	species	Fairy		Transfer only		1.0.2
+671	Florges			species	Fairy		Yes		1.0.2
+675	Pangoro			species	Fighting	Dark	Yes		1.0.2
+676	Furfrou			species	Normal		Yes		1.0.2
+678	Meowstic			species	Psychic		Yes		1.0.2
+681	Aegislash			species	Steel	Ghost	Yes		1.0.2
+683	Aromatisse			species	Fairy		Yes		1.0.2
+685	Slurpuff			species	Fairy		Yes		1.0.2
+687	Malamar			species	Dark	Psychic	Yes		1.1.0
+689	Barbaracle			species	Rock	Water	Yes		1.1.0
+691	Dragalge			species	Poison	Dragon	Yes		1.1.0
+693	Clawitzer			species	Water		Yes		1.0.2
+695	Heliolisk			species	Electric	Normal	Yes		1.0.2
+697	Tyrantrum			species	Rock	Dragon	Yes		1.0.2
+699	Aurorus			species	Rock	Ice	Yes		1.0.2
+700	Sylveon			species	Fairy		Yes		1.0.2
+701	Hawlucha			species	Fighting	Flying	Yes		1.0.2
+702	Dedenne			species	Electric	Fairy	Yes		1.0.2
+706	Goodra			species	Dragon		Yes		1.0.2
+706	Goodra	Hisuian Form	-Hisui	species	Steel	Dragon	Yes		1.0.2
+707	Klefki			species	Steel	Fairy	Yes		1.0.2
+709	Trevenant			species	Ghost	Grass	Yes		1.0.2
+711	Gourgeist			species	Ghost	Grass	Yes		1.0.2
+713	Avalugg			species	Ice		Yes		1.0.2
+713	Avalugg	Hisuian Form	-Hisui	species	Ice	Rock	Yes		1.0.2
+715	Noivern			species	Flying	Dragon	Yes		1.0.2
+724	Decidueye			species	Grass	Ghost	Yes		1.0.2
+724	Decidueye	Hisuian Form	-Hisui	species	Grass	Fighting	Yes		1.0.2
+727	Incineroar			species	Fire	Dark	Yes		1.0.2
+730	Primarina			species	Water	Fairy	Yes		1.0.2
+733	Toucannon			species	Normal	Flying	Yes		1.0.2
+740	Crabominable			species	Fighting	Ice	Yes		1.0.2
+745	Lycanroc			species	Rock		Yes		1.0.2
+748	Toxapex			species	Poison	Water	Yes		1.0.2
+750	Mudsdale			species	Ground		Yes		1.0.2
+752	Araquanid			species	Water	Bug	Yes		1.0.2
+758	Salazzle			species	Poison	Fire	Yes		1.0.2
+763	Tsareena			species	Grass		Yes		1.0.2
+765	Oranguru			species	Normal	Psychic	Yes		1.0.2
+766	Passimian			species	Fighting		Yes		1.0.2
+778	Mimikyu			species	Ghost	Fairy	Yes		1.0.2
+780	Drampa			species	Normal	Dragon	Yes		1.0.2
+784	Kommo-o			species	Dragon	Fighting	Yes		1.0.2
+823	Corviknight			species	Flying	Steel	Yes		1.0.2
+841	Flapple			species	Grass	Dragon	Yes		1.0.2
+842	Appletun			species	Grass	Dragon	Yes		1.0.2
+844	Sandaconda			species	Ground		Yes		1.0.2
+855	Polteageist			species	Ghost		Yes		1.0.2
+858	Hatterene			species	Psychic	Fairy	Yes		1.0.2
+861	Grimmsnarl			species	Dark	Fairy	Yes		1.1.0
+866	Mr. Rime			species	Ice	Psychic	Yes		1.0.2
+867	Runerigus			species	Ground	Ghost	Yes		1.0.2
+869	Alcremie			species	Fairy		Yes		1.0.2
+870	Falinks			species	Fighting		Yes		1.1.0
+877	Morpeko			species	Electric	Dark	Yes		1.0.2
+887	Dragapult			species	Dragon	Ghost	Yes		1.0.2
+899	Wyrdeer			species	Normal	Psychic	Yes		1.0.2
+900	Kleavor			species	Bug	Rock	Yes		1.0.2
+902	Basculegion			species	Water	Ghost	Yes		1.0.2
+903	Sneasler			species	Fighting	Poison	Yes		1.0.2
+904	Overqwil			species	Dark	Poison	Yes		1.1.0
+908	Meowscarada			species	Grass	Dark	Yes		1.0.2
+911	Skeledirge			species	Fire	Ghost	Yes		1.0.2
+914	Quaquaval			species	Water	Fighting	Yes		1.0.2
+923	Pawmot			species	Electric	Fighting	Transfer only		1.0.2
+925	Maushold			species	Normal		Yes		1.0.2
+934	Garganacl			species	Rock		Yes		1.0.2
+936	Armarouge			species	Fire	Psychic	Yes		1.0.2
+937	Ceruledge			species	Fire	Ghost	Yes		1.0.2
+939	Bellibolt			species	Electric		Yes		1.0.2
+952	Scovillain			species	Grass	Fire	Yes		1.0.2
+956	Espathra			species	Psychic		Yes		1.0.2
+959	Tinkaton			species	Fairy	Steel	Yes		1.0.2
+964	Palafin			species	Water		Yes		1.0.2
+968	Orthworm			species	Steel		Yes		1.0.2
+970	Glimmora			species	Rock	Poison	Yes		1.0.2
+972	Houndstone			species	Ghost		Yes		1.1.0
+979	Annihilape			species	Fighting	Ghost	Yes		1.1.0
+981	Farigiraf			species	Normal	Psychic	Yes		1.0.2
+983	Kingambit			species	Dark	Steel	Yes		1.0.2
+1000	Gholdengo			species	Steel	Ghost	Yes		1.1.0
+1013	Sinistcha			species	Grass	Ghost	Yes		1.0.2
+1018	Archaludon			species	Steel	Dragon	Yes		1.0.2
+1019	Hydrapple			species	Grass	Dragon	Yes		1.0.2
+3	Venusaur	Mega Venusaur	-Mega	mega	Grass	Poison	Yes		1.0.2
+6	Charizard	Mega Charizard X	-Mega X	mega	Fire	Dragon	Yes		1.0.2
+6	Charizard	Mega Charizard Y	-Mega Y	mega	Fire	Flying	Yes		1.0.2
+9	Blastoise	Mega Blastoise	-Mega	mega	Water		Yes		1.0.2
+15	Beedrill	Mega Beedrill	-Mega	mega	Bug	Poison	Yes		1.0.2
+18	Pidgeot	Mega Pidgeot	-Mega	mega	Normal	Flying	Yes		1.0.2
+26	Raichu	Mega Raichu X	-Mega X	mega	Electric		Yes		1.1.0
+26	Raichu	Mega Raichu Y	-Mega Y	mega	Electric		Yes		1.1.0
+36	Clefable	Mega Clefable	-Mega	mega	Fairy	Flying	Yes		1.0.2
+65	Alakazam	Mega Alakazam	-Mega	mega	Psychic		Yes		1.0.2
+71	Victreebel	Mega Victreebel	-Mega	mega	Grass	Poison	Yes		1.0.2
+80	Slowbro	Mega Slowbro	-Mega	mega	Water	Psychic	Yes		1.0.2
+94	Gengar	Mega Gengar	-Mega	mega	Ghost	Poison	Yes		1.0.2
+115	Kangaskhan	Mega Kangaskhan	-Mega	mega	Normal		Yes		1.0.2
+121	Starmie	Mega Starmie	-Mega	mega	Water	Psychic	Yes		1.0.2
+127	Pinsir	Mega Pinsir	-Mega	mega	Bug	Flying	Yes		1.0.2
+130	Gyarados	Mega Gyarados	-Mega	mega	Water	Dark	Yes		1.0.2
+142	Aerodactyl	Mega Aerodactyl	-Mega	mega	Rock	Flying	Yes		1.0.2
+149	Dragonite	Mega Dragonite	-Mega	mega	Dragon	Flying	Yes		1.0.2
+154	Meganium	Mega Meganium	-Mega	mega	Grass	Fairy	Yes		1.0.2
+160	Feraligatr	Mega Feraligatr	-Mega	mega	Water	Dragon	Yes		1.0.2
+181	Ampharos	Mega Ampharos	-Mega	mega	Electric	Dragon	Yes		1.0.2
+208	Steelix	Mega Steelix	-Mega	mega	Steel	Ground	Yes		1.0.2
+212	Scizor	Mega Scizor	-Mega	mega	Bug	Steel	Yes		1.0.2
+214	Heracross	Mega Heracross	-Mega	mega	Bug	Fighting	Yes		1.0.2
+227	Skarmory	Mega Skarmory	-Mega	mega	Steel	Flying	Yes		1.0.2
+229	Houndoom	Mega Houndoom	-Mega	mega	Dark	Fire	Yes		1.0.2
+248	Tyranitar	Mega Tyranitar	-Mega	mega	Rock	Dark	Yes		1.0.2
+254	Sceptile	Mega Sceptile	-Mega	mega	Grass	Dragon	Yes		1.1.0
+257	Blaziken	Mega Blaziken	-Mega	mega	Fire	Fighting	Yes		1.1.0
+260	Swampert	Mega Swampert	-Mega	mega	Water	Ground	Yes		1.1.0
+282	Gardevoir	Mega Gardevoir	-Mega	mega	Psychic	Fairy	Yes		1.0.2
+302	Sableye	Mega Sableye	-Mega	mega	Dark	Ghost	Yes		1.0.2
+303	Mawile	Mega Mawile	-Mega	mega	Steel	Fairy	Yes		1.1.0
+306	Aggron	Mega Aggron	-Mega	mega	Steel		Yes		1.0.2
+308	Medicham	Mega Medicham	-Mega	mega	Fighting	Psychic	Yes		1.0.2
+310	Manectric	Mega Manectric	-Mega	mega	Electric		Yes		1.0.2
+319	Sharpedo	Mega Sharpedo	-Mega	mega	Water	Dark	Yes		1.0.2
+323	Camerupt	Mega Camerupt	-Mega	mega	Fire	Ground	Yes		1.0.2
+334	Altaria	Mega Altaria	-Mega	mega	Dragon	Fairy	Yes		1.0.2
+354	Banette	Mega Banette	-Mega	mega	Ghost		Yes		1.0.2
+358	Chimecho	Mega Chimecho	-Mega	mega	Psychic	Steel	Yes		1.0.2
+359	Absol	Mega Absol	-Mega	mega	Dark		Yes		1.0.2
+362	Glalie	Mega Glalie	-Mega	mega	Ice		Yes		1.0.2
+376	Metagross	Mega Metagross	-Mega	mega	Steel	Psychic	Yes		1.1.0
+398	Staraptor	Mega Staraptor	-Mega	mega	Fighting	Flying	Yes		1.1.0
+428	Lopunny	Mega Lopunny	-Mega	mega	Normal	Fighting	Yes		1.0.2
+445	Garchomp	Mega Garchomp	-Mega	mega	Dragon	Ground	Yes		1.0.2
+448	Lucario	Mega Lucario	-Mega	mega	Fighting	Steel	Yes		1.0.2
+460	Abomasnow	Mega Abomasnow	-Mega	mega	Grass	Ice	Yes		1.0.2
+475	Gallade	Mega Gallade	-Mega	mega	Psychic	Fighting	Yes		1.0.2
+478	Froslass	Mega Froslass	-Mega	mega	Ice	Ghost	Yes		1.0.2
+500	Emboar	Mega Emboar	-Mega	mega	Fire	Fighting	Yes		1.0.2
+530	Excadrill	Mega Excadrill	-Mega	mega	Ground	Steel	Yes		1.0.2
+531	Audino	Mega Audino	-Mega	mega	Normal	Fairy	Yes		1.0.2
+545	Scolipede	Mega Scolipede	-Mega	mega	Bug	Poison	Yes		1.1.0
+560	Scrafty	Mega Scrafty	-Mega	mega	Dark	Fighting	Yes		1.1.0
+604	Eelektross	Mega Eelektross	-Mega	mega	Electric		Yes		1.1.0
+609	Chandelure	Mega Chandelure	-Mega	mega	Ghost	Fire	Yes		1.0.2
+623	Golurk	Mega Golurk	-Mega	mega	Ground	Ghost	Yes		1.0.2
+652	Chesnaught	Mega Chesnaught	-Mega	mega	Grass	Fighting	Yes		1.0.2
+655	Delphox	Mega Delphox	-Mega	mega	Fire	Psychic	Yes		1.0.2
+658	Greninja	Mega Greninja	-Mega	mega	Water	Dark	Yes		1.0.2
+668	Pyroar	Mega Pyroar	-Mega	mega	Fire	Normal	Yes		1.1.0
+670	Floette	Mega Floette	-Mega	mega	Fairy		Event only		1.0.2
+678	Meowstic	Mega Meowstic	-Mega	mega	Psychic		Yes		1.0.2
+687	Malamar	Mega Malamar	-Mega	mega	Dark	Psychic	Yes		1.1.0
+689	Barbaracle	Mega Barbaracle	-Mega	mega	Rock	Fighting	Yes		1.1.0
+691	Dragalge	Mega Dragalge	-Mega	mega	Poison	Dragon	Yes		1.1.0
+701	Hawlucha	Mega Hawlucha	-Mega	mega	Fighting	Flying	Yes		1.0.2
+740	Crabominable	Mega Crabominable	-Mega	mega	Fighting	Ice	Yes		1.0.2
+780	Drampa	Mega Drampa	-Mega	mega	Normal	Dragon	Yes		1.0.2
+870	Falinks	Mega Falinks	-Mega	mega	Fighting		Yes		1.1.0
+952	Scovillain	Mega Scovillain	-Mega	mega	Grass	Fire	Yes		1.0.2
+970	Glimmora	Mega Glimmora	-Mega	mega	Rock	Poison	Yes		1.0.2
+351	Castform			other-form	Normal		Yes		1.0.2
+351	Castform	Sunny Form	-Sunny	other-form	Fire		Yes		1.0.2
+351	Castform	Rainy Form	-Rainy	other-form	Water		Yes		1.0.2
+351	Castform	Snowy Form	-Snowy	other-form	Ice		Yes		1.0.2
+479	Rotom			other-form	Electric	Ghost	Yes		1.0.2
+479	Rotom	Heat Rotom	-Heat	other-form	Electric	Fire	Yes		1.0.2
+479	Rotom	Wash Rotom	-Wash	other-form	Electric	Water	Yes		1.0.2
+479	Rotom	Frost Rotom	-Frost	other-form	Electric	Ice	Yes		1.0.2
+479	Rotom	Fan Rotom	-Fan	other-form	Electric	Flying	Yes		1.0.2
+479	Rotom	Mow Rotom	-Mow	other-form	Electric	Grass	Yes		1.0.2
+666	Vivillon	Icy Snow Pattern	-Icy Snow	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Polar Pattern	-Polar	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Tundra Pattern	-Tundra	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Continental Pattern	-Continental	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Garden Pattern	-Garden	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Elegant Pattern	-Elegant	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Meadow Pattern		other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Modern Pattern	-Modern	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Marine Pattern	-Marine	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Archipelago Pattern	-Archipelago	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	High Plains Pattern	-High Plains	other-form	Bug	Flying	Yes		1.0.2
+666	Vivillon	Sandstorm Pattern	-Sandstorm	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	River Pattern	-River	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Monsoon Pattern	-Monsoon	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Savanna Pattern	-Savanna	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Sun Pattern	-Sun	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Ocean Pattern	-Ocean	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Jungle Pattern	-Jungle	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Fancy Pattern	-Fancy	other-form	Bug	Flying	Transfer only		1.0.2
+666	Vivillon	Poké Ball Pattern	-Poké Ball	other-form	Bug	Flying	Transfer only		1.0.2
+668	Pyroar	Male		other-form	Fire	Normal	Yes		1.1.0
+668	Pyroar	Female	-Female	other-form	Fire	Normal	Yes		1.1.0
+671	Florges	Red Flower		other-form	Fairy		Yes		1.0.2
+671	Florges	Yellow Flower	-Yellow	other-form	Fairy		Yes		1.0.2
+671	Florges	Orange Flower	-Orange	other-form	Fairy		Yes		1.0.2
+671	Florges	Blue Flower	-Blue	other-form	Fairy		Yes		1.0.2
+671	Florges	White Flower	-White	other-form	Fairy		Yes		1.0.2
+676	Furfrou	Natural Form		other-form	Normal		Yes		1.0.2
+676	Furfrou	Heart Trim	-Heart	other-form	Normal		Transfer only		1.0.2
+676	Furfrou	Star Trim	-Star	other-form	Normal		Transfer only		1.0.2
+676	Furfrou	Diamond Trim	-Diamond	other-form	Normal		Transfer only		1.0.2
+676	Furfrou	Debutante Trim	-Debutante	other-form	Normal		Transfer only		1.0.2
+676	Furfrou	Matron Trim	-Matron	other-form	Normal		Transfer only		1.0.2
+676	Furfrou	Dandy Trim	-Dandy	other-form	Normal		Transfer only		1.0.2
+676	Furfrou	La Reine Trim	-La Reine	other-form	Normal		Transfer only		1.0.2
+676	Furfrou	Kabuki Trim	-Kabuki	other-form	Normal		Transfer only		1.0.2
+676	Furfrou	Pharaoh Trim	-Pharaoh	other-form	Normal		Transfer only		1.0.2
+678	Meowstic	Male		other-form	Psychic		Yes		1.0.2
+678	Meowstic	Female	-Female	other-form	Psychic		Yes		1.0.2
+681	Aegislash	Shield Forme		other-form	Steel	Ghost	Yes		1.0.2
+681	Aegislash	Blade Forme	-Blade	other-form	Steel	Ghost	Yes		1.0.2
+711	Gourgeist	Small Variety	-Small	other-form	Ghost	Grass	Yes		1.0.2
+711	Gourgeist	Medium Variety		other-form	Ghost	Grass	Yes		1.0.2
+711	Gourgeist	Large Variety	-Large	other-form	Ghost	Grass	Yes		1.0.2
+711	Gourgeist	Jumbo Variety	-Jumbo	other-form	Ghost	Grass	Yes		1.0.2
+745	Lycanroc	Midday Form		other-form	Rock		Yes		1.0.2
+745	Lycanroc	Midnight Form	-Midnight	other-form	Rock		Yes		1.0.2
+745	Lycanroc	Dusk Form	-Dusk	other-form	Rock		Yes		1.0.2
+855	Polteageist	Phony Form		other-form	Ghost		Yes		1.0.2
+855	Polteageist	Antique Form		other-form	Ghost		Yes		1.0.2
+869	Alcremie	Vanilla Cream		other-form	Fairy		Yes		1.0.2
+869	Alcremie	Ruby Cream	-Ruby Cream	other-form	Fairy		Yes		1.0.2
+869	Alcremie	Matcha Cream	-Matcha Cream	other-form	Fairy		Yes		1.0.2
+869	Alcremie	Mint Cream	-Mint Cream	other-form	Fairy		Yes		1.0.2
+869	Alcremie	Lemon Cream	-Lemon Cream	other-form	Fairy		Yes		1.0.2
+869	Alcremie	Salted Cream	-Salted Cream	other-form	Fairy		Yes		1.0.2
+869	Alcremie	Ruby Swirl	-Ruby Swirl	other-form	Fairy		Yes		1.0.2
+869	Alcremie	Caramel Swirl	-Caramel Swirl	other-form	Fairy		Yes		1.0.2
+869	Alcremie	Rainbow Swirl	-Rainbow Swirl	other-form	Fairy		Yes		1.0.2
+877	Morpeko	Full Belly Mode		other-form	Electric	Dark	Yes		1.0.2
+877	Morpeko	Hangry Mode	-Hangry	other-form	Electric	Dark	Yes		1.0.2
+902	Basculegion	Male		other-form	Water	Ghost	Yes		1.0.2
+902	Basculegion	Female	-Female	other-form	Water	Ghost	Yes		1.0.2
+925	Maushold	Family of Four		other-form	Normal		Yes		1.0.2
+925	Maushold	Family of Three	-Three	other-form	Normal		Yes		1.0.2
+964	Palafin	Zero Form		other-form	Water		Yes		1.0.2
+964	Palafin	Hero Form	-Hero	other-form	Water		Yes		1.0.2
+1013	Sinistcha	Unremarkable Form		other-form	Grass	Ghost	Yes		1.0.2
+1013	Sinistcha	Masterpiece Form		other-form	Grass	Ghost	Yes		1.0.2

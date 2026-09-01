@@ -5,7 +5,7 @@
 	"scripts": {
 		"start": "nx run pokemon-center:serve -o",
 		"build": "nx run pokemon-center:build",
-		"postinstall": "prisma generate"
+		"generate": "prisma generate"
 	},
 	"private": true,
 	"dependencies": {

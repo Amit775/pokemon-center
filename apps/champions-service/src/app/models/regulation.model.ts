@@ -4,8 +4,9 @@ import { Field, GraphQLISODateTime, Int, ObjectType } from '@nestjs/graphql';
  * A Champions regulation set — the unit that defines what is legal.
  *
  * Champions has no fixed dex: the usable roster rotates on a schedule (M-B ran
- * 17 Jun 2026 → 2 Sep 2026 with ~208 species and ~75 Megas). Legality is therefore always
- * expressed relative to a regulation, never as a flag on a Pokémon.
+ * 17 Jun 2026 → 2 Sep 2026 with ~208 species and ~75 Megas). The database holds exactly one
+ * regulation, rebuilt from scratch when one rotates, so this is the only set on offer — there
+ * is no `isCurrent` to report because there is nothing to be current against.
  */
 @ObjectType()
 export class Regulation {
@@ -24,9 +25,6 @@ export class Regulation {
 
 	@Field(() => GraphQLISODateTime)
 	endsOn!: Date;
-
-	@Field()
-	isCurrent!: boolean;
 
 	/** Restrictions and format parameters that are not per-Pokémon. */
 	@Field(() => String, { nullable: true })

@@ -293,7 +293,6 @@ export function matchesFilters(entry: PokedexEntry, filters: PokedexFilters, con
 	return true;
 }
 
-/** Base slug → its Mega forms. */
 function megasByBase(entries: readonly PokedexEntry[]): Map<string, PokedexEntry[]> {
 	const map = new Map<string, PokedexEntry[]>();
 	for (const entry of entries) {
@@ -303,7 +302,6 @@ function megasByBase(entries: readonly PokedexEntry[]): Map<string, PokedexEntry
 	return map;
 }
 
-/** Apply every filter, then sort. */
 export function applyFilters(
 	entries: readonly PokedexEntry[],
 	filters: PokedexFilters,

@@ -202,7 +202,6 @@ import { TypeChipComponent } from '@pokemon-center/ui-pokedex';
 })
 export class SlotPickerComponent {
 	readonly index = input.required<number>();
-	/** The Pokémon currently in this slot, if any. */
 	readonly selected = input<{ name: string; types: string[] } | null>(null);
 
 	readonly picked = output<string>();
