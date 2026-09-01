@@ -11,5 +11,4 @@ export interface DetailMove {
 	effectText: string | null;
 	effectChance: number | null;
 	isOverridden: boolean;
-	overrideNote: string | null;
 }

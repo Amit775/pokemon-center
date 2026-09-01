@@ -14,7 +14,6 @@ function move(overrides: Partial<DetailMove> & Pick<DetailMove, 'id' | 'name'>):
 		effectText: null,
 		effectChance: null,
 		isOverridden: false,
-		overrideNote: null,
 		...overrides,
 	};
 }
@@ -35,7 +34,6 @@ const learnset: DetailMove[] = [
 		accuracy: 100,
 		pp: 15,
 		isOverridden: true,
-		overrideNote: 'Champions raised its power from 90 to 95.',
 		flags: ['contact', 'punch'],
 	}),
 	move({ id: 4, name: 'Quick Attack', type: 'normal', power: 40, accuracy: 100, pp: 30, priority: 1 }),
@@ -155,7 +153,6 @@ describe('MovesDataTableComponent', () => {
 		const flamethrower = bodyRows()[2];
 		const cell = flamethrower.querySelector('champions-move-name-cell');
 
-		expect(cell?.querySelector('.note')?.textContent?.trim()).toBe('Champions raised its power from 90 to 95.');
 		expect(Array.from(cell?.querySelectorAll('.tag') ?? []).map((tag) => tag.textContent?.trim())).toEqual([
 			'Contact',
 			'Punch',
