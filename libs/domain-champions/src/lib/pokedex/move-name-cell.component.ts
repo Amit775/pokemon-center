@@ -41,26 +41,18 @@ import type { DetailMove } from './move.model';
 				</span>
 			}
 		}
-
-		@if (currentMove.isOverridden && currentMove.overrideNote) {
-			<span class="note">{{ currentMove.overrideNote }}</span>
-		}
 	`,
 	styles: `
 		:host {
 			display: block;
 		}
 
-		.note,
+		/* Wide enough to read as a sentence, narrow enough to keep the numbers on screen. */
 		.effect {
 			display: block;
 			font-size: var(--fs-xs, 0.75rem);
 			color: var(--ink-muted);
 			line-height: 1.45;
-		}
-
-		/* Wide enough to read as a sentence, narrow enough to keep the numbers on screen. */
-		.effect {
 			max-width: 46ch;
 			margin-top: 0.15rem;
 		}
