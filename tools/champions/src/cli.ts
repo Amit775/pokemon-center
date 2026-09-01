@@ -1,20 +1,13 @@
-import { runDerive } from './pipeline/derive';
 import { runFetch } from './pipeline/fetch';
-import { runSeed } from './pipeline/seed';
+import { runRoster } from './pipeline/roster';
 
-/**
- * Entry point for the Champions data pipeline.
- *
- * A plain CLI rather than Nx executors: local Nx plugins in this workspace are not linked
- * into `node_modules` (the existing `tools/pokedex` plugin has the same gap), so an
- * `@pokemon-center/champions:fetch` reference cannot resolve. `nx:run-commands` targets in
- * project.json wrap these, so the ergonomics are unchanged: `nx run champions:fetch`.
- */
+const flags = process.argv.slice(3);
+
+const hasFlag = (flag: string): boolean => flags.includes(flag);
 
 const STAGES = {
 	fetch: () => runFetch(),
-	derive: () => runDerive(),
-	seed: () => runSeed(),
+	roster: () => runRoster({ force: hasFlag('--force') }),
 } satisfies Record<string, () => Promise<void>>;
 
 type Stage = keyof typeof STAGES;

@@ -21,23 +21,10 @@
 				"command": "ts-node --project tools/champions/tsconfig.lib.json tools/champions/src/cli.ts fetch"
 			}
 		},
-		"derive": {
+		"roster": {
 			"executor": "nx:run-commands",
 			"options": {
-				"command": "ts-node --project tools/champions/tsconfig.lib.json tools/champions/src/cli.ts derive"
-			}
-		},
-		"seed": {
-			"executor": "nx:run-commands",
-			"options": {
-				"command": "ts-node --project tools/champions/tsconfig.lib.json tools/champions/src/cli.ts seed"
-			}
-		},
-		"refresh": {
-			"executor": "nx:run-commands",
-			"options": {
-				"commands": ["nx run champions:fetch", "nx run champions:derive", "nx run champions:seed"],
-				"parallel": false
+				"command": "ts-node --project tools/champions/tsconfig.lib.json tools/champions/src/cli.ts roster"
 			}
 		}
 	}
