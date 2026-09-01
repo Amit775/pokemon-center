@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { RAW_DIR } from '../lib/champions-data';
+import { RAW_DIRECTORY } from '../lib/champions-paths';
 
 /**
  * Stage 1 of the Champions pipeline: download source wikitext.
@@ -70,7 +70,7 @@ async function fetchWikitext(page: SourcePage): Promise<FetchedPage> {
 	};
 }
 
-export async function runFetch(outputDir: string = RAW_DIR): Promise<void> {
+export async function runFetch(outputDir: string = RAW_DIRECTORY): Promise<void> {
 	const absolute = path.join(process.cwd(), outputDir);
 	fs.mkdirSync(absolute, { recursive: true });
 
