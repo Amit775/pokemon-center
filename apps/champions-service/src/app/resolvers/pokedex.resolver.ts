@@ -130,22 +130,6 @@ function toMove(row: MoveRow): ChampionsMove {
 export class PokedexResolver {
 	constructor(private readonly prisma: PrismaService) {}
 
-	/** Ids of every Pokémon legal in a regulation; defaults to the current one. */
-	private async legalIds(regulationCode?: string): Promise<number[]> {
-		const regulation = regulationCode
-			? await this.prisma.regulation.findUnique({ where: { code: regulationCode }, select: { id: true } })
-			: ((await this.prisma.regulation.findFirst({ where: { is_current: true }, select: { id: true } })) ??
-				(await this.prisma.regulation.findFirst({ orderBy: { starts_on: 'desc' }, select: { id: true } })));
-
-		if (!regulation) return [];
-
-		const rows = await this.prisma.regulationLegality.findMany({
-			where: { regulation_id: regulation.id },
-			select: { pokemon_id: true },
-		});
-		return rows.map((row) => row.pokemon_id);
-	}
-
 	/**
 	 * Name search for the team-preview slots.
 	 *
@@ -157,14 +141,11 @@ export class PokedexResolver {
 	async championsSearch(
 		@Args('query') query: string,
 		@Args('take', { type: () => Int, nullable: true, defaultValue: 12 }) take: number,
-		@Args('regulation', { nullable: true }) regulation?: string,
 	): Promise<ChampionsPokemonSummary[]> {
 		const term = query.trim();
-		const legal = await this.legalIds(regulation);
-		if (legal.length === 0) return [];
 
 		const rows = (await this.prisma.championsPokemon.findMany({
-			where: { id: { in: legal }, ...(term ? { name: { contains: term, mode: 'insensitive' } } : {}) },
+			where: term ? { name: { contains: term, mode: 'insensitive' } } : {},
 			select: summarySelect,
 			// A generous slice so ranking below has something to work with.
 			take: Math.max(take * 4, 48),
@@ -195,14 +176,9 @@ export class PokedexResolver {
 		@Args('includeMegas', { nullable: true, defaultValue: false }) includeMegas?: boolean,
 		@Args('take', { type: () => Int, nullable: true, defaultValue: 60 }) take?: number,
 		@Args('skip', { type: () => Int, nullable: true, defaultValue: 0 }) skip?: number,
-		@Args('regulation', { nullable: true }) regulation?: string,
 	): Promise<ChampionsPokemonSummary[]> {
-		const legal = await this.legalIds(regulation);
-		if (legal.length === 0) return [];
-
 		const rows = (await this.prisma.championsPokemon.findMany({
 			where: {
-				id: { in: legal },
 				...(includeMegas ? {} : { is_mega: false }),
 				...(search ? { name: { contains: search, mode: 'insensitive' } } : {}),
 				...(type ? { OR: [{ type1: { slug: type } }, { type2: { slug: type } }] } : {}),
@@ -222,14 +198,9 @@ export class PokedexResolver {
 		@Args('type', { nullable: true }) type?: string,
 		@Args('search', { nullable: true }) search?: string,
 		@Args('includeMegas', { nullable: true, defaultValue: false }) includeMegas?: boolean,
-		@Args('regulation', { nullable: true }) regulation?: string,
 	): Promise<number> {
-		const legal = await this.legalIds(regulation);
-		if (legal.length === 0) return 0;
-
 		return this.prisma.championsPokemon.count({
 			where: {
-				id: { in: legal },
 				...(includeMegas ? {} : { is_mega: false }),
 				...(search ? { name: { contains: search, mode: 'insensitive' } } : {}),
 				...(type ? { OR: [{ type1: { slug: type } }, { type2: { slug: type } }] } : {}),
@@ -245,19 +216,16 @@ export class PokedexResolver {
 	 * mean a round trip per keystroke and a much weaker product.
 	 */
 	@Query(() => [ChampionsPokedexEntry], { name: 'championsPokedex' })
-	async championsPokedex(@Args('regulation', { nullable: true }) regulation?: string): Promise<ChampionsPokedexEntry[]> {
-		const legal = await this.legalIds(regulation);
-		if (legal.length === 0) return [];
-
+	async championsPokedex(): Promise<ChampionsPokedexEntry[]> {
 		const rows = await this.prisma.championsPokemon.findMany({
-			where: { id: { in: legal } },
 			select: {
 				...summarySelect,
 				learnset_is_approximate: true,
+				legality_status: true,
+				restriction_note: true,
+				introduced_in: true,
 				abilities: { select: { ability: { select: { slug: true, name: true } } }, orderBy: { slot: 'asc' } },
-				// Only Megas that are themselves legal count — a Mega filter must not promise a
-				// form the current regulation has removed.
-				megaForms: { where: { id: { in: legal } }, select: { id: true } },
+				megaForms: { select: { id: true } },
 			},
 			orderBy: [{ national_pokedex_number: 'asc' }, { is_mega: 'asc' }],
 		});
@@ -265,6 +233,9 @@ export class PokedexResolver {
 		return rows.map((row) => {
 			const typed = row as unknown as PokemonRow & {
 				learnset_is_approximate: boolean;
+				legality_status: string;
+				restriction_note: string | null;
+				introduced_in: string | null;
 				abilities: { ability: { slug: string; name: string } }[];
 				megaForms: { id: number }[];
 			};
@@ -276,6 +247,9 @@ export class PokedexResolver {
 				abilitySlugs: typed.abilities.map((ability) => ability.ability.slug),
 				abilityNames: typed.abilities.map((ability) => ability.ability.name),
 				learnsetIsApproximate: typed.learnset_is_approximate,
+				legalityStatus: typed.legality_status,
+				restrictionNote: typed.restriction_note,
+				introducedIn: typed.introduced_in,
 			};
 		});
 	}

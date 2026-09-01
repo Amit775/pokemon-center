@@ -124,6 +124,12 @@ export class ChampionsPokedexEntry {
 	/** Ability display names, so the filter can offer readable options. */
 	@Field(() => [String]) abilityNames!: string[];
 	@Field() learnsetIsApproximate!: boolean;
+	/** LEGAL, TRANSFER_ONLY, EVENT_ONLY or RESTRICTED — how this entry is obtained. */
+	@Field() legalityStatus!: string;
+	/** Caveat attached to obtaining it, e.g. "Regular form only". */
+	@Field(() => String, { nullable: true }) restrictionNote!: string | null;
+	/** Game version that added it, e.g. `1.1.0`. */
+	@Field(() => String, { nullable: true }) introducedIn!: string | null;
 }
 
 @ObjectType()
