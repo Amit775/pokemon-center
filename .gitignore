@@ -67,3 +67,10 @@ apps/pokemon-center/public/sprites/
 # Both encode ports, which differ per checkout - see docs/worktrees.md.
 .worktree-slot
 .claude/launch.json
+
+# Prisma-generated code. Regenerate with `prisma generate` (mainline) /
+# `prisma generate --config prisma.champions.config.ts` (champions) — no longer
+# run automatically via postinstall, so this must be run manually after schema changes.
+libs/prisma-client/src/generated
+libs/prisma-champions/src/generated
+libs/infra-pokedex-data/src/entities
