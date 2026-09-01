@@ -1,10 +1,11 @@
 import { computed, effect, inject } from '@angular/core';
-import { speedTiers, teamWeaknesses, threatMatrix } from '@pokemon-center/champions-engine';
+import { buildOpponentIntel, OpponentIntel, recommendSelection, SelectionRecommendation, speedTiers, teamWeaknesses, threatMatrix } from '@pokemon-center/champions-engine';
 import { ChampionsTeamDocument, TypeChartDocument, championsResource } from '@pokemon-center/data-access-champions';
 import { getState, patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
 import { BoxStore } from '../box/box.store';
 import { boxEntryToBuild } from '../box/box-build';
-import { inferBuild, toTypeChart } from './build-inference';
+import { inferBuild, toMove, toTypeChart } from './build-inference';
+import { getUsageStat } from './usage-stat-stub';
 
 /**
  * The Companion's state.
@@ -68,20 +69,59 @@ export const AdvisorStore = signalStore(
 		);
 
 		const theirMembers = computed(() => _theirQuery.value()?.championsTeam ?? []);
-		const theirBuilds = computed(() => {
+
+		/**
+		 * One Opponent Intel per revealed slot, in slot order. Usage data (stubbed for now, see
+		 * `docs/companion-plan.md`) overrides the inferred heuristic when present; `theirBuilds`
+		 * below is the best-available guess extracted from it, so the existing threat grid and
+		 * speed tiers become usage-aware automatically once real usage data lands.
+		 */
+		const theirIntel = computed<OpponentIntel[]>(() => {
 			const bySlug = new Map(theirMembers().map((theirMember) => [theirMember.slug, theirMember]));
+			const chart = typeChart();
 			return theirSlugs().flatMap((slug) => {
 				const member = bySlug.get(slug);
-				return member ? [inferBuild(member)] : [];
+				if (!member) return [];
+				const megaForm = member.megaForms[0];
+				return [
+					buildOpponentIntel(
+						inferBuild(member),
+						member.moves.map(toMove),
+						member.abilities.map((ability) => ({
+							slug: ability.ability.slug,
+							name: ability.ability.name,
+							effectText: ability.ability.effectText,
+							isHidden: ability.isHidden,
+						})),
+						megaForm
+							? {
+									types: megaForm.types,
+									baseStats: megaForm.baseStats,
+									ability: member.megaAbility
+										? { slug: member.megaAbility.slug, name: member.megaAbility.name, effectText: member.megaAbility.effectText }
+										: null,
+								}
+							: null,
+						getUsageStat(slug),
+						chart,
+					),
+				];
 			});
 		});
 
+		const theirBuilds = computed(() => theirIntel().map((intel) => intel.build));
+
 		const ready = computed(() => Object.keys(typeChart()).length > 0 && theirBuilds().length > 0);
+
+		const selectionRecommendation = computed<SelectionRecommendation | null>(() =>
+			ready() && myBuilds().length > 0 ? recommendSelection(myBuilds(), theirIntel(), typeChart(), 'singles', 3) : null,
+		);
 
 		return {
 			myTeam,
 			myBuilds,
 			theirBuilds,
+			theirIntel,
 			theirMembers,
 			typeChart,
 
@@ -95,9 +135,10 @@ export const AdvisorStore = signalStore(
 			theirWeaknesses: computed(() => (ready() ? teamWeaknesses(theirBuilds(), typeChart()) : null)),
 			tiers: computed(() => (ready() ? speedTiers(myBuilds(), theirBuilds()) : [])),
 			threats: computed(() => (ready() && myBuilds().length > 0 ? threatMatrix(myBuilds(), theirBuilds(), typeChart()) : null)),
+			selectionRecommendation,
 
 			/** Only ever true of the opponent now — your own learnsets come from the Box. */
-			hasApproximateData: computed(() => theirBuilds().some((build) => build.learnsetIsApproximate)),
+			hasApproximateData: computed(() => theirMembers().some((member) => member.learnsetIsApproximate)),
 		};
 	}),
 	withMethods((store) => ({
