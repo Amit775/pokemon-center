@@ -162,6 +162,8 @@ recommendation, event-sourced live tracker, stat inference, usage-data side task
   preview) and an explainable Pick & Lead recommendation, both singles-only. Usage data is
   still a stub returning `null` — the ingestion side task hasn't landed, so predictions still
   fall back to the inferred heuristic in practice.
+- The threat grid still does not account for items or abilities on the opponent side — usage
+  data would fix this, but it's still a stub.
 - No recent-opponents list, though ladder faces repeat.
 - Phase 2 (live tracker: event log, stat inference, observed-data write-back) not started.
 - No doubles support yet, though the schema has a `BattleFormat`.

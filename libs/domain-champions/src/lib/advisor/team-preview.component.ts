@@ -264,7 +264,7 @@ import { ThreatGridComponent } from './threat-grid.component';
 
 		.slots {
 			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+			grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
 			gap: var(--s-2, 0.5rem);
 			margin-bottom: var(--s-4, 1rem);
 		}

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { OpponentIntel, PredictedEntry } from '@pokemon-center/champions-engine';
+import { OpponentIntel, PredictedEntry, STAT_KEYS, StatKey } from '@pokemon-center/champions-engine';
 import { TypeChipComponent } from '@pokemon-center/ui-pokedex';
 
 /**
@@ -32,6 +32,12 @@ import { TypeChipComponent } from '@pokemon-center/ui-pokedex';
 				<p class="row">
 					<strong>Resists:</strong>
 					{{ resistances().join(', ') }}
+				</p>
+			}
+			@if (immunities().length > 0) {
+				<p class="row">
+					<strong>Immune to:</strong>
+					{{ immunities().join(', ') }}
 				</p>
 			}
 
@@ -73,9 +79,11 @@ import { TypeChipComponent } from '@pokemon-center/ui-pokedex';
 					} @else {
 						<span>same typing</span>
 					}
-					@if (mega.ability) {
-						<span>{{ mega.ability.name }}</span>
-					}
+					<span class="stat-deltas">
+						@for (delta of megaStatDeltas(); track delta.key) {
+							<span class="stat-delta" [class.up]="delta.value > 0" [class.down]="delta.value < 0">{{ delta.label }} {{ delta.value >= 0 ? '+' : '' }}{{ delta.value }}</span>
+						}
+					</span>
 				</div>
 			}
 		</div>
@@ -139,14 +147,49 @@ import { TypeChipComponent } from '@pokemon-center/ui-pokedex';
 			padding-top: var(--s-2, 0.5rem);
 			border-top: 1px dashed var(--line);
 		}
+
+		.stat-deltas {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.4rem;
+		}
+
+		.stat-delta.up {
+			color: var(--success, #2e7d32);
+		}
+
+		.stat-delta.down {
+			color: var(--danger, #c0392b);
+		}
 	`,
 })
 export class OpponentIntelCardComponent {
+	private static readonly STAT_LABELS: Record<StatKey, string> = {
+		hp: 'HP',
+		attack: 'Atk',
+		defense: 'Def',
+		specialAttack: 'SpA',
+		specialDefense: 'SpD',
+		speed: 'Spe',
+	};
+
 	readonly intel = input.required<OpponentIntel>();
 
-	protected readonly weaknesses = computed(() => this.intel().typeProfile.weaknesses.map((weakness) => weakness.type));
-	protected readonly resistances = computed(() => this.intel().typeProfile.resistances.map((resistance) => resistance.type));
+	protected readonly weaknesses = computed(() => this.intel().typeProfile.weaknesses.map((weakness) => `${weakness.type} ×${weakness.multiplier}`));
+	protected readonly resistances = computed(() => this.intel().typeProfile.resistances.map((resistance) => `${resistance.type} ×${resistance.multiplier}`));
+	protected readonly immunities = computed(() => this.intel().typeProfile.immunities);
 	protected readonly movesSource = computed<PredictedEntry<unknown>['source']>(() => this.intel().predictedMoves[0]?.source ?? 'inferred');
+
+	protected readonly megaStatDeltas = computed(() => {
+		const mega = this.intel().megaPreview;
+		if (!mega) return [];
+		const base = this.intel().build.species.baseStats;
+		return STAT_KEYS.filter((key) => mega.baseStats[key] !== base[key]).map((key) => ({
+			key,
+			label: OpponentIntelCardComponent.STAT_LABELS[key],
+			value: mega.baseStats[key] - base[key],
+		}));
+	});
 
 	protected formatItem(itemSlug: string): string {
 		return itemSlug.replace(/-/g, ' ');

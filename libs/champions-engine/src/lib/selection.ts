@@ -97,7 +97,12 @@ function physicalSpecialAnswerRule(candidate: ChampionsBuild, opponents: readonl
 	const total = physical + special;
 
 	const impact = relevantDefense >= otherDefense ? 'positive' : 'negative';
-	const magnitude = Math.abs(relevantDefense - otherDefense);
+	// Bucketed 1-3, not the raw stat-point gap: every other rule's magnitude is a small count
+	// (wins/losses, presence flags), and summing a raw stat difference (tens of points) alongside
+	// those let this one rule dominate `scoreOf`'s sum regardless of how many matchups, hazards,
+	// or speed-control findings a candidate actually has.
+	const gap = Math.abs(relevantDefense - otherDefense);
+	const magnitude = gap >= 40 ? 3 : gap >= 20 ? 2 : 1;
 	const lean = impact === 'positive' ? 'matches' : 'does not match';
 
 	return [
@@ -106,7 +111,7 @@ function physicalSpecialAnswerRule(candidate: ChampionsBuild, opponents: readonl
 			category: 'physical-special',
 			impact,
 			magnitude,
-			explanation: `${candidate.species.name}'s bulk ${lean} their team's ${styleLabel} lean (${revealedCount} of ${total} revealed attacking moves are ${styleLabel}).`,
+			explanation: `${candidate.species.name}'s bulk ${lean} their team's ${styleLabel} lean (${relevantDefense} vs ${otherDefense} defense, ${revealedCount} of ${total} revealed attacking moves are ${styleLabel}).`,
 		},
 	];
 }
@@ -161,12 +166,15 @@ function weatherRule(candidate: ChampionsBuild, opponents: readonly ChampionsBui
 		if (!boostedType) continue;
 		const multiplier = typeEffectiveness(boostedType, candidate.species.types, chart);
 		if (multiplier > 1) {
+			// Bucketed to the same 1-2 scale as the rest of this rule set (see
+			// physicalSpecialAnswerRule's comment above for why mixing scales in `scoreOf`'s sum
+			// is a problem) — the actual multiplier is still shown in the explanation text.
 			findings.push({
 				rule: 'weather',
 				category: 'weather',
 				impact: 'negative',
-				magnitude: multiplier,
-				explanation: `Their revealed team can set ${weather}, boosting ${boostedType}-type damage, which ${candidate.species.name} is weak to.`,
+				magnitude: multiplier >= 4 ? 2 : 1,
+				explanation: `Their revealed team can set ${weather}, boosting ${boostedType}-type damage ×${multiplier}, which ${candidate.species.name} is weak to.`,
 			});
 		}
 	}
