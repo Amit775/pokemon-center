@@ -217,7 +217,7 @@ diffable", which is no longer true of the database, and codegen shows `Regulatio
 has no call site.
 
 `Regulation.isCurrent` is removed from the GraphQL model. No template renders it, but the
-`ActiveRegulation` interface in `libs/domain-champions/src/lib/regulation.store.ts` declares it
+`ActiveRegulation` interface in `libs/data-access-champions/src/lib/regulation.store.ts` declares it
 explicitly — deliberately, so that type drift surfaces at the declaration rather than as
 `unknown` inside a template — so that interface is edited alongside the model and the
 `operations.graphql` selection set.

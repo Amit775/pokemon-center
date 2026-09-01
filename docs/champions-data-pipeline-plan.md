@@ -59,7 +59,7 @@ NestJS 11 + code-first GraphQL, Angular 22, `@ngrx/signals`, Jest 30.
 `tools/champions/src/cli.ts`, `tools/champions/project.json`,
 `prisma/champions/schema.prisma`, the three files in
 `apps/champions-service/src/app/resolvers/`, `apps/champions-service/src/app/models/`,
-`libs/domain-champions/src/lib/regulation.store.ts`,
+`libs/data-access-champions/src/lib/regulation.store.ts`,
 `libs/data-access-champions/src/lib/operations.graphql`.
 
 **Out of scope, stated explicitly:** no UI renders `legalityStatus` or `restrictionNote`. This
@@ -1133,7 +1133,7 @@ git commit -m "feat(champions)!: drop the regulation join from the read path"
 
 **Files:**
 - Modify: `libs/data-access-champions/src/lib/operations.graphql`
-- Modify: `libs/domain-champions/src/lib/regulation.store.ts`
+- Modify: `libs/data-access-champions/src/lib/regulation.store.ts`
 - Modify: `libs/data-access-champions/src/lib/generated/*` (regenerated)
 
 **Interfaces:**
