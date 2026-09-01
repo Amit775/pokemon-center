@@ -58,7 +58,7 @@ function toSpecies(member: TeamMember): ChampionsSpecies {
 	};
 }
 
-function toMove(move: TeamMember['moves'][number]): ChampionsMove {
+export function toMove(move: TeamMember['moves'][number]): ChampionsMove {
 	return {
 		id: move.id,
 		slug: move.slug,
