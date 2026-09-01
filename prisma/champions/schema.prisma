@@ -145,6 +145,15 @@ model ChampionsPokemon {
   /// move list is safer than a missing one, but it has to be labelled as such.
   learnset_is_approximate Boolean @default(false)
 
+  /// How this Pokémon is legal. Every row in this table is legal in the loaded regulation — the
+  /// loader only inserts the roster — so this records the caveat, not the fact.
+  legality_status  LegalityStatus @default(LEGAL)
+  /// Caveat attached to obtaining this entry, e.g. "Regular form only".
+  restriction_note String?
+  /// Game version that added this entry, e.g. `1.1.0`. The only in-database answer to "what is
+  /// new this regulation", since the database holds one regulation at a time.
+  introduced_in    String?
+
   type1       ChampionsType     @relation("PrimaryType", fields: [type1_id], references: [id])
   type2       ChampionsType?    @relation("SecondaryType", fields: [type2_id], references: [id])
   megaOf      ChampionsPokemon? @relation("MegaForm", fields: [mega_of_id], references: [id])
@@ -153,13 +162,13 @@ model ChampionsPokemon {
 
   abilities  ChampionsPokemonAbility[]
   learnset   ChampionsLearnset[]
-  legality   RegulationLegality[]
   knownSets   KnownSet[]
   teamMembers TeamMember[]
   boxEntries  BoxPokemon[]
 
   @@index([slug(ops: raw("gin_trgm_ops"))], type: Gin)
   @@index([is_mega])
+  @@index([legality_status])
   @@map("champions_pokemon")
 }
 
@@ -188,39 +197,28 @@ model ChampionsLearnset {
 }
 
 // ===========================================
-// REGULATIONS — legality rotates; history is kept
+// REGULATION — exactly one, rebuilt on rotation; history lives in git
 // ===========================================
 
-/// A Champions regulation set. M-B ran 17 Jun 2026 → 2 Sep 2026 with ~208 species and
-/// ~75 Megas. Rows are never overwritten when a new set lands, so "what changed this
-/// regulation" stays queryable.
+/// A Champions regulation set. M-B ran 17 Jun 2026 → 2 Sep 2026 with ~208 species and ~75 Megas.
+///
+/// This table holds exactly one row. The database is a disposable projection of a single
+/// regulation, rebuilt from scratch when one rotates, so "current" is not a fact worth storing —
+/// `starts_on` and `ends_on` already describe the window. Cross-regulation history lives in git,
+/// as a diff of the committed files under `data/champions/regulations/`.
 model Regulation {
   id         Int      @id @default(autoincrement())
   code       String   @unique
   name       String
   starts_on  DateTime @db.Date
   ends_on    DateTime @db.Date
-  is_current Boolean  @default(false)
   /// Restrictions and format parameters that are not per-Pokémon.
   notes      String?
 
-  legality RegulationLegality[]
   sessions BattleSession[]
   teams    Team[]
 
-  @@index([is_current])
   @@map("regulation")
-}
-
-model RegulationLegality {
-  regulation_id Int
-  pokemon_id    Int
-
-  regulation Regulation   @relation(fields: [regulation_id], references: [id], onDelete: Cascade)
-  pokemon    ChampionsPokemon @relation(fields: [pokemon_id], references: [id], onDelete: Cascade)
-
-  @@id([regulation_id, pokemon_id])
-  @@map("regulation_legality")
 }
 
 // ===========================================
@@ -411,6 +409,15 @@ enum DamageClass {
   PHYSICAL
   SPECIAL
   STATUS
+}
+
+/// How a Pokémon is legal in the loaded regulation. Sourced from Bulbapedia's availability
+/// column, which states caveats ("Transfer only") that the old pipeline parsed and discarded.
+enum LegalityStatus {
+  LEGAL
+  TRANSFER_ONLY
+  EVENT_ONLY
+  RESTRICTED
 }
 
 enum SetSource {
