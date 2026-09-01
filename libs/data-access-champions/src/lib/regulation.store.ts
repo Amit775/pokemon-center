@@ -1,5 +1,6 @@
 import { Signal, computed, inject } from '@angular/core';
-import { CurrentRegulationDocument, championsResource } from '@pokemon-center/data-access-champions';
+import { CurrentRegulationDocument } from './generated/graphql';
+import { championsResource } from './gql-champions';
 import { signalStore, withComputed, withProps } from '@ngrx/signals';
 
 /** Milliseconds in a day, for the countdown to the next regulation. */
@@ -49,6 +50,12 @@ export interface ActiveRegulation {
  * scoping signal every downstream feature reads. Champions has no fixed dex: legality is
  * always relative to a regulation set, so nothing in this domain should ever ask "is this
  * Pokémon legal?" without a regulation in hand.
+ *
+ * It lives here rather than in `domain-champions` for the same reason `PokedexContextStore`
+ * lives in `data-access-pokedex`: the Champions shell renders the active regulation in its
+ * chrome, and the router lazy-loads `domain-champions`. A static import from the shell would
+ * pull the whole domain into the initial bundle and undo that split, so the scoping signal
+ * every feature reads belongs on the non-lazy side of the boundary.
  */
 export const RegulationStore = signalStore(
 	{ providedIn: 'root' },

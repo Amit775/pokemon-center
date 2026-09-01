@@ -1,4 +1,3 @@
-/* eslint-disable */
 module.exports = {
 	displayName: 'pokemon-center',
 	preset: '../../jest.preset.js',
