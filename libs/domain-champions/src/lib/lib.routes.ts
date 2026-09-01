@@ -19,6 +19,7 @@ export const domainChampionsRoutes: Route[] = [
 
 	{ path: 'companion', loadComponent: () => import('./advisor/team-preview.component') },
 	{ path: 'companion/live', loadComponent: () => import('./battle/battle-tracker.component') },
+	{ path: 'synergy', loadComponent: () => import('./synergy/synergy.component') },
 
 	{ path: 'simulator', loadComponent: () => import('./simulator/simulator.component') },
 	{ path: 'school', loadComponent: () => import('./school/school.component') },

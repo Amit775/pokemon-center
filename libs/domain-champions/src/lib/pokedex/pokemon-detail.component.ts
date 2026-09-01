@@ -10,6 +10,7 @@ import {
 	UiSkeletonComponent,
 	spriteSources,
 } from '@pokemon-center/ui-pokedex';
+import { parseViewMode } from '../view-mode';
 import { CounterListComponent } from './counter-list.component';
 import { answeredBy, answersTo } from './counters';
 import { PokedexStore } from './pokedex.store';
@@ -491,6 +492,21 @@ import { StatPanelComponent } from './stat-panel.component';
 export default class PokemonDetailComponent {
 	/** Bound from the route parameter via `withComponentInputBinding`. */
 	readonly slug = input.required<string>();
+
+	/**
+	 * The `?view=` preview flag, bound the same way `slug` is.
+	 *
+	 * An input rather than a read of `ActivatedRoute.queryParams`, which is still an `Observable` in
+	 * router 22 with no signal accessor — reaching for `toSignal` or `snapshot` here would be going
+	 * against the grain of a component that already binds its route state this way. The router
+	 * binds query parameters to inputs as well as path parameters, so changing `?view=` re-emits
+	 * onto the live instance and OnPush repaints without a navigation to a different component.
+	 *
+	 * Typed `string` rather than `ViewMode` because the value is whatever was in the URL.
+	 */
+	readonly view = input<string>();
+
+	protected readonly viewMode = computed(() => parseViewMode(this.view()));
 
 	protected readonly pokedex = inject(PokedexStore);
 	private readonly router = inject(Router);
