@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { RouterLink } from '@angular/router';
 import { EntityPortraitComponent, SectionHeadingComponent, TypeChipComponent, UiCardComponent, spriteSources } from '@pokemon-center/ui-pokedex';
 import { AdvisorStore, TEAM_SIZE } from './advisor.store';
+import { BringLeadComponent } from './bring-lead.component';
+import { OpponentIntelCardComponent } from './opponent-intel-card.component';
 import { SlotPickerComponent } from './slot-picker.component';
 import { SpeedTiersComponent } from './speed-tiers.component';
 import { ThreatGridComponent } from './threat-grid.component';
@@ -19,7 +21,9 @@ import { ThreatGridComponent } from './threat-grid.component';
 	selector: 'champions-team-preview',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
+		BringLeadComponent,
 		EntityPortraitComponent,
+		OpponentIntelCardComponent,
 		RouterLink,
 		SectionHeadingComponent,
 		SlotPickerComponent,
@@ -77,12 +81,17 @@ import { ThreatGridComponent } from './threat-grid.component';
 		<pokedex-section-heading label="Their team" />
 		<div class="slots">
 			@for (slot of slots; track slot) {
-				<champions-slot-picker
-					[index]="slot"
-					[selected]="opponent(store.theirs()[slot])"
-					(picked)="store.setOpponentSlot(slot, $event)"
-					(clear)="store.setOpponentSlot(slot, null)"
-				/>
+				<div class="slot-column">
+					<champions-slot-picker
+						[index]="slot"
+						[selected]="opponent(store.theirs()[slot])"
+						(picked)="store.setOpponentSlot(slot, $event)"
+						(clear)="store.setOpponentSlot(slot, null)"
+					/>
+					@if (intelFor(store.theirs()[slot]); as intel) {
+						<champions-opponent-intel [intel]="intel" />
+					}
+				</div>
 			}
 		</div>
 
@@ -131,6 +140,20 @@ import { ThreatGridComponent } from './threat-grid.component';
 					</p>
 				</div>
 			</pokedex-card>
+
+			@if (store.selectionRecommendation(); as recommendation) {
+				<pokedex-section-heading label="Bring &amp; lead" />
+				<pokedex-card>
+					<div class="panel"><champions-bring-lead [recommendation]="recommendation" /></div>
+				</pokedex-card>
+			} @else if (!store.hasMyTeam()) {
+				<pokedex-card>
+					<div class="panel">
+						<h2>Pick your team for a bring &amp; lead recommendation</h2>
+						<p>This needs your six from the Box, same as the matchup grid below.</p>
+					</div>
+				</pokedex-card>
+			}
 
 			@if (store.threats(); as threats) {
 				<pokedex-section-heading label="Matchups" />
@@ -246,6 +269,11 @@ import { ThreatGridComponent } from './threat-grid.component';
 			margin-bottom: var(--s-4, 1rem);
 		}
 
+		.slot-column {
+			display: grid;
+			gap: var(--s-2, 0.5rem);
+		}
+
 		.panel {
 			padding: var(--s-4, 1rem);
 		}
@@ -331,5 +359,10 @@ export default class TeamPreviewComponent {
 		if (!slug) return null;
 		const found = this.store.theirMembers().find((member) => member.slug === slug);
 		return found ? { name: found.name, types: found.types } : null;
+	}
+
+	protected intelFor(slug: string | null) {
+		if (!slug) return null;
+		return this.store.theirIntel().find((intel) => intel.build.species.slug === slug) ?? null;
 	}
 }
