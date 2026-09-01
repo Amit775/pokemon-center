@@ -156,12 +156,15 @@ Honest backlog for the next phase. None of these are broken; all are shallow.
 - No duplicate/clone, which is how people actually build spread variants.
 - Nothing validates a moveset against four slots at save time beyond truncation.
 
-**Companion**
-- Opponent movesets are computed, never observed. `known_set` with `source: OBSERVED` and
-  `seen_count` exists in the schema but nothing writes to it — the live tracker records
-  revealed moves only into local state.
+**Companion** — see `docs/companion-plan.md` for the full design (opponent intel, pick/lead
+recommendation, event-sourced live tracker, stat inference, usage-data side task).
+- Phase 1 shipped: Opponent Intel Card (type quick-ref, predicted moves/ability/item, Mega
+  preview) and an explainable Pick & Lead recommendation, both singles-only. Usage data is
+  still a stub returning `null` — the ingestion side task hasn't landed, so predictions still
+  fall back to the inferred heuristic in practice.
 - No recent-opponents list, though ladder faces repeat.
-- The threat grid does not account for items or abilities on the opponent side.
+- Phase 2 (live tracker: event log, stat inference, observed-data write-back) not started.
+- No doubles support yet, though the schema has a `BattleFormat`.
 
 **Simulator**
 - Cannot override the opponent's spread or item; you get the inferred build or nothing.
