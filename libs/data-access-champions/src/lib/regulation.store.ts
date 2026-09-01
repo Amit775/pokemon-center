@@ -38,7 +38,6 @@ export interface ActiveRegulation {
 	startsOn: string;
 	/** ISO-8601 date string. */
 	endsOn: string;
-	isCurrent: boolean;
 	legalCount: number;
 	notes: string | null;
 }

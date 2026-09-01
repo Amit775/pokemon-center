@@ -50,9 +50,9 @@ libs/
   domain-champions/         pokedex/ box/ advisor/ battle/ simulator/ school/
   prisma-champions/         Generated client for the Champions DB
   ui-pokedex/               Shared design system — zero cross-lib imports
-tools/champions/            fetch → derive → seed pipeline (a CLI, not Nx executors)
+tools/champions/            fetch → roster → load pipeline (a CLI, not Nx executors)
 prisma/champions/           Second Prisma project; needs --config on every command
-data/champions/             raw/ (committed wikitext) + derived/ (the review gate)
+data/champions/             raw/ (committed wikitext) + regulations/<code>/ (the review gate)
 ```
 
 Database `pokemon-champions` on the existing Postgres container (:5433), env
@@ -129,11 +129,47 @@ growth curves) does not exist here.
 docker compose up postgres          # :5433
 nx serve champions-service          # :3001
 nx serve pokemon-center             # :4200
-nx run champions:refresh            # fetch → derive → seed, on regulation rotation
+nx run champions:refresh            # fetch → roster → load, on regulation rotation
 ```
 
 `prisma generate --config prisma.champions.config.ts` after any schema change — `migrate dev`
-does not reliably regenerate.
+does not reliably regenerate. Clear the Nx cache too if a running service still queries a
+dropped column: `nx serve` will happily reuse a build that predates the regeneration.
+
+### The data pipeline
+
+Four stages, reasoned through in
+[champions-data-pipeline-design.md](champions-data-pipeline-design.md).
+
+| Stage | Does |
+|---|---|
+| `champions:fetch` | Bulbapedia → `data/champions/raw/*.wikitext`. Overwritten in place; the file is tracked, so `git diff` on it *is* the changelog. |
+| `champions:roster` | Proposes `data/champions/regulations/<code>/roster.tsv` + `regulation.json`. Refuses to overwrite without `--force`. |
+| `champions:load` | Committed files + mainline database → Champions database. Truncates, then inserts. `--dry-run` reports what would land. |
+| `champions:reset` | Truncates only. Requires `--confirm`. |
+
+**The database holds exactly one regulation and is rebuilt from scratch when one rotates.**
+Box entries, teams and battle sessions go with it. Cross-regulation history lives in git, as a
+diff of the committed files — not in SQL.
+
+The wiki is a *proposal*, not the source of truth: `load` reads only the committed roster. A
+bad wiki edit cannot reach the database without passing a reviewed diff, and `load` refuses
+outright on a species count more than 5% off the page's own prose, an invalid regulation
+window, or any species-section entry that fails to resolve against the mainline dataset.
+
+### When M-C lands
+
+Either path works, and neither needs a code change:
+
+1. **Wiki first** — `nx run champions:refresh`, review the roster diff, done.
+2. **Game first** — copy `regulations/M-B/roster.tsv` to `regulations/M-C/`, edit it against the
+   in-game list, write `regulation.json` (`startsOn` is never stated on the roster page, so it
+   is entered by hand and `load` refuses while it is blank), then `nx run champions:load`.
+   Bulbapedia catches up later; `champions:roster --force` regenerates the proposal and the diff
+   shows any disagreement with what was typed.
+
+Path 2 is the point of the design: being ready for M-C rather than waiting on a volunteer
+editor.
 
 ## Known weaknesses, by section
 

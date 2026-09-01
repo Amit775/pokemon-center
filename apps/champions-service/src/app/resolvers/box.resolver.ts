@@ -260,10 +260,8 @@ export class BoxResolver {
 		const slots = new Set(members.map((member) => member.slot));
 		if (slots.size !== members.length) throw new BadRequestException('Two members cannot share a slot.');
 
-		const regulation =
-			(await this.prisma.regulation.findFirst({ where: { is_current: true }, select: { id: true } })) ??
-			(await this.prisma.regulation.findFirst({ orderBy: { starts_on: 'desc' }, select: { id: true } }));
-		if (!regulation) throw new BadRequestException('No regulation is loaded; seed one before saving a team.');
+		const regulation = await this.prisma.regulation.findFirst({ select: { id: true } });
+		if (!regulation) throw new BadRequestException('No regulation is loaded; run champions:load before saving a team.');
 
 		const fields = { label: input.label, is_mine: input.isMine, notes: input.notes ?? null, regulation_id: regulation.id };
 

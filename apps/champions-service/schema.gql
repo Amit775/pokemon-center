@@ -67,11 +67,14 @@ type ChampionsPokedexEntry {
   baseStats: BaseStats!
   hasMega: Boolean!
   id: Int!
+  introducedIn: String
   isMega: Boolean!
   learnsetIsApproximate: Boolean!
+  legalityStatus: String!
   megaOfSlug: String
   name: String!
   nationalPokedexNumber: Int!
+  restrictionNote: String
   slug: String!
   types: [String!]!
 }
@@ -141,15 +144,14 @@ type Query {
   championsChangedMoves: [ChampionsMove!]!
   championsMoveIndex: [ChampionsMove!]!
   championsMoveLearners(moveSlug: String!): [Int!]!
-  championsPokedex(regulation: String): [ChampionsPokedexEntry!]!
-  championsRoster(includeMegas: Boolean = false, regulation: String, search: String, skip: Int = 0, take: Int = 60, type: String): [ChampionsPokemonSummary!]!
-  championsRosterCount(includeMegas: Boolean = false, regulation: String, search: String, type: String): Int!
-  championsSearch(query: String!, regulation: String, take: Int = 12): [ChampionsPokemonSummary!]!
+  championsPokedex: [ChampionsPokedexEntry!]!
+  championsRoster(includeMegas: Boolean = false, search: String, skip: Int = 0, take: Int = 60, type: String): [ChampionsPokemonSummary!]!
+  championsRosterCount(includeMegas: Boolean = false, search: String, type: String): Int!
+  championsSearch(query: String!, take: Int = 12): [ChampionsPokemonSummary!]!
   championsTeam(slugs: [String!]!): [ChampionsPokemonDetail!]!
   championsTypes: [ChampionsType!]!
   currentRegulation: Regulation
   regulation(code: String!): Regulation
-  regulations: [Regulation!]!
   teams(isMine: Boolean = true): [Team!]!
   typeChart: [TypeEfficacyEntry!]!
 }
@@ -158,7 +160,6 @@ type Regulation {
   code: String!
   endsOn: DateTime!
   id: Int!
-  isCurrent: Boolean!
   legalCount: Int!
   name: String!
   notes: String

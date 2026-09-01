@@ -47,12 +47,7 @@ export type TeamMemberInput = {
 export type CurrentRegulationQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CurrentRegulationQuery = { currentRegulation: { id: number, code: string, name: string, startsOn: string, endsOn: string, isCurrent: boolean, legalCount: number, notes: string | null } | null };
-
-export type RegulationListQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type RegulationListQuery = { regulations: Array<{ id: number, code: string, name: string, startsOn: string, endsOn: string, isCurrent: boolean, legalCount: number }> };
+export type CurrentRegulationQuery = { currentRegulation: { id: number, code: string, name: string, startsOn: string, endsOn: string, legalCount: number, notes: string | null } | null };
 
 export type PokemonSummaryFragment = { id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } };
 
@@ -92,7 +87,7 @@ export type ChampionsRosterQuery = { championsRosterCount: number, championsRost
 export type ChampionsPokedexQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ChampionsPokedexQuery = { championsPokedex: Array<{ id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, hasMega: boolean, megaOfSlug: string | null, abilitySlugs: Array<string>, abilityNames: Array<string>, learnsetIsApproximate: boolean, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
+export type ChampionsPokedexQuery = { championsPokedex: Array<{ id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, hasMega: boolean, megaOfSlug: string | null, abilitySlugs: Array<string>, abilityNames: Array<string>, learnsetIsApproximate: boolean, legalityStatus: string, restrictionNote: string | null, introducedIn: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }> };
 
 export type BoxEntryFragment = { id: number, nickname: string | null, nature: string | null, item: string | null, notes: string | null, pokemon: { id: number, slug: string, name: string, nationalPokedexNumber: number, types: Array<string>, isMega: boolean, spriteKey: string | null, megaOfSlug: string | null, baseStats: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number } }, ability: { slug: string, name: string } | null, statPoints: { hp: number, attack: number, defense: number, specialAttack: number, specialDefense: number, speed: number, total: number }, moves: Array<{ id: number, slug: string, name: string, type: string, damageClass: DamageClass, power: number | null, pp: number | null, accuracy: number | null, priority: number, flags: Array<string>, isOverridden: boolean }> };
 
@@ -287,25 +282,11 @@ export const CurrentRegulationDocument = new TypedDocumentString(`
     name
     startsOn
     endsOn
-    isCurrent
     legalCount
     notes
   }
 }
     `) as unknown as TypedDocumentString<CurrentRegulationQuery, CurrentRegulationQueryVariables>;
-export const RegulationListDocument = new TypedDocumentString(`
-    query RegulationList {
-  regulations {
-    id
-    code
-    name
-    startsOn
-    endsOn
-    isCurrent
-    legalCount
-  }
-}
-    `) as unknown as TypedDocumentString<RegulationListQuery, RegulationListQueryVariables>;
 export const ChampionsSearchDocument = new TypedDocumentString(`
     query ChampionsSearch($query: String!, $take: Int) {
   championsSearch(query: $query, take: $take) {
@@ -467,6 +448,9 @@ export const ChampionsPokedexDocument = new TypedDocumentString(`
     abilitySlugs
     abilityNames
     learnsetIsApproximate
+    legalityStatus
+    restrictionNote
+    introducedIn
     baseStats {
       hp
       attack
