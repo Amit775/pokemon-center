@@ -36,12 +36,20 @@ This is a data-only change (no component behavior yet), so it is tested by build
 
 - [ ] **Step 1: Write the failing test**
 
+**`constructTable` cannot be called directly** — it reads `tableOptions.features.coreReactivityFeature`
+and crashes (`Cannot read properties of undefined (reading 'wrapExternalAtoms')`) because a bare
+`dataTableFeatures` never registers a reactivity backend; `injectTable`'s Angular wrapper supplies
+that automatically. Build the table through `injectTable` inside a minimal host component instead —
+the same pattern `data-table.component.spec.ts` already uses, just without a template to render.
+
 ```ts
 // libs/ui-pokedex/src/lib/data-table/data-table-columns.spec.ts
-import { constructTable, type RowData } from '@tanstack/angular-table';
-import { createDataTableColumns, dataTableFeatures } from './data-table-columns';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { injectTable, type Table } from '@tanstack/angular-table';
+import { createDataTableColumns, dataTableFeatures, type DataTableFeatures } from './data-table-columns';
 
-interface DemoRow extends RowData {
+interface DemoRow {
 	name: string;
 	types: string[];
 	generation: number;
@@ -62,42 +70,49 @@ const columns = columnHelper.columns([
 	columnHelper.accessor('power', { header: 'Power', filterFn: 'inNumberRange' }),
 ]);
 
+/** No template — this test drives the table instance directly and asserts on it, not on the DOM. */
+@Component({
+	selector: 'pokedex-filter-facet-host',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: '',
+})
+class FilterFacetHostComponent {
+	readonly table = injectTable(() => ({ features: dataTableFeatures, columns, data: rows }));
+}
+
 describe('dataTableFeatures — filtering and faceting', () => {
-	function buildTable() {
-		return constructTable({
-			features: dataTableFeatures,
-			columns,
-			data: rows,
-			state: {},
-			onColumnFiltersChange: () => undefined,
-			onGlobalFilterChange: () => undefined,
-		});
-	}
+	let fixture: ComponentFixture<FilterFacetHostComponent>;
+	let table: Table<DataTableFeatures, DemoRow>;
+
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({ imports: [FilterFacetHostComponent] }).compileComponents();
+		fixture = TestBed.createComponent(FilterFacetHostComponent);
+		fixture.detectChanges();
+		table = fixture.componentInstance.table;
+	});
 
 	it('filters rows whose array column includes at least one selected value (arrIncludesSome)', () => {
-		const table = buildTable();
 		table.setColumnFilters([{ id: 'types', value: ['fire'] }]);
+		fixture.detectChanges();
 
 		expect(table.getFilteredRowModel().rows.map((row) => row.original.name)).toEqual(['Charizard']);
 	});
 
 	it('filters rows whose scalar column equals one of the selected values (arrHas)', () => {
-		const table = buildTable();
 		table.setColumnFilters([{ id: 'generation', value: [2] }]);
+		fixture.detectChanges();
 
 		expect(table.getFilteredRowModel().rows.map((row) => row.original.name)).toEqual(['Feraligatr']);
 	});
 
 	it('filters rows whose numeric column falls within an inclusive range (inNumberRange)', () => {
-		const table = buildTable();
 		table.setColumnFilters([{ id: 'power', value: [90, 120] }]);
+		fixture.detectChanges();
 
 		expect(table.getFilteredRowModel().rows.map((row) => row.original.name)).toEqual(['Feraligatr']);
 	});
 
 	it('computes faceted unique values with occurrence counts for a column', () => {
-		const table = buildTable();
-
 		const facets = table.getColumn('types')?.getFacetedUniqueValues();
 
 		expect(facets?.get('fire')).toBe(1);
@@ -105,14 +120,12 @@ describe('dataTableFeatures — filtering and faceting', () => {
 	});
 
 	it('computes faceted min/max for a numeric column', () => {
-		const table = buildTable();
-
 		expect(table.getColumn('power')?.getFacetedMinMaxValues()).toEqual([83, 105]);
 	});
 
 	it('narrows rows by the global filter across every column', () => {
-		const table = buildTable();
 		table.setGlobalFilter('char');
+		fixture.detectChanges();
 
 		expect(table.getFilteredRowModel().rows.map((row) => row.original.name)).toEqual(['Charizard']);
 	});
@@ -357,13 +370,18 @@ Pure refactor — no behavior change, no new tests beyond relocating the existin
 
 - [ ] **Step 1: Move the panel-specific tests to a new spec, targeting a minimal host**
 
+**Build the table through `injectTable`, not `constructTable`** — see the note in Task 1: a bare
+`dataTableFeatures` has no reactivity backend registered, and `constructTable` crashes without one.
+`injectTable` supplies it automatically, so the host component below calls that instead, feeding it
+its own `visibility`/`order` signals the same way `UiDataTableComponent` itself does.
+
 ```ts
 // libs/ui-pokedex/src/lib/data-table/data-table-columns-panel.component.spec.ts
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { constructTable, type ColumnOrderState, type ColumnVisibilityState, type Table } from '@tanstack/angular-table';
-import { createDataTableColumns, dataTableFeatures, type DataTableFeatures } from './data-table-columns';
+import { functionalUpdate, injectTable, type ColumnOrderState, type ColumnVisibilityState } from '@tanstack/angular-table';
+import { createDataTableColumns, dataTableFeatures } from './data-table-columns';
 import { DataTableColumnsPanelComponent } from './data-table-columns-panel.component';
 
 interface DemoRow {
@@ -383,23 +401,20 @@ const rows: DemoRow[] = [{ name: 'Ember', power: 40 }];
 	selector: 'pokedex-columns-panel-host',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DataTableColumnsPanelComponent],
-	template: `<pokedex-data-table-columns-panel [table]="table()" label="Demo moves" />`,
+	template: `<pokedex-data-table-columns-panel [table]="table" label="Demo moves" />`,
 })
 class ColumnsPanelHostComponent {
 	private readonly visibility = signal<ColumnVisibilityState>({});
 	private readonly order = signal<ColumnOrderState>([]);
 
-	readonly table = signal<Table<DataTableFeatures, DemoRow>>(
-		constructTable({
-			features: dataTableFeatures,
-			columns,
-			data: rows,
-			state: { columnVisibility: this.visibility(), columnOrder: this.order() },
-			onColumnVisibilityChange: (update) =>
-				this.visibility.update((previous) => (typeof update === 'function' ? update(previous) : update)),
-			onColumnOrderChange: (update) => this.order.update((previous) => (typeof update === 'function' ? update(previous) : update)),
-		}),
-	);
+	readonly table = injectTable(() => ({
+		features: dataTableFeatures,
+		columns,
+		data: rows,
+		state: { columnVisibility: this.visibility(), columnOrder: this.order() },
+		onColumnVisibilityChange: (update) => this.visibility.set(functionalUpdate(update, this.visibility())),
+		onColumnOrderChange: (update) => this.order.set(functionalUpdate(update, this.order())),
+	}));
 }
 
 describe('DataTableColumnsPanelComponent', () => {
@@ -712,12 +727,14 @@ git commit -m "refactor(ui-pokedex): extract the Columns panel into its own comp
 
 - [ ] **Step 1: Write the failing test**
 
+**Build the table through `injectTable`, not `constructTable`** — same reason as Task 1 and Task 3.
+
 ```ts
 // libs/ui-pokedex/src/lib/data-table/data-table-filters-panel.component.spec.ts
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { constructTable, type ColumnFiltersState, type Table } from '@tanstack/angular-table';
-import { createDataTableColumns, dataTableFeatures, type DataTableFeatures } from './data-table-columns';
+import { functionalUpdate, injectTable, type ColumnFiltersState } from '@tanstack/angular-table';
+import { createDataTableColumns, dataTableFeatures } from './data-table-columns';
 import { DataTableFiltersPanelComponent } from './data-table-filters-panel.component';
 
 interface DemoRow {
@@ -742,21 +759,18 @@ const rows: DemoRow[] = [
 	selector: 'pokedex-filters-panel-host',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DataTableFiltersPanelComponent],
-	template: `<pokedex-data-table-filters-panel [table]="table()" label="Demo moves" />`,
+	template: `<pokedex-data-table-filters-panel [table]="table" label="Demo moves" />`,
 })
 class FiltersPanelHostComponent {
 	private readonly filters = signal<ColumnFiltersState>([]);
 
-	readonly table = signal<Table<DataTableFeatures, DemoRow>>(
-		constructTable({
-			features: dataTableFeatures,
-			columns,
-			data: rows,
-			state: { columnFilters: this.filters() },
-			onColumnFiltersChange: (update) =>
-				this.filters.update((previous) => (typeof update === 'function' ? update(previous) : update)),
-		}),
-	);
+	readonly table = injectTable(() => ({
+		features: dataTableFeatures,
+		columns,
+		data: rows,
+		state: { columnFilters: this.filters() },
+		onColumnFiltersChange: (update) => this.filters.set(functionalUpdate(update, this.filters())),
+	}));
 }
 
 describe('DataTableFiltersPanelComponent', () => {
@@ -813,7 +827,7 @@ describe('DataTableFiltersPanelComponent', () => {
 		setCheckbox('type', 'Fire').click();
 		fixture.detectChanges();
 
-		expect(host.table().getColumn('type')?.getFilterValue()).toEqual(['Fire']);
+		expect(host.table.getColumn('type')?.getFilterValue()).toEqual(['Fire']);
 	});
 
 	it('unchecking the only checked value clears the column filter entirely', () => {
@@ -825,7 +839,7 @@ describe('DataTableFiltersPanelComponent', () => {
 		setCheckbox('type', 'Fire').click();
 		fixture.detectChanges();
 
-		expect(host.table().getColumn('type')?.getFilterValue()).toBeUndefined();
+		expect(host.table.getColumn('type')?.getFilterValue()).toBeUndefined();
 	});
 
 	it('seeds a range column\'s min/max inputs from the faceted bounds', () => {
@@ -845,7 +859,7 @@ describe('DataTableFiltersPanelComponent', () => {
 		min.dispatchEvent(new Event('input'));
 		fixture.detectChanges();
 
-		expect(host.table().getColumn('power')?.getFilterValue()).toEqual([80, undefined]);
+		expect(host.table.getColumn('power')?.getFilterValue()).toEqual([80, undefined]);
 	});
 });
 ```
