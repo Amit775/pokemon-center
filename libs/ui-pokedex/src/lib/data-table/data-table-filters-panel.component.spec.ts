@@ -8,6 +8,7 @@ interface DemoRow {
 	name: string;
 	type: string;
 	power: number;
+	generation: number;
 }
 
 const columnHelper = createDataTableColumns<DemoRow>();
@@ -15,11 +16,12 @@ const columns = columnHelper.columns([
 	columnHelper.accessor('name', { header: 'Name' }),
 	columnHelper.accessor('type', { header: 'Type', filterFn: 'arrHas', meta: { filterVariant: 'set' } }),
 	columnHelper.accessor('power', { header: 'Power', filterFn: 'inNumberRange', meta: { filterVariant: 'range' } }),
+	columnHelper.accessor('generation', { header: 'Generation', filterFn: 'arrHas', meta: { filterVariant: 'set' } }),
 ]);
 const rows: DemoRow[] = [
-	{ name: 'Ember', type: 'Fire', power: 40 },
-	{ name: 'Flamethrower', type: 'Fire', power: 90 },
-	{ name: 'Surf', type: 'Water', power: 90 },
+	{ name: 'Ember', type: 'Fire', power: 40, generation: 1 },
+	{ name: 'Flamethrower', type: 'Fire', power: 90, generation: 1 },
+	{ name: 'Surf', type: 'Water', power: 90, generation: 2 },
 ];
 
 @Component({
@@ -107,6 +109,19 @@ describe('DataTableFiltersPanelComponent', () => {
 		fixture.detectChanges();
 
 		expect(host.table.getColumn('type')?.getFilterValue()).toBeUndefined();
+	});
+
+	it('a numeric set column narrows the table by its raw value, not a stringified one', () => {
+		filtersTrigger().click();
+		fixture.detectChanges();
+
+		setCheckbox('generation', '1').click(); // the checkbox's DOM value attribute is stringified for display; that's fine
+		fixture.detectChanges();
+
+		// If the filter value were the string '1', filterFn_arrHas's strict === against the raw
+		// numeric cell value would match nothing and the table would narrow to zero rows.
+		expect(host.table.getColumn('generation')?.getFilterValue()).toEqual([1]);
+		expect(host.table.getFilteredRowModel().rows.map((row) => row.original.name)).toEqual(['Ember', 'Flamethrower']);
 	});
 
 	it("seeds a range column's min/max inputs from the faceted bounds", () => {

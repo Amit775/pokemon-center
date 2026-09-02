@@ -108,8 +108,12 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 				</div>
 
 				<ng-template #rowTemplate let-row>
-					<!-- [class] merges with the static class rather than replacing it. -->
-					<div class="row" role="row" [class]="variantFor(row.original)">
+					<!--
+						[class] merges with the static class rather than replacing it. [class.last-row] is
+						keyed off table.getRowModel() (see isLastRow()), not DOM position -- see the comment
+						on .row.last-row in the styles for why :last-child cannot do this under virtualization.
+					-->
+					<div class="row" role="row" [class]="variantFor(row.original)" [class.last-row]="isLastRow(row)">
 						<!--
 							getVisibleCells(), not getAllCells() — one of three sites that move together
 							with columnVisibilityFeature (the others: the track list, and aria-colspan
@@ -145,7 +149,7 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 					<cdk-virtual-scroll-viewport [itemSize]="rowHeight()" [style.height]="viewportHeight()">
 						<div role="rowgroup">
 							@if (table.getRowModel().rows.length > 0) {
-								<div *cdkVirtualFor="let row of table.getRowModel().rows; trackBy: trackRowById">
+								<div *cdkVirtualFor="let row of table.getRowModel().rows; trackBy: trackRowByIdentifier">
 									<ng-container [ngTemplateOutlet]="rowTemplate" [ngTemplateOutletContext]="{ $implicit: row }" />
 								</div>
 							} @else {
@@ -184,7 +188,7 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 			display: flex;
 			flex-direction: row;
 			flex-wrap: wrap;
-			align-items: center;
+			align-items: flex-start;
 			gap: var(--s-2);
 			margin-bottom: var(--s-2);
 		}
@@ -268,10 +272,14 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 		}
 
 		/*
-			:not(.header-row) is load-bearing: the header is the only child of its own rowgroup so a
-			bare :last-child matches it, and under virtualization it becomes the window's last row.
+			Keyed off [class.last-row] (set in the component from table.getRowModel(), not DOM
+			position), never :last-child: under virtualization *cdkVirtualFor wraps each row in its
+			own host element, so every .row is its wrapper's only -- and therefore last -- child, and
+			a bare :last-child would strip the border from every virtualized row, not just the true
+			last one. This binding stays correct in both the virtualized and non-virtualized paths,
+			and regardless of which row virtualization currently keeps mounted in the DOM.
 		*/
-		.row:last-child:not(.header-row) .cell {
+		.row.last-row .cell {
 			border-bottom: none;
 		}
 
@@ -403,7 +411,7 @@ export class UiDataTableComponent<TRow extends RowData> {
 	/** A CSS length. The viewport needs an explicit height to know how many rows to render. */
 	readonly viewportHeight = input('480px');
 
-	protected trackRowById = (_index: number, row: { id: string }): string => row.id;
+	protected trackRowByIdentifier = (_index: number, row: { id: string }): string => row.id;
 
 	private readonly announcer = inject(LiveAnnouncer);
 
@@ -499,6 +507,16 @@ export class UiDataTableComponent<TRow extends RowData> {
 	/** The modifier class for one row, or `null` when the consumer supplied no `rowVariant`. */
 	protected variantFor(row: TRow): DataTableRowVariant | null {
 		return this.rowVariant()?.(row) ?? null;
+	}
+
+	/**
+	 * Whether `row` is the true last row of the full (filtered + sorted) row model -- a semantic
+	 * check, not a DOM-position one, so it survives virtualization windowing intact. See the comment
+	 * on `.row.last-row` in the styles for why `:last-child` cannot do this.
+	 */
+	protected isLastRow(row: { id: string }): boolean {
+		const rows = this.table.getRowModel().rows;
+		return rows.length > 0 && rows[rows.length - 1].id === row.id;
 	}
 
 	/**

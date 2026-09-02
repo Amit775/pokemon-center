@@ -6,7 +6,8 @@ let panelInstanceCount = 0;
 
 /** One row of a `'set'` column's checkbox list. */
 interface SetOption {
-	value: string;
+	value: unknown;
+	display: string;
 	count: number;
 	checked: boolean;
 }
@@ -42,16 +43,16 @@ interface SetOption {
 					<span class="filter-label">{{ columnLabel(column) }}</span>
 
 					@if (variantOf(column) === 'set') {
-						@for (option of setOptions(column); track option.value) {
+						@for (option of setOptions(column); track option.display) {
 							<label class="filter-option">
 								<input
 									type="checkbox"
 									[attr.data-column-id]="column.id"
-									[value]="option.value"
+									[value]="option.display"
 									[checked]="option.checked"
 									(change)="toggleSetOption(column, option.value, $event)"
 								/>
-								{{ option.value }} ({{ option.count }})
+								{{ option.display }} ({{ option.count }})
 							</label>
 						}
 					} @else {
@@ -186,15 +187,19 @@ export class DataTableFiltersPanelComponent<TRow extends RowData> {
 	}
 
 	protected setOptions(column: Column<DataTableFeatures, TRow>): SetOption[] {
-		const selected = new Set(((column.getFilterValue() as unknown[] | undefined) ?? []).map(String));
+		const selected = new Set((column.getFilterValue() as unknown[] | undefined) ?? []);
 		return Array.from(column.getFacetedUniqueValues().entries())
-			.map(([value, count]) => ({ value: String(value), count, checked: selected.has(String(value)) }))
-			.sort((first, second) => first.value.localeCompare(second.value));
+			.map(([value, count]) => ({ value, display: String(value), count, checked: selected.has(value) }))
+			.sort((first, second) => {
+				// Numeric facets sort numerically (1, 2, ..., 10, 11), not lexically (1, 10, 11, 2, ...).
+				if (typeof first.value === 'number' && typeof second.value === 'number') return first.value - second.value;
+				return first.display.localeCompare(second.display);
+			});
 	}
 
-	protected toggleSetOption(column: Column<DataTableFeatures, TRow>, value: string, event: Event): void {
+	protected toggleSetOption(column: Column<DataTableFeatures, TRow>, value: unknown, event: Event): void {
 		const checked = (event.target as HTMLInputElement).checked;
-		const current = ((column.getFilterValue() as unknown[] | undefined) ?? []).map(String);
+		const current = (column.getFilterValue() as unknown[] | undefined) ?? [];
 		const next = checked ? [...current, value] : current.filter((entry) => entry !== value);
 
 		column.setFilterValue(next.length > 0 ? next : undefined);

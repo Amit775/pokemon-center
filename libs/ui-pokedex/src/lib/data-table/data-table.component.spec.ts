@@ -369,16 +369,16 @@ describe('UiDataTableComponent', () => {
 	it('hides a column when its checkbox is toggled in the Columns panel', () => {
 		// Open the Columns panel by clicking the trigger
 		const trigger = element().querySelector<HTMLButtonElement>('.columns-trigger');
-		expect(trigger).not.toBeNull();
-		trigger!.click();
+		if (!trigger) throw new Error('the Columns trigger is missing');
+		trigger.click();
 		fixture.detectChanges();
 
 		// Find and click the Power column checkbox
 		const panelRows = Array.from(element().querySelectorAll<HTMLElement>('.columns-row'));
 		const powerCheckbox = panelRows[1]?.querySelector<HTMLInputElement>('input[type=checkbox]');
-		expect(powerCheckbox).not.toBeNull();
+		if (!powerCheckbox) throw new Error('the Power column checkbox is missing');
 
-		powerCheckbox!.click();
+		powerCheckbox.click();
 		fixture.detectChanges();
 
 		// Verify the Power column is now hidden from the table
