@@ -40,26 +40,8 @@ query TypesList {
 	}
 }
 
-query PokemonList(
-	$take: Int!
-	$skip: Int!
-	$search: String
-	$versionGroup: String
-	$types: [String!]
-	$generation: Int
-	$sortBy: String
-	$sortDesc: Boolean
-) {
-	pokemonList(
-		take: $take
-		skip: $skip
-		search: $search
-		versionGroup: $versionGroup
-		types: $types
-		generation: $generation
-		sortBy: $sortBy
-		sortDesc: $sortDesc
-	) {
+query PokemonList($take: Int!, $search: String, $versionGroup: String) {
+	pokemonList(take: $take, search: $search, versionGroup: $versionGroup) {
 		id
 		canonicalId
 		slug
@@ -70,6 +52,12 @@ query PokemonList(
 			slot
 			type {
 				id
+				identifier
+			}
+		}
+		stats {
+			base_stat
+			stat {
 				identifier
 			}
 		}
