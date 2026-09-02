@@ -65,7 +65,10 @@ const rows: DemoRow[] = [
 const columnHelper = createDataTableColumns<DemoRow>();
 const columns = columnHelper.columns([
 	columnHelper.accessor('name', { header: 'Name' }),
-	columnHelper.accessor('types', { header: 'Types', filterFn: 'arrIncludesSome' }),
+	// getUniqueValues is required for an array-valued column's facets to be correct: without it,
+	// TanStack wraps the whole array as one opaque Map key (by reference) instead of counting each
+	// element, per row_getUniqueValues in coreRowsFeature.utils.js.
+	columnHelper.accessor('types', { header: 'Types', filterFn: 'arrIncludesSome', getUniqueValues: (row) => row.types }),
 	columnHelper.accessor('generation', { header: 'Generation', filterFn: 'arrHas' }),
 	columnHelper.accessor('power', { header: 'Power', filterFn: 'inNumberRange' }),
 ]);

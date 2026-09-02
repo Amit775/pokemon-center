@@ -690,6 +690,14 @@ kept separate from per-column filters, mirroring ag-grid's own split between a s
 column filter menus. Filter functions: `filterFn_arrIncludesSome` for Type (array-valued) and
 `filterFn_inNumberRange` for stat columns.
 
+**An array-valued column, Type included, needs an explicit `getUniqueValues` accessor for its
+facets to be correct.** Found building Task 1's test: without one, `row_getUniqueValues`
+(`coreRowsFeature.utils.js`) wraps the whole array as a single opaque `Map` key — by reference,
+so two rows with an identical `['fire']` each count as their own distinct "unique value" rather
+than being counted together — instead of counting each element. `columnHelper.accessor('types', {
+..., getUniqueValues: (row) => row.types })` is what makes the checkbox list show one entry per
+type rather than one per type-combination.
+
 `UiDataTableComponent` gains `columnFilters` and `globalFilter` as new controlled `model()`s,
 following the `sorting`/`onSortingChange` pattern already there. `DataTableColumnMeta` gains
 `filterVariant?: 'set' | 'range'`, and a new Filters panel — the same in-flow-disclosure shape as
