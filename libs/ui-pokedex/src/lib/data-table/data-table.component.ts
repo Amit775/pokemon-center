@@ -18,6 +18,7 @@ import {
 	injectTable,
 	type Column,
 	type ColumnDef,
+	type ColumnFiltersState,
 	type ColumnOrderState,
 	type RowData,
 	type SortingState,
@@ -472,6 +473,12 @@ export class UiDataTableComponent<TRow extends RowData> {
 	readonly columnVisibility = model<ColumnVisibilityState>({});
 	readonly columnOrder = model<ColumnOrderState>([]);
 
+	/** Controlled like `sorting`. One entry per column with an active filter. */
+	readonly columnFilters = model<ColumnFiltersState>([]);
+
+	/** Controlled like `sorting`. The quick-search box's current text. */
+	readonly globalFilter = model('');
+
 	/** Which rows carry a modifier. A function of the row, so the kit never learns what it means. */
 	readonly rowVariant = input<((row: TRow) => DataTableRowVariant | null) | null>(null);
 
@@ -494,6 +501,8 @@ export class UiDataTableComponent<TRow extends RowData> {
 			sorting: this.sorting(),
 			columnVisibility: this.columnVisibility(),
 			columnOrder: this.columnOrder(),
+			columnFilters: this.columnFilters(),
+			globalFilter: this.globalFilter(),
 		},
 		// The updater is always a function, never a value — `setStateSlice` wraps every change — so a
 		// bare `.set(update)` would store the function itself. A no-op returns the same reference, so
@@ -501,6 +510,8 @@ export class UiDataTableComponent<TRow extends RowData> {
 		onSortingChange: (update) => this.sorting.set(functionalUpdate(update, this.sorting())),
 		onColumnVisibilityChange: (update) => this.columnVisibility.set(functionalUpdate(update, this.columnVisibility())),
 		onColumnOrderChange: (update) => this.columnOrder.set(functionalUpdate(update, this.columnOrder())),
+		onColumnFiltersChange: (update) => this.columnFilters.set(functionalUpdate(update, this.columnFilters())),
+		onGlobalFilterChange: (update) => this.globalFilter.set(functionalUpdate(update, this.globalFilter())),
 	}));
 
 	protected readonly visibleColumnCount = computed(() => {

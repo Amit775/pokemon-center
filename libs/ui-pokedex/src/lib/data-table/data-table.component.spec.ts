@@ -1,7 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import type { ColumnDef, ColumnOrderState, SortingState, ColumnVisibilityState } from '@tanstack/angular-table';
+import type { ColumnDef, ColumnOrderState, SortingState, ColumnVisibilityState, ColumnFiltersState } from '@tanstack/angular-table';
 import { createDataTableColumns, type DataTableFeatures } from './data-table-columns';
 import { UiDataTableComponent, type DataTableRowVariant } from './data-table.component';
 
@@ -28,7 +28,7 @@ const demoColumns = columnHelper.columns([
 	columnHelper.accessor('name', { header: 'Name', sortFn: 'alphanumeric' }),
 	// `meta` only type-checks its keys because `dataTableFeatures` declares the `columnMeta` slot.
 	// Without it, `{ alignment: 'end' }` would compile just as happily and align nothing.
-	columnHelper.accessor('power', { header: 'Power', sortFn: 'basic', meta: { align: 'end' } }),
+	columnHelper.accessor('power', { header: 'Power', sortFn: 'basic', filterFn: 'inNumberRange', meta: { align: 'end' } }),
 	columnHelper.display({ id: 'actions', header: 'Actions', cell: () => 'edit' }),
 ]);
 
@@ -55,7 +55,7 @@ type DemoColumns = ColumnDef<DataTableFeatures, DemoMove>[];
 	selector: 'pokedex-data-table-host',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [UiDataTableComponent],
-	template: `<pokedex-data-table [data]="rows()" [columns]="columns()" [(sorting)]="sorting" [(columnVisibility)]="visibility" [(columnOrder)]="order" [columnTracks]="tracks()" [rowVariant]="variant()" label="Demo moves" emptyLabel="No moves." />`,
+	template: `<pokedex-data-table [data]="rows()" [columns]="columns()" [(sorting)]="sorting" [(columnVisibility)]="visibility" [(columnOrder)]="order" [(columnFilters)]="columnFilters" [(globalFilter)]="globalFilter" [columnTracks]="tracks()" [rowVariant]="variant()" label="Demo moves" emptyLabel="No moves." />`,
 })
 class DataTableHostComponent {
 	readonly rows = signal<DemoMove[]>(demoMoves);
@@ -63,6 +63,8 @@ class DataTableHostComponent {
 	readonly sorting = signal<SortingState>([]);
 	readonly visibility = signal<ColumnVisibilityState>({});
 	readonly order = signal<ColumnOrderState>([]);
+	readonly columnFilters = signal<ColumnFiltersState>([]);
+	readonly globalFilter = signal('');
 	readonly tracks = signal<Readonly<Record<string, string>> | null>(null);
 	readonly variant = signal<((row: DemoMove) => DataTableRowVariant | null) | null>(null);
 }
@@ -505,5 +507,32 @@ describe('UiDataTableComponent', () => {
 		const scroller = element().querySelector('.scroller');
 		expect(scroller).not.toBeNull();
 		expect(scroller?.contains(grid())).toBe(true);
+	});
+
+	// ---- filtering state ----
+
+	describe('UiDataTableComponent — filtering state', () => {
+		it('narrows the rendered rows when columnFilters is written to directly', () => {
+			host.columnFilters.set([{ id: 'power', value: [80, 100] }]);
+			fixture.detectChanges();
+
+			expect(nameColumn()).toEqual(['Flamethrower']);
+		});
+
+		it('narrows the rendered rows when globalFilter is written to directly', () => {
+			host.globalFilter.set('aerial');
+			fixture.detectChanges();
+
+			expect(nameColumn()).toEqual(['Aerial Ace']);
+		});
+
+		it('clearing globalFilter restores every row', () => {
+			host.globalFilter.set('aerial');
+			fixture.detectChanges();
+			host.globalFilter.set('');
+			fixture.detectChanges();
+
+			expect(nameColumn()).toEqual(['Ember', 'Aerial Ace', 'Flamethrower']);
+		});
 	});
 });
