@@ -550,7 +550,7 @@ export const pokemonColumns = columnHelper.columns([
 	columnHelper.accessor('specialDefense', { header: 'Sp. Def', sortFn: 'basic', filterFn: 'inNumberRange', meta: { align: 'end', filterVariant: 'range' } }),
 	columnHelper.accessor('speed', { header: 'Speed', sortFn: 'basic', filterFn: 'inNumberRange', meta: { align: 'end', filterVariant: 'range' } }),
 	columnHelper.accessor('total', { header: 'Total', sortFn: 'basic', meta: { align: 'end' } }),
-]) satisfies ReturnType<typeof columnHelper.columns>;
+]);
 ```
 
 Note: `dataTableFeatures`/`DataTableFeatures` used by the test's host component must be exported from `@pokemon-center/ui-pokedex` for this test to compile — confirm they already are (`grep -n "dataTableFeatures\|DataTableFeatures" libs/ui-pokedex/src/index.ts`); if not, add them to the barrel in this task (one line each), since the type/value are otherwise unreachable outside `ui-pokedex`.
