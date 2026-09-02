@@ -381,9 +381,17 @@ Expected: FAIL — `./pokemon-columns` does not exist yet.
 
 - [ ] **Step 3: Write the cell components**
 
+**Row selection is a real link, not a click handler**: wrapping the cell's content in a `routerLink`
+means the row is keyboard-operable and has a real href for free (kit rule 6), and the shell (Task 4)
+never needs its own click wiring — `PokemonShellComponent`'s `rowVariant`/`selectedId` already react
+to the route changing on their own. This was originally left as an open decision between this task
+and Task 4; ruled during pre-flight in favor of this approach, folded into the component from the
+start rather than revised later.
+
 ```ts
 // libs/domain-pokedex/src/lib/features/pokemon-shell/pokemon-name-cell.component.ts
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { EntityPortraitComponent } from '@pokemon-center/ui-pokedex';
 import { localSpriteUrl, officialArtworkUrl } from '../../shared/pokemon-avatar/pokemon-avatar.service';
 
@@ -391,15 +399,24 @@ import { localSpriteUrl, officialArtworkUrl } from '../../shared/pokemon-avatar/
 @Component({
 	selector: 'pokedex-pokemon-name-cell',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [RouterLink, EntityPortraitComponent],
 	template: `
-		<pokedex-entity-portrait [type]="primaryType()" [src]="spriteUrl()" [fallbackSrc]="artworkUrl()" [size]="32" [alt]="name()" />
-		<span>{{ name() }}</span>
+		<a [routerLink]="['/pokedex', 'pokemon', pokemonId()]">
+			<pokedex-entity-portrait [type]="primaryType()" [src]="spriteUrl()" [fallbackSrc]="artworkUrl()" [size]="32" [alt]="name()" />
+			<span>{{ name() }}</span>
+		</a>
 	`,
 	styles: `
 		:host {
 			display: flex;
 			align-items: center;
+		}
+		a {
+			display: flex;
+			align-items: center;
 			gap: var(--s-2);
+			color: inherit;
+			text-decoration: none;
 		}
 	`,
 })
@@ -574,8 +591,9 @@ git commit -m "feat(domain-pokedex): add Pokemon table column definitions"
 
 ```ts
 // libs/domain-pokedex/src/lib/features/pokemon-shell/pokemon-shell.component.spec.ts
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { POKEDEX_API_URL } from '@pokemon-center/data-access-pokedex';
@@ -623,6 +641,12 @@ describe('PokemonShellComponent', () => {
 	}
 
 	beforeEach(async () => {
+		// A trivial stub, not PokemonPageComponent — this spec proves PokemonShellComponent reacts
+		// to its child route's :id param, not what the real detail page renders. Task 5's manual
+		// check is what proves the real /pokedex/pokemon/:id path end to end.
+		@Component({ selector: 'stub-detail', template: 'stub detail' })
+		class StubDetailComponent {}
+
 		await TestBed.configureTestingModule({
 			imports: [HttpClientTestingModule],
 			providers: [
@@ -631,7 +655,10 @@ describe('PokemonShellComponent', () => {
 					{
 						path: '',
 						component: PokemonShellComponent,
-						children: [{ path: '', component: PokemonEmptyDetailComponent }],
+						children: [
+							{ path: '', component: PokemonEmptyDetailComponent },
+							{ path: ':id', component: StubDetailComponent },
+						],
 					},
 				]),
 			],
@@ -739,10 +766,6 @@ export class PokemonShellComponent {
 	);
 
 	protected readonly rowVariant = (row: PokemonRow): DataTableRowVariant | null => (String(row.id) === this.selectedId() ? 'marked' : null);
-
-	protected selectRow(row: PokemonRow): void {
-		this.router.navigate([row.id], { relativeTo: this.route });
-	}
 }
 ```
 
@@ -779,7 +802,7 @@ Note: `inject`/`signal` need adding to the `@angular/core` import list above (th
 </div>
 ```
 
-`pokedex-data-table` has no row-click output of its own (it is a generic kit component that knows nothing about navigation) — clicking a row for selection is not yet wired by this markup. **Decide in this task**: either (a) add an `(click)` handler on each row via a custom cell in the Name column that calls a service/output the shell listens to, or (b) render the Name cell (Task 3) as a real `routerLink` anchor instead of plain text, which is simpler and satisfies the "keyboard-operable, no bare click handler" global constraint for free. Prefer (b): revise `PokemonNameCellComponent` (Task 3) to wrap its content in `<a [routerLink]="['/pokedex/pokemon', pokemonId()]">`, and drop `selectRow()`/`(click)` entirely from this component — the row becomes selected purely by the route changing, which `selectedId`/`rowVariant` above already react to. If this revision happens here, note it in this task's report as a deviation from Task 3's original sketch, and update Task 3's file accordingly (add `RouterLink` to `PokemonNameCellComponent`'s imports).
+Row selection needs no click wiring here — the Name cell (Task 3) is already a real `routerLink` anchor, so navigating IS selecting, and `selectedId`/`rowVariant` above react to the route changing on their own.
 
 - [ ] **Step 6: Write the styles**
 
