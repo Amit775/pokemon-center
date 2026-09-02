@@ -1,16 +1,14 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { NgTemplateOutlet } from '@angular/common';
 import {
 	ChangeDetectionStrategy,
 	Component,
-	ElementRef,
-	Injector,
-	afterNextRender,
 	computed,
 	inject,
 	input,
 	isDevMode,
 	model,
-	signal,
 } from '@angular/core';
 import {
 	FlexRender,
@@ -18,15 +16,15 @@ import {
 	injectTable,
 	type Column,
 	type ColumnDef,
+	type ColumnFiltersState,
 	type ColumnOrderState,
 	type RowData,
 	type SortingState,
 	type ColumnVisibilityState,
 } from '@tanstack/angular-table';
 import { dataTableFeatures, type DataTableFeatures } from './data-table-columns';
-
-/** Unique per instance, so two tables on one page do not share an `aria-controls` target. */
-let panelInstanceCount = 0;
+import { DataTableColumnsPanelComponent } from './data-table-columns-panel.component';
+import { DataTableFiltersPanelComponent } from './data-table-filters-panel.component';
 
 /** Row modifiers the kit paints. Consumers map meaning onto these; they cannot supply their own class. */
 export type DataTableRowVariant = 'marked';
@@ -49,7 +47,7 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 @Component({
 	selector: 'pokedex-data-table',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [FlexRender],
+	imports: [FlexRender, DataTableColumnsPanelComponent, DataTableFiltersPanelComponent, ScrollingModule, NgTemplateOutlet],
 	template: `
 		<!--
 			An in-flow disclosure, not a CdkMenu (closes on click and Enter, only Space keeps it open)
@@ -58,52 +56,15 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 			.scroller or their overflow rules clip it.
 		-->
 		<div class="toolbar">
-			<button
-				type="button"
-				class="columns-trigger"
-				[attr.aria-expanded]="panelOpen()"
-				[attr.aria-controls]="panelId"
-				(click)="panelOpen.set(!panelOpen())"
-			>
-				Columns {{ visibleColumnCount() }}/{{ allColumnCount() }}
-			</button>
-
-			<!-- Always rendered, [hidden] rather than @if, so aria-controls resolves while collapsed. -->
-			<div class="columns-panel" [id]="panelId" role="group" [attr.aria-label]="'Columns in ' + label()" [hidden]="!panelOpen()">
-				@for (column of table.getAllLeafColumns(); track column.id) {
-					<div class="columns-row" [attr.data-column-id]="column.id">
-						<label class="columns-toggle">
-							<!-- aria-disabled, never the disabled attribute: disabling a focused control drops focus to body. -->
-							<input
-								type="checkbox"
-								[checked]="column.getIsVisible()"
-								[attr.aria-disabled]="isVisibilityLocked(column) ? 'true' : null"
-								(change)="toggleColumnVisibility(column, $event)"
-							/>
-							{{ columnLabel(column) }}
-						</label>
-
-						<button
-							type="button"
-							class="move"
-							[attr.aria-disabled]="column.getIsFirstColumn() ? 'true' : null"
-							(click)="moveColumn(column, -1)"
-						>
-							<span class="sr-only">Move {{ columnLabel(column) }} left</span>
-							<span aria-hidden="true">←</span>
-						</button>
-						<button
-							type="button"
-							class="move"
-							[attr.aria-disabled]="column.getIsLastColumn() ? 'true' : null"
-							(click)="moveColumn(column, 1)"
-						>
-							<span class="sr-only">Move {{ columnLabel(column) }} right</span>
-							<span aria-hidden="true">→</span>
-						</button>
-					</div>
-				}
-			</div>
+			<input
+				type="search"
+				class="search-input"
+				[attr.aria-label]="'Search ' + label()"
+				[value]="globalFilter()"
+				(input)="globalFilter.set($any($event.target).value)"
+			/>
+			<pokedex-data-table-columns-panel [table]="table" label="{{ label() }}" />
+			<pokedex-data-table-filters-panel [table]="table" label="{{ label() }}" />
 		</div>
 
 		<!--
@@ -146,28 +107,70 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 					}
 				</div>
 
-				<div role="rowgroup">
-					@for (row of table.getRowModel().rows; track row.id) {
-						<!-- [class] merges with the static class rather than replacing it. -->
-						<div class="row" role="row" [class]="variantFor(row.original)">
-							<!--
-								getVisibleCells(), not getAllCells() — one of three sites that move together
-								with columnVisibilityFeature (the others: the track list, and aria-colspan
-								below). Nothing enforces it; the core APIs stay type-valid.
-							-->
-							@for (cell of row.getVisibleCells(); track cell.id) {
-								<div class="cell" role="cell" [class]="alignmentClass(cell.column)">
-									<ng-container *flexRenderCell="cell; let rendered">{{ rendered }}</ng-container>
+				<ng-template #rowTemplate let-row>
+					<!--
+						[class] merges with the static class rather than replacing it. [class.last-row] is
+						keyed off table.getRowModel() (see isLastRow()), not DOM position -- see the comment
+						on .row.last-row in the styles for why :last-child cannot do this under virtualization.
+					-->
+					<div class="row" role="row" [class]="variantFor(row.original)" [class.last-row]="isLastRow(row)">
+						<!--
+							getVisibleCells(), not getAllCells() — one of three sites that move together
+							with columnVisibilityFeature (the others: the track list, and aria-colspan
+							below). Nothing enforces it; the core APIs stay type-valid.
+						-->
+						@for (cell of row.getVisibleCells(); track cell.id) {
+							<div class="cell" role="cell" [class]="alignmentClass(cell.column)">
+								<ng-container *flexRenderCell="cell; let rendered">{{ rendered }}</ng-container>
+							</div>
+						}
+					</div>
+				</ng-template>
+
+				<!--
+					Use table.getRowModel(), never getFilteredRowModel(), in both branches below.
+					getRowModel() is TanStack's final, fully-cascaded row model — it falls through every
+					unregistered pipeline stage down to whatever IS registered (core → filtering →
+					grouping → sorting → expanding → pagination). Since filteredRowModel and
+					sortedRowModel are both registered here, getRowModel() already reflects both
+					filtering AND sorting. getFilteredRowModel() would skip back above the sorting
+					stage and silently drop sorting whenever a filter is active — a real regression,
+					not a style choice.
+
+					Virtualized rows sit inside CDK's own wrapper elements (cdk-virtual-scroll-viewport's
+					content wrapper, plus the *cdkVirtualFor host div), which are not
+					role=rowgroup/role=row themselves. This is the same category of honest cost
+					docs/table-plan.md already accepts for the hand-maintained ARIA roles elsewhere in
+					this file: a windowed role=table is not spec-pure ARIA, and nothing here pretends
+					otherwise. Do not add role=presentation to CDK's own elements as a workaround —
+					that hides real rows from assistive tech rather than fixing the structure.
+				-->
+				@if (virtualScroll()) {
+					<cdk-virtual-scroll-viewport [itemSize]="rowHeight()" [style.height]="viewportHeight()">
+						<div role="rowgroup">
+							@if (table.getRowModel().rows.length > 0) {
+								<div *cdkVirtualFor="let row of table.getRowModel().rows; trackBy: trackRowByIdentifier">
+									<ng-container [ngTemplateOutlet]="rowTemplate" [ngTemplateOutletContext]="{ $implicit: row }" />
+								</div>
+							} @else {
+								<div class="row empty-row" role="row">
+									<div class="cell empty-cell" role="cell" [attr.aria-colspan]="table.getVisibleLeafColumns().length">{{ emptyLabel() }}</div>
 								</div>
 							}
 						</div>
-					} @empty {
-						<!-- A header floating over nothing is not a finished component. -->
-						<div class="row empty-row" role="row">
-							<div class="cell empty-cell" role="cell" [attr.aria-colspan]="table.getVisibleLeafColumns().length">{{ emptyLabel() }}</div>
-						</div>
-					}
-				</div>
+					</cdk-virtual-scroll-viewport>
+				} @else {
+					<div role="rowgroup">
+						@for (row of table.getRowModel().rows; track row.id) {
+							<ng-container [ngTemplateOutlet]="rowTemplate" [ngTemplateOutletContext]="{ $implicit: row }" />
+						} @empty {
+							<!-- A header floating over nothing is not a finished component. -->
+							<div class="row empty-row" role="row">
+								<div class="cell empty-cell" role="cell" [attr.aria-colspan]="table.getVisibleLeafColumns().length">{{ emptyLabel() }}</div>
+							</div>
+						}
+					</div>
+				}
 			</div>
 		</div>
 	`,
@@ -183,113 +186,25 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 		/* Outside the scroller and outside .table, so neither overflow rule clips the panel. */
 		.toolbar {
 			display: flex;
-			flex-direction: column;
+			flex-direction: row;
+			flex-wrap: wrap;
 			align-items: flex-start;
 			gap: var(--s-2);
 			margin-bottom: var(--s-2);
 		}
 
-		.columns-trigger {
-			all: unset;
+		.search-input {
 			padding: var(--s-1) var(--s-3);
 			border: 1px solid var(--line);
 			border-radius: var(--r-pill);
-			font-size: var(--fs-xs);
-			color: var(--ink-muted);
-			cursor: pointer;
-			transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
-		}
-
-		.columns-trigger:hover {
-			border-color: var(--accent);
-			color: var(--accent);
-		}
-
-		.columns-trigger:focus-visible {
-			outline: 2px solid var(--accent);
-			outline-offset: 2px;
-		}
-
-		.columns-panel {
-			display: flex;
-			flex-direction: column;
-			gap: var(--s-1);
-			padding: var(--s-3);
-			border: 1px solid var(--line);
-			border-radius: var(--r-md);
 			background: var(--surface);
-			font-size: var(--fs-sm);
-		}
-
-		/* [hidden] loses to display: flex without this — the attribute alone is not enough here. */
-		.columns-panel[hidden] {
-			display: none;
-		}
-
-		.columns-row {
-			display: flex;
-			align-items: center;
-			gap: var(--s-2);
-		}
-
-		.columns-toggle {
-			display: flex;
-			align-items: center;
-			gap: var(--s-2);
-			min-width: 12ch;
-			cursor: pointer;
 			color: var(--ink);
+			font-size: var(--fs-xs);
 		}
 
-		.columns-toggle input:focus-visible {
+		.search-input:focus-visible {
 			outline: 2px solid var(--accent);
 			outline-offset: 2px;
-		}
-
-		.move {
-			all: unset;
-			padding: 0 var(--s-2);
-			border-radius: var(--r-sm);
-			color: var(--ink-muted);
-			cursor: pointer;
-		}
-
-		.move:hover {
-			background: var(--accent-soft);
-			color: var(--accent);
-		}
-
-		.move:focus-visible {
-			outline: 2px solid var(--accent);
-			outline-offset: -2px;
-		}
-
-		/*
-			aria-disabled rather than the disabled attribute keeps these focusable, so they must look
-			unavailable without being unreachable.
-		*/
-		.move[aria-disabled='true'],
-		.columns-toggle input[aria-disabled='true'] {
-			opacity: 0.4;
-			cursor: not-allowed;
-		}
-
-		.move[aria-disabled='true']:hover {
-			background: none;
-			color: var(--ink-muted);
-		}
-
-		/* Visually hidden, still announced — the arrows alone do not say which column they move. */
-		.sr-only {
-			position: absolute;
-			width: 1px;
-			height: 1px;
-			padding: 0;
-			margin: -1px;
-			overflow: hidden;
-			clip-path: inset(50%);
-			white-space: nowrap;
-			border: 0;
 		}
 
 		/*
@@ -357,10 +272,14 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 		}
 
 		/*
-			:not(.header-row) is load-bearing: the header is the only child of its own rowgroup so a
-			bare :last-child matches it, and under virtualization it becomes the window's last row.
+			Keyed off [class.last-row] (set in the component from table.getRowModel(), not DOM
+			position), never :last-child: under virtualization *cdkVirtualFor wraps each row in its
+			own host element, so every .row is its wrapper's only -- and therefore last -- child, and
+			a bare :last-child would strip the border from every virtualized row, not just the true
+			last one. This binding stays correct in both the virtualized and non-virtualized paths,
+			and regardless of which row virtualization currently keeps mounted in the DOM.
 		*/
-		.row:last-child:not(.header-row) .cell {
+		.row.last-row .cell {
 			border-bottom: none;
 		}
 
@@ -472,19 +391,29 @@ export class UiDataTableComponent<TRow extends RowData> {
 	readonly columnVisibility = model<ColumnVisibilityState>({});
 	readonly columnOrder = model<ColumnOrderState>([]);
 
+	/** Controlled like `sorting`. One entry per column with an active filter. */
+	readonly columnFilters = model<ColumnFiltersState>([]);
+
+	/** Controlled like `sorting`. The quick-search box's current text. */
+	readonly globalFilter = model('');
+
 	/** Which rows carry a modifier. A function of the row, so the kit never learns what it means. */
 	readonly rowVariant = input<((row: TRow) => DataTableRowVariant | null) | null>(null);
 
 	readonly emptyLabel = input('Nothing to show.');
 
+	/** Opt in per table — a small kit demo or a ~20-row moves list gets no benefit and does not pay for it. */
+	readonly virtualScroll = input(false);
+
+	/** Every row must be the same height for CDK's fixed-size strategy; the kit does not support variable-height rows. */
+	readonly rowHeight = input(44);
+
+	/** A CSS length. The viewport needs an explicit height to know how many rows to render. */
+	readonly viewportHeight = input('480px');
+
+	protected trackRowByIdentifier = (_index: number, row: { id: string }): string => row.id;
+
 	private readonly announcer = inject(LiveAnnouncer);
-	private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
-	private readonly injector = inject(Injector);
-
-	/** Whether the Columns panel is expanded. Purely presentational, so the kit may own it. */
-	protected readonly panelOpen = signal(false);
-
-	protected readonly panelId = `pokedex-data-table-columns-${(panelInstanceCount += 1)}`;
 
 	protected readonly table = injectTable(() => ({
 		features: dataTableFeatures,
@@ -494,6 +423,8 @@ export class UiDataTableComponent<TRow extends RowData> {
 			sorting: this.sorting(),
 			columnVisibility: this.columnVisibility(),
 			columnOrder: this.columnOrder(),
+			columnFilters: this.columnFilters(),
+			globalFilter: this.globalFilter(),
 		},
 		// The updater is always a function, never a value — `setStateSlice` wraps every change — so a
 		// bare `.set(update)` would store the function itself. A no-op returns the same reference, so
@@ -501,18 +432,10 @@ export class UiDataTableComponent<TRow extends RowData> {
 		onSortingChange: (update) => this.sorting.set(functionalUpdate(update, this.sorting())),
 		onColumnVisibilityChange: (update) => this.columnVisibility.set(functionalUpdate(update, this.columnVisibility())),
 		onColumnOrderChange: (update) => this.columnOrder.set(functionalUpdate(update, this.columnOrder())),
+		onColumnFiltersChange: (update) => this.columnFilters.set(functionalUpdate(update, this.columnFilters())),
+		onGlobalFilterChange: (update) => this.globalFilter.set(functionalUpdate(update, this.globalFilter())),
 	}));
 
-	protected readonly visibleColumnCount = computed(() => {
-		this.columns();
-		this.columnVisibility();
-		return this.table.getVisibleLeafColumns().length;
-	});
-
-	protected readonly allColumnCount = computed(() => {
-		this.columns();
-		return this.table.getAllLeafColumns().length;
-	});
 
 	/**
 	 * The track list for every row. No `getSize()` — `columnSizingFeature` is not registered.
@@ -580,82 +503,20 @@ export class UiDataTableComponent<TRow extends RowData> {
 		);
 	}
 
-	/** The header text, resolved the same way `toggleSort` does — see the note there. */
-	protected columnLabel(column: Column<DataTableFeatures, TRow>): string {
-		return typeof column.columnDef.header === 'string' ? column.columnDef.header : column.id;
-	}
-
-	/** Hiding the last visible column is a dead end: nothing renders, and the panel is the way back. */
-	protected isVisibilityLocked(column: Column<DataTableFeatures, TRow>): boolean {
-		if (!column.getCanHide()) return true;
-		return column.getIsVisible() && this.table.getVisibleLeafColumns().length === 1;
-	}
-
-	protected toggleColumnVisibility(column: Column<DataTableFeatures, TRow>, event: Event): void {
-		const checkbox = event.target as HTMLInputElement;
-
-		if (this.isVisibilityLocked(column)) {
-			// aria-disabled keeps the box focusable but does not stop the browser flipping it.
-			checkbox.checked = column.getIsVisible();
-			return;
-		}
-
-		column.toggleVisibility();
-
-		// The model, not the column: the table's atom is still pre-click here. `?? true` for sparseness.
-		const nowVisible = this.columnVisibility()[column.id] ?? true;
-		this.announcer.announce(`${this.columnLabel(column)} ${nowVisible ? 'shown' : 'hidden'}`);
-	}
-
-	/**
-	 * Move a column one place among the visible ones.
-	 *
-	 * Walks `getAllLeafColumns()`, not the visible list: `columnOrder` is a **prefix**, so writing
-	 * only visible ids appends the hidden ones and relocates them. Steps to the nearest *visible*
-	 * neighbour, because swapping across a hidden one changes nothing on screen. The target index is
-	 * computed before the removal — recomputing after gets move-right wrong.
-	 */
-	protected moveColumn(column: Column<DataTableFeatures, TRow>, direction: -1 | 1): void {
-		if (direction === -1 ? column.getIsFirstColumn() : column.getIsLastColumn()) return;
-
-		const ids = this.table.getAllLeafColumns().map((candidate) => candidate.id);
-		const from = ids.indexOf(column.id);
-
-		let to = from + direction;
-		while (to >= 0 && to < ids.length && !this.table.getColumn(ids[to])?.getIsVisible()) {
-			to += direction;
-		}
-
-		// Unreachable: the buttons are aria-disabled at the ends.
-		if (to < 0 || to >= ids.length) return;
-
-		const next = [...ids];
-		next.splice(from, 1);
-		next.splice(to, 0, column.id);
-
-		this.columnOrder.set(next);
-		this.announcer.announce(`${this.columnLabel(column)} moved ${direction === -1 ? 'left' : 'right'}`);
-		this.keepFocusOnMoveButton(column.id, direction);
-	}
-
-	/**
-	 * Reordering rewrites the panel's own list, so the focused button is replaced and focus lands on
-	 * `<body>` — measured in Chrome. Tracking by `column.id` does not prevent it; the node still moves.
-	 */
-	private keepFocusOnMoveButton(columnIdentifier: string, direction: -1 | 1): void {
-		afterNextRender(
-			() => {
-				const row = this.host.nativeElement.querySelector(`.columns-row[data-column-id="${columnIdentifier}"]`);
-				const buttons = row?.querySelectorAll<HTMLButtonElement>('button.move');
-				buttons?.[direction === -1 ? 0 : 1]?.focus();
-			},
-			{ injector: this.injector },
-		);
-	}
 
 	/** The modifier class for one row, or `null` when the consumer supplied no `rowVariant`. */
 	protected variantFor(row: TRow): DataTableRowVariant | null {
 		return this.rowVariant()?.(row) ?? null;
+	}
+
+	/**
+	 * Whether `row` is the true last row of the full (filtered + sorted) row model -- a semantic
+	 * check, not a DOM-position one, so it survives virtualization windowing intact. See the comment
+	 * on `.row.last-row` in the styles for why `:last-child` cannot do this.
+	 */
+	protected isLastRow(row: { id: string }): boolean {
+		const rows = this.table.getRowModel().rows;
+		return rows.length > 0 && rows[rows.length - 1].id === row.id;
 	}
 
 	/**

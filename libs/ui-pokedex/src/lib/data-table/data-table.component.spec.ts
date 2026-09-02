@@ -1,7 +1,8 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { CdkFixedSizeVirtualScroll } from '@angular/cdk/scrolling';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import type { ColumnDef, ColumnOrderState, SortingState, ColumnVisibilityState } from '@tanstack/angular-table';
+import type { ColumnDef, ColumnOrderState, SortingState, ColumnVisibilityState, ColumnFiltersState } from '@tanstack/angular-table';
 import { createDataTableColumns, type DataTableFeatures } from './data-table-columns';
 import { UiDataTableComponent, type DataTableRowVariant } from './data-table.component';
 
@@ -28,7 +29,7 @@ const demoColumns = columnHelper.columns([
 	columnHelper.accessor('name', { header: 'Name', sortFn: 'alphanumeric' }),
 	// `meta` only type-checks its keys because `dataTableFeatures` declares the `columnMeta` slot.
 	// Without it, `{ alignment: 'end' }` would compile just as happily and align nothing.
-	columnHelper.accessor('power', { header: 'Power', sortFn: 'basic', meta: { align: 'end' } }),
+	columnHelper.accessor('power', { header: 'Power', sortFn: 'basic', filterFn: 'inNumberRange', meta: { align: 'end', filterVariant: 'range' } }),
 	columnHelper.display({ id: 'actions', header: 'Actions', cell: () => 'edit' }),
 ]);
 
@@ -38,24 +39,13 @@ const narrowColumns = columnHelper.columns([
 	columnHelper.accessor('power', { header: 'Power', sortFn: 'basic' }),
 ]);
 
-/**
- * Four columns, for the reordering tests. Three cannot discriminate: with the hidden column between
- * the swapped pair, the right algorithm and the wrong one agree.
- */
-const fourColumns = columnHelper.columns([
-	columnHelper.accessor('name', { header: 'Name', sortFn: 'alphanumeric' }),
-	columnHelper.accessor('power', { header: 'Power', sortFn: 'basic' }),
-	columnHelper.accessor('accuracy', { header: 'Accuracy', sortFn: 'basic' }),
-	columnHelper.display({ id: 'actions', header: 'Actions', cell: () => 'edit' }),
-]);
-
 type DemoColumns = ColumnDef<DataTableFeatures, DemoMove>[];
 
 @Component({
 	selector: 'pokedex-data-table-host',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [UiDataTableComponent],
-	template: `<pokedex-data-table [data]="rows()" [columns]="columns()" [(sorting)]="sorting" [(columnVisibility)]="visibility" [(columnOrder)]="order" [columnTracks]="tracks()" [rowVariant]="variant()" label="Demo moves" emptyLabel="No moves." />`,
+	template: `<pokedex-data-table [data]="rows()" [columns]="columns()" [(sorting)]="sorting" [(columnVisibility)]="visibility" [(columnOrder)]="order" [(columnFilters)]="columnFilters" [(globalFilter)]="globalFilter" [columnTracks]="tracks()" [rowVariant]="variant()" [virtualScroll]="virtualScroll()" [rowHeight]="24" [viewportHeight]="'96px'" label="Demo moves" emptyLabel="No moves." />`,
 })
 class DataTableHostComponent {
 	readonly rows = signal<DemoMove[]>(demoMoves);
@@ -63,8 +53,11 @@ class DataTableHostComponent {
 	readonly sorting = signal<SortingState>([]);
 	readonly visibility = signal<ColumnVisibilityState>({});
 	readonly order = signal<ColumnOrderState>([]);
+	readonly columnFilters = signal<ColumnFiltersState>([]);
+	readonly globalFilter = signal('');
 	readonly tracks = signal<Readonly<Record<string, string>> | null>(null);
 	readonly variant = signal<((row: DemoMove) => DataTableRowVariant | null) | null>(null);
+	readonly virtualScroll = signal(false);
 }
 
 /**
@@ -280,28 +273,6 @@ describe('UiDataTableComponent', () => {
 		expect(columnHeaders()).toHaveLength(2);
 	});
 
-	// ---- the Columns panel ----
-
-	function panelRows(): HTMLElement[] {
-		return Array.from(element().querySelectorAll<HTMLElement>('.columns-row'));
-	}
-
-	function checkboxAt(index: number): HTMLInputElement {
-		const found = panelRows()[index]?.querySelector<HTMLInputElement>('input[type=checkbox]');
-		if (!found) throw new Error(`no checkbox in panel row ${index}`);
-		return found;
-	}
-
-	function moveButtons(index: number): HTMLButtonElement[] {
-		return Array.from(panelRows()[index]?.querySelectorAll<HTMLButtonElement>('button.move') ?? []);
-	}
-
-	function columnsTrigger(): HTMLButtonElement {
-		const found = element().querySelector<HTMLButtonElement>('.columns-trigger');
-		if (!found) throw new Error('the Columns trigger is missing');
-		return found;
-	}
-
 	function headerText(): string[] {
 		return columnHeaders().map((header) => (header.textContent ?? '').replace(/[↑↓↕]/g, '').trim());
 	}
@@ -329,124 +300,6 @@ describe('UiDataTableComponent', () => {
 		fixture.detectChanges();
 
 		expect(element().querySelector('.empty-cell')?.getAttribute('aria-colspan')).toBe('2');
-	});
-
-	it('refuses to hide the last visible column, and puts the checkbox back', () => {
-		host.visibility.set({ power: false, actions: false });
-		fixture.detectChanges();
-
-		const nameCheckbox = checkboxAt(0);
-		expect(nameCheckbox.getAttribute('aria-disabled')).toBe('true');
-
-		nameCheckbox.click();
-		fixture.detectChanges();
-
-		// aria-disabled keeps it focusable, so the browser still flips the box; the handler has to
-		// put it back or the DOM disagrees with the table.
-		expect(nameCheckbox.checked).toBe(true);
-		expect(headerText()).toEqual(['Name']);
-	});
-
-	it('announces the state a column moved to, not the one it came from', () => {
-		checkboxAt(1).click();
-		fixture.detectChanges();
-		expect(announce).toHaveBeenLastCalledWith('Power hidden');
-
-		checkboxAt(1).click();
-		fixture.detectChanges();
-		expect(announce).toHaveBeenLastCalledWith('Power shown');
-	});
-
-	it('reports a never-toggled column as shown', () => {
-		// The sparse-map trap: `columnVisibility` holds only what was touched, so a bare map[id]
-		// lookup reports every untouched column as hidden.
-		moveButtons(1)[0].click();
-		fixture.detectChanges();
-
-		expect(announce).toHaveBeenLastCalledWith('Power moved left');
-	});
-
-	it('moves a column left and right, writing the whole order', () => {
-		moveButtons(1)[0].click();
-		fixture.detectChanges();
-
-		expect(host.order()).toEqual(['power', 'name', 'actions']);
-		expect(headerText()).toEqual(['Power', 'Name', 'Actions']);
-
-		moveButtons(0)[1].click();
-		fixture.detectChanges();
-
-		expect(host.order()).toEqual(['name', 'power', 'actions']);
-	});
-
-	it('disables the move buttons at the ends without making them unfocusable', () => {
-		// The disabled attribute would drop focus to <body> the moment the focused button became
-		// disabled — which is exactly when the user just pressed it.
-		expect(moveButtons(0)[0].getAttribute('aria-disabled')).toBe('true');
-		expect(moveButtons(0)[0].hasAttribute('disabled')).toBe(false);
-		expect(moveButtons(2)[1].getAttribute('aria-disabled')).toBe('true');
-	});
-
-	/**
-	 * Regression guard for a defect that reached an earlier draft. Hiding the **first** of four is
-	 * what discriminates: writing only visible ids makes `columnOrder` a prefix omitting the hidden
-	 * column, which TanStack then appends — so it travels from front to back.
-	 */
-	it('leaves a hidden column where it was when other columns are reordered', () => {
-		host.columns.set(fourColumns);
-		host.visibility.set({ name: false });
-		fixture.detectChanges();
-
-		expect(headerText()).toEqual(['Power', 'Accuracy', 'Actions']);
-
-		// Move Accuracy left, past Power. Name is hidden at index 0 and must not move.
-		moveButtons(2)[0].click();
-		fixture.detectChanges();
-
-		expect(host.order()).toEqual(['name', 'accuracy', 'power', 'actions']);
-
-		host.visibility.set({});
-		fixture.detectChanges();
-
-		expect(headerText()).toEqual(['Name', 'Accuracy', 'Power', 'Actions']);
-	});
-
-	it('skips over a hidden neighbour rather than swapping with it', () => {
-		// Swapping with the hidden column would reorder the model and change nothing on screen — a
-		// control that looks broken because it did nothing.
-		host.columns.set(fourColumns);
-		host.visibility.set({ power: false });
-		fixture.detectChanges();
-
-		expect(headerText()).toEqual(['Name', 'Accuracy', 'Actions']);
-
-		moveButtons(2)[0].click();
-		fixture.detectChanges();
-
-		expect(headerText()).toEqual(['Accuracy', 'Name', 'Actions']);
-	});
-
-	it('counts visible against total on the trigger', () => {
-		expect(columnsTrigger().textContent?.trim()).toBe('Columns 3/3');
-
-		host.visibility.set({ power: false });
-		fixture.detectChanges();
-
-		expect(columnsTrigger().textContent?.trim()).toBe('Columns 2/3');
-	});
-
-	it('keeps the panel in the DOM while collapsed so aria-controls resolves', () => {
-		const trigger = columnsTrigger();
-		const panelId = trigger.getAttribute('aria-controls') ?? '';
-
-		expect(panelId).not.toBe('');
-		expect(trigger.getAttribute('aria-expanded')).toBe('false');
-		expect(element().querySelector(`#${panelId}`)).not.toBeNull();
-
-		trigger.click();
-		fixture.detectChanges();
-
-		expect(trigger.getAttribute('aria-expanded')).toBe('true');
 	});
 
 	it('renders the header and the empty label when there are no rows', () => {
@@ -505,5 +358,162 @@ describe('UiDataTableComponent', () => {
 		const scroller = element().querySelector('.scroller');
 		expect(scroller).not.toBeNull();
 		expect(scroller?.contains(grid())).toBe(true);
+	});
+
+	it('renders the Columns trigger inside the full table', () => {
+		const trigger = element().querySelector<HTMLButtonElement>('.columns-trigger');
+		expect(trigger).not.toBeNull();
+		expect(trigger?.textContent?.trim()).toBe('Columns 3/3');
+	});
+
+	it('hides a column when its checkbox is toggled in the Columns panel', () => {
+		// Open the Columns panel by clicking the trigger
+		const trigger = element().querySelector<HTMLButtonElement>('.columns-trigger');
+		if (!trigger) throw new Error('the Columns trigger is missing');
+		trigger.click();
+		fixture.detectChanges();
+
+		// Find and click the Power column checkbox
+		const panelRows = Array.from(element().querySelectorAll<HTMLElement>('.columns-row'));
+		const powerCheckbox = panelRows[1]?.querySelector<HTMLInputElement>('input[type=checkbox]');
+		if (!powerCheckbox) throw new Error('the Power column checkbox is missing');
+
+		powerCheckbox.click();
+		fixture.detectChanges();
+
+		// Verify the Power column is now hidden from the table
+		expect(headerText()).toEqual(['Name', 'Actions']);
+		expect(bodyRows()[0].querySelectorAll('.cell')).toHaveLength(2);
+	});
+
+	// ---- filtering state ----
+
+	describe('UiDataTableComponent — filtering state', () => {
+		it('narrows the rendered rows when columnFilters is written to directly', () => {
+			host.columnFilters.set([{ id: 'power', value: [80, 100] }]);
+			fixture.detectChanges();
+
+			expect(nameColumn()).toEqual(['Flamethrower']);
+		});
+
+		it('narrows the rendered rows when globalFilter is written to directly', () => {
+			host.globalFilter.set('aerial');
+			fixture.detectChanges();
+
+			expect(nameColumn()).toEqual(['Aerial Ace']);
+		});
+
+		it('clearing globalFilter restores every row', () => {
+			host.globalFilter.set('aerial');
+			fixture.detectChanges();
+			host.globalFilter.set('');
+			fixture.detectChanges();
+
+			expect(nameColumn()).toEqual(['Ember', 'Aerial Ace', 'Flamethrower']);
+		});
+
+		it('renders the Filters panel and narrows the table when a filterable column is checked', () => {
+			const trigger = element().querySelector<HTMLButtonElement>('.filters-trigger');
+			if (!trigger) throw new Error('the Filters trigger is missing');
+			trigger.click();
+			fixture.detectChanges();
+
+			const min = element().querySelector<HTMLInputElement>('input[type=number][data-column-id="power"][data-bound="min"]');
+			if (!min) throw new Error('no min input for power');
+			min.value = '70';
+			min.dispatchEvent(new Event('input'));
+			fixture.detectChanges();
+
+			expect(nameColumn()).toEqual(['Flamethrower']);
+		});
+
+		it('narrows the table when the search box is typed into', () => {
+			const search = element().querySelector<HTMLInputElement>('.search-input');
+			if (!search) throw new Error('the search input is missing');
+
+			search.value = 'aerial';
+			search.dispatchEvent(new Event('input'));
+			fixture.detectChanges();
+
+			expect(nameColumn()).toEqual(['Aerial Ace']);
+			expect(host.globalFilter()).toBe('aerial');
+		});
+
+		it('labels the search input for assistive technology', () => {
+			const search = element().querySelector<HTMLInputElement>('.search-input');
+			expect(search?.getAttribute('aria-label')).toBe('Search Demo moves');
+		});
+	});
+
+	// ---- virtualization ----
+
+	describe('UiDataTableComponent — virtualization', () => {
+		/**
+		 * jsdom does no layout, so every element reports clientHeight 0 — CDK's fixed-size scroll
+		 * strategy reads that to decide the visible range, and with a real 0 it renders nothing at
+		 * all. Stubbing the getter is the only way to see past "the viewport exists" and into "the
+		 * viewport actually renders the rows CDK was given," which is what the sorting/filtering
+		 * test below depends on.
+		 */
+		let clientHeightSpy: jest.SpyInstance;
+
+		beforeEach(() => {
+			clientHeightSpy = jest.spyOn(HTMLElement.prototype, 'clientHeight', 'get').mockReturnValue(500);
+		});
+
+		afterEach(() => {
+			clientHeightSpy.mockRestore();
+		});
+
+		it('does not render a viewport when virtualScroll is false (the default)', () => {
+			expect(element().querySelector('cdk-virtual-scroll-viewport')).toBeNull();
+		});
+
+		it('renders every row through a real DOM structure when virtualScroll is false', () => {
+			// Unchanged from every earlier test in this file — this is a guard that Task 6 did not
+			// alter the default path.
+			expect(nameColumn()).toEqual(['Ember', 'Aerial Ace', 'Flamethrower']);
+		});
+
+		it('renders inside a cdk-virtual-scroll-viewport when virtualScroll is true, keeping the header outside it', () => {
+			host.virtualScroll.set(true);
+			fixture.detectChanges();
+
+			const viewport = element().querySelector('cdk-virtual-scroll-viewport');
+			expect(viewport).not.toBeNull();
+			expect(viewport?.querySelector('[role="columnheader"]')).toBeNull();
+			expect(element().querySelector('[role="columnheader"]')).not.toBeNull();
+		});
+
+		it('sizes the viewport from the rowHeight and viewportHeight inputs', () => {
+			host.virtualScroll.set(true);
+			fixture.detectChanges();
+
+			const viewportDebugElement = fixture.debugElement.query((debugElement) => debugElement.name === 'cdk-virtual-scroll-viewport');
+			// CdkVirtualScrollViewport itself exposes no getItemSize() in this CDK version — the fixed
+			// item size lives on the co-located CdkFixedSizeVirtualScroll directive (the one the
+			// `[itemSize]` binding activates), which is what actually receives our rowHeight() input.
+			const fixedSizeDirective = viewportDebugElement.injector.get(CdkFixedSizeVirtualScroll);
+
+			expect(fixedSizeDirective.itemSize).toBe(24);
+			expect((viewportDebugElement.nativeElement as HTMLElement).style.height).toBe('96px');
+		});
+
+		it('still reflects sorting and filtering while virtualized', async () => {
+			host.virtualScroll.set(true);
+			host.sorting.set([{ id: 'power', desc: true }]);
+			fixture.detectChanges();
+
+			// CdkVirtualScrollViewport measures its own size (and the fixed-size strategy computes its
+			// rendered range) across a couple of chained microtasks queued from ngOnInit, not
+			// synchronously within one detectChanges() — two whenStable()/detectChanges() rounds are
+			// what it takes to drain that chain and get real rows into the DOM.
+			await fixture.whenStable();
+			fixture.detectChanges();
+			await fixture.whenStable();
+			fixture.detectChanges();
+
+			expect(nameColumn()).toEqual(['Flamethrower', 'Aerial Ace', 'Ember']);
+		});
 	});
 });
