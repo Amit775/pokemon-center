@@ -54,6 +54,13 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 			.scroller or their overflow rules clip it.
 		-->
 		<div class="toolbar">
+			<input
+				type="search"
+				class="search-input"
+				[attr.aria-label]="'Search ' + label()"
+				[value]="globalFilter()"
+				(input)="globalFilter.set($any($event.target).value)"
+			/>
 			<pokedex-data-table-columns-panel [table]="table" label="{{ label() }}" />
 			<pokedex-data-table-filters-panel [table]="table" label="{{ label() }}" />
 		</div>
@@ -135,10 +142,25 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 		/* Outside the scroller and outside .table, so neither overflow rule clips the panel. */
 		.toolbar {
 			display: flex;
-			flex-direction: column;
-			align-items: flex-start;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: center;
 			gap: var(--s-2);
 			margin-bottom: var(--s-2);
+		}
+
+		.search-input {
+			padding: var(--s-1) var(--s-3);
+			border: 1px solid var(--line);
+			border-radius: var(--r-pill);
+			background: var(--surface);
+			color: var(--ink);
+			font-size: var(--fs-xs);
+		}
+
+		.search-input:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
 		}
 
 		/*

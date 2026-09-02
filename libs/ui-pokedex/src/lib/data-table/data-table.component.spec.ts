@@ -424,5 +424,22 @@ describe('UiDataTableComponent', () => {
 
 			expect(nameColumn()).toEqual(['Flamethrower']);
 		});
+
+		it('narrows the table when the search box is typed into', () => {
+			const search = element().querySelector<HTMLInputElement>('.search-input');
+			if (!search) throw new Error('the search input is missing');
+
+			search.value = 'aerial';
+			search.dispatchEvent(new Event('input'));
+			fixture.detectChanges();
+
+			expect(nameColumn()).toEqual(['Aerial Ace']);
+			expect(host.globalFilter()).toBe('aerial');
+		});
+
+		it('labels the search input for assistive technology', () => {
+			const search = element().querySelector<HTMLInputElement>('.search-input');
+			expect(search?.getAttribute('aria-label')).toBe('Search Demo moves');
+		});
 	});
 });
