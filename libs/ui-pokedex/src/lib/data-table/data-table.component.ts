@@ -22,6 +22,7 @@ import {
 } from '@tanstack/angular-table';
 import { dataTableFeatures, type DataTableFeatures } from './data-table-columns';
 import { DataTableColumnsPanelComponent } from './data-table-columns-panel.component';
+import { DataTableFiltersPanelComponent } from './data-table-filters-panel.component';
 
 /** Row modifiers the kit paints. Consumers map meaning onto these; they cannot supply their own class. */
 export type DataTableRowVariant = 'marked';
@@ -44,7 +45,7 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 @Component({
 	selector: 'pokedex-data-table',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [FlexRender, DataTableColumnsPanelComponent],
+	imports: [FlexRender, DataTableColumnsPanelComponent, DataTableFiltersPanelComponent],
 	template: `
 		<!--
 			An in-flow disclosure, not a CdkMenu (closes on click and Enter, only Space keeps it open)
@@ -54,6 +55,7 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 		-->
 		<div class="toolbar">
 			<pokedex-data-table-columns-panel [table]="table" label="{{ label() }}" />
+			<pokedex-data-table-filters-panel [table]="table" label="{{ label() }}" />
 		</div>
 
 		<!--

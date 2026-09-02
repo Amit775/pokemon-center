@@ -28,7 +28,7 @@ const demoColumns = columnHelper.columns([
 	columnHelper.accessor('name', { header: 'Name', sortFn: 'alphanumeric' }),
 	// `meta` only type-checks its keys because `dataTableFeatures` declares the `columnMeta` slot.
 	// Without it, `{ alignment: 'end' }` would compile just as happily and align nothing.
-	columnHelper.accessor('power', { header: 'Power', sortFn: 'basic', filterFn: 'inNumberRange', meta: { align: 'end' } }),
+	columnHelper.accessor('power', { header: 'Power', sortFn: 'basic', filterFn: 'inNumberRange', meta: { align: 'end', filterVariant: 'range' } }),
 	columnHelper.display({ id: 'actions', header: 'Actions', cell: () => 'edit' }),
 ]);
 
@@ -408,6 +408,21 @@ describe('UiDataTableComponent', () => {
 			fixture.detectChanges();
 
 			expect(nameColumn()).toEqual(['Ember', 'Aerial Ace', 'Flamethrower']);
+		});
+
+		it('renders the Filters panel and narrows the table when a filterable column is checked', () => {
+			const trigger = element().querySelector<HTMLButtonElement>('.filters-trigger');
+			if (!trigger) throw new Error('the Filters trigger is missing');
+			trigger.click();
+			fixture.detectChanges();
+
+			const min = element().querySelector<HTMLInputElement>('input[type=number][data-column-id="power"][data-bound="min"]');
+			if (!min) throw new Error('no min input for power');
+			min.value = '70';
+			min.dispatchEvent(new Event('input'));
+			fixture.detectChanges();
+
+			expect(nameColumn()).toEqual(['Flamethrower']);
 		});
 	});
 });
