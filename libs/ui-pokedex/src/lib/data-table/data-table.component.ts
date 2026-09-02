@@ -1,4 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
+import { NgTemplateOutlet } from '@angular/common';
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -45,7 +47,7 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 @Component({
 	selector: 'pokedex-data-table',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [FlexRender, DataTableColumnsPanelComponent, DataTableFiltersPanelComponent],
+	imports: [FlexRender, DataTableColumnsPanelComponent, DataTableFiltersPanelComponent, ScrollingModule, NgTemplateOutlet],
 	template: `
 		<!--
 			An in-flow disclosure, not a CdkMenu (closes on click and Enter, only Space keeps it open)
@@ -105,28 +107,66 @@ const CONTENT_BASED_TRACK = /(^|[\s,(])(auto|min-content|max-content|fit-content
 					}
 				</div>
 
-				<div role="rowgroup">
-					@for (row of table.getRowModel().rows; track row.id) {
-						<!-- [class] merges with the static class rather than replacing it. -->
-						<div class="row" role="row" [class]="variantFor(row.original)">
-							<!--
-								getVisibleCells(), not getAllCells() — one of three sites that move together
-								with columnVisibilityFeature (the others: the track list, and aria-colspan
-								below). Nothing enforces it; the core APIs stay type-valid.
-							-->
-							@for (cell of row.getVisibleCells(); track cell.id) {
-								<div class="cell" role="cell" [class]="alignmentClass(cell.column)">
-									<ng-container *flexRenderCell="cell; let rendered">{{ rendered }}</ng-container>
+				<ng-template #rowTemplate let-row>
+					<!-- [class] merges with the static class rather than replacing it. -->
+					<div class="row" role="row" [class]="variantFor(row.original)">
+						<!--
+							getVisibleCells(), not getAllCells() — one of three sites that move together
+							with columnVisibilityFeature (the others: the track list, and aria-colspan
+							below). Nothing enforces it; the core APIs stay type-valid.
+						-->
+						@for (cell of row.getVisibleCells(); track cell.id) {
+							<div class="cell" role="cell" [class]="alignmentClass(cell.column)">
+								<ng-container *flexRenderCell="cell; let rendered">{{ rendered }}</ng-container>
+							</div>
+						}
+					</div>
+				</ng-template>
+
+				<!--
+					Use table.getRowModel(), never getFilteredRowModel(), in both branches below.
+					getRowModel() is TanStack's final, fully-cascaded row model — it falls through every
+					unregistered pipeline stage down to whatever IS registered (core → filtering →
+					grouping → sorting → expanding → pagination). Since filteredRowModel and
+					sortedRowModel are both registered here, getRowModel() already reflects both
+					filtering AND sorting. getFilteredRowModel() would skip back above the sorting
+					stage and silently drop sorting whenever a filter is active — a real regression,
+					not a style choice.
+
+					Virtualized rows sit inside CDK's own wrapper elements (cdk-virtual-scroll-viewport's
+					content wrapper, plus the *cdkVirtualFor host div), which are not
+					role=rowgroup/role=row themselves. This is the same category of honest cost
+					docs/table-plan.md already accepts for the hand-maintained ARIA roles elsewhere in
+					this file: a windowed role=table is not spec-pure ARIA, and nothing here pretends
+					otherwise. Do not add role=presentation to CDK's own elements as a workaround —
+					that hides real rows from assistive tech rather than fixing the structure.
+				-->
+				@if (virtualScroll()) {
+					<cdk-virtual-scroll-viewport [itemSize]="rowHeight()" [style.height]="viewportHeight()">
+						<div role="rowgroup">
+							@if (table.getRowModel().rows.length > 0) {
+								<div *cdkVirtualFor="let row of table.getRowModel().rows; trackBy: trackRowById">
+									<ng-container [ngTemplateOutlet]="rowTemplate" [ngTemplateOutletContext]="{ $implicit: row }" />
+								</div>
+							} @else {
+								<div class="row empty-row" role="row">
+									<div class="cell empty-cell" role="cell" [attr.aria-colspan]="table.getVisibleLeafColumns().length">{{ emptyLabel() }}</div>
 								</div>
 							}
 						</div>
-					} @empty {
-						<!-- A header floating over nothing is not a finished component. -->
-						<div class="row empty-row" role="row">
-							<div class="cell empty-cell" role="cell" [attr.aria-colspan]="table.getVisibleLeafColumns().length">{{ emptyLabel() }}</div>
-						</div>
-					}
-				</div>
+					</cdk-virtual-scroll-viewport>
+				} @else {
+					<div role="rowgroup">
+						@for (row of table.getRowModel().rows; track row.id) {
+							<ng-container [ngTemplateOutlet]="rowTemplate" [ngTemplateOutletContext]="{ $implicit: row }" />
+						} @empty {
+							<!-- A header floating over nothing is not a finished component. -->
+							<div class="row empty-row" role="row">
+								<div class="cell empty-cell" role="cell" [attr.aria-colspan]="table.getVisibleLeafColumns().length">{{ emptyLabel() }}</div>
+							</div>
+						}
+					</div>
+				}
 			</div>
 		</div>
 	`,
@@ -353,6 +393,17 @@ export class UiDataTableComponent<TRow extends RowData> {
 	readonly rowVariant = input<((row: TRow) => DataTableRowVariant | null) | null>(null);
 
 	readonly emptyLabel = input('Nothing to show.');
+
+	/** Opt in per table — a small kit demo or a ~20-row moves list gets no benefit and does not pay for it. */
+	readonly virtualScroll = input(false);
+
+	/** Every row must be the same height for CDK's fixed-size strategy; the kit does not support variable-height rows. */
+	readonly rowHeight = input(44);
+
+	/** A CSS length. The viewport needs an explicit height to know how many rows to render. */
+	readonly viewportHeight = input('480px');
+
+	protected trackRowById = (_index: number, row: { id: string }): string => row.id;
 
 	private readonly announcer = inject(LiveAnnouncer);
 

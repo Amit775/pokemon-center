@@ -1,4 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { CdkFixedSizeVirtualScroll } from '@angular/cdk/scrolling';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import type { ColumnDef, ColumnOrderState, SortingState, ColumnVisibilityState, ColumnFiltersState } from '@tanstack/angular-table';
@@ -44,7 +45,7 @@ type DemoColumns = ColumnDef<DataTableFeatures, DemoMove>[];
 	selector: 'pokedex-data-table-host',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [UiDataTableComponent],
-	template: `<pokedex-data-table [data]="rows()" [columns]="columns()" [(sorting)]="sorting" [(columnVisibility)]="visibility" [(columnOrder)]="order" [(columnFilters)]="columnFilters" [(globalFilter)]="globalFilter" [columnTracks]="tracks()" [rowVariant]="variant()" label="Demo moves" emptyLabel="No moves." />`,
+	template: `<pokedex-data-table [data]="rows()" [columns]="columns()" [(sorting)]="sorting" [(columnVisibility)]="visibility" [(columnOrder)]="order" [(columnFilters)]="columnFilters" [(globalFilter)]="globalFilter" [columnTracks]="tracks()" [rowVariant]="variant()" [virtualScroll]="virtualScroll()" [rowHeight]="24" [viewportHeight]="'96px'" label="Demo moves" emptyLabel="No moves." />`,
 })
 class DataTableHostComponent {
 	readonly rows = signal<DemoMove[]>(demoMoves);
@@ -56,6 +57,7 @@ class DataTableHostComponent {
 	readonly globalFilter = signal('');
 	readonly tracks = signal<Readonly<Record<string, string>> | null>(null);
 	readonly variant = signal<((row: DemoMove) => DataTableRowVariant | null) | null>(null);
+	readonly virtualScroll = signal(false);
 }
 
 /**
@@ -440,6 +442,78 @@ describe('UiDataTableComponent', () => {
 		it('labels the search input for assistive technology', () => {
 			const search = element().querySelector<HTMLInputElement>('.search-input');
 			expect(search?.getAttribute('aria-label')).toBe('Search Demo moves');
+		});
+	});
+
+	// ---- virtualization ----
+
+	describe('UiDataTableComponent — virtualization', () => {
+		/**
+		 * jsdom does no layout, so every element reports clientHeight 0 — CDK's fixed-size scroll
+		 * strategy reads that to decide the visible range, and with a real 0 it renders nothing at
+		 * all. Stubbing the getter is the only way to see past "the viewport exists" and into "the
+		 * viewport actually renders the rows CDK was given," which is what the sorting/filtering
+		 * test below depends on.
+		 */
+		let clientHeightSpy: jest.SpyInstance;
+
+		beforeEach(() => {
+			clientHeightSpy = jest.spyOn(HTMLElement.prototype, 'clientHeight', 'get').mockReturnValue(500);
+		});
+
+		afterEach(() => {
+			clientHeightSpy.mockRestore();
+		});
+
+		it('does not render a viewport when virtualScroll is false (the default)', () => {
+			expect(element().querySelector('cdk-virtual-scroll-viewport')).toBeNull();
+		});
+
+		it('renders every row through a real DOM structure when virtualScroll is false', () => {
+			// Unchanged from every earlier test in this file — this is a guard that Task 6 did not
+			// alter the default path.
+			expect(nameColumn()).toEqual(['Ember', 'Aerial Ace', 'Flamethrower']);
+		});
+
+		it('renders inside a cdk-virtual-scroll-viewport when virtualScroll is true, keeping the header outside it', () => {
+			host.virtualScroll.set(true);
+			fixture.detectChanges();
+
+			const viewport = element().querySelector('cdk-virtual-scroll-viewport');
+			expect(viewport).not.toBeNull();
+			expect(viewport?.querySelector('[role="columnheader"]')).toBeNull();
+			expect(element().querySelector('[role="columnheader"]')).not.toBeNull();
+		});
+
+		it('sizes the viewport from the rowHeight and viewportHeight inputs', () => {
+			host.virtualScroll.set(true);
+			fixture.detectChanges();
+
+			const viewportDebugElement = fixture.debugElement.query((debugElement) => debugElement.name === 'cdk-virtual-scroll-viewport');
+			// CdkVirtualScrollViewport itself exposes no getItemSize() in this CDK version — the fixed
+			// item size lives on the co-located CdkFixedSizeVirtualScroll directive (the one the
+			// `[itemSize]` binding activates), which is what actually receives our rowHeight() input.
+			const fixedSizeDirective = viewportDebugElement.injector.get(CdkFixedSizeVirtualScroll);
+
+			expect(fixedSizeDirective.itemSize).toBe(24);
+			expect((viewportDebugElement.nativeElement as HTMLElement).style.height).toBe('96px');
+		});
+
+		it('still reflects sorting and filtering while virtualized', async () => {
+			host.virtualScroll.set(true);
+			host.sorting.set([{ id: 'power', desc: true }]);
+			fixture.detectChanges();
+
+			// CdkVirtualScrollViewport measures its own size (and the fixed-size strategy computes its
+			// rendered range) across a couple of chained microtasks queued from ngOnInit, not
+			// synchronously within one detectChanges() — two whenStable()/detectChanges() rounds are
+			// what it takes to drain that chain and get real rows into the DOM.
+			await fixture.whenStable();
+			fixture.detectChanges();
+			await fixture.whenStable();
+			fixture.detectChanges();
+
+			expect(nameColumn()).toEqual(['Flamethrower', 'Aerial Ace', 'Ember']);
 		});
 	});
 });
