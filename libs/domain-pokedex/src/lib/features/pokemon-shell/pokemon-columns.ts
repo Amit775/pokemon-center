@@ -6,6 +6,8 @@ import { PokemonTypesCellComponent } from './pokemon-types-cell.component';
 
 type RawPokemonRow = PokemonListQuery['pokemonList'][number];
 
+type StatIdentifier = 'hp' | 'attack' | 'defense' | 'special-attack' | 'special-defense' | 'speed';
+
 export interface PokemonRow {
 	id: number;
 	canonicalId: string;
@@ -21,7 +23,7 @@ export interface PokemonRow {
 	total: number;
 }
 
-const STAT_IDENTIFIER_TO_FIELD: Record<string, keyof Pick<PokemonRow, 'hp' | 'attack' | 'defense' | 'specialAttack' | 'specialDefense' | 'speed'>> = {
+const STAT_IDENTIFIER_TO_FIELD: Record<StatIdentifier, keyof Pick<PokemonRow, 'hp' | 'attack' | 'defense' | 'specialAttack' | 'specialDefense' | 'speed'>> = {
 	hp: 'hp',
 	attack: 'attack',
 	defense: 'defense',
@@ -34,7 +36,7 @@ const STAT_IDENTIFIER_TO_FIELD: Record<string, keyof Pick<PokemonRow, 'hp' | 'at
 export function toPokemonRow(row: RawPokemonRow): PokemonRow {
 	const stats = { hp: 0, attack: 0, defense: 0, specialAttack: 0, specialDefense: 0, speed: 0 };
 	for (const entry of row.stats) {
-		const field = STAT_IDENTIFIER_TO_FIELD[entry.stat.identifier];
+		const field = STAT_IDENTIFIER_TO_FIELD[entry.stat.identifier as StatIdentifier];
 		if (field) stats[field] = entry.base_stat;
 	}
 
