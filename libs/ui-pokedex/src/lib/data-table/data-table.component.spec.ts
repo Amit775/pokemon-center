@@ -38,17 +38,6 @@ const narrowColumns = columnHelper.columns([
 	columnHelper.accessor('power', { header: 'Power', sortFn: 'basic' }),
 ]);
 
-/**
- * Four columns, for the reordering tests. Three cannot discriminate: with the hidden column between
- * the swapped pair, the right algorithm and the wrong one agree.
- */
-const fourColumns = columnHelper.columns([
-	columnHelper.accessor('name', { header: 'Name', sortFn: 'alphanumeric' }),
-	columnHelper.accessor('power', { header: 'Power', sortFn: 'basic' }),
-	columnHelper.accessor('accuracy', { header: 'Accuracy', sortFn: 'basic' }),
-	columnHelper.display({ id: 'actions', header: 'Actions', cell: () => 'edit' }),
-]);
-
 type DemoColumns = ColumnDef<DataTableFeatures, DemoMove>[];
 
 @Component({
@@ -367,6 +356,32 @@ describe('UiDataTableComponent', () => {
 		const scroller = element().querySelector('.scroller');
 		expect(scroller).not.toBeNull();
 		expect(scroller?.contains(grid())).toBe(true);
+	});
+
+	it('renders the Columns trigger inside the full table', () => {
+		const trigger = element().querySelector<HTMLButtonElement>('.columns-trigger');
+		expect(trigger).not.toBeNull();
+		expect(trigger?.textContent?.trim()).toBe('Columns 3/3');
+	});
+
+	it('hides a column when its checkbox is toggled in the Columns panel', () => {
+		// Open the Columns panel by clicking the trigger
+		const trigger = element().querySelector<HTMLButtonElement>('.columns-trigger');
+		expect(trigger).not.toBeNull();
+		trigger!.click();
+		fixture.detectChanges();
+
+		// Find and click the Power column checkbox
+		const panelRows = Array.from(element().querySelectorAll<HTMLElement>('.columns-row'));
+		const powerCheckbox = panelRows[1]?.querySelector<HTMLInputElement>('input[type=checkbox]');
+		expect(powerCheckbox).not.toBeNull();
+
+		powerCheckbox!.click();
+		fixture.detectChanges();
+
+		// Verify the Power column is now hidden from the table
+		expect(headerText()).toEqual(['Name', 'Actions']);
+		expect(bodyRows()[0].querySelectorAll('.cell')).toHaveLength(2);
 	});
 
 	// ---- filtering state ----
