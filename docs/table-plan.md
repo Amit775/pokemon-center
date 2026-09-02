@@ -654,17 +654,101 @@ content-based track may appear in `columnTracks` (`auto` made a column wander 26
 the header sits outside the windowed region, so it must be sized by the same track string the rows
 use rather than by its own content.
 
-**Phase 5 — Pokédex list, and the verdict.**
-`pokemon-list` becomes cards ⟷ table on the same flag, with the server-side sorting caveat above:
-it sorts through GraphQL, so it registers `manualSorting: true` and does **not** get
-`createSortedRowModel()`. The table hands its sort state to the query rather than sorting rows it
-does not have — the list is `take: 500` off a server that holds far more.
+**Phase 5 — Pokédex list: master-detail, virtualized, full replace.**
 
-**The table is the intended default here, not an alternative view.** The owner's reason for wanting
-tables at all is this surface: *"I want to filter and sort pokemon easily and compare between
-them."* Cards are sprite-forward and pleasant to browse, and they answer none of those three. The
-flag still ships first so the two can be compared honestly, but the expected outcome is table-by-
-default with cards kept behind `?view=cards`, not the reverse.
+Supersedes the verdict below: that plan assumed `take: 500` server-side paging and
+`manualSorting: true`. The mainline `pokemon` table holds **1,351 rows**, measured directly
+(`docker exec pokemon-verse-postgres psql -U postgres -d pokemon-center -c "SELECT count(*) FROM
+pokemon;"`), so `take: 500` was already silently dropping more than a third of the dex. Fetching
+the full table client-side is not the network problem it looks like — 1,351 rows is a small
+payload — and once every row is local, `manualSorting`/`manualFiltering` are not needed at all:
+`createSortedRowModel()` plus the new filtering/faceting row models below apply directly, the same
+way the kit already sorts everything it is given.
+
+**The table is the intended default here, not an alternative view**, and unlike earlier phases
+there is no flag this time. The owner's reason for wanting tables at all is this surface: *"I do
+want the pokemon to be in a list... I thought about a table... that will allow us to sort and
+filter nicely."* Phase 3's `?view=` flag existed for surfaces where the table-vs-existing verdict
+was still open; here it is not, so the card grid (`pokemon-list.component.ts`/`.html`) and the
+standalone `pokemon-filters.component.ts` are deleted outright rather than kept behind
+`?view=cards`.
+
+*Data.* Extend `PokemonList` (`libs/data-access-pokedex/src/lib/operations.graphql`) with base
+stats and drop the `take`/`skip` pagination args in favor of fetching the full set in one request.
+`versionGroup` is unaffected — it selects which game's data to project, which is orthogonal to
+table state.
+
+*Filtering and faceting.* `data-table-columns.ts` currently registers only
+`rowSortingFeature`/`columnVisibilityFeature`/`columnOrderingFeature` and says outright that
+"filtering [is] deliberately absent." Add, confirmed present in the installed
+`@tanstack/table-core@9.1.2`: `columnFilteringFeature` + `createFilteredRowModel()` for per-column
+filters; `columnFacetingFeature` + `createFacetedRowModel()`/`createFacetedUniqueValues()`/
+`createFacetedMinMaxValues()`, where `getFacetedUniqueValues()` returns a `Map<value, count>` per
+column — the checkbox-list source for Type/Generation — and `getFacetedMinMaxValues()` returns
+`[min, max]`, the range bounds for stat columns; `globalFilteringFeature` for a quick-search box
+kept separate from per-column filters, mirroring ag-grid's own split between a search bar and
+column filter menus. Filter functions: `filterFn_arrIncludesSome` for Type (array-valued) and
+`filterFn_inNumberRange` for stat columns.
+
+`UiDataTableComponent` gains `columnFilters` and `globalFilter` as new controlled `model()`s,
+following the `sorting`/`onSortingChange` pattern already there. `DataTableColumnMeta` gains
+`filterVariant?: 'set' | 'range'`, and a new Filters panel — the same in-flow-disclosure shape as
+the existing Columns panel, so the three designs Phase 3a already rejected (`CdkMenu`, a CDK
+overlay) stay rejected here too — renders a checkbox list for `'set'` columns and a min/max pair
+for `'range'` columns, driven generically off `filterVariant` rather than hardcoded per column.
+
+*Virtualization, pulled forward from Phase 4, scoped down.* Phase 4 is still open for the
+Champions roster's harder half (Mega sub-rows, `rowExpandingFeature`, non-uniform cells). The
+Pokédex list only needs the flat half of that problem — 1,351 same-shaped rows — so it ships here
+rather than waiting on Phase 4. `@angular/cdk/scrolling`, per kit rule 5, same as Phase 4 already
+decided (`@tanstack/angular-virtual` stays unused — a second virtualization implementation for a
+kit that already picked one). Two traps Phase 4 already found apply here too: no content-based
+track in `columnTracks` (a windowed body contributes nothing to `max-content` — Phase 4 measured a
+viewport collapsing to 400px with header/body cells diverging, 183px vs 168px, from exactly this),
+and the header sits outside the windowed region so it must be sized from the same resolved track
+string the rows use.
+
+*Layout: master-detail shell.* A new `PokemonShellComponent`, mounted at `pokemon`, table on the
+left (owns the `gqlResource` fetch and all table state), `<router-outlet>` on the right:
+
+```
+{ path: 'pokemon', loadComponent: PokemonShellComponent, children: [
+  { path: '', loadComponent: PokemonEmptyDetailComponent },   // "Select a Pokémon"
+  { path: ':id', loadComponent: PokemonPageComponent, children: [ /* unchanged: about/stats/moves/locations */ ] },
+]}
+```
+
+Row click navigates to `pokemon/:id` as today — deep-linking and back/forward are unaffected — and
+the selected row gets `rowVariant` → `'marked'`, the same mechanism the Champions moves table
+already uses for changed-move rows.
+
+**Phase 5b — Cross-entity search.**
+
+Built on Phase 5's shell, not the generic `data-table` — this reasons about moves/abilities/items,
+which the reusable kit component has no business knowing about.
+
+The backend is already there and unused: `search(term, takePerKind)` (`apps/pokedex-service`,
+pg_trgm-backed, already typed on the frontend as `Search`) returns typed hits across
+pokemon/move/ability/item/type in one call — the typeahead's data source, no new resolver needed.
+Selecting a hit acts differently per kind, because they are not the same kind of thing relative to
+the table:
+
+| Kind | Action |
+| --- | --- |
+| Pokémon | Select the row, navigate to its detail (right pane) |
+| Move | Apply a removable "Move: X" chip; narrows via `moveLearnedBy` (already exists, already typed as `MoveLearnedBy`) |
+| Ability | Apply a removable "Ability: X" chip; narrows via `AbilityDetail`'s nested `pokemonAbilities.pokemon` (already typed, no standalone query needed) |
+| Item | Navigate straight to the item's own detail (`items/:id`, already routed) — items have no per-pokemon association in this schema (`PokemonItems` exists in Prisma but is wired into zero resolvers), so there is nothing real to filter the table by |
+
+Move/Ability chips narrow the **data fed into the table** (`PokemonShellComponent` intersects the
+fetched set with the id list before it reaches `data()`), not a tanstack `columnFilter` — this
+keeps the cross-entity concept out of the reusable kit component, and composes for free with the
+table's own Type/stat filters, which apply after.
+
+Known follow-up, out of scope here: `PokemonItems` (wild-held-item rarity, Prisma-only, zero API
+exposure today) would let an item's own detail page eventually show "found held by: X (common), Y
+(rare)" — closer to what the data actually supports than competitive usage stats, which do not
+exist in this schema.
 
 **Phase 6 — Selection feeds comparison.**
 The third verb in that sentence — *compare* — is the one no phase above delivers, and both halves of
