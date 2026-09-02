@@ -37,11 +37,35 @@ const moveColumnHelper = createDataTableColumns<KitMove>();
  */
 const moveColumns = moveColumnHelper.columns([
 	moveColumnHelper.accessor('name', { header: 'Move', sortFn: 'alphanumeric' }),
-	moveColumnHelper.accessor('type', { header: 'Type', sortFn: 'alphanumeric' }),
-	moveColumnHelper.accessor('power', { header: 'Power', sortFn: 'basic', meta: { align: 'end' } }),
+	moveColumnHelper.accessor('type', { header: 'Type', sortFn: 'alphanumeric', filterFn: 'arrHas', meta: { filterVariant: 'set' } }),
+	moveColumnHelper.accessor('power', { header: 'Power', sortFn: 'basic', filterFn: 'inNumberRange', meta: { align: 'end', filterVariant: 'range' } }),
 	moveColumnHelper.accessor('accuracy', { header: 'Accuracy', sortFn: 'basic', meta: { align: 'end' } }),
 	moveColumnHelper.display({ id: 'actions', header: 'Actions', cell: () => 'add' }),
 ]);
+
+interface KitRoster {
+	id: number;
+	name: string;
+	generation: number;
+	power: number;
+}
+
+const rosterColumnHelper = createDataTableColumns<KitRoster>();
+const rosterColumns = rosterColumnHelper.columns([
+	rosterColumnHelper.accessor('name', { header: 'Name', sortFn: 'alphanumeric' }),
+	rosterColumnHelper.accessor('generation', { header: 'Generation', sortFn: 'basic', filterFn: 'arrHas', meta: { align: 'end', filterVariant: 'set' } }),
+	rosterColumnHelper.accessor('power', { header: 'Power', sortFn: 'basic', filterFn: 'inNumberRange', meta: { align: 'end', filterVariant: 'range' } }),
+]);
+
+/** 1,200 synthetic rows — in the neighborhood of the real Pokédex's 1,351, for an honest demo of virtualization. */
+function buildKitRoster(): KitRoster[] {
+	return Array.from({ length: 1200 }, (_, index) => ({
+		id: index + 1,
+		name: `Roster Mon ${index + 1}`,
+		generation: (index % 9) + 1,
+		power: 30 + ((index * 7) % 140),
+	}));
+}
 
 /** Living demo of the ui-pokedex kit — eyeball every component in both themes. */
 @Component({
@@ -123,6 +147,18 @@ const moveColumns = moveColumnHelper.columns([
 				Sort state, owned out here rather than inside the table: <strong>{{ sortDescription() }}</strong>
 			</p>
 
+			<pokedex-section-heading label="Data table — virtualized, filtered" />
+			<pokedex-data-table
+				[data]="rosterRows"
+				[columns]="rosterColumns"
+				[(sorting)]="rosterSorting"
+				[virtualScroll]="true"
+				[rowHeight]="40"
+				[viewportHeight]="'400px'"
+				label="Roster (demo)"
+				emptyLabel="No rows match."
+			/>
+
 			<pokedex-section-heading label="Skeletons" />
 			<div class="skel">
 				<pokedex-skeleton width="120px" height="120px" radius="50%" />
@@ -192,6 +228,9 @@ export class KitComponent {
 	protected readonly tab = signal('stats');
 
 	protected readonly moveColumns = moveColumns;
+	protected readonly rosterColumns = rosterColumns;
+	protected readonly rosterRows: KitRoster[] = buildKitRoster();
+	protected readonly rosterSorting = signal<SortingState>([]);
 
 	protected readonly moveRows: KitMove[] = [
 		{ name: 'Flamethrower', type: 'Fire', power: 90, accuracy: 100 },
