@@ -589,11 +589,22 @@ git commit -m "feat(domain-pokedex): add Pokemon table column definitions"
 
 - [ ] **Step 1: Write the failing tests**
 
+No test in this codebase currently exercises a `gqlResource`-based component with mocked HTTP —
+there is no established precedent to match here, this sketch is establishing one. `gqlResource`
+(`libs/data-access-pokedex/src/lib/gql-resource.ts`) is built on Angular's `httpResource`, which
+issues a real `HttpClient` POST under the hood — `HttpTestingController` intercepts at the
+`HttpBackend` level regardless of what calls into `HttpClient`, so it works here the same as it
+would for a plain service call. Use the modern functional providers
+(`provideHttpClient()`/`provideHttpClientTesting()`), not the deprecated `HttpClientTestingModule`
+— this codebase is fully standalone/functional-providers already, and mixing in an NgModule-style
+import would be a step backward.
+
 ```ts
 // libs/domain-pokedex/src/lib/features/pokemon-shell/pokemon-shell.component.spec.ts
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { POKEDEX_API_URL } from '@pokemon-center/data-access-pokedex';
@@ -648,8 +659,9 @@ describe('PokemonShellComponent', () => {
 		class StubDetailComponent {}
 
 		await TestBed.configureTestingModule({
-			imports: [HttpClientTestingModule],
 			providers: [
+				provideHttpClient(),
+				provideHttpClientTesting(),
 				{ provide: POKEDEX_API_URL, useValue: 'http://test-pokedex-api/graphql' },
 				provideRouter([
 					{
