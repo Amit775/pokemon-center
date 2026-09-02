@@ -6,22 +6,20 @@ import { createDataTableColumns, dataTableFeatures, type DataTableFeatures } fro
 interface DemoRow {
 	name: string;
 	types: string[];
-	type: string;
 	generation: number;
 	power: number;
 }
 
 const rows: DemoRow[] = [
-	{ name: 'Charizard', types: ['fire', 'flying'], type: 'fire', generation: 1, power: 84 },
-	{ name: 'Blastoise', types: ['water'], type: 'water', generation: 1, power: 83 },
-	{ name: 'Feraligatr', types: ['water'], type: 'water', generation: 2, power: 105 },
+	{ name: 'Charizard', types: ['fire', 'flying'], generation: 1, power: 84 },
+	{ name: 'Blastoise', types: ['water'], generation: 1, power: 83 },
+	{ name: 'Feraligatr', types: ['water'], generation: 2, power: 105 },
 ];
 
 const columnHelper = createDataTableColumns<DemoRow>();
 const columns = columnHelper.columns([
 	columnHelper.accessor('name', { header: 'Name' }),
-	columnHelper.accessor('types', { header: 'Types', filterFn: 'arrIncludesSome' }),
-	columnHelper.accessor('type', { header: 'Primary Type', filterFn: 'arrHas', meta: { filterVariant: 'set' } }),
+	columnHelper.accessor('types', { header: 'Types', filterFn: 'arrIncludesSome', getUniqueValues: (row) => row.types }),
 	columnHelper.accessor('generation', { header: 'Generation', filterFn: 'arrHas' }),
 	columnHelper.accessor('power', { header: 'Power', filterFn: 'inNumberRange' }),
 ]);
@@ -69,15 +67,13 @@ describe('dataTableFeatures — filtering and faceting', () => {
 	});
 
 	it('computes faceted unique values with occurrence counts for a column', () => {
-		table.getFilteredRowModel();
-		const facets = table.getColumn('type')?.getFacetedUniqueValues();
+		const facets = table.getColumn('types')?.getFacetedUniqueValues();
 
 		expect(facets?.get('fire')).toBe(1);
 		expect(facets?.get('water')).toBe(2);
 	});
 
 	it('computes faceted min/max for a numeric column', () => {
-		table.getFilteredRowModel();
 		expect(table.getColumn('power')?.getFacetedMinMaxValues()).toEqual([83, 105]);
 	});
 
