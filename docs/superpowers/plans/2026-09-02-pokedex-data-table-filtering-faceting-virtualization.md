@@ -1305,6 +1305,7 @@ Replace the body's `role="rowgroup"` block (the second one, holding the data row
 		}
 	</div>
 </ng-template>
+```
 
 **Use `table.getRowModel()`, not `getFilteredRowModel()`, in this markup** — Task 2 established
 (and the controller verified against `coreRowModelsFeature.utils.js`) that `getRowModel()` is the
