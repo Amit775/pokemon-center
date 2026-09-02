@@ -340,12 +340,19 @@ protected readonly table = injectTable(() => ({
 }));
 ```
 
-Switch the row-rendering template from `table.getRowModel()` to `table.getFilteredRowModel()` wherever rows are enumerated (the `@for (row of table.getRowModel().rows; ...)` in the body rowgroup) — `getRowModel()` is the *pre-filter* core model; `getFilteredRowModel()` is what reflects `columnFilters`/`globalFilter`. There is exactly one such site today (the empty-row `@empty` block's column count is unaffected, it reads `table.getVisibleLeafColumns()`).
+**Do not change the row-rendering template.** The `@for (row of table.getRowModel().rows; ...)` in
+the body rowgroup already needs no edit: `getRowModel()` is the table's *final*, fully-cascaded row
+model (core → filtering → grouping → sorting → expanding → pagination, falling through every stage
+that isn't registered — verified against `coreRowModelsFeature.utils.js`), not a pre-filter one.
+Once `filteredRowModel` is registered (Task 1), `getRowModel()` already reflects it. Calling
+`getFilteredRowModel()` directly instead, as an earlier draft of this task instructed, would have
+skipped back *above* the already-registered sorting stage and silently dropped sorting whenever a
+filter was active — this was caught and corrected during Task 2's implementation, not by design.
 
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `npx nx test ui-pokedex --testPathPattern=data-table.component.spec.ts`
-Expected: PASS — including every pre-existing test in this file, since `getFilteredRowModel()` returns every row when no filter is active (`getPreFilteredRowModel()` equivalent).
+Expected: PASS — including every pre-existing test in this file, since `getRowModel()` returns every row when no filter is active.
 
 - [ ] **Step 5: Commit**
 
@@ -1299,11 +1306,19 @@ Replace the body's `role="rowgroup"` block (the second one, holding the data row
 	</div>
 </ng-template>
 
+**Use `table.getRowModel()`, not `getFilteredRowModel()`, in this markup** — Task 2 established
+(and the controller verified against `coreRowModelsFeature.utils.js`) that `getRowModel()` is the
+*final*, fully-cascaded row model (core → filtering → grouping → sorting → expanding →
+pagination, falling through every unregistered stage), not a pre-filter one. Calling
+`getFilteredRowModel()` directly here would skip back *above* sorting in that chain and render
+rows in source order regardless of the `sorting` model — a real regression, not a style choice.
+
+```html
 @if (virtualScroll()) {
 	<cdk-virtual-scroll-viewport [itemSize]="rowHeight()" [style.height]="viewportHeight()">
 		<div role="rowgroup">
-			@if (table.getFilteredRowModel().rows.length > 0) {
-				<div *cdkVirtualFor="let row of table.getFilteredRowModel().rows; trackBy: trackRowById">
+			@if (table.getRowModel().rows.length > 0) {
+				<div *cdkVirtualFor="let row of table.getRowModel().rows; trackBy: trackRowById">
 					<ng-container [ngTemplateOutlet]="rowTemplate" [ngTemplateOutletContext]="{ $implicit: row }" />
 				</div>
 			} @else {
@@ -1315,7 +1330,7 @@ Replace the body's `role="rowgroup"` block (the second one, holding the data row
 	</cdk-virtual-scroll-viewport>
 } @else {
 	<div role="rowgroup">
-		@for (row of table.getFilteredRowModel().rows; track row.id) {
+		@for (row of table.getRowModel().rows; track row.id) {
 			<ng-container [ngTemplateOutlet]="rowTemplate" [ngTemplateOutletContext]="{ $implicit: row }" />
 		} @empty {
 			<div class="row empty-row" role="row">
