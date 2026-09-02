@@ -3,6 +3,9 @@
 # compiled output
 dist
 tmp
+
+# subagent-driven-development scratch workspace
+.superpowers/
 /out-tsc
 
 # dependencies
