@@ -9,32 +9,33 @@ import { registerDataGridModules } from '@pokemon-center/ui-pokedex';
 import { PokemonShellComponent } from './pokemon-shell.component';
 import { PokemonEmptyDetailComponent } from './pokemon-empty-detail.component';
 
-const samplePokemon = [
-	{
-		id: '1', canonicalId: 'pokemon:1', slug: 'bulbasaur', identifier: 'bulbasaur', height: 7, weight: 69,
-		types: [{ slot: 1, type: { id: '12', identifier: 'grass' } }],
-		stats: [
-			{ base_stat: 45, stat: { identifier: 'hp' } },
-			{ base_stat: 49, stat: { identifier: 'attack' } },
-			{ base_stat: 49, stat: { identifier: 'defense' } },
-			{ base_stat: 65, stat: { identifier: 'special-attack' } },
-			{ base_stat: 65, stat: { identifier: 'special-defense' } },
-			{ base_stat: 45, stat: { identifier: 'speed' } },
-		],
-	},
-	{
-		id: '4', canonicalId: 'pokemon:4', slug: 'charmander', identifier: 'charmander', height: 6, weight: 85,
-		types: [{ slot: 1, type: { id: '10', identifier: 'fire' } }],
-		stats: [
-			{ base_stat: 39, stat: { identifier: 'hp' } },
-			{ base_stat: 52, stat: { identifier: 'attack' } },
-			{ base_stat: 43, stat: { identifier: 'defense' } },
-			{ base_stat: 60, stat: { identifier: 'special-attack' } },
-			{ base_stat: 50, stat: { identifier: 'special-defense' } },
-			{ base_stat: 65, stat: { identifier: 'speed' } },
-		],
-	},
-];
+const bulbasaur = {
+	id: '1', canonicalId: 'pokemon:1', slug: 'bulbasaur', identifier: 'bulbasaur', height: 7, weight: 69,
+	types: [{ slot: 1, type: { id: '12', identifier: 'grass' } }],
+	stats: [
+		{ base_stat: 45, stat: { identifier: 'hp' } },
+		{ base_stat: 49, stat: { identifier: 'attack' } },
+		{ base_stat: 49, stat: { identifier: 'defense' } },
+		{ base_stat: 65, stat: { identifier: 'special-attack' } },
+		{ base_stat: 65, stat: { identifier: 'special-defense' } },
+		{ base_stat: 45, stat: { identifier: 'speed' } },
+	],
+};
+
+const charmander = {
+	id: '4', canonicalId: 'pokemon:4', slug: 'charmander', identifier: 'charmander', height: 6, weight: 85,
+	types: [{ slot: 1, type: { id: '10', identifier: 'fire' } }],
+	stats: [
+		{ base_stat: 39, stat: { identifier: 'hp' } },
+		{ base_stat: 52, stat: { identifier: 'attack' } },
+		{ base_stat: 43, stat: { identifier: 'defense' } },
+		{ base_stat: 60, stat: { identifier: 'special-attack' } },
+		{ base_stat: 50, stat: { identifier: 'special-defense' } },
+		{ base_stat: 65, stat: { identifier: 'speed' } },
+	],
+};
+
+const samplePokemon = [bulbasaur, charmander];
 
 describe('PokemonShellComponent', () => {
 	let harness: RouterTestingHarness;
@@ -43,10 +44,33 @@ describe('PokemonShellComponent', () => {
 		return harness.routeNativeElement as HTMLElement;
 	}
 
-	function respondWithSamplePokemon(): void {
+	/**
+	 * AG Grid defers framework (Angular) cell renderer creation into its own
+	 * requestAnimationFrame-scheduled task queue, which `whenStable()` does not track (this is a
+	 * zoneless app, and AG Grid only treats work as zone-trackable when it detects Zone.js or an
+	 * explicit `window.AG_GRID_UNDER_TEST`, neither of which is true here). Two real animation
+	 * frames are enough to flush it for the row counts this spec uses — Task 8/9 can reuse this.
+	 */
+	async function flushFrameworkCellRenderers(): Promise<void> {
+		await new Promise((resolve) => requestAnimationFrame(resolve));
+		await new Promise((resolve) => requestAnimationFrame(resolve));
+		harness.fixture.detectChanges();
+	}
+
+	async function settle(): Promise<void> {
+		harness.fixture.detectChanges();
+		await harness.fixture.whenStable();
+		harness.fixture.detectChanges();
+		await flushFrameworkCellRenderers();
+	}
+
+	/** Boots the shell at `url`, flushes the mocked GraphQL response with `pokemonList`, and settles the grid. */
+	async function createHarness(pokemonList: unknown[] = samplePokemon, url = ''): Promise<void> {
+		harness = await RouterTestingHarness.create(url);
 		const httpMock = TestBed.inject(HttpTestingController);
 		const request = httpMock.expectOne((req) => req.url === 'http://test-pokedex-api/graphql');
-		request.flush({ data: { pokemonList: samplePokemon } });
+		request.flush({ data: { pokemonList } });
+		await settle();
 	}
 
 	beforeEach(async () => {
@@ -75,32 +99,25 @@ describe('PokemonShellComponent', () => {
 				]),
 			],
 		}).compileComponents();
-
-		harness = await RouterTestingHarness.create('');
-		respondWithSamplePokemon();
-		harness.fixture.detectChanges();
-		await harness.fixture.whenStable();
-		harness.fixture.detectChanges();
-
-		// AG Grid defers framework (Angular) cell renderer creation into its own
-		// requestAnimationFrame-scheduled task queue, which `whenStable()` does not track. Give it a
-		// couple of real animation frames to flush before asserting on cell-rendered content.
-		await new Promise((resolve) => requestAnimationFrame(resolve));
-		await new Promise((resolve) => requestAnimationFrame(resolve));
-		harness.fixture.detectChanges();
 	});
 
-	it('renders the grid with every fetched pokemon', () => {
+	it('renders the grid with every fetched pokemon', async () => {
+		await createHarness();
+
 		expect(element().querySelector('ag-grid-angular')).not.toBeNull();
 		expect(element().textContent).toContain('bulbasaur');
 		expect(element().textContent).toContain('charmander');
 	});
 
-	it('shows the empty-detail placeholder when nothing is selected', () => {
+	it('shows the empty-detail placeholder when nothing is selected', async () => {
+		await createHarness();
+
 		expect(element().textContent).toContain('Select a Pokémon');
 	});
 
-	it('renders the tools navigation with links to every pokedex tool', () => {
+	it('renders the tools navigation with links to every pokedex tool', async () => {
+		await createHarness();
+
 		const links = element().querySelectorAll('.tools-nav a');
 		expect(links).toHaveLength(5);
 		expect(element().textContent).toContain('Pokedex');
@@ -108,5 +125,33 @@ describe('PokemonShellComponent', () => {
 		expect(element().textContent).toContain('Analyzer');
 		expect(element().textContent).toContain('Coverage');
 		expect(element().textContent).toContain('Compare');
+	});
+
+	it('opens sorted by name ascending regardless of fetch order', async () => {
+		// Fetch order is reversed on purpose: if `initialSort` on the name column were dropped, the
+		// grid would render in this same (wrong) order and the test would catch it.
+		await createHarness([charmander, bulbasaur]);
+
+		// Scoped to `role="gridcell"` so the header cell (also `col-id="name"`) isn't counted as a row.
+		const names = Array.from(element().querySelectorAll('[role="gridcell"][col-id="name"]')).map((cell) => cell.textContent?.trim());
+		expect(names).toEqual(['bulbasaur', 'charmander']);
+	});
+
+	it('marks the row selected once its id matches the current route, and only that row', async () => {
+		await createHarness();
+
+		// Nothing selected yet: no row should carry the highlight.
+		expect(element().querySelectorAll('.ag-row.marked')).toHaveLength(0);
+
+		await harness.navigateByUrl('/1');
+		// The route change is what drives `rowClassRules` here — AG Grid does not re-evaluate the
+		// rule on its own, so the shell asks it to redraw. That redraw recreates the row (framework
+		// cell renderers included), so the same animation-frame flush as initial mount applies again.
+		await settle();
+
+		const markedRows = Array.from(element().querySelectorAll('.ag-row.marked'));
+		expect(markedRows).toHaveLength(1);
+		expect(markedRows[0].textContent).toContain('bulbasaur');
+		expect(element().querySelector('[row-id="4"]')?.classList.contains('marked')).toBe(false);
 	});
 });

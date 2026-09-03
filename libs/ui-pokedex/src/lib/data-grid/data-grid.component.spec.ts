@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import type { ColDef } from 'ag-grid-community';
+import type { ColDef, RowClassRules } from 'ag-grid-community';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { UiDataGridComponent } from './data-grid.component';
@@ -30,6 +30,18 @@ class DataGridTestHostComponent {
 	readonly getRowId = (params: { data: DemoRow }) => params.data.id;
 }
 
+@Component({
+	selector: 'pokedex-data-grid-row-class-test-host',
+	imports: [UiDataGridComponent],
+	template: `<pokedex-data-grid [rowData]="rowData()" [columnDefs]="columnDefs()" [getRowId]="getRowId" [rowClassRules]="rowClassRules" />`,
+})
+class DataGridRowClassTestHostComponent {
+	readonly rowData = signal(rows);
+	readonly columnDefs = signal(columns);
+	readonly getRowId = (params: { data: DemoRow }) => params.data.id;
+	readonly rowClassRules: RowClassRules<DemoRow> = { marked: (params) => params.data?.id === '2' };
+}
+
 describe('UiDataGridComponent', () => {
 	beforeEach(() => registerDataGridModules());
 
@@ -42,6 +54,18 @@ describe('UiDataGridComponent', () => {
 		const element: HTMLElement = fixture.nativeElement;
 		expect(element.querySelector('ag-grid-angular')).not.toBeNull();
 		expect(element.textContent).toContain('Ember');
+	});
+
+	it('forwards rowClassRules to ag-grid-angular so a rule can mark a specific row', async () => {
+		const fixture = TestBed.createComponent(DataGridRowClassTestHostComponent);
+		fixture.detectChanges();
+		await fixture.whenStable();
+		fixture.detectChanges();
+
+		const element: HTMLElement = fixture.nativeElement;
+		const rowsWithClass = Array.from(element.querySelectorAll('[row-id]')).filter((row) => row.classList.contains('marked'));
+		expect(rowsWithClass).toHaveLength(1);
+		expect(rowsWithClass[0].getAttribute('row-id')).toBe('2');
 	});
 
 	it('gives the grid container an explicit height, without which AG Grid renders at zero height', () => {

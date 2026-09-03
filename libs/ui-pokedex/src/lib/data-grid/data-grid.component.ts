@@ -7,6 +7,7 @@ import type {
 	GridState,
 	IRowNode,
 	IsExternalFilterPresent,
+	RowClassRules,
 	SideBarDef,
 	StateUpdatedEvent,
 } from 'ag-grid-community';
@@ -36,6 +37,7 @@ import { pokedexGridTheme } from './data-grid.theme';
 			[initialState]="initialState()"
 			[isExternalFilterPresent]="isExternalFilterPresent()"
 			[doesExternalFilterPass]="doesExternalFilterPass()"
+			[rowClassRules]="rowClassRules()"
 			(gridReady)="gridReady.emit($event)"
 			(stateUpdated)="stateUpdated.emit($event)"
 		/>
@@ -71,6 +73,13 @@ export class UiDataGridComponent<TRow> {
 	/** External Filter API — used by cross-cutting filters that are not bound to a column. */
 	readonly isExternalFilterPresent = input<IsExternalFilterPresent<TRow> | undefined>(undefined);
 	readonly doesExternalFilterPass = input<((node: IRowNode<TRow>) => boolean) | undefined>(undefined);
+
+	/**
+	 * Conditional row CSS classes (e.g. a "currently selected" highlight for a master-detail view).
+	 * AG Grid only re-evaluates these when told to — a consumer driving the rule from state outside
+	 * the grid (like a route param) must call `api.redrawRows()` itself after that state changes.
+	 */
+	readonly rowClassRules = input<RowClassRules<TRow> | undefined>(undefined);
 
 	readonly gridReady = output<GridReadyEvent<TRow>>();
 	readonly stateUpdated = output<StateUpdatedEvent<TRow>>();

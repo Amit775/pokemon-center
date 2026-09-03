@@ -12,7 +12,13 @@
 			@if (loading()) {
 				<p>Loading…</p>
 			} @else {
-				<pokedex-data-grid [rowData]="rows()" [columnDefs]="columns" [getRowId]="getRowId" />
+				<pokedex-data-grid
+					[rowData]="rows()"
+					[columnDefs]="columns"
+					[getRowId]="getRowId"
+					[rowClassRules]="rowClassRules"
+					(gridReady)="onGridReady($event)"
+				/>
 			}
 		</div>
 

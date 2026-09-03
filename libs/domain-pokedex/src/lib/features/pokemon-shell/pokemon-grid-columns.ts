@@ -62,6 +62,9 @@ export const pokemonGridColumns: ColDef<PokemonRow>[] = [
 		minWidth: 220,
 		filter: 'agTextColumnFilter',
 		cellRenderer: PokemonNameCellComponent,
+		// A default, not a lock: `initialSort` (unlike `sort`) only applies once, when the column is
+		// first created, so a user sorting by another column afterwards isn't fought over.
+		initialSort: 'asc',
 	},
 	{
 		field: 'types',
