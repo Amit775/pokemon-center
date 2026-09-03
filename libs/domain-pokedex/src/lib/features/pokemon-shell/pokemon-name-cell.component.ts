@@ -9,7 +9,7 @@ import { localSpriteUrl, officialArtworkUrl } from '../../shared/pokemon-avatar/
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [RouterLink, EntityPortraitComponent],
 	template: `
-		<a [routerLink]="['/pokedex', 'pokemon', pokemonId()]">
+		<a [routerLink]="[pokemonId()]">
 			<pokedex-entity-portrait [type]="primaryType()" [src]="spriteUrl()" [fallbackSrc]="artworkUrl()" [size]="32" [alt]="name()" />
 			<span>{{ name() }}</span>
 		</a>

@@ -2,9 +2,12 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { PokemonListDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
+import { PokedexContextStore, PokemonListDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
 import { UiDataTableComponent, type ColumnFiltersState, type DataTableRowVariant, type SortingState } from '@pokemon-center/ui-pokedex';
 import { pokemonColumns, toPokemonRow, type PokemonRow } from './pokemon-columns';
+
+/** Comfortably above the ~1,351-row mainline dex — raise this if the dataset ever grows past it. */
+const POKEMON_LIST_TAKE = 2000;
 
 /**
  * Master-detail shell for the Pokédex: the full dex renders as a table on the left
@@ -29,8 +32,9 @@ import { pokemonColumns, toPokemonRow, type PokemonRow } from './pokemon-columns
 export class PokemonShellComponent {
 	private readonly route = inject(ActivatedRoute);
 	private readonly router = inject(Router);
+	private readonly store = inject(PokedexContextStore);
 
-	private readonly list = gqlResource(PokemonListDocument, () => ({ take: 2000 }));
+	private readonly list = gqlResource(PokemonListDocument, () => ({ take: POKEMON_LIST_TAKE, versionGroup: this.store.activeVersionGroup() ?? undefined }));
 
 	protected readonly rows = computed<PokemonRow[]>(() => (this.list.hasValue() ? (this.list.value()?.pokemonList ?? []).map(toPokemonRow) : []));
 	protected readonly loading = computed(() => this.list.isLoading());

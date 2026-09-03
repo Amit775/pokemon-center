@@ -2,6 +2,35 @@
 	display: block;
 }
 
+.shell-wrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.tools-nav {
+	display: flex;
+	gap: var(--s-4);
+	padding: var(--s-2) var(--s-4);
+	border-bottom: 1px solid var(--line);
+
+	a {
+		color: var(--ink-muted);
+		text-decoration: none;
+		font-weight: 600;
+		font-size: var(--fs-sm);
+
+		&.active {
+			color: var(--accent);
+			border-bottom: 2px solid var(--accent);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
+		}
+	}
+}
+
 .shell {
 	display: flex;
 	gap: var(--s-4);

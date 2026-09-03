@@ -40,8 +40,8 @@ query TypesList {
 	}
 }
 
-query PokemonList($take: Int!, $search: String, $versionGroup: String) {
-	pokemonList(take: $take, search: $search, versionGroup: $versionGroup) {
+query PokemonList($take: Int!, $versionGroup: String) {
+	pokemonList(take: $take, versionGroup: $versionGroup) {
 		id
 		canonicalId
 		slug

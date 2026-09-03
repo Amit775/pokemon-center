@@ -1,25 +1,35 @@
-<div class="shell">
-	<div class="list-pane">
-		@if (loading()) {
-			<p>Loading…</p>
-		} @else {
-			<pokedex-data-table
-				[data]="rows()"
-				[columns]="columns"
-				[(sorting)]="sorting"
-				[(columnFilters)]="columnFilters"
-				[(globalFilter)]="globalFilter"
-				[rowVariant]="rowVariant"
-				[virtualScroll]="true"
-				[rowHeight]="48"
-				[viewportHeight]="'calc(100vh - 160px)'"
-				label="Pokédex"
-				emptyLabel="No Pokémon match your filters."
-			/>
-		}
-	</div>
+<div class="shell-wrapper">
+	<nav class="tools-nav">
+		<a routerLink="/pokedex/pokemon" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Pokedex</a>
+		<a routerLink="/pokedex/moves" routerLinkActive="active">Moves</a>
+		<a routerLink="/pokedex/analyzer" routerLinkActive="active">Analyzer</a>
+		<a routerLink="/pokedex/coverage" routerLinkActive="active">Coverage</a>
+		<a routerLink="/pokedex/compare" routerLinkActive="active">Compare</a>
+	</nav>
 
-	<div class="detail-pane">
-		<router-outlet />
+	<div class="shell">
+		<div class="list-pane">
+			@if (loading()) {
+				<p>Loading…</p>
+			} @else {
+				<pokedex-data-table
+					[data]="rows()"
+					[columns]="columns"
+					[(sorting)]="sorting"
+					[(columnFilters)]="columnFilters"
+					[(globalFilter)]="globalFilter"
+					[rowVariant]="rowVariant"
+					[virtualScroll]="true"
+					[rowHeight]="48"
+					[viewportHeight]="'calc(100vh - 160px)'"
+					label="Pokédex"
+					emptyLabel="No Pokémon match your filters."
+				/>
+			}
+		</div>
+
+		<div class="detail-pane">
+			<router-outlet />
+		</div>
 	</div>
 </div>

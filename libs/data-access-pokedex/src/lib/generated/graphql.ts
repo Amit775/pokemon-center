@@ -29,7 +29,6 @@ export type TypesListQuery = { typeList: Array<{ id: string, identifier: string 
 
 export type PokemonListQueryVariables = Exact<{
   take: number;
-  search?: string | null | undefined;
   versionGroup?: string | null | undefined;
 }>;
 
@@ -263,8 +262,8 @@ export const TypesListDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<TypesListQuery, TypesListQueryVariables>;
 export const PokemonListDocument = new TypedDocumentString(`
-    query PokemonList($take: Int!, $search: String, $versionGroup: String) {
-  pokemonList(take: $take, search: $search, versionGroup: $versionGroup) {
+    query PokemonList($take: Int!, $versionGroup: String) {
+  pokemonList(take: $take, versionGroup: $versionGroup) {
     id
     canonicalId
     slug

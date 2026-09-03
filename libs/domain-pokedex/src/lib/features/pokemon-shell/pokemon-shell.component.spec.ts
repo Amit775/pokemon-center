@@ -102,4 +102,14 @@ describe('PokemonShellComponent', () => {
 		const markedRow = Array.from(element().querySelectorAll('[role="row"]')).find((row) => row.classList.contains('marked'));
 		expect(markedRow?.textContent).toContain('bulbasaur');
 	});
+
+	it('renders the tools navigation with links to every pokedex tool', () => {
+		const links = element().querySelectorAll('.tools-nav a');
+		expect(links).toHaveLength(5);
+		expect(element().textContent).toContain('Pokedex');
+		expect(element().textContent).toContain('Moves');
+		expect(element().textContent).toContain('Analyzer');
+		expect(element().textContent).toContain('Coverage');
+		expect(element().textContent).toContain('Compare');
+	});
 });
