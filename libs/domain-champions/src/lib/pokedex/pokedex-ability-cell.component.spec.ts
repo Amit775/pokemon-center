@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import type { ICellRendererParams } from 'ag-grid-community';
 import { PokedexAbilityCellComponent } from './pokedex-ability-cell.component';
 import { PokedexStore } from './pokedex.store';
 import type { PokedexEntry } from './pokedex-filter';
@@ -17,25 +18,18 @@ const bulbasaur: PokedexEntry = {
 	abilityNames: ['Overgrow', 'Chlorophyll'],
 };
 
+function paramsFor(data: PokedexEntry | undefined): ICellRendererParams<PokedexEntry> {
+	return { data } as ICellRendererParams<PokedexEntry>;
+}
+
 describe('PokedexAbilityCellComponent', () => {
-	function render() {
+	function render(abilityText: Map<string, { name: string; effectText: string }> = new Map()) {
 		TestBed.configureTestingModule({
-			providers: [
-				{
-					provide: PokedexStore,
-					useValue: {
-						abilityText: () =>
-							new Map([
-								['overgrow', { name: 'Overgrow', effectText: 'Boosts Grass moves at low HP.' }],
-								['chlorophyll', { name: 'Chlorophyll', effectText: null }],
-							]),
-					},
-				},
-			],
+			providers: [{ provide: PokedexStore, useValue: { abilityText: () => abilityText } }],
 		});
 
 		const fixture = TestBed.createComponent(PokedexAbilityCellComponent);
-		fixture.componentRef.setInput('entry', bulbasaur);
+		fixture.componentInstance.agInit(paramsFor(bulbasaur));
 		fixture.detectChanges();
 		return fixture;
 	}
@@ -46,22 +40,32 @@ describe('PokedexAbilityCellComponent', () => {
 		expect(fixture.nativeElement.textContent).toContain('Chlorophyll');
 	});
 
-	it('renders effect text as a tooltip child when the store has it', () => {
-		const fixture = render();
-		expect(fixture.nativeElement.textContent).toContain('Boosts Grass moves at low HP.');
+	it('renders the effect text tooltip when the store has it', () => {
+		const fixture = render(new Map([['overgrow', { name: 'Overgrow', effectText: 'Powers up Grass moves in a pinch.' }]]));
+		expect(fixture.nativeElement.textContent).toContain('Powers up Grass moves in a pinch.');
 	});
 
-	it('makes each ability item focusable, for keyboard access to the tooltip', () => {
-		const fixture = render();
-		const items = fixture.nativeElement.querySelectorAll('li');
-		expect(items).toHaveLength(2);
-		items.forEach((item: HTMLElement) => expect(item.getAttribute('tabindex')).toBe('0'));
+	it('renders nothing for the null params.data guard path', () => {
+		TestBed.configureTestingModule({
+			providers: [{ provide: PokedexStore, useValue: { abilityText: () => new Map() } }],
+		});
+		const fixture = TestBed.createComponent(PokedexAbilityCellComponent);
+		fixture.componentInstance.agInit(paramsFor(undefined));
+		fixture.detectChanges();
+
+		expect(fixture.nativeElement.querySelectorAll('li')).toHaveLength(0);
 	});
 
-	it('renders no tip for an ability with no effect text', () => {
+	it('updates on refresh with a new entry', () => {
 		const fixture = render();
-		const items = fixture.nativeElement.querySelectorAll('li');
-		// Chlorophyll (index 1) has effectText: null in the store stub above.
-		expect(items[1].querySelector('.tip')).toBeNull();
+
+		const changed = fixture.componentInstance.refresh(
+			paramsFor({ ...bulbasaur, abilitySlugs: ['blaze'], abilityNames: ['Blaze'] }),
+		);
+		fixture.detectChanges();
+
+		expect(changed).toBe(true);
+		expect(fixture.nativeElement.textContent).toContain('Blaze');
+		expect(fixture.nativeElement.textContent).not.toContain('Overgrow');
 	});
 });

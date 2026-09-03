@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import type { ICellRendererParams } from 'ag-grid-community';
 import { PokedexNameCellComponent } from './pokedex-name-cell.component';
 import { PokedexStore } from './pokedex.store';
 import type { PokedexEntry } from './pokedex-filter';
@@ -18,6 +19,10 @@ const bulbasaur: PokedexEntry = {
 	abilityNames: ['Overgrow'],
 };
 
+function paramsFor(data: PokedexEntry | undefined): ICellRendererParams<PokedexEntry> {
+	return { data } as ICellRendererParams<PokedexEntry>;
+}
+
 describe('PokedexNameCellComponent', () => {
 	function render(owned: boolean) {
 		TestBed.configureTestingModule({
@@ -25,7 +30,7 @@ describe('PokedexNameCellComponent', () => {
 		});
 
 		const fixture = TestBed.createComponent(PokedexNameCellComponent);
-		fixture.componentRef.setInput('entry', bulbasaur);
+		fixture.componentInstance.agInit(paramsFor(bulbasaur));
 		fixture.detectChanges();
 		return fixture;
 	}
@@ -50,5 +55,26 @@ describe('PokedexNameCellComponent', () => {
 	it('shows no owned flag when not owned', () => {
 		const fixture = render(false);
 		expect(fixture.nativeElement.textContent).not.toContain('Owned');
+	});
+
+	it('renders nothing for the null params.data guard path', () => {
+		TestBed.configureTestingModule({
+			providers: [provideRouter([]), { provide: PokedexStore, useValue: { isOwned: () => false } }],
+		});
+		const fixture = TestBed.createComponent(PokedexNameCellComponent);
+		fixture.componentInstance.agInit(paramsFor(undefined));
+		fixture.detectChanges();
+
+		expect(fixture.nativeElement.textContent.trim()).toBe('');
+	});
+
+	it('updates on refresh with a new entry', () => {
+		const fixture = render(false);
+
+		const changed = fixture.componentInstance.refresh(paramsFor({ ...bulbasaur, slug: 'charmander', name: 'Charmander', nationalPokedexNumber: 4 }));
+		fixture.detectChanges();
+
+		expect(changed).toBe(true);
+		expect(fixture.nativeElement.textContent).toContain('Charmander');
 	});
 });

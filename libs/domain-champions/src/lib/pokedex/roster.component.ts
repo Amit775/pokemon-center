@@ -1,13 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import {
-	UiDataTableComponent,
-	UiSkeletonComponent,
-	type ColumnFiltersState,
-	type SortingState,
-} from '@pokemon-center/ui-pokedex';
+import type { GetRowIdFunc } from 'ag-grid-community';
+import { UiDataGridComponent, UiSkeletonComponent } from '@pokemon-center/ui-pokedex';
 import { CompareTrayComponent } from './compare-tray.component';
-import { pokedexColumns, pokedexColumnTracks } from './pokedex-columns';
+import { pokedexGridColumns } from './pokedex-grid-columns';
 import type { PokedexEntry } from './pokedex-filter';
 import { PokedexStore } from './pokedex.store';
 
@@ -17,15 +13,15 @@ import { PokedexStore } from './pokedex.store';
  * Base forms only for now — Mega rows are a separate, not-yet-designed follow-up (sub-row vs.
  * `rowExpandingFeature` vs. their own row; see docs/superpowers/specs/2026-09-03-champions-pokedex-data-table-design.md).
  *
- * Filtering and sorting are entirely owned by `pokedex-data-table`'s own column state, not by
- * `PokedexStore`. The richer custom filter sidebar this replaces (type/matchup pickers, stat-range
- * sliders, counter search, saved sets, move-learner search, owned-only) is deferred to a follow-up
- * task that extends the generic Filters panel — see the spec's "Out of scope" section.
+ * Filtering and sorting are entirely owned by the grid's own column state, not by `PokedexStore`.
+ * The richer custom filter sidebar this replaces (type/matchup pickers, stat-range sliders, counter
+ * search, saved sets, move-learner search, owned-only) is deferred to a follow-up task that extends
+ * the generic Filters panel — see the spec's "Out of scope" section.
  */
 @Component({
 	selector: 'champions-roster',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CompareTrayComponent, RouterLink, UiDataTableComponent, UiSkeletonComponent],
+	imports: [CompareTrayComponent, RouterLink, UiDataGridComponent, UiSkeletonComponent],
 	template: `
 		<header class="masthead">
 			<h1>Pokédex</h1>
@@ -40,16 +36,7 @@ import { PokedexStore } from './pokedex.store';
 				<code>nx serve champions-service</code>.
 			</p>
 		} @else {
-			<pokedex-data-table
-				[data]="entries()"
-				[columns]="columns"
-				[columnTracks]="columnTracks"
-				[(sorting)]="sorting"
-				[(columnFilters)]="columnFilters"
-				[(globalFilter)]="globalFilter"
-				label="Champions Pokédex"
-				emptyLabel="Nothing legal matches those filters."
-			/>
+			<pokedex-data-grid [rowData]="entries()" [columnDefs]="columns" [getRowId]="getRowId" />
 		}
 
 		<champions-compare-tray />
@@ -60,6 +47,7 @@ import { PokedexStore } from './pokedex.store';
 			padding: var(--s-5, 1.5rem);
 			max-width: 84rem;
 			margin-inline: auto;
+			--pokedex-grid-height: calc(100vh - 14rem);
 		}
 
 		.masthead {
@@ -111,11 +99,6 @@ export default class RosterComponent {
 	/** Base forms only — Mega rows are excluded from this pass entirely, not merely hidden. */
 	protected readonly entries = computed<PokedexEntry[]>(() => this.store.entries().filter((entry) => !entry.isMega));
 
-	protected readonly columns = pokedexColumns;
-	protected readonly columnTracks = pokedexColumnTracks;
-
-	/** Component-local, not the store: this table owns its own filter/sort state entirely. */
-	protected readonly sorting = signal<SortingState>([]);
-	protected readonly columnFilters = signal<ColumnFiltersState>([]);
-	protected readonly globalFilter = signal('');
+	protected readonly columns = pokedexGridColumns;
+	protected readonly getRowId: GetRowIdFunc<PokedexEntry> = (params) => params.data.slug;
 }

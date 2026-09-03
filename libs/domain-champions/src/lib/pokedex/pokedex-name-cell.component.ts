@@ -1,31 +1,40 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import type { ICellRendererAngularComp } from 'ag-grid-angular';
+import type { ICellRendererParams } from 'ag-grid-community';
 import { EntityPortraitComponent, spriteSources } from '@pokemon-center/ui-pokedex';
 import type { PokedexEntry } from './pokedex-filter';
 import { PokedexStore } from './pokedex.store';
 
-/** Portrait, dex number, name and an owned flag — one table cell, rendered via `flexRenderComponent`. */
+/**
+ * Portrait, dex number, name and an owned flag — one grid cell.
+ *
+ * An AG Grid cell renderer: the grid supplies the row via `agInit`/`refresh` rather than a
+ * template input.
+ */
 @Component({
 	selector: 'champions-pokedex-name-cell',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [EntityPortraitComponent, RouterLink],
 	template: `
-		<a class="portrait" [routerLink]="link()" [attr.aria-label]="entry().name">
-			<pokedex-entity-portrait
-				[type]="entry().types[0]"
-				[src]="sprite().src"
-				[fallbackSrc]="sprite().fallbackSrc"
-				[alt]="entry().name"
-				[size]="40"
-			/>
-		</a>
-		<a class="name" [routerLink]="link()">
-			<span class="no">#{{ entry().nationalPokedexNumber }}</span>
-			{{ entry().name }}
-			@if (owned()) {
-				<span class="flag">Owned</span>
-			}
-		</a>
+		@if (entry(); as current) {
+			<a class="portrait" [routerLink]="link()" [attr.aria-label]="current.name">
+				<pokedex-entity-portrait
+					[type]="current.types[0]"
+					[src]="sprite().src"
+					[fallbackSrc]="sprite().fallbackSrc"
+					[alt]="current.name"
+					[size]="40"
+				/>
+			</a>
+			<a class="name" [routerLink]="link()">
+				<span class="no">#{{ current.nationalPokedexNumber }}</span>
+				{{ current.name }}
+				@if (owned()) {
+					<span class="flag">Owned</span>
+				}
+			</a>
+		}
 	`,
 	styles: `
 		:host {
@@ -69,15 +78,32 @@ import { PokedexStore } from './pokedex.store';
 		}
 	`,
 })
-export class PokedexNameCellComponent {
-	readonly entry = input.required<PokedexEntry>();
-
+export class PokedexNameCellComponent implements ICellRendererAngularComp {
 	private readonly store = inject(PokedexStore);
 
-	protected readonly owned = computed(() => this.store.isOwned(this.entry()));
-	protected readonly link = computed(() => ['/champions/pokedex', this.entry().slug]);
+	protected readonly entry = signal<PokedexEntry | null>(null);
 
-	protected sprite() {
-		return spriteSources(this.entry().id);
+	protected readonly owned = computed(() => {
+		const current = this.entry();
+		return current !== null && this.store.isOwned(current);
+	});
+
+	protected readonly link = computed(() => {
+		const current = this.entry();
+		return current ? ['/champions/pokedex', current.slug] : [];
+	});
+
+	agInit(params: ICellRendererParams<PokedexEntry>): void {
+		this.entry.set(params.data ?? null);
+	}
+
+	refresh(params: ICellRendererParams<PokedexEntry>): boolean {
+		this.entry.set(params.data ?? null);
+		return true;
+	}
+
+	protected sprite(): { src: string; fallbackSrc: string } {
+		const current = this.entry();
+		return current ? spriteSources(current.id) : { src: '', fallbackSrc: '' };
 	}
 }
