@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import type { ICellRendererAngularComp } from 'ag-grid-angular';
+import type { ICellRendererParams } from 'ag-grid-community';
 import { moveTags } from './move-tags';
 import type { DetailMove } from './move.model';
 
@@ -6,39 +8,39 @@ import type { DetailMove } from './move.model';
  * The Move column: name, what the move does, and the tags an ability hooks into — all printed
  * rather than hidden behind a hover, because this is read while choosing.
  *
- * A component because `flexRenderComponent` takes a component type.
+ * An AG Grid cell renderer: the grid supplies the row via `agInit`/`refresh` rather than a
+ * template input.
  */
 @Component({
 	selector: 'champions-move-name-cell',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<!-- A local, because a repeated move() call cannot be narrowed and effectChance needs it. -->
-		@let currentMove = move();
+		@if (move(); as currentMove) {
+			{{ currentMove.name }}
 
-		{{ currentMove.name }}
-
-		@if (currentMove.effectText) {
-			<span class="effect">
-				{{ currentMove.effectText }}
-				<!-- Only when it is a gamble; 100% restates the sentence before it. -->
-				@if (currentMove.effectChance && currentMove.effectChance < 100) {
-					<span class="chance">{{ currentMove.effectChance }}% chance</span>
-				}
-			</span>
-		}
-
-		<!--
-			What an ability actually hooks into. Bulletproof needs to know which moves
-			are Ball & Bomb, Iron Fist which are punches, and neither is readable from
-			a move name.
-		-->
-		@if (tagsFor(currentMove); as tags) {
-			@if (tags.length > 0) {
-				<span class="tags">
-					@for (tag of tags; track tag.label) {
-						<span class="tag" [class.priority]="tag.isPriority" [title]="tag.title">{{ tag.label }}</span>
+			@if (currentMove.effectText) {
+				<span class="effect">
+					{{ currentMove.effectText }}
+					<!-- Only when it is a gamble; 100% restates the sentence before it. -->
+					@if (currentMove.effectChance && currentMove.effectChance < 100) {
+						<span class="chance">{{ currentMove.effectChance }}% chance</span>
 					}
 				</span>
+			}
+
+			<!--
+				What an ability actually hooks into. Bulletproof needs to know which moves
+				are Ball & Bomb, Iron Fist which are punches, and neither is readable from
+				a move name.
+			-->
+			@if (tagsFor(currentMove); as tags) {
+				@if (tags.length > 0) {
+					<span class="tags">
+						@for (tag of tags; track tag.label) {
+							<span class="tag" [class.priority]="tag.isPriority" [title]="tag.title">{{ tag.label }}</span>
+						}
+					</span>
+				}
 			}
 		}
 	`,
@@ -91,8 +93,17 @@ import type { DetailMove } from './move.model';
 		}
 	`,
 })
-export class MoveNameCellComponent {
-	readonly move = input.required<DetailMove>();
+export class MoveNameCellComponent implements ICellRendererAngularComp {
+	protected readonly move = signal<DetailMove | null>(null);
 
 	protected readonly tagsFor = moveTags;
+
+	agInit(params: ICellRendererParams<DetailMove>): void {
+		this.move.set(params.data ?? null);
+	}
+
+	refresh(params: ICellRendererParams<DetailMove>): boolean {
+		this.move.set(params.data ?? null);
+		return true;
+	}
 }

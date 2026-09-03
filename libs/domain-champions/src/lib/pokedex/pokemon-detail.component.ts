@@ -15,7 +15,7 @@ import { CounterListComponent } from './counter-list.component';
 import { answeredBy, answersTo } from './counters';
 import { PokedexStore } from './pokedex.store';
 import { MegaPanelComponent } from './mega-panel.component';
-import { MovesDataTableComponent } from './moves-data-table.component';
+import { MovesDataGridComponent } from './moves-data-grid.component';
 import { StatPanelComponent } from './stat-panel.component';
 
 /**
@@ -43,7 +43,7 @@ import { StatPanelComponent } from './stat-panel.component';
 		CounterListComponent,
 		EntityPortraitComponent,
 		MegaPanelComponent,
-		MovesDataTableComponent,
+		MovesDataGridComponent,
 		RouterLink,
 		SectionHeadingComponent,
 		StatPanelComponent,
@@ -193,7 +193,7 @@ import { StatPanelComponent } from './stat-panel.component';
 
 				<pokedex-section-heading label="Moves ({{ detail.moves.length }})" />
 				<pokedex-card>
-					<champions-moves-data-table [moves]="detail.moves" [isApproximate]="detail.learnsetIsApproximate" />
+					<champions-moves-data-grid [moves]="detail.moves" [isApproximate]="detail.learnsetIsApproximate" />
 				</pokedex-card>
 			} @else {
 				<pokedex-section-heading label="Abilities and moves" />
