@@ -61,7 +61,7 @@ export class MovesDataGridComponent {
 	protected readonly rows = computed(() => [...this.moves()]);
 	protected readonly changedCount = computed(() => this.moves().filter((move) => move.isOverridden).length);
 
-	protected readonly getRowId: GetRowIdFunc<DetailMove> = (params) => params.data.name;
+	protected readonly getRowId: GetRowIdFunc<DetailMove> = (params) => params.data.id.toString();
 
 	/**
 	 * Column visibility and order persist; the sort does not, because it is a per-Pokémon question.
