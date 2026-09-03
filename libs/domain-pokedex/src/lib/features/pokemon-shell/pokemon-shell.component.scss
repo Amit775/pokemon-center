@@ -1,0 +1,21 @@
+:host {
+	display: block;
+}
+
+.shell {
+	display: flex;
+	gap: var(--s-4);
+	align-items: flex-start;
+}
+
+.list-pane {
+	flex: 1 1 640px;
+	min-width: 0;
+}
+
+.detail-pane {
+	flex: 1 1 480px;
+	min-width: 0;
+	position: sticky;
+	top: var(--s-4);
+}
