@@ -27,6 +27,7 @@ export const pokedexColumns = columnHelper.columns([
 		header: 'Types',
 		meta: { filterVariant: 'set' },
 		filterFn: 'arrIncludesSome',
+		enableSorting: false,
 		// Without this, an array-valued column facets by array reference (one opaque key per row)
 		// instead of one entry per type.
 		getUniqueValues: (row) => row.types,
@@ -36,11 +37,12 @@ export const pokedexColumns = columnHelper.columns([
 	columnHelper.accessor('abilityNames', {
 		id: 'abilities',
 		header: 'Abilities',
-		meta: { filterVariant: 'set' },
-		filterFn: 'arrIncludesSome',
-		getUniqueValues: (row) => row.abilityNames,
-		// The cell needs the full entry (slugs + names) to look up effect text, not just the names
-		// this column facets on.
+		// Deliberately not a 'set' filter for this pass: the roster has ~250 distinct abilities, and
+		// the generic Filters panel renders every faceted value as an unbounded checkbox list with no
+		// search or scroll cap — unusable at this cardinality (Types, at 18 options, is fine as-is).
+		// Still visible and still reachable via the global search box. Revisit once the filter panel
+		// (or a Champions-specific replacement) supports high-cardinality columns.
+		enableSorting: false,
 		cell: (context) => flexRenderComponent(PokedexAbilityCellComponent, { inputs: { entry: context.row.original } }),
 	}),
 
@@ -50,6 +52,7 @@ export const pokedexColumns = columnHelper.columns([
 		sortFn: 'basic',
 		meta: { align: 'end', filterVariant: 'range' },
 		filterFn: 'inNumberRange',
+		enableGlobalFilter: false,
 	}),
 
 	columnHelper.accessor((entry) => entry.baseStats.attack, {
@@ -58,6 +61,7 @@ export const pokedexColumns = columnHelper.columns([
 		sortFn: 'basic',
 		meta: { align: 'end', filterVariant: 'range' },
 		filterFn: 'inNumberRange',
+		enableGlobalFilter: false,
 	}),
 
 	columnHelper.accessor((entry) => entry.baseStats.defense, {
@@ -66,6 +70,7 @@ export const pokedexColumns = columnHelper.columns([
 		sortFn: 'basic',
 		meta: { align: 'end', filterVariant: 'range' },
 		filterFn: 'inNumberRange',
+		enableGlobalFilter: false,
 	}),
 
 	columnHelper.accessor((entry) => entry.baseStats.specialAttack, {
@@ -74,6 +79,7 @@ export const pokedexColumns = columnHelper.columns([
 		sortFn: 'basic',
 		meta: { align: 'end', filterVariant: 'range' },
 		filterFn: 'inNumberRange',
+		enableGlobalFilter: false,
 	}),
 
 	columnHelper.accessor((entry) => entry.baseStats.specialDefense, {
@@ -82,6 +88,7 @@ export const pokedexColumns = columnHelper.columns([
 		sortFn: 'basic',
 		meta: { align: 'end', filterVariant: 'range' },
 		filterFn: 'inNumberRange',
+		enableGlobalFilter: false,
 	}),
 
 	columnHelper.accessor((entry) => entry.baseStats.speed, {
@@ -90,6 +97,7 @@ export const pokedexColumns = columnHelper.columns([
 		sortFn: 'basic',
 		meta: { align: 'end', filterVariant: 'range' },
 		filterFn: 'inNumberRange',
+		enableGlobalFilter: false,
 	}),
 
 	columnHelper.accessor((entry) => entry.baseStats.total, {
@@ -98,6 +106,7 @@ export const pokedexColumns = columnHelper.columns([
 		sortFn: 'basic',
 		meta: { align: 'end', filterVariant: 'range' },
 		filterFn: 'inNumberRange',
+		enableGlobalFilter: false,
 	}),
 
 	columnHelper.display({

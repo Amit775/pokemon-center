@@ -97,4 +97,31 @@ describe('RosterComponent', () => {
 
 		expect((harness.routeNativeElement as HTMLElement).querySelector('champions-pokedex-filters')).toBeNull();
 	});
+
+	it('renders a column header for every configured column', async () => {
+		const harness = await render({ entries: baseEntries });
+		harness.fixture.detectChanges();
+
+		const headers = (harness.routeNativeElement as HTMLElement).querySelectorAll('[role="columnheader"]');
+		expect(headers).toHaveLength(11);
+	});
+
+	it('links each row to its detail page', async () => {
+		const harness = await render({ entries: baseEntries });
+		harness.fixture.detectChanges();
+
+		const link: HTMLAnchorElement | null = (harness.routeNativeElement as HTMLElement).querySelector('a[href="/champions/pokedex/bulbasaur"]');
+		expect(link).not.toBeNull();
+	});
+
+	it('renders the compare tray when the store has compared entries', async () => {
+		const harness = await render({ entries: baseEntries });
+		// Re-provide the store with a non-empty compareEntries for this one test.
+		const store = TestBed.inject(PokedexStore) as unknown as { compareEntries: ReturnType<typeof signal<PokedexEntry[]>> };
+		store.compareEntries.set([baseEntries[0]]);
+		harness.fixture.detectChanges();
+
+		expect((harness.routeNativeElement as HTMLElement).querySelector('.tray')).not.toBeNull();
+		expect((harness.routeNativeElement as HTMLElement).textContent).toContain('Bulbasaur');
+	});
 });

@@ -345,14 +345,17 @@ export const PokedexStore = signalStore(
 		},
 
 		/**
-		 * The entries either side of a slug **in the current filter**, not in the national dex.
+		 * The entries either side of a slug, in national-dex order.
 		 *
-		 * That is the whole point: after asking what resists Dragon and Fairy, the next arrow
-		 * should walk the answers. Null on both sides when the slug is not in the results —
-		 * arrows that jump somewhere unrelated are worse than no arrows.
+		 * Previously walked `results()` — the full custom filter pipeline — so the answer stayed
+		 * consistent with an active filter session. That pipeline no longer has any UI on the
+		 * roster page to view or clear (see the roster's own doc comment), so walking it here left
+		 * these arrows silently and permanently narrowed by whatever filter state happened to be
+		 * persisted. Walking the base-form roster instead matches what the roster page itself now
+		 * shows, and stays correct until the custom filters are rebuilt as a follow-up task.
 		 */
 		neighbours(slug: string): { prev: PokedexEntry | null; next: PokedexEntry | null } {
-			const results = store.results();
+			const results = store.entries().filter((entry) => !entry.isMega);
 			const index = results.findIndex((entry) => entry.slug === slug);
 			if (index === -1) return { prev: null, next: null };
 

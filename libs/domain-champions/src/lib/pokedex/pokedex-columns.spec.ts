@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { injectTable, type Table } from '@tanstack/angular-table';
 import { dataTableFeatures, type DataTableFeatures } from '@pokemon-center/ui-pokedex';
-import { pokedexColumns } from './pokedex-columns';
+import { pokedexColumns, pokedexColumnTracks } from './pokedex-columns';
 import type { PokedexEntry } from './pokedex-filter';
 
 function entry(overrides: Partial<PokedexEntry>): PokedexEntry {
@@ -75,13 +75,6 @@ describe('pokedexColumns', () => {
 		expect(facets?.get('water')).toBe(1);
 	});
 
-	it('filters rows whose Abilities include at least one selected ability', () => {
-		table.setColumnFilters([{ id: 'abilities', value: ['Torrent'] }]);
-		fixture.detectChanges();
-
-		expect(table.getFilteredRowModel().rows.map((row) => row.original.slug)).toEqual(['squirtle']);
-	});
-
 	it('filters rows whose Speed falls within an inclusive range', () => {
 		table.setColumnFilters([{ id: 'speed', value: [60, 70] }]);
 		fixture.detectChanges();
@@ -99,5 +92,26 @@ describe('pokedexColumns', () => {
 	it('has an actions column with no filter variant', () => {
 		const column = table.getColumn('actions');
 		expect(column?.columnDef.meta?.filterVariant).toBeUndefined();
+	});
+
+	it('has an abilities column with no filter variant (too many distinct values for the generic panel)', () => {
+		const column = table.getColumn('abilities');
+		expect(column?.columnDef.meta?.filterVariant).toBeUndefined();
+	});
+
+	it('does not offer sorting on the array-valued Types and Abilities columns', () => {
+		expect(table.getColumn('types')?.getCanSort()).toBe(false);
+		expect(table.getColumn('abilities')?.getCanSort()).toBe(false);
+	});
+
+	it('excludes the numeric stat columns from the global search', () => {
+		for (const id of ['hp', 'attack', 'defense', 'specialAttack', 'specialDefense', 'speed', 'total']) {
+			expect(table.getColumn(id)?.getCanGlobalFilter()).toBe(false);
+		}
+	});
+
+	it('has a columnTracks entry for every column id, and no stray entries', () => {
+		const ids = table.getAllLeafColumns().map((column) => column.id).sort();
+		expect(Object.keys(pokedexColumnTracks).sort()).toEqual(ids);
 	});
 });

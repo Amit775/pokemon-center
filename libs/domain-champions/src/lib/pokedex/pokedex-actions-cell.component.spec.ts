@@ -57,4 +57,10 @@ describe('PokedexActionsCellComponent', () => {
 		const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
 		expect(button.getAttribute('aria-pressed')).toBe('true');
 	});
+
+	it('does not mark the compare button pressed when not comparing', () => {
+		const fixture = render(false);
+		const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+		expect(button.getAttribute('aria-pressed')).toBe('false');
+	});
 });

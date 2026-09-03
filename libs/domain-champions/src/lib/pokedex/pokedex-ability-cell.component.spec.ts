@@ -57,4 +57,11 @@ describe('PokedexAbilityCellComponent', () => {
 		expect(items).toHaveLength(2);
 		items.forEach((item: HTMLElement) => expect(item.getAttribute('tabindex')).toBe('0'));
 	});
+
+	it('renders no tip for an ability with no effect text', () => {
+		const fixture = render();
+		const items = fixture.nativeElement.querySelectorAll('li');
+		// Chlorophyll (index 1) has effectText: null in the store stub above.
+		expect(items[1].querySelector('.tip')).toBeNull();
+	});
 });
