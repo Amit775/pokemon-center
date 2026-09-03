@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { provideDataGrid } from '@pokemon-center/ui-pokedex';
 
 /**
  * Champions routes, mounted under the Champions shell.
@@ -10,10 +11,13 @@ import { Route } from '@angular/router';
 export const domainChampionsRoutes: Route[] = [
 	{ path: '', pathMatch: 'full', redirectTo: 'pokedex' },
 
-	{ path: 'pokedex', loadComponent: () => import('./pokedex/roster.component') },
+	// `provideDataGrid()` is route-scoped rather than app-wide so AG Grid stays out of the eagerly
+	// loaded main bundle — these two routes are the ones that actually render a grid (the roster
+	// table and the move-learners grid on the detail page).
+	{ path: 'pokedex', loadComponent: () => import('./pokedex/roster.component'), providers: [provideDataGrid()] },
 	{ path: 'pokedex/changes', loadComponent: () => import('./pokedex/changes.component') },
 	// After `pokedex/changes`, so the literal segment wins over the parameter.
-	{ path: 'pokedex/:slug', loadComponent: () => import('./pokedex/pokemon-detail.component') },
+	{ path: 'pokedex/:slug', loadComponent: () => import('./pokedex/pokemon-detail.component'), providers: [provideDataGrid()] },
 
 	{ path: 'box', loadComponent: () => import('./box/box.component') },
 

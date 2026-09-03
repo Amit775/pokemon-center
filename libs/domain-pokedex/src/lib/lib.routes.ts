@@ -1,9 +1,13 @@
 import { Route } from '@angular/router';
+import { provideDataGrid } from '@pokemon-center/ui-pokedex';
 
 export const domainPokedexRoutes: Route[] = [
 	{ path: '', redirectTo: 'pokemon', pathMatch: 'full' },
 	{
 		path: 'pokemon',
+		// Route-scoped so AG Grid stays out of the eagerly loaded main bundle — the shell hosts the
+		// grids rendered by its children.
+		providers: [provideDataGrid()],
 		loadComponent: () => import('./features/pokemon-shell/pokemon-shell.component').then((module) => module.PokemonShellComponent),
 		children: [
 			{ path: '', loadComponent: () => import('./features/pokemon-shell/pokemon-empty-detail.component').then((module) => module.PokemonEmptyDetailComponent) },
@@ -51,6 +55,7 @@ export const domainPokedexRoutes: Route[] = [
 	},
 	{
 		path: 'kit',
+		providers: [provideDataGrid()],
 		loadComponent: () => import('./features/kit/kit.component').then((module) => module.KitComponent),
 	},
 ];
