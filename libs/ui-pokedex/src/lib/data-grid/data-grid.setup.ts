@@ -20,7 +20,9 @@ export const AG_GRID_LICENSE_KEY = new InjectionToken<string>('AG_GRID_LICENSE_K
 let modulesRegistered = false;
 
 /**
- * Module registration is global and must happen exactly once, before any grid is created.
+ * Module registration is global side-effecting setup, and several lazy routes each call
+ * `provideDataGrid()` (one per grid-hosting domain). The guard below keeps repeat calls — one per
+ * route activation — from redundantly re-registering every module each time.
  *
  * TODO: `AllCommunityModule` + `AllEnterpriseModule` register everything, which is right while the
  * feature set is still moving. Narrow to the specific modules actually used (SideBar,

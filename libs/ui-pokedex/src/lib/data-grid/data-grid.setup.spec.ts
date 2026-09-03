@@ -1,7 +1,8 @@
 import { EnvironmentInjector } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { ModuleRegistry } from 'ag-grid-community';
 import { LicenseManager } from 'ag-grid-enterprise';
-import { AG_GRID_LICENSE_KEY, provideDataGrid } from './data-grid.setup';
+import { AG_GRID_LICENSE_KEY, provideDataGrid, registerDataGridModules } from './data-grid.setup';
 
 describe('provideDataGrid', () => {
 	/** Injecting anything realises the environment injector, which runs its initialisers. */
@@ -32,13 +33,16 @@ describe('provideDataGrid', () => {
 	});
 
 	it('registers modules only once, however many times it is called', () => {
-		const { registerDataGridModules } = jest.requireActual<typeof import('./data-grid.setup')>('./data-grid.setup');
+		// The module-scope `modulesRegistered` flag may already be set by an earlier test in this
+		// file, so assert on the *delta* across these two calls rather than an absolute count: with
+		// the guard in place, at most one of the two calls can still be the first-ever call.
+		const registerModules = jest.spyOn(ModuleRegistry, 'registerModules');
+		const callsBefore = registerModules.mock.calls.length;
 
-		// The second call must be a no-op; AG Grid warns on duplicate registration.
-		expect(() => {
-			registerDataGridModules();
-			registerDataGridModules();
-		}).not.toThrow();
+		registerDataGridModules();
+		registerDataGridModules();
+
+		expect(registerModules.mock.calls.length - callsBefore).toBeLessThanOrEqual(1);
 	});
 
 	afterEach(() => jest.restoreAllMocks());
