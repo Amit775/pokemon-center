@@ -1,6 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import type { ColDef } from 'ag-grid-community';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { UiDataGridComponent } from './data-grid.component';
 import { registerDataGridModules } from './data-grid.setup';
 
@@ -43,10 +45,22 @@ describe('UiDataGridComponent', () => {
 	});
 
 	it('gives the grid container an explicit height, without which AG Grid renders at zero height', () => {
-		const fixture = TestBed.createComponent(DataGridTestHostComponent);
-		fixture.detectChanges();
-
-		const host = fixture.nativeElement.querySelector('pokedex-data-grid') as HTMLElement;
-		expect(getComputedStyle(host).height).not.toBe('0px');
+		// Not testable via a rendered fixture in this repo's Jest setup: `jest-preset-angular`'s
+		// `replaceResources` transformer (build/transformers/replace-resources.js) strips every
+		// Component's `styles` property — array or (as here) template-literal string — from the
+		// decorator before compilation, for every component in every spec, not just this one.
+		// Confirmed empirically: `TestBed.createComponent` here produces zero `<style>` elements,
+		// no `adoptedStyleSheets`, and no inline `style` attribute anywhere in the document, so
+		// `getComputedStyle(host).height` is `''` whether or not the `:host { height: ... }` rule
+		// exists in the source — verified by temporarily deleting the rule and re-running: the
+		// result was identical (`''`) in both cases. A DOM-rendered assertion here cannot fail
+		// (the exact defect this fix was asked to close), it can only ever produce a false pass.
+		//
+		// So this guards the rule the only way that is actually falsifiable under this pipeline:
+		// reading the component's own source. It fails the moment the `height:` declaration
+		// referencing the custom property is removed, and real rendered height is left to Task 16's
+		// browser check, same as row-rendering is for the test above.
+		const source = readFileSync(join(__dirname, 'data-grid.component.ts'), 'utf8');
+		expect(source).toMatch(/height:\s*var\(--pokedex-grid-height,\s*600px\)/);
 	});
 });

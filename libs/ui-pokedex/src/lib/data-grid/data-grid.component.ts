@@ -6,6 +6,7 @@ import type {
 	GridReadyEvent,
 	GridState,
 	IRowNode,
+	IsExternalFilterPresent,
 	SideBarDef,
 	StateUpdatedEvent,
 } from 'ag-grid-community';
@@ -68,7 +69,7 @@ export class UiDataGridComponent<TRow> {
 	readonly initialState = input<GridState | undefined>(undefined);
 
 	/** External Filter API — used by cross-cutting filters that are not bound to a column. */
-	readonly isExternalFilterPresent = input<(() => boolean) | undefined>(undefined);
+	readonly isExternalFilterPresent = input<IsExternalFilterPresent<TRow> | undefined>(undefined);
 	readonly doesExternalFilterPass = input<((node: IRowNode<TRow>) => boolean) | undefined>(undefined);
 
 	readonly gridReady = output<GridReadyEvent<TRow>>();
