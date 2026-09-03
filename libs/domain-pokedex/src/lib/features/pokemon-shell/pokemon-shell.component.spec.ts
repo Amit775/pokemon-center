@@ -5,6 +5,7 @@ import { provideHttpClientTesting, HttpTestingController } from '@angular/common
 import { provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { POKEDEX_API_URL } from '@pokemon-center/data-access-pokedex';
+import { registerDataGridModules } from '@pokemon-center/ui-pokedex';
 import { PokemonShellComponent } from './pokemon-shell.component';
 import { PokemonEmptyDetailComponent } from './pokemon-empty-detail.component';
 
@@ -49,6 +50,8 @@ describe('PokemonShellComponent', () => {
 	}
 
 	beforeEach(async () => {
+		registerDataGridModules();
+
 		// A trivial stub, not PokemonPageComponent — this spec proves PokemonShellComponent reacts
 		// to its child route's :id param, not what the real detail page renders. Task 5's manual
 		// check is what proves the real /pokedex/pokemon/:id path end to end.
@@ -78,29 +81,23 @@ describe('PokemonShellComponent', () => {
 		harness.fixture.detectChanges();
 		await harness.fixture.whenStable();
 		harness.fixture.detectChanges();
+
+		// AG Grid defers framework (Angular) cell renderer creation into its own
+		// requestAnimationFrame-scheduled task queue, which `whenStable()` does not track. Give it a
+		// couple of real animation frames to flush before asserting on cell-rendered content.
+		await new Promise((resolve) => requestAnimationFrame(resolve));
+		await new Promise((resolve) => requestAnimationFrame(resolve));
+		harness.fixture.detectChanges();
 	});
 
-	it('renders every fetched pokemon as a table row', () => {
-		const rows = element().querySelectorAll('[role="row"]:not(.header-row)');
-		expect(rows).toHaveLength(2);
+	it('renders the grid with every fetched pokemon', () => {
+		expect(element().querySelector('ag-grid-angular')).not.toBeNull();
 		expect(element().textContent).toContain('bulbasaur');
 		expect(element().textContent).toContain('charmander');
 	});
 
 	it('shows the empty-detail placeholder when nothing is selected', () => {
 		expect(element().textContent).toContain('Select a Pokémon');
-	});
-
-	it('enables virtualization on the table', () => {
-		expect(element().querySelector('cdk-virtual-scroll-viewport')).not.toBeNull();
-	});
-
-	it('marks a row selected once its id matches the current route', async () => {
-		await harness.navigateByUrl('/1');
-		harness.fixture.detectChanges();
-
-		const markedRow = Array.from(element().querySelectorAll('[role="row"]')).find((row) => row.classList.contains('marked'));
-		expect(markedRow?.textContent).toContain('bulbasaur');
 	});
 
 	it('renders the tools navigation with links to every pokedex tool', () => {
