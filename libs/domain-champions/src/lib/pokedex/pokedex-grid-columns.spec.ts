@@ -47,15 +47,6 @@ describe('pokedexGridColumns', () => {
 		expect(pokedexGridColumns).toHaveLength(11);
 	});
 
-	it('facets Types per element, not per array reference', () => {
-		const handler = api.getColumnFilterHandler<{ getFilterValues(): unknown[] }>('types');
-		const values = handler?.getFilterValues() ?? [];
-
-		expect(values).toEqual(expect.arrayContaining(['grass', 'poison', 'fire', 'water']));
-		// One entry per type, not one opaque entry per row's array reference.
-		expect(values).toHaveLength(4);
-	});
-
 	it('facets Abilities per element, not per array reference', () => {
 		const handler = api.getColumnFilterHandler<{ getFilterValues(): unknown[] }>('abilities');
 		const values = handler?.getFilterValues() ?? [];
@@ -63,15 +54,76 @@ describe('pokedexGridColumns', () => {
 		expect(values).toEqual(expect.arrayContaining(['Overgrow', 'Blaze', 'Torrent', 'Rain Dish']));
 		expect(values).toHaveLength(4);
 	});
+});
 
-	it('filters rows whose Types include the selected type', () => {
-		api.setFilterModel({ types: { filterType: 'set', values: ['fire'] } });
+/**
+ * The Types column's custom filter (see `TypeColumnFilterComponent` and `passesTypes`), proven the
+ * strongest way available: a real headless grid, driven purely through `setFilterModel` and
+ * `forEachNodeAfterFilter`, rather than asserting on the filter model in isolation.
+ *
+ * `enableFilterHandlers: true` is required here for the same reason it is set on the real app's
+ * `UiDataGridComponent` — without it, `doesFilterPass` is never invoked for a custom filter
+ * registered as `filter: { component, doesFilterPass }`.
+ */
+describe('the Types column custom filter', () => {
+	let container: HTMLElement;
+	let api: GridApi<PokedexEntry>;
 
-		const displayedSlugs: string[] = [];
+	const typeRows: PokedexEntry[] = [
+		entry({ slug: 'charmander', name: 'Charmander', nationalPokedexNumber: 4, types: ['fire'] }),
+		// A dual-type Pokémon carrying one of the exact-mode chips: it must NOT count as "a Fire
+		// type" under the exact reading — the whole point of `passesTypes`.
+		entry({ slug: 'charizard', name: 'Charizard', nationalPokedexNumber: 6, types: ['fire', 'flying'] }),
+		entry({ slug: 'squirtle', name: 'Squirtle', nationalPokedexNumber: 7, types: ['water'] }),
+	];
+
+	function displayedSlugs(): string[] {
+		const slugs: string[] = [];
 		api.forEachNodeAfterFilter((node) => {
-			if (node.data) displayedSlugs.push(node.data.slug);
+			if (node.data) slugs.push(node.data.slug);
 		});
+		return slugs;
+	}
 
-		expect(displayedSlugs).toEqual(['charmander']);
+	beforeEach(() => {
+		container = document.createElement('div');
+		document.body.appendChild(container);
+		api = createGrid(container, {
+			columnDefs: pokedexGridColumns,
+			rowData: typeRows,
+			getRowId: (params) => params.data.slug,
+			enableFilterHandlers: true,
+		});
+	});
+
+	afterEach(() => {
+		api.destroy();
+		container.remove();
+	});
+
+	it('exact mode with one chip matches mono-types only, not a dual-type Pokémon containing it', () => {
+		api.setFilterModel({ types: { types: ['fire'], mode: 'exact' } });
+
+		expect(displayedSlugs()).toEqual(['charmander']);
+	});
+
+	it('exact mode with the full pair matches only that exact dual type', () => {
+		api.setFilterModel({ types: { types: ['fire', 'flying'], mode: 'exact' } });
+
+		expect(displayedSlugs()).toEqual(['charizard']);
+	});
+
+	it('any mode matches every Pokémon with at least one of the selected types, mono or dual', () => {
+		api.setFilterModel({ types: { types: ['fire', 'water'], mode: 'any' } });
+
+		expect(displayedSlugs().sort()).toEqual(['charizard', 'charmander', 'squirtle']);
+	});
+
+	it('clearing the filter model shows every row again', () => {
+		api.setFilterModel({ types: { types: ['fire'], mode: 'exact' } });
+		expect(displayedSlugs()).toHaveLength(1);
+
+		api.setFilterModel(null);
+		expect(displayedSlugs()).toHaveLength(3);
 	});
 });

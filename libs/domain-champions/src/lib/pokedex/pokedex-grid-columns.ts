@@ -1,7 +1,8 @@
-import type { ColDef } from 'ag-grid-community';
-import type { PokedexEntry } from './pokedex-filter';
+import type { ColDef, DoesFilterPassParams } from 'ag-grid-community';
+import { TypeColumnFilterComponent, type TypeColumnFilterModel } from './filters/type-column-filter.component';
 import { PokedexAbilityCellComponent } from './pokedex-ability-cell.component';
 import { PokedexActionsCellComponent } from './pokedex-actions-cell.component';
+import { passesTypes, type PokedexEntry } from './pokedex-filter';
 import { PokedexNameCellComponent } from './pokedex-name-cell.component';
 import { PokedexTypeListCellComponent } from './pokedex-type-list-cell.component';
 
@@ -17,18 +18,17 @@ export const pokedexGridColumns: ColDef<PokedexEntry>[] = [
 		autoHeight: true,
 	},
 	{
-		// Phase 3 replaces this with the two-mode custom type filter.
+		// The two-mode custom type filter — see `TypeColumnFilterComponent` and `passesTypes`.
+		// Requires `enableFilterHandlers` on the grid (set once, in `UiDataGridComponent`): without
+		// it, `doesFilterPass` below is never invoked. See that component for why.
 		colId: 'types',
 		headerName: 'Types',
 		width: 140,
 		valueGetter: (params) => params.data?.types ?? [],
-		filter: 'agSetColumnFilter',
-		filterParams: {
-			// Without this, the Set Filter treats the whole `types` array as one opaque entry
-			// instead of faceting each type separately — the AG Grid analogue of the
-			// `getUniqueValues` trap the TanStack version hit. The Key Creator runs per element,
-			// not on the array itself, so the identity function is enough for plain string types.
-			keyCreator: (params: { value: string }) => params.value,
+		filter: {
+			component: TypeColumnFilterComponent,
+			doesFilterPass: ({ model, data }: DoesFilterPassParams<PokedexEntry, unknown, TypeColumnFilterModel>) =>
+				passesTypes(data, { types: model.types, typeMode: model.mode }),
 		},
 		sortable: false,
 		cellRenderer: PokedexTypeListCellComponent,

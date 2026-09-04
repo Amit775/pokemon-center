@@ -20,7 +20,18 @@ import { pokedexGridTheme } from './data-grid.theme';
  * Deliberately thin: AG Grid is the product, and wrapping its API in our own would mean
  * re-implementing and then maintaining a second, worse version of it. This owns only what must be
  * identical everywhere — the theme, the shared defaults, the side bar, and the container height
- * AG Grid needs but cannot supply itself.
+ * AG Grid needs but cannot supply itself, plus `enableFilterHandlers` below.
+ *
+ * `enableFilterHandlers` is required for any custom (application-authored) column filter registered
+ * as `filter: { component, doesFilterPass }` — e.g. Champions' Types column filter. Without it, the
+ * grid still renders that component's popup, but silently never calls `doesFilterPass`: the v36 docs
+ * say so directly ("To configure custom filters, first enable the grid option
+ * `enableFilterHandlers`"), and it is confirmed by the shipped source
+ * (`ColumnFilterService.createHandlerFunc` in `ag-grid-community`), which only reads
+ * `filter.doesFilterPass`/`filter.handler` off the column def when this flag is on. Grid-provided
+ * filters (`agSetColumnFilter`, `agNumberColumnFilter`, …) are unaffected — they always use filter
+ * handlers regardless of this option — so turning it on here is additive, not a behavior change for
+ * every other column already on this grid.
  */
 @Component({
 	selector: 'pokedex-data-grid',
@@ -29,6 +40,7 @@ import { pokedexGridTheme } from './data-grid.theme';
 	template: `
 		<ag-grid-angular
 			[theme]="theme"
+			[enableFilterHandlers]="true"
 			[rowData]="rowData()"
 			[columnDefs]="columnDefs()"
 			[defaultColDef]="defaultColDef()"
