@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, untracked } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, untracked } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import type { GetRowIdFunc, GridApi, GridReadyEvent, IRowNode, PostSortRows, SideBarDef } from 'ag-grid-community';
 import { UiDataGridComponent, UiSkeletonComponent, pokedexSideBar } from '@pokemon-center/ui-pokedex';
 import { CompareTrayComponent } from './compare-tray.component';
 import { ChampionsFiltersPanelComponent, CHAMPIONS_FILTERS_PANEL_ID } from './filters/champions-filters-panel.component';
+import { applyPokedexState, capturePokedexState } from './filters/apply-pokedex-state';
 import { ExternalFiltersStore } from './filters/external-filters.store';
 import { pokedexGridColumns } from './pokedex-grid-columns';
 import type { PokedexEntry } from './pokedex-filter';
-import { decodePokedexState, hasPokedexStateParams } from './pokedex-url';
+import { decodePokedexState, encodePokedexState, hasPokedexStateParams } from './pokedex-url';
 import { PokedexStore } from './pokedex.store';
 
 /**
@@ -47,10 +48,23 @@ const rosterSideBar: SideBarDef = {
  * A shared link is read once `onGridReady` fires (Task 15): if the URL carries any of
  * `pokedex-url.ts`'s params, the decoded `PokedexSavedState` — both the grid's column filter model
  * *and* `ExternalFiltersStore`'s slice — replaces whatever either was already holding, rather than
- * merging with it (`hasPokedexStateParams`/`decodePokedexState`'s "wins outright" rule). Saving a
- * *named* set, and writing the current view back out as a link, both happen from the Champions
- * filters panel instead (`filters/filter-sets.component.ts`), which is where the grid api the panel
- * receives via `IToolPanelParams` and this component's own `gridApi` converge.
+ * merging with it (`hasPokedexStateParams`/`decodePokedexState`'s "wins outright" rule).
+ *
+ * From then on the current view is written back out to the URL on every change (`writeUrl`
+ * below), the same `router.navigate([], { relativeTo, queryParams, replaceUrl: true })` the
+ * pre-migration roster used (`git show e2314fea^:.../roster.component.ts`, its own `writeUrl`).
+ * `replaceUrl: true` is deliberate, not incidental: a filter panel emits a state per keystroke,
+ * and pushing every one would turn the Back button into an undo of individual characters — the
+ * URL stays a *description* of the current view, not a history of how it was reached. `consumed`
+ * guards the read/write race the same way the original's did: `writeUrl` only fires once
+ * `onGridReady` has already read (or declined to read) the URL, so a shared link's own params are
+ * never clobbered by a write racing ahead of the read that was meant to apply them.
+ *
+ * Saving a *named* set happens from the Champions filters panel instead
+ * (`filters/filter-sets.component.ts`), which is where the grid api the panel receives via
+ * `IToolPanelParams` and this component's own `gridApi` converge. Capturing and restoring a
+ * combined state is shared code (`filters/apply-pokedex-state.ts`) between that panel and this
+ * component, so the two paths cannot drift apart on what a `PokedexSavedState` contains.
  */
 @Component({
 	selector: 'champions-roster',
@@ -140,6 +154,7 @@ export default class RosterComponent {
 	protected readonly store = inject(PokedexStore);
 	protected readonly externalFilters = inject(ExternalFiltersStore);
 	private readonly route = inject(ActivatedRoute);
+	private readonly router = inject(Router);
 
 	/** Base forms only — Mega rows are excluded from this pass entirely, not merely hidden. */
 	protected readonly entries = computed<PokedexEntry[]>(() => this.store.entries().filter((entry) => !entry.isMega));
@@ -161,9 +176,22 @@ export default class RosterComponent {
 
 	private gridApi: GridApi<PokedexEntry> | null = null;
 
+	/**
+	 * Bumped whenever the grid's own column filter model changes, purely so `writeUrl` below has a
+	 * signal to react to — a column filter change (e.g. narrowing Types in its popup) touches
+	 * nothing on `ExternalFiltersStore`, so without this the URL would never reflect it.
+	 */
+	private readonly filterModelVersion = signal(0);
+
+	/** The URL is read once, on `gridReady`; later writes are this component's own, echoing back. */
+	private consumed = false;
+
 	protected onGridReady(event: GridReadyEvent<PokedexEntry>): void {
 		this.gridApi = event.api;
+		event.api.addEventListener('filterChanged', () => this.filterModelVersion.update((version) => version + 1));
+
 		this.applyUrlStateIfPresent(event.api);
+		this.consumed = true;
 	}
 
 	/**
@@ -176,20 +204,30 @@ export default class RosterComponent {
 		const read = (key: string) => params.get(key);
 		if (!hasPokedexStateParams(read)) return;
 
-		const state = decodePokedexState(read);
-		api.setFilterModel(state.filterModel);
-
-		this.externalFilters.setMatchup({ types: state.external.matchupTypes, mode: state.external.matchupMode, direction: state.external.matchupDirection });
-		this.externalFilters.setOwnedOnly(state.external.ownedOnly);
-		this.externalFilters.setMega(state.external.mega);
-		this.externalFilters.setCounterOf(state.external.counterOf);
-		this.externalFilters.setMove(state.external.move);
-
-		// Kicks off `PokedexStore`'s learners fetch for the restored move — the same pair
-		// `move-learner-filter.component.ts` sets when a move is picked by hand, and
-		// `filter-sets.component.ts` sets when a saved set restores one.
-		this.store.patch({ move: state.external.move });
+		applyPokedexState(decodePokedexState(read), api, this.externalFilters, this.store);
 	}
+
+	/**
+	 * …and written on every change after that, with `replaceUrl` — see the class doc for why.
+	 *
+	 * Tracks `filterModelVersion` (the column half) and `externalFilters.version` (the other) so
+	 * either kind of change re-runs this; the actual read of both halves happens inside
+	 * `untracked`, via `capturePokedexState`, so it never adds its own dependencies on top of
+	 * those two.
+	 */
+	private readonly writeUrl = effect(() => {
+		this.filterModelVersion();
+		this.externalFilters.version();
+
+		untracked(() => {
+			// Until the URL has been read (or found to carry nothing), writing would race the seed
+			// and clobber a shared link before `applyUrlStateIfPresent` gets to it.
+			if (!this.consumed || !this.gridApi) return;
+
+			const queryParams = encodePokedexState(capturePokedexState(this.gridApi, this.externalFilters));
+			void this.router.navigate([], { relativeTo: this.route, queryParams, replaceUrl: true });
+		});
+	});
 
 	/**
 	 * The grid does not watch `ExternalFiltersStore`'s signals — it only re-runs

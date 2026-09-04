@@ -1,6 +1,7 @@
+import { Location } from '@angular/common';
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { registerDataGridModules } from '@pokemon-center/ui-pokedex';
 import RosterComponent from './roster.component';
@@ -266,5 +267,46 @@ describe('RosterComponent', () => {
 		// rather than keeping the `true` set above.
 		expect(externalFilters.ownedOnly()).toBe(false);
 		expect(visibleRowIds()).toEqual(['venusaur']);
+
+		// The read and the write must not fight: if `consumed` were not already `true` by the time
+		// `writeUrl` first ran, or if it read a stale capture, the just-applied `mega` param could
+		// come back blank or wrong here instead of echoing itself.
+		expect(TestBed.inject(Location).path()).toContain('mega=has-mega');
+	});
+
+	/**
+	 * The write half of Task 15's URL sync, restored to match the pre-migration roster's own
+	 * `writeUrl` effect (`git show e2314fea^:.../roster.component.ts`): the current view is pushed
+	 * back out to the query string on every change, with `replaceUrl: true` so a filter panel
+	 * emitting a state per keystroke does not turn Back into an undo of individual characters.
+	 */
+	it('writes the current filters to the URL as they change, using replaceUrl rather than a new history entry', async () => {
+		await render({ entries: baseEntries });
+
+		const router = TestBed.inject(Router);
+		const navigateSpy = jest.spyOn(router, 'navigate');
+		const externalFilters = TestBed.inject(ExternalFiltersStore);
+
+		externalFilters.setOwnedOnly(true);
+		await settle();
+
+		expect(navigateSpy).toHaveBeenCalledWith([], expect.objectContaining({ queryParams: expect.objectContaining({ ownedOnly: '1' }), replaceUrl: true }));
+		expect(TestBed.inject(Location).path()).toContain('ownedOnly=1');
+	});
+
+	/** Rule 1, on the write side: a cleared panel writes a bare URL, not one carrying stale params. */
+	it('writes a bare URL once every filter is cleared', async () => {
+		await render({ entries: baseEntries });
+
+		const externalFilters = TestBed.inject(ExternalFiltersStore);
+		externalFilters.setOwnedOnly(true);
+		await settle();
+		expect(TestBed.inject(Location).path()).toContain('ownedOnly=1');
+
+		externalFilters.setOwnedOnly(false);
+		await settle();
+
+		const [, query] = TestBed.inject(Location).path().split('?');
+		expect(query ?? '').toBe('');
 	});
 });

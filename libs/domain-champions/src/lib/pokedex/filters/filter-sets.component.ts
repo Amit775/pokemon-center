@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal } from '@angular/core';
 import type { GridApi } from 'ag-grid-community';
-import { toQueryString, type PokedexSavedState } from '../pokedex-url';
+import { toQueryString } from '../pokedex-url';
 import type { PokedexEntry } from '../pokedex-filter';
 import { PokedexStore, type FilterSet } from '../pokedex.store';
 import { SavedSetsComponent } from '../saved-sets.component';
+import { applyPokedexState, capturePokedexState } from './apply-pokedex-state';
 import { ExternalFiltersStore } from './external-filters.store';
 
 /**
@@ -23,12 +24,9 @@ import { ExternalFiltersStore } from './external-filters.store';
  * side-bar tool panel in its own right — the panel captures `params.api` once in its `agInit` and
  * forwards it down.
  *
- * The move filter needs one extra nudge on restore: `ExternalFiltersStore.move` decides *whether*
- * to filter by move, but the actual list of learners is fetched by `PokedexStore` keyed off
- * `PokedexStore.filters().move` (see `move-learner-filter.component.ts`, which sets both together
- * when a move is picked by hand). Restoring a saved or shared move filter mirrors that: `applyState`
- * calls `PokedexStore.patch({ move })` alongside `ExternalFiltersStore.setMove(move)`, the same pair
- * a manual pick makes.
+ * Capturing and restoring a combined state (`apply-pokedex-state.ts`) is shared with
+ * `RosterComponent`, which does the same pair of things for a shared link — see that module's doc
+ * comment for the move-learner nudge `applyPokedexState` makes on restore.
  */
 @Component({
 	selector: 'champions-filter-sets',
@@ -104,25 +102,6 @@ export class FilterSetsComponent {
 		});
 	}
 
-	/** Both filtering mechanisms, read fresh — never cached, since a grid api call is not a signal. */
-	private currentState(): PokedexSavedState {
-		const api = this.gridApi();
-		const matchup = this.externalFilters.matchup();
-
-		return {
-			filterModel: api?.getFilterModel() ?? {},
-			external: {
-				matchupTypes: matchup.types,
-				matchupMode: matchup.mode,
-				matchupDirection: matchup.direction,
-				ownedOnly: this.externalFilters.ownedOnly(),
-				mega: this.externalFilters.mega(),
-				move: this.externalFilters.move(),
-				counterOf: this.externalFilters.counterOf(),
-			},
-		};
-	}
-
 	/** Column filter model non-empty, or a cross-cutting filter active — either half counts. */
 	protected readonly hasActiveFilters = computed(() => {
 		this.filterModelVersion();
@@ -134,34 +113,21 @@ export class FilterSetsComponent {
 	/** The current view as a link someone else can open — a bare URL when nothing is filtered. */
 	protected readonly shareUrl = computed(() => {
 		this.filterModelVersion();
-		this.externalFilters.version();
 
-		const query = toQueryString(untracked(() => this.currentState()));
+		const query = toQueryString(capturePokedexState(this.gridApi(), this.externalFilters));
 		const base = typeof window === 'undefined' ? '' : `${window.location.origin}${window.location.pathname}`;
 		return query ? `${base}?${query}` : base;
 	});
 
 	protected onSave(name: string): void {
-		this.store.saveSet(name, this.currentState());
+		this.store.saveSet(name, capturePokedexState(this.gridApi(), this.externalFilters));
 	}
 
 	protected onApply(set: FilterSet): void {
-		this.applyState(this.store.applySet(set));
-	}
+		const api = this.gridApi();
+		if (!api) return;
 
-	/** Restores both halves of a combined state — see the class doc for the move-learner nudge. */
-	private applyState(state: PokedexSavedState): void {
-		this.gridApi()?.setFilterModel(state.filterModel);
-
-		this.externalFilters.setMatchup({ types: state.external.matchupTypes, mode: state.external.matchupMode, direction: state.external.matchupDirection });
-		this.externalFilters.setOwnedOnly(state.external.ownedOnly);
-		this.externalFilters.setMega(state.external.mega);
-		this.externalFilters.setCounterOf(state.external.counterOf);
-		this.externalFilters.setMove(state.external.move);
-
-		// Kicks off `PokedexStore`'s learners fetch for the restored move, the same pair
-		// `move-learner-filter.component.ts` sets when a move is picked by hand.
-		this.store.patch({ move: state.external.move });
+		applyPokedexState(this.store.applySet(set), api, this.externalFilters, this.store);
 	}
 
 	protected select(event: Event): void {
