@@ -42,8 +42,13 @@ export const pokedexGridColumns: ColDef<PokedexEntry>[] = [
 		valueGetter: (params) => params.data?.abilityNames ?? [],
 		filter: 'agSetColumnFilter',
 		filterParams: {
-			// Same reasoning as Types: abilityNames is array-valued, and the Key Creator needs to
-			// facet each ability separately rather than the row's whole ability list as one entry.
+			// Not what facets each ability separately — AG Grid v36's Set Filter already splits an
+			// array-valued cell (both its value extractor and `doesFilterPass`) before `keyCreator`
+			// ever runs, so `createKey` here receives one already-split ability name, not the row's
+			// whole array. Confirmed by removing this line: `pokedex-grid-columns.spec.ts` still
+			// passes unchanged. Kept as an explicit, harmless identity — documenting that the facet
+			// key *is* the display value, in case a future change (e.g. keying by ability slug
+			// instead of name) needs a real transform here.
 			keyCreator: (params: { value: string }) => params.value,
 		},
 		sortable: false,

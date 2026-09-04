@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import type { ColDef, PostSortRows, RowClassRules } from 'ag-grid-community';
+import type { IFilterDisplayAngularComp } from 'ag-grid-angular';
+import type { ColDef, DoesFilterPassParams, FilterDisplayParams, GridApi, GridReadyEvent, PostSortRows, RowClassRules } from 'ag-grid-community';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { UiDataGridComponent } from './data-grid.component';
@@ -55,6 +56,54 @@ class DataGridPostSortTestHostComponent {
 	readonly postSortRows: PostSortRows<DemoRow> = (params) => {
 		params.nodes.sort((first, second) => (second.data?.power ?? 0) - (first.data?.power ?? 0));
 	};
+}
+
+/**
+ * A minimal custom column filter (`filter: { component, doesFilterPass }`), the shape that only
+ * works when the grid has `enableFilterHandlers` set. It has no real UI of its own — the test below
+ * drives it purely through `api.setFilterModel`, never through the popup — because the thing under
+ * test is whether `doesFilterPass` gets called at all, not the filter's own affordance.
+ */
+@Component({
+	selector: 'pokedex-data-grid-trivial-filter',
+	template: '',
+})
+class TrivialPowerFilterComponent implements IFilterDisplayAngularComp<DemoRow, unknown, number> {
+	agInit(_params: FilterDisplayParams<DemoRow, unknown, number>): void {
+		/* no UI: the model is set directly via api.setFilterModel in the test */
+	}
+
+	refresh(_params: FilterDisplayParams<DemoRow, unknown, number>): boolean {
+		return true;
+	}
+}
+
+const customFilterColumns: ColDef<DemoRow>[] = [
+	{ field: 'name' },
+	{
+		colId: 'power',
+		field: 'power',
+		filter: {
+			component: TrivialPowerFilterComponent,
+			doesFilterPass: ({ model, data }: DoesFilterPassParams<DemoRow, unknown, number>) => data.power >= model,
+		},
+	},
+];
+
+@Component({
+	selector: 'pokedex-data-grid-custom-filter-test-host',
+	imports: [UiDataGridComponent],
+	template: `<pokedex-data-grid [rowData]="rowData()" [columnDefs]="columnDefs()" [getRowId]="getRowId" (gridReady)="onGridReady($event)" />`,
+})
+class DataGridCustomFilterTestHostComponent {
+	readonly rowData = signal(rows);
+	readonly columnDefs = signal(customFilterColumns);
+	readonly getRowId = (params: { data: DemoRow }) => params.data.id;
+	api?: GridApi<DemoRow>;
+
+	onGridReady(event: GridReadyEvent<DemoRow>): void {
+		this.api = event.api;
+	}
 }
 
 describe('UiDataGridComponent', () => {
@@ -115,5 +164,50 @@ describe('UiDataGridComponent', () => {
 		// browser check, same as row-rendering is for the test above.
 		const source = readFileSync(join(__dirname, 'data-grid.component.ts'), 'utf8');
 		expect(source).toMatch(/height:\s*var\(--pokedex-grid-height,\s*600px\)/);
+	});
+
+	/**
+	 * Guards `[enableFilterHandlers]="true"` on the wrapper itself. Every other custom-filter test in
+	 * this codebase (Champions' Types and stat-range filters) passes that flag to its own headless
+	 * `createGrid` call, so none of them would notice if the wrapper stopped setting it. This one
+	 * renders through `UiDataGridComponent` and drives a custom `filter: { component, doesFilterPass }`
+	 * column purely via `api.setFilterModel` — the same technique `pokedex-grid-columns.spec.ts` uses —
+	 * so it fails if `enableFilterHandlers` is ever removed from the template.
+	 *
+	 * Falsifiability confirmed by hand: temporarily deleting `[enableFilterHandlers]="true"` from
+	 * `data-grid.component.ts` makes this test fail (both rows stay visible because `doesFilterPass`
+	 * is never called), and restoring it makes it pass again.
+	 */
+	it('sets enableFilterHandlers on the grid so a custom column filter actually filters rows', async () => {
+		const fixture = TestBed.createComponent(DataGridCustomFilterTestHostComponent);
+		fixture.detectChanges();
+		await fixture.whenStable();
+		fixture.detectChanges();
+
+		// AG Grid defers framework (Angular) cell renderer / gridReady wiring into its own
+		// requestAnimationFrame-scheduled task queue, which `whenStable()` does not track in this
+		// zoneless app — same technique `roster.component.spec.ts`'s `flushFrameworkCellRenderers`
+		// uses, copied from `pokemon-shell.component.spec.ts`.
+		for (let i = 0; i < 6; i++) {
+			await new Promise((resolve) => requestAnimationFrame(resolve));
+		}
+		fixture.detectChanges();
+
+		const api = fixture.componentInstance.api;
+		if (!api) throw new Error('gridReady never fired');
+
+		const displayedRowCount = () => {
+			let count = 0;
+			api.forEachNodeAfterFilter(() => count++);
+			return count;
+		};
+
+		expect(displayedRowCount()).toBe(2);
+
+		api.setFilterModel({ power: 50 });
+		await fixture.whenStable();
+		fixture.detectChanges();
+
+		expect(displayedRowCount()).toBe(1);
 	});
 });

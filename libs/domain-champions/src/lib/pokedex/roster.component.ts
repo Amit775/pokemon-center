@@ -190,21 +190,48 @@ export default class RosterComponent {
 		this.gridApi = event.api;
 		event.api.addEventListener('filterChanged', () => this.filterModelVersion.update((version) => version + 1));
 
-		this.applyUrlStateIfPresent(event.api);
+		const stateAppliedFromUrl = this.applyUrlStateIfPresent(event.api);
 		this.consumed = true;
+
+		// A bare visit never touches `filterModelVersion` or `externalFilters.version`, so
+		// `writeUrl` below never runs on its own — but `ExternalFiltersStore` is root-scoped, so a
+		// "bare" visit can still land on a non-empty view carried over from an earlier one in the
+		// same session. Write once, explicitly, so the URL always describes what's on screen
+		// instead of silently going stale (and dropping the filter on reload). Skipped when a URL
+		// was actually applied above — that path already gets its write from the version bump
+		// `applyPokedexState` causes, and firing both would be redundant, not incorrect.
+		if (!stateAppliedFromUrl) this.writeCurrentUrl();
+
+		// A counter handoff (`pokemon-detail.component.ts`'s "Answers to X") or a shared link
+		// carrying `counterOf`/`ownedOnly`/`mega` can leave the roster showing only a handful of
+		// rows with no visible explanation, because the panel that explains it — and offers the
+		// way out — lives behind the closed side bar (`pokedexSideBar.defaultToolPanel: undefined`).
+		// Checked after `applyUrlStateIfPresent` so a shared link's own external-filter state is
+		// what this reads, not whatever was there before the URL was applied.
+		if (this.externalFilters.isPresent()) event.api.openToolPanel(CHAMPIONS_FILTERS_PANEL_ID);
 	}
 
 	/**
 	 * A shared link wins outright over whatever the grid and `ExternalFiltersStore` were already
 	 * holding — it is never merged in. With no filter params at all (a bare visit, or a visit that
-	 * only carries unrelated params) this does nothing, leaving both at whatever they already were.
+	 * only carries unrelated params) this does nothing, leaving both at whatever they already were,
+	 * and returns `false` so the caller knows no state came from the URL.
 	 */
-	private applyUrlStateIfPresent(api: GridApi<PokedexEntry>): void {
+	private applyUrlStateIfPresent(api: GridApi<PokedexEntry>): boolean {
 		const params = this.route.snapshot.queryParamMap;
 		const read = (key: string) => params.get(key);
-		if (!hasPokedexStateParams(read)) return;
+		if (!hasPokedexStateParams(read)) return false;
 
 		applyPokedexState(decodePokedexState(read), api, this.externalFilters, this.store);
+		return true;
+	}
+
+	/** The shared body of an explicit (bare-visit) write and the reactive `writeUrl` effect below. */
+	private writeCurrentUrl(): void {
+		if (!this.gridApi) return;
+
+		const queryParams = encodePokedexState(capturePokedexState(this.gridApi, this.externalFilters));
+		void this.router.navigate([], { relativeTo: this.route, queryParams, replaceUrl: true });
 	}
 
 	/**
@@ -212,8 +239,8 @@ export default class RosterComponent {
 	 *
 	 * Tracks `filterModelVersion` (the column half) and `externalFilters.version` (the other) so
 	 * either kind of change re-runs this; the actual read of both halves happens inside
-	 * `untracked`, via `capturePokedexState`, so it never adds its own dependencies on top of
-	 * those two.
+	 * `untracked`, via `writeCurrentUrl`/`capturePokedexState`, so it never adds its own dependencies
+	 * on top of those two.
 	 */
 	private readonly writeUrl = effect(() => {
 		this.filterModelVersion();
@@ -224,8 +251,7 @@ export default class RosterComponent {
 			// and clobber a shared link before `applyUrlStateIfPresent` gets to it.
 			if (!this.consumed || !this.gridApi) return;
 
-			const queryParams = encodePokedexState(capturePokedexState(this.gridApi, this.externalFilters));
-			void this.router.navigate([], { relativeTo: this.route, queryParams, replaceUrl: true });
+			this.writeCurrentUrl();
 		});
 	});
 

@@ -48,7 +48,15 @@ describe('pokedexGridColumns', () => {
 		expect(pokedexGridColumns).toHaveLength(11);
 	});
 
-	it('facets Abilities per element, not per array reference', () => {
+	/**
+	 * Despite the name, this does not prove the Abilities column's `keyCreator` does the faceting:
+	 * AG Grid v36's Set Filter splits an array-valued cell on its own (both its value extractor and
+	 * `doesFilterPass`), before `keyCreator` ever runs — confirmed by temporarily removing that
+	 * `keyCreator` and re-running this test unchanged, which still passes. See its comment in
+	 * `pokedex-grid-columns.ts`. This guards only that the column stays array-valued and facetable
+	 * per ability, however that faceting happens.
+	 */
+	it('facets Abilities per element (the grid does this natively, not the keyCreator), not per array reference', () => {
 		const handler = api.getColumnFilterHandler<{ getFilterValues(): unknown[] }>('abilities');
 		const values = handler?.getFilterValues() ?? [];
 

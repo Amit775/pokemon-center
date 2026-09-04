@@ -38,6 +38,12 @@ const charmander = {
 const samplePokemon = [bulbasaur, charmander];
 
 describe('PokemonShellComponent', () => {
+	// The default 5s Jest timeout is occasionally too tight for a real AG Grid mount plus the
+	// multi-frame framework-cell-renderer flush below, especially under load from the rest of the
+	// suite (e.g. `pokedex-grid-columns.spec.ts` also creating real grids) — same reasoning as
+	// `roster.component.spec.ts:48`.
+	jest.setTimeout(20000);
+
 	let harness: RouterTestingHarness;
 
 	function element(): HTMLElement {
@@ -49,11 +55,16 @@ describe('PokemonShellComponent', () => {
 	 * requestAnimationFrame-scheduled task queue, which `whenStable()` does not track (this is a
 	 * zoneless app, and AG Grid only treats work as zone-trackable when it detects Zone.js or an
 	 * explicit `window.AG_GRID_UNDER_TEST`, neither of which is true here). Two real animation
-	 * frames are enough to flush it for the row counts this spec uses — Task 8/9 can reuse this.
+	 * frames were enough in isolation, but flaky under the same load `jest.setTimeout` above guards
+	 * against — real animation frames run at whatever rate the CPU is free to give them, and the
+	 * rest of the suite (e.g. `pokedex-grid-columns.spec.ts` also creating real grids) can starve
+	 * two of them. Six matches `roster.component.spec.ts`'s identical helper, which does not flake
+	 * under the same load.
 	 */
 	async function flushFrameworkCellRenderers(): Promise<void> {
-		await new Promise((resolve) => requestAnimationFrame(resolve));
-		await new Promise((resolve) => requestAnimationFrame(resolve));
+		for (let i = 0; i < 6; i++) {
+			await new Promise((resolve) => requestAnimationFrame(resolve));
+		}
 		harness.fixture.detectChanges();
 	}
 

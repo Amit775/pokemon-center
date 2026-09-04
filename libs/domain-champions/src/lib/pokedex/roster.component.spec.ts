@@ -3,8 +3,10 @@ import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
+import type { GridApi } from 'ag-grid-community';
 import { registerDataGridModules } from '@pokemon-center/ui-pokedex';
 import RosterComponent from './roster.component';
+import { CHAMPIONS_FILTERS_PANEL_ID } from './filters/champions-filters-panel.component';
 import { ExternalFiltersStore } from './filters/external-filters.store';
 import { pokedexGridColumns } from './pokedex-grid-columns';
 import { PokedexStore } from './pokedex.store';
@@ -294,6 +296,22 @@ describe('RosterComponent', () => {
 		expect(TestBed.inject(Location).path()).toContain('ownedOnly=1');
 	});
 
+	/**
+	 * `ExternalFiltersStore` is root-scoped, so a bare visit (no query params at all) can still land
+	 * on a non-empty view — state left over from an earlier visit in the same session, simulated
+	 * here by setting `ownedOnly` before the bare navigation. `applyUrlStateIfPresent` rightly does
+	 * nothing (there is nothing to apply), but without an explicit write the URL would stay bare
+	 * while the grid is filtered, and a reload would silently drop the filter.
+	 */
+	it('writes the URL on a bare visit, so a stale external filter is not silently dropped on reload', async () => {
+		await render({
+			entries: baseEntries,
+			beforeNavigate: () => TestBed.inject(ExternalFiltersStore).setOwnedOnly(true),
+		});
+
+		expect(TestBed.inject(Location).path()).toContain('ownedOnly=1');
+	});
+
 	/** Rule 1, on the write side: a cleared panel writes a bare URL, not one carrying stale params. */
 	it('writes a bare URL once every filter is cleared', async () => {
 		await render({ entries: baseEntries });
@@ -308,5 +326,32 @@ describe('RosterComponent', () => {
 
 		const [, query] = TestBed.inject(Location).path().split('?');
 		expect(query ?? '').toBe('');
+	});
+
+	/** Reads the private `gridApi` `onGridReady` stashes — the only handle a test has on the real grid. */
+	function gridApi(): GridApi<PokedexEntry> | null {
+		return (harness.routeDebugElement?.componentInstance as unknown as { gridApi: GridApi<PokedexEntry> | null }).gridApi;
+	}
+
+	/**
+	 * The counter handoff from `pokemon-detail.component.ts` (and a shared link carrying
+	 * `counterOf`/`ownedOnly`/`mega`) narrows the roster to a handful of rows via
+	 * `ExternalFiltersStore`, but the panel that explains why — and offers a way to clear it — lives
+	 * behind the side bar's closed default (`pokedexSideBar.defaultToolPanel: undefined`). Without
+	 * `onGridReady` opening it, a recipient sees a near-empty grid with no visible explanation.
+	 */
+	it('opens the Champions filters panel when arriving with an external filter already active', async () => {
+		await render({
+			entries: baseEntries,
+			beforeNavigate: () => TestBed.inject(ExternalFiltersStore).setOwnedOnly(true),
+		});
+
+		expect(gridApi()?.getOpenedToolPanel()).toBe(CHAMPIONS_FILTERS_PANEL_ID);
+	});
+
+	it('leaves the Champions filters panel closed when arriving with no external filter active', async () => {
+		await render({ entries: baseEntries });
+
+		expect(gridApi()?.getOpenedToolPanel()).toBeNull();
 	});
 });

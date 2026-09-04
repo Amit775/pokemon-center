@@ -61,6 +61,34 @@ describe('OwnershipFilterComponent', () => {
 		expect(filters.passes(gardevoir)).toBe(false);
 	});
 
+	/**
+	 * `ownedOnly` is restorable from a shared link even when the recipient's Box is empty
+	 * (`pokedex-url.ts`). Without this, such a recipient sees zero rows and no visible control to
+	 * turn the filter back off — the checkbox stays hidden by the "empty Box" guard forever.
+	 */
+	it('keeps the checkbox visible when ownedOnly is already active, even with an empty Box', () => {
+		TestBed.configureTestingModule({
+			providers: [{ provide: PokedexStore, useValue: { owned: () => new Set<string>(), typeChart: () => ({}), entries: () => roster } }],
+		});
+		const filters = TestBed.inject(ExternalFiltersStore);
+		filters.setOwnedOnly(true);
+
+		const fixture = TestBed.createComponent(OwnershipFilterComponent);
+		fixture.detectChanges();
+
+		const input = checkbox(fixture);
+		expect(input).not.toBeNull();
+		expect(input?.checked).toBe(true);
+
+		// The escape hatch itself: unchecking with an empty Box still clears the filter.
+		if (!input) throw new Error('No ownership checkbox found');
+		input.checked = false;
+		input.dispatchEvent(new Event('change'));
+		fixture.detectChanges();
+
+		expect(filters.ownedOnly()).toBe(false);
+	});
+
 	it('unchecking clears the filter again', () => {
 		const { fixture, filters } = render(new Set(['garchomp']));
 		filters.setOwnedOnly(true);
