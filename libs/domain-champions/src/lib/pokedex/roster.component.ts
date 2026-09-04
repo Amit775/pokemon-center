@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, untracked } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import type { GetRowIdFunc, GridApi, GridReadyEvent, IRowNode, PostSortRows, SideBarDef } from 'ag-grid-community';
 import { UiDataGridComponent, UiSkeletonComponent, pokedexSideBar } from '@pokemon-center/ui-pokedex';
 import { CompareTrayComponent } from './compare-tray.component';
@@ -7,6 +7,7 @@ import { ChampionsFiltersPanelComponent, CHAMPIONS_FILTERS_PANEL_ID } from './fi
 import { ExternalFiltersStore } from './filters/external-filters.store';
 import { pokedexGridColumns } from './pokedex-grid-columns';
 import type { PokedexEntry } from './pokedex-filter';
+import { decodePokedexState, hasPokedexStateParams } from './pokedex-url';
 import { PokedexStore } from './pokedex.store';
 
 /**
@@ -42,6 +43,14 @@ const rosterSideBar: SideBarDef = {
  * `rosterSideBar` above) hosts those filters' controls. The counter-target filter also needs
  * `postSortRows` below: narrowing which rows show is not reordering them, and "what beats this"
  * is a ranking question, not just a filtering one — see `ExternalFiltersStore.compareByCounter`.
+ *
+ * A shared link is read once `onGridReady` fires (Task 15): if the URL carries any of
+ * `pokedex-url.ts`'s params, the decoded `PokedexSavedState` — both the grid's column filter model
+ * *and* `ExternalFiltersStore`'s slice — replaces whatever either was already holding, rather than
+ * merging with it (`hasPokedexStateParams`/`decodePokedexState`'s "wins outright" rule). Saving a
+ * *named* set, and writing the current view back out as a link, both happen from the Champions
+ * filters panel instead (`filters/filter-sets.component.ts`), which is where the grid api the panel
+ * receives via `IToolPanelParams` and this component's own `gridApi` converge.
  */
 @Component({
 	selector: 'champions-roster',
@@ -130,6 +139,7 @@ const rosterSideBar: SideBarDef = {
 export default class RosterComponent {
 	protected readonly store = inject(PokedexStore);
 	protected readonly externalFilters = inject(ExternalFiltersStore);
+	private readonly route = inject(ActivatedRoute);
 
 	/** Base forms only — Mega rows are excluded from this pass entirely, not merely hidden. */
 	protected readonly entries = computed<PokedexEntry[]>(() => this.store.entries().filter((entry) => !entry.isMega));
@@ -153,6 +163,32 @@ export default class RosterComponent {
 
 	protected onGridReady(event: GridReadyEvent<PokedexEntry>): void {
 		this.gridApi = event.api;
+		this.applyUrlStateIfPresent(event.api);
+	}
+
+	/**
+	 * A shared link wins outright over whatever the grid and `ExternalFiltersStore` were already
+	 * holding — it is never merged in. With no filter params at all (a bare visit, or a visit that
+	 * only carries unrelated params) this does nothing, leaving both at whatever they already were.
+	 */
+	private applyUrlStateIfPresent(api: GridApi<PokedexEntry>): void {
+		const params = this.route.snapshot.queryParamMap;
+		const read = (key: string) => params.get(key);
+		if (!hasPokedexStateParams(read)) return;
+
+		const state = decodePokedexState(read);
+		api.setFilterModel(state.filterModel);
+
+		this.externalFilters.setMatchup({ types: state.external.matchupTypes, mode: state.external.matchupMode, direction: state.external.matchupDirection });
+		this.externalFilters.setOwnedOnly(state.external.ownedOnly);
+		this.externalFilters.setMega(state.external.mega);
+		this.externalFilters.setCounterOf(state.external.counterOf);
+		this.externalFilters.setMove(state.external.move);
+
+		// Kicks off `PokedexStore`'s learners fetch for the restored move — the same pair
+		// `move-learner-filter.component.ts` sets when a move is picked by hand, and
+		// `filter-sets.component.ts` sets when a saved set restores one.
+		this.store.patch({ move: state.external.move });
 	}
 
 	/**

@@ -23,7 +23,7 @@ import {
 	megaOnlyMatches,
 	isFiltered,
 } from './pokedex-filter';
-import { fromQueryString, toQueryString } from './pokedex-url';
+import { fromQueryString, toQueryString, type PokedexSavedState } from './pokedex-url';
 
 /**
  * The Pokédex.
@@ -49,6 +49,13 @@ export const COMPARE_LIMIT = 4;
  * Stored as the query string rather than as an object, so one codec covers both saving and
  * sharing: a saved set and a pasted link are the same value in two places, and a filter added
  * later cannot leave old sets holding a shape that no longer parses.
+ *
+ * `query` encodes a `PokedexSavedState` (`pokedex-url.ts`) — the AG Grid column filter model
+ * *and* the `ExternalFiltersStore` slice together, not the retired `PokedexFilters` shape. This
+ * store has no reach into either (no grid api, and injecting `ExternalFiltersStore` here would be
+ * circular — it already injects this store), so `saveSet`/`applySet` only encode and decode; the
+ * caller (`filters/filter-sets.component.ts`) is the one that actually reads/writes the grid and
+ * `ExternalFiltersStore`.
  */
 export interface FilterSet {
 	name: string;
@@ -324,29 +331,37 @@ export const PokedexStore = signalStore(
 			patchState(store, { compare: [] });
 		},
 
-		/** Replace the whole filter state — used by the URL and by saved sets alike. */
+		/**
+		 * Replace the whole (retired) `PokedexFilters` state.
+		 *
+		 * Neither the URL codec nor saved sets go through this any more — both now carry the AG
+		 * Grid filter model and `ExternalFiltersStore`'s slice instead (`pokedex-url.ts`,
+		 * `filters/filter-sets.component.ts`). Left in place because `filters().move` still drives
+		 * the learners query below; nothing currently calls `replace` itself.
+		 */
 		replace(filters: PokedexFilters): void {
 			patchState(store, { filters });
 		},
 
 		/**
-		 * Save the current filters under a name.
+		 * Save a combined filter state under a name.
 		 *
 		 * Saving over an existing name replaces it rather than making a second entry, because
 		 * "save" on a name you already used means update, and a list with two "Trick Room
 		 * answers" is a list you have to read twice.
 		 */
-		saveSet(name: string): void {
+		saveSet(name: string, state: PokedexSavedState): void {
 			const trimmed = name.trim();
 			if (!trimmed) return;
 
-			const query = toQueryString(store.filters());
+			const query = toQueryString(state);
 			const rest = store.sets().filter((set) => set.name !== trimmed);
 			patchState(store, { sets: [...rest, { name: trimmed, query }].sort((first, second) => first.name.localeCompare(second.name)) });
 		},
 
-		applySet(set: FilterSet): void {
-			patchState(store, { filters: fromQueryString(set.query) });
+		/** Decodes a saved set back into a combined state — applying it is the caller's job. */
+		applySet(set: FilterSet): PokedexSavedState {
+			return fromQueryString(set.query);
 		},
 
 		deleteSet(name: string): void {

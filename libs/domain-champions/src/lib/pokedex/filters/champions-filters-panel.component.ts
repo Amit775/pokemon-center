@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import type { IToolPanelAngularComp } from 'ag-grid-angular';
-import type { IToolPanelParams } from 'ag-grid-community';
-import type { MegaFilter } from '../pokedex-filter';
+import type { GridApi, IToolPanelParams } from 'ag-grid-community';
+import type { MegaFilter, PokedexEntry } from '../pokedex-filter';
 import { CounterFilterComponent } from './counter-filter.component';
 import { ExternalFiltersStore } from './external-filters.store';
+import { FilterSetsComponent } from './filter-sets.component';
 import { MatchupFilterComponent } from './matchup-filter.component';
 import { MoveLearnerFilterComponent } from './move-learner-filter.component';
 import { OwnershipFilterComponent } from './ownership-filter.component';
@@ -27,11 +28,16 @@ const MEGA_CYCLE: Record<MegaFilter, MegaFilter> = { any: 'has-mega', 'has-mega'
  * ownership controls (each with its own async fetch or its own hide-when-empty rule to get
  * wrong), it is one button whose entire behavior is "cycle `ExternalFiltersStore.mega` and reflect
  * it back" — see `cycleMega` below, ported from the retired sidebar's `PokedexStore.cycleMega`.
+ *
+ * Task 15's saved-sets UI (`FilterSetsComponent`) also lives here rather than as a fourth side-bar
+ * tab, because it needs to read and write the grid's own column filter model as well as this
+ * store — and `agInit` below is the one place in this component tree that receives the grid's
+ * `GridApi` for free, via `IToolPanelParams`.
  */
 @Component({
 	selector: 'champions-filters-panel',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CounterFilterComponent, MatchupFilterComponent, MoveLearnerFilterComponent, OwnershipFilterComponent],
+	imports: [CounterFilterComponent, FilterSetsComponent, MatchupFilterComponent, MoveLearnerFilterComponent, OwnershipFilterComponent],
 	template: `
 		<champions-counter-filter />
 
@@ -60,6 +66,8 @@ const MEGA_CYCLE: Record<MegaFilter, MegaFilter> = { any: 'has-mega', 'has-mega'
 				{{ megaLabel() }}
 			</button>
 		</fieldset>
+
+		<champions-filter-sets [gridApi]="gridApi()" />
 	`,
 	styles: `
 		:host {
@@ -131,6 +139,9 @@ const MEGA_CYCLE: Record<MegaFilter, MegaFilter> = { any: 'has-mega', 'has-mega'
 export class ChampionsFiltersPanelComponent implements IToolPanelAngularComp {
 	protected readonly filters = inject(ExternalFiltersStore);
 
+	/** Forwarded to `FilterSetsComponent` — see the class doc for why it is captured here. */
+	protected readonly gridApi = signal<GridApi<PokedexEntry> | null>(null);
+
 	protected readonly megaLabel = computed(() => {
 		const mega = this.filters.mega();
 		return mega === 'has-mega' ? 'Has a Mega' : mega === 'no-mega' ? 'Has no Mega' : 'Mega Evolution';
@@ -140,9 +151,10 @@ export class ChampionsFiltersPanelComponent implements IToolPanelAngularComp {
 		this.filters.setMega(MEGA_CYCLE[this.filters.mega()]);
 	}
 
-	agInit(_params: IToolPanelParams): void {
-		// Every control reads/writes `ExternalFiltersStore` (provided in root) directly — nothing
-		// from the params is needed to initialize them.
+	agInit(params: IToolPanelParams<PokedexEntry>): void {
+		// Every filter control reads/writes `ExternalFiltersStore` (provided in root) directly —
+		// only the saved-sets section needs anything from `params`.
+		this.gridApi.set(params.api ?? null);
 	}
 
 	refresh(_params: IToolPanelParams): boolean {

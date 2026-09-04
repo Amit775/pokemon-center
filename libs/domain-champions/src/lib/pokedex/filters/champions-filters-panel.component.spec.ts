@@ -52,6 +52,11 @@ describe('ChampionsFiltersPanelComponent', () => {
 						isLoadingLearners: () => false,
 						moveLearners: () => null,
 						patch: () => undefined,
+						// Read by `FilterSetsComponent` (Task 15), rendered at the bottom of this panel.
+						savedSets: () => [],
+						saveSet: jest.fn(),
+						applySet: jest.fn(),
+						deleteSet: jest.fn(),
 					},
 				},
 			],

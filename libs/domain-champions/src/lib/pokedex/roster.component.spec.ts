@@ -77,7 +77,14 @@ describe('RosterComponent', () => {
 	// No stub needed for `<champions-compare-tray>`: the real CompareTrayComponent reads
 	// `PokedexStore.compareEntries()` directly, and `@if (entries().length > 0)` renders nothing
 	// for the empty array below — so it participates harmlessly rather than needing an override.
-	async function render(options: { entries: PokedexEntry[]; isLoading?: boolean; error?: unknown }): Promise<void> {
+	async function render(options: {
+		entries: PokedexEntry[];
+		isLoading?: boolean;
+		error?: unknown;
+		url?: string;
+		/** Runs after the testing module is configured but before the router navigates, so a test can seed state `onGridReady` will see. */
+		beforeNavigate?: () => void;
+	}): Promise<void> {
 		const storeStub = {
 			entries: signal(options.entries),
 			isLoading: signal(options.isLoading ?? false),
@@ -103,13 +110,23 @@ describe('RosterComponent', () => {
 			isLoadingLearners: () => false,
 			moveLearners: () => null,
 			patch: () => undefined,
+			// Read by `FilterSetsComponent` (Task 15), rendered inside the same eagerly-constructed
+			// `championsFilters` tool panel as the move-learner and ownership controls above — no
+			// set is ever saved or applied in these tests, but the panel still reads `savedSets()`
+			// on every render.
+			savedSets: () => [],
+			saveSet: jest.fn(),
+			applySet: jest.fn(),
+			deleteSet: jest.fn(),
 		};
 
 		TestBed.configureTestingModule({
 			providers: [provideRouter([{ path: 'champions/pokedex', component: RosterComponent }]), { provide: PokedexStore, useValue: storeStub }],
 		});
 
-		harness = await RouterTestingHarness.create('/champions/pokedex');
+		options.beforeNavigate?.();
+
+		harness = await RouterTestingHarness.create(options.url ?? '/champions/pokedex');
 		await settle();
 	}
 
@@ -211,6 +228,43 @@ describe('RosterComponent', () => {
 		// reacting to `externalFilters.version()`, is allowed to make this happen.
 		await settle();
 
+		expect(visibleRowIds()).toEqual(['venusaur']);
+	});
+
+	/**
+	 * Rule 3 of `pokedex-url.ts`'s codec: a URL carrying filter params wins outright over whatever
+	 * `ExternalFiltersStore` already holds — it is not merged in. `ownedOnly` is set to `true`
+	 * *before* the router navigates so it stands in for "whatever the recipient already had
+	 * switched on"; the URL below carries only `mega`, with no `ownedOnly` param at all. A merge
+	 * would leave `ownedOnly` untouched (still `true`); "wins outright" resets it to the decoded
+	 * default (`false`) because the URL's own state says nothing was there.
+	 */
+	it('applies filter params from the URL on load, replacing rather than merging with active external filters', async () => {
+		function visibleRowIds(): string[] {
+			return [...element().querySelectorAll('.ag-row')]
+				.filter((row) => !row.classList.contains('ag-opacity-zero'))
+				.map((row) => row.getAttribute('row-id'))
+				.filter((id): id is string => id !== null)
+				.sort();
+		}
+
+		const hasMegaEntry = entry({ slug: 'venusaur', name: 'Venusaur', nationalPokedexNumber: 3, hasMega: true });
+		const noMegaEntry = entry({ slug: 'chikorita', name: 'Chikorita', nationalPokedexNumber: 152, types: ['grass'] });
+
+		let externalFilters!: ExternalFiltersStore;
+		await render({
+			entries: [hasMegaEntry, noMegaEntry],
+			url: '/champions/pokedex?mega=has-mega',
+			beforeNavigate: () => {
+				externalFilters = TestBed.inject(ExternalFiltersStore);
+				externalFilters.setOwnedOnly(true);
+			},
+		});
+
+		expect(externalFilters.mega()).toBe('has-mega');
+		// Not merged: the URL said nothing about `ownedOnly`, so it comes back to its default
+		// rather than keeping the `true` set above.
+		expect(externalFilters.ownedOnly()).toBe(false);
 		expect(visibleRowIds()).toEqual(['venusaur']);
 	});
 });

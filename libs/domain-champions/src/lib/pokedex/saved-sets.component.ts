@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { PokedexStore } from './pokedex.store';
+import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
+import type { FilterSet } from './pokedex.store';
 
 /**
  * Named filter states.
@@ -10,35 +10,39 @@ import { PokedexStore } from './pokedex.store';
  *
  * Saving is only offered once something is actually filtered, because naming the empty state
  * produces a set that does nothing.
+ *
+ * Purely presentational — it once injected `PokedexStore` directly, back when `PokedexStore.filters`
+ * was the whole of the filter state. Since Task 15 split filtering across AG Grid's own filter
+ * model and `ExternalFiltersStore`, no single injected store can answer "is anything filtered" or
+ * "apply this set" any more, so those questions are asked of the caller instead — `filter-sets.component.ts`,
+ * which alone can reach the grid api and both stores.
  */
 @Component({
 	selector: 'champions-saved-sets',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		@if (store.savedSets().length > 0) {
+		@if (sets().length > 0) {
 			<ul>
-				@for (set of store.savedSets(); track set.name) {
+				@for (set of sets(); track set.name) {
 					<li>
-						<button type="button" class="apply" (click)="store.applySet(set)">{{ set.name }}</button>
-						<button type="button" class="del" (click)="store.deleteSet(set.name)" [attr.aria-label]="'Delete ' + set.name">
-							×
-						</button>
+						<button type="button" class="apply" (click)="apply.emit(set)">{{ set.name }}</button>
+						<button type="button" class="del" (click)="delete.emit(set.name)" [attr.aria-label]="'Delete ' + set.name">×</button>
 					</li>
 				}
 			</ul>
 		}
 
-		@if (store.hasActiveFilters()) {
+		@if (hasActiveFilters()) {
 			<div class="save">
 				<input
 					type="text"
 					[value]="name()"
 					(input)="name.set($any($event.target).value)"
-					(keydown.enter)="save()"
+					(keydown.enter)="onSave()"
 					placeholder="Name these filters…"
 					aria-label="Name for the saved filters"
 				/>
-				<button type="button" (click)="save()" [disabled]="name().trim().length === 0">Save</button>
+				<button type="button" (click)="onSave()" [disabled]="name().trim().length === 0">Save</button>
 			</div>
 		} @else {
 			<p class="hint">Set some filters, then name them to save.</p>
@@ -143,11 +147,18 @@ import { PokedexStore } from './pokedex.store';
 	`,
 })
 export class SavedSetsComponent {
-	protected readonly store = inject(PokedexStore);
+	readonly sets = input<FilterSet[]>([]);
+	readonly hasActiveFilters = input(false);
+
+	readonly save = output<string>();
+	readonly apply = output<FilterSet>();
+	readonly delete = output<string>();
+
 	protected readonly name = signal('');
 
-	protected save(): void {
-		this.store.saveSet(this.name());
+	protected onSave(): void {
+		if (this.name().trim().length === 0) return;
+		this.save.emit(this.name());
 		this.name.set('');
 	}
 }
