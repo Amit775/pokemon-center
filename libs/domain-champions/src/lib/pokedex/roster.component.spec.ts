@@ -92,6 +92,9 @@ describe('RosterComponent', () => {
 			// stub stands in for it in every test in this file, not just the external-filter ones.
 			typeChart: () => ({}),
 			owned: () => new Set<string>(),
+			// Read by `MatchupFilterComponent` (Task 13), which the side bar's `championsFilters`
+			// tool panel now renders for real instead of the placeholder it used to.
+			types: () => [],
 		};
 
 		TestBed.configureTestingModule({

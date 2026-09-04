@@ -166,6 +166,15 @@ describe('ExternalFiltersStore', () => {
 			expect(store.passes(corviknight)).toBe(true);
 			expect(store.passes(garchomp)).toBe(false);
 		});
+
+		it("weak-to (Effective) is the resists direction inverted, not a second predicate", () => {
+			const store = provideStore();
+			store.setMatchup({ types: ['dragon'], mode: 'exact', direction: 'weak-to' });
+
+			// Same pairing as the resists case above, with the exact opposite verdicts.
+			expect(store.passes(corviknight)).toBe(false);
+			expect(store.passes(garchomp)).toBe(true);
+		});
 	});
 
 	describe('passes — Mega, mirroring the matchesFilters field check', () => {
@@ -348,6 +357,22 @@ describe('the external filter engine wired into a real grid', () => {
 		api.onFilterChanged();
 
 		expect(displayedSlugs()).toEqual(['azumarill', 'corviknight']);
+	});
+
+	it('narrows by matchup type, and the Effective/Resists direction genuinely inverts the result', () => {
+		store.setMatchup({ types: ['dragon'], mode: 'exact', direction: 'resists' });
+		api.onFilterChanged();
+
+		// Corviknight (0.5x) and Azumarill (0x, immune) both take less than neutral from Dragon;
+		// both Garchomp forms (2x, Dragon's own weakness to itself) do not.
+		expect(displayedSlugs()).toEqual(['azumarill', 'corviknight']);
+
+		store.setMatchup({ types: ['dragon'], mode: 'exact', direction: 'weak-to' });
+		api.onFilterChanged();
+
+		// Same chip, opposite direction: exactly the two rows the resists query excluded, and
+		// neither of the two it kept.
+		expect(displayedSlugs()).toEqual(['garchomp', 'garchomp-mega']);
 	});
 
 	it('does nothing until onFilterChanged is called, proving the grid does not watch the store on its own', () => {

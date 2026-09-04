@@ -85,8 +85,12 @@ export const ExternalFiltersStore = signalStore(
 		 * The entry the counter filter is pointed at, resolved once per `counterOf`/roster change
 		 * rather than once per row — `passes()` runs per row, and re-scanning the whole roster
 		 * inside it would turn one lookup into one per row shown.
+		 *
+		 * Public (not `_`-prefixed) because the counter banner needs it too: `counterOf` is only
+		 * the slug, and "Answers to garchomp" is not a sentence anyone typed — the banner needs
+		 * the name, same as the retired sidebar's `PokedexStore.counterTarget` did.
 		 */
-		_counterTarget: computed(() => {
+		counterTarget: computed(() => {
 			const slug = store.counterOf();
 			return slug ? (store._pokedex.entries().find((candidate) => candidate.slug === slug) ?? null) : null;
 		}),
@@ -166,7 +170,7 @@ export const ExternalFiltersStore = signalStore(
 
 				const counterOf = store.counterOf();
 				if (counterOf) {
-					const target = store._counterTarget();
+					const target = store.counterTarget();
 					if (target) {
 						// Never offer something as its own answer.
 						if (entry.slug === counterOf) return false;
