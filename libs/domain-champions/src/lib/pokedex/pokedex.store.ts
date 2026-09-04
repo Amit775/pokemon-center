@@ -137,6 +137,15 @@ export const PokedexStore = signalStore(
 			results,
 			megaForms,
 
+			/**
+			 * Species ids that learn the picked move, once they have arrived — `null` while
+			 * asked-for-but-not-arrived (see `learners` above). The move-learner filter control
+			 * (Task 14) hands this straight to `ExternalFiltersStore.setLearners`, so the two
+			 * engines share one fetch and one "is it loaded yet" answer rather than duplicating
+			 * either.
+			 */
+			moveLearners: learners,
+
 			types: computed(() => _typesQuery.value()?.championsTypes ?? []),
 
 			isLoading: computed(() => _pokedexQuery.isLoading() || _chartQuery.isLoading()),

@@ -95,6 +95,14 @@ describe('RosterComponent', () => {
 			// Read by `MatchupFilterComponent` (Task 13), which the side bar's `championsFilters`
 			// tool panel now renders for real instead of the placeholder it used to.
 			types: () => [],
+			// Read by `MoveLearnerFilterComponent` (Task 14), same tool panel, same reason: no move
+			// is ever picked in these tests, but the panel is still constructed eagerly by the side
+			// bar, so its autocomplete and "finding learners…" reads need somewhere safe to land.
+			moveIndex: () => [],
+			pickedMove: () => null,
+			isLoadingLearners: () => false,
+			moveLearners: () => null,
+			patch: () => undefined,
 		};
 
 		TestBed.configureTestingModule({
