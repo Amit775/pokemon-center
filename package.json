@@ -32,7 +32,6 @@
 		"@nx/nest": "23.1.0",
 		"@prisma/adapter-pg": "^7.8.0",
 		"@prisma/client": "7.8.0",
-		"@tanstack/angular-table": "^9.2.2",
 		"ag-grid-angular": "36.1.0",
 		"ag-grid-community": "36.1.0",
 		"ag-grid-enterprise": "36.1.0",
