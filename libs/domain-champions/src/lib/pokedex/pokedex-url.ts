@@ -1,148 +1,197 @@
-import { STAT_KEYS, StatKey } from '@pokemon-center/champions-engine';
-import {
-	PokedexFilters,
-	EMPTY_FILTERS,
-	MatchupDirection,
-	MegaDisplay,
-	MegaFilter,
-	Range,
-	STAT_BOUNDS,
-	SelectMode,
-	SortKey,
-	TOTAL_BOUNDS,
-	isFullRange,
-} from './pokedex-filter';
+import type { MatchupDirection, MegaFilter, Range, SelectMode } from './pokedex-filter';
 
 /**
- * Filters as a URL, and back.
+ * Filters as a URL, and back — rebuilt on AG Grid's own Grid State.
  *
- * Two things fall out of this and both matter more than they sound. A filter state becomes a
- * **link you can paste** — "here is everything that walls Dragon and Fairy under 500 BST" is a
- * message you can send someone. And the back button starts working, because each state is a
- * history entry rather than a mutation of hidden storage.
+ * Filtering now lives in two places, and a saved set or a shared link is worthless unless it
+ * carries both:
  *
- * Three rules the encoding follows:
+ *  - **Column filters** — Types and the seven stat ranges — held in AG Grid's own filter model,
+ *    reachable via `api.getFilterModel()`/`api.setFilterModel()`. Whatever the grid reports here
+ *    (including the Pokémon-name text filter and the Abilities set filter, if either is active)
+ *    rides along too, since `getFilterModel()` already omits anything inactive.
+ *  - **Cross-cutting filters** — matchup, counter-target, move-learner, owned-only, Mega — held in
+ *    `ExternalFiltersStore`, reached through AG Grid's External Filter API rather than any column.
+ *
+ * `PokedexSavedState` is the shape that holds both halves together. Restoring only one — say,
+ * the column filter model without the external slice — would silently drop the user's matchup or
+ * counter selection, which is worse than restoring nothing: it looks like the filters came back.
+ *
+ * Three rules the encoding follows, unchanged from the pre-Grid-State version of this file:
  *
  *  1. **Only non-defaults are written.** A cleared panel produces a bare URL, so the common case
- *     costs nothing and the query string stays readable enough to edit by hand.
+ *     costs nothing and the query string stays readable enough to edit by hand. This falls out
+ *     naturally for the column half — `getFilterModel()` only ever reports active filters — and is
+ *     enforced by hand for the external half, field by field.
  *  2. **Decoding never throws.** Every value is validated against what it is allowed to be and
  *     falls back to the default otherwise — a URL is user input, and half of them are truncated
- *     by a chat client before they arrive.
- *  3. **A URL with any filter param wins outright over stored filters** (see `readFilters`). It
- *     is not merged: a shared link must show the sender's view, not the sender's view plus
- *     whatever the recipient happened to leave switched on.
+ *     by a chat client before they arrive. The column filter model is JSON, so a hand-edited or
+ *     truncated blob is validated per column (`FILTER_MODEL_VALIDATORS`) rather than trusted
+ *     wholesale: an unrecognised column id or a malformed model for a known one is dropped, never
+ *     thrown.
+ *  3. **A URL with any filter param wins outright over stored filters** (see
+ *     `hasPokedexStateParams`). It is not merged: a shared link must show the sender's view, not
+ *     the sender's view plus whatever the recipient happened to leave switched on.
  */
 
+/** The AG Grid column filter model, straight from `api.getFilterModel()`/into `api.setFilterModel()`. */
+export type PokedexFilterModel = Record<string, unknown>;
+
 /**
- * Each key is the name of the filter it carries.
- *
- * These were once shortened (`q`, `tm`, `mud`, `bst`) on the theory that a pasted link should be
- * compact. That traded a property nobody asked for against one people use constantly: a URL you
- * can read. `mud=resists` is a puzzle; `matchupDirection=resists` is a sentence, and the filters
- * this codec exists to make shareable are the elaborate ones — the ones worth explaining in the
- * link itself.
- *
- * Keeping the key identical to the field name also removes the mapping a reader used to hold in
- * their head, and makes a missing entry here obvious rather than silent.
+ * The persistable slice of `ExternalFiltersStore` — everything but `learners` (re-fetched from
+ * `move`, never itself round-tripped) and `version` (an internal change counter, not state).
+ */
+export interface ExternalFiltersSnapshot {
+	matchupTypes: string[];
+	matchupMode: SelectMode;
+	matchupDirection: MatchupDirection;
+	ownedOnly: boolean;
+	mega: MegaFilter;
+	move: string | null;
+	counterOf: string | null;
+}
+
+export const EMPTY_EXTERNAL_FILTERS: ExternalFiltersSnapshot = {
+	matchupTypes: [],
+	matchupMode: 'exact',
+	matchupDirection: 'resists',
+	ownedOnly: false,
+	mega: 'any',
+	move: null,
+	counterOf: null,
+};
+
+/** Both filtering mechanisms, together — what a saved set or a shared link actually carries. */
+export interface PokedexSavedState {
+	filterModel: PokedexFilterModel;
+	external: ExternalFiltersSnapshot;
+}
+
+export const EMPTY_SAVED_STATE: PokedexSavedState = { filterModel: {}, external: EMPTY_EXTERNAL_FILTERS };
+
+/**
+ * Each key is the name of the filter it carries — spelled out, not abbreviated, so a pasted link
+ * stays readable (`matchupDirection=resists` is a sentence; `mud=resists` is a puzzle).
  */
 const PARAM = {
-	search: 'search',
-	types: 'types',
-	typeMode: 'typeMode',
-	mega: 'mega',
-	megaDisplay: 'megaDisplay',
+	filterModel: 'filterModel',
 	matchupTypes: 'matchupTypes',
 	matchupMode: 'matchupMode',
 	matchupDirection: 'matchupDirection',
-	matchupSlug: 'matchupSlug',
-	stats: 'stats',
-	total: 'total',
-	ability: 'ability',
-	move: 'move',
+	mega: 'mega',
 	ownedOnly: 'ownedOnly',
+	move: 'move',
 	counterOf: 'counterOf',
-	sortBy: 'sortBy',
-	sortDesc: 'sortDescending',
 } as const;
 
 /** Every parameter this codec owns, so callers can tell "no filters" from "cleared filters". */
-export const POKEDEX_PARAMS: readonly string[] = Object.values(PARAM);
+export const POKEDEX_STATE_PARAMS: readonly string[] = Object.values(PARAM);
 
 const MEGA_VALUES: MegaFilter[] = ['any', 'has-mega', 'no-mega'];
-const MEGA_DISPLAY_VALUES: MegaDisplay[] = ['show', 'separate', 'hide'];
 const MODE_VALUES: SelectMode[] = ['exact', 'any'];
 const DIRECTION_VALUES: MatchupDirection[] = ['resists', 'weak-to'];
-const SORT_VALUES: SortKey[] = ['pokedex', 'name', 'total', ...STAT_KEYS];
 
-function encodeRange(range: Range): string {
-	return `${range[0]}-${range[1]}`;
+function isFiniteNumber(value: unknown): value is number {
+	return typeof value === 'number' && Number.isFinite(value);
+}
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+	return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+/** The Types column's model — see `TypeColumnFilterModel` in `filters/type-column-filter.component.ts`. */
+function isTypesModel(value: unknown): boolean {
+	return (
+		isPlainObject(value) &&
+		Array.isArray(value['types']) &&
+		(value['types'] as unknown[]).every((type) => typeof type === 'string') &&
+		MODE_VALUES.includes(value['mode'] as SelectMode)
+	);
+}
+
+/** A stat/total column's model is the inclusive `[min, max]` range itself — see `StatRangeColumnFilterComponent`. */
+function isRangeModel(value: unknown): value is Range {
+	return Array.isArray(value) && value.length === 2 && value.every(isFiniteNumber) && value[0] <= value[1];
+}
+
+/** `agTextColumnFilter`'s model (the Pokémon-name column) — loose, since AG Grid owns its exact shape. */
+function isTextFilterModel(value: unknown): boolean {
+	return isPlainObject(value) && (value['filterType'] === undefined || value['filterType'] === 'text');
+}
+
+/** `agSetColumnFilter`'s model (the Abilities column) — loose, same reasoning as text above. */
+function isSetFilterModel(value: unknown): boolean {
+	return isPlainObject(value) && Array.isArray(value['values']);
 }
 
 /**
- * `120-260`, rejecting anything that is not two numbers in order.
- *
- * Matched rather than split, because splitting on the separator also splits a negative bound:
- * `-50-9999` becomes three pieces and silently decodes as `0-50`. Base stats are never negative,
- * but a hand-edited URL is exactly where one shows up, and quietly inverting the filter is worse
- * than rejecting it.
+ * One validator per filterable column id (`pokedex-grid-columns.ts`). An id with no entry here —
+ * unrecognised, or from a column that no longer exists — is dropped rather than guessed at.
  */
-const RANGE = /^(-?\d+)-(-?\d+)$/;
+const FILTER_MODEL_VALIDATORS: Record<string, (value: unknown) => boolean> = {
+	name: isTextFilterModel,
+	types: isTypesModel,
+	abilities: isSetFilterModel,
+	hp: isRangeModel,
+	attack: isRangeModel,
+	defense: isRangeModel,
+	specialAttack: isRangeModel,
+	specialDefense: isRangeModel,
+	speed: isRangeModel,
+	total: isRangeModel,
+};
 
-function decodeRange(raw: string | null, bounds: Range): Range | null {
-	const match = raw?.match(RANGE);
-	if (!match) return null;
-
-	const min = Number(match[1]);
-	const max = Number(match[2]);
-	if (min > max) return null;
-
-	return [Math.max(bounds[0], min), Math.min(bounds[1], max)];
+/** Keeps only the column entries this codec recognises and whose shape passes its own validator. */
+function sanitizeFilterModel(model: PokedexFilterModel): PokedexFilterModel {
+	const result: PokedexFilterModel = {};
+	for (const [colId, value] of Object.entries(model)) {
+		const validate = FILTER_MODEL_VALIDATORS[colId];
+		if (validate?.(value)) result[colId] = value;
+	}
+	return result;
 }
 
-/** The filters as `{param: value}`, carrying only what differs from the defaults. */
-export function encodeFilters(filters: PokedexFilters): Record<string, string> {
+function decodeFilterModel(raw: string | null): PokedexFilterModel {
+	if (!raw) return {};
+
+	let parsed: unknown;
+	try {
+		parsed = JSON.parse(raw);
+	} catch {
+		return {};
+	}
+
+	return isPlainObject(parsed) ? sanitizeFilterModel(parsed) : {};
+}
+
+/** The combined state as `{param: value}`, carrying only what differs from the defaults. */
+export function encodePokedexState(state: PokedexSavedState): Record<string, string> {
 	const params: Record<string, string> = {};
 	const set = (key: string, value: string) => {
 		params[key] = value;
 	};
 
-	if (filters.search.trim()) set(PARAM.search, filters.search.trim());
+	const filterModel = sanitizeFilterModel(state.filterModel);
+	if (Object.keys(filterModel).length > 0) set(PARAM.filterModel, JSON.stringify(filterModel));
 
-	if (filters.types.length > 0) {
-		set(PARAM.types, filters.types.join(','));
-		// The mode only means something alongside a selection, so it rides with it.
-		if (filters.typeMode !== EMPTY_FILTERS.typeMode) set(PARAM.typeMode, filters.typeMode);
+	const external = state.external;
+	if (external.matchupTypes.length > 0) {
+		set(PARAM.matchupTypes, external.matchupTypes.join(','));
+		// The mode/direction only mean something alongside a selection, so they ride with it.
+		if (external.matchupMode !== EMPTY_EXTERNAL_FILTERS.matchupMode) set(PARAM.matchupMode, external.matchupMode);
+		if (external.matchupDirection !== EMPTY_EXTERNAL_FILTERS.matchupDirection) set(PARAM.matchupDirection, external.matchupDirection);
 	}
 
-	if (filters.matchupTypes.length > 0) {
-		set(PARAM.matchupTypes, filters.matchupTypes.join(','));
-		if (filters.matchupMode !== EMPTY_FILTERS.matchupMode) set(PARAM.matchupMode, filters.matchupMode);
-		if (filters.matchupDirection !== EMPTY_FILTERS.matchupDirection) set(PARAM.matchupDirection, filters.matchupDirection);
-		if (filters.matchupSlug) set(PARAM.matchupSlug, filters.matchupSlug);
-	}
-
-	if (filters.mega !== 'any') set(PARAM.mega, filters.mega);
-	if (filters.megaDisplay !== EMPTY_FILTERS.megaDisplay) set(PARAM.megaDisplay, filters.megaDisplay);
-	if (filters.ability) set(PARAM.ability, filters.ability);
-	if (filters.move) set(PARAM.move, filters.move);
-	if (filters.ownedOnly) set(PARAM.ownedOnly, '1');
-	if (filters.counterOf) set(PARAM.counterOf, filters.counterOf);
-
-	const stats = STAT_KEYS.filter((key) => !isFullRange(filters.statRanges[key], STAT_BOUNDS))
-		.map((key) => `${key}:${encodeRange(filters.statRanges[key] as Range)}`)
-		.join(',');
-	if (stats) set(PARAM.stats, stats);
-
-	if (!isFullRange(filters.totalRange, TOTAL_BOUNDS)) set(PARAM.total, encodeRange(filters.totalRange));
-
-	if (filters.sortBy !== EMPTY_FILTERS.sortBy) set(PARAM.sortBy, filters.sortBy);
-	if (filters.sortDesc) set(PARAM.sortDesc, '1');
+	if (external.mega !== EMPTY_EXTERNAL_FILTERS.mega) set(PARAM.mega, external.mega);
+	if (external.ownedOnly) set(PARAM.ownedOnly, '1');
+	if (external.move) set(PARAM.move, external.move);
+	if (external.counterOf) set(PARAM.counterOf, external.counterOf);
 
 	return params;
 }
 
 /** Anything readable is read; anything else falls back to the default for that field. */
-export function decodeFilters(read: (key: string) => string | null): PokedexFilters {
+export function decodePokedexState(read: (key: string) => string | null): PokedexSavedState {
 	const oneOf = <T extends string>(key: string, allowed: T[], fallback: T): T => {
 		const value = read(key);
 		return allowed.includes(value as T) ? (value as T) : fallback;
@@ -154,49 +203,32 @@ export function decodeFilters(read: (key: string) => string | null): PokedexFilt
 			.map((part) => part.trim())
 			.filter(Boolean);
 
-	const statRanges: Partial<Record<StatKey, Range>> = {};
-	for (const part of list(PARAM.stats)) {
-		const [key, raw] = part.split(':');
-		if (!STAT_KEYS.includes(key as StatKey)) continue;
-
-		const range = decodeRange(raw, STAT_BOUNDS);
-		if (range) statRanges[key as StatKey] = range;
-	}
-
 	return {
-		...EMPTY_FILTERS,
-		search: read(PARAM.search) ?? '',
-		types: list(PARAM.types),
-		typeMode: oneOf(PARAM.typeMode, MODE_VALUES, EMPTY_FILTERS.typeMode),
-		mega: oneOf(PARAM.mega, MEGA_VALUES, 'any'),
-		megaDisplay: oneOf(PARAM.megaDisplay, MEGA_DISPLAY_VALUES, EMPTY_FILTERS.megaDisplay),
-		matchupTypes: list(PARAM.matchupTypes),
-		matchupMode: oneOf(PARAM.matchupMode, MODE_VALUES, EMPTY_FILTERS.matchupMode),
-		matchupDirection: oneOf(PARAM.matchupDirection, DIRECTION_VALUES, EMPTY_FILTERS.matchupDirection),
-		matchupSlug: read(PARAM.matchupSlug) || null,
-		statRanges,
-		totalRange: decodeRange(read(PARAM.total), TOTAL_BOUNDS) ?? TOTAL_BOUNDS,
-		ability: read(PARAM.ability) || null,
-		move: read(PARAM.move) || null,
-		ownedOnly: read(PARAM.ownedOnly) === '1',
-		counterOf: read(PARAM.counterOf) || null,
-		sortBy: oneOf(PARAM.sortBy, SORT_VALUES, EMPTY_FILTERS.sortBy),
-		sortDesc: read(PARAM.sortDesc) === '1',
+		filterModel: decodeFilterModel(read(PARAM.filterModel)),
+		external: {
+			matchupTypes: list(PARAM.matchupTypes),
+			matchupMode: oneOf(PARAM.matchupMode, MODE_VALUES, EMPTY_EXTERNAL_FILTERS.matchupMode),
+			matchupDirection: oneOf(PARAM.matchupDirection, DIRECTION_VALUES, EMPTY_EXTERNAL_FILTERS.matchupDirection),
+			mega: oneOf(PARAM.mega, MEGA_VALUES, EMPTY_EXTERNAL_FILTERS.mega),
+			ownedOnly: read(PARAM.ownedOnly) === '1',
+			move: read(PARAM.move) || null,
+			counterOf: read(PARAM.counterOf) || null,
+		},
 	};
 }
 
 /** True when a URL is carrying filter state at all, as opposed to being a bare visit. */
-export function hasFilterParams(read: (key: string) => string | null): boolean {
-	return POKEDEX_PARAMS.some((key) => read(key) !== null);
+export function hasPokedexStateParams(read: (key: string) => string | null): boolean {
+	return POKEDEX_STATE_PARAMS.some((key) => read(key) !== null);
 }
 
 /** The query string alone, for storing a saved set compactly. */
-export function toQueryString(filters: PokedexFilters): string {
-	return new URLSearchParams(encodeFilters(filters)).toString();
+export function toQueryString(state: PokedexSavedState): string {
+	return new URLSearchParams(encodePokedexState(state)).toString();
 }
 
 /** The inverse, for restoring one. */
-export function fromQueryString(query: string): PokedexFilters {
+export function fromQueryString(query: string): PokedexSavedState {
 	const params = new URLSearchParams(query);
-	return decodeFilters((key) => params.get(key));
+	return decodePokedexState((key) => params.get(key));
 }

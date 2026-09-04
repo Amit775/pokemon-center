@@ -40,6 +40,17 @@
 .list-pane {
 	flex: 1 1 640px;
 	min-width: 0;
+	--pokedex-grid-height: calc(100vh - 160px);
+
+	/*
+	 * The row `pokedex-pokemon-shell`'s `rowClassRules` marks as selected. AG Grid builds its own
+	 * row DOM outside Angular's template compiler, so an emulated-encapsulation rule never matches
+	 * it — `::ng-deep` is the escape hatch for exactly that, same token the old TanStack
+	 * `.row.marked` treatment used (see `data-table.component.ts`), no new colour invented.
+	 */
+	::ng-deep .ag-row.marked {
+		background: var(--surface-sunken);
+	}
 }
 
 .detail-pane {

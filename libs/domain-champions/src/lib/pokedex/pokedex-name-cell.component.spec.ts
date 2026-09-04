@@ -1,5 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+<<<<<<< HEAD
+=======
+import type { ICellRendererParams } from 'ag-grid-community';
+>>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 import { PokedexNameCellComponent } from './pokedex-name-cell.component';
 import { PokedexStore } from './pokedex.store';
 import type { PokedexEntry } from './pokedex-filter';
@@ -18,6 +22,13 @@ const bulbasaur: PokedexEntry = {
 	abilityNames: ['Overgrow'],
 };
 
+<<<<<<< HEAD
+=======
+function paramsFor(data: PokedexEntry | undefined): ICellRendererParams<PokedexEntry> {
+	return { data } as ICellRendererParams<PokedexEntry>;
+}
+
+>>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 describe('PokedexNameCellComponent', () => {
 	function render(owned: boolean) {
 		TestBed.configureTestingModule({
@@ -25,7 +36,11 @@ describe('PokedexNameCellComponent', () => {
 		});
 
 		const fixture = TestBed.createComponent(PokedexNameCellComponent);
+<<<<<<< HEAD
 		fixture.componentRef.setInput('entry', bulbasaur);
+=======
+		fixture.componentInstance.agInit(paramsFor(bulbasaur));
+>>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 		fixture.detectChanges();
 		return fixture;
 	}
@@ -51,4 +66,28 @@ describe('PokedexNameCellComponent', () => {
 		const fixture = render(false);
 		expect(fixture.nativeElement.textContent).not.toContain('Owned');
 	});
+<<<<<<< HEAD
+=======
+
+	it('renders nothing for the null params.data guard path', () => {
+		TestBed.configureTestingModule({
+			providers: [provideRouter([]), { provide: PokedexStore, useValue: { isOwned: () => false } }],
+		});
+		const fixture = TestBed.createComponent(PokedexNameCellComponent);
+		fixture.componentInstance.agInit(paramsFor(undefined));
+		fixture.detectChanges();
+
+		expect(fixture.nativeElement.textContent.trim()).toBe('');
+	});
+
+	it('updates on refresh with a new entry', () => {
+		const fixture = render(false);
+
+		const changed = fixture.componentInstance.refresh(paramsFor({ ...bulbasaur, slug: 'charmander', name: 'Charmander', nationalPokedexNumber: 4 }));
+		fixture.detectChanges();
+
+		expect(changed).toBe(true);
+		expect(fixture.nativeElement.textContent).toContain('Charmander');
+	});
+>>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 });

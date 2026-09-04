@@ -1,14 +1,31 @@
+<<<<<<< HEAD
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import type { PokedexEntry } from './pokedex-filter';
 import { PokedexStore } from './pokedex.store';
 
 /** Box/Sim links plus the Compare toggle, ported from the old row card's actions block. */
+=======
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import type { ICellRendererAngularComp } from 'ag-grid-angular';
+import type { ICellRendererParams } from 'ag-grid-community';
+import type { PokedexEntry } from './pokedex-filter';
+import { PokedexStore } from './pokedex.store';
+
+/**
+ * Box/Sim links plus the Compare toggle, ported from the old row card's actions block.
+ *
+ * An AG Grid cell renderer: the grid supplies the row via `agInit`/`refresh` rather than a
+ * template input.
+ */
+>>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 @Component({
 	selector: 'champions-pokedex-actions-cell',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [RouterLink],
 	template: `
+<<<<<<< HEAD
 		<div class="actions">
 			<a routerLink="/champions/box" [queryParams]="{ add: entry().slug }" [attr.aria-label]="'Add ' + entry().name + ' to your Box'">
 				Box
@@ -30,6 +47,31 @@ import { PokedexStore } from './pokedex.store';
 				Compare
 			</button>
 		</div>
+=======
+		@if (entry(); as current) {
+			<div class="actions">
+				<a routerLink="/champions/box" [queryParams]="{ add: current.slug }" [attr.aria-label]="'Add ' + current.name + ' to your Box'">
+					Box
+				</a>
+				<a
+					routerLink="/champions/simulator"
+					[queryParams]="{ left: current.slug }"
+					[attr.aria-label]="'Open ' + current.name + ' in the Simulator'"
+				>
+					Sim
+				</a>
+				<button
+					type="button"
+					[class.on]="comparing()"
+					[attr.aria-pressed]="comparing()"
+					[attr.aria-label]="(comparing() ? 'Remove ' : 'Add ') + current.name + ' to the comparison'"
+					(click)="store.toggleCompare(current.slug)"
+				>
+					Compare
+				</button>
+			</div>
+		}
+>>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 	`,
 	styles: `
 		.actions {
@@ -62,10 +104,31 @@ import { PokedexStore } from './pokedex.store';
 		}
 	`,
 })
+<<<<<<< HEAD
 export class PokedexActionsCellComponent {
 	readonly entry = input.required<PokedexEntry>();
 
 	protected readonly store = inject(PokedexStore);
 
 	protected readonly comparing = computed(() => this.store.isComparing(this.entry().slug));
+=======
+export class PokedexActionsCellComponent implements ICellRendererAngularComp {
+	protected readonly store = inject(PokedexStore);
+
+	protected readonly entry = signal<PokedexEntry | null>(null);
+
+	protected readonly comparing = computed(() => {
+		const current = this.entry();
+		return current !== null && this.store.isComparing(current.slug);
+	});
+
+	agInit(params: ICellRendererParams<PokedexEntry>): void {
+		this.entry.set(params.data ?? null);
+	}
+
+	refresh(params: ICellRendererParams<PokedexEntry>): boolean {
+		this.entry.set(params.data ?? null);
+		return true;
+	}
+>>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 }

@@ -169,8 +169,11 @@ export function passesMatchup(entry: PokedexEntry, filters: PokedexFilters, char
  * `exact` compares the typing as a whole rather than as a filter over it, which is why one chip
  * returns mono-types only: a Fire/Flying Pokémon is not "a Fire type" under that reading, it is
  * a Fire/Flying type.
+ *
+ * Exported — and narrowed to just the two fields it reads — so the Types column's custom AG Grid
+ * filter (`doesFilterPass`) can reuse this exact predicate instead of re-deriving the semantics.
  */
-function passesTypes(entry: PokedexEntry, filters: PokedexFilters): boolean {
+export function passesTypes(entry: PokedexEntry, filters: Pick<PokedexFilters, 'types' | 'typeMode'>): boolean {
 	if (filters.types.length === 0) return true;
 
 	if (filters.typeMode === 'any') return filters.types.some((type) => entry.types.includes(type));
