@@ -1,7 +1,8 @@
 import { AllCommunityModule, ModuleRegistry, createGrid, type GridApi } from 'ag-grid-community';
 import { AllEnterpriseModule } from 'ag-grid-enterprise';
+import type { StatRangeColumnFilterParams } from './filters/stat-range-column-filter.component';
 import { pokedexGridColumns } from './pokedex-grid-columns';
-import type { PokedexEntry } from './pokedex-filter';
+import { STAT_BOUNDS, TOTAL_BOUNDS, type PokedexEntry } from './pokedex-filter';
 
 ModuleRegistry.registerModules([AllCommunityModule, AllEnterpriseModule]);
 
@@ -53,6 +54,84 @@ describe('pokedexGridColumns', () => {
 
 		expect(values).toEqual(expect.arrayContaining(['Overgrow', 'Blaze', 'Torrent', 'Rain Dish']));
 		expect(values).toHaveLength(4);
+	});
+
+	it('gives the total column TOTAL_BOUNDS and the six stat columns STAT_BOUNDS', () => {
+		const filterParams = (colId: string) =>
+			(pokedexGridColumns.find((col) => col.colId === colId)?.filterParams as StatRangeColumnFilterParams).bounds;
+
+		expect(filterParams('total')).toEqual(TOTAL_BOUNDS);
+		for (const colId of ['hp', 'attack', 'defense', 'specialAttack', 'specialDefense', 'speed']) {
+			expect(filterParams(colId)).toEqual(STAT_BOUNDS);
+		}
+	});
+});
+
+/**
+ * The stat range columns' custom filter (see `StatRangeColumnFilterComponent` and `statColumn`),
+ * proven the same way as the Types column: a real headless grid, driven purely through
+ * `setFilterModel` and `forEachNodeAfterFilter`.
+ *
+ * `enableFilterHandlers: true` is required here for the same reason as the Types column — without
+ * it, `doesFilterPass` is never invoked for a custom filter registered as
+ * `filter: { component, doesFilterPass }`.
+ */
+describe('the stat range column custom filter', () => {
+	let container: HTMLElement;
+	let api: GridApi<PokedexEntry>;
+
+	const statRows: PokedexEntry[] = [
+		entry({ slug: 'slowest', name: 'Slowest', nationalPokedexNumber: 1, baseStats: { ...entry({}).baseStats, speed: 40 } }),
+		// Sits exactly on the lower bound of the narrowed range below — must be included.
+		entry({ slug: 'on-min', name: 'OnMin', nationalPokedexNumber: 2, baseStats: { ...entry({}).baseStats, speed: 80 } }),
+		entry({ slug: 'middle', name: 'Middle', nationalPokedexNumber: 3, baseStats: { ...entry({}).baseStats, speed: 100 } }),
+		// Sits exactly on the upper bound of the narrowed range below — must be included.
+		entry({ slug: 'on-max', name: 'OnMax', nationalPokedexNumber: 4, baseStats: { ...entry({}).baseStats, speed: 130 } }),
+		entry({ slug: 'fastest', name: 'Fastest', nationalPokedexNumber: 5, baseStats: { ...entry({}).baseStats, speed: 200 } }),
+	];
+
+	function displayedSlugs(): string[] {
+		const slugs: string[] = [];
+		api.forEachNodeAfterFilter((node) => {
+			if (node.data) slugs.push(node.data.slug);
+		});
+		return slugs;
+	}
+
+	beforeEach(() => {
+		container = document.createElement('div');
+		document.body.appendChild(container);
+		api = createGrid(container, {
+			columnDefs: pokedexGridColumns,
+			rowData: statRows,
+			getRowId: (params) => params.data.slug,
+			enableFilterHandlers: true,
+		});
+	});
+
+	afterEach(() => {
+		api.destroy();
+		container.remove();
+	});
+
+	it('narrows to rows within the range, inclusive of both bounds', () => {
+		api.setFilterModel({ speed: [80, 130] });
+
+		expect(displayedSlugs().sort()).toEqual(['middle', 'on-max', 'on-min']);
+	});
+
+	it('excludes a value one below the minimum and one above the maximum', () => {
+		api.setFilterModel({ speed: [41, 199] });
+
+		expect(displayedSlugs().sort()).toEqual(['middle', 'on-max', 'on-min']);
+	});
+
+	it('clearing the filter model (the full-range/inactive state) shows every row again', () => {
+		api.setFilterModel({ speed: [80, 130] });
+		expect(displayedSlugs()).toHaveLength(3);
+
+		api.setFilterModel(null);
+		expect(displayedSlugs()).toHaveLength(5);
 	});
 });
 
