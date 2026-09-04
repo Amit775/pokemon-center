@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import type { ColDef, GetRowIdFunc, RowClassRules, StateUpdatedEvent } from 'ag-grid-community';
 import {
 	ButtonComponent,
 	EntityPortraitComponent,
@@ -8,14 +9,9 @@ import {
 	StatBarComponent,
 	TypeChipComponent,
 	UiCardComponent,
-	UiDataTableComponent,
+	UiDataGridComponent,
 	UiSkeletonComponent,
 	UiTabsComponent,
-	createDataTableColumns,
-	type ColumnOrderState,
-	type DataTableRowVariant,
-	type SortingState,
-	type ColumnVisibilityState,
 } from '@pokemon-center/ui-pokedex';
 
 interface KitMove {
@@ -25,23 +21,22 @@ interface KitMove {
 	accuracy: number;
 }
 
-const moveColumnHelper = createDataTableColumns<KitMove>();
-
 /**
- * Module scope, not a component field — the shape consumers should copy, since nothing type-checks
- * it and a fresh array rebuilds every column, header and cell.
+ * Module scope, not a component field — the shape consumers should copy, since a fresh array on
+ * each change detection resets grid state (column order, sizing, sort, filters).
  *
- * The `actions` display column carries an explicit `cell` because there is no default one, and it
- * exercises the non-sortable header path. The numeric columns carry `align: 'end'`, applied to the
- * header as well as the cell, which is here to be looked at.
+ * The `actions` column carries an explicit `valueGetter` because there is no field for it, and it
+ * exercises the non-sortable, non-filterable header path. It also starts `hide: true`, so the
+ * side bar's Columns panel has a hidden column worth revealing — the whole reason this demo grid
+ * keeps its side bar on while the roster grid below turns it off.
  */
-const moveColumns = moveColumnHelper.columns([
-	moveColumnHelper.accessor('name', { header: 'Move', sortFn: 'alphanumeric' }),
-	moveColumnHelper.accessor('type', { header: 'Type', sortFn: 'alphanumeric', filterFn: 'arrHas', meta: { filterVariant: 'set' } }),
-	moveColumnHelper.accessor('power', { header: 'Power', sortFn: 'basic', filterFn: 'inNumberRange', meta: { align: 'end', filterVariant: 'range' } }),
-	moveColumnHelper.accessor('accuracy', { header: 'Accuracy', sortFn: 'basic', meta: { align: 'end' } }),
-	moveColumnHelper.display({ id: 'actions', header: 'Actions', cell: () => 'add' }),
-]);
+const moveColumns: ColDef<KitMove>[] = [
+	{ field: 'name', headerName: 'Move', flex: 2, minWidth: 160, filter: 'agTextColumnFilter' },
+	{ field: 'type', headerName: 'Type', width: 120, filter: 'agSetColumnFilter' },
+	{ field: 'power', headerName: 'Power', width: 100, type: 'numericColumn', filter: 'agNumberColumnFilter' },
+	{ field: 'accuracy', headerName: 'Accuracy', width: 110, type: 'numericColumn' },
+	{ colId: 'actions', headerName: 'Actions', width: 110, valueGetter: () => 'add', sortable: false, filter: false, hide: true },
+];
 
 interface KitRoster {
 	id: number;
@@ -50,12 +45,12 @@ interface KitRoster {
 	power: number;
 }
 
-const rosterColumnHelper = createDataTableColumns<KitRoster>();
-const rosterColumns = rosterColumnHelper.columns([
-	rosterColumnHelper.accessor('name', { header: 'Name', sortFn: 'alphanumeric' }),
-	rosterColumnHelper.accessor('generation', { header: 'Generation', sortFn: 'basic', filterFn: 'arrHas', meta: { align: 'end', filterVariant: 'set' } }),
-	rosterColumnHelper.accessor('power', { header: 'Power', sortFn: 'basic', filterFn: 'inNumberRange', meta: { align: 'end', filterVariant: 'range' } }),
-]);
+/** Module scope for the same reason as `moveColumns` above. */
+const rosterColumns: ColDef<KitRoster>[] = [
+	{ field: 'name', headerName: 'Name', flex: 2, minWidth: 200, filter: 'agTextColumnFilter' },
+	{ field: 'generation', headerName: 'Generation', width: 130, type: 'numericColumn', filter: 'agSetColumnFilter' },
+	{ field: 'power', headerName: 'Power', width: 110, type: 'numericColumn', filter: 'agNumberColumnFilter' },
+];
 
 /** 1,200 synthetic rows — in the neighborhood of the real Pokédex's 1,351, for an honest demo of virtualization. */
 function buildKitRoster(): KitRoster[] {
@@ -82,7 +77,7 @@ function buildKitRoster(): KitRoster[] {
 		UiSkeletonComponent,
 		UiTabsComponent,
 		ButtonComponent,
-		UiDataTableComponent,
+		UiDataGridComponent,
 	],
 	template: `
 		<div class="kit">
@@ -132,32 +127,19 @@ function buildKitRoster(): KitRoster[] {
 			</pokedex-card>
 
 			<pokedex-section-heading label="Data table" />
-			<pokedex-data-table
-				[data]="moveRows"
-				[columns]="moveColumns"
-				[(sorting)]="moveSorting"
-				[(columnVisibility)]="moveColumnVisibility"
-				[(columnOrder)]="moveColumnOrder"
-				[columnTracks]="moveColumnTracks"
-				[rowVariant]="moveRowVariant"
-				label="Example moves"
-				emptyLabel="No moves match."
+			<pokedex-data-grid
+				[rowData]="moveRows"
+				[columnDefs]="moveColumns"
+				[getRowId]="getMoveRowId"
+				[rowClassRules]="moveRowClassRules"
+				(stateUpdated)="onMoveGridStateUpdated($event)"
 			/>
 			<p class="sort-readout">
 				Sort state, owned out here rather than inside the table: <strong>{{ sortDescription() }}</strong>
 			</p>
 
 			<pokedex-section-heading label="Data table — virtualized, filtered" />
-			<pokedex-data-table
-				[data]="rosterRows"
-				[columns]="rosterColumns"
-				[(sorting)]="rosterSorting"
-				[virtualScroll]="true"
-				[rowHeight]="40"
-				[viewportHeight]="'400px'"
-				label="Roster (demo)"
-				emptyLabel="No rows match."
-			/>
+			<pokedex-data-grid [rowData]="rosterRows" [columnDefs]="rosterColumns" [getRowId]="getRosterRowId" [sideBar]="false" />
 
 			<pokedex-section-heading label="Skeletons" />
 			<div class="skel">
@@ -216,6 +198,18 @@ function buildKitRoster(): KitRoster[] {
 		.sort-readout {
 			font-size: var(--fs-xs);
 		}
+		pokedex-data-grid {
+			--pokedex-grid-height: 20rem;
+		}
+
+		/*
+		 * AG Grid builds its row DOM outside Angular's template compiler, so an emulated-encapsulation
+		 * rule never matches it — same \`::ng-deep\` escape hatch \`pokemon-shell.component.scss\` uses
+		 * for its own \`rowClassRules\`-driven row.
+		 */
+		::ng-deep .ag-row.marked {
+			background: var(--surface-sunken);
+		}
 	`,
 })
 export class KitComponent {
@@ -230,7 +224,6 @@ export class KitComponent {
 	protected readonly moveColumns = moveColumns;
 	protected readonly rosterColumns = rosterColumns;
 	protected readonly rosterRows: KitRoster[] = buildKitRoster();
-	protected readonly rosterSorting = signal<SortingState>([]);
 
 	protected readonly moveRows: KitMove[] = [
 		{ name: 'Flamethrower', type: 'Fire', power: 90, accuracy: 100 },
@@ -240,39 +233,30 @@ export class KitComponent {
 		{ name: 'Focus Blast', type: 'Fighting', power: 120, accuracy: 70 },
 	];
 
-	/** A bare signal here; a real surface backs the same input with a store. The table cannot tell. */
-	protected readonly moveSorting = signal<SortingState>([]);
-
-	/**
-	 * A wide name column and narrow numeric ones — the override a real moves table needs.
-	 *
-	 * Every entry is an `fr`, and that is the pattern to copy. **A content-based track — `auto`,
-	 * `min-content`, `max-content`, `fit-content()` — is a bug here.** Each row is its own grid
-	 * container rather than a `subgrid` of the table, so a content-based track resolves against
-	 * that row alone and the column's left edge wanders from row to row instead of lining up with
-	 * its header. The kit warns in development if one appears. Keyed by column id, since an index
-	 * cannot follow a column that moved.
-	 */
-	protected readonly moveColumnTracks = {
-		name: '2fr',
-		type: '1fr',
-		power: '1fr',
-		accuracy: '1fr',
-		actions: '1fr',
-	};
-
-	/** One column starts hidden, so the trigger reads "Columns 4/5" and the panel is worth opening. */
-	protected readonly moveColumnVisibility = signal<ColumnVisibilityState>({ actions: false });
-	protected readonly moveColumnOrder = signal<ColumnOrderState>([]);
+	/** Move names are unique across this demo's fixed five rows — a genuine identity, not just an index. */
+	protected readonly getMoveRowId: GetRowIdFunc<KitMove> = (params) => params.data.name;
+	protected readonly getRosterRowId: GetRowIdFunc<KitRoster> = (params) => params.data.id.toString();
 
 	/** One marked row, so the kit's only row modifier is visible in both themes. */
-	protected readonly moveRowVariant = (move: KitMove): DataTableRowVariant | null =>
-		move.accuracy < 100 ? 'marked' : null;
+	protected readonly moveRowClassRules: RowClassRules<KitMove> = {
+		marked: (params) => params.data != null && params.data.accuracy < 100,
+	};
+
+	/**
+	 * The grid owns its own sort state; this signal is a read-out fed by `stateUpdated`, not a
+	 * two-way binding — there is no such input to bind to. A bare signal here; a real surface backs
+	 * the same idea with a store. The grid cannot tell.
+	 */
+	protected readonly moveSort = signal<StateUpdatedEvent<KitMove>['state']['sort']>(undefined);
+
+	protected onMoveGridStateUpdated(event: StateUpdatedEvent<KitMove>): void {
+		this.moveSort.set(event.state.sort);
+	}
 
 	/** A computed, not a method: a template-called method re-runs on every change detection. */
 	protected readonly sortDescription = computed(() => {
-		const [entry] = this.moveSorting();
+		const [entry] = this.moveSort()?.sortModel ?? [];
 		if (!entry) return 'none';
-		return `${entry.id} ${entry.desc ? 'descending' : 'ascending'}`;
+		return `${entry.colId} ${entry.sort === 'desc' ? 'descending' : 'ascending'}`;
 	});
 }

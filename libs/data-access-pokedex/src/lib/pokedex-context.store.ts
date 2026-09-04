@@ -2,22 +2,11 @@ import { DOCUMENT } from '@angular/common';
 import { effect, inject } from '@angular/core';
 import { getState, patchState, signalStore, withHooks, withMethods, withState } from '@ngrx/signals';
 
-export interface FilterSet {
-	name: string;
-	search: string;
-	versionGroup: string | null;
-	types?: string[];
-	generation?: number | null;
-	sortBy?: string;
-	sortDesc?: boolean;
-}
-
 export type ThemePreference = 'system' | 'light' | 'dark';
 
 export interface PokedexContextState {
 	/** Active game (version group slug, e.g. 'firered-leafgreen'); null = all games */
 	activeVersionGroup: string | null;
-	savedFilters: FilterSet[];
 	/** Canonical ids, e.g. 'pokemon:25' */
 	favorites: string[];
 	/** Most-recent-first canonical ids */
@@ -39,7 +28,6 @@ const STORAGE_KEY = 'pokemon-center.pokedex-context.v1';
 
 const initialState: PokedexContextState = {
 	activeVersionGroup: null,
-	savedFilters: [],
 	favorites: [],
 	recent: [],
 	theme: 'system',
@@ -61,14 +49,6 @@ export const PokedexContextStore = signalStore(
 	withMethods((store) => ({
 		setActiveVersionGroup(versionGroup: string | null): void {
 			patchState(store, { activeVersionGroup: versionGroup });
-		},
-		saveFilter(filter: FilterSet): void {
-			patchState(store, {
-				savedFilters: [...store.savedFilters().filter((existingFilter) => existingFilter.name !== filter.name), filter],
-			});
-		},
-		deleteFilter(name: string): void {
-			patchState(store, { savedFilters: store.savedFilters().filter((existingFilter) => existingFilter.name !== name) });
 		},
 		toggleFavorite(canonicalId: string): void {
 			const favorites = store.favorites();

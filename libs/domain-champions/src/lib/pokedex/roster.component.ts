@@ -1,105 +1,100 @@
-import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, signal, untracked, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { UiSkeletonComponent } from '@pokemon-center/ui-pokedex';
+import type { GetRowIdFunc, GridApi, GridReadyEvent, IRowNode, PostSortRows, SideBarDef } from 'ag-grid-community';
+import { UiDataGridComponent, UiSkeletonComponent, pokedexSideBar } from '@pokemon-center/ui-pokedex';
 import { CompareTrayComponent } from './compare-tray.component';
-import { PokedexFiltersComponent } from './pokedex-filters.component';
+import { ChampionsFiltersPanelComponent, CHAMPIONS_FILTERS_PANEL_ID } from './filters/champions-filters-panel.component';
+import { applyPokedexState, capturePokedexState } from './filters/apply-pokedex-state';
+import { ExternalFiltersStore } from './filters/external-filters.store';
+import { pokedexGridColumns } from './pokedex-grid-columns';
+import type { PokedexEntry } from './pokedex-filter';
+import { decodePokedexState, encodePokedexState, hasPokedexStateParams } from './pokedex-url';
 import { PokedexStore } from './pokedex.store';
-import { decodeFilters, encodeFilters, hasFilterParams } from './pokedex-url';
-import { PokemonRowComponent } from './pokemon-row.component';
 
 /**
- * Rendering happens in pages, and the first one is deliberately small.
- *
- * The whole result set used to be rendered on every filter change: 241 rows is 13,000 DOM nodes
- * and ~240 component instances, which measured at **4.4 seconds** — unusable when the answer is
- * wanted mid-match.
- *
- * The first page is smaller than the rest because time-to-first-answer is the number that
- * matters. Ten rows paint in a fraction of the time thirty do, the sentinel below them is
- * already on screen, and the next page lands on the following frame — so the top of the list is
- * readable while the rest is still being built.
+ * The shared side bar plus a third panel that belongs only here: the cross-cutting Champions
+ * filters (`ExternalFiltersStore`), which no other grid has a use for. Extending `pokedexSideBar`
+ * rather than editing it keeps the other four grids on the shared Columns/Filters-only side bar.
  */
-const FIRST_PAGE = 10;
-const PAGE_SIZE = 20;
+const rosterSideBar: SideBarDef = {
+	...pokedexSideBar,
+	toolPanels: [
+		...(pokedexSideBar.toolPanels ?? []),
+		{
+			id: CHAMPIONS_FILTERS_PANEL_ID,
+			labelDefault: 'Champions filters',
+			labelKey: 'championsFilters',
+			iconKey: 'filter',
+			toolPanel: ChampionsFiltersPanelComponent,
+		},
+	],
+};
 
 /**
  * The Champions Pokédex.
  *
- * A list, not a grid. The card layout was pretty and thin — a sprite, a name and a stat total
- * cannot settle a choice between two Pokémon, so every comparison meant opening two pages. Rows
- * are wider, and the width buys the abilities and the six base stats, which is what people were
- * opening those pages for.
+ * Base forms only for now — Mega rows are a separate, not-yet-designed follow-up (sub-row vs.
+ * `rowExpandingFeature` vs. their own row; see docs/superpowers/specs/2026-09-03-champions-pokedex-data-table-design.md).
  *
- * No tagline and no result count: the first is copy nobody reads twice and the second is a
- * number nobody acts on. The list itself says how many there are.
+ * Types and stat ranges are AG Grid column filters, owned by the grid's own column state. The
+ * rest of the old filter sidebar (matchup, counter search, move-learner search, owned-only, Mega)
+ * reads more than one column or data outside any column, so it runs through AG Grid's External
+ * Filter API instead: `ExternalFiltersStore` is the filter state, `isExternalFilterPresent`/
+ * `doesExternalFilterPass` below are what the grid calls, and its own tool panel (registered in
+ * `rosterSideBar` above) hosts those filters' controls. The counter-target filter also needs
+ * `postSortRows` below: narrowing which rows show is not reordering them, and "what beats this"
+ * is a ranking question, not just a filtering one — see `ExternalFiltersStore.compareByCounter`.
+ *
+ * A shared link is read once `onGridReady` fires (Task 15): if the URL carries any of
+ * `pokedex-url.ts`'s params, the decoded `PokedexSavedState` — both the grid's column filter model
+ * *and* `ExternalFiltersStore`'s slice — replaces whatever either was already holding, rather than
+ * merging with it (`hasPokedexStateParams`/`decodePokedexState`'s "wins outright" rule).
+ *
+ * From then on the current view is written back out to the URL on every change (`writeUrl`
+ * below), the same `router.navigate([], { relativeTo, queryParams, replaceUrl: true })` the
+ * pre-migration roster used (`git show e2314fea^:.../roster.component.ts`, its own `writeUrl`).
+ * `replaceUrl: true` is deliberate, not incidental: a filter panel emits a state per keystroke,
+ * and pushing every one would turn the Back button into an undo of individual characters — the
+ * URL stays a *description* of the current view, not a history of how it was reached. `consumed`
+ * guards the read/write race the same way the original's did: `writeUrl` only fires once
+ * `onGridReady` has already read (or declined to read) the URL, so a shared link's own params are
+ * never clobbered by a write racing ahead of the read that was meant to apply them.
+ *
+ * Saving a *named* set happens from the Champions filters panel instead
+ * (`filters/filter-sets.component.ts`), which is where the grid api the panel receives via
+ * `IToolPanelParams` and this component's own `gridApi` converge. Capturing and restoring a
+ * combined state is shared code (`filters/apply-pokedex-state.ts`) between that panel and this
+ * component, so the two paths cannot drift apart on what a `PokedexSavedState` contains.
  */
 @Component({
 	selector: 'champions-roster',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CompareTrayComponent, PokedexFiltersComponent, PokemonRowComponent, RouterLink, UiSkeletonComponent],
+	imports: [CompareTrayComponent, RouterLink, UiDataGridComponent, UiSkeletonComponent],
 	template: `
 		<header class="masthead">
 			<h1>Pokédex</h1>
 			<a routerLink="/champions/pokedex/changes">What Champions changed →</a>
 		</header>
 
-		<div class="layout">
-			<aside class="filters" aria-label="Filters">
-				<champions-pokedex-filters />
-			</aside>
-
-			<section class="results">
-				<!-- The live region is this line alone; the list itself must never be one. -->
-				<p class="sr-only" aria-live="polite">{{ store.results().length }} results</p>
-
-				@if (store.isLoading()) {
-					<pokedex-skeleton height="18rem" />
-				} @else if (store.error()) {
-					<p class="empty">
-						The Champions API is not answering on <code>:3001</code>. Start it with
-						<code>nx serve champions-service</code>.
-					</p>
-				} @else {
-					<ul class="list">
-						@for (mon of visible(); track mon.slug) {
-							<li>
-								<champions-pokemon-row [mon]="mon" />
-							</li>
-						} @empty {
-							<li class="empty">
-								<p>Nothing legal matches those filters.</p>
-
-								<!--
-									An empty list with every control still lit does not say which control is
-									the problem. These do, and each one is costed.
-								-->
-								@if (store.relaxations().length > 0) {
-									<p>Dropping one filter would bring results back:</p>
-									<div class="relax">
-										@for (option of store.relaxations(); track option.label) {
-											<button type="button" (click)="store.patch(option.patch)">
-												Ignore {{ option.label }} → {{ option.count }}
-											</button>
-										}
-									</div>
-								} @else if (store.hasActiveFilters()) {
-									<button type="button" (click)="store.clear()">Clear them</button>
-								}
-							</li>
-						}
-					</ul>
-
-					<!--
-						Crossing this loads the next page. It sits 400px below the fold, so the rows
-						are already there by the time you scroll to where they would be.
-					-->
-					@if (visible().length < store.results().length) {
-						<div #sentinel class="sentinel" aria-hidden="true"></div>
-					}
-				}
-			</section>
-		</div>
+		@if (store.isLoading()) {
+			<pokedex-skeleton height="18rem" />
+		} @else if (store.error()) {
+			<p class="empty">
+				The Champions API is not answering on <code>:3001</code>. Start it with
+				<code>nx serve champions-service</code>.
+			</p>
+		} @else {
+			<pokedex-data-grid
+				[rowData]="entries()"
+				[columnDefs]="columns"
+				[getRowId]="getRowId"
+				[sideBar]="sideBar"
+				[isExternalFilterPresent]="isExternalFilterPresent"
+				[doesExternalFilterPass]="doesExternalFilterPass"
+				[postSortRows]="postSortRows"
+				(gridReady)="onGridReady($event)"
+			/>
+		}
 
 		<champions-compare-tray />
 	`,
@@ -109,6 +104,7 @@ const PAGE_SIZE = 20;
 			padding: var(--s-5, 1.5rem);
 			max-width: 84rem;
 			margin-inline: auto;
+			--pokedex-grid-height: calc(100vh - 14rem);
 		}
 
 		.masthead {
@@ -140,90 +136,9 @@ const PAGE_SIZE = 20;
 			border-color: var(--accent, #4f6df5);
 		}
 
-		/* Sidebar on a desktop, stacked on a phone — the filters are worth the space. */
-		.layout {
-			display: grid;
-			grid-template-columns: minmax(0, 17rem) minmax(0, 1fr);
-			gap: var(--s-5, 1.5rem);
-			align-items: start;
-		}
-
-		.filters {
-			position: sticky;
-			top: var(--s-3, 0.75rem);
-			max-height: calc(100vh - 2rem);
-			overflow-y: auto;
-		}
-
-		@media (max-width: 52rem) {
-			.layout {
-				grid-template-columns: minmax(0, 1fr);
-			}
-
-			.filters {
-				position: static;
-				max-height: none;
-				overflow: visible;
-			}
-		}
-
-		.list {
-			list-style: none;
-			margin: 0;
-			padding: 0;
-			display: grid;
-			gap: var(--s-2, 0.5rem);
-		}
-
-		/*
-			The lift has to be on the grid item, not on the row inside it.
-
-			An ability tooltip overflows its row and lands on top of the next one. Raising the row
-			component itself does nothing about that: it is a child of the list item, and a child's
-			z-index cannot lift a static parent above its later siblings - the following item
-			simply paints after it. So the tooltip rendered, sat in the right place, reported
-			itself visible, and was covered by the row below the whole time.
-		*/
-		.list li:hover,
-		.list li:focus-within {
-			position: relative;
-			z-index: 5;
-		}
-
-		.sentinel {
-			height: 1px;
-		}
-
 		.empty {
 			color: var(--ink-muted);
 			line-height: 1.6;
-		}
-
-		.empty p {
-			margin: 0 0 var(--s-2, 0.5rem);
-		}
-
-		.relax {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 0.35rem;
-		}
-
-		.empty button {
-			font: inherit;
-			font-size: var(--fs-sm, 0.875rem);
-			cursor: pointer;
-			padding: 0.3rem 0.65rem;
-			border-radius: var(--r-md, 8px);
-			border: 1.5px solid var(--line);
-			background: var(--surface);
-			color: inherit;
-			min-height: 2.25rem;
-		}
-
-		.empty button:hover {
-			border-color: var(--accent, #4f6df5);
-			color: var(--accent, #4f6df5);
 		}
 
 		code {
@@ -233,101 +148,121 @@ const PAGE_SIZE = 20;
 			padding: 0.1em 0.35em;
 			border-radius: var(--r-sm, 4px);
 		}
-
-		.sr-only {
-			position: absolute;
-			width: 1px;
-			height: 1px;
-			padding: 0;
-			margin: -1px;
-			overflow: hidden;
-			clip-path: inset(50%);
-			white-space: nowrap;
-		}
 	`,
 })
 export default class RosterComponent {
 	protected readonly store = inject(PokedexStore);
-
-	private readonly router = inject(Router);
+	protected readonly externalFilters = inject(ExternalFiltersStore);
 	private readonly route = inject(ActivatedRoute);
-	private readonly params = toSignal(this.route.queryParamMap);
+	private readonly router = inject(Router);
+
+	/** Base forms only — Mega rows are excluded from this pass entirely, not merely hidden. */
+	protected readonly entries = computed<PokedexEntry[]>(() => this.store.entries().filter((entry) => !entry.isMega));
+
+	protected readonly columns = pokedexGridColumns;
+	protected readonly getRowId: GetRowIdFunc<PokedexEntry> = (params) => params.data.slug;
+	protected readonly sideBar = rosterSideBar;
+
+	protected readonly isExternalFilterPresent = () => this.externalFilters.isPresent();
+	protected readonly doesExternalFilterPass = (node: IRowNode<PokedexEntry>) => (node.data ? this.externalFilters.passes(node.data) : true);
 
 	/**
-	 * Rows currently rendered.
-	 *
-	 * Deliberately view state rather than a filter: it is about what has been painted, not about
-	 * what matched, so it never reaches the URL or a saved set.
+	 * Best-answer-first while the counter filter is active — see `ExternalFiltersStore.compareByCounter`.
+	 * A stable no-op the rest of the time, so it never fights the grid's own column sort.
 	 */
-	private readonly limit = signal(FIRST_PAGE);
+	protected readonly postSortRows: PostSortRows<PokedexEntry> = (params) => {
+		params.nodes.sort((first, second) => (first.data && second.data ? this.externalFilters.compareByCounter(first.data, second.data) : 0));
+	};
 
-	protected readonly visible = computed(() => this.store.results().slice(0, this.limit()));
-
-	/** A new result set starts at the top again — the old scroll position means nothing in it. */
-	private readonly resetWindow = effect(() => {
-		this.store.results();
-		untracked(() => this.limit.set(FIRST_PAGE));
-	});
-
-	private readonly sentinel = viewChild<ElementRef<HTMLElement>>('sentinel');
+	private gridApi: GridApi<PokedexEntry> | null = null;
 
 	/**
-	 * Grow the window as the sentinel comes into view.
-	 *
-	 * `rootMargin` does the real work: the next page is built while its rows are still off
-	 * screen, so scrolling never lands on a gap waiting to be filled.
+	 * Bumped whenever the grid's own column filter model changes, purely so `writeUrl` below has a
+	 * signal to react to — a column filter change (e.g. narrowing Types in its popup) touches
+	 * nothing on `ExternalFiltersStore`, so without this the URL would never reflect it.
 	 */
-	private readonly watchSentinel = effect((onCleanup) => {
-		const element = this.sentinel()?.nativeElement;
-		if (!element) return;
+	private readonly filterModelVersion = signal(0);
 
-		const observer = new IntersectionObserver(
-			(entries) => {
-				if (!entries.some((entry) => entry.isIntersecting)) return;
-				untracked(() => this.limit.update((current) => Math.min(current + PAGE_SIZE, this.store.results().length)));
-			},
-			{ rootMargin: '400px' },
-		);
-
-		observer.observe(element);
-		onCleanup(() => observer.disconnect());
-	});
-
-	/** The URL seeds the filters once; later router emissions are our own writes echoing back. */
+	/** The URL is read once, on `gridReady`; later writes are this component's own, echoing back. */
 	private consumed = false;
 
-	/**
-	 * The URL is read once, on arrival.
-	 *
-	 * A link that carries filters wins **outright** over stored ones — not merged. Merging
-	 * would mean a shared view renders as the sender's filters plus whatever the recipient had
-	 * left switched on, which is not the view that was shared. A bare URL keeps localStorage,
-	 * because the filter you were using is usually the one you want next time.
-	 */
-	private readonly readUrl = effect(() => {
-		const params = this.params();
-		if (!params || this.consumed) return;
+	protected onGridReady(event: GridReadyEvent<PokedexEntry>): void {
+		this.gridApi = event.api;
+		event.api.addEventListener('filterChanged', () => this.filterModelVersion.update((version) => version + 1));
 
+		const stateAppliedFromUrl = this.applyUrlStateIfPresent(event.api);
 		this.consumed = true;
-		if (!hasFilterParams((key) => params.get(key))) return;
 
-		untracked(() => this.store.replace(decodeFilters((key) => params.get(key))));
+		// A bare visit never touches `filterModelVersion` or `externalFilters.version`, so
+		// `writeUrl` below never runs on its own — but `ExternalFiltersStore` is root-scoped, so a
+		// "bare" visit can still land on a non-empty view carried over from an earlier one in the
+		// same session. Write once, explicitly, so the URL always describes what's on screen
+		// instead of silently going stale (and dropping the filter on reload). Skipped when a URL
+		// was actually applied above — that path already gets its write from the version bump
+		// `applyPokedexState` causes, and firing both would be redundant, not incorrect.
+		if (!stateAppliedFromUrl) this.writeCurrentUrl();
+
+		// A counter handoff (`pokemon-detail.component.ts`'s "Answers to X") or a shared link
+		// carrying `counterOf`/`ownedOnly`/`mega` can leave the roster showing only a handful of
+		// rows with no visible explanation, because the panel that explains it — and offers the
+		// way out — lives behind the closed side bar (`pokedexSideBar.defaultToolPanel: undefined`).
+		// Checked after `applyUrlStateIfPresent` so a shared link's own external-filter state is
+		// what this reads, not whatever was there before the URL was applied.
+		if (this.externalFilters.isPresent()) event.api.openToolPanel(CHAMPIONS_FILTERS_PANEL_ID);
+	}
+
+	/**
+	 * A shared link wins outright over whatever the grid and `ExternalFiltersStore` were already
+	 * holding — it is never merged in. With no filter params at all (a bare visit, or a visit that
+	 * only carries unrelated params) this does nothing, leaving both at whatever they already were,
+	 * and returns `false` so the caller knows no state came from the URL.
+	 */
+	private applyUrlStateIfPresent(api: GridApi<PokedexEntry>): boolean {
+		const params = this.route.snapshot.queryParamMap;
+		const read = (key: string) => params.get(key);
+		if (!hasPokedexStateParams(read)) return false;
+
+		applyPokedexState(decodePokedexState(read), api, this.externalFilters, this.store);
+		return true;
+	}
+
+	/** The shared body of an explicit (bare-visit) write and the reactive `writeUrl` effect below. */
+	private writeCurrentUrl(): void {
+		if (!this.gridApi) return;
+
+		const queryParams = encodePokedexState(capturePokedexState(this.gridApi, this.externalFilters));
+		void this.router.navigate([], { relativeTo: this.route, queryParams, replaceUrl: true });
+	}
+
+	/**
+	 * …and written on every change after that, with `replaceUrl` — see the class doc for why.
+	 *
+	 * Tracks `filterModelVersion` (the column half) and `externalFilters.version` (the other) so
+	 * either kind of change re-runs this; the actual read of both halves happens inside
+	 * `untracked`, via `writeCurrentUrl`/`capturePokedexState`, so it never adds its own dependencies
+	 * on top of those two.
+	 */
+	private readonly writeUrl = effect(() => {
+		this.filterModelVersion();
+		this.externalFilters.version();
+
+		untracked(() => {
+			// Until the URL has been read (or found to carry nothing), writing would race the seed
+			// and clobber a shared link before `applyUrlStateIfPresent` gets to it.
+			if (!this.consumed || !this.gridApi) return;
+
+			this.writeCurrentUrl();
+		});
 	});
 
 	/**
-	 * …and written on every change after that, with `replaceUrl`.
-	 *
-	 * Replace rather than push: a filter panel emits a state per keystroke, and pushing them all
-	 * would turn Back into an undo of individual characters. The URL stays a shareable
-	 * description of the current view rather than a history of how it was reached.
+	 * The grid does not watch `ExternalFiltersStore`'s signals — it only re-runs
+	 * `doesExternalFilterPass` when told to. `version` is bumped by every mutation on the store,
+	 * so reading it here and calling `onFilterChanged` on change is the one wire every filter
+	 * needs, rather than one per field. Guarded for the window before `gridReady` fires.
 	 */
-	private readonly writeUrl = effect(() => {
-		const queryParams = encodeFilters(this.store.filters());
-
-		untracked(() => {
-			// Until the URL has been read, writing would race the seed and clobber a shared link.
-			if (!this.consumed) return;
-			void this.router.navigate([], { relativeTo: this.route, queryParams, replaceUrl: true });
-		});
+	private readonly rerunExternalFilter = effect(() => {
+		this.externalFilters.version();
+		untracked(() => this.gridApi?.onFilterChanged());
 	});
 }

@@ -77,9 +77,15 @@ importers:
       '@prisma/client':
         specifier: 7.8.0
         version: 7.8.0(prisma@7.8.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(typescript@6.0.3))(typescript@6.0.3)
-      '@tanstack/angular-table':
-        specifier: ^9.2.2
-        version: 9.2.2(@angular/common@22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2))
+      ag-grid-angular:
+        specifier: 36.1.0
+        version: 36.1.0(@angular/common@22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2))
+      ag-grid-community:
+        specifier: 36.1.0
+        version: 36.1.0
+      ag-grid-enterprise:
+        specifier: 36.1.0
+        version: 36.1.0
       class-transformer:
         specifier: ^0.5.1
         version: 0.5.1
@@ -4684,25 +4690,6 @@ packages:
     resolution: {integrity: sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w==}
     engines: {node: '>=10'}
 
-  '@tanstack/angular-store@0.11.1':
-    resolution: {integrity: sha512-bQxr/YhTnF8BJi+uv+F4NNafrApmDk5n3ongglmZ0h+sOhwwyZLpLZF+Rt4852AEkkkPkRBvhb7zMSPPkHjqQg==}
-    peerDependencies:
-      '@angular/common': '>=19.0.0'
-      '@angular/core': '>=19.0.0'
-
-  '@tanstack/angular-table@9.2.2':
-    resolution: {integrity: sha512-eX0yLtaW446FRCjwiHk7rPCU7incrLIV4K3YyhFjMj5xt8oApKcH5d05I1WGHmD7u4Pji9Bp5zlkjIn+4dv9vw==}
-    engines: {node: '>=20'}
-    peerDependencies:
-      '@angular/core': '>=19'
-
-  '@tanstack/store@0.11.1':
-    resolution: {integrity: sha512-mzTOBhypOuDJAy/D8n2MfUZ1HFkXnmSETviRyhqEC8LUE7/IZQExOTxMANj3KjTofYTkFNpBY67qaVrT41YccA==}
-
-  '@tanstack/table-core@9.1.2':
-    resolution: {integrity: sha512-ONpWQeass1sfg80CWF1NSwQ8r3GiqxA2lT/EdqIcrDEPZ0Z+0mM94eQoFYLPN0Kztzj8TQVb2+PrSZSItqA61g==}
-    engines: {node: '>=20'}
-
   '@testing-library/dom@10.4.1':
     resolution: {integrity: sha512-o4PXJQidqJl82ckFaXUeoAW+XysPLauYI43Abki5hABd853iMhitooc6znOnczgbTYmEP6U6/y1ZyKAIsvMKGg==}
     engines: {node: '>=18'}
@@ -5370,6 +5357,36 @@ packages:
   adm-zip@0.5.10:
     resolution: {integrity: sha512-x0HvcHqVJNTPk/Bw8JbLWlWoo6Wwnsug0fnYYro1HBrjxZ3G7/AZk7Ahv8JwDe1uIcz8eBqvu86FuF1POiG7vQ==}
     engines: {node: '>=6.0'}
+
+  ag-charts-community@14.1.0:
+    resolution: {integrity: sha512-J5S2Gag/nEJy7WzX/esAguqkuNHBYB3nly4vItMM/DggnnOYCopjLBEtkXXZZt1If1IQstnU4sKaUTmteAoj1Q==}
+
+  ag-charts-core@14.1.0:
+    resolution: {integrity: sha512-lkjDoudYOiUncHQ0FaDv8CaQ+TsOK16vUZnkJNPIaC92opRP95pryDbWQ6VDWzCLCqsJbAGPx2xlsTor+WgA2A==}
+
+  ag-charts-enterprise@14.1.0:
+    resolution: {integrity: sha512-1bLN22vv07tdJH/UrmSrIWSJu0fkpr//jfrcwaeAatXSwUspcjLzHmcQNNoeQ0TX6xTFaoZ558mJ96P3pmRhWw==}
+
+  ag-charts-locale@14.1.0:
+    resolution: {integrity: sha512-5UFnL7JoOj491LtqZmlCdbxDvXqE12qz664CZFBK4Tzlh8n48pN9yWfVqhlmkJWEC/wugG3Yf6/i3WGxL5qljw==}
+
+  ag-charts-types@14.1.0:
+    resolution: {integrity: sha512-mmzkng88c0l+Z9PvCMowMilhVeNgDU/iMuMemcOQD4BG/qO4vbkxWvyQO0iqju8Dx7YOY81PNzC/RmElQNiVkA==}
+
+  ag-grid-angular@36.1.0:
+    resolution: {integrity: sha512-7TSAjoIWko/Ce52rIE8PC2unlzSe7q59KbbQP8Rg+hvp92JrwYMAt5rE9P4mDgAhOgVJXB2cpMevAA+ZGe3Eyg==}
+    peerDependencies:
+      '@angular/common': '>= 20.0.0'
+      '@angular/core': '>= 20.0.0'
+
+  ag-grid-community@36.1.0:
+    resolution: {integrity: sha512-WnvSQ4csRs8gv/b1B0lPHykQXvUJVgi2u5mpY0Aa6dv3pvhDVVqCT8dwUyOeCog4JNPptaXGrOrZ8qP2XoJzVA==}
+
+  ag-grid-enterprise@36.1.0:
+    resolution: {integrity: sha512-bZmctvyMYNp089VAWlnuHH+C0xf1rUlon02uyUMglDjIZ6kiEH9ihWnkQPeiwaHlfrNWpAJSO7cXZBgkgBfUCQ==}
+
+  ag-stack@36.1.0:
+    resolution: {integrity: sha512-Kmkf5iRZmyduNx2KtW450j6GbCdJ4ejacSpb1AWl0yrdquRmScLRc1SlLolx6lyCbTBSJGo4tRraKbBzre+GlQ==}
 
   agent-base@6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
@@ -16809,27 +16826,6 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-  '@tanstack/angular-store@0.11.1(@angular/common@22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2))':
-    dependencies:
-      '@angular/common': 22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2))(rxjs@7.8.2)
-      '@angular/core': 22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2)
-      '@tanstack/store': 0.11.1
-
-  '@tanstack/angular-table@9.2.2(@angular/common@22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2))':
-    dependencies:
-      '@angular/core': 22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2)
-      '@tanstack/angular-store': 0.11.1(@angular/common@22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2))
-      '@tanstack/table-core': 9.1.2
-      tslib: 2.8.1
-    transitivePeerDependencies:
-      - '@angular/common'
-
-  '@tanstack/store@0.11.1': {}
-
-  '@tanstack/table-core@9.1.2':
-    dependencies:
-      '@tanstack/store': 0.11.1
-
   '@testing-library/dom@10.4.1':
     dependencies:
       '@babel/code-frame': 7.29.7
@@ -17689,6 +17685,51 @@ snapshots:
 
   adm-zip@0.5.10:
     optional: true
+
+  ag-charts-community@14.1.0:
+    dependencies:
+      ag-charts-core: 14.1.0
+      ag-charts-locale: 14.1.0
+      ag-charts-types: 14.1.0
+    optional: true
+
+  ag-charts-core@14.1.0:
+    dependencies:
+      ag-charts-types: 14.1.0
+    optional: true
+
+  ag-charts-enterprise@14.1.0:
+    dependencies:
+      ag-charts-community: 14.1.0
+      ag-charts-core: 14.1.0
+    optional: true
+
+  ag-charts-locale@14.1.0:
+    optional: true
+
+  ag-charts-types@14.1.0: {}
+
+  ag-grid-angular@36.1.0(@angular/common@22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2)):
+    dependencies:
+      '@angular/common': 22.0.7(@angular/core@22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2))(rxjs@7.8.2)
+      '@angular/core': 22.0.7(@angular/compiler@22.0.7)(rxjs@7.8.2)
+      ag-grid-community: 36.1.0
+      tslib: 2.8.1
+
+  ag-grid-community@36.1.0:
+    dependencies:
+      ag-charts-types: 14.1.0
+      ag-stack: 36.1.0
+
+  ag-grid-enterprise@36.1.0:
+    dependencies:
+      ag-grid-community: 36.1.0
+      ag-stack: 36.1.0
+    optionalDependencies:
+      ag-charts-community: 14.1.0
+      ag-charts-enterprise: 14.1.0
+
+  ag-stack@36.1.0: {}
 
   agent-base@6.0.2:
     dependencies:

@@ -1,0 +1,29 @@
+<div class="shell-wrapper">
+	<nav class="tools-nav">
+		<a routerLink="/pokedex/pokemon" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Pokedex</a>
+		<a routerLink="/pokedex/moves" routerLinkActive="active">Moves</a>
+		<a routerLink="/pokedex/analyzer" routerLinkActive="active">Analyzer</a>
+		<a routerLink="/pokedex/coverage" routerLinkActive="active">Coverage</a>
+		<a routerLink="/pokedex/compare" routerLinkActive="active">Compare</a>
+	</nav>
+
+	<div class="shell">
+		<div class="list-pane">
+			@if (loading()) {
+				<p>Loading…</p>
+			} @else {
+				<pokedex-data-grid
+					[rowData]="rows()"
+					[columnDefs]="columns"
+					[getRowId]="getRowId"
+					[rowClassRules]="rowClassRules"
+					(gridReady)="onGridReady($event)"
+				/>
+			}
+		</div>
+
+		<div class="detail-pane">
+			<router-outlet />
+		</div>
+	</div>
+</div>

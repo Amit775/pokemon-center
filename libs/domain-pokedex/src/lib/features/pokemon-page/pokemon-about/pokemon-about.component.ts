@@ -9,7 +9,7 @@ import {
 	gqlResource,
 } from '@pokemon-center/data-access-pokedex';
 import { SectionHeadingComponent, TypeChipComponent } from '@pokemon-center/ui-pokedex';
-import { PokemonAvatarDirective } from '../../pokemon-list/pokemon-avater/pokemon-avatar.directive';
+import { PokemonAvatarDirective } from '../../../shared/pokemon-avatar/pokemon-avatar.directive';
 
 type ChainSpecies = EvolutionChainQuery['evolutionChain'][number];
 type EvolutionRow = ChainSpecies['evolution'][number];

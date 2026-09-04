@@ -29,17 +29,11 @@ export type TypesListQuery = { typeList: Array<{ id: string, identifier: string 
 
 export type PokemonListQueryVariables = Exact<{
   take: number;
-  skip: number;
-  search?: string | null | undefined;
   versionGroup?: string | null | undefined;
-  types?: Array<string> | string | null | undefined;
-  generation?: number | null | undefined;
-  sortBy?: string | null | undefined;
-  sortDesc?: boolean | null | undefined;
 }>;
 
 
-export type PokemonListQuery = { pokemonList: Array<{ id: string, canonicalId: string, slug: string, identifier: string, height: number, weight: number, types: Array<{ slot: number, type: { id: string, identifier: string } }> }> };
+export type PokemonListQuery = { pokemonList: Array<{ id: string, canonicalId: string, slug: string, identifier: string, height: number, weight: number, types: Array<{ slot: number, type: { id: string, identifier: string } }>, stats: Array<{ base_stat: number, stat: { identifier: string } }> }> };
 
 export type PokemonDetailQueryVariables = Exact<{
   idOrSlug: string;
@@ -268,17 +262,8 @@ export const TypesListDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<TypesListQuery, TypesListQueryVariables>;
 export const PokemonListDocument = new TypedDocumentString(`
-    query PokemonList($take: Int!, $skip: Int!, $search: String, $versionGroup: String, $types: [String!], $generation: Int, $sortBy: String, $sortDesc: Boolean) {
-  pokemonList(
-    take: $take
-    skip: $skip
-    search: $search
-    versionGroup: $versionGroup
-    types: $types
-    generation: $generation
-    sortBy: $sortBy
-    sortDesc: $sortDesc
-  ) {
+    query PokemonList($take: Int!, $versionGroup: String) {
+  pokemonList(take: $take, versionGroup: $versionGroup) {
     id
     canonicalId
     slug
@@ -289,6 +274,12 @@ export const PokemonListDocument = new TypedDocumentString(`
       slot
       type {
         id
+        identifier
+      }
+    }
+    stats {
+      base_stat
+      stat {
         identifier
       }
     }

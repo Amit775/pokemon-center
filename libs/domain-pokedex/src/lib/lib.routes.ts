@@ -1,29 +1,26 @@
 import { Route } from '@angular/router';
+import { provideDataGrid } from '@pokemon-center/ui-pokedex';
 
 export const domainPokedexRoutes: Route[] = [
 	{ path: '', redirectTo: 'pokemon', pathMatch: 'full' },
-	{ path: 'pokemon', loadComponent: () => import('./features/pokemon-list/pokemon-list.component').then((module) => module.PokemonListComponent) },
 	{
-		path: 'pokemon/:id',
-		loadComponent: () => import('./features/pokemon-page/pokemon-page.component').then((module) => module.PokemonPageComponent),
+		path: 'pokemon',
+		// Route-scoped so AG Grid stays out of the eagerly loaded main bundle — the shell hosts the
+		// grids rendered by its children.
+		providers: [provideDataGrid()],
+		loadComponent: () => import('./features/pokemon-shell/pokemon-shell.component').then((module) => module.PokemonShellComponent),
 		children: [
-			{ path: '', redirectTo: 'about', pathMatch: 'full' },
+			{ path: '', loadComponent: () => import('./features/pokemon-shell/pokemon-empty-detail.component').then((module) => module.PokemonEmptyDetailComponent) },
 			{
-				path: 'about',
-				loadComponent: () => import('./features/pokemon-page/pokemon-about/pokemon-about.component').then((module) => module.PokemonAboutComponent),
-			},
-			{
-				path: 'stats',
-				loadComponent: () => import('./features/pokemon-page/pokemon-stats/pokemon-stats.component').then((module) => module.PokemonStatsComponent),
-			},
-			{
-				path: 'moves',
-				loadComponent: () => import('./features/pokemon-page/pokemon-moves/pokemon-moves.component').then((module) => module.PokemonMovesComponent),
-			},
-			{
-				path: 'locations',
-				loadComponent: () =>
-					import('./features/pokemon-page/pokemon-locations/pokemon-locations.component').then((module) => module.PokemonLocationsComponent),
+				path: ':id',
+				loadComponent: () => import('./features/pokemon-page/pokemon-page.component').then((module) => module.PokemonPageComponent),
+				children: [
+					{ path: '', redirectTo: 'about', pathMatch: 'full' },
+					{ path: 'about', loadComponent: () => import('./features/pokemon-page/pokemon-about/pokemon-about.component').then((module) => module.PokemonAboutComponent) },
+					{ path: 'stats', loadComponent: () => import('./features/pokemon-page/pokemon-stats/pokemon-stats.component').then((module) => module.PokemonStatsComponent) },
+					{ path: 'moves', loadComponent: () => import('./features/pokemon-page/pokemon-moves/pokemon-moves.component').then((module) => module.PokemonMovesComponent) },
+					{ path: 'locations', loadComponent: () => import('./features/pokemon-page/pokemon-locations/pokemon-locations.component').then((module) => module.PokemonLocationsComponent) },
+				],
 			},
 		],
 	},
@@ -58,6 +55,7 @@ export const domainPokedexRoutes: Route[] = [
 	},
 	{
 		path: 'kit',
+		providers: [provideDataGrid()],
 		loadComponent: () => import('./features/kit/kit.component').then((module) => module.KitComponent),
 	},
 ];

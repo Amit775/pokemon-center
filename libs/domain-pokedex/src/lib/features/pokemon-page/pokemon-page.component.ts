@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PokemonDetailDocument, gqlResource } from '@pokemon-center/data-access-pokedex';
 import { EntityPortraitComponent, TypeChipComponent } from '@pokemon-center/ui-pokedex';
-import { localSpriteUrl, officialArtworkUrl } from '../pokemon-list/pokemon-avater/pokemon-avatar.service';
+import { localSpriteUrl, officialArtworkUrl } from '../../shared/pokemon-avatar/pokemon-avatar.service';
 
 @Component({
 	templateUrl: './pokemon-page.component.html',
@@ -13,6 +13,7 @@ import { localSpriteUrl, officialArtworkUrl } from '../pokemon-list/pokemon-avat
 })
 export class PokemonPageComponent {
 	private router = inject(Router);
+	private readonly route = inject(ActivatedRoute);
 
 	public id = input.required<string>();
 
@@ -38,6 +39,6 @@ export class PokemonPageComponent {
 	}
 
 	public goBack(): void {
-		this.router.navigate(['/pokedex'], { state: { id: this.id() } });
+		this.router.navigate(['..'], { relativeTo: this.route });
 	}
 }

@@ -13,9 +13,10 @@ import {
 import { parseViewMode } from '../view-mode';
 import { CounterListComponent } from './counter-list.component';
 import { answeredBy, answersTo } from './counters';
+import { ExternalFiltersStore } from './filters/external-filters.store';
 import { PokedexStore } from './pokedex.store';
 import { MegaPanelComponent } from './mega-panel.component';
-import { MovesDataTableComponent } from './moves-data-table.component';
+import { MovesDataGridComponent } from './moves-data-grid.component';
 import { StatPanelComponent } from './stat-panel.component';
 
 /**
@@ -43,7 +44,7 @@ import { StatPanelComponent } from './stat-panel.component';
 		CounterListComponent,
 		EntityPortraitComponent,
 		MegaPanelComponent,
-		MovesDataTableComponent,
+		MovesDataGridComponent,
 		RouterLink,
 		SectionHeadingComponent,
 		StatPanelComponent,
@@ -193,7 +194,7 @@ import { StatPanelComponent } from './stat-panel.component';
 
 				<pokedex-section-heading label="Moves ({{ detail.moves.length }})" />
 				<pokedex-card>
-					<champions-moves-data-table [moves]="detail.moves" [isApproximate]="detail.learnsetIsApproximate" />
+					<champions-moves-data-grid [moves]="detail.moves" [isApproximate]="detail.learnsetIsApproximate" />
 				</pokedex-card>
 			} @else {
 				<pokedex-section-heading label="Abilities and moves" />
@@ -509,6 +510,7 @@ export default class PokemonDetailComponent {
 	protected readonly viewMode = computed(() => parseViewMode(this.view()));
 
 	protected readonly pokedex = inject(PokedexStore);
+	private readonly externalFilters = inject(ExternalFiltersStore);
 	private readonly router = inject(Router);
 
 	protected readonly query = championsResource(ChampionsTeamDocument, () => ({ slugs: [this.slug()] }));
@@ -583,9 +585,18 @@ export default class PokemonDetailComponent {
 		return entry ? answeredBy(entry, this.pokedex.entries(), this.pokedex.typeChart()) : [];
 	});
 
-	/** Hand the ranking to the grid, where it can be filtered and sorted further. */
+	/**
+	 * Hand the ranking to the grid, where it can be filtered and sorted further.
+	 *
+	 * Goes through `ExternalFiltersStore`, not `PokedexStore.patch` — the roster reads its
+	 * "answers to X" state from the former now (Task 12's external filter engine), and
+	 * `PokedexStore.filters().counterOf` has not driven the grid since this app moved off the
+	 * old filter sidebar. Writing there left this button navigating to a roster that silently
+	 * ignored it. `ExternalFiltersStore` is `providedIn: 'root'`, so the value set here is still
+	 * there once the navigation below lands.
+	 */
 	protected showAllCounters(slug: string): void {
-		this.pokedex.patch({ counterOf: slug });
+		this.externalFilters.setCounterOf(slug);
 		void this.router.navigate(['/champions/pokedex']);
 	}
 
