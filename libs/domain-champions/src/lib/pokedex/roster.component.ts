@@ -1,11 +1,32 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, untracked } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import type { GetRowIdFunc } from 'ag-grid-community';
-import { UiDataGridComponent, UiSkeletonComponent } from '@pokemon-center/ui-pokedex';
+import type { GetRowIdFunc, GridApi, GridReadyEvent, IRowNode, SideBarDef } from 'ag-grid-community';
+import { UiDataGridComponent, UiSkeletonComponent, pokedexSideBar } from '@pokemon-center/ui-pokedex';
 import { CompareTrayComponent } from './compare-tray.component';
+import { ChampionsFiltersPanelComponent, CHAMPIONS_FILTERS_PANEL_ID } from './filters/champions-filters-panel.component';
+import { ExternalFiltersStore } from './filters/external-filters.store';
 import { pokedexGridColumns } from './pokedex-grid-columns';
 import type { PokedexEntry } from './pokedex-filter';
 import { PokedexStore } from './pokedex.store';
+
+/**
+ * The shared side bar plus a third panel that belongs only here: the cross-cutting Champions
+ * filters (`ExternalFiltersStore`), which no other grid has a use for. Extending `pokedexSideBar`
+ * rather than editing it keeps the other four grids on the shared Columns/Filters-only side bar.
+ */
+const rosterSideBar: SideBarDef = {
+	...pokedexSideBar,
+	toolPanels: [
+		...(pokedexSideBar.toolPanels ?? []),
+		{
+			id: CHAMPIONS_FILTERS_PANEL_ID,
+			labelDefault: 'Champions filters',
+			labelKey: 'championsFilters',
+			iconKey: 'filter',
+			toolPanel: ChampionsFiltersPanelComponent,
+		},
+	],
+};
 
 /**
  * The Champions Pokédex.
@@ -13,10 +34,12 @@ import { PokedexStore } from './pokedex.store';
  * Base forms only for now — Mega rows are a separate, not-yet-designed follow-up (sub-row vs.
  * `rowExpandingFeature` vs. their own row; see docs/superpowers/specs/2026-09-03-champions-pokedex-data-table-design.md).
  *
- * Filtering and sorting are entirely owned by the grid's own column state, not by `PokedexStore`.
- * The richer custom filter sidebar this replaces (type/matchup pickers, stat-range sliders, counter
- * search, saved sets, move-learner search, owned-only) is deferred to a follow-up task that extends
- * the generic Filters panel — see the spec's "Out of scope" section.
+ * Types and stat ranges are AG Grid column filters, owned by the grid's own column state. The
+ * rest of the old filter sidebar (matchup, counter search, move-learner search, owned-only, Mega)
+ * reads more than one column or data outside any column, so it runs through AG Grid's External
+ * Filter API instead: `ExternalFiltersStore` is the filter state, `isExternalFilterPresent`/
+ * `doesExternalFilterPass` below are what the grid calls, and its own tool panel (registered in
+ * `rosterSideBar` above) is where those filters will get their controls in a follow-up task.
  */
 @Component({
 	selector: 'champions-roster',
@@ -36,7 +59,15 @@ import { PokedexStore } from './pokedex.store';
 				<code>nx serve champions-service</code>.
 			</p>
 		} @else {
-			<pokedex-data-grid [rowData]="entries()" [columnDefs]="columns" [getRowId]="getRowId" />
+			<pokedex-data-grid
+				[rowData]="entries()"
+				[columnDefs]="columns"
+				[getRowId]="getRowId"
+				[sideBar]="sideBar"
+				[isExternalFilterPresent]="isExternalFilterPresent"
+				[doesExternalFilterPass]="doesExternalFilterPass"
+				(gridReady)="onGridReady($event)"
+			/>
 		}
 
 		<champions-compare-tray />
@@ -95,10 +126,32 @@ import { PokedexStore } from './pokedex.store';
 })
 export default class RosterComponent {
 	protected readonly store = inject(PokedexStore);
+	protected readonly externalFilters = inject(ExternalFiltersStore);
 
 	/** Base forms only — Mega rows are excluded from this pass entirely, not merely hidden. */
 	protected readonly entries = computed<PokedexEntry[]>(() => this.store.entries().filter((entry) => !entry.isMega));
 
 	protected readonly columns = pokedexGridColumns;
 	protected readonly getRowId: GetRowIdFunc<PokedexEntry> = (params) => params.data.slug;
+	protected readonly sideBar = rosterSideBar;
+
+	protected readonly isExternalFilterPresent = () => this.externalFilters.isPresent();
+	protected readonly doesExternalFilterPass = (node: IRowNode<PokedexEntry>) => (node.data ? this.externalFilters.passes(node.data) : true);
+
+	private gridApi: GridApi<PokedexEntry> | null = null;
+
+	protected onGridReady(event: GridReadyEvent<PokedexEntry>): void {
+		this.gridApi = event.api;
+	}
+
+	/**
+	 * The grid does not watch `ExternalFiltersStore`'s signals — it only re-runs
+	 * `doesExternalFilterPass` when told to. `version` is bumped by every mutation on the store,
+	 * so reading it here and calling `onFilterChanged` on change is the one wire every filter
+	 * needs, rather than one per field. Guarded for the window before `gridReady` fires.
+	 */
+	private readonly rerunExternalFilter = effect(() => {
+		this.externalFilters.version();
+		untracked(() => this.gridApi?.onFilterChanged());
+	});
 }
