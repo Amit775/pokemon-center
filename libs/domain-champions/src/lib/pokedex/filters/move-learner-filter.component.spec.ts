@@ -33,6 +33,10 @@ const MOVE_INDEX = [
 	{ id: 1, slug: 'fire-fang', name: 'Fire Fang', type: 'fire', damageClass: 'PHYSICAL' },
 	{ id: 2, slug: 'flamethrower', name: 'Flamethrower', type: 'fire', damageClass: 'SPECIAL' },
 	{ id: 3, slug: 'splash', name: 'Splash', type: 'normal', damageClass: 'STATUS' },
+	// Deliberately shares the substring "flame" with Flamethrower without sharing its prefix —
+	// the one pairing in this fixture that can actually distinguish "ranked by prefix" from
+	// "matched at all". See the ordering test below.
+	{ id: 4, slug: 'inflame', name: 'Inflame', type: 'fire', damageClass: 'STATUS' },
 ];
 
 /**
@@ -117,12 +121,31 @@ describe('MoveLearnerFilterComponent', () => {
 		expect(fixture.nativeElement.querySelector('.autocomplete ul')).toBeNull();
 	});
 
-	it('matches by substring, prefix matches ranked first', () => {
+	/**
+	 * A single-match case: it proves substring matching works, but with only one result there is
+	 * nothing for the ranking comparator to reorder — inverting or deleting it would not change
+	 * this test's outcome. See "ranks a prefix match ahead of a mid-word match" below for that.
+	 */
+	it('matches by substring', () => {
 		const { fixture } = render();
-		typeIntoAutocomplete(fixture, 'fla');
+		typeIntoAutocomplete(fixture, 'flamet');
 
 		const names = [...fixture.nativeElement.querySelectorAll<HTMLButtonElement>('.autocomplete li button')].map((button) => button.textContent?.trim());
 		expect(names).toEqual(['Flamethrower']);
+	});
+
+	/**
+	 * Two moves both match "flame" — Flamethrower as a prefix, Inflame only mid-word — so this is
+	 * the one case that can actually falsify the ranking comparator. Order is asserted directly
+	 * against the DOM's natural order (no `.sort()` on the actual result), so a broken, inverted,
+	 * or removed comparator changes what this test sees.
+	 */
+	it('ranks a prefix match ahead of a mid-word match for the same substring', () => {
+		const { fixture } = render();
+		typeIntoAutocomplete(fixture, 'flame');
+
+		const names = [...fixture.nativeElement.querySelectorAll<HTMLButtonElement>('.autocomplete li button')].map((button) => button.textContent?.trim());
+		expect(names).toEqual(['Flamethrower', 'Inflame']);
 	});
 
 	it('picking a move triggers the lazy fetch and sets ExternalFiltersStore.move, clearing the search box', async () => {
