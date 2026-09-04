@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import type { ColDef, RowClassRules } from 'ag-grid-community';
+import type { ColDef, PostSortRows, RowClassRules } from 'ag-grid-community';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { UiDataGridComponent } from './data-grid.component';
@@ -42,6 +42,21 @@ class DataGridRowClassTestHostComponent {
 	readonly rowClassRules: RowClassRules<DemoRow> = { marked: (params) => params.data?.id === '2' };
 }
 
+@Component({
+	selector: 'pokedex-data-grid-post-sort-test-host',
+	imports: [UiDataGridComponent],
+	template: `<pokedex-data-grid [rowData]="rowData()" [columnDefs]="columnDefs()" [getRowId]="getRowId" [postSortRows]="postSortRows" />`,
+})
+class DataGridPostSortTestHostComponent {
+	readonly rowData = signal(rows);
+	readonly columnDefs = signal(columns);
+	readonly getRowId = (params: { data: DemoRow }) => params.data.id;
+	/** Reverses the grid's natural (insertion) order — highest `power` first. */
+	readonly postSortRows: PostSortRows<DemoRow> = (params) => {
+		params.nodes.sort((first, second) => (second.data?.power ?? 0) - (first.data?.power ?? 0));
+	};
+}
+
 describe('UiDataGridComponent', () => {
 	beforeEach(() => registerDataGridModules());
 
@@ -66,6 +81,20 @@ describe('UiDataGridComponent', () => {
 		const rowsWithClass = Array.from(element.querySelectorAll('[row-id]')).filter((row) => row.classList.contains('marked'));
 		expect(rowsWithClass).toHaveLength(1);
 		expect(rowsWithClass[0].getAttribute('row-id')).toBe('2');
+	});
+
+	it('forwards postSortRows to ag-grid-angular so a ranking can reorder rows after the grid sorts', async () => {
+		const fixture = TestBed.createComponent(DataGridPostSortTestHostComponent);
+		fixture.detectChanges();
+		await fixture.whenStable();
+		fixture.detectChanges();
+
+		const element: HTMLElement = fixture.nativeElement;
+		const rowIds = Array.from(element.querySelectorAll('[row-id]')).map((row) => row.getAttribute('row-id'));
+
+		// Natural (insertion) order is ['1', '2']; the host's postSortRows ranks by power
+		// descending, so this only holds if the input actually reaches ag-grid-angular.
+		expect(rowIds).toEqual(['2', '1']);
 	});
 
 	it('gives the grid container an explicit height, without which AG Grid renders at zero height', () => {

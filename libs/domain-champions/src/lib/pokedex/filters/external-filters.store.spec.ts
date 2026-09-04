@@ -261,6 +261,31 @@ describe('ExternalFiltersStore', () => {
 		});
 	});
 
+	describe('compareByCounter, delegated to compareCounters/counterScore', () => {
+		it('ranks a check ahead of a wall against the same target', () => {
+			const store = provideStore();
+			store.setCounterOf('garchomp');
+
+			// Azumarill checks Garchomp; Corviknight only walls it — see the `passes` describe above.
+			expect(store.compareByCounter(azumarill, corviknight)).toBeLessThan(0);
+			expect(store.compareByCounter(corviknight, azumarill)).toBeGreaterThan(0);
+		});
+
+		it('is a no-op (returns 0 for every pair) while no counter target is active', () => {
+			const store = provideStore();
+
+			expect(store.compareByCounter(azumarill, corviknight)).toBe(0);
+			expect(store.compareByCounter(garchomp, garchompMega)).toBe(0);
+		});
+
+		it('is a no-op when the target slug is not on the roster, the same reading `passes` uses', () => {
+			const store = provideStore();
+			store.setCounterOf('missingno');
+
+			expect(store.compareByCounter(azumarill, corviknight)).toBe(0);
+		});
+	});
+
 	describe('clear', () => {
 		it('resets every slice to idle', () => {
 			const store = provideStore();
@@ -303,6 +328,23 @@ describe('the external filter engine wired into a real grid', () => {
 		return slugs.sort();
 	}
 
+	/**
+	 * Unlike `displayedSlugs()`, does not sort the result — ranking order is exactly what this is
+	 * for, so a helper that normalizes it away first would hide the bug it exists to catch. Reads
+	 * `forEachNodeAfterFilterAndSort`, not `forEachNodeAfterFilter`: the latter reflects the array
+	 * as the filter stage left it, *before* the sort stage runs `postSortRows` over it — AG Grid's
+	 * own `SortStage.execute` calls `postSortRows` against `childrenAfterSort`, never touching
+	 * `childrenAfterFilter`, so reading the wrong one here would show the pre-ranking order no
+	 * matter what `postSortRows` did.
+	 */
+	function orderedSlugs(): string[] {
+		const slugs: string[] = [];
+		api.forEachNodeAfterFilterAndSort((node) => {
+			if (node.data) slugs.push(node.data.slug);
+		});
+		return slugs;
+	}
+
 	beforeEach(() => {
 		store = provideStore({ owned: new Set(['corviknight']) });
 
@@ -315,6 +357,7 @@ describe('the external filter engine wired into a real grid', () => {
 			enableFilterHandlers: true,
 			isExternalFilterPresent: () => store.isPresent(),
 			doesExternalFilterPass: (node) => (node.data ? store.passes(node.data) : true),
+			postSortRows: (params) => params.nodes.sort((first, second) => (first.data && second.data ? store.compareByCounter(first.data, second.data) : 0)),
 		});
 	});
 
@@ -357,6 +400,22 @@ describe('the external filter engine wired into a real grid', () => {
 		api.onFilterChanged();
 
 		expect(displayedSlugs()).toEqual(['azumarill', 'corviknight']);
+	});
+
+	it("orders survivors best-answer-first via postSortRows once a counter target is active, ahead of the grid's natural row order", () => {
+		// No counter target yet: postSortRows is wired but `compareByCounter` returns 0 for every
+		// pair while idle, so the grid's own (insertion) order must survive untouched.
+		expect(orderedSlugs()).toEqual(['garchomp', 'garchomp-mega', 'corviknight', 'azumarill']);
+
+		store.setCounterOf('garchomp');
+		api.onFilterChanged();
+
+		// Azumarill (Fairy STAB melts Garchomp for a 'check', Ground back for only neutral) and
+		// Corviknight (immune to Ground, resists Dragon, but cannot hit back — a 'wall') both
+		// answer Garchomp, but 'check' outranks 'wall' in `compareCounters`'s verdict order.
+		// Corviknight comes first in `roster` (and so in the grid's natural post-filter order),
+		// so this only holds if `postSortRows` genuinely reordered the surviving rows.
+		expect(orderedSlugs()).toEqual(['azumarill', 'corviknight']);
 	});
 
 	it('narrows by matchup type, and the Effective/Resists direction genuinely inverts the result', () => {

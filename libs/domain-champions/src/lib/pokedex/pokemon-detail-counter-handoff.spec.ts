@@ -1,6 +1,6 @@
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
+import { DeferBlockBehavior, DeferBlockState, TestBed, type ComponentFixture } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { AllCommunityModule, ModuleRegistry, createGrid, type GridApi } from 'ag-grid-community';
 import { AllEnterpriseModule } from 'ag-grid-enterprise';
@@ -17,9 +17,15 @@ ModuleRegistry.registerModules([AllCommunityModule, AllEnterpriseModule]);
  * action used to write `PokedexStore.patch({ counterOf: slug })` — the old filter sidebar's state,
  * which the roster grid has not read since Task 12 moved cross-cutting filters onto
  * `ExternalFiltersStore`. That left the button navigating to a roster that silently ignored it,
- * exactly the regression the earlier TanStack migration introduced. This proves the fix holds
- * through the same seam that broke it: a real navigation-adjacent handoff between two components
- * via the `providedIn: 'root'` store, ending in a real AG Grid actually narrowing.
+ * exactly the regression the earlier TanStack migration introduced.
+ *
+ * This proves the fix holds through the same seam that broke it, and through the actual click: the
+ * button that fires this action lives inside a `@defer (when showMatchups())` block, so an earlier
+ * version of this suite called `showAllCounters` directly via a cast, skipping the DOM entirely.
+ * That left the one-line `(seeAll)="showAllCounters(pokemon.slug)"` template binding — the exact
+ * kind of thing a migration silently drops — with no coverage at all. Angular's defer-block testing
+ * API (`fixture.getDeferBlocks()` / `DeferBlockFixture.render()`) renders that content for real, so
+ * there is no need for the cast: every test below clicks the actual rendered button.
  */
 
 function entry(overrides: Partial<PokedexEntry> & Pick<PokedexEntry, 'id' | 'slug' | 'name' | 'types'>): PokedexEntry {
@@ -59,6 +65,9 @@ function pokedexStub() {
 
 function renderDetail() {
 	TestBed.configureTestingModule({
+		// The default in this Angular version already, but explicit because the whole point of
+		// this file is exercising the deferred content rather than skipping it.
+		deferBlockBehavior: DeferBlockBehavior.Manual,
 		providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([]), { provide: PokedexStore, useValue: pokedexStub() }],
 	});
 
@@ -72,27 +81,48 @@ function renderDetail() {
 	return { fixture, router, externalFilters: TestBed.inject(ExternalFiltersStore) };
 }
 
-/** `showAllCounters` is `protected` — the same access every rendering-focused spec in this repo avoids by clicking a button; here it is invoked directly because the button lives behind an `@defer` block gated on `showMatchups`, a presentation detail this test is not about. */
-function triggerShowAllCounters(component: PokemonDetailComponent, slug: string): void {
-	(component as unknown as { showAllCounters(slug: string): void }).showAllCounters(slug);
+function mustFindButton(root: HTMLElement, text: string): HTMLButtonElement {
+	const button = [...root.querySelectorAll<HTMLButtonElement>('button')].find((candidate) => candidate.textContent?.includes(text));
+	if (!button) throw new Error(`No button found containing "${text}"`);
+	return button;
+}
+
+/**
+ * Opens the "Matchups" panel (the `@defer` block's trigger, `showMatchups()`) and renders its real
+ * content — the two `<champions-counter-list>`s, including the "See every answer" button this
+ * suite exists to click. Nothing here is a stand-in: this is the exact sequence a user opening the
+ * section triggers.
+ */
+async function revealCounterLists(fixture: ComponentFixture<PokemonDetailComponent>): Promise<void> {
+	mustFindButton(fixture.nativeElement, 'What beats').click();
+	fixture.detectChanges();
+
+	const deferBlocks = await fixture.getDeferBlocks();
+	if (deferBlocks.length === 0) throw new Error('No @defer block found — "Matchups" may not have expanded');
+	await deferBlocks[0].render(DeferBlockState.Complete);
+	fixture.detectChanges();
 }
 
 describe('PokemonDetailComponent — the cross-page "answers to X" handoff', () => {
-	it('points ExternalFiltersStore at the target (not the retired PokedexStore field) and navigates to the roster', () => {
+	it('clicking the real "See every answer" button points ExternalFiltersStore at the target and navigates to the roster', async () => {
 		const { fixture, router, externalFilters } = renderDetail();
 		expect(externalFilters.counterOf()).toBeNull();
 
-		triggerShowAllCounters(fixture.componentInstance, 'garchomp');
+		await revealCounterLists(fixture);
+
+		// The "What beats Garchomp" list's button — the other list (direction="outgoing") never
+		// gets `showSeeAll`, so there is exactly one of these in the rendered content.
+		mustFindButton(fixture.nativeElement, 'See every answer in the Pokédex').click();
 
 		expect(externalFilters.counterOf()).toBe('garchomp');
 		expect(router.navigate).toHaveBeenCalledWith(['/champions/pokedex']);
 	});
 
-	it('the target set from the detail page survives the navigation and actually narrows the roster grid', () => {
+	it('the target set by that real click survives the navigation and actually narrows the roster grid', async () => {
 		const { fixture, externalFilters } = renderDetail();
 
-		// The detail page's action — the same call the "See every answer" button makes.
-		triggerShowAllCounters(fixture.componentInstance, 'garchomp');
+		await revealCounterLists(fixture);
+		mustFindButton(fixture.nativeElement, 'See every answer in the Pokédex').click();
 
 		// `ExternalFiltersStore` is `providedIn: 'root'`: this is the same instance a freshly
 		// routed-to roster component would inject, which is what makes the handoff work at all.
@@ -100,7 +130,7 @@ describe('PokemonDetailComponent — the cross-page "answers to X" handoff', () 
 
 		// A real grid, standing in for the roster this navigation lands on. Nothing here is
 		// stubbed: `isExternalFilterPresent`/`doesExternalFilterPass` call the exact store methods
-		// `roster.component.ts` wires up, over the store the detail page just wrote to.
+		// `roster.component.ts` wires up, over the store the detail page's button just wrote to.
 		const container = document.createElement('div');
 		document.body.appendChild(container);
 		const api: GridApi<PokedexEntry> = createGrid(container, {

@@ -7,6 +7,7 @@ import type {
 	GridState,
 	IRowNode,
 	IsExternalFilterPresent,
+	PostSortRows,
 	RowClassRules,
 	SideBarDef,
 	StateUpdatedEvent,
@@ -49,6 +50,7 @@ import { pokedexGridTheme } from './data-grid.theme';
 			[initialState]="initialState()"
 			[isExternalFilterPresent]="isExternalFilterPresent()"
 			[doesExternalFilterPass]="doesExternalFilterPass()"
+			[postSortRows]="postSortRows()"
 			[rowClassRules]="rowClassRules()"
 			(gridReady)="gridReady.emit($event)"
 			(stateUpdated)="stateUpdated.emit($event)"
@@ -85,6 +87,13 @@ export class UiDataGridComponent<TRow> {
 	/** External Filter API — used by cross-cutting filters that are not bound to a column. */
 	readonly isExternalFilterPresent = input<IsExternalFilterPresent<TRow> | undefined>(undefined);
 	readonly doesExternalFilterPass = input<((node: IRowNode<TRow>) => boolean) | undefined>(undefined);
+
+	/**
+	 * Reorders rows after the grid's own sort has run — the documented hook for a ranking that
+	 * is not a column sort (e.g. Champions' "best answer first" for its counter-target filter).
+	 * Undefined by default, so every other grid using this component is unaffected.
+	 */
+	readonly postSortRows = input<PostSortRows<TRow> | undefined>(undefined);
 
 	/**
 	 * Conditional row CSS classes (e.g. a "currently selected" highlight for a master-detail view).

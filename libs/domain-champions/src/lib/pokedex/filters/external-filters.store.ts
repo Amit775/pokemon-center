@@ -1,6 +1,6 @@
 import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withProps, withState } from '@ngrx/signals';
-import { counterScore, isAnswer } from '@pokemon-center/champions-engine';
+import { compareCounters, counterScore, isAnswer } from '@pokemon-center/champions-engine';
 import type { MatchupDirection, MegaFilter, PokedexEntry, SelectMode } from '../pokedex-filter';
 import { EMPTY_FILTERS, passesMatchup, toCounterSubject } from '../pokedex-filter';
 import { PokedexStore } from '../pokedex.store';
@@ -31,6 +31,15 @@ import { PokedexStore } from '../pokedex.store';
  *   filter control, a follow-up task. Until then this store is honest about not filtering by
  *   move: a `move` with no `learners` yet passes every row, the same "still loading" reading
  *   `FilterContext.learners` already uses elsewhere.
+ *
+ * `compareByCounter()` is the counter filter's other half. External filtering narrows which rows
+ * are shown; it does not reorder them, and the retired `applyFilters` still put the best answer
+ * first whenever a counter target was active ("asking 'what beats this' is asking for a ranking,
+ * so the answer quality outranks whatever sort was left selected"). AG Grid's own row model only
+ * re-sorts on a column sort, so matching that behavior needs its own hook — `postSortRows`
+ * (https://www.ag-grid.com/archive/36.1.0/angular-data-grid/row-sorting/), which the roster wires
+ * this comparator into. Delegates to `compareCounters`/`counterScore`, the same two calls
+ * `applyFilters`'s ranking step made, over the same `counterTarget` `passes()` already resolves.
  */
 
 /**
@@ -179,6 +188,23 @@ export const ExternalFiltersStore = signalStore(
 				}
 
 				return true;
+			},
+
+			/**
+			 * Best-answer-first, for the roster's `postSortRows` hook.
+			 *
+			 * Returns `0` — no preference — whenever no counter target is active, so this is a
+			 * stable no-op the rest of the time (`Array.prototype.sort` has been a stable sort
+			 * since ES2019) and never fights the user's own column sort. Once a target is set, it
+			 * outranks that sort entirely, the same precedence `applyFilters` gave it.
+			 */
+			compareByCounter(a: PokedexEntry, b: PokedexEntry): number {
+				const target = store.counterTarget();
+				if (!target) return 0;
+
+				const chart = store._pokedex.typeChart();
+				const subject = toCounterSubject(target);
+				return compareCounters(counterScore(subject, toCounterSubject(a), chart), counterScore(subject, toCounterSubject(b), chart));
 			},
 		};
 	}),

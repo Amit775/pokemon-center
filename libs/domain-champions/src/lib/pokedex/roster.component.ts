@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, untracked } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import type { GetRowIdFunc, GridApi, GridReadyEvent, IRowNode, SideBarDef } from 'ag-grid-community';
+import type { GetRowIdFunc, GridApi, GridReadyEvent, IRowNode, PostSortRows, SideBarDef } from 'ag-grid-community';
 import { UiDataGridComponent, UiSkeletonComponent, pokedexSideBar } from '@pokemon-center/ui-pokedex';
 import { CompareTrayComponent } from './compare-tray.component';
 import { ChampionsFiltersPanelComponent, CHAMPIONS_FILTERS_PANEL_ID } from './filters/champions-filters-panel.component';
@@ -39,7 +39,9 @@ const rosterSideBar: SideBarDef = {
  * reads more than one column or data outside any column, so it runs through AG Grid's External
  * Filter API instead: `ExternalFiltersStore` is the filter state, `isExternalFilterPresent`/
  * `doesExternalFilterPass` below are what the grid calls, and its own tool panel (registered in
- * `rosterSideBar` above) is where those filters will get their controls in a follow-up task.
+ * `rosterSideBar` above) hosts those filters' controls. The counter-target filter also needs
+ * `postSortRows` below: narrowing which rows show is not reordering them, and "what beats this"
+ * is a ranking question, not just a filtering one — see `ExternalFiltersStore.compareByCounter`.
  */
 @Component({
 	selector: 'champions-roster',
@@ -66,6 +68,7 @@ const rosterSideBar: SideBarDef = {
 				[sideBar]="sideBar"
 				[isExternalFilterPresent]="isExternalFilterPresent"
 				[doesExternalFilterPass]="doesExternalFilterPass"
+				[postSortRows]="postSortRows"
 				(gridReady)="onGridReady($event)"
 			/>
 		}
@@ -137,6 +140,14 @@ export default class RosterComponent {
 
 	protected readonly isExternalFilterPresent = () => this.externalFilters.isPresent();
 	protected readonly doesExternalFilterPass = (node: IRowNode<PokedexEntry>) => (node.data ? this.externalFilters.passes(node.data) : true);
+
+	/**
+	 * Best-answer-first while the counter filter is active — see `ExternalFiltersStore.compareByCounter`.
+	 * A stable no-op the rest of the time, so it never fights the grid's own column sort.
+	 */
+	protected readonly postSortRows: PostSortRows<PokedexEntry> = (params) => {
+		params.nodes.sort((first, second) => (first.data && second.data ? this.externalFilters.compareByCounter(first.data, second.data) : 0));
+	};
 
 	private gridApi: GridApi<PokedexEntry> | null = null;
 
