@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { registerDataGridModules } from '@pokemon-center/ui-pokedex';
 import RosterComponent from './roster.component';
+import { ExternalFiltersStore } from './filters/external-filters.store';
 import { pokedexGridColumns } from './pokedex-grid-columns';
 import { PokedexStore } from './pokedex.store';
 import type { PokedexEntry } from './pokedex-filter';
@@ -86,6 +87,11 @@ describe('RosterComponent', () => {
 			toggleCompare: jest.fn(),
 			abilityText: () => new Map(),
 			compareEntries: signal([]),
+			// Read unconditionally (typeChart) or when ownedOnly is active (owned) by
+			// `ExternalFiltersStore.passes()`, which injects the real `PokedexStore` token — this
+			// stub stands in for it in every test in this file, not just the external-filter ones.
+			typeChart: () => ({}),
+			owned: () => new Set<string>(),
 		};
 
 		TestBed.configureTestingModule({
@@ -154,5 +160,46 @@ describe('RosterComponent', () => {
 
 		expect(element().querySelector('.tray')).not.toBeNull();
 		expect(element().textContent).toContain('Bulbasaur');
+	});
+
+	/**
+	 * The one test that renders the real roster and drives `ExternalFiltersStore` through it,
+	 * rather than wiring a bare grid to the store directly (as `external-filters.store.spec.ts`
+	 * does). That other suite proves the store's predicates are correct against the External
+	 * Filter API; it says nothing about `RosterComponent`'s own `rerunExternalFilter` effect,
+	 * `onGridReady`, or the `isExternalFilterPresent`/`doesExternalFilterPass` bindings, because it
+	 * never constructs the component at all.
+	 *
+	 * Deliberately never calls `api.onFilterChanged()` — that is the whole point. If the effect
+	 * were missing, mistyped, or read `version()` from inside `untracked` (so it stopped tracking
+	 * changes), this test would still see the pre-filter row count after `settle()`.
+	 */
+	it('narrows the grid when ExternalFiltersStore changes, with no test-driven onFilterChanged call', async () => {
+		// AG Grid animates a row leaving the filtered set out (`ag-opacity-zero`) rather than
+		// removing it from the DOM immediately, and jsdom never fires the `transitionend` that
+		// would let the animation finish — so a filtered-out row briefly (permanently, in jsdom)
+		// lingers in the DOM at zero opacity. `visibleRowIds` reads what a user would actually see.
+		function visibleRowIds(): string[] {
+			return [...element().querySelectorAll('.ag-row')]
+				.filter((row) => !row.classList.contains('ag-opacity-zero'))
+				.map((row) => row.getAttribute('row-id'))
+				.filter((id): id is string => id !== null)
+				.sort();
+		}
+
+		const hasMegaEntry = entry({ slug: 'venusaur', name: 'Venusaur', nationalPokedexNumber: 3, hasMega: true });
+		const noMegaEntry = entry({ slug: 'chikorita', name: 'Chikorita', nationalPokedexNumber: 152, types: ['grass'] });
+		await render({ entries: [hasMegaEntry, noMegaEntry] });
+
+		expect(visibleRowIds()).toEqual(['chikorita', 'venusaur']);
+
+		const externalFilters = TestBed.inject(ExternalFiltersStore);
+		externalFilters.setMega('has-mega');
+
+		// No `api.onFilterChanged()` here — only the roster's own `rerunExternalFilter` effect,
+		// reacting to `externalFilters.version()`, is allowed to make this happen.
+		await settle();
+
+		expect(visibleRowIds()).toEqual(['venusaur']);
 	});
 });
