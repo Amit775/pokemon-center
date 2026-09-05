@@ -1,9 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-<<<<<<< HEAD
-=======
 import type { ICellRendererParams } from 'ag-grid-community';
->>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 import { PokedexActionsCellComponent } from './pokedex-actions-cell.component';
 import { PokedexStore } from './pokedex.store';
 import type { PokedexEntry } from './pokedex-filter';
@@ -22,13 +19,10 @@ const bulbasaur: PokedexEntry = {
 	abilityNames: ['Overgrow'],
 };
 
-<<<<<<< HEAD
-=======
 function paramsFor(data: PokedexEntry | undefined): ICellRendererParams<PokedexEntry> {
 	return { data } as ICellRendererParams<PokedexEntry>;
 }
 
->>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 describe('PokedexActionsCellComponent', () => {
 	function render(comparing: boolean, toggleCompare = jest.fn()) {
 		TestBed.configureTestingModule({
@@ -36,34 +30,11 @@ describe('PokedexActionsCellComponent', () => {
 		});
 
 		const fixture = TestBed.createComponent(PokedexActionsCellComponent);
-<<<<<<< HEAD
-		fixture.componentRef.setInput('entry', bulbasaur);
-=======
 		fixture.componentInstance.agInit(paramsFor(bulbasaur));
->>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 		fixture.detectChanges();
 		return fixture;
 	}
 
-<<<<<<< HEAD
-	it('links Box to the Box route with the species queued to add', () => {
-		const fixture = render(false);
-		const link: HTMLAnchorElement = fixture.nativeElement.querySelector('a[aria-label*="Box"]');
-		expect(link.getAttribute('href')).toBe('/champions/box?add=bulbasaur');
-	});
-
-	it('links Sim to the Simulator route with the species queued on the left', () => {
-		const fixture = render(false);
-		const link: HTMLAnchorElement = fixture.nativeElement.querySelector('a[aria-label*="Simulator"]');
-		expect(link.getAttribute('href')).toBe('/champions/simulator?left=bulbasaur');
-	});
-
-	it('toggles compare on click, passing this entry\'s slug', () => {
-		const toggleCompare = jest.fn();
-		const fixture = render(false, toggleCompare);
-		const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
-
-=======
 	it('links to the Box with the slug queued to add', () => {
 		const fixture = render(false);
 		const link: HTMLAnchorElement = fixture.nativeElement.querySelector('a[aria-label="Add Bulbasaur to your Box"]');
@@ -81,24 +52,11 @@ describe('PokedexActionsCellComponent', () => {
 		const fixture = render(false, toggleCompare);
 
 		const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
->>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 		button.click();
 
 		expect(toggleCompare).toHaveBeenCalledWith('bulbasaur');
 	});
 
-<<<<<<< HEAD
-	it('marks the compare button pressed when already comparing', () => {
-		const fixture = render(true);
-		const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
-		expect(button.getAttribute('aria-pressed')).toBe('true');
-	});
-
-	it('does not mark the compare button pressed when not comparing', () => {
-		const fixture = render(false);
-		const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
-		expect(button.getAttribute('aria-pressed')).toBe('false');
-=======
 	it('marks the Compare button pressed when the store reports it comparing', () => {
 		const fixture = render(true);
 		const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
@@ -126,6 +84,5 @@ describe('PokedexActionsCellComponent', () => {
 
 		expect(changed).toBe(true);
 		expect(fixture.nativeElement.querySelector('a[aria-label="Add Charmander to your Box"]')).not.toBeNull();
->>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 	});
 });

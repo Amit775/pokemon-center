@@ -60,6 +60,9 @@ export class PokemonShellComponent {
 	};
 
 	private gridApi: GridApi<PokemonRow> | null = null;
+
+	constructor() {
+		// rowClassRules is only re-evaluated by AG Grid when told to — it does not know that
 		// `selectedId` (route state, outside the grid) changed. Ask it to redraw whenever the
 		// selection moves. `untracked` keeps the effect's dependency to `selectedId()` alone, so it
 		// doesn't also re-run whenever `gridApi` is (re)assigned on `gridReady`.

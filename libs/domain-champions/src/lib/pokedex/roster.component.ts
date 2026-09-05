@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import {
-	UiDataTableComponent,
-	UiSkeletonComponent,
-	type ColumnFiltersState,
-	type SortingState,
-} from '@pokemon-center/ui-pokedex';
-import { CompareTrayComponent } from './compare-tray.component';
-import { pokedexColumns, pokedexColumnTracks } from './pokedex-columns';
-import type { PokedexEntry } from './pokedex-filter';
-import { PokedexStore } from './pokedex.store';
-=======
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import type { GetRowIdFunc, GridApi, GridReadyEvent, IRowNode, PostSortRows, SideBarDef } from 'ag-grid-community';
@@ -43,7 +29,6 @@ const rosterSideBar: SideBarDef = {
 		},
 	],
 };
->>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 
 /**
  * The Champions Pokédex.
@@ -51,12 +36,6 @@ const rosterSideBar: SideBarDef = {
  * Base forms only for now — Mega rows are a separate, not-yet-designed follow-up (sub-row vs.
  * `rowExpandingFeature` vs. their own row; see docs/superpowers/specs/2026-09-03-champions-pokedex-data-table-design.md).
  *
-<<<<<<< HEAD
- * Filtering and sorting are entirely owned by `pokedex-data-table`'s own column state, not by
- * `PokedexStore`. The richer custom filter sidebar this replaces (type/matchup pickers, stat-range
- * sliders, counter search, saved sets, move-learner search, owned-only) is deferred to a follow-up
- * task that extends the generic Filters panel — see the spec's "Out of scope" section.
-=======
  * Types and stat ranges are AG Grid column filters, owned by the grid's own column state. The
  * rest of the old filter sidebar (matchup, counter search, move-learner search, owned-only, Mega)
  * reads more than one column or data outside any column, so it runs through AG Grid's External
@@ -86,16 +65,11 @@ const rosterSideBar: SideBarDef = {
  * `IToolPanelParams` and this component's own `gridApi` converge. Capturing and restoring a
  * combined state is shared code (`filters/apply-pokedex-state.ts`) between that panel and this
  * component, so the two paths cannot drift apart on what a `PokedexSavedState` contains.
->>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
  */
 @Component({
 	selector: 'champions-roster',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-<<<<<<< HEAD
-	imports: [CompareTrayComponent, RouterLink, UiDataTableComponent, UiSkeletonComponent],
-=======
 	imports: [CompareTrayComponent, RouterLink, UiDataGridComponent, UiSkeletonComponent],
->>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 	template: `
 		<header class="masthead">
 			<h1>Pokédex</h1>
@@ -110,17 +84,6 @@ const rosterSideBar: SideBarDef = {
 				<code>nx serve champions-service</code>.
 			</p>
 		} @else {
-<<<<<<< HEAD
-			<pokedex-data-table
-				[data]="entries()"
-				[columns]="columns"
-				[columnTracks]="columnTracks"
-				[(sorting)]="sorting"
-				[(columnFilters)]="columnFilters"
-				[(globalFilter)]="globalFilter"
-				label="Champions Pokédex"
-				emptyLabel="Nothing legal matches those filters."
-=======
 			<pokedex-data-grid
 				[rowData]="entries()"
 				[columnDefs]="columns"
@@ -130,7 +93,6 @@ const rosterSideBar: SideBarDef = {
 				[doesExternalFilterPass]="doesExternalFilterPass"
 				[postSortRows]="postSortRows"
 				(gridReady)="onGridReady($event)"
->>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 			/>
 		}
 
@@ -190,19 +152,6 @@ const rosterSideBar: SideBarDef = {
 })
 export default class RosterComponent {
 	protected readonly store = inject(PokedexStore);
-<<<<<<< HEAD
-
-	/** Base forms only — Mega rows are excluded from this pass entirely, not merely hidden. */
-	protected readonly entries = computed<PokedexEntry[]>(() => this.store.entries().filter((entry) => !entry.isMega));
-
-	protected readonly columns = pokedexColumns;
-	protected readonly columnTracks = pokedexColumnTracks;
-
-	/** Component-local, not the store: this table owns its own filter/sort state entirely. */
-	protected readonly sorting = signal<SortingState>([]);
-	protected readonly columnFilters = signal<ColumnFiltersState>([]);
-	protected readonly globalFilter = signal('');
-=======
 	protected readonly externalFilters = inject(ExternalFiltersStore);
 	private readonly route = inject(ActivatedRoute);
 	private readonly router = inject(Router);
@@ -316,5 +265,4 @@ export default class RosterComponent {
 		this.externalFilters.version();
 		untracked(() => this.gridApi?.onFilterChanged());
 	});
->>>>>>> f7816b41ae4c752d2b9a67af25b86fcefe4abbeb
 }
